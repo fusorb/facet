@@ -3,28 +3,28 @@ facet — live dashboard
 
 Build Status
 ------------
-Build: all 11 packages + 3 apps - clean
-Typecheck: all packages green (chart.tsx + data-table.tsx updated)
-Tests: chart.test.tsx (34 cases) + data-table.test.tsx (4 cases) added
-Docs inventory: barrel <-> manifest <-> CLAUDE.md synced
-Components: 114 base → 114 after DataTablePage removal (merged features into DataTable)
+Build:        all 11 packages + 3 apps — clean (exit 0)
+Typecheck:    components green; docs has pre-existing toBeInTheDocument test-type errors (not from this change)
+Tests:        components — 32 tests pass (chart: 26, data-table: 6)
+Docs drift:   barrel <-> manifest <-> CLAUDE.md synced (113 components)
 
 Component Inventory
 -------------------
-- chart.tsx      : 34 tests — line, bar, area, pie, donut, composed, smooth/step curves, crosshair, tooltip, animation, legend toggle, stacked, horizontal bars, grouped bars, histogram, innerRadius, layout, barGap, curve, empty-state
-- data-table.tsx : 4 new tests — loading skeleton, density, emptyState, total count
+- chart.tsx           : full rewrite — 6 chart types, 12+ props, crosshair, tooltip, animation, legend toggle, smooth curves, stacked, horizontal bars, grouped bars, histogram
+- data-table.tsx      : enhanced — loading, density, emptyState, total props added
 - data-table-page.tsx : REMOVED (features merged into data-table.tsx)
+- barrel (index.ts)   : DataTablePage removed, DataTableDensity exported, Chart types exported
 
 Priority List
 -------------
 P0 - Chart Component System              [DONE]
   [x] Pie / donut / composed chart types
-  [x] Per-series type override
+  [x] Per-series type override (composed)
   [x] Smooth & step curves
   [x] Crosshair cursor + floating tooltip
   [x] Stacked mode
   [x] Animation (fade-in on mount)
-  [x]Legend toggle (onLegendToggle)
+  [x] Legend toggle (onLegendToggle)
   [x] Horizontal bars + grouped bars + histogram
   [x] Tests + docs + changeset
 
@@ -37,22 +37,32 @@ P1 - DataTable Enhancement               [DONE]
 
 P2 - DataTablePage Removal               [DONE]
   [x] Features merged into DataTable
-  [x] File deleted, barrel + manifest updated
+  [x] File deleted, barrel + manifest + previews + usage updated
 
 P3 - Tracker / Docs Sync                 [DONE]
   [x] todo.txt + output.txt synced
+  [x] CLAUDE.md + README.md: 114 → 113
+  [x] Manifest regenerated (113 entries)
   [x] .gitignore covers scratchpad/
+  [x] Stale files deleted (_c.txt, build_out.txt)
 
-P4 - Verification & Commit               [NEXT]
-  [ ] pnpm -r typecheck
-  [ ] Run tests
-  [ ] Commit all changes
+P4 - Verification & Commit               [DONE]
+  [x] pnpm build — clean
+  [x] pnpm -r typecheck (components green)
+  [x] tests — 32 pass
+  [x] check:docs — passes
+  [x] Committed (2 commits: feat + fix)
 
 Recent Log
 ----------
-[14:45] Chart component fully rewritten — 6 chart types + 8 interaction props
-[14:30] DataTable enhanced — loading, density, emptyState, total props
-[14:20] DataTablePage removed — barrel + manifest cleaned
-[14:15] Chart tests written — 34 cases
-[14:10] DataTable tests written — 4 new cases
-[14:05] Changeset created for chart + datatable changes
+[10:58] Docs build verified — DataTablePage→DataTable fix resolves MISSING_EXPORT
+[10:52] Commit: fix(docs) replace DataTablePage with DataTable in previews + usage
+[10:50] Commit: feat Chart enhancements + DataTable density/loading + DataTablePage removal
+[10:40] Build fix — removed DataTablePage refs from previews.tsx + usage.ts
+[10:35] Tests verified — 32 pass (chart + data-table)
+[10:30] Chart tests updated — fixed assertions after test run
+[10:25] DataTable tests added — loading, density, emptyState, total
+[10:20] DataTable enhanced — loading, density, emptyState, total props
+[10:15] DataTablePage removed — barrel + manifest + docs updated
+[10:10] Chart component rewritten — pie/donut/composed/curves/crosshair/tooltip/animation
+[10:05] Changeset created for chart + datatable changes

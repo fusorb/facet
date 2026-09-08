@@ -1,10 +1,10 @@
 ================================================================================
-  facet — Session Tracker (2026-09-07)
+  facet — Session Tracker (2026-09-08)
 ================================================================================
 
-P0 - Chart Component System
+P0 - Chart Component System                       [DONE]
   [x] Extend Chart with pie/donut/composed chart types
-  [x] Add per-series type override (composed charts: line + bar + area)
+  [x] Add per-series type override (composed: line + bar + area)
   [x] Add smooth & step curve interpolation
   [x] Add crosshair cursor (vertical line following mouse)
   [x] Add floating tooltip at cursor position
@@ -15,36 +15,44 @@ P0 - Chart Component System
   [x] Fix grouped bars (side-by-side rendering)
   [x] Add histogram support (barGap=0)
   [x] Add innerRadius prop for donut charts
-  [x] Add curve, stacked, layout, barGap, innerRadius props to ChartProps
+  [x] Add layout, barGap, barThickness props to ChartProps
   [x] Export new types: ChartType, ChartSeriesType, CurveType, etc.
   [x] Update barrel export (index.ts) with new Chart types
-  [x] Add/update chart tests (32 cases including new features)
-  [x] Update docs usage.ts (chart entry with feature comments)
-  [x] Add changeset for chart enhancements
+  [x] Add/update chart tests
+  [x] Update docs usage.ts
+  [x] Add changeset
 
-P1 - DataTable Enhancement
-  [x] Add loading prop (skeleton placeholder)
+P1 - DataTable Enhancement                        [DONE]
+  [x] Add loading prop (Skeleton)
   [x] Add density prop (compact / comfortable)
   [x] Add emptyState prop (custom empty state)
   [x] Add total prop (total record count)
   [x] Export DataTableDensity type from barrel
   [x] Add tests for loading, density, emptyState, total
 
-P2 - DataTablePage Removal
+P2 - DataTablePage Removal                        [DONE]
   [x] Read DataTablePage to identify features to merge
   [x] Merge useful features (density, loading, emptyState) into DataTable
   [x] Delete data-table-page.tsx
   [x] Remove DataTablePage from barrel export (index.ts)
   [x] Remove DataTablePage from docs manifest (manifest.ts)
+  [x] Remove DataTablePage from docs previews (previews.tsx)
+  [x] Remove DataTablePage from docs usage (usage.ts)
   [x] Verify DataTablePage not used elsewhere
 
-P3 - Tracker / Docs Sync
+P3 - Tracker / Docs Sync                           [DONE]
   [x] Update .agent/todo.txt (this file)
   [x] Update .agent/output.txt (live dashboard)
-  [x] Ensure .gitignore covers scratchpad (already present)
+  [x] Update CLAUDE.md component count (114 → 113)
+  [x] Update README.md component count (114 → 113)
+  [x] Regenerate docs manifest (113 entries)
+  [x] Ensure .gitignore covers scratchpad/
+  [x] Delete stale files (_c.txt, build_out.txt)
 
-P4 - Verification & Commit
-  [ ] Run typecheck (pnpm -r typecheck)
-  [ ] Run chart + data-table tests
-  [ ] Commit all changes
+P4 - Verification & Commit                         [DONE]
+  [x] pnpm build (all packages + apps) — clean
+  [x] pnpm -r typecheck (components green; docs has pre-existing test-type errors)
+  [x] Run chart + data-table tests (32 cases, all passing)
+  [x] check:docs drift gate — passes (113 components)
+  [x] Commit all changes (2 commits: feat + fix)
 ================================================================================
