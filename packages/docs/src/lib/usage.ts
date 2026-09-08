@@ -1447,21 +1447,24 @@ function Example() {
   return <CookieBanner onChoose={() => {}} />;
 }`,
 
-  "data-table-page": `import { DataTablePage } from "@arcevo/facet-components";
+  "data-table-page": `import { DataTable } from "@arcevo/facet-components";
 
 function Example() {
   return (
-    <DataTablePage
-      title="Users"
-      columns={[
-        { accessorKey: "name", header: "Name" },
-        { accessorKey: "email", header: "Email" },
-      ]}
-      rows={[
-        { name: "Alice", email: "alice@acme.com" },
-        { name: "Bob", email: "bob@acme.com" },
-      ]}
-    />
+    <div>
+      <h3 className="mb-4 text-lg font-semibold">Users</h3>
+      <DataTable
+        columns={[
+          { accessorKey: "name", header: "Name" },
+          { accessorKey: "email", header: "Email" },
+        ]}
+        data={[
+          { name: "Alice", email: "alice@acme.com" },
+          { name: "Bob", email: "bob@acme.com" },
+        ]}
+        rowKey="name"
+      />
+    </div>
   );
 }`,
 

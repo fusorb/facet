@@ -194,7 +194,7 @@ import {
   Chart,
   ConsentCapture,
   CookieBanner,
-  DataTablePage,
+  DataTable,
   DateRangePicker,
   EmptyStatePage,
   GlowBorderCard,
@@ -1371,7 +1371,8 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
       ];
       return (
         <div className="w-full max-w-4xl rounded-lg border border-border bg-background p-6">
-          <DataTablePage title="Team members" columns={columns} rows={rows} rowKey="id" />
+          <h3 className="mb-4 text-lg font-semibold">Team members</h3>
+          <DataTable columns={columns} data={rows} rowKey="id" density="comfortable" />
         </div>
       );
     }
