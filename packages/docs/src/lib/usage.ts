@@ -63,7 +63,31 @@ function Example() {
       <Badge variant="success" iconOnly icon={<Check size={14} />} aria-label="Verified" />
     </div>
   );
-}`,
+}
+`,
+  pill: `import { Pill, PillGroup, PillTrigger } from "@arcevo/facet-components";
+
+function Example() {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <Pill>Default</Pill>
+      <Pill color="primary">Primary</Pill>
+      <Pill color="success" selected>
+        Success
+      </Pill>
+      <Pill color="warning">Warning</Pill>
+      <Pill color="destructive" removable onRemove={() => {}}>
+        Dismissible
+      </Pill>
+      <PillGroup>
+        <Pill>One</Pill>
+        <Pill selected>Two</Pill>
+        <PillTrigger>Clear all</PillTrigger>
+      </PillGroup>
+    </div>
+  );
+}
+`,
   alert: `import { Alert, AlertTitle, AlertDescription } from "@arcevo/facet-components";
 
 function Example() {
@@ -1302,11 +1326,18 @@ function Example() {
       x={["Mon", "Tue", "Wed", "Thu", "Fri"]}
       series={[
         { id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] },
-        { id: "marketing", label: "Marketing", data: [40, 60, 70, 30, 50] },
+        { id: "orders", label: "Orders", data: [40, 60, 70, 30, 50] },
       ]}
+      curve="smooth"
+      showCrosshair
     />
   );
-}`,
+}
+
+/* Pie: type="pie" or type="donut" */
+/* Bar: type="bar" layout="horizontal" for horizontal bars */
+/* Composed: each series gets its own type="line" | "bar" | "area" */
+/* Stacked: stacked prop */`,
 
   drawer: `import {
   Drawer,
@@ -1791,6 +1822,17 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     destructive: `<Badge variant="destructive">Error</Badge>`,
     "with icon": `<Badge icon={<Sparkles className="size-3" />}>New</Badge>`,
     "icon only": `<Badge variant="success" iconOnly icon={<Check className="size-3.5" />} aria-label="Verified" />`,
+  },
+  pill: {
+    default: `<Pill>Default</Pill>`,
+    outline: `<Pill variant="outline">Outline</Pill>`,
+    filled: `<Pill variant="filled">Filled</Pill>`,
+    primary: `<Pill color="primary">Primary</Pill>`,
+    success: `<Pill color="success">Success</Pill>`,
+    warning: `<Pill color="warning">Warning</Pill>`,
+    destructive: `<Pill color="destructive">Error</Pill>`,
+    selected: `<Pill selected>Selected</Pill>`,
+    removable: `<Pill removable onRemove={() => {}}>Tag</Pill>`,
   },
   alert: {
     Default: `<Alert>

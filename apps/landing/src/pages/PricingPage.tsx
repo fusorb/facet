@@ -25,7 +25,7 @@ const FACET_PLANS: BillingPlan[] = [
     id: "components",
     name: "Components",
     price: 0,
-    description: "93 styled Radix components, themed with the Alpha Palette.",
+    description: "114 styled Radix components, themed with the Alpha Palette.",
     features: [
       "Drop-in React primitives, surfaces, animations",
       "Tree-shaken icon registry",

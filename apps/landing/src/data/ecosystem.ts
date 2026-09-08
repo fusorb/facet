@@ -44,7 +44,7 @@ export const ECOSYSTEM: EcosystemEntry[] = [
       "Typed page blocks: p, h2, ul, code, install, table",
       "Zero-config - install and render, no convention files",
       "SSR-safe with no-flash theme init",
-      "CI gate: check:docs verifies barrel ↔ manifest (113 components)",
+      "CI gate: check:docs verifies barrel ↔ manifest (114 components)",
     ],
     example: [
       {
@@ -284,18 +284,18 @@ const client = new ArcIdClient({
     title: "Components",
     version: "1.12.0",
     icon: "boxes",
-    short: "113 styled, accessible React components",
+    short: "114 styled, accessible React components",
     description:
       "Radix-quality primitives, themed with the Alpha Palette, ready to copy or import.",
     analysis: [
-      "The components package is the visual layer: 113 polished, accessible React components built on Radix primitives and themed with the Alpha Palette tokens. Every component ships typed, focus-managed, dark-mode-aware, and SSR-safe - so consumers get shadcn quality without inheriting shadcn's drift problem.",
+      "The components package is the visual layer: 114 polished, accessible React components built on Radix primitives and themed with the Alpha Palette tokens. Every component ships typed, focus-managed, dark-mode-aware, and SSR-safe - so consumers get shadcn quality without inheriting shadcn's drift problem.",
       "Three layers of composition: Layer 1 are headless primitives (Button, Input, Card); Layer 2 are styled surfaces built on those primitives (Marquee, Tabs, DataTable, NumberInput); Layer 3 are ready-to-use pages wired from the layers below (BillingPage, FeedbackPage, AccountSettingsPanel, StatCard, ActivityFeed, PageHeader, ApiKeyManager, TestimonialShowcase, OtpVerificationCard, TwoFactorSetupPanel, InviteTeamForm, PasswordStrengthMeter, SecuritySectionCard, CookieConsent, AnnouncementBar, NotFound, FaqSection).",
       "The card-animation family (FlipCard, SpotlightCard, BorderBeamCard, ShineCard, GradientBorderCard, RevealCard, HoverScaleCard, MagneticCard, DissolveCard, GlowCard, TiltCard) covers the 'shadcn-ish aesthetic' without forcing consumers to wire it up - drop one in and you get a motion story that respects the design system.",
       "Iconography is pluggable: <Icon> resolves any lucide-style kebab name out of the box via the IconRegistry (registered in @arcevo/facet-components (1.12.0)). To use react-icons, heroicons, or your own SVG components, pass overrides via <IconProvider overrides={{ settings: MyIcon }}> per app/domain, or `registerIcon(\"name\", MyIcon)` globally.",
       "Theming happens through CSS variables emitted by @arcevo/facet-tokens. Override any token at runtime via <ThemeProvider overrideVars={{ '--primary': '...' }}> without recompiling. Dark mode is built in and respects the system preference until the user overrides it.",
     ],
     features: [
-      "113 typed Radix-powered components, named-export only",
+      "114 typed Radix-powered components, named-export only",
       "Layered architecture: primitives → styled surfaces → ready-to-use pages",
       "Alpha Palette tokens via @arcevo/facet-tokens (CSS variables, no recompile)",
       "Icon registry: lucide out of the box, swap in any icon set per app/domain",

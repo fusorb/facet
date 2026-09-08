@@ -1,3 +1,0 @@
-$ pnpm build:tokens && pnpm -r build && pnpm build:docs ";" "tail" "-25" "build_out.txt"
-$ pnpm -F @arcevo/facet-tokens build
-$ tsup src/index.ts --format esm --dts --clean && node -e "require('fs').cpSync('src/tokens.css', 'dist/tokens.css'); require('fs').cpSync('src/tailwind.css', 'dist/tailwind.css'); require('fs').cpSync('src/index.css', 'dist/index.css')"

@@ -215,7 +215,7 @@ export function Nav() {
             href="https://github.com/arcevodev/facet"
             target="_blank"
             rel="noreferrer"
-            className="hidden items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground lg:flex"
+            className="hidden items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground lg:flex"
           >
             <GithubIcon size={16} />
             GitHub

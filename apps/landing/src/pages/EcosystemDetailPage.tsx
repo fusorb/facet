@@ -124,10 +124,10 @@ export function EcosystemDetailPage() {
       {/* Key features */}
       <section className="bg-secondary/30 mx-auto max-w-3xl px-8 py-12">
         <h2 className="text-2xl font-bold text-foreground">Key features</h2>
-        <ul className="mt-4 space-y-1.5 text-sm text-muted-foreground">
+        <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
           {entry.features.map((f) => (
             <li key={f} className="flex items-start gap-2">
-              <LightIcon name="check" className="mt-0.5 size-4 text-green-500" />
+              <LightIcon name="check" className="mt-1 size-4 text-green-500" />
               <span>{f}</span>
             </li>
           ))}

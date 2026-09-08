@@ -26,7 +26,7 @@ export const docsPages: DocsPage[] = [
         items: [
           "`@arcevo/facet-tokens`: Alpha Palette design tokens, typography, spacing, CSS variables.",
           "`@arcevo/facet-sdk`: arc-id API client (pure fetch, typed, 10 domain SDKs).",
-          "`@arcevo/facet-components`: 113 styled UI components (Radix + tailwind-merge + variants), including ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form, Stepper, KanbanBoard, ChangelogList).",
+          "`@arcevo/facet-components`: 114 styled UI components (Radix + tailwind-merge + variants), including ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form, Stepper, KanbanBoard, ChangelogList, Pill).",
           "`@arcevo/facet-auth`: auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms.",
           "`@arcevo/facet-layout`: domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets.",
            "`@arcevo/facet-store`: framework-agnostic Zustand state stores - auth session + tenant state, plus `createZustandTokenStorage` bridge for 401 auto-refresh, web + React Native.",

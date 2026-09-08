@@ -48,7 +48,7 @@ export function FeedbackPage() {
           <button
             type="button"
             onClick={handleBack}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             <LightIcon name="arrow-left" size={16} />
             Back
@@ -79,7 +79,7 @@ export function FeedbackPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 <Label htmlFor="feedback-email">Your email</Label>
                 <Input
                   id="feedback-email"
@@ -89,7 +89,7 @@ export function FeedbackPage() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 <Label htmlFor="feedback-subject">Subject</Label>
                 <Input
                   id="feedback-subject"
@@ -99,7 +99,7 @@ export function FeedbackPage() {
                 />
               </div>
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <Label htmlFor="feedback-message">Message</Label>
               <Textarea
                 id="feedback-message"

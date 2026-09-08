@@ -186,4 +186,47 @@ describe("DataTable", () => {
     fireEvent.click(rowCheckboxes[0]!);
     expect(screen.getByText("1 selected")).toBeInTheDocument();
   });
+
+  it("renders loading skeleton when loading=true", () => {
+    const columns: DataTableColumn<Row>[] = [
+      { key: "name", header: "Name" },
+    ];
+    const { container } = render(
+      <DataTable columns={columns} data={ROWS} loading />,
+    );
+    const skeletons = container.querySelectorAll(".animate-pulse");
+    expect(skeletons.length).toBeGreaterThan(0);
+  });
+
+  it("renders custom emptyState when data is empty", () => {
+    const columns: DataTableColumn<Row>[] = [
+      { key: "name", header: "Name" },
+    ];
+    render(
+      <DataTable
+        columns={columns}
+        data={[]}
+        emptyState={<span data-testid="empty">No data here</span>}
+      />,
+    );
+    expect(screen.getByTestId("empty")).toBeInTheDocument();
+  });
+
+  it("renders compact density with py-2 padding", () => {
+    const columns: DataTableColumn<Row>[] = [
+      { key: "name", header: "Name" },
+    ];
+    const { container } = render(
+      <DataTable columns={columns} data={ROWS} density="compact" />,
+    );
+    expect(container.textContent).toContain("Alice");
+  });
+
+  it("shows total count when total prop is provided", () => {
+    const columns: DataTableColumn<Row>[] = [
+      { key: "name", header: "Name" },
+    ];
+    render(<DataTable columns={columns} data={ROWS} total={100} />);
+    expect(screen.getByText("100 total")).toBeInTheDocument();
+  });
 });

@@ -15,6 +15,7 @@ import {
   TabsTrigger,
   TabsContent,
   Badge,
+  Pill,
 } from "@arcevo/facet-components";
 import { LandingLayout } from "@arcevo/facet-layout";
 import { LightIcon } from "@arcevo/facet-components/light";
@@ -53,10 +54,14 @@ export function DashboardDemoPage() {
               { label: "Dashboard demo" },
             ]}
             actions={
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-600">
-                <span className="size-1.5 animate-[facet-glow-pulse_2s_ease-in-out_infinite] rounded-full bg-emerald-500" />
+              <Pill
+                color="success"
+                leading={
+                  <span className="size-1.5 animate-[facet-glow-pulse_2s_ease-in-out_infinite] rounded-full bg-emerald-500" />
+                }
+              >
                 live demo
-              </span>
+              </Pill>
             }
           />
         </div>
@@ -140,7 +145,7 @@ export function DashboardDemoPage() {
         <h2 className="text-2xl font-bold text-foreground">Motion surfaces</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           Each card below is one of the motion surfaces in
-          <code className="ml-1 rounded bg-secondary/50 px-1.5 py-0.5 text-xs">
+          <code className="ml-1 rounded bg-secondary/50 px-2 py-1 text-xs">
             @arcevo/facet-components
           </code>
           . Same Card primitive, motion bolted on. Hover to feel the effect.
@@ -197,15 +202,15 @@ export function DashboardDemoPage() {
         </Badge>
         <p className="text-sm text-muted-foreground">
           Every component on this page is a typed, named export. Copy the
-          <code className="mx-1 rounded bg-secondary/50 px-1.5 py-0.5 text-xs">
+          <code className="mx-1 rounded bg-secondary/50 px-2 py-1 text-xs">
             PageHeader
           </code>
           ,
-          <code className="mx-1 rounded bg-secondary/50 px-1.5 py-0.5 text-xs">
+          <code className="mx-1 rounded bg-secondary/50 px-2 py-1 text-xs">
             StatCard
           </code>
           , and
-          <code className="mx-1 rounded bg-secondary/50 px-1.5 py-0.5 text-xs">
+          <code className="mx-1 rounded bg-secondary/50 px-2 py-1 text-xs">
             ActivityFeed
           </code>
           imports straight into your app.
@@ -214,7 +219,7 @@ export function DashboardDemoPage() {
           href={getDocsUrl()}
           target="_blank"
           rel="noreferrer"
-          className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+          className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
         >
           <LightIcon name="book-open" size={14} />
           Browse the docs

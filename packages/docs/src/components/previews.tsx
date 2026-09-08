@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { LightIcon } from "@arcevo/facet-components/light";
 import {
-  Button,
+   Button,
   Badge,
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
+  Pill,
   Accordion,
   AccordionItem,
   AccordionTrigger,
@@ -299,6 +300,19 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
           <Badge variant={variant as never}>Default</Badge>
           <Badge icon={<LightIcon name="sparkles" className="size-3" />}>New</Badge>
           <Badge variant="success" iconOnly icon={<LightIcon name="check" className="size-3.5" />} aria-label="Verified" />
+        </div>
+      );
+    case "pill":
+      return (
+        <div className="flex flex-wrap items-center gap-2">
+          <Pill>Default</Pill>
+          <Pill color="primary">Primary</Pill>
+          <Pill color="success" selected>
+            Success
+          </Pill>
+          <Pill color="destructive" removable onRemove={() => {}}>
+            Dismissible
+          </Pill>
         </div>
       );
     case "card":

@@ -14,6 +14,7 @@ import {
   CardContent,
   CardFooter,
   CardFlipBack,
+  Pill,
   Progress,
   Spinner,
   Switch,
@@ -805,6 +806,19 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <Badge variant="success" iconOnly icon={<LightIcon name="check" className="size-3.5" />} aria-label="Verified" />
           ),
         },
+      ];
+    case "pill":
+      return [
+        ...(["default", "outline", "filled"] as const).map((variant) => ({
+          label: variant,
+          node: <Pill variant={variant}>{variant}</Pill>,
+        })),
+        ...(["primary", "success", "warning", "destructive"] as const).map((color) => ({
+          label: color,
+          node: <Pill color={color}>{color}</Pill>,
+        })),
+        { label: "selected", node: <Pill selected>Selected</Pill> },
+        { label: "removable", node: <Pill removable onRemove={() => {}}>Tag</Pill> },
       ];
     case "kbd":
       return [

@@ -84,7 +84,7 @@ export function Footer() {
                 href={link.href}
                 target={/^https?:\/\//.test(link.href) ? "_blank" : undefined}
                 rel={/^https?:\/\//.test(link.href) ? "noreferrer" : undefined}
-                className="flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+                className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
               >
                 <LightIcon name={link.icon ?? "mail"} size={14} />
                 {link.label}

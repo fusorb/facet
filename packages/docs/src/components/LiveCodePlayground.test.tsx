@@ -1,6 +1,7 @@
 import * as React from "react";
 import { render, screen, fireEvent, cleanup, act } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import "@testing-library/jest-dom/vitest";
 import { LiveCodePlayground } from "./LiveCodePlayground.js";
 import { playgroundComponents } from "./playground-registry.js";
 

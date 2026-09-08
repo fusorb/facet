@@ -212,7 +212,7 @@ export function SecurityPage() {
           <p className="mt-4 text-lg text-muted-foreground">
             Account settings, API keys, MFA, sessions, the surfaces every auth
             console needs, wired from the ready-to-use components in
-            <code className="ml-1 rounded bg-secondary/50 px-1.5 py-0.5 text-sm">
+            <code className="ml-1 rounded bg-secondary/50 px-2 py-1 text-sm">
               @arcevo/facet-components
             </code>
             .

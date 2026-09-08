@@ -182,7 +182,7 @@ function ColorDemo() {
             className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg border border-border text-xs font-medium"
             style={{ backgroundColor: color }}
           >
-            <span className="rounded bg-background/70 px-1.5 py-0.5 font-mono text-[10px]">
+            <span className="rounded bg-background/70 px-2 py-1 font-mono text-[10px]">
               {color}
             </span>
           </div>

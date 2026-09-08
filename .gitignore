@@ -17,4 +17,7 @@ build-output.txt
 typecheck-output.txt
 trace-output.txt
 ui_codebase_snapshot.txt
+# Agent scratchpad (session-local, never committed)
+scratchpad/
+
 storybook-static

@@ -38,7 +38,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
   return (
     <div className="glass-card rounded-xl p-6 transition-all hover:translate-y-[-2px]">
       <div className="flex items-start gap-3">
-        <LightIcon name={pkg.icon} className="mt-0.5 size-5 text-primary" />
+        <LightIcon name={pkg.icon} className="mt-1 size-5 text-primary" />
         <div>
           <div className="font-medium text-foreground">{pkg.name}</div>
           <div className="mt-1 text-sm text-muted-foreground">{pkg.desc}</div>
@@ -94,7 +94,7 @@ export function AboutPage() {
         <div className="mb-12 text-center">
           <h2 className="text-2xl font-bold text-foreground">What facet is</h2>
           <p className="mt-3 text-muted-foreground">
-            Nine packages, published to npm under <code className="rounded px-1.5 py-0.5 bg-background">@arcevo</code>, that share one token system and stay in
+            Nine packages, published to npm under <code className="rounded px-2 py-1 bg-background">@arcevo</code>, that share one token system and stay in
             sync through CI gates. The numbers below are live and verified on every release.
           </p>
         </div>
@@ -159,7 +159,7 @@ export function AboutPage() {
           {STACK.map((s) => (
             <span
               key={s.name}
-              className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-xs text-foreground/80"
+              className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1 text-xs text-foreground/80"
             >
               {s.name}
               <span className="text-xs opacity-50">· {s.tag}</span>
@@ -172,16 +172,16 @@ export function AboutPage() {
       <section className="mx-auto max-w-3xl px-8 py-16">
         <h2 className="text-2xl font-bold text-foreground">How it's maintained</h2>
         <p className="mt-3 text-muted-foreground">
-          facet is MIT-licensed and published to npm under <code className="rounded px-1.5 py-0.5 bg-secondary/50">@arcevo</code>.
+          facet is MIT-licensed and published to npm under <code className="rounded px-2 py-1 bg-secondary/50">@arcevo</code>.
           Releases are driven by Changesets: a PR is opened automatically whenever a changeset
           lands, and packages publish from a clean, rebuilt tree after CI passes - never from a
           stale or dirty checkout.
         </p>
         <p className="mt-3 text-muted-foreground">
           Every change clears five gates before it ships: dependency install, full build, and
-          the sync checks - <code className="rounded px-1.5 py-0.5 bg-secondary/50">check:docs</code> (components
-          barrel ↔ docs manifest, 93 components), <code className="rounded px-1.5 py-0.5 bg-secondary/50">check:icons</code>
-          (lucide rename/deprecation drift), and <code className="rounded px-1.5 py-0.5 bg-secondary/50">check:sdk-drift</code>{" "}
+          the sync checks - <code className="rounded px-2 py-1 bg-secondary/50">check:docs</code> (components
+          barrel ↔ docs manifest, 114 components), <code className="rounded px-2 py-1 bg-secondary/50">check:icons</code>
+          (lucide rename/deprecation drift), and <code className="rounded px-2 py-1 bg-secondary/50">check:sdk-drift</code>{" "}
           (SDK table ↔ barrel). Typecheck, unit tests, and an end-to-end CLI sandbox close the
           loop, so the counts you see here never drift from the code.
         </p>
@@ -190,7 +190,7 @@ export function AboutPage() {
           <ul className="mt-4 space-y-3">
             {ROADMAP.map((r) => (
               <li key={r.phase} className="flex items-start gap-3">
-                <span className="mt-0.5 text-xs font-medium text-muted-foreground">{r.phase}</span>
+                <span className="mt-1 text-xs font-medium text-muted-foreground">{r.phase}</span>
                 <span className="flex-1">
                   <span className="font-medium text-foreground">{r.title}</span>
                   <span className="ml-2 text-xs font-medium uppercase">

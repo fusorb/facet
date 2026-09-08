@@ -38,7 +38,7 @@ export function EcosystemPage() {
               className="group rounded-xl border border-border bg-card p-5 text-left transition-all hover:translate-y-[-2px] hover:shadow-lg"
             >
               <div className="flex items-start gap-3">
-                <LightIcon name={entry.icon} className="mt-0.5 size-5 text-primary" />
+                <LightIcon name={entry.icon} className="mt-1 size-5 text-primary" />
                 <div>
                   <div className="font-medium text-foreground group-hover:text-primary transition-colors">
                     {entry.name}

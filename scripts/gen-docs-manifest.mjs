@@ -79,6 +79,7 @@ const CATEGORY = {
   avatar: "data-display",
   "avatar-group": "data-display",
   badge: "data-display",
+  pill: "data-display",
   button: "data-display",
   "button-group": "data-display",
   card: "data-display",

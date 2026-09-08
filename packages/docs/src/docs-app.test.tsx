@@ -16,6 +16,7 @@
 import * as React from "react";
 import { render, screen, cleanup } from "@testing-library/react";
 import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
+import "@testing-library/jest-dom/vitest";
 
 // ── Stubs for heavy external modules ───────────────────────────
 // ConsoleLayout + CommandPalette live in @arcevo/facet-layout, a heavy

@@ -55,6 +55,21 @@ export { Label } from "./ui/label.js";
 
 export { type BadgeProps, Badge, badgeVariants } from "./ui/badge.js";
 
+export {
+  type PillProps,
+  type PillVariant,
+  type PillColor,
+  type PillRadius,
+  type PillSize,
+  type PillIndicator,
+  type PillGroupProps,
+  type PillTriggerProps,
+  Pill,
+  PillGroup,
+  PillTrigger,
+  pillVariants,
+} from "./ui/pill.js";
+
 export { type AlertProps, Alert, AlertTitle, AlertDescription, alertVariants } from "./ui/alert.js";
 
 export {
@@ -410,6 +425,7 @@ export type {
 export {
   type DataTableColumn,
   type DataTableExporter,
+  type DataTableDensity,
   type DataTableProps,
   DataTable,
 } from "./ui/data-table.js";
@@ -737,6 +753,11 @@ export {
 
 export {
   type ChartSeries,
+  type ChartSeriesType,
+  type ChartType,
+  type CurveType,
+  type ChartLegendPosition,
+  type ChartTooltipProps,
   type ChartProps,
   Chart,
 } from "./ui/chart.js";
@@ -757,14 +778,6 @@ export {
   type ConsentCaptureProps,
   ConsentCapture,
 } from "./ui/consent-capture.js";
-
-export {
-  type DataTablePageFilter,
-  type DataTablePageBreadcrumb,
-  type DataTableDensity,
-  type DataTablePageProps,
-  DataTablePage,
-} from "./ui/data-table-page.js";
 
 export {
   type PricingTier,

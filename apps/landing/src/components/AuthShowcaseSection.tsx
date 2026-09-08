@@ -34,7 +34,7 @@ export function AuthShowcaseSection() {
           Auth flows you can show, not describe
         </h2>
         <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-          Live surfaces from <code className="rounded bg-secondary/50 px-1.5 py-0.5 text-xs">@arcevo/facet-auth</code>:
+          Live surfaces from <code className="rounded bg-secondary/50 px-2 py-1 text-xs">@arcevo/facet-auth</code>:
           password strength, MFA verification, and the rest of the state
           machine.
         </p>
@@ -64,11 +64,11 @@ export function AuthShowcaseSection() {
 
             <TabsContent value="password">
               <div className="space-y-4">
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   <Label htmlFor="auth-email">Email</Label>
                   <Input id="auth-email" type="email" placeholder="you@company.com" />
                 </div>
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   <Label htmlFor="auth-password">Password</Label>
                   <PasswordInput
                     id="auth-password"

@@ -9,7 +9,6 @@ import { InstallSection } from "./components/InstallSection.js";
 import { FaqSection } from "./components/FaqSection.js";
 import { CTASection } from "./components/CTASection.js";
 import { TestimonialsSection } from "./components/TestimonialsSection.js";
-import { DashboardPreviewSection } from "./components/DashboardPreviewSection.js";
 import { AuthShowcaseSection } from "./components/AuthShowcaseSection.js";
 import { PricingTeaserSection } from "./components/PricingTeaserSection.js";
 import { ChangelogSection } from "./components/ChangelogSection.js";
@@ -26,7 +25,6 @@ function HomePage() {
   return (
     <LandingLayout nav={<Nav />} hero={<HeroSection />} footer={<Footer />}>
       <DemoSection />
-      <DashboardPreviewSection />
       <AuthShowcaseSection />
       <PricingTeaserSection />
       <TestimonialsSection />

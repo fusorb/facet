@@ -34,7 +34,7 @@ const TIERS: TeaserTier[] = [
     id: "components",
     name: "Components",
     price: "Free",
-    description: "93 styled Radix components, themed with the Alpha Palette.",
+    description: "114 styled Radix components, themed with the Alpha Palette.",
     bullets: ["Drop-in ready", "Tree-shaken icons", "CI-verified coverage"],
     highlight: true,
     badge: "Most useful",
@@ -98,7 +98,7 @@ export function PricingTeaserSection() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 {tier.bullets.map((b) => (
                   <li key={b} className="flex items-start gap-2">
-                    <LightIcon name="check" size={14} className="mt-0.5 text-primary" />
+                    <LightIcon name="check" size={14} className="mt-1 text-primary" />
                     <span>{b}</span>
                   </li>
                 ))}
@@ -125,7 +125,7 @@ export function PricingTeaserSection() {
       <div className="mt-8 text-center">
         <Link
           to="/pricing"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+          className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
         >
           See the full pricing breakdown
           <LightIcon name="arrow-right" size={14} />

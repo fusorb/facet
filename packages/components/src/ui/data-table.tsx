@@ -23,6 +23,7 @@ import { cn } from "../utils.js";
 import { Input } from "./input.js";
 import { Button } from "./button.js";
 import { Checkbox } from "./checkbox.js";
+import { Skeleton } from "./skeleton.js";
 import { Icon } from "../icon/index.js";
 import {
   DropdownMenu,
@@ -58,6 +59,8 @@ import {
 } from "./select.js";
 
 /* ── Types ─────────────────────────────────────────────────── */
+
+export type DataTableDensity = "compact" | "comfortable";
 
 export interface DataTableColumn<T extends object> {
   /** Unique key for the column; used for sorting and CSV export. */
@@ -154,6 +157,14 @@ export interface DataTableProps<T extends object> {
   search?: string;
   /** Called when the search box value changes. */
   onSearchChange?: (value: string) => void;
+  /** Row height density. Default: "comfortable". */
+  density?: DataTableDensity;
+  /** Show a loading skeleton instead of the table body. */
+  loading?: boolean;
+  /** Custom empty-state content (overrides the default "No results found."). */
+  emptyState?: React.ReactNode;
+  /** Total record count (for displaying in the footer). */
+  total?: number;
   className?: string;
 }
 
@@ -220,11 +231,16 @@ export function DataTable<T extends object>({
   pageSizeOptions = [10, 20, 50],
   selectable = false,
   requiredColumns = [],
-  search: searchProp,
-  onSearchChange,
+   search: searchProp,
+   onSearchChange,
+  density = "comfortable",
+  loading = false,
+  emptyState,
+  total,
   className,
 }: DataTableProps<T>) {
   const [internalSearch, setInternalSearch] = React.useState("");
+  const rowDensity = density === "compact" ? "py-2" : "py-3";
   const searchValue = searchProp ?? internalSearch;
   const setSearch = onSearchChange ?? setInternalSearch;
 
@@ -521,13 +537,28 @@ export function DataTable<T extends object>({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {pageRows.length === 0 ? (
+            {loading ? (
+              Array.from({ length: rowsPerPage }).map((_, i) => (
+                <TableRow key={`loading-${i}`}>
+                  {selectable && (
+                    <TableCell className={rowDensity}>
+                      <Skeleton className="h-4 w-4 rounded-full" />
+                    </TableCell>
+                  )}
+                  {shownColumns.map((column) => (
+                    <TableCell key={`loading-${i}-${column.key}`} className={rowDensity}>
+                      <Skeleton className="h-4 w-full" />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : pageRows.length === 0 ? (
               <TableRow>
                 <TableCell
                   colSpan={shownColumns.length + (selectable ? 1 : 0)}
                   className="h-24 text-center text-muted-foreground"
                 >
-                  No results found.
+                  {emptyState ?? "No results found."}
                 </TableCell>
               </TableRow>
             ) : (
@@ -537,7 +568,7 @@ export function DataTable<T extends object>({
                 return (
                   <TableRow key={key} data-state={isSelected ? "selected" : undefined}>
                     {selectable && (
-                      <TableCell>
+                      <TableCell className={rowDensity}>
                         <Checkbox
                           aria-label="Select row"
                           checked={isSelected}
@@ -546,7 +577,7 @@ export function DataTable<T extends object>({
                       </TableCell>
                     )}
                     {shownColumns.map((column) => (
-                      <TableCell key={column.key}>
+                      <TableCell key={column.key} className={rowDensity}>
                         {column.cell ? column.cell(row) : cellValue(row, column)}
                       </TableCell>
                     ))}
@@ -575,7 +606,7 @@ export function DataTable<T extends object>({
           )}
           {!selectable && (
             <span>
-              {sorted.length} {sorted.length === 1 ? "row" : "rows"}
+              {total !== undefined ? `${total} total` : `${sorted.length} ${sorted.length === 1 ? "row" : "rows"}`}
             </span>
           )}
         </div>

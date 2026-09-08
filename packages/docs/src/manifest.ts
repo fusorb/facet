@@ -208,12 +208,6 @@ export const docsManifest: DocsManifestEntry[] = [
     "category": "data-display"
   },
   {
-    "name": "Data Table Page",
-    "slug": "data-table-page",
-    "description": "@arcevo/facet-components: DataTablePage",
-    "category": "pages"
-  },
-  {
     "name": "Date Input",
     "slug": "date-input",
     "description": "DateInput: a text input that parses and validates ISO (YYYY-MM-DD) dates,",
@@ -464,6 +458,12 @@ export const docsManifest: DocsManifestEntry[] = [
     "slug": "phone-input",
     "description": "@arcevo/facet-components: PhoneInput",
     "category": "inputs"
+  },
+  {
+    "name": "Pill",
+    "slug": "pill",
+    "description": "Pill: a theme-adaptable, fully-rounded pill with a leading dot, icon, or custom",
+    "category": "data-display"
   },
   {
     "name": "Popover",

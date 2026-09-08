@@ -44,7 +44,7 @@ export function LandingLayout({ hero, children, nav, footer }: LandingLayoutProp
       <main className="flex-1">{children}</main>
 
       {/* Footer */}
-      {footer && <footer className="border-t border-border/50">{footer}</footer>}
+      {footer && <footer>{footer}</footer>}
     </div>
   );
 }

@@ -12,7 +12,7 @@ design manual (Alpha Palette), and your auth requirements differ per sector
 | --- | --- | --- |
 | `@arcevo/facet-tokens` | Design tokens: Alpha Palette, typography, spacing, CSS vars | ✅ 1.1.4 |
 | `@arcevo/facet-sdk` | arc-id API client (pure fetch, typed, 10 domain SDKs) | ✅ 1.2.0 |
-| `@arcevo/facet-components` | 90+ styled UI components (Radix + tailwind-merge + variants) | ✅ 1.11.0 |
+| `@arcevo/facet-components` | 113+ styled UI components (Radix + tailwind-merge + variants) | ✅ 1.11.0 |
 | `@arcevo/facet-auth` | Auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms | ✅ 1.2.3 |
 | `@arcevo/facet-layout` | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets | ✅ 1.4.2 |
 | `@arcevo/facet-store` | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native | ✅ 2.0.0 |
@@ -32,7 +32,7 @@ Published to npm: components 1.11.0, layout 1.4.2, docs 1.4.7, auth 1.2.3, cli 2
 The docs site (`apps/docs`) is a thin consumer of the installable
 `@arcevo/facet-docs` engine, the same package any project can mount with its
 own brand, nav, and pages. Guides cover getting started, auth, layout,
-theming, tokens, and the docs package itself; the component gallery shows all 113 components with live demos and usage tabs.
+them, tokens, and the docs package itself; the component gallery shows all 113 components with live demos and usage tabs.
 
 ```sh
 pnpm dev:docs-site  # run the docs site locally (Vite, port 5173)
