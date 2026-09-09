@@ -32,6 +32,8 @@ export type ChartLegendPosition = "top" | "bottom";
 export interface ChartTooltipProps {
   active: boolean;
   series: ChartSeries;
+  /** All visible series at the hovered data index (for multi-series tooltips). */
+  seriesList: ChartSeries[];
   dataIndex: number;
   x: string | number;
   value: number;
@@ -46,7 +48,7 @@ export interface ChartSeries {
   data: number[];
   /** Series color (CSS). Defaults to a slot from the theme palette. */
   color?: string;
-  /** Per-series chart type — enables composed (mixed-type) charts. */
+  /** Per-series chart type - enables composed (mixed-type) charts. */
   type?: ChartSeriesType;
   /** Hide this series. */
   hidden?: boolean;
@@ -104,7 +106,7 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
 /* ── Constants ─────────────────────────────────────────────── */
 
 const DEFAULT_HEIGHT = 240;
-const DEFAULT_HEIGHT_RADIAL = 320;
+const DEFAULT_HEIGHT_RADIAL = 480;
 const DEFAULT_COLOR = "hsl(var(--primary))";
 const PALETTE = [
   "hsl(var(--primary))",
@@ -138,7 +140,7 @@ function linearPath(pts: Array<[number, number]>): string {
   return `M ${pts.map((p) => p.join(",")).join(" L ")}`;
 }
 
-/** Step (Monotone-X) path — horizontal then vertical. */
+/** Step (Monotone-X) path - horizontal then vertical. */
 function stepPath(pts: Array<[number, number]>): string {
   if (pts.length === 0) return "";
   if (pts.length === 1) return `M ${pts[0]!.join(",")}`;
@@ -670,7 +672,7 @@ export function Chart({
                     key={`dot-${i2}`}
                     cx={xOf(i2)}
                     cy={yOf(v + off)}
-                    r={hover?.dataIndex === i2 && hover?.seriesIndex === si ? 5 : 3}
+                    r={hover?.dataIndex === i2 ? 5 : 3}
                     fill={color}
                     opacity={hover && hover.dataIndex !== i2 ? 0.4 : 1}
                   />
@@ -835,6 +837,7 @@ export function Chart({
         return renderTooltip({
           active: true,
           series: s,
+          seriesList: [s],
           dataIndex: hover.dataIndex,
           x: xVal!,
           value: rawValue,
@@ -865,6 +868,7 @@ export function Chart({
       return renderTooltip({
         active: true,
         series: s,
+        seriesList: visibleSeries,
         dataIndex: hover.dataIndex,
         x: xVal!,
         value: rawValue,
@@ -959,7 +963,7 @@ export function Chart({
 
   /* ── Final render ─────────────────────────────────────────── */
 
-  const chartHeight = isRadial ? 480 : effectiveHeight;
+  const chartHeight = effectiveHeight;
 
   return (
     <div

@@ -2,7 +2,7 @@ import type { IconName } from "@arcevo/facet-components";
 
 /** Live library stats, verified against the packages on every release. */
 export const STATS = [
-  { value: "114", label: "components" },
+  { value: "113", label: "components" },
   { value: "10", label: "API SDKs" },
   { value: "3", label: "layout shells" },
   { value: "5", label: "auth presets" },
@@ -20,7 +20,7 @@ export interface Package {
 export const PACKAGES: Package[] = [
   {
     name: "@arcevo/facet-components",
-    desc: "114 styled, accessible React components built on Radix primitives.",
+    desc: "113 styled, accessible React components built on Radix primitives.",
     version: "1.11.0",
     icon: "boxes",
   },
@@ -215,7 +215,7 @@ export const ROADMAP: RoadmapItem[] = [
   {
     phase: "Phase 8",
     title: "Polish & consistency",
-    desc: "SpotlightCard spotlight visibility, BorderBeamCard beam refinement, default button animation switched to sparkle, global scrollbar hiding across all apps, em-dash purge, FAQ/version sync, facet-store package, and the NotFound component, bringing the total to 114 components.",
+    desc: "SpotlightCard spotlight visibility, BorderBeamCard beam refinement, default button animation switched to sparkle, global scrollbar hiding across all apps, em-dash purge, FAQ/version sync, facet-store package, and the NotFound component, bringing the total to 113 components.",
     status: "done",
   },
 ];
@@ -225,7 +225,7 @@ export interface FaqItem {
   a: string;
 }
 
-/** Public FAQ for the landing page. Versions are kept in sync with the published package surface (components 1.10.0, auth 1.2.2, layout 1.4.1, docs 1.4.6, tokens 1.1.4, sdk 1.1.0, emails 1.1.1, cli 1.0.0, store 1.0.0). */
+/** Public FAQ for the landing page. Versions are kept in sync with the published package surface (components 1.11.0, auth 1.2.3, layout 1.4.2, docs 1.4.7, tokens 1.1.4, sdk 1.2.0, emails 1.1.1, cli 2.0.0, store 2.0.0). */
 export const FAQ: FaqItem[] = [
   {
     q: "Is facet free and open source?",

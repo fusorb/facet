@@ -14,6 +14,7 @@ import * as React from "react";
 import { cn } from "../utils.js";
 import { Button } from "./button.js";
 import { Popover, PopoverTrigger, PopoverContent } from "./popover.js";
+import { Icon } from "../icon/index.js";
 
 /* ── Date helpers (pure) ───────────────────────────────────── */
 
@@ -326,26 +327,7 @@ export function DatePicker({
           <span className={cn(value ? "text-foreground" : "text-muted-foreground")}>
             {value ? formatDate(value) : placeholder}
           </span>
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="shrink-0 text-muted-foreground"
-            aria-hidden="true"
-          >
-            <rect
-              x="2"
-              y="3"
-              width="12"
-              height="11"
-              rx="2"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            />
-            <path d="M2 6.5H14M5.5 1.5V4M10.5 1.5V4" stroke="currentColor" strokeWidth="1.5" />
-          </svg>
+          <Icon name="calendar" className="shrink-0 text-muted-foreground" aria-hidden="true" />
         </Button>
       </PopoverTrigger>
       <PopoverContent align={align} className="w-auto p-3">

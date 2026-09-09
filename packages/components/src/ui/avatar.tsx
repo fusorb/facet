@@ -108,6 +108,18 @@ export interface UserAvatarProps {
   imageClassName?: string;
   /** Optional badge/content rendered in the dropdown header below the email (e.g. role indicator). */
   roleBadge?: React.ReactNode;
+  /** Label for the Organizations section. Default: "Organizations". */
+  organizationsLabel?: string;
+  /** Override the Settings menu-item icon name. Default: "settings". */
+  settingsIconName?: IconName;
+  /** Override the organization icon name. Default: "building". */
+  organizationIconName?: IconName;
+  /** Override the sign-out icon name. Default: "logout". */
+  signOutIconName?: IconName;
+  /** Additional className for the dropdown content container. */
+  dropdownClassName?: string;
+  /** Additional className for the trigger button. */
+  triggerClassName?: string;
 }
 
 /** Derive initials from a name (or email prefix), max 2 chars. */
@@ -149,10 +161,16 @@ export function UserAvatar({
   onSignOut,
   settingsHref,
   settingsLabel = "Settings",
+  settingsIconName = "settings",
+  organizationIconName = "building",
+  signOutIconName = "logout",
+  organizationsLabel = "Organizations",
   renderSettingsLink,
   className,
   imageClassName,
   roleBadge,
+  dropdownClassName,
+  triggerClassName,
 }: UserAvatarProps) {
   const initials = getInitials(user.name, user.email);
 
@@ -177,12 +195,15 @@ export function UserAvatar({
         <button
           type="button"
           aria-label={`Open ${user.name ?? "user"} menu`}
-          className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className={cn(
+            "rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+            triggerClassName,
+          )}
         >
           {avatar}
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="z-70 w-56">
+      <DropdownMenuContent align="end" className={cn("z-70 w-56", dropdownClassName)}>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col gap-1">
             <p className="text-sm font-medium leading-none">{user.name ?? "Signed in"}</p>
@@ -213,7 +234,7 @@ export function UserAvatar({
                 renderSettingsLink(settingsHref, settingsLabel)
               ) : (
                 <a href={settingsHref} className="flex items-center gap-2">
-                  <Icon name="settings" className="size-4" />
+                  <Icon name={settingsIconName} className="size-4" />
                   {settingsLabel}
                 </a>
               )}
@@ -224,11 +245,11 @@ export function UserAvatar({
           <>
             <DropdownMenuSeparator />
             <DropdownMenuLabel className="text-xs text-muted-foreground">
-              Organizations
+              {organizationsLabel}
             </DropdownMenuLabel>
             {user.memberships.map((m, i) => (
               <DropdownMenuItem key={m.tenantId ?? i} disabled>
-                <Icon name="building" className="size-4" />
+                <Icon name={organizationIconName} className="size-4" />
                 {m.name ?? "Organization"}
               </DropdownMenuItem>
             ))}
@@ -239,7 +260,7 @@ export function UserAvatar({
           onClick={onSignOut}
           className="text-destructive focus:text-destructive focus:bg-destructive/10"
         >
-          <Icon name="logout" className="size-4" />
+          <Icon name={signOutIconName} className="size-4" />
           {signOutLabel}
         </DropdownMenuItem>
       </DropdownMenuContent>

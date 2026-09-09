@@ -8,8 +8,8 @@
  */
 import * as React from "react";
 import { cn } from "../utils.js";
+import { Icon } from "../icon/index.js";
 import { Button } from "./button.js";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 
 type CarouselOptions = Parameters<typeof useEmblaCarousel>[0];
@@ -192,7 +192,7 @@ const CarouselPrevious = React.forwardRef<
       onClick={scrollPrev}
       {...props}
     >
-      <ChevronLeft className="h-4 w-4" />
+      <Icon name="chevron-left" className="h-4 w-4" />
     </Button>
   );
 });
@@ -219,7 +219,7 @@ const CarouselNext = React.forwardRef<
       onClick={scrollNext}
       {...props}
     >
-      <ChevronRight className="h-4 w-4" />
+      <Icon name="chevron-right" className="h-4 w-4" />
     </Button>
   );
 });

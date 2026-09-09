@@ -1,6 +1,7 @@
 import * as React from "react";
 import { OTPInput, OTPInputContext } from "input-otp";
 import { cn } from "../utils.js";
+import { Icon } from "../icon/index.js";
 
 const InputOTP = React.forwardRef<
   React.ComponentRef<typeof OTPInput>,
@@ -59,11 +60,7 @@ const InputOTPSeparator = React.forwardRef<
   React.ComponentPropsWithoutRef<"div">
 >(({ ...props }, ref) => (
   <div ref={ref} role="separator" {...props}>
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="3" cy="8" r="1.5" fill="currentColor" />
-      <circle cx="8" cy="8" r="1.5" fill="currentColor" />
-      <circle cx="13" cy="8" r="1.5" fill="currentColor" />
-    </svg>
+    <Icon name="more-horizontal" className="h-4 w-4" />
   </div>
 ));
 InputOTPSeparator.displayName = "InputOTPSeparator";

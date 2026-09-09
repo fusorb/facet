@@ -175,7 +175,7 @@ describe("LiveCodePlayground", () => {
     render(
       <LiveCodePlayground defaultCode="<Boom />" components={{ Boom }} />,
     );
-    // The error boundary surfaces the message — no white screen.
+    // The error boundary surfaces the message - no white screen.
     expect(screen.getByText(/demo component exploded/)).toBeInTheDocument();
     expect(
       screen.getByText(/isn't supported in the live playground/),

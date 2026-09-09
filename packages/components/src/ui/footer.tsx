@@ -25,6 +25,8 @@
 import * as React from "react";
 import { cn } from "../utils.js";
 import { Separator } from "./separator.js";
+import { Button } from "./button.js";
+import { Input } from "./input.js";
 import { Icon, type IconName } from "../icon/index.js";
 
 export interface FooterLink {
@@ -243,20 +245,17 @@ function FooterNewsletter({ newsletter }: { newsletter: FooterNewsletter }) {
         )}
       </div>
       <div className="flex w-full max-w-sm gap-2">
-        <input
+        <Input
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={newsletter.inputPlaceholder ?? "you@example.com"}
-          className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none transition-colors focus:ring-2 focus:ring-ring"
+          className="flex-1"
         />
-        <button
-          type="submit"
-          className="h-9 shrink-0 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-        >
+        <Button type="submit" variant="default" className="shrink-0">
           {newsletter.buttonLabel ?? "Subscribe"}
-        </button>
+        </Button>
       </div>
     </form>
   );

@@ -67,9 +67,44 @@ export interface SignInProps {
   step?: SignInStep;
   /** Called whenever SignIn would change step (only when `step` is set). */
   onStepChange?: (step: SignInStep) => void;
+  /** Override user-visible text strings. All keys fall back to English defaults. */
+  copy?: Partial<SignInCopy>;
 }
 
-/* ── Method selector (internal to SignIn) ──────────────────── */
+/* ── Copy ──────────────────────────────────────────────────── */
+
+export interface SignInCopy {
+  /** "Sign In" - card title in the method picker. */
+  methodTitle: string;
+  /** "Choose how to sign in to your account" - card description in the method picker. */
+  methodDescription: string;
+  /** "Continue with Email & Password" - email/password entry button. */
+  emailPasswordLabel: string;
+  /** "Continue with Magic Link" - magic link entry button. */
+  magicLinkLabel: string;
+  /** "Continue with Passkey" - passkey entry button. */
+  passkeyLabel: string;
+  /** "Sign in with {provider}" - OAuth button (uses {provider} token). */
+  oauthButtonLabel: string;
+  /** "Sign In Failed" - error card title. */
+  errorTitle: string;
+  /** "An unexpected error occurred" - fallback error description. */
+  errorFallback: string;
+  /** "Try Again" - error card retry button. */
+  tryAgainLabel: string;
+}
+
+const defaultSignInCopy: SignInCopy = {
+  methodTitle: "Sign In",
+  methodDescription: "Choose how to sign in to your account",
+  emailPasswordLabel: "Continue with Email & Password",
+  magicLinkLabel: "Continue with Magic Link",
+  passkeyLabel: "Continue with Passkey",
+  oauthButtonLabel: "Sign in with {provider}",
+  errorTitle: "Sign In Failed",
+  errorFallback: "An unexpected error occurred",
+  tryAgainLabel: "Try Again",
+};
 
 function SelectMethodStep({
   appearance,
@@ -78,10 +113,12 @@ function SelectMethodStep({
   onSelectMethod,
   handlePasskeyAuth,
   onOAuth,
+  copy,
 }: {
   appearance?: Appearance;
   slots?: ComponentSlots;
   cfg: AuthConfig;
+  copy: SignInCopy;
   onSelectMethod: (step: SignInStep) => void;
   handlePasskeyAuth: () => void;
   onOAuth?: (provider: string) => void;
@@ -89,9 +126,9 @@ function SelectMethodStep({
   return (
     <Card className={appearance?.className}>
       <CardHeader>
-        {slots?.title ?? <CardTitle>Sign In</CardTitle>}
+        {slots?.title ?? <CardTitle>{copy.methodTitle}</CardTitle>}
         {slots?.description ?? (
-          <CardDescription>Choose how to sign in to your account</CardDescription>
+          <CardDescription>{copy.methodDescription}</CardDescription>
         )}
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
@@ -99,14 +136,14 @@ function SelectMethodStep({
           className={cn(buttonVariants({ variant: "default" }), "w-full")}
           onClick={() => onSelectMethod("login_form")}
         >
-          Continue with Email & Password
+          {copy.emailPasswordLabel}
         </ShineButton>
         {cfg.allowMagicLink && (
           <ShineButton
             className={cn(buttonVariants({ variant: "outline" }), "w-full")}
             onClick={() => onSelectMethod("magic_link_form")}
           >
-            Continue with Magic Link
+            {copy.magicLinkLabel}
           </ShineButton>
         )}
         {cfg.allowPasskey && (
@@ -114,7 +151,7 @@ function SelectMethodStep({
             className={cn(buttonVariants({ variant: "outline" }), "w-full")}
             onClick={handlePasskeyAuth}
           >
-            Continue with Passkey
+            {copy.passkeyLabel}
           </ShineButton>
         )}
         {cfg.oauthProviders.length > 0 && (
@@ -126,7 +163,7 @@ function SelectMethodStep({
                 className={cn(buttonVariants({ variant: "outline" }), "w-full")}
                 onClick={() => onOAuth?.(provider)}
               >
-                Sign in with {provider}
+                {copy.oauthButtonLabel.replace("{provider}", provider)}
               </ShineButton>
             ))}
           </>
@@ -148,8 +185,10 @@ export function SignIn({
   initialStep = "login_form",
   step: controlledStep,
   onStepChange,
+  copy,
 }: SignInProps) {
   const cfg = { ...defaultConfig, ...configOverrides };
+  const c = { ...defaultSignInCopy, ...copy };
   const { login, verifyMfa, isAuthenticated, client } = useAuth();
 
   const authSdk = React.useMemo(() => new AuthSdk(client), [client]);
@@ -320,6 +359,7 @@ export function SignIn({
           appearance={appearance}
           slots={slots}
           cfg={cfg}
+          copy={c}
           onSelectMethod={go}
           handlePasskeyAuth={handlePasskeyAuth}
           onOAuth={onOAuth}
@@ -342,7 +382,7 @@ export function SignIn({
                   className={cn(buttonVariants({ variant: "outline" }), "w-full")}
                   onClick={() => go("magic_link_form")}
                 >
-                  Continue with Magic Link
+                  {c.magicLinkLabel}
                 </ShineButton>
               )}
               {cfg.allowPasskey && (
@@ -350,7 +390,7 @@ export function SignIn({
                   className={cn(buttonVariants({ variant: "outline" }), "w-full")}
                   onClick={handlePasskeyAuth}
                 >
-                  Continue with Passkey
+                  {c.passkeyLabel}
                 </ShineButton>
               )}
               {cfg.oauthProviders.length > 0 && (
@@ -362,7 +402,7 @@ export function SignIn({
                       className={cn(buttonVariants({ variant: "outline" }), "w-full")}
                       onClick={() => onOAuth?.(provider)}
                     >
-                      Sign in with {provider}
+                      {c.oauthButtonLabel.replace("{provider}", provider)}
                     </ShineButton>
                   ))}
                 </>
@@ -407,15 +447,15 @@ export function SignIn({
       return (
         <Card className={appearance?.className}>
           <CardHeader>
-            <CardTitle>Sign In Failed</CardTitle>
-            <CardDescription>{error ?? "An unexpected error occurred"}</CardDescription>
+            <CardTitle>{c.errorTitle}</CardTitle>
+            <CardDescription>{error ?? c.errorFallback}</CardDescription>
           </CardHeader>
           <CardContent>
             <ShineButton
               className={cn(buttonVariants({ variant: "default" }), "w-full")}
               onClick={() => go("select_method")}
             >
-              Try Again
+              {c.tryAgainLabel}
             </ShineButton>
           </CardContent>
         </Card>

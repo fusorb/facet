@@ -8,6 +8,7 @@
 
 import * as React from "react";
 import { cn } from "../utils.js";
+import { Icon, type IconName } from "../icon/index.js";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -69,6 +70,10 @@ export interface NumberInputProps
   onCurrencyChange?: (currency: Currency) => void;
   /** Forbid negative values; clamps typed negatives to the minimum. Default: false. */
   beyondZero?: boolean;
+  /** Override the decrease button icon. Default: "minus". */
+  decreaseIconName?: IconName;
+  /** Override the increase button icon. Default: "plus". */
+  increaseIconName?: IconName;
 }
 
 function clampNumber(value: number, min: number, max: number): number {
@@ -90,6 +95,8 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       currencyOptions = CURRENCIES,
       onCurrencyChange,
       beyondZero = false,
+      decreaseIconName = "minus",
+      increaseIconName = "plus",
       className,
       ...props
     },
@@ -176,22 +183,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                   className="absolute left-1 top-1/2 z-10 flex h-7 -translate-y-1/2 items-center gap-0.5 rounded-md px-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus:outline-none"
                 >
                   {activeCurrency ? activeCurrency.symbol : (currency ?? "¤")}
-                  <svg
-                    width="10"
-                    height="10"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M3 4.5L6 7.5L9 4.5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <Icon name="chevron-down" className="size-3" aria-hidden="true" />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="max-h-72 w-56 overflow-hidden">
@@ -257,21 +249,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
               onClick={() => stepBy(-1)}
               className="flex h-6 w-6 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
             >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  d="M2.5 6H9.5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
+              <Icon name={decreaseIconName} className="h-3 w-3" aria-hidden="true" />
             </button>
             <button
               type="button"
@@ -281,21 +259,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
               onClick={() => stepBy(1)}
               className="flex h-6 w-6 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
             >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  d="M6 2.5V9.5M2.5 6H9.5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
+              <Icon name={increaseIconName} className="h-3 w-3" aria-hidden="true" />
             </button>
           </div>
         </div>

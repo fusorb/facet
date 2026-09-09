@@ -2,6 +2,7 @@ import * as React from "react";
 import { cn } from "../utils.js";
 import { buttonVariants } from "./button.js";
 import type { VariantProps } from "class-variance-authority";
+import { Icon } from "../icon/index.js";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -56,23 +57,7 @@ const PaginationPrevious = ({
     className={cn("gap-1.5 pl-2.5 pr-3", className)}
     {...props}
   >
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="shrink-0"
-      aria-hidden="true"
-    >
-      <path
-        d="M10 4L6 8L10 12"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <Icon name="chevron-left" className="h-4 w-4 shrink-0" aria-hidden="true" />
     <span>Previous</span>
   </PaginationLink>
 );
@@ -86,23 +71,7 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
     {...props}
   >
     <span>Next</span>
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="shrink-0"
-      aria-hidden="true"
-    >
-      <path
-        d="M6 4L10 8L6 12"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <Icon name="chevron-right" className="h-4 w-4 shrink-0" aria-hidden="true" />
   </PaginationLink>
 );
 PaginationNext.displayName = "PaginationNext";
@@ -113,11 +82,7 @@ const PaginationEllipsis = ({ className, ...props }: React.HTMLAttributes<HTMLSp
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}
   >
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="3" cy="8" r="1.5" fill="currentColor" />
-      <circle cx="8" cy="8" r="1.5" fill="currentColor" />
-      <circle cx="13" cy="8" r="1.5" fill="currentColor" />
-    </svg>
+    <Icon name="more-horizontal" className="h-4 w-4" />
     <span className="sr-only">More pages</span>
   </span>
 );

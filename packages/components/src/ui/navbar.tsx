@@ -13,6 +13,7 @@ import {
   DropdownMenuSubContent,
 } from "./dropdown-menu.js";
 import { UserAvatar, type UserAvatarUser } from "./avatar.js";
+import { Icon } from "../icon/index.js";
 
 /** Minimal router abstraction so Navbar can render framework-native links. */
 export interface NavbarRouterLinkProps {
@@ -282,36 +283,9 @@ export function Navbar({
             className={`inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 hover:bg-accent hover:text-accent-foreground ${bpHide}`}
           >
             {mobileOpen ? (
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+              <Icon name="close" className="size-5" aria-hidden="true" />
             ) : (
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <line x1="4" y1="6" x2="20" y2="6" />
-                <line x1="4" y1="12" x2="20" y2="12" />
-                <line x1="4" y1="18" x2="20" y2="18" />
-              </svg>
+              <Icon name="menu" className="size-5" aria-hidden="true" />
             )}
           </button>
         )}
@@ -454,20 +428,7 @@ function NavLinkItem({
                 {link.badge}
               </span>
             )}
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              className="text-muted-foreground/60"
-            >
-              <path d="m6 9 6 6 6-6" />
-            </svg>
+            <Icon name="chevron-down" className="text-muted-foreground/60" aria-hidden="true" />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
@@ -631,20 +592,11 @@ function MobileNavLink({
             {link.icon && <span className="size-4 shrink-0 text-primary/70">{link.icon}</span>}
             {link.label}
           </span>
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
+          <Icon
+            name="chevron-down"
             className={cn("text-muted-foreground/60 transition-transform", open && "rotate-180")}
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
+            aria-hidden="true"
+          />
         </button>
         {open && (
           <div className="ml-4 flex flex-col gap-1 border-l pl-3">

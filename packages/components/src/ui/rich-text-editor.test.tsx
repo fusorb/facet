@@ -5,7 +5,7 @@ import { RichTextEditor } from "./rich-text-editor.js";
 
 afterEach(cleanup);
 
-// jsdom doesn't implement document.execCommand — mock it so the link dialog tests can spy on it
+// jsdom doesn't implement document.execCommand - mock it so the link dialog tests can spy on it
 if (!("execCommand" in document)) {
   Object.defineProperty(document, "execCommand", {
     value: vi.fn(() => true),
@@ -51,7 +51,7 @@ describe("RichTextEditor sanitization", () => {
     const editor = screen.getByRole("textbox") as HTMLDivElement;
     await waitFor(() => {
       // DOMPurify removes the entire anchor (or at minimum the javascript: scheme)
-      // — either way, no javascript: URL should survive into the DOM
+      // - either way, no javascript: URL should survive into the DOM
       expect(editor.innerHTML).not.toContain("javascript:");
     });
   });

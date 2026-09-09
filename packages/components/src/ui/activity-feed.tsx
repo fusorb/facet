@@ -29,6 +29,10 @@ export interface ActivityFeedProps extends React.HTMLAttributes<HTMLUListElement
   groupByDay?: boolean;
   /** Optional empty state. Default: "No activity yet." */
   emptyText?: string;
+  /** Override the relative-time formatter (e.g. "2h ago"). Defaults to the exported `relativeTime`. */
+  timeFormatter?: (iso: string, now?: Date) => string;
+  /** Override the day-label formatter (e.g. "Today"). Defaults to the exported `dayLabel`. */
+  dayLabelFormatter?: (iso: string, now?: Date) => string;
 }
 
 /** Format a timestamp as a relative time ("2h ago", "3d ago"). */
@@ -68,6 +72,8 @@ export function ActivityFeed({
   groupByDay = true,
   emptyText = "No activity yet.",
   className,
+  timeFormatter = relativeTime,
+  dayLabelFormatter = dayLabel,
   ...props
 }: ActivityFeedProps) {
   if (items.length === 0) {
@@ -87,7 +93,7 @@ export function ActivityFeed({
   const rows: React.ReactNode[] = [];
 
   for (const item of sorted) {
-    const day = groupByDay ? dayLabel(item.timestamp) : "";
+    const day = groupByDay ? dayLabelFormatter(item.timestamp) : "";
     if (groupByDay && day !== lastDay) {
       lastDay = day;
       rows.push(
@@ -114,7 +120,7 @@ export function ActivityFeed({
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline justify-between gap-2">
             <p className="truncate text-sm font-medium text-foreground">{item.title}</p>
-            <time className="shrink-0 text-xs text-muted-foreground">{relativeTime(item.timestamp)}</time>
+            <time className="shrink-0 text-xs text-muted-foreground">{timeFormatter(item.timestamp)}</time>
           </div>
           {item.description && <p className="mt-0.5 text-sm text-muted-foreground">{item.description}</p>}
         </div>

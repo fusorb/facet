@@ -7,6 +7,7 @@
 
 import * as React from "react";
 import { cn } from "../utils.js";
+import { Icon, type IconName } from "../icon/index.js";
 
 export interface PasswordInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
@@ -20,6 +21,10 @@ export interface PasswordInputProps
   visible?: boolean;
   /** Called when the toggle is clicked. */
   onVisibleChange?: (visible: boolean) => void;
+  /** Icon shown when the password is visible (click to hide). Default: "eye-off". */
+  hiddenIconName?: IconName;
+  /** Icon shown when the password is hidden (click to show). Default: "eye". */
+  visibleIconName?: IconName;
 }
 
 export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
@@ -30,6 +35,8 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
       defaultVisible = false,
       visible: visibleProp,
       onVisibleChange,
+      hiddenIconName = "eye-off",
+      visibleIconName = "eye",
       className,
       ...props
     },
@@ -74,50 +81,9 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
               className="absolute right-1 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
               {visible ? (
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M2 8s2.5-4 6-4 6 4 6 4-2.5 4-6 4-6-4-6-4Z"
-                    stroke="currentColor"
-                    strokeWidth="1.3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
-                    stroke="currentColor"
-                    strokeWidth="1.3"
-                  />
-                  <path d="M1.5 1.5 14.5 14.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-                </svg>
+                <Icon name={hiddenIconName} className="h-4 w-4" aria-hidden="true" />
               ) : (
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M2 8s2.5-4 6-4 6 4 6 4-2.5 4-6 4-6-4-6-4Z"
-                    stroke="currentColor"
-                    strokeWidth="1.3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
-                    stroke="currentColor"
-                    strokeWidth="1.3"
-                  />
-                </svg>
+                <Icon name={visibleIconName} className="h-4 w-4" aria-hidden="true" />
               )}
             </button>
           )}

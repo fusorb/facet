@@ -18,11 +18,11 @@ export { type ArcProviderProps, ArcProvider, useAuth, useOptionalAuth } from "./
 export { type TokenStorage, defaultStorage } from "./storage.js";
 
 /* ── Components ────────────────────────────────────────────── */
-export { type SignInProps, SignIn } from "./sign-in.js";
+export { type SignInProps, type SignInCopy, SignIn } from "./sign-in.js";
 
 export { type SignUpProps, SignUp } from "./sign-up.js";
 
-export { type UserButtonProps, UserButton } from "./user-button.js";
+export { type UserButtonProps, type UserButtonCopy, UserButton } from "./user-button.js";
 
 export { type GuardProps, Guard } from "./guard.js";
 

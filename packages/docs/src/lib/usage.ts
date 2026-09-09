@@ -52,15 +52,14 @@ const USAGE: Record<string, string> = {
 function Example() {
   return <Button variant="default" size="lg">Get started</Button>;
 }`,
-  badge: `import { Badge } from "@arcevo/facet-components";
-import { Sparkles, Check } from "lucide-react";
+  badge: `import { Badge, Icon } from "@arcevo/facet-components";
 
 function Example() {
   return (
     <div className="flex gap-2">
       <Badge variant="success">Live</Badge>
-      <Badge icon={<Sparkles size={12} />}>New</Badge>
-      <Badge variant="success" iconOnly icon={<Check size={14} />} aria-label="Verified" />
+      <Badge icon={<Icon name="sparkles" size={12} />}>New</Badge>
+      <Badge variant="success" iconOnly icon={<Icon name="check" size={14} />} aria-label="Verified" />
     </div>
   );
 }
@@ -1655,32 +1654,6 @@ function Example() {
 }`;
 }
 
-/** lucide icon components that can appear inside facet usage snippets. */
-const LUCIDE_ICONS = new Set([
-  "Sparkles",
-  "Check",
-  "Sun",
-  "Moon",
-  "ArrowRight",
-  "Copy",
-  "Paste",
-  "Users",
-  "Settings",
-  "Search",
-  "ShieldAlert",
-  "ChevronDown",
-  "ChevronLeft",
-  "ChevronRight",
-  "Bell",
-  "Menu",
-  "Grid",
-  "List",
-  "Plus",
-  "Trash",
-  "Edit",
-  "X",
-]);
-
 /** Placeholder JSX names in snippets that are NOT real imports (e.g.
  *  `<YourContent />`, `<ProtectedPage />`): the reader replaces these
  *  with their own components. */
@@ -1735,14 +1708,11 @@ export function variantUsage(slug: string): { label: string; code: string }[] {
         if (used.length > 0) parts.push(`import { ${used.join(", ")} } from "${extraPkg}";`);
       }
     }
-    // Anything else capitalized is a facet component (Button, Label, ...)
-    // or a lucide icon (Copy, Settings, ...).
+    // Anything else capitalized is a facet component (Button, Label, Icon, ...).
     const facet = ids.filter(
-      (id) => !knownPkgIds.has(id) && !LUCIDE_ICONS.has(id) && !PLACEHOLDER_COMPONENTS.has(id),
+      (id) => !knownPkgIds.has(id) && !PLACEHOLDER_COMPONENTS.has(id),
     );
     if (facet.length > 0) parts.push(`import { ${facet.join(", ")} } from "@arcevo/facet-components";`);
-    const icons = ids.filter((id) => LUCIDE_ICONS.has(id));
-    if (icons.length > 0) parts.push(`import { ${icons.join(", ")} } from "lucide-react";`);
     return parts.join("\n");
   };
   return Object.entries(variants).map(([label, code]) => ({
@@ -1823,8 +1793,8 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     success: `<Badge variant="success">Live</Badge>`,
     warning: `<Badge variant="warning">Warning</Badge>`,
     destructive: `<Badge variant="destructive">Error</Badge>`,
-    "with icon": `<Badge icon={<Sparkles className="size-3" />}>New</Badge>`,
-    "icon only": `<Badge variant="success" iconOnly icon={<Check className="size-3.5" />} aria-label="Verified" />`,
+    "with icon": `<Badge icon={<Icon name="sparkles" className="size-3" />}>New</Badge>`,
+    "icon only": `<Badge variant="success" iconOnly icon={<Icon name="check" className="size-3.5" />} aria-label="Verified" />`,
   },
   pill: {
     default: `<Pill>Default</Pill>`,
@@ -1925,7 +1895,7 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     Default: `<Toggle>Bold</Toggle>`,
     Outline: `<Toggle variant="outline">Italic</Toggle>`,
     "With icon": `<Toggle aria-label="Settings">
-  <Settings className="size-4" /> Settings
+  <Icon name="settings" className="size-4" /> Settings
 </Toggle>`,
   },
   "toggle-group": {
@@ -2399,7 +2369,7 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
   "empty-state": {
     Default: `<EmptyState title="No results" description="Try a different filter." />`,
     "With icon": `<EmptyState
-  icon={<Search className="size-6" />}
+  icon={<Icon name="search" className="size-6" />}
   title="Nothing here"
   description="No items match your search."
 />`,
@@ -2479,10 +2449,10 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     <ContextMenuLabel>Actions</ContextMenuLabel>
     <ContextMenuSeparator />
     <ContextMenuItem>
-      <Copy className="size-4" /> Copy
+      <Icon name="copy" className="size-4" /> Copy
     </ContextMenuItem>
     <ContextMenuItem>
-      <Paste className="size-4" /> Paste
+      <Icon name="paste" className="size-4" /> Paste
     </ContextMenuItem>
   </ContextMenuContent>
 </ContextMenu>`,
@@ -2535,10 +2505,10 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     <DropdownMenuLabel>Account</DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuItem>
-      <Users className="size-4" /> Profile
+      <Icon name="users" className="size-4" /> Profile
     </DropdownMenuItem>
     <DropdownMenuItem>
-      <Settings className="size-4" /> Settings
+      <Icon name="settings" className="size-4" /> Settings
     </DropdownMenuItem>
   </DropdownMenuContent>
 </DropdownMenu>`,

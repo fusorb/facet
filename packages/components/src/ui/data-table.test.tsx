@@ -219,7 +219,7 @@ describe("DataTable", () => {
     const { container } = render(
       <DataTable columns={columns} data={ROWS} density="compact" />,
     );
-    expect(container.textContent).toContain("Alice");
+    expect(container.textContent).toContain("Ada");
   });
 
   it("shows total count when total prop is provided", () => {

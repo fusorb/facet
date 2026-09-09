@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Copy, Check } from "lucide-react";
+import { Icon } from "@arcevo/facet-components";
 
 /**
  * Props for {@link LiveCodePlayground}.
@@ -92,7 +92,7 @@ function isSafeUrl(url: unknown): boolean {
   if (typeof url !== "string") return true; // non-string props are inert
   const trimmed = url.trim();
   if (!trimmed) return true;
-  // Relative URLs, anchors, query strings — no colon-based scheme
+  // Relative URLs, anchors, query strings - no colon-based scheme
   if (!trimmed.includes(":") || trimmed.startsWith("/") || trimmed.startsWith("#") || trimmed.startsWith("?")) {
     return true;
   }
@@ -100,7 +100,7 @@ function isSafeUrl(url: unknown): boolean {
     const parsed = new URL(trimmed);
     return SAFE_URL_PROTOCOLS.has(parsed.protocol);
   } catch {
-    return true; // not a parseable URL — leave as-is (likely relative)
+    return true; // not a parseable URL - leave as-is (likely relative)
   }
 }
 
@@ -519,7 +519,7 @@ function parseChildren(
       continue;
     }
 
-    // Brace expression child: {expr} — render JSX, ignore identifiers/expressions
+    // Brace expression child: {expr} - render JSX, ignore identifiers/expressions
     if (code[i] === "{") {
       const exprEnd = skipBrace(code, i);
       const expr = code.slice(i + 1, exprEnd - 1).trim();
@@ -592,7 +592,7 @@ function toReactNode(
 
 /**
  * Main parser entry point. Strips imports, finds the `return` expression,
- * and recursively parses all JSX — handling fragments, nested components,
+ * and recursively parses all JSX - handling fragments, nested components,
  * JSX inside brace expressions, HTML elements, and multiple roots.
  */
 function renderFromCode(
@@ -744,7 +744,7 @@ export function LiveCodePlayground({
           className="absolute top-2 right-2 inline-flex items-center gap-1 rounded-md border border-transparent bg-muted px-2 py-1 text-xs text-muted-foreground hover:bg-muted/50"
           aria-label="Copy code"
         >
-          {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied ? <Icon name="check" className="h-3.5 w-3.5" /> : <Icon name="copy" className="h-3.5 w-3.5" />}
         </button>
       </div>
       <div className="overflow-auto rounded-md border bg-background p-4 max-h-[600px]">

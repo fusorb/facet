@@ -11,7 +11,7 @@ import type { Appearance, ComponentSlots } from "./types.js";
 
 import { Badge, Button } from "@arcevo/facet-components";
 import { Avatar, AvatarFallback } from "@arcevo/facet-components";
-import { getModSymbol } from "@arcevo/facet-components";
+import { getModSymbol, cn } from "@arcevo/facet-components";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -21,6 +21,26 @@ import {
   DropdownMenuItem,
   DropdownMenuShortcut,
 } from "@arcevo/facet-components";
+
+/* ── Copy ──────────────────────────────────────────────────── */
+
+export interface UserButtonCopy {
+  /** Menu item label for "Profile". */
+  profile: string;
+  /** Menu item label for "Settings". */
+  settings: string;
+  /** Menu item label for "Sign out". */
+  signOut: string;
+  /** Section header for organizations. */
+  organizations: string;
+}
+
+const defaultUserButtonCopy: UserButtonCopy = {
+  profile: "Profile",
+  settings: "Settings",
+  signOut: "Sign out",
+  organizations: "Organizations",
+};
 
 /* ── Props ─────────────────────────────────────────────────── */
 
@@ -36,6 +56,14 @@ export interface UserButtonProps {
   };
   /** Called when user clicks "Sign out" */
   onSignOut?: () => void;
+  /** Called when user clicks "Profile" */
+  onProfile?: () => void;
+  /** Called when user clicks "Settings" */
+  onSettings?: () => void;
+  /** Extra className for the dropdown menu. */
+  className?: string;
+  /** Override user-visible text strings. All keys fall back to English defaults. */
+  copy?: Partial<UserButtonCopy>;
 }
 
 /* ── Helpers ───────────────────────────────────────────────── */
@@ -52,8 +80,9 @@ function getInitials(name: string): string {
 
 /* ── Component ─────────────────────────────────────────────── */
 
-export function UserButton({ appearance, slots, onSignOut }: UserButtonProps) {
+export function UserButton({ appearance, slots, onSignOut, onProfile, onSettings, className, copy }: UserButtonProps) {
   const { user, logout } = useAuth();
+  const c = { ...defaultUserButtonCopy, ...copy };
 
   if (!user) return null;
 
@@ -76,7 +105,7 @@ export function UserButton({ appearance, slots, onSignOut }: UserButtonProps) {
           </Button>
         )}
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className={cn("w-56", className)}>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col gap-1">
             {slots?.label ?? (
@@ -88,19 +117,19 @@ export function UserButton({ appearance, slots, onSignOut }: UserButtonProps) {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => {}}>
-          Profile
+        <DropdownMenuItem onClick={onProfile}>
+          {c.profile}
           <DropdownMenuShortcut>⇧{getModSymbol()}P</DropdownMenuShortcut>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => {}}>
-          Settings
+        <DropdownMenuItem onClick={onSettings}>
+          {c.settings}
           <DropdownMenuShortcut>{getModSymbol()},</DropdownMenuShortcut>
         </DropdownMenuItem>
         {user.memberships && user.memberships.length > 0 && (
           <>
             <DropdownMenuSeparator />
             <DropdownMenuLabel className="text-xs text-muted-foreground">
-              Organizations
+              {c.organizations}
             </DropdownMenuLabel>
             {user.memberships.map((m, i) => (
               <DropdownMenuItem key={i} disabled>
@@ -125,7 +154,7 @@ export function UserButton({ appearance, slots, onSignOut }: UserButtonProps) {
           onClick={handleSignOut}
           className="text-destructive focus:text-destructive"
         >
-          Sign out
+          {c.signOut}
           <DropdownMenuShortcut>⇧{getModSymbol()}Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>

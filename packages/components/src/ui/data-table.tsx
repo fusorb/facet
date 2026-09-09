@@ -112,7 +112,34 @@ export interface DataTableAction<T extends object> {
   action: (rows: T[], selectedRows: T[]) => void;
 }
 
-export interface DataTableProps<T extends object> {
+export interface DataTableCopy {
+  /** Dropdown label above export options. Default: "Export as". */
+  exportLabel: string;
+  /** aria-label for the export trigger button. Default: "Export data". */
+  exportDataAriaLabel: string;
+  /** aria-label for the bulk-actions trigger. Default: "Table actions". */
+  tableActionsAriaLabel: string;
+  /** aria-label for the "select all" checkbox. Default: "Select all rows". */
+  selectAllAriaLabel: string;
+  /** aria-label for a row checkbox. Default: "Select row". */
+  selectRowAriaLabel: string;
+  /** Visible label text in the footer. Default: "Rows per page". */
+  rowsPerPageLabel: string;
+  /** aria-label for the rows-per-page select. Default: "Rows per page". */
+  rowsPerPageAriaLabel: string;
+  /** Suffix after the selected count, e.g. "3 selected". Default: "selected". */
+  selectedSuffix: string;
+  /** Text for the "clear selection" link. Default: "Clear". */
+  clearSelectionLabel: string;
+  /** Suffix after the total count, e.g. "100 total". Default: "total". */
+  totalSuffix: string;
+  /** Singular form of "row" in the count. Default: "row". */
+  rowCountSingular: string;
+  /** Plural form of "rows" in the count. Default: "rows". */
+  rowCountPlural: string;
+}
+
+export interface DataTableProps<T extends object> extends React.HTMLAttributes<HTMLDivElement> {
   /** Column definitions. */
   columns: DataTableColumn<T>[];
   /** Row data. Each row should carry a stable `id` for selection keys. */
@@ -165,8 +192,24 @@ export interface DataTableProps<T extends object> {
   emptyState?: React.ReactNode;
   /** Total record count (for displaying in the footer). */
   total?: number;
-  className?: string;
+  /** Override user-visible text strings. All keys fall back to English defaults. */
+  copy?: Partial<DataTableCopy>;
 }
+
+const defaultDataTableCopy: DataTableCopy = {
+  exportLabel: "Export as",
+  exportDataAriaLabel: "Export data",
+  tableActionsAriaLabel: "Table actions",
+  selectAllAriaLabel: "Select all rows",
+  selectRowAriaLabel: "Select row",
+  rowsPerPageLabel: "Rows per page",
+  rowsPerPageAriaLabel: "Rows per page",
+  selectedSuffix: "selected",
+  clearSelectionLabel: "Clear",
+  totalSuffix: "total",
+  rowCountSingular: "row",
+  rowCountPlural: "rows",
+};
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
@@ -231,14 +274,17 @@ export function DataTable<T extends object>({
   pageSizeOptions = [10, 20, 50],
   selectable = false,
   requiredColumns = [],
-   search: searchProp,
-   onSearchChange,
+  search: searchProp,
+  onSearchChange,
   density = "comfortable",
   loading = false,
   emptyState,
   total,
   className,
+  copy,
+  ...props
 }: DataTableProps<T>) {
+  const c = { ...defaultDataTableCopy, ...copy };
   const [internalSearch, setInternalSearch] = React.useState("");
   const rowDensity = density === "compact" ? "py-2" : "py-3";
   const searchValue = searchProp ?? internalSearch;
@@ -355,7 +401,7 @@ export function DataTable<T extends object>({
   };
 
   return (
-    <div className={cn("space-y-3", className)}>
+    <div {...props} className={cn("space-y-3", className)}>
       {/* Toolbar */}
       {(searchable || exportable || exporters.length > 0 || actions.length > 0 || columns.some((c) => c.hidden) || selectable) && (
         <div className="flex flex-wrap items-center gap-2">
@@ -377,46 +423,14 @@ export function DataTable<T extends object>({
             {(exportable || exporters.length > 0) && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button type="button" variant="outline" size="sm" aria-label="Export data">
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="mr-1.5"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M8 2V10M8 10L11 7M8 10L5 7M3 12.5V13C3 13.5523 3.44772 14 4 14H12C12.5523 14 13 13.5523 13 13V12.5"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                  <Button type="button" variant="outline" size="sm" aria-label={c.exportDataAriaLabel}>
+                    <Icon name="upload" className="mr-1.5 size-4" />
                     Export
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="ml-1"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M4 6L8 10L12 6"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <Icon name="chevron-down" className="ml-1 size-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-40">
-                  <DropdownMenuLabel>Export as</DropdownMenuLabel>
+                  <DropdownMenuLabel>{c.exportLabel}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   {exportable && (
                     <DropdownMenuItem onSelect={handleExport}>
@@ -444,7 +458,7 @@ export function DataTable<T extends object>({
                     variant="outline"
                     size="icon"
                     className="size-8"
-                    aria-label="Table actions"
+                    aria-label={c.tableActionsAriaLabel}
                   >
                     <Icon name="ellipsis" className="size-4" />
                   </Button>
@@ -504,7 +518,7 @@ export function DataTable<T extends object>({
               {selectable && (
                 <TableHead className="w-10">
                   <Checkbox
-                    aria-label="Select all rows"
+                    aria-label={c.selectAllAriaLabel}
                     checked={allSelected}
                     onCheckedChange={toggleAll}
                     data-state={someSelected && !allSelected ? "indeterminate" : undefined}
@@ -570,7 +584,7 @@ export function DataTable<T extends object>({
                     {selectable && (
                       <TableCell className={rowDensity}>
                         <Checkbox
-                          aria-label="Select row"
+                          aria-label={c.selectRowAriaLabel}
                           checked={isSelected}
                           onCheckedChange={() => toggleRow(key)}
                         />
@@ -594,26 +608,28 @@ export function DataTable<T extends object>({
         <div className="min-w-0 truncate">
           {selectable && selected.size > 0 && (
             <span className="text-foreground">
-              {selected.size} selected
+              {selected.size} {c.selectedSuffix}
               <button
                 type="button"
                 onClick={() => setSelected(new Set())}
                 className="ml-2 text-xs font-medium text-primary hover:underline"
               >
-                Clear
+                {c.clearSelectionLabel}
               </button>
             </span>
           )}
           {!selectable && (
             <span>
-              {total !== undefined ? `${total} total` : `${sorted.length} ${sorted.length === 1 ? "row" : "rows"}`}
+              {total !== undefined
+                ? `${total} ${c.totalSuffix}`
+                : `${sorted.length} ${sorted.length === 1 ? c.rowCountSingular : c.rowCountPlural}`}
             </span>
           )}
         </div>
         {pagination && (
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground">Rows per page</span>
+              <span className="text-xs text-muted-foreground">{c.rowsPerPageLabel}</span>
               <Select
                 value={String(rowsPerPage)}
                 onValueChange={(value) => {
@@ -621,7 +637,7 @@ export function DataTable<T extends object>({
                   setPage(1);
                 }}
               >
-                <SelectTrigger aria-label="Rows per page" className="h-8 w-[4.5rem] text-xs">
+                <SelectTrigger aria-label={c.rowsPerPageAriaLabel} className="h-8 w-[4.5rem] text-xs">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

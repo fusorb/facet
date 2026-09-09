@@ -67,7 +67,7 @@ export function DashboardDemoPage() {
         </div>
       }
     >
-      {/* KPI grid — staggered ScrollReveal entrance */}
+      {/* KPI grid - staggered ScrollReveal entrance */}
       <section className="mx-auto max-w-7xl px-8 py-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {DASHBOARD_STATS_FULL.map((s, i) => (
@@ -140,7 +140,7 @@ export function DashboardDemoPage() {
         </div>
       </section>
 
-      {/* Card animation family demo — curated, low-motion showcase */}
+      {/* Card animation family demo - curated, low-motion showcase */}
       <section className="mx-auto max-w-7xl px-8 py-12">
         <h2 className="text-2xl font-bold text-foreground">Motion surfaces</h2>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -187,7 +187,7 @@ export function DashboardDemoPage() {
                 <CardDescription>Scroll-triggered fade/slide</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-xs text-muted-foreground">This card is wrapped in RevealCard — it enters on scroll.</p>
+                <p className="text-xs text-muted-foreground">This card is wrapped in RevealCard - it enters on scroll.</p>
               </CardContent>
             </Card>
           </ScrollReveal>

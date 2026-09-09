@@ -24,6 +24,18 @@ export interface Testimonial {
   accent?: string;
 }
 
+export interface TestimonialShowcaseCopy {
+  /** aria-label for the "previous" carousel button. */
+  prevAriaLabel: string;
+  /** aria-label for the "next" carousel button. */
+  nextAriaLabel: string;
+}
+
+const defaultTestimonialCopy: TestimonialShowcaseCopy = {
+  prevAriaLabel: "Previous testimonial",
+  nextAriaLabel: "Next testimonial",
+};
+
 export interface TestimonialShowcaseProps extends React.HTMLAttributes<HTMLDivElement> {
   testimonials: Testimonial[];
   /** "grid" (default) or "carousel" (single, prev/next). */
@@ -34,6 +46,8 @@ export interface TestimonialShowcaseProps extends React.HTMLAttributes<HTMLDivEl
   title?: string;
   /** Optional subheading. */
   description?: string;
+  /** Override user-visible text strings (carousel nav aria-labels). All fall back to English defaults. */
+  copy?: Partial<TestimonialShowcaseCopy>;
 }
 
 function TestimonialCard({ t }: { t: Testimonial }) {
@@ -74,9 +88,11 @@ export function TestimonialShowcase({
   columns = 3,
   title,
   description,
+  copy,
   className,
   ...props
 }: TestimonialShowcaseProps) {
+  const c = { ...defaultTestimonialCopy, ...copy };
   const [index, setIndex] = React.useState(0);
   const count = testimonials.length;
 
@@ -113,7 +129,7 @@ export function TestimonialShowcase({
                 type="button"
                 onClick={() => setIndex((i) => (i - 1 + count) % count)}
                 className="rounded-md border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                aria-label="Previous testimonial"
+                aria-label={c.prevAriaLabel}
               >
                 <Icon name="chevron-left" className="size-4" />
               </button>
@@ -124,7 +140,7 @@ export function TestimonialShowcase({
                 type="button"
                 onClick={() => setIndex((i) => (i + 1) % count)}
                 className="rounded-md border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                aria-label="Next testimonial"
+                aria-label={c.nextAriaLabel}
               >
                 <Icon name="chevron-right" className="size-4" />
               </button>

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "../utils.js";
+import { Icon } from "../icon/index.js";
 
 const Breadcrumb = React.forwardRef<
   HTMLElement,
@@ -70,23 +71,7 @@ const BreadcrumbSeparator = ({
     className={cn("[&>svg]:size-3.5", className)}
     {...props}
   >
-    {children ?? (
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M6 4L10 8L6 12"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    )}
+    {children ?? <Icon name="chevron-right" className="h-3 w-3" />}
   </li>
 );
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
@@ -98,11 +83,7 @@ const BreadcrumbEllipsis = ({ className, ...props }: React.HTMLAttributes<HTMLSp
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}
   >
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="3" cy="8" r="1.5" fill="currentColor" />
-      <circle cx="8" cy="8" r="1.5" fill="currentColor" />
-      <circle cx="13" cy="8" r="1.5" fill="currentColor" />
-    </svg>
+    <Icon name="more-horizontal" className="h-4 w-4" />
     <span className="sr-only">More</span>
   </span>
 );

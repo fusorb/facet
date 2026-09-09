@@ -26,7 +26,7 @@ export const docsPages: DocsPage[] = [
         items: [
           "`@arcevo/facet-tokens`: Alpha Palette design tokens, typography, spacing, CSS variables.",
           "`@arcevo/facet-sdk`: arc-id API client (pure fetch, typed, 10 domain SDKs).",
-          "`@arcevo/facet-components`: 114 styled UI components (Radix + tailwind-merge + variants), including ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form, Stepper, KanbanBoard, ChangelogList, Pill).",
+          "`@arcevo/facet-components`: 113 styled UI components (Radix + tailwind-merge + variants), including ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form, Stepper, KanbanBoard, ChangelogList, Pill).",
           "`@arcevo/facet-auth`: auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms.",
           "`@arcevo/facet-layout`: domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets.",
            "`@arcevo/facet-store`: framework-agnostic Zustand state stores - auth session + tenant state, plus `createZustandTokenStorage` bridge for 401 auto-refresh, web + React Native.",
@@ -45,7 +45,7 @@ export const docsPages: DocsPage[] = [
         type: "code",
         text: `pnpm install
 pnpm build
-pnpm test      # 560+ test cases across 45 test files (vitest workspace)
+pnpm test      # 715 test cases across 56 test files (vitest workspace)
 pnpm typecheck # all projects`,
       },
       { type: "p", text: "Consume in your app:" },
@@ -774,10 +774,9 @@ export function App() {
       {
         type: "code",
         lang: "tsx",
-        text: `import { registerIcon } from "@arcevo/facet-components";
-import { ShieldAlert } from "lucide-react";
+        text: `import { registerIcon, Icon } from "@arcevo/facet-components";
 
-registerIcon("shield", ShieldAlert);`,
+registerIcon("shield", (props) => <Icon name="shield-alert" {...props} />);`,
       },
       { type: "h2", text: "Per-domain override" },
       {
@@ -787,7 +786,7 @@ registerIcon("shield", ShieldAlert);`,
       {
         type: "code",
         lang: "tsx",
-        text: `<IconProvider overrides={{ logout: Shield }}>
+        text: `<IconProvider overrides={{ logout: (props) => <Icon name="shield-alert" {...props} /> }}>
   <Icon name="logout" className="size-4" />
 </IconProvider>`,
       },

@@ -21,6 +21,8 @@ export interface CookieConsentProps extends React.HTMLAttributes<HTMLDivElement>
   acceptLabel?: string;
   /** Text for the decline button. Default: "Decline". */
   declineLabel?: string;
+  /** Main banner message. Defaults to a built-in consent blurb. */
+  message?: React.ReactNode;
   /** Extra text under the main message (optional disclosure). */
   details?: React.ReactNode;
   /** Position. Default: "bottom". */
@@ -41,6 +43,7 @@ export function CookieConsent({
   storageKey = "facet-cookie-consent",
   acceptLabel = "Accept all",
   declineLabel = "Decline",
+  message,
   details,
   position = "bottom",
   alwaysShow = false,
@@ -86,10 +89,12 @@ export function CookieConsent({
     >
       <div className="mx-auto flex max-w-2xl flex-col gap-3 rounded-xl border border-border bg-background p-5 shadow-lg sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-2 text-sm text-muted-foreground">
-          <p>
-            We use cookies to improve your experience and analyze traffic. You can accept or
-            decline them below.
-          </p>
+          {message ?? (
+            <p>
+              We use cookies to improve your experience and analyze traffic. You can accept or
+              decline them below.
+            </p>
+          )}
           {details && <div className="text-xs">{details}</div>}
         </div>
         <div className="flex shrink-0 gap-2">

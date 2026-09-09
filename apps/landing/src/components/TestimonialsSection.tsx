@@ -2,8 +2,8 @@ import { Marquee, Card, CardContent } from "@arcevo/facet-components";
 import { TESTIMONIALS } from "../data/testimonials.js";
 
 /**
- * Social proof marquee. Two rows of testimonial cards — the top row scrolls
- * left, the bottom row scrolls right — powered by the ready-to-use Marquee
+ * Social proof marquee. Two rows of testimonial cards - the top row scrolls
+ * left, the bottom row scrolls right - powered by the ready-to-use Marquee
  * surface. Content is driven by `data/testimonials.ts` so the quotes can be
  * updated without touching the component.
  */
@@ -56,7 +56,7 @@ export function TestimonialsSection() {
         </p>
       </div>
 
-      {/* Row A — scrolls left */}
+      {/* Row A - scrolls left */}
       <Marquee
         items={rowA.map((t) => (
           <TestimonialCard key={t.author} t={t} />
@@ -68,7 +68,7 @@ export function TestimonialsSection() {
         className="mb-3"
       />
 
-      {/* Row B — scrolls right */}
+      {/* Row B - scrolls right */}
       <Marquee
         items={rowB.map((t) => (
           <TestimonialCard key={t.author} t={t} />

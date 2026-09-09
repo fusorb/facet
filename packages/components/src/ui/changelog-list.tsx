@@ -67,7 +67,26 @@ export interface ChangelogListProps extends React.HTMLAttributes<HTMLOListElemen
   showFilter?: boolean;
   /** Hide empty groups (kinds with no changes). Default: true. */
   hideEmptyKinds?: boolean;
+  /** Override user-visible text strings. */
+  copy?: Partial<ChangelogListCopy>;
+  /** Custom date formatter. */
+  formatDate?: (date: string) => string;
 }
+
+export interface ChangelogListCopy {
+  /** Label above the filter row. */
+  filterLabel: string;
+  /** Text for the pre-release tag. */
+  preRelease: string;
+  /** Override individual kind labels (e.g. { added: "New" }). */
+  kindLabels: Partial<Record<ChangelogChangeKind, string>>;
+}
+
+const defaultChangelogCopy: ChangelogListCopy = {
+  filterLabel: "Filter",
+  preRelease: "pre-release",
+  kindLabels: {},
+};
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
@@ -104,7 +123,7 @@ const KIND_META: Record<ChangelogChangeKind, { label: string; icon: IconName; pi
   },
 };
 
-function formatDate(value: string) {
+function defaultFormatDate(value: string) {
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return value;
   return d.toLocaleDateString(undefined, {
@@ -118,11 +137,13 @@ function formatDate(value: string) {
 
 function FilterChip({
   kind,
+  label,
   count,
   enabled,
   onToggle,
 }: {
   kind: ChangelogChangeKind;
+  label: string;
   count: number;
   enabled: boolean;
   onToggle: () => void;
@@ -141,7 +162,7 @@ function FilterChip({
       )}
     >
       <Icon name={meta.icon} className="size-3.5" />
-      <span>{meta.label}</span>
+      <span>{label}</span>
       <span className="rounded bg-background/40 px-1 text-[10px] font-semibold tabular-nums">
         {count}
       </span>
@@ -169,8 +190,12 @@ export function ChangelogList({
   showFilter = false,
   hideEmptyKinds = true,
   className,
+  copy,
+  formatDate: formatDateProp,
   ...props
 }: ChangelogListProps) {
+  const c = { ...defaultChangelogCopy, ...copy };
+  const fmt = formatDateProp ?? defaultFormatDate;
   const [enabled, setEnabled] = React.useState<Record<ChangelogChangeKind, boolean>>({
     added: true,
     changed: true,
@@ -199,12 +224,13 @@ export function ChangelogList({
       {showFilter && (
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            Filter
+            {c.filterLabel}
           </span>
           {KIND_ORDER.map((kind) => (
             <FilterChip
               key={kind}
               kind={kind}
+              label={c.kindLabels[kind] ?? KIND_META[kind].label}
               count={counts[kind]}
               enabled={enabled[kind]}
               onToggle={() =>
@@ -263,14 +289,14 @@ export function ChangelogList({
                 )}
                 {release.pre && (
                   <span className="rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium text-amber-700">
-                    pre-release
+                    {c.preRelease}
                   </span>
                 )}
                 <time
                   dateTime={release.date}
                   className="ml-auto text-xs text-muted-foreground"
                 >
-                  {formatDate(release.date)}
+                  {fmt(release.date)}
                 </time>
               </header>
 
@@ -287,7 +313,7 @@ export function ChangelogList({
                         )}
                       >
                         <Icon name={meta.icon} className="size-3" />
-                        {meta.label}
+                        {c.kindLabels[kind] ?? meta.label}
                       </div>
                       <ul className="space-y-1 pl-1">
                         {items.map((change, j) => (

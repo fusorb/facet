@@ -85,11 +85,13 @@ export interface WizardFormPageProps<T extends FieldValues = FieldValues> {
   description?: string;
   /** Layout: "horizontal" (default) or "vertical" stepper nav. */
   direction?: "horizontal" | "vertical";
-  /** Custom labels for the Back / Next / Finish buttons. */
+  /** Custom labels for the navigation buttons and error fallback. */
   labels?: Partial<{
     back: string;
     next: string;
     finish: string;
+    skip: string;
+    errorFallback: string;
   }>;
   /**
    * Show a "Skip this step" button (optional, opt-in). When clicked, the
@@ -162,6 +164,8 @@ export function WizardFormPage<T extends FieldValues = FieldValues>({
   const back = labels?.back ?? "Back";
   const next = labels?.next ?? "Next";
   const finish = labels?.finish ?? "Finish";
+  const skip = labels?.skip ?? "Skip";
+  const errorFallback = labels?.errorFallback ?? "Invalid";
 
   return (
     <Card className={cn("w-full max-w-3xl", className)}>
@@ -184,7 +188,7 @@ export function WizardFormPage<T extends FieldValues = FieldValues>({
                           {renderField(f, form as UseFormReturn<FieldValues>)}
                           {form.formState.errors[f] && (
                             <p className="text-xs text-destructive">
-                              {String((form.formState.errors as Record<string, { message?: string }>)[f]?.message ?? "Invalid")}
+                              {String((form.formState.errors as Record<string, { message?: string }>)[f]?.message ?? errorFallback)}
                             </p>
                           )}
                         </div>
@@ -212,7 +216,7 @@ export function WizardFormPage<T extends FieldValues = FieldValues>({
                   variant="ghost"
                   onClick={() => stepper.go(steps[stepper.currentIndex + 1]?.id ?? stepper.currentId)}
                 >
-                  Skip
+                  {skip}
                 </Button>
               )}
               {stepper.isLast ? (

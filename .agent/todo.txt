@@ -55,4 +55,151 @@ P4 - Verification & Commit                         [DONE]
   [x] Run chart + data-table tests (32 cases, all passing)
   [x] check:docs drift gate — passes (113 components)
   [x] Commit all changes (2 commits: feat + fix)
+
+================================================================================
+  facet — Session Tracker (2026-09-08) — Typecheck Fix
+================================================================================
+
+P0 - Fix docs package typecheck                        [DONE]
+  [x] Root cause: vitest version mismatch — docs had local vitest@4.1.11
+      (direct devDep) while @testing-library/jest-dom/vitest type augmentation
+      resolves vitest from root (4.1.11). Different module instances → augmentation
+      doesn't merge with Assertion interface.
+  [x] Fix: removed vitest from docs devDependencies (consistent with components
+      package which has no vitest devDep and passes typecheck)
+  [x] Ran pnpm install — lockfile updated, stale vitest 4.1.10 removed
+  [x] Verified pnpm -r typecheck passes for all packages
+
+================================================================================
+  facet — Session Tracker (2026-09-08) — Sync Audit & UI Polish
+================================================================================
+
+P0 - Sync Audit & Stale Content Fixes                [DONE]
+  [x] Component count fix: 114→113 across features.ts (STATS, PACKAGES desc,
+      ROADMAP), ecosystem.ts (4 locations), HeroSection, PricingTeaserSection,
+      AboutPage, PricingPage, docs pages.ts, components/package.json
+  [x] Version fix: FAQ comment in features.ts (9 stale → current npm versions)
+  [x] Version fix: ecosystem.ts (components 1.12.0→1.11.0, matching package.json)
+  [x] FAQ title: "Frequently asked questions" → "FAQ" (matching nav pill label)
+  [x] Test count in docs pages.ts verified (715 tests, 56 files — already synced)
+
+P1 - Test Fixes (2 failures)                        [DONE]
+  [x] Fix chart.test.tsx: add type:"bar" to series (defaults to "line" in composed)
+  [x] Fix data-table.test.tsx: change assertion "Alice"→"Ada" (not in ROWS data)
+  [x] Verified: 44/44 tests pass (chart 27, data-table 17)
+
+P2 - Em-dash Purge (21 instances, 9 source files)   [DONE]
+  [x] TestimonialsSection.tsx (4), DashboardDemoPage.tsx (3)
+  [x] LiveCodePlayground.tsx (4), .test.tsx (1), playground-registry.tsx (1)
+  [x] chart.tsx (2), pill.tsx (1), rich-text-editor.tsx (3), .test.tsx (2)
+  [x] Verified: 0 em-dashes remain in source (CHANGELOG.md preserved)
+
+P3 - Lucide→Icon Migration + Playground Fix        [DONE]
+  [x] Replace <Sparkles/Check/Settings/Search/Copy/Paste/Users> with <Icon> in
+      all usage.ts snippets (USAGE badge + VARIANT_USAGE)
+  [x] Remove LUCIDE_ICONS set + lucide import generation from extraImports()
+  [x] Replace Copy/Check in LiveCodePlayground.tsx with <Icon name="...">
+  [x] Fix doc examples in apps/docs/src/pages.ts (registerIcon + IconProvider)
+  [x] Verified: 0 lucide-react imports remain in source code
+  [x] Impact: playground preview now resolves <Icon> via barrel spread
+
+P4 - Manual Sync Audit                             [DONE]
+  [x] Pages non-repetitive: each serves distinct purpose (Home, About, Pricing,
+      Security, Ecosystem, + docs: Overview, Getting Started, Theming, etc.)
+  [x] Pill usage consistent: nav uses variant="pill", FAQ label matches
+  [x] Spacing consistent (Tailwind gap/padding classes)
+  [x] No stale references (only .changeset "114" is historical)
+
+P5 - Verification                                  [DONE]
+  [x] Drift gate: passes (113 components, 112 in manifest, CLAUDE.md matches)
+  [~] Typecheck: USER will run manually (per request)
+  [~] Full test suite: USER will run manually (per request)
+
+Note: Unexpected changes detected from a parallel process (NOT this session).
+The scope was MUCH larger than the tracker initially noted:
+
+COMPONENT ICON MIGRATIONS (inline SVG → <Icon> registry):
+  - carousel, breadcrumb, checkbox, context-menu, dialog, dropdown-menu,
+    input-otp, menubar, notification-drawer, pagination, password-input,
+    pill, resizable, selectable, select, sheet
+
+  CRITICAL BUG FOUND & FIXED in sheet.tsx:
+    Import was renamed DialogPrimitive→SheetPrimitive, but 22 usages still
+    referenced the old name → <Sheet> would crash at runtime with
+    "DialogPrimitive is not defined". All 22 references fixed.
+
+INLINE SVG → <Icon> REPLACEMENTS (this session):
+  - notification-drawer: BellIcon, XIcon, TrashIcon, search SVG → <Icon>
+  - data-table: upload + chevron-down SVGs → <Icon>
+  - (carousel, resizable, and all others already done by parallel process)
+
+NEW SEMANTIC ICONS added by parallel process (now pre-loaded/synchronous):
+  - more-horizontal, more-vertical, eye, eye-off, minus, plus
+
+COPY PROP / I18N (parallel process, verified correct):
+  - sign-in, user-button, consent-capture, cookie-banner, cookie-consent,
+    feedback-page, changelog-list, activity-feed, rich-text-editor,
+    testimonial-showcase — all add `copy` prop with defaults
+
+FORMATTER PROPS (parallel process, verified correct):
+  - activity-feed: timeFormatter, dayLabelFormatter
+  - changelog-list: formatDate
+
+BARREL EXPORT FIX (this session):
+  - DataTableCopy was defined but NOT exported from components/src/index.ts
+    (all other *Copy types were exported) → FIXED, now exported
+
+================================================================================
+  facet — QA Audit & Bug Fixes (this session)
+================================================================================
+
+P0 - CRITICAL bug: sheet.tsx crash                   [FIXED]
+  [x] Import renamed DialogPrimitive→SheetPrimitive but 22 usages not updated
+  [x] All 22 references replaced (Root, Trigger, Close, Portal, Content,
+      Overlay, Title, Description)
+
+P1 - UserButton: dead menu items                      [FIXED]
+  [x] Profile/Settings had onClick={() => {}} (no-op, but showed keyboard
+      shortcuts ⇧⌘P / ⌘,) — added onProfile / onSettings callback props
+  [x] Fixed DropdownMenuContent indentation (8→6 spaces)
+
+P2 - Chart component: 3 bugs                           [FIXED]
+  [x] Radial chart ignored `height` prop: chartHeight hardcoded to 480
+      instead of effectiveHeight (which uses `height ?? default`).
+      Fixed: DEFAULT_HEIGHT_RADIAL 320→480, chartHeight = effectiveHeight
+  [x] Line/area dot hover only enlarged first-series dots (hover.seriesIndex
+      was always 0). Fixed: removed seriesIndex check, all series dots now
+      enlarge at hovered data index (consistent with crosshair)
+  [x] Custom renderTooltip callback only received single series. Added
+      seriesList: ChartSeries[] to ChartTooltipProps, passed visibleSeries
+      (cartesian) / [s] (radial) to both renderTooltip call sites
+
+P3 - DataTable: missing barrel + icon + indent         [FIXED]
+  [x] DataTableCopy type not exported from barrel (all others were)
+  [x] Inline SVG (upload + chevron-down) → <Icon name="upload"> / <Icon>
+  [x] Indentation on search/onSearchChange destructuring (extra spaces)
+
+P4 - NotificationDrawer: icon + title + indent          [FIXED]
+  [x] Inline SVG icons (BellIcon, XIcon, TrashIcon, search) → <Icon>
+  [x] Hardcoded "Notifications" in SheetTitle → {c.title} from copy prop
+  [x] Indentation fix on 3 aria-label lines (extra leading space)
+
+P5 - Carousel + Resizable: lucide-react imports        [FIXED]
+  [x] carousel.tsx: removed `import { ChevronLeft, ChevronRight } from "lucide-react"`
+      → using <Icon name="chevron-left"> / <Icon name="chevron-right">
+  [x] resizable.tsx: removed `import { GripHorizontal, GripVertical } from "lucide-react"`
+      → using <Icon name="grip-horizontal"> / <Icon name="grip-vertical">
+
+P6 - sign-in.tsx: em-dash purge (8 instances)          [FIXED]
+  [x] SignInCopy JSDoc comments had em-dashes (—) missed by parallel process
+  [x] All converted to hyphens (-)
+
+P7 - Verified: Tooltip component, Playground, Landing app
+  [x] Tooltip: supports <side>/<align> via Radix props spread (no position prop
+      needed — `side` is the standard positioning API)
+  [x] Playground: ErrorBoundary + URL sanitization + no-eval JSX parser +
+      Prettier formatting + copy clipboard — production-grade
+  [x] Landing app: 7 pages (Home, About, Pricing, Security, Ecosystem,
+      DashboardDemo, Feedback) all wired, Nav/Footer consistent
+
 ================================================================================

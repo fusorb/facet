@@ -37,7 +37,30 @@ export interface FeedbackChannel {
   description?: string;
 }
 
-export interface FeedbackPageProps {
+export interface FeedbackPageCopy {
+  /** Card title above the email form. */
+  formTitle: string;
+  /** Card description (use {email} placeholder). */
+  formDescription: string;
+  /** Label for the sender email input. */
+  emailLabel: string;
+  /** Placeholder for the sender email input. */
+  emailPlaceholder: string;
+  /** Label for the subject input. */
+  subjectLabel: string;
+  /** Label for the message textarea. */
+  messageLabel: string;
+  /** Placeholder for the message textarea. */
+  messagePlaceholder: string;
+  /** Text on the submit button. */
+  submitLabel: string;
+  /** Label shown for the email channel card. */
+  emailChannelLabel: string;
+  /** Fallback when no email is entered. */
+  anonymous: string;
+}
+
+export interface FeedbackPageProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Page title. Default: "Feedback & contact". */
   title?: string;
   /** Intro description under the title. */
@@ -61,8 +84,22 @@ export interface FeedbackPageProps {
   };
   /** Extra content below the channels. */
   children?: React.ReactNode;
-  className?: string;
+  /** Override user-visible strings. */
+  copy?: Partial<FeedbackPageCopy>;
 }
+
+const defaultFeedbackCopy: FeedbackPageCopy = {
+  formTitle: "Send feedback by email",
+  formDescription: "Opens your mail client addressed to {email}. We reply to every message.",
+  emailLabel: "Your email",
+  emailPlaceholder: "you@company.com",
+  subjectLabel: "Subject",
+  messageLabel: "Message",
+  messagePlaceholder: "Tell us what you think...",
+  submitLabel: "Send feedback",
+  emailChannelLabel: "Email",
+  anonymous: "anonymous",
+};
 
 export function FeedbackPage({
   title = "Feedback & contact",
@@ -76,20 +113,23 @@ export function FeedbackPage({
   submitButton,
   children,
   className,
+  copy,
+  ...props
 }: FeedbackPageProps) {
+  const c = { ...defaultFeedbackCopy, ...copy };
   const [emailValue, setEmailValue] = React.useState("");
   const [subject, setSubject] = React.useState("");
   const [message, setMessage] = React.useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const body = encodeURIComponent(`${message}\n\n(from ${emailValue || "anonymous"})`);
+    const body = encodeURIComponent(`${message}\n\n(from ${emailValue || c.anonymous})`);
     const mailto = `mailto:${email}?subject=${encodeURIComponent(subject || `${subjectPrefix} ${title.toLowerCase()}`)}&body=${body}`;
     window.location.href = mailto;
   };
 
   return (
-    <div className={cn("mx-auto w-full max-w-3xl px-6 py-16", className)}>
+    <div className={cn("mx-auto w-full max-w-3xl px-6 py-16", className)} {...props}>
       <div className="mb-8">
         {back && (
           <button
@@ -111,27 +151,27 @@ export function FeedbackPage({
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Icon name="mail" className="size-[18px] text-primary" />
-              Send feedback by email
+              {c.formTitle}
             </CardTitle>
             <CardDescription>
-              Opens your mail client addressed to {email}. We reply to every message.
+              {c.formDescription.replace("{email}", email)}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
-                  <Label htmlFor="feedback-email">Your email</Label>
+                  <Label htmlFor="feedback-email">{c.emailLabel}</Label>
                   <Input
                     id="feedback-email"
                     type="email"
-                    placeholder="you@company.com"
+                    placeholder={c.emailPlaceholder}
                     value={emailValue}
                     onChange={(e) => setEmailValue(e.target.value)}
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="feedback-subject">Subject</Label>
+                  <Label htmlFor="feedback-subject">{c.subjectLabel}</Label>
                   <Input
                     id="feedback-subject"
                     placeholder={subjectPrefix}
@@ -141,11 +181,11 @@ export function FeedbackPage({
                 </div>
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="feedback-message">Message</Label>
+                <Label htmlFor="feedback-message">{c.messageLabel}</Label>
                 <Textarea
                   id="feedback-message"
                   rows={5}
-                  placeholder="Tell us what you think..."
+                  placeholder={c.messagePlaceholder}
                   required
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -156,7 +196,7 @@ export function FeedbackPage({
                 animation={submitButton?.animation ?? "sparkle"}
                 renderButton={submitButton?.renderButton}
               >
-                Send feedback
+                {c.submitLabel}
               </AnimatedButton>
             </form>
           </CardContent>
@@ -175,7 +215,7 @@ export function FeedbackPage({
             >
               <Icon name="mail" className="size-5 text-primary" />
               <div>
-                <div className="text-sm font-medium text-foreground">Email</div>
+                <div className="text-sm font-medium text-foreground">{c.emailChannelLabel}</div>
                 <div className="text-xs text-muted-foreground">{email}</div>
               </div>
             </a>

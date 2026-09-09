@@ -49,6 +49,20 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? "span" : "button";
     const innerRef = React.useRef<HTMLButtonElement | null>(null);
 
+    // Merge the internal ref (for magnetic / ripple effects) with the
+    // consumer's ref so both always receive the DOM node.
+    const setRef = React.useCallback(
+      (node: HTMLButtonElement | null) => {
+        innerRef.current = node;
+        if (typeof ref === "function") {
+          ref(node);
+        } else if (ref) {
+          (ref as React.MutableRefObject<HTMLButtonElement | null>).current = node;
+        }
+      },
+      [ref],
+    );
+
     // Magnetic: translate toward the cursor, spring back on leave.
     React.useEffect(() => {
       if (!magnetic) return;
@@ -98,7 +112,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             "after:absolute after:inset-0 after:-translate-x-full after:bg-gradient-to-r after:from-transparent after:via-white/30 after:to-transparent after:transition-transform after:duration-700 hover:after:translate-x-full",
           magnetic && "transition-transform duration-200 will-change-transform",
         )}
-        ref={magnetic || variant === "ripple" ? (innerRef as never) : (ref as never)}
+        ref={setRef}
         onClick={handleClick}
         {...props}
       />

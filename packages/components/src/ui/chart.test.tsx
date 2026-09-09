@@ -207,8 +207,8 @@ describe("Chart", () => {
       <Chart
         x={["A", "B", "C"]}
         series={[
-          { id: "a", label: "A", data: [30, 40, 20] },
-          { id: "b", label: "B", data: [20, 10, 50] },
+          { id: "a", label: "A", data: [30, 40, 20], type: "bar" },
+          { id: "b", label: "B", data: [20, 10, 50], type: "bar" },
         ]}
         type="composed"
         showLegend={false}

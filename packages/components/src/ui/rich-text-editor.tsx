@@ -20,7 +20,7 @@ import { Button } from "./button.js";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
-export interface RichTextEditorProps {
+export interface RichTextEditorProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** HTML value. */
   value: string;
   /** Called with the new HTML on every change. */
@@ -29,15 +29,33 @@ export interface RichTextEditorProps {
   placeholder?: string;
   /** Disable the editor. */
   disabled?: boolean;
-  /** Optional className for the wrapper. */
-  className?: string;
   /** Optional className for the editor surface (the editable area). */
   contentClassName?: string;
   /** ARIA label. */
   ariaLabel?: string;
   /** Min content height in px. Default: 160. */
   minHeight?: number;
+  /** Override user-visible text strings (toolbar aria-labels, dialog buttons). */
+  copy?: Partial<RichTextEditorCopy>;
 }
+
+export interface RichTextEditorCopy {
+  /** Override individual toolbar button aria-labels / titles (keyed by tool id). */
+  toolLabels: Partial<Record<string, string>>;
+  /** Link-dialog URL input placeholder. */
+  linkPlaceholder: string;
+  /** Link-dialog "Insert" button label. */
+  insertLabel: string;
+  /** Link-dialog "Cancel" button label. */
+  cancelLabel: string;
+}
+
+const defaultRichTextEditorCopy: RichTextEditorCopy = {
+  toolLabels: {},
+  linkPlaceholder: "https://",
+  insertLabel: "Insert",
+  cancelLabel: "Cancel",
+};
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
@@ -77,7 +95,7 @@ const SAFE_URL_PROTOCOLS = new Set(["http:", "https:", "mailto:", "tel:"]);
 function isSafeUrl(url: string): boolean {
   const trimmed = url.trim();
   if (!trimmed) return true; // empty is fine (createLink with empty = no-op)
-  // Relative URLs, anchors, query strings — no colon-based scheme
+  // Relative URLs, anchors, query strings - no colon-based scheme
   if (!trimmed.includes(":") || trimmed.startsWith("/") || trimmed.startsWith("#") || trimmed.startsWith("?")) {
     return true;
   }
@@ -85,7 +103,7 @@ function isSafeUrl(url: string): boolean {
     const parsed = new URL(trimmed);
     return SAFE_URL_PROTOCOLS.has(parsed.protocol);
   } catch {
-    return false; // not a parseable URL — reject
+    return false; // not a parseable URL - reject
   }
 }
 
@@ -131,7 +149,10 @@ export function RichTextEditor({
   contentClassName,
   ariaLabel = "Rich text editor",
   minHeight = 160,
+  copy,
+  ...props
 }: RichTextEditorProps) {
+  const c = { ...defaultRichTextEditorCopy, ...copy };
   const editorRef = React.useRef<HTMLDivElement>(null);
   const [linkPromptOpen, setLinkPromptOpen] = React.useState(false);
   const [linkUrl, setLinkUrl] = React.useState("");
@@ -141,7 +162,7 @@ export function RichTextEditor({
   React.useEffect(() => {
     const el = editorRef.current;
     if (!el) return;
-    // Sanitize before injecting HTML — prevents stored XSS if the consumer
+    // Sanitize before injecting HTML - prevents stored XSS if the consumer
     // passes unsanitized content (e.g. from a database or paste).
     const safe = sanitizeHtml(value);
     if (el.innerHTML !== safe) el.innerHTML = safe;
@@ -183,6 +204,7 @@ export function RichTextEditor({
 
   return (
     <div
+      {...props}
       className={cn(
         "w-full overflow-hidden rounded-md border border-border bg-background transition focus-within:ring-2 focus-within:ring-ring/30",
         disabled && "opacity-60",
@@ -198,8 +220,8 @@ export function RichTextEditor({
             variant="ghost"
             size="icon"
             disabled={disabled}
-            aria-label={tool.label}
-            title={tool.label}
+            aria-label={c.toolLabels[tool.id] ?? tool.label}
+            title={c.toolLabels[tool.id] ?? tool.label}
             onClick={() => runCommand(tool)}
           >
             <Icon name={tool.icon} className="size-4" />
@@ -230,14 +252,14 @@ export function RichTextEditor({
         <div className="flex items-center gap-2 border-t border-border bg-secondary/20 p-2 text-sm">
           <input
             type="url"
-            placeholder="https://"
+            placeholder={c.linkPlaceholder}
             value={linkUrl}
             onChange={(e) => setLinkUrl(e.target.value)}
             className="flex-1 rounded-md border border-border bg-background px-2 py-1 outline-none focus:border-primary"
             autoFocus
           />
           <Button size="sm" onClick={submitLink}>
-            Insert
+            {c.insertLabel}
           </Button>
           <Button
             size="sm"
@@ -247,7 +269,7 @@ export function RichTextEditor({
               setLinkPromptOpen(false);
             }}
           >
-            Cancel
+            {c.cancelLabel}
           </Button>
         </div>
       )}

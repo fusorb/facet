@@ -373,6 +373,7 @@ export type {
 export { NotificationDrawer } from "./ui/notification-drawer.js";
 export type {
   Notification as DrawerNotification,
+  NotificationDrawerCopy,
   NotificationDrawerProps,
   NotificationType,
 } from "./ui/notification-drawer.js";
@@ -426,6 +427,7 @@ export {
   type DataTableColumn,
   type DataTableExporter,
   type DataTableDensity,
+  type DataTableCopy,
   type DataTableProps,
   DataTable,
 } from "./ui/data-table.js";
@@ -581,7 +583,7 @@ export {
 
 export {
   type FeedbackChannel,
-  type FeedbackPageProps,
+  type FeedbackPageCopy,
   FeedbackPage,
 } from "./ui/feedback-page.js";
 
@@ -666,6 +668,7 @@ export {
 export {
   type Testimonial,
   type TestimonialShowcaseProps,
+  type TestimonialShowcaseCopy,
   TestimonialShowcase,
 } from "./ui/testimonial-showcase.js";
 export {
@@ -732,6 +735,7 @@ export {
   type ChangelogChangeKind,
   type ChangelogChange,
   type ChangelogRelease,
+  type ChangelogListCopy,
   type ChangelogListProps,
   ChangelogList,
 } from "./ui/changelog-list.js";
@@ -825,6 +829,7 @@ export {
 
 export {
   type RichTextEditorProps,
+  type RichTextEditorCopy,
   RichTextEditor,
 } from "./ui/rich-text-editor.js";
 

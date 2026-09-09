@@ -72,8 +72,7 @@
     "react-dom": "^19",
     "react-router-dom": "^7.1.1",
     "tsup": "^8.5.1",
-    "typescript": "^5",
-    "vitest": "^4.1.10"
+    "typescript": "^5"
   },
   "engines": {
     "node": ">=20"

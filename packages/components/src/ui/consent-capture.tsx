@@ -44,6 +44,12 @@ export interface ConsentCaptureProps {
   requireScroll?: boolean;
   /** Require checkbox before accept is allowed. Default: true. */
   requireCheckbox?: boolean;
+  /** Hint shown until the user scrolls to the bottom. */
+  scrollHint?: string;
+  /** Label for the signature clear button. */
+  clearLabel?: string;
+  /** Button text shown while submitting. */
+  submittingLabel?: string;
   /** Extra className for the wrapper. */
   className?: string;
 }
@@ -75,6 +81,9 @@ export function ConsentCapture({
   onReject,
   requireScroll = true,
   requireCheckbox = true,
+  scrollHint = "Scroll to the bottom to continue.",
+  clearLabel = "Clear",
+  submittingLabel = "Saving…",
   className,
 }: ConsentCaptureProps) {
   const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -216,7 +225,7 @@ export function ConsentCapture({
 
         {requireScroll && !scrolledToEnd && (
           <p className="text-xs text-muted-foreground">
-            Scroll to the bottom to continue.
+            {scrollHint}
           </p>
         )}
 
@@ -237,7 +246,7 @@ export function ConsentCapture({
                 className="text-primary underline-offset-2 hover:underline"
                 onClick={handleClearSignature}
               >
-                Clear
+                {clearLabel}
               </button>
             </div>
           </div>
@@ -263,7 +272,7 @@ export function ConsentCapture({
           </Button>
         )}
         <Button onClick={handleSubmit} disabled={!canSubmit}>
-          {submitting ? "Saving…" : submitLabel}
+          {submitting ? submittingLabel : submitLabel}
         </Button>
       </CardFooter>
     </Card>

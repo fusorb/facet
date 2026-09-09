@@ -34,7 +34,7 @@ const TIERS: TeaserTier[] = [
     id: "components",
     name: "Components",
     price: "Free",
-    description: "114 styled Radix components, themed with the Alpha Palette.",
+    description: "113 styled Radix components, themed with the Alpha Palette.",
     bullets: ["Drop-in ready", "Tree-shaken icons", "CI-verified coverage"],
     highlight: true,
     badge: "Most useful",

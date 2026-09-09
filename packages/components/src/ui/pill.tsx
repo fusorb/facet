@@ -6,6 +6,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../utils.js";
+import { Icon } from "../icon/index.js";
 
 export type PillVariant = "default" | "outline" | "filled" | "ghost" | "subtle";
 export type PillColor = "default" | "primary" | "secondary" | "success" | "warning" | "destructive";
@@ -73,7 +74,7 @@ export interface PillProps
   indicator?: PillIndicator;
   /** Icon node rendered when `indicator="icon"`. */
   icon?: React.ReactNode;
-  /** Custom leading content (any shape) — overrides `indicator`. */
+  /** Custom leading content (any shape) - overrides `indicator`. */
   leading?: React.ReactNode;
   /** Semantic accent color for the dot, border, and fill. */
   color?: PillColor;
@@ -149,20 +150,7 @@ export const Pill = React.forwardRef<HTMLElement, PillProps>(
               isFilled ? "text-background" : "text-muted-foreground",
             )}
           >
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M2 2l8 8M10 2L2 10"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
+            <Icon name="close" className="h-3 w-3" aria-hidden="true" />
           </button>
         )}
       </>

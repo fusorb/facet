@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as MenubarPrimitive from "@radix-ui/react-menubar";
 import { cn } from "../utils.js";
+import { Icon } from "../icon/index.js";
 
 const MenubarMenu: React.FC<React.ComponentProps<typeof MenubarPrimitive.Menu>> =
   MenubarPrimitive.Menu;
@@ -55,22 +56,7 @@ const MenubarSubTrigger = React.forwardRef<
     {...props}
   >
     {children}
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 15 15"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="ml-auto size-4"
-    >
-      <path
-        d="M6 4L10 7.5L6 11"
-        stroke="currentColor"
-        strokeWidth="1.25"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <Icon name="chevron-right" className="ml-auto size-4" />
   </MenubarPrimitive.SubTrigger>
 ));
 MenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName;
@@ -143,22 +129,7 @@ const MenubarCheckboxItem = React.forwardRef<
   >
     <span className="absolute left-2 flex size-3.5 items-center justify-center">
       <MenubarPrimitive.ItemIndicator>
-        <svg
-          width="15"
-          height="15"
-          viewBox="0 0 15 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="size-4"
-        >
-          <path
-            d="M3 7.5L6.5 11L12 4"
-            stroke="currentColor"
-            strokeWidth="1.25"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <Icon name="check" className="size-4" />
       </MenubarPrimitive.ItemIndicator>
     </span>
     {children}
@@ -180,16 +151,7 @@ const MenubarRadioItem = React.forwardRef<
   >
     <span className="absolute left-2 flex size-3.5 items-center justify-center">
       <MenubarPrimitive.ItemIndicator>
-        <svg
-          width="15"
-          height="15"
-          viewBox="0 0 15 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="size-2 fill-current"
-        >
-          <circle cx="7.5" cy="7.5" r="7.5" />
-        </svg>
+        <span className="block size-2 rounded-full bg-current" />
       </MenubarPrimitive.ItemIndicator>
     </span>
     {children}

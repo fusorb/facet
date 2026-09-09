@@ -162,7 +162,7 @@ const DEFAULT_FAQ = [
     q: "Is it framework agnostic?",
     a: "Yes. The core is dependency-free React.",
   },
-  { q: "Can I theme it?", a: "Yes — every component is wired to the design token system." },
+  { q: "Can I theme it?", a: "Yes - every component is wired to the design token system." },
 ];
 function FaqSection(props: any) {
   return (

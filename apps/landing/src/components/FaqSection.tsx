@@ -8,7 +8,7 @@ export function FaqSection() {
   return (
     <FacetFaqSection
       items={FAQ}
-      title="Frequently asked questions"
+      title="FAQ"
       description="Quick answers to the questions consumers ask most."
       type="single"
       id="faq"

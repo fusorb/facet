@@ -25,7 +25,7 @@ export interface CookieChoice {
   personalization?: boolean;
 }
 
-export interface CookieBannerProps {
+export interface CookieBannerProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Called with the user's cookie preferences. */
   onChoose: (choice: CookieChoice) => void;
   /** Banner message (HTML). */
@@ -34,16 +34,21 @@ export interface CookieBannerProps {
   learnMoreHref?: string;
   /** Persisted key (localStorage). Default: "facet.cookie-banner". */
   storageKey?: string;
-  /** Top-level labels. */
+  /** Position. Default: "bottom". */
+  position?: "top" | "bottom";
+  /** Override user-visible labels. All keys fall back to English defaults. */
   labels?: Partial<{
     accept: string;
     reject: string;
     manage: string;
+    cancel: string;
+    savePreferences: string;
+    learnMore: string;
   }>;
-  /** Extra className for the wrapper. */
-  className?: string;
-  /** Position. Default: "bottom". */
-  position?: "top" | "bottom";
+  /** Override cookie category labels (keys: "essential", "analytics", "marketing", "personalization"). */
+  categoryLabels?: Partial<Record<string, string>>;
+  /** Override cookie category hint text. */
+  categoryHints?: Partial<Record<string, string>>;
 }
 
 /* ── Helpers ───────────────────────────────────────────────── */
@@ -61,6 +66,15 @@ const REJECT_NON_ESSENTIAL: CookieChoice = {
   personalization: false,
 };
 
+const defaultLabels: NonNullable<NonNullable<CookieBannerProps["labels"]>> = {
+  accept: "Accept all",
+  reject: "Reject",
+  manage: "Manage",
+  cancel: "Cancel",
+  savePreferences: "Save preferences",
+  learnMore: "Learn more",
+};
+
 /* ── Component ─────────────────────────────────────────────── */
 
 /**
@@ -74,9 +88,13 @@ export function CookieBanner({
   learnMoreHref,
   storageKey = "facet.cookie-banner",
   labels,
+  categoryLabels,
+  categoryHints,
   className,
   position = "bottom",
+  ...props
 }: CookieBannerProps) {
+  const l = { ...defaultLabels, ...labels };
   const [visible, setVisible] = React.useState(false);
   const [manageOpen, setManageOpen] = React.useState(false);
   const [prefs, setPrefs] = React.useState<CookieChoice>(REJECT_NON_ESSENTIAL);
@@ -116,6 +134,7 @@ export function CookieBanner({
         position === "top" ? "top-0" : "bottom-0",
         className,
       )}
+      {...props}
     >
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 rounded-xl border border-border bg-popover p-4 shadow-lg sm:flex-row sm:items-center sm:gap-6">
         <div className="flex items-start gap-3">
@@ -129,7 +148,7 @@ export function CookieBanner({
                     href={learnMoreHref}
                     className="font-medium text-primary underline-offset-2 hover:underline"
                   >
-                    Learn more
+                    {l.learnMore}
                   </a>
                 )}
                 .
@@ -141,23 +160,23 @@ export function CookieBanner({
         {manageOpen ? (
           <div className="flex w-full flex-col gap-2 text-xs sm:w-auto">
             <Toggle
-              label="Essential"
+              label={categoryLabels?.essential ?? "Essential"}
               checked
               disabled
-              hint="Required for the app to work."
+              hint={categoryHints?.essential ?? "Required for the app to work."}
             />
             <Toggle
-              label="Analytics"
+              label={categoryLabels?.analytics ?? "Analytics"}
               checked={!!prefs.analytics}
               onChange={(v) => setPrefs({ ...prefs, analytics: v })}
             />
             <Toggle
-              label="Marketing"
+              label={categoryLabels?.marketing ?? "Marketing"}
               checked={!!prefs.marketing}
               onChange={(v) => setPrefs({ ...prefs, marketing: v })}
             />
             <Toggle
-              label="Personalization"
+              label={categoryLabels?.personalization ?? "Personalization"}
               checked={!!prefs.personalization}
               onChange={(v) => setPrefs({ ...prefs, personalization: v })}
             />
@@ -169,17 +188,17 @@ export function CookieBanner({
               variant="ghost"
               onClick={() => setManageOpen(true)}
             >
-              {labels?.manage ?? "Manage"}
+              {l.manage}
             </Button>
             <Button
               size="sm"
               variant="outline"
               onClick={() => persist(REJECT_NON_ESSENTIAL)}
             >
-              {labels?.reject ?? "Reject"}
+              {l.reject}
             </Button>
             <Button size="sm" onClick={() => persist(ACCEPT_ALL)}>
-              {labels?.accept ?? "Accept all"}
+              {l.accept}
             </Button>
           </div>
         )}
@@ -191,10 +210,10 @@ export function CookieBanner({
               variant="ghost"
               onClick={() => setManageOpen(false)}
             >
-              Cancel
+              {l.cancel}
             </Button>
             <Button size="sm" onClick={() => persist(prefs)}>
-              Save preferences
+              {l.savePreferences}
             </Button>
           </div>
         )}
