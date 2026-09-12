@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: Stepper
+ * @fusorb/facet-components: Stepper
  *
  * A headless-first wizard primitive. State lives in `useStepper` (no DOM,
  * no Radix), the `<Stepper>` + `<StepperPanel>` + `<StepperNav>` components

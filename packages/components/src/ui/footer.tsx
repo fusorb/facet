@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: Footer
+ * @fusorb/facet-components: Footer
  *
  * A dynamic, fully customizable site footer. Everything is config-driven:
  * brand block, link columns, social icons, bottom-bar links, and legal
@@ -12,7 +12,7 @@
  *       { title: "Product", links: [{ label: "Components", href: "#" }] },
  *     ]}
  *     socials={[
- *       { label: "GitHub", href: "https://github.com/arcevodev", icon: "github" },
+ *       { label: "GitHub", href: "https://github.com/fusorb", icon: "github" },
  *     ]}
  *     bottomLinks={[{ label: "Feedback", href: "/feedback" }]}
  *     legal={`© ${new Date().getFullYear()} facet. MIT License.`}

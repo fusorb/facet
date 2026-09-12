@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components/light
+ * @fusorb/facet-components/light
  *
  * A slim entry point for consumers (or eager app shells) that only need the
  * lightweight, high-frequency modules: the icon registry, theme system,
@@ -7,7 +7,7 @@
  * pulling the entire component barrel (dialog, form, dropzone, qrcode,
  * input-otp, ...) into the eager bundle.
  *
- *   import { Icon, ThemeProvider, DropdownMenu } from "@arcevo/facet-components/light";
+ *   import { Icon, ThemeProvider, DropdownMenu } from "@fusorb/facet-components/light";
  */
 
 export { cn, isMac, getModSymbol } from "./utils.js";

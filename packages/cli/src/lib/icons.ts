@@ -583,8 +583,8 @@ export function generateIconRegistry(scan: IconScan, resolved: ResolvedIcons): G
 import type { SVGProps } from "react";
 import {
 ${imports}
-} from "@arcevo/facet-components/icons";
-import type { LucideIcon } from "@arcevo/facet-components/icons";
+} from "@fusorb/facet-components/icons";
+import type { LucideIcon } from "@fusorb/facet-components/icons";
 
 const ICONS: Record<string, LucideIcon> = {
 ${entries}
@@ -640,7 +640,7 @@ function findUp(fromDir: string, name: string, match?: (candidate: string) => bo
 function isFacetCliPackage(pkgPath: string): boolean {
   try {
     const j = JSON.parse(readFileSync(pkgPath, "utf8")) as { name?: string };
-    return j.name === "@arcevo/facet-cli";
+    return j.name === "@fusorb/facet-cli";
   } catch {
     return false;
   }

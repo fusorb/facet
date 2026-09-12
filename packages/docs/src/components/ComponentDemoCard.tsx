@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@arcevo/facet-components";
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@fusorb/facet-components";
 import { Playground, type Control } from "./Playground.js";
 import { ThemePreviewFrame } from "./ThemePreviewFrame.js";
 

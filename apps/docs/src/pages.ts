@@ -1,10 +1,10 @@
-import type { DocsPage } from "@arcevo/facet-docs";
-import { facetChangelog } from "@arcevo/facet-components";
+import type { DocsPage } from "@fusorb/facet-docs";
+import { facetChangelog } from "@fusorb/facet-components";
 
 /**
  * facet's own authored guide pages.
  *
- * These are facet's documentation content: NOT part of the @arcevo/facet-docs
+ * These are facet's documentation content: NOT part of the @fusorb/facet-docs
  * engine. Consumers mount <DocsApp> with their own pages; this registry is
  * just the demo consumer's content, kept out of the package so installing
  * the docs package doesn't ship facet's docs.
@@ -24,15 +24,15 @@ export const docsPages: DocsPage[] = [
       {
         type: "ul",
         items: [
-          "`@arcevo/facet-tokens`: Alpha Palette design tokens, typography, spacing, CSS variables.",
-          "`@arcevo/facet-sdk`: arc-id API client (pure fetch, typed, 10 domain SDKs).",
-          "`@arcevo/facet-components`: 113 styled UI components (Radix + tailwind-merge + variants), including ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form, Stepper, KanbanBoard, ChangelogList, Pill).",
-          "`@arcevo/facet-auth`: auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms.",
-          "`@arcevo/facet-layout`: domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets.",
-           "`@arcevo/facet-store`: framework-agnostic Zustand state stores - auth session + tenant state, plus `createZustandTokenStorage` bridge for 401 auto-refresh, web + React Native.",
-          "`@arcevo/facet-docs`: this config-driven docs engine, installable by any Arcevo project.",
-          "`@arcevo/facet-emails`: framework-agnostic email templates: render HTML/text from React or plain trees, with a dev preview server.",
-          "`@arcevo/facet-cli`: scaffold docs + emails sites, audit and update your facet setup from the terminal.",
+          "`@fusorb/facet-tokens`: Alpha Palette design tokens, typography, spacing, CSS variables.",
+          "`@fusorb/facet-sdk`: arc-id API client (pure fetch, typed, 10 domain SDKs).",
+          "`@fusorb/facet-components`: 113 styled UI components (Radix + tailwind-merge + variants), including ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form, Stepper, KanbanBoard, ChangelogList, Pill).",
+          "`@fusorb/facet-auth`: auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms.",
+          "`@fusorb/facet-layout`: domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets.",
+           "`@fusorb/facet-store`: framework-agnostic Zustand state stores - auth session + tenant state, plus `createZustandTokenStorage` bridge for 401 auto-refresh, web + React Native.",
+          "`@fusorb/facet-docs`: this config-driven docs engine, installable by any Arcevo project.",
+          "`@fusorb/facet-emails`: framework-agnostic email templates: render HTML/text from React or plain trees, with a dev preview server.",
+          "`@fusorb/facet-cli`: scaffold docs + emails sites, audit and update your facet setup from the terminal.",
         ],
       },
       { type: "h2", text: "Architecture" },
@@ -51,8 +51,8 @@ pnpm typecheck # all projects`,
       { type: "p", text: "Consume in your app:" },
       {
         type: "code",
-        text: `import { ConsoleLayout, enterpriseLayoutPreset } from "@arcevo/facet-layout";
-import { Guard, fintechPreset } from "@arcevo/facet-auth";
+        text: `import { ConsoleLayout, enterpriseLayoutPreset } from "@fusorb/facet-layout";
+import { Guard, fintechPreset } from "@fusorb/facet-auth";
 
 function App() {
   return (
@@ -67,7 +67,7 @@ function App() {
       { type: "h2", text: "Publishing" },
       {
         type: "p",
-        text: "Packages publish to npm under the `@arcevo/facet-*` scope via Changesets. The GitHub Actions workflow runs a validation gate (build, typecheck, docs inventory) and an auto-version job that opens the \"Version Packages\" PR on main. Publishing itself is done locally by the maintainer (`pnpm changeset publish`) from a clean tree, after `pnpm -r build` passes.",
+        text: "Packages publish to npm under the `@fusorb/facet-*` scope via Changesets. The GitHub Actions workflow runs a validation gate (build, typecheck, docs inventory) and an auto-version job that opens the \"Version Packages\" PR on main. Publishing itself is done locally by the maintainer (`pnpm changeset publish`) from a clean tree, after `pnpm -r build` passes.",
       },
     ],
   },
@@ -80,25 +80,25 @@ function App() {
       { type: "h2", text: "1. Install" },
       {
         type: "install",
-        pkg: "@arcevo/facet-components",
-        extras: ["@arcevo/facet-sdk", "@arcevo/facet-auth", "@arcevo/facet-layout"],
+        pkg: "@fusorb/facet-components",
+        extras: ["@fusorb/facet-sdk", "@fusorb/facet-auth", "@fusorb/facet-layout"],
       },
       { type: "p", text: "Tokens are optional but recommended:" },
       {
         type: "install",
-        pkg: "@arcevo/facet-tokens",
+        pkg: "@fusorb/facet-tokens",
       },
       { type: "h2", text: "2. Import tokens" },
       {
         type: "p",
         text: "The Alpha Palette tokens ship as CSS variables. Import them once at your app root:",
       },
-      { type: "code", text: `@import "@arcevo/facet-tokens/tokens.css";` },
+      { type: "code", text: `@import "@fusorb/facet-tokens/tokens.css";` },
       {
         type: "p",
         text: "If you use Tailwind v4, import the theme extension to map the variables onto utility classes (`bg-primary`, `text-foreground`, ...):",
       },
-      { type: "code", text: `@import "@arcevo/facet-tokens/tailwind.css";` },
+      { type: "code", text: `@import "@fusorb/facet-tokens/tailwind.css";` },
       { type: "h2", text: "3. Theme provider" },
       {
         type: "p",
@@ -106,7 +106,7 @@ function App() {
       },
       {
         type: "code",
-        text: `import { ThemeProvider, ThemeToggle } from "@arcevo/facet-components";
+        text: `import { ThemeProvider, ThemeToggle } from "@fusorb/facet-components";
 
 function App() {
   return (
@@ -120,7 +120,7 @@ function App() {
       { type: "h2", text: "4. Render a component" },
       {
         type: "code",
-        text: `import { Button, Badge } from "@arcevo/facet-components";
+        text: `import { Button, Badge } from "@fusorb/facet-components";
 
 <Button variant="default" size="lg">Get started</Button>
 <Badge variant="success">Live</Badge>`,
@@ -132,7 +132,7 @@ function App() {
       },
       {
         type: "code",
-        text: `import { ArcProvider, SignIn, fintechPreset } from "@arcevo/facet-auth";
+        text: `import { ArcProvider, SignIn, fintechPreset } from "@fusorb/facet-auth";
 
 <ArcProvider client={client}>
   <SignIn config={fintechPreset} />
@@ -149,7 +149,7 @@ function App() {
       },
       {
         type: "p",
-        text: "Want this exact docs site in your own project? See the `Docs Package` guide for mounting `@arcevo/facet-docs` with your brand and pages.",
+        text: "Want this exact docs site in your own project? See the `Docs Package` guide for mounting `@fusorb/facet-docs` with your brand and pages.",
       },
       { type: "h2", text: "7. Keyboard shortcuts" },
       {
@@ -160,13 +160,13 @@ function App() {
       { type: "h2", text: "8. Use the docs package" },
       {
         type: "p",
-        text: "Want a docs site like this one in your own project? `@arcevo/facet-docs` is an installable docs engine. Mount `<DocsApp>` with your brand, pages, and content blocks:",
+        text: "Want a docs site like this one in your own project? `@fusorb/facet-docs` is an installable docs engine. Mount `<DocsApp>` with your brand, pages, and content blocks:",
       },
       {
         type: "code",
         lang: "tsx",
-        text: `import { DocsApp } from "@arcevo/facet-docs";
-import type { DocsPage, DocsSiteConfig } from "@arcevo/facet-docs";
+        text: `import { DocsApp } from "@fusorb/facet-docs";
+import type { DocsPage, DocsSiteConfig } from "@fusorb/facet-docs";
 
 const config: DocsSiteConfig = {
   brand: { name: "my-app", tagline: "My product docs" },
@@ -197,7 +197,7 @@ export function App() {
           "`Auth`: the SignIn state machine, standalone forms, MFA, guards, and domain presets.",
           "`Layout`: ConsoleLayout, AuthLayout, LandingLayout, sidebar/topbar, and router adapters.",
           "`Theming`: light/dark/system theming and per-brand token overrides.",
-          "`Docs Package`: mount @arcevo/facet-docs with your own brand and pages.",
+          "`Docs Package`: mount @fusorb/facet-docs with your own brand and pages.",
           "`Components`: browse the component gallery with live demos and usage tabs.",
           "`Ready to Use`: drop-in extras like Dropzone, ColorPicker, QRCode, Marquee, Roadmap, and Form.",
         ],
@@ -236,7 +236,7 @@ export function App() {
       },
       {
         type: "code",
-        text: `import { useTheme } from "@arcevo/facet-components";
+        text: `import { useTheme } from "@fusorb/facet-components";
 
 function MyHeader() {
   const { theme, setTheme, toggleTheme, resolvedTheme } = useTheme();
@@ -291,7 +291,7 @@ function MyHeader() {
     blocks: [
       {
         type: "p",
-        text: "The @arcevo/facet-tokens package exports tokens.css (CSS variables) and tailwind.css (maps them to Tailwind v4 utilities like bg-background and text-foreground).",
+        text: "The @fusorb/facet-tokens package exports tokens.css (CSS variables) and tailwind.css (maps them to Tailwind v4 utilities like bg-background and text-foreground).",
       },
       { type: "h2", text: "Color" },
       {
@@ -328,7 +328,7 @@ function MyHeader() {
     blocks: [
       {
         type: "p",
-        text: "The `@arcevo/facet-auth` package provides SignIn, SignUp, Guard, MfaDialog, forms, and domain presets. Everything is customizable per sector (fintech, med, edu, enterprise) via appearance / config / slots.",
+        text: "The `@fusorb/facet-auth` package provides SignIn, SignUp, Guard, MfaDialog, forms, and domain presets. Everything is customizable per sector (fintech, med, edu, enterprise) via appearance / config / slots.",
       },
       {
         type: "p",
@@ -419,7 +419,7 @@ function MyHeader() {
       },
       {
         type: "code",
-        text: `import { SignUp } from "@arcevo/facet-auth";
+        text: `import { SignUp } from "@fusorb/facet-auth";
 
 <SignUp
   config={eduPreset}
@@ -470,7 +470,7 @@ function MyHeader() {
       },
       {
         type: "code",
-        text: `import { MfaDialog } from "@arcevo/facet-auth";
+        text: `import { MfaDialog } from "@fusorb/facet-auth";
 
 <MfaDialog
   open
@@ -535,7 +535,7 @@ function MyHeader() {
       },
       {
         type: "code",
-        text: `import { SignIn, fintechPreset } from "@arcevo/facet-auth";
+        text: `import { SignIn, fintechPreset } from "@fusorb/facet-auth";
 
 <SignIn config={fintechPreset} />`,
       },
@@ -586,16 +586,16 @@ function MyHeader() {
     path: "/docs-package",
     title: "Docs Package",
     section: "ecosystem",
-    description: "Install @arcevo/facet-docs in your own project: mount, config, pages, and blocks.",
+    description: "Install @fusorb/facet-docs in your own project: mount, config, pages, and blocks.",
     blocks: [
       {
         type: "p",
-        text: "`@arcevo/facet-docs` is an installable docs engine. You mount `<DocsApp>` with your own brand, nav, pages, and ecosystem links, with no forking or copied source. This very site is a consumer of it.",
+        text: "`@fusorb/facet-docs` is an installable docs engine. You mount `<DocsApp>` with your own brand, nav, pages, and ecosystem links, with no forking or copied source. This very site is a consumer of it.",
       },
       { type: "h2", text: "Install" },
       {
         type: "install",
-        pkg: "@arcevo/facet-docs",
+        pkg: "@fusorb/facet-docs",
         extras: ["react", "react-dom", "react-router-dom"],
       },
       {
@@ -606,8 +606,8 @@ function MyHeader() {
       {
         type: "code",
         lang: "tsx",
-        text: `import { DocsApp } from "@arcevo/facet-docs";
-import type { DocsPage, DocsSiteConfig } from "@arcevo/facet-docs";
+        text: `import { DocsApp } from "@fusorb/facet-docs";
+import type { DocsPage, DocsSiteConfig } from "@fusorb/facet-docs";
 
 const config: DocsSiteConfig = {
   brand: { name: "my-app", tagline: "My product docs" },
@@ -624,7 +624,7 @@ const pages: DocsPage[] = [
     blocks: [
       { type: "p", text: "Hello." },
       { type: "h2", text: "Quick start" },
-      { type: "code", lang: "tsx", text: "import { Button } from \\"@arcevo/facet-components\\";" },
+      { type: "code", lang: "tsx", text: "import { Button } from \\"@fusorb/facet-components\\";" },
     ],
   },
 ];
@@ -669,13 +669,13 @@ export function App() {
           "`config.brand`: name, tagline, used in the sidebar and settings menu.",
           "`config.navigation`: extra sidebar sections beyond the page-driven ones.",
           "`config.ecosystem`: links to your other products' docs.",
-          "Icons flow through `@arcevo/facet-components`' semantic registry; override per domain via `IconProvider`, no forking.",
+          "Icons flow through `@fusorb/facet-components`' semantic registry; override per domain via `IconProvider`, no forking.",
           "The theme follows the host app's `ThemeProvider` (light/dark/system).",
         ],
       },
       {
         type: "p",
-        text: "Try it: the docs demo app (`apps/docs`) consumes `@arcevo/facet-docs` via `workspace:*` exactly like an external consumer, so it doubles as a reference implementation.",
+        text: "Try it: the docs demo app (`apps/docs`) consumes `@fusorb/facet-docs` via `workspace:*` exactly like an external consumer, so it doubles as a reference implementation.",
       },
     ],
   },
@@ -687,7 +687,7 @@ export function App() {
     blocks: [
       {
         type: "p",
-        text: "`@arcevo/facet-layout` ships ConsoleLayout, AuthLayout, LandingLayout, and a collapsible, resizable sidebar. Config-driven via `LayoutConfig` with domain presets.",
+        text: "`@fusorb/facet-layout` ships ConsoleLayout, AuthLayout, LandingLayout, and a collapsible, resizable sidebar. Config-driven via `LayoutConfig` with domain presets.",
       },
       { type: "h2", text: "ConsoleLayout" },
       {
@@ -762,7 +762,7 @@ export function App() {
       {
         type: "code",
         lang: "tsx",
-        text: `import { Icon } from "@arcevo/facet-components";
+        text: `import { Icon } from "@fusorb/facet-components";
 
 <Icon name="settings" className="size-4" />`,
       },
@@ -774,7 +774,7 @@ export function App() {
       {
         type: "code",
         lang: "tsx",
-        text: `import { registerIcon, Icon } from "@arcevo/facet-components";
+        text: `import { registerIcon, Icon } from "@fusorb/facet-components";
 
 registerIcon("shield", (props) => <Icon name="shield-alert" {...props} />);`,
       },
@@ -867,15 +867,15 @@ registerIcon("shield", (props) => <Icon name="shield-alert" {...props} />);`,
         type: "table",
         headers: ["Layer", "Stack", "Works outside React?"],
         rows: [
-          ["`@arcevo/facet-tokens`", "CSS variables + Tailwind v4 theme", "Yes, plain CSS, any framework, no JS"],
-          ["`@arcevo/facet-sdk`", "TypeScript, pure fetch", "Yes, any runtime (browser, Node, edge)"],
-          ["`@arcevo/facet-store`", "Zustand stores + token-refresh bridge", "Yes - stores are pure Zustand (usable without React via getState/setState); `createZustandTokenStorage` is fully framework-agnostic; React is a peer only for hook consumption"],
-          ["`@arcevo/facet-emails`", "Template-tree renderer (zero runtime deps)", "Yes, any host (plain JS, Node, JSON trees)"],
-          ["`@arcevo/facet-cli`", "Node CLI", "Yes, scaffolds docs + emails for React, Next, Remix, plain JS, Python"],
-          ["`@arcevo/facet-components`", "React + Radix + tailwind-merge", "No, React 18/19 only"],
-          ["`@arcevo/facet-layout`", "React", "No, React 18/19 only"],
-          ["`@arcevo/facet-auth`", "React", "No, React 18/19 only"],
-          ["`@arcevo/facet-docs`", "React + react-router", "No, React 18/19 only"],
+          ["`@fusorb/facet-tokens`", "CSS variables + Tailwind v4 theme", "Yes, plain CSS, any framework, no JS"],
+          ["`@fusorb/facet-sdk`", "TypeScript, pure fetch", "Yes, any runtime (browser, Node, edge)"],
+          ["`@fusorb/facet-store`", "Zustand stores + token-refresh bridge", "Yes - stores are pure Zustand (usable without React via getState/setState); `createZustandTokenStorage` is fully framework-agnostic; React is a peer only for hook consumption"],
+          ["`@fusorb/facet-emails`", "Template-tree renderer (zero runtime deps)", "Yes, any host (plain JS, Node, JSON trees)"],
+          ["`@fusorb/facet-cli`", "Node CLI", "Yes, scaffolds docs + emails for React, Next, Remix, plain JS, Python"],
+          ["`@fusorb/facet-components`", "React + Radix + tailwind-merge", "No, React 18/19 only"],
+          ["`@fusorb/facet-layout`", "React", "No, React 18/19 only"],
+          ["`@fusorb/facet-auth`", "React", "No, React 18/19 only"],
+          ["`@fusorb/facet-docs`", "React + react-router", "No, React 18/19 only"],
         ],
       },
       { type: "h2", text: "Why React-only for UI" },
@@ -887,9 +887,9 @@ registerIcon("shield", (props) => <Icon name="shield-alert" {...props} />);`,
       {
         type: "ul",
         items: [
-          "**Tokens only:** import `@arcevo/facet-tokens/tokens.css` in any framework for the Alpha Palette design language.",
-          "**Tailwind v4 theme:** `@arcevo/facet-tokens/tailwind.css` registers `@theme` utilities (bg-primary, text-foreground, ...) for any Tailwind v4 project.",
-          "**SDK:** `@arcevo/facet-sdk` is a dependency-free fetch client, drop it into any TypeScript backend or frontend.",
+          "**Tokens only:** import `@fusorb/facet-tokens/tokens.css` in any framework for the Alpha Palette design language.",
+          "**Tailwind v4 theme:** `@fusorb/facet-tokens/tailwind.css` registers `@theme` utilities (bg-primary, text-foreground, ...) for any Tailwind v4 project.",
+          "**SDK:** `@fusorb/facet-sdk` is a dependency-free fetch client, drop it into any TypeScript backend or frontend.",
           "**CLI scaffolding:** `facet docs init` generates plain-JS and Python docs pipelines, and `facet emails init` scaffolds framework-agnostic email templates, so a non-React team can still ship facet-style docs and emails.",
         ],
       },
@@ -909,16 +909,16 @@ registerIcon("shield", (props) => <Icon name="shield-alert" {...props} />);`,
     path: "/cli",
     title: "CLI",
     section: "ecosystem",
-    description: "Scaffold docs sites, draft docs from your repo, copy components, and generate a tree-shaken icon registry with @arcevo/facet-cli.",
+    description: "Scaffold docs sites, draft docs from your repo, copy components, and generate a tree-shaken icon registry with @fusorb/facet-cli.",
     blocks: [
       {
         type: "p",
-        text: "`@arcevo/facet-cli` is the facet ecosystem's tooling: it scaffolds a docs site in any repo (React+Vite, Next.js, Remix, plain JS, or Python), scaffolds or migrates email templates, copies components into your source (shadcn-style), drafts docs by scanning your repo, and generates a tree-shaken icon registry.",
+        text: "`@fusorb/facet-cli` is the facet ecosystem's tooling: it scaffolds a docs site in any repo (React+Vite, Next.js, Remix, plain JS, or Python), scaffolds or migrates email templates, copies components into your source (shadcn-style), drafts docs by scanning your repo, and generates a tree-shaken icon registry.",
       },
       { type: "h2", text: "Install" },
       {
         type: "install",
-        pkg: "@arcevo/facet-cli",
+        pkg: "@fusorb/facet-cli",
       },
       { type: "h2", text: "Scaffold a docs site" },
       {
@@ -952,7 +952,7 @@ facet docs init -y`,
       },
       {
         type: "p",
-        text: "Every framework gets the same `@arcevo/facet-docs` engine: the content is plain data, so any host can render it.",
+        text: "Every framework gets the same `@fusorb/facet-docs` engine: the content is plain data, so any host can render it.",
       },
       { type: "h2", text: "Install a package" },
       {
@@ -960,7 +960,7 @@ facet docs init -y`,
         lang: "bash",
         text: `facet install layout
 # or the full name:
-facet install @arcevo/facet-layout
+facet install @fusorb/facet-layout
 # the scoped-dropped alias also works:
 facet install facet-cli
 # install globally (e.g. keep facet-cli current) with the short name:
@@ -968,7 +968,7 @@ facet install -g facet-cli`,
       },
       {
         type: "p",
-        text: "`facet install` adds any facet package to your project by its shorthand (e.g. `layout`, `store`, `auth`), its scoped-dropped alias (e.g. `facet-cli` -> `@arcevo/facet-cli`), or its full name (e.g. `@arcevo/facet-layout`). It resolves the latest published version from npm and runs the install with your project's package manager. Pass `-g`/`--global` to install globally - `facet install -g facet-cli` (re)installs the CLI under the short name. `facet add` is an alias. To copy a component instead, use `facet copy <ComponentName>`.",
+        text: "`facet install` adds any facet package to your project by its shorthand (e.g. `layout`, `store`, `auth`), its scoped-dropped alias (e.g. `facet-cli` -> `@fusorb/facet-cli`), or its full name (e.g. `@fusorb/facet-layout`). It resolves the latest published version from npm and runs the install with your project's package manager. Pass `-g`/`--global` to install globally - `facet install -g facet-cli` (re)installs the CLI under the short name. `facet add` is an alias. To copy a component instead, use `facet copy <ComponentName>`.",
       },
       { type: "h2", text: "Copy a component" },
       {
@@ -985,7 +985,7 @@ facet copy Button --ui-dir ui`,
       },
       {
         type: "p",
-        text: "**Recommended:** import from `@arcevo/facet-components` instead of copying source: you get updates, tree-shaking, and the token system. Copying source means you own every future fix.",
+        text: "**Recommended:** import from `@fusorb/facet-components` instead of copying source: you get updates, tree-shaking, and the token system. Copying source means you own every future fix.",
       },
       { type: "h2", text: "Generate a tree-shaken icon registry" },
       {
@@ -1052,12 +1052,12 @@ facet docs scan --out docs && facet docs scan -y`,
           ["`facet docs init`", "Scaffold a docs site (interactive wizard or `-y`)"],
           ["`facet docs scan`", "Read this repo and draft a documentation layer (pages + sidebar + API reference) for review"],
           ["`facet copy <component>`", "Copy a component into your source (shadcn-style)"],
-          ["`facet add <name> [-g]` / `facet install <name> [-g]`", "Install a facet package by shorthand (e.g. 'layout'), scoped-dropped alias (e.g. 'facet-cli'), or full name (e.g. '@arcevo/facet-layout'). Pass -g/--global to install globally"],
+          ["`facet add <name> [-g]` / `facet install <name> [-g]`", "Install a facet package by shorthand (e.g. 'layout'), scoped-dropped alias (e.g. 'facet-cli'), or full name (e.g. '@fusorb/facet-layout'). Pass -g/--global to install globally"],
           ["`facet icons generate`", "Scan your source and emit a tree-shaken lucide icon registry"],
           ["`facet emails init`", "Scaffold or migrate email templates wired to facet-emails (detects react-email/mjml/nodemailer/resend)"],
           ["`facet templates list`", "Discover template dirs in the repo (under `./templates/`)"],
           ["`facet templates describe <name>`", "Show a template's manifest and files"],
-          ["`facet latest`", "Show the latest published versions of all @arcevo/facet-* packages"],
+          ["`facet latest`", "Show the latest published versions of all @fusorb/facet-* packages"],
           ["`facet self-update`", "Update the globally-installed facet-cli to the latest published version"],
         ],
       },
@@ -1088,7 +1088,7 @@ facet docs scan --out docs && facet docs scan -y`,
           ["`--language <language>`", "`typescript` or `javascript` (default: TypeScript)"],
           ["`--framework <framework>`", "`react-vite`, `next`, `remix`, `plain-js`, or `python` (default: detected)"],
           ["`--styling <styling>`", "`facet-tokens`, `tailwind`, `plain-css`, or `none` (default: detected)"],
-          ["`--no-tokens`", "Do not wire `@arcevo/facet-tokens` theming"],
+          ["`--no-tokens`", "Do not wire `@fusorb/facet-tokens` theming"],
           ["`--template <template>`", "`component-library`, `api-reference`, or `product-docs` (default: `component-library`)"],
           ["`--use-template <name>`", "Merge an existing template dir from `./templates` into the scaffold (never clobbers existing files)"],
           ["`--barrel <mode>`", "`auto` (create when it fits, default), `always`, or `never`"],
@@ -1127,7 +1127,7 @@ facet emails init --provider resend`,
       },
       {
         type: "p",
-        text: "`facet emails init` detects the consumer's mail setup (react-email, mjml, nodemailer, resend, sendgrid, SES, postmark) from the manifests and either offers a migration or a fresh scaffold: an `emails/` dir with brand tokens, a layout wrapper, a template registry, a dev preview server, and a provider `send.ts` (resend/nodemailer, or a stub to wire up). It auto-installs `@arcevo/facet-emails` plus the provider SDK via the detected package manager, then prints repo-aware next steps from a general suggestion engine: migration guidance when an existing renderer is found, framework-specific integration points (Next API route, Remix action, Vite build, plain Node), monorepo hints, dependency hygiene, provider key setup, and the preview URL. The same engine powers suggestions across other facet commands.",
+        text: "`facet emails init` detects the consumer's mail setup (react-email, mjml, nodemailer, resend, sendgrid, SES, postmark) from the manifests and either offers a migration or a fresh scaffold: an `emails/` dir with brand tokens, a layout wrapper, a template registry, a dev preview server, and a provider `send.ts` (resend/nodemailer, or a stub to wire up). It auto-installs `@fusorb/facet-emails` plus the provider SDK via the detected package manager, then prints repo-aware next steps from a general suggestion engine: migration guidance when an existing renderer is found, framework-specific integration points (Next API route, Remix action, Vite build, plain Node), monorepo hints, dependency hygiene, provider key setup, and the preview URL. The same engine powers suggestions across other facet commands.",
       },
       { type: "h2", text: "facet emails init flags" },
       {
@@ -1166,16 +1166,16 @@ facet emails init --provider resend`,
     path: "/emails",
     title: "Emails",
     section: "ecosystem",
-    description: "Framework-agnostic email templates with @arcevo/facet-emails: render HTML/text from React or plain trees, brand tokens, and a dev preview server.",
+    description: "Framework-agnostic email templates with @fusorb/facet-emails: render HTML/text from React or plain trees, brand tokens, and a dev preview server.",
     blocks: [
       {
         type: "p",
-        text: "`@arcevo/facet-emails` is a framework-agnostic email template renderer. The core accepts a plain, serializable template tree (`{ tag, props, children }`) and renders it to email-safe HTML and plain text - zero runtime dependencies, so any host (React, plain JS, a Node backend, even a JSON tree from another language) can use it. An optional React bridge gives JSX ergonomics.",
+        text: "`@fusorb/facet-emails` is a framework-agnostic email template renderer. The core accepts a plain, serializable template tree (`{ tag, props, children }`) and renders it to email-safe HTML and plain text - zero runtime dependencies, so any host (React, plain JS, a Node backend, even a JSON tree from another language) can use it. An optional React bridge gives JSX ergonomics.",
       },
       { type: "h2", text: "Install" },
       {
         type: "install",
-        pkg: "@arcevo/facet-emails",
+        pkg: "@fusorb/facet-emails",
       },
       {
         type: "p",
@@ -1185,7 +1185,7 @@ facet emails init --provider resend`,
       {
         type: "code",
         lang: "ts",
-        text: `import { renderEmail, renderEmailText, emailLayout, emailButton, emailText } from "@arcevo/facet-emails";
+        text: `import { renderEmail, renderEmailText, emailLayout, emailButton, emailText } from "@fusorb/facet-emails";
 
 const tree = emailLayout(
   { previewText: "Welcome", heading: "Hi!", brandName: "Acme" },
@@ -1200,7 +1200,7 @@ const text = renderEmailText(tree);   // plain-text version`,
       {
         type: "code",
         lang: "tsx",
-        text: `import { renderEmailFromReact, EmailLayout, EmailButton, EmailText } from "@arcevo/facet-emails";
+        text: `import { renderEmailFromReact, EmailLayout, EmailButton, EmailText } from "@fusorb/facet-emails";
 
 const html = renderEmailFromReact(
   <EmailLayout previewText="Welcome" heading="Hi!" brandName="Acme">
@@ -1252,8 +1252,8 @@ const html = renderEmailFromReact(
       {
         type: "code",
         lang: "ts",
-        text: `import { startEmailPreviewServer } from "@arcevo/facet-emails/server";
-import { emailLayout, emailButton } from "@arcevo/facet-emails";
+        text: `import { startEmailPreviewServer } from "@fusorb/facet-emails/server";
+import { emailLayout, emailButton } from "@fusorb/facet-emails";
 
 startEmailPreviewServer({
   templates: {
@@ -1282,21 +1282,21 @@ startEmailPreviewServer({
     path: "/sdk",
     title: "SDK",
     section: "ecosystem",
-    description: "The typed arc-id API client (@arcevo/facet-sdk): first-party sessions + OAuth2/OIDC for external integrations.",
+    description: "The typed arc-id API client (@fusorb/facet-sdk): first-party sessions + OAuth2/OIDC for external integrations.",
     blocks: [
       {
         type: "p",
-        text: "`@arcevo/facet-sdk` is a pure-fetch, framework-agnostic TypeScript client for arc-id. It mirrors arc-id's full REST surface (62 routes across auth, identity, oauth, tenants, credentials, billing, audit, webhooks, idp) and normalizes the `{ success, data }` envelope so SDK methods return the inner payload directly.",
+        text: "`@fusorb/facet-sdk` is a pure-fetch, framework-agnostic TypeScript client for arc-id. It mirrors arc-id's full REST surface (62 routes across auth, identity, oauth, tenants, credentials, billing, audit, webhooks, idp) and normalizes the `{ success, data }` envelope so SDK methods return the inner payload directly.",
       },
       { type: "h2", text: "Install" },
       {
         type: "install",
-        pkg: "@arcevo/facet-sdk",
+        pkg: "@fusorb/facet-sdk",
       },
       { type: "h2", text: "First-party app (own arc-id backend)" },
       {
         type: "code",
-        text: `import { ArcIdClient, AuthSdk } from "@arcevo/facet-sdk";
+        text: `import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
 
 const client = new ArcIdClient({ baseUrl: "https://auth.example.com/api/v1" });
 const auth = new AuthSdk(client);
@@ -1360,11 +1360,11 @@ const next = await auth.refresh(tokens.data.refreshToken!);`,
       },
       {
         type: "p",
-        text: "If you use `@arcevo/facet-store` for state, use `createZustandTokenStorage` to bridge the store and the client - it handles the refresh re-entrancy guard, token read/write via the store, and auth clearing on failure:",
+        text: "If you use `@fusorb/facet-store` for state, use `createZustandTokenStorage` to bridge the store and the client - it handles the refresh re-entrancy guard, token read/write via the store, and auth clearing on failure:",
       },
       {
         type: "code",
-        text: `import { createZustandTokenStorage } from "@arcevo/facet-store";
+        text: `import { createZustandTokenStorage } from "@fusorb/facet-store";
 
 const storage = createZustandTokenStorage({ authStore: useAuthStore, sdk: auth });
 
@@ -1408,13 +1408,13 @@ const client = new ArcIdClient({
     blocks: [
       {
         type: "p",
-        text: "`@arcevo/facet-store` provides framework-agnostic state stores built on Zustand. It ships two stores (`useAuthStore` for session/auth state, `useTenantStore` for tenant selection) and a `createZustandTokenStorage` bridge that connects them to the SDK's `ArcIdClient` 401 auto-refresh hooks. The stores are pure Zustand - no React in the store logic itself - and the bridge is fully framework-agnostic, so it works identically in React, React Native, or any environment that can call `getState()`.",
+        text: "`@fusorb/facet-store` provides framework-agnostic state stores built on Zustand. It ships two stores (`useAuthStore` for session/auth state, `useTenantStore` for tenant selection) and a `createZustandTokenStorage` bridge that connects them to the SDK's `ArcIdClient` 401 auto-refresh hooks. The stores are pure Zustand - no React in the store logic itself - and the bridge is fully framework-agnostic, so it works identically in React, React Native, or any environment that can call `getState()`.",
       },
       { type: "h2", text: "Install" },
       {
         type: "install",
-        pkg: "@arcevo/facet-store",
-        extras: ["@arcevo/facet-sdk"],
+        pkg: "@fusorb/facet-store",
+        extras: ["@fusorb/facet-sdk"],
       },
       {
         type: "p",
@@ -1435,7 +1435,7 @@ const client = new ArcIdClient({
       },
       {
         type: "code",
-        text: `import { useAuthStore, useTenantStore } from "@arcevo/facet-store";
+        text: `import { useAuthStore, useTenantStore } from "@fusorb/facet-store";
 
 // React: reactive reads
 function SessionBadge() {
@@ -1450,8 +1450,8 @@ function SessionBadge() {
       },
       {
         type: "code",
-        text: `import { createZustandTokenStorage } from "@arcevo/facet-store";
-import { ArcIdClient, AuthSdk } from "@arcevo/facet-sdk";
+        text: `import { createZustandTokenStorage } from "@fusorb/facet-store";
+import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
 
 const client = new ArcIdClient({
   baseUrl,
@@ -1471,7 +1471,7 @@ const client = new ArcIdClient({
       },
       {
         type: "p",
-        text: "See [Stack Agnosticism](/stack-agnosticism) for the full layer matrix. The store has zero arc-id-specific logic - it depends only on `@arcevo/facet-sdk` types and `zustand`. A `TokenStoreLike` and a `TokenRefresher` are the only contracts `createZustandTokenStorage` needs, so you can wire it to any store or refresh implementation.",
+        text: "See [Stack Agnosticism](/stack-agnosticism) for the full layer matrix. The store has zero arc-id-specific logic - it depends only on `@fusorb/facet-sdk` types and `zustand`. A `TokenStoreLike` and a `TokenRefresher` are the only contracts `createZustandTokenStorage` needs, so you can wire it to any store or refresh implementation.",
       },
     ],
   },
@@ -1479,11 +1479,11 @@ const client = new ArcIdClient({
     path: "/changelog",
     title: "Changelog",
     section: "ecosystem",
-    description: "Release log for @arcevo/facet-components and the Arcevo ecosystem.",
+    description: "Release log for @fusorb/facet-components and the Arcevo ecosystem.",
     blocks: [
       {
         type: "p",
-        text: "Versioned release notes for every @arcevo/facet-* package. Entries are curated from the shipped changesets and updated when `pnpm changeset version` runs and CHANGELOG.md is touched.",
+        text: "Versioned release notes for every @fusorb/facet-* package. Entries are curated from the shipped changesets and updated when `pnpm changeset version` runs and CHANGELOG.md is touched.",
       },
       {
         type: "changelog",

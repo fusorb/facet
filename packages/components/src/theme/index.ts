@@ -1,11 +1,11 @@
 /**
- * @arcevo/facet-components: Theme system
+ * @fusorb/facet-components: Theme system
  *
  * Light / dark / system theming with localStorage persistence and
  * per-brand CSS-variable overrides.
  *
  * Usage:
- *   import { ThemeProvider, ThemeToggle, useTheme } from "@arcevo/facet-components";
+ *   import { ThemeProvider, ThemeToggle, useTheme } from "@fusorb/facet-components";
  *
  *   <ThemeProvider defaultTheme="dark">
  *     <ThemeToggle />

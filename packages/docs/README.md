@@ -1,4 +1,4 @@
-# @arcevo/facet-docs
+# @fusorb/facet-docs
 
 Installable, config-driven documentation site **engine** for the Arcevo
 ecosystem. Mount `<DocsApp config={...} pages={...} />` with your own
@@ -21,14 +21,14 @@ usage snippets.
 ## Install
 
 ```bash
-pnpm add @arcevo/facet-docs react react-dom react-router-dom
+pnpm add @fusorb/facet-docs react react-dom react-router-dom
 ```
 
 ## Usage
 
 ```tsx
-import { DocsApp } from "@arcevo/facet-docs";
-import type { DocsPage, DocsSiteConfig } from "@arcevo/facet-docs";
+import { DocsApp } from "@fusorb/facet-docs";
+import type { DocsPage, DocsSiteConfig } from "@fusorb/facet-docs";
 
 const config: DocsSiteConfig = {
   brand: { name: "my-app", tagline: "My product docs" },
@@ -45,8 +45,8 @@ const pages: DocsPage[] = [
     blocks: [
       { type: "p", text: "Hello." },
       { type: "h2", text: "Quick start" },
-      { type: "code", lang: "tsx", text: "import { Button } from \"@arcevo/facet-components\";" },
-      { type: "install", pkg: "@arcevo/facet-components" },
+      { type: "code", lang: "tsx", text: "import { Button } from \"@fusorb/facet-components\";" },
+      { type: "install", pkg: "@fusorb/facet-components" },
       { type: "ul", items: ["One", "Two"] },
     ],
   },
@@ -84,8 +84,8 @@ the search palette automatically.
 
 Pass `showComponents` (default `true`) to mount the `/components` gallery.
 It renders from the extended manifest, which covers the UI components in
-`@arcevo/facet-components` plus the auth (`@arcevo/facet-auth`) and layout
-(`@arcevo/facet-layout`) surfaces, so SignIn, SignUp, MfaDialog, Guard,
+`@fusorb/facet-components` plus the auth (`@fusorb/facet-auth`) and layout
+(`@fusorb/facet-layout`) surfaces, so SignIn, SignUp, MfaDialog, Guard,
 ConsoleLayout, AuthLayout, LandingLayout, Sidebar, and Topbar all get a
 gallery page with a live preview, a full variant gallery, and per-variant
 usage tabs with copy buttons. Each variant tab shows the live preview and
@@ -100,7 +100,7 @@ sidebar; they have their own guide pages under the Foundations section.
 
 ## Icons
 
-The engine renders through `@arcevo/facet-components`' semantic icon
+The engine renders through `@fusorb/facet-components`' semantic icon
 registry, so consumers can override icons per domain via `IconProvider`
 without forking the docs engine.
 
@@ -116,7 +116,7 @@ pnpm build      # tsup -> dist
 pnpm typecheck
 ```
 
-The demo consumer lives at `apps/docs` (`@arcevo/facet-docs-site`);
+The demo consumer lives at `apps/docs` (`@fusorb/facet-docs-site`);
 it installs this package via `workspace:*` exactly like an external
 consumer would, proving the API surface end to end. Its `src/pages.ts`
 holds facet's own authored guide pages: the package itself ships only

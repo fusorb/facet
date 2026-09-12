@@ -20,7 +20,7 @@ export function generateReactVite(answers: DocsAnswers, cwd: string): GeneratedF
   const base = path.join(cwd, answers.location === "." ? "" : answers.location);
   const tsx = answers.language === "typescript" ? "tsx" : "jsx";
 
-  const appEntry = `import { DocsApp } from "@arcevo/facet-docs";
+  const appEntry = `import { DocsApp } from "@fusorb/facet-docs";
 import { docsConfig } from "./config.${e}";
 import { docsPages } from "./pages.${e}";
 
@@ -41,7 +41,7 @@ createRoot(document.getElementById("root")!).render(
 );
 `;
 
-  const configFile = `import type { DocsSiteConfig } from "@arcevo/facet-docs";
+  const configFile = `import type { DocsSiteConfig } from "@fusorb/facet-docs";
 
 /** Docs site configuration for ${answers.name}. */
 export const docsConfig: DocsSiteConfig = {
@@ -52,7 +52,7 @@ export const docsConfig: DocsSiteConfig = {
 };
 `;
 
-  const pagesFile = `import type { DocsPage } from "@arcevo/facet-docs";
+  const pagesFile = `import type { DocsPage } from "@fusorb/facet-docs";
 
 /**
  * Your docs pages registry. A page is data: path + title + section +
@@ -65,10 +65,10 @@ export const docsPages: DocsPage[] = ${JSON.stringify(starterPages(answers.templ
   const packageJson = mergePackageJson(
     readExistingPackageJson(base),
     {
-      facetDocs: answers.facetVersions["@arcevo/facet-docs"] ?? "^1.0.0",
-      facetTokens: answers.facetVersions["@arcevo/facet-tokens"] ?? "^1.0.0",
-      facetComponents: answers.facetVersions["@arcevo/facet-components"] ?? "^1.0.0",
-      facetLayout: answers.facetVersions["@arcevo/facet-layout"] ?? "^1.0.0",
+      facetDocs: answers.facetVersions["@fusorb/facet-docs"] ?? "^1.0.0",
+      facetTokens: answers.facetVersions["@fusorb/facet-tokens"] ?? "^1.0.0",
+      facetComponents: answers.facetVersions["@fusorb/facet-components"] ?? "^1.0.0",
+      facetLayout: answers.facetVersions["@fusorb/facet-layout"] ?? "^1.0.0",
       framework: answers.framework,
       language: answers.language,
     },
@@ -101,14 +101,14 @@ export default defineConfig({
 `;
 
   const tokensCss = `/* facet Alpha Palette design tokens (CSS variables) */
-@import "@arcevo/facet-tokens/tokens.css";
+@import "@fusorb/facet-tokens/tokens.css";
 
 /* Map the tokens onto Tailwind v4 utilities (bg-background, text-foreground, ...) */
-@import "@arcevo/facet-tokens/tailwind.css";
+@import "@fusorb/facet-tokens/tailwind.css";
 
 /* Tell Tailwind v4 to crawl the facet packages for utility classes */
-@source "../../node_modules/@arcevo/facet-components/src";
-@source "../../node_modules/@arcevo/facet-layout/src";
+@source "../../node_modules/@fusorb/facet-components/src";
+@source "../../node_modules/@fusorb/facet-layout/src";
 `;
 
   const plainCss = `/* Your own styling entry point */

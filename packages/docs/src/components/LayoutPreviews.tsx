@@ -34,7 +34,7 @@ export function LayoutPreviews() {
       <CodeShell
         title="ConsoleLayout"
         description={'Dashboard shell: sidebar + topbar + content area. mode="full" is always-labeled; mode="rail" collapses to an icon-only rail. Mobile collapses to a Sheet.'}
-        code={`import { ConsoleLayout, defaultLayoutPreset } from "@arcevo/facet-layout";
+        code={`import { ConsoleLayout, defaultLayoutPreset } from "@fusorb/facet-layout";
 
 <ConsoleLayout config={defaultLayoutPreset} mode="full">
   <YourContent />
@@ -44,8 +44,8 @@ export function LayoutPreviews() {
       <CodeShell
         title="AuthLayout"
         description="Branded split-panel auth page frame: logo + tagline + benefits on the left, centered card on the right."
-        code={`import { AuthLayout, fintechLayoutPreset } from "@arcevo/facet-layout";
-import { SignIn, fintechPreset } from "@arcevo/facet-auth";
+        code={`import { AuthLayout, fintechLayoutPreset } from "@fusorb/facet-layout";
+import { SignIn, fintechPreset } from "@fusorb/facet-auth";
 
 <AuthLayout config={fintechLayoutPreset}>
   <SignIn config={fintechPreset} />
@@ -55,7 +55,7 @@ import { SignIn, fintechPreset } from "@arcevo/facet-auth";
       <CodeShell
         title="Sidebar & Topbar"
         description="Use Sidebar + Topbar standalone with LayoutProvider: this docs site is built from them. Drag the sidebar edge to resize."
-        code={`import { Sidebar, Topbar, LayoutProvider, fintechLayoutPreset } from "@arcevo/facet-layout";
+        code={`import { Sidebar, Topbar, LayoutProvider, fintechLayoutPreset } from "@fusorb/facet-layout";
 
 <LayoutProvider>
   <div className="flex">
@@ -71,8 +71,8 @@ import { SignIn, fintechPreset } from "@arcevo/facet-auth";
       <CodeShell
         title="LandingLayout"
         description="Full-bleed marketing shell with a glassmorphic hero. Pair with the Navbar pill variant."
-        code={`import { LandingLayout } from "@arcevo/facet-layout";
-import { Navbar } from "@arcevo/facet-components";
+        code={`import { LandingLayout } from "@fusorb/facet-layout";
+import { Navbar } from "@fusorb/facet-components";
 
 <LandingLayout
   nav={<Navbar variant="pill" brand={brand} links={links} />}
@@ -86,7 +86,7 @@ import { Navbar } from "@arcevo/facet-components";
       <CodeShell
         title="Navbar pill"
         description="The pill navbar variant is the landing shell's top nav: a floating rounded bar with brand, links, and actions."
-        code={`import { Navbar } from "@arcevo/facet-components";
+        code={`import { Navbar } from "@fusorb/facet-components";
 
 <Navbar
   variant="pill"

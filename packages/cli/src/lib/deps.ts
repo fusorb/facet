@@ -2,7 +2,7 @@
  * Dep scanning + repo hygiene for the facet CLI.
  *
  * `facet clean` finds dependencies that are already bundled by
- * `@arcevo/facet-components` (radix primitives, lucide, cmdk, ...) and
+ * `@fusorb/facet-components` (radix primitives, lucide, cmdk, ...) and
  * removes them from the consumer's manifests; it also rewrites imports
  * that point at shadcn/ui-style local component folders to the facet
  * package. `facet scripts` writes the npm scripts the consumer asks for.
@@ -116,46 +116,46 @@ export function importSpecifier(
 }
 
 
-/** Dependency names that @arcevo/facet-components already bundles, so a
+/** Dependency names that @fusorb/facet-components already bundles, so a
  * consumer that imports components from the package does not need them. */
 export const BUNDLED_DEPS: { name: string; why: string }[] = [
-  { name: "@radix-ui/react-accordion", why: "bundled by @arcevo/facet-components (Accordion)" },
-  { name: "@radix-ui/react-alert-dialog", why: "bundled by @arcevo/facet-components (AlertDialog)" },
-  { name: "@radix-ui/react-aspect-ratio", why: "bundled by @arcevo/facet-components (AspectRatio)" },
-  { name: "@radix-ui/react-avatar", why: "bundled by @arcevo/facet-components (Avatar)" },
-  { name: "@radix-ui/react-checkbox", why: "bundled by @arcevo/facet-components (Checkbox)" },
-  { name: "@radix-ui/react-collapsible", why: "bundled by @arcevo/facet-components (Collapsible)" },
-  { name: "@radix-ui/react-context-menu", why: "bundled by @arcevo/facet-components (ContextMenu)" },
-  { name: "@radix-ui/react-dialog", why: "bundled by @arcevo/facet-components (Dialog)" },
-  { name: "@radix-ui/react-dropdown-menu", why: "bundled by @arcevo/facet-components (DropdownMenu)" },
-  { name: "@radix-ui/react-hover-card", why: "bundled by @arcevo/facet-components (HoverCard)" },
-  { name: "@radix-ui/react-label", why: "bundled by @arcevo/facet-components (Label)" },
-  { name: "@radix-ui/react-menubar", why: "bundled by @arcevo/facet-components (Menubar)" },
-  { name: "@radix-ui/react-navigation-menu", why: "bundled by @arcevo/facet-components (NavigationMenu)" },
-  { name: "@radix-ui/react-popover", why: "bundled by @arcevo/facet-components (Popover)" },
-  { name: "@radix-ui/react-progress", why: "bundled by @arcevo/facet-components (Progress)" },
-  { name: "@radix-ui/react-radio-group", why: "bundled by @arcevo/facet-components (RadioGroup)" },
-  { name: "@radix-ui/react-scroll-area", why: "bundled by @arcevo/facet-components (ScrollArea)" },
-  { name: "@radix-ui/react-select", why: "bundled by @arcevo/facet-components (Select)" },
-  { name: "@radix-ui/react-separator", why: "bundled by @arcevo/facet-components (Separator)" },
-  { name: "@radix-ui/react-slider", why: "bundled by @arcevo/facet-components (Slider)" },
-  { name: "@radix-ui/react-switch", why: "bundled by @arcevo/facet-components (Switch)" },
-  { name: "@radix-ui/react-tabs", why: "bundled by @arcevo/facet-components (Tabs)" },
-  { name: "@radix-ui/react-toggle", why: "bundled by @arcevo/facet-components (Toggle)" },
-  { name: "@radix-ui/react-toggle-group", why: "bundled by @arcevo/facet-components (ToggleGroup)" },
-  { name: "@radix-ui/react-tooltip", why: "bundled by @arcevo/facet-components (Tooltip)" },
+  { name: "@radix-ui/react-accordion", why: "bundled by @fusorb/facet-components (Accordion)" },
+  { name: "@radix-ui/react-alert-dialog", why: "bundled by @fusorb/facet-components (AlertDialog)" },
+  { name: "@radix-ui/react-aspect-ratio", why: "bundled by @fusorb/facet-components (AspectRatio)" },
+  { name: "@radix-ui/react-avatar", why: "bundled by @fusorb/facet-components (Avatar)" },
+  { name: "@radix-ui/react-checkbox", why: "bundled by @fusorb/facet-components (Checkbox)" },
+  { name: "@radix-ui/react-collapsible", why: "bundled by @fusorb/facet-components (Collapsible)" },
+  { name: "@radix-ui/react-context-menu", why: "bundled by @fusorb/facet-components (ContextMenu)" },
+  { name: "@radix-ui/react-dialog", why: "bundled by @fusorb/facet-components (Dialog)" },
+  { name: "@radix-ui/react-dropdown-menu", why: "bundled by @fusorb/facet-components (DropdownMenu)" },
+  { name: "@radix-ui/react-hover-card", why: "bundled by @fusorb/facet-components (HoverCard)" },
+  { name: "@radix-ui/react-label", why: "bundled by @fusorb/facet-components (Label)" },
+  { name: "@radix-ui/react-menubar", why: "bundled by @fusorb/facet-components (Menubar)" },
+  { name: "@radix-ui/react-navigation-menu", why: "bundled by @fusorb/facet-components (NavigationMenu)" },
+  { name: "@radix-ui/react-popover", why: "bundled by @fusorb/facet-components (Popover)" },
+  { name: "@radix-ui/react-progress", why: "bundled by @fusorb/facet-components (Progress)" },
+  { name: "@radix-ui/react-radio-group", why: "bundled by @fusorb/facet-components (RadioGroup)" },
+  { name: "@radix-ui/react-scroll-area", why: "bundled by @fusorb/facet-components (ScrollArea)" },
+  { name: "@radix-ui/react-select", why: "bundled by @fusorb/facet-components (Select)" },
+  { name: "@radix-ui/react-separator", why: "bundled by @fusorb/facet-components (Separator)" },
+  { name: "@radix-ui/react-slider", why: "bundled by @fusorb/facet-components (Slider)" },
+  { name: "@radix-ui/react-switch", why: "bundled by @fusorb/facet-components (Switch)" },
+  { name: "@radix-ui/react-tabs", why: "bundled by @fusorb/facet-components (Tabs)" },
+  { name: "@radix-ui/react-toggle", why: "bundled by @fusorb/facet-components (Toggle)" },
+  { name: "@radix-ui/react-toggle-group", why: "bundled by @fusorb/facet-components (ToggleGroup)" },
+  { name: "@radix-ui/react-tooltip", why: "bundled by @fusorb/facet-components (Tooltip)" },
   { name: "lucide-react", why: "use the facet Icon registry (<Icon name=... />) instead" },
-  { name: "cmdk", why: "bundled by @arcevo/facet-components (Command)" },
-  { name: "embla-carousel-react", why: "bundled by @arcevo/facet-components (Carousel)" },
-  { name: "input-otp", why: "bundled by @arcevo/facet-components (InputOTP)" },
-  { name: "qrcode.react", why: "bundled by @arcevo/facet-components (QRCode)" },
-  { name: "react-hook-form", why: "bundled by @arcevo/facet-components (Form)" },
-  { name: "react-resizable-panels", why: "bundled by @arcevo/facet-components (Resizable)" },
-  { name: "sonner", why: "bundled by @arcevo/facet-components (Toast)" },
-  { name: "vaul", why: "bundled by @arcevo/facet-components (Drawer)" },
-  { name: "class-variance-authority", why: "bundled by @arcevo/facet-components" },
-  { name: "clsx", why: "bundled by @arcevo/facet-components" },
-  { name: "tailwind-merge", why: "bundled by @arcevo/facet-components" },
+  { name: "cmdk", why: "bundled by @fusorb/facet-components (Command)" },
+  { name: "embla-carousel-react", why: "bundled by @fusorb/facet-components (Carousel)" },
+  { name: "input-otp", why: "bundled by @fusorb/facet-components (InputOTP)" },
+  { name: "qrcode.react", why: "bundled by @fusorb/facet-components (QRCode)" },
+  { name: "react-hook-form", why: "bundled by @fusorb/facet-components (Form)" },
+  { name: "react-resizable-panels", why: "bundled by @fusorb/facet-components (Resizable)" },
+  { name: "sonner", why: "bundled by @fusorb/facet-components (Toast)" },
+  { name: "vaul", why: "bundled by @fusorb/facet-components (Drawer)" },
+  { name: "class-variance-authority", why: "bundled by @fusorb/facet-components" },
+  { name: "clsx", why: "bundled by @fusorb/facet-components" },
+  { name: "tailwind-merge", why: "bundled by @fusorb/facet-components" },
 ];
 
 /** Static why-map built from BUNDLED_DEPS - used to annotate deps discovered
@@ -163,7 +163,7 @@ export const BUNDLED_DEPS: { name: string; why: string }[] = [
 const WHY_MAP = new Map(BUNDLED_DEPS.map((d) => [d.name, d.why]));
 
 /**
- * Dynamically resolve which dependencies @arcevo/facet-components bundles by
+ * Dynamically resolve which dependencies @fusorb/facet-components bundles by
  * reading its **installed** package.json from the consumer's node_modules.
  * Falls back to the static BUNDLED_DEPS when the package isn't installed or
  * can't be read (offline, edge cases, older versions).
@@ -174,19 +174,19 @@ const WHY_MAP = new Map(BUNDLED_DEPS.map((d) => [d.name, d.why]));
  */
 export function resolveBundledDeps(cwd: string): { name: string; why: string }[] {
   try {
-    const pkgPath = path.join(cwd, "node_modules/@arcevo/facet-components/package.json");
+    const pkgPath = path.join(cwd, "node_modules/@fusorb/facet-components/package.json");
     if (!existsSync(pkgPath)) return BUNDLED_DEPS;
     const pkg = JSON.parse(readFileSync(pkgPath, "utf8")) as { dependencies?: Record<string, string> };
     const deps = pkg.dependencies ?? {};
     // Exclude facet's own workspace peers and React (peer dep) - those are
     // not "bundled" in the sense that consumers should also install them.
     const bundled = Object.keys(deps).filter(
-      (name) => !name.startsWith("@arcevo/") && name !== "react" && name !== "react-dom",
+      (name) => !name.startsWith("@fusorb/") && name !== "react" && name !== "react-dom",
     );
     if (!bundled.length) return BUNDLED_DEPS;
     return bundled.map((name) => ({
       name,
-      why: WHY_MAP.get(name) ?? "bundled by @arcevo/facet-components",
+      why: WHY_MAP.get(name) ?? "bundled by @fusorb/facet-components",
     }));
   } catch {
     return BUNDLED_DEPS;
@@ -228,7 +228,7 @@ export function findManifests(cwd: string): string[] {
   return [...out];
 }
 
-/** Scan every manifest for deps that @arcevo/facet-components bundles. */
+/** Scan every manifest for deps that @fusorb/facet-components bundles. */
 export function scanUnnecessaryDeps(cwd: string): UnnecessaryDepEntry[] {
   const deps = resolveBundledDeps(cwd);
   const bundled = new Set(deps.map((d) => d.name));
@@ -243,7 +243,7 @@ export function scanUnnecessaryDeps(cwd: string): UnnecessaryDepEntry[] {
     };
     const found = Object.keys(declared)
       .filter((name) => bundled.has(name))
-      .map((name) => ({ name, why: why.get(name) ?? "bundled by @arcevo/facet-components" }));
+      .map((name) => ({ name, why: why.get(name) ?? "bundled by @fusorb/facet-components" }));
     if (found.length) {
       entries.push({
         pkgPath,
@@ -409,7 +409,7 @@ export function globalRemoveCommand(pm: PackageManager, names: string[]): string
 }
 
 /** Rewrite imports that point at bundled deps or a shadcn-style folder to
- * `@arcevo/facet-components`. Returns the files changed. */
+ * `@fusorb/facet-components`. Returns the files changed. */
 export function rewriteImports(matches: ImportMatch[]): string[] {
   const changed: string[] = [];
   const byFile = new Map<string, string[]>();
@@ -429,8 +429,8 @@ export function rewriteImports(matches: ImportMatch[]): string[] {
     for (const from of froms) {
       // Only rewrite when the import is a named import from the bundled
       // dep or a shadcn folder. Bare imports (`import "x"`) are left alone.
-      next = next.split(`from "${from}"`).join(`from "@arcevo/facet-components"`);
-      next = next.split(`from '${from}'`).join(`from '@arcevo/facet-components'`);
+      next = next.split(`from "${from}"`).join(`from "@fusorb/facet-components"`);
+      next = next.split(`from '${from}'`).join(`from '@fusorb/facet-components'`);
     }
     if (next !== source) {
       writeFileSync(file, next, "utf8");

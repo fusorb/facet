@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: Billing / pricing page components
+ * @fusorb/facet-components: Billing / pricing page components
  *
  * Three config-driven billing layouts that all consume the same
  * `BillingPageConfig` + `BillingPlan` model:

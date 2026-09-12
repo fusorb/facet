@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "turbo run build --filter=@arcevo/facet-landing...",
+  "buildCommand": "turbo run build --filter=@fusorb/facet-landing...",
   "outputDirectory": "dist",
   "installCommand": "pnpm install --ignore-scripts",
   "framework": "vite",

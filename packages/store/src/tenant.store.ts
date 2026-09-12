@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Tenant } from "@arcevo/facet-sdk";
+import type { Tenant } from "@fusorb/facet-sdk";
 
 export type { Tenant };
 

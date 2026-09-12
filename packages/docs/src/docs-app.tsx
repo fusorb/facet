@@ -1,7 +1,7 @@
 import * as React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import type { IconName } from "@arcevo/facet-components";
-import { ThemeProvider } from "@arcevo/facet-components/light";
+import type { IconName } from "@fusorb/facet-components";
+import { ThemeProvider } from "@fusorb/facet-components/light";
 import { DocsAppProvider, PackageManagerProvider, type DocsAppValue } from "./context.js";
 import { DocsContentPage } from "./pages/DocsContentPage.js";
 
@@ -30,7 +30,7 @@ const PagesPage = React.lazy(() =>
 
 // The 404 fallback uses the shared Facet NotFound, gradient text animation + fully customizable props. Lazy-loaded so the eager entry stays slim (theme + router + minimal fallback only).
 const NotFound = React.lazy(() =>
-  import("@arcevo/facet-components").then((m) => ({ default: m.NotFound })),
+  import("@fusorb/facet-components").then((m) => ({ default: m.NotFound })),
 );
 
 import type { DocsSiteConfig } from "./lib/nav.js";

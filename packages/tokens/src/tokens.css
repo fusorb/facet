@@ -1,13 +1,13 @@
 /* =================================================================
- * @arcevo/facet-tokens: Design Token CSS Custom Properties
+ * @fusorb/facet-tokens: Design Token CSS Custom Properties
  *
  * Dark-first design system for the Arcevo ecosystem.
  * Import this file to make all tokens available as CSS variables.
  *
- *   @import "@arcevo/facet-tokens/tokens.css";
+ *   @import "@fusorb/facet-tokens/tokens.css";
  *
  * (Or just use the combined one-liner entry point:
- *   @import "@arcevo/facet-tokens/index.css";
+ *   @import "@fusorb/facet-tokens/index.css";
  *  which chains tailwindcss + tokens.css + tailwind.css for you.)
  *
  * The variable names match arc-id's globals.css exactly so that
@@ -206,6 +206,23 @@
 }
 *::-webkit-scrollbar {
   display: none;
+}
+
+/* Smooth theme color transitions (respect reduced-motion preference).
+ * Longhand properties so component-level `transition:` shorthands
+ * can still override on an opt-out basis. */
+@media (prefers-reduced-motion: no-preference) {
+  *, *::before, *::after {
+    transition-property:
+      background-color,
+      border-color,
+      color,
+      opacity,
+      box-shadow,
+      transform;
+    transition-duration: 0.25s;
+    transition-timing-function: ease;
+  }
 }
 
 html {

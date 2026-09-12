@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-layout: PageHeader
+ * @fusorb/facet-layout: PageHeader
  *
  * Consistent page title + description + actions slot.
  */

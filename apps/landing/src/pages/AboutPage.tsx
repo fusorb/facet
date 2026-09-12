@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { LandingLayout } from "@arcevo/facet-layout";
-import { LightIcon } from "@arcevo/facet-components/light";
+import { LandingLayout } from "@fusorb/facet-layout";
+import { LightIcon } from "@fusorb/facet-components/light";
 import { STATS, PACKAGES, FEATURES, ROADMAP } from "../data/features.js";
 import { getDocsUrl } from "../lib/docs-url.js";
 import { Nav } from "../components/Nav.js";
@@ -16,7 +16,7 @@ const STACK = [
   { name: "Vite 6 (Rolldown)", tag: "build" },
   { name: "tsup + TypeScript 5", tag: "build" },
   { name: "Tailwind CSS v4", tag: "styles" },
-  { name: "@arcevo/facet-tokens", tag: "styles" },
+  { name: "@fusorb/facet-tokens", tag: "styles" },
   { name: "Radix UI", tag: "ui" },
   { name: "lucide-react 1.30", tag: "ui" },
   { name: "react-hook-form + Zod", tag: "forms" },
@@ -94,7 +94,7 @@ export function AboutPage() {
         <div className="mb-12 text-center">
           <h2 className="text-2xl font-bold text-foreground">What facet is</h2>
           <p className="mt-3 text-muted-foreground">
-            Nine packages, published to npm under <code className="rounded px-2 py-1 bg-background">@arcevo</code>, that share one token system and stay in
+            Nine packages, published to npm under <code className="rounded px-2 py-1 bg-background">@fusorb</code>, that share one token system and stay in
             sync through CI gates. The numbers below are live and verified on every release.
           </p>
         </div>
@@ -172,7 +172,7 @@ export function AboutPage() {
       <section className="mx-auto max-w-3xl px-8 py-16">
         <h2 className="text-2xl font-bold text-foreground">How it's maintained</h2>
         <p className="mt-3 text-muted-foreground">
-          facet is MIT-licensed and published to npm under <code className="rounded px-2 py-1 bg-secondary/50">@arcevo</code>.
+          facet is MIT-licensed and published to npm under <code className="rounded px-2 py-1 bg-secondary/50">@fusorb</code>.
           Releases are driven by Changesets: a PR is opened automatically whenever a changeset
           lands, and packages publish from a clean, rebuilt tree after CI passes - never from a
           stale or dirty checkout.

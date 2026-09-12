@@ -1,5 +1,5 @@
 import * as React from "react";
-import { LightIcon } from "@arcevo/facet-components/light";
+import { LightIcon } from "@fusorb/facet-components/light";
 import {
   Alert,
   AlertTitle,
@@ -203,8 +203,6 @@ import {
   ScrollReveal,
   DissolveButton,
   FlipCard,
-  SpotlightCard,
-  BorderBeamCard,
   ShineCard,
   GradientBorderCard,
   RevealCard,
@@ -234,12 +232,13 @@ import {
   CountryInput,
   StateInput,
   LGAInput,
+  Chart,
   type RoadmapItem,
   type DataTableColumn,
   type BillingPlan,
-} from "@arcevo/facet-components";
-import { ArcProvider, SignIn } from "@arcevo/facet-auth";
-import { ArcIdClient } from "@arcevo/facet-sdk";
+} from "@fusorb/facet-components";
+import { ArcProvider, SignIn } from "@fusorb/facet-auth";
+import { ArcIdClient } from "@fusorb/facet-sdk";
 import {
   ConsoleLayout,
   AuthLayout,
@@ -249,7 +248,7 @@ import {
   LayoutProvider,
   defaultLayoutPreset,
   fintechLayoutPreset,
-} from "@arcevo/facet-layout";
+} from "@fusorb/facet-layout";
 
 /** No network: bootstrap stays signed out because no token is stored. */
 const DEMO_CLIENT = new ArcIdClient({ baseUrl: "https://demo.invalid" });
@@ -689,6 +688,12 @@ function PaginationDemo() {
  * Each slug maps to the labeled cells shown in the docs grid.
  * Falls back to a single default cell for slugs without a gallery.
  */
+const CHART_X = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+const CHART_SERIES = [
+  { id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] },
+  { id: "orders", label: "Orders", data: [40, 60, 70, 30, 50] },
+];
+
 export function variantCells(slug: string): VariantCell[] | undefined {
   switch (slug) {
     /* ── Aspect ratio variants ───────────────────────────────── */
@@ -1418,7 +1423,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Authenticated user",
           node: (
             <UserAvatar
-              user={{ name: "Ada Lovelace", email: "ada@arcevo.dev" }}
+              user={{ name: "Ada Lovelace", email: "ada@fusorb.dev" }}
               items={[
                 { label: "Profile", shortcut: `⇧${getModSymbol()}P`, icon: "users" },
                 { label: "Settings", shortcut: `${getModSymbol()},`, icon: "settings" },
@@ -2103,7 +2108,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
         },
         {
           label: "Large",
-          node: <QRCode value="https://github.com/arcevodev/facet" size={160} label="facet GitHub" />,
+          node: <QRCode value="https://github.com/fusorb/facet" size={160} label="facet GitHub" />,
         },
         {
           label: "Colored",
@@ -2113,7 +2118,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Logo",
           node: (
             <QRCode
-              value="https://github.com/arcevodev/facet"
+              value="https://github.com/fusorb/facet"
               size={140}
               label="QR with brand logo"
               logo="https://raw.githubusercontent.com/github/explore/main/topics/github/github.png"
@@ -2608,7 +2613,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
               <FeedbackPage
                 title="Feedback & contact"
                 description="Found a bug? Want a feature? We read everything."
-                email="hello@arcevo.com"
+                email="hello@fusorb.com"
                 channels={[
                   {
                     label: "WhatsApp",
@@ -2926,7 +2931,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
         },
       ];
 
-    /* ── Auth (@arcevo/facet-auth) ───────────────────────────── */
+    /* ── Auth (@fusorb/facet-auth) ───────────────────────────── */
     case "sign-in":
       return [
         {
@@ -2980,7 +2985,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           ),
         },
       ];
-    /* ── Layout (@arcevo/facet-layout) ───────────────────────── */
+    /* ── Layout (@fusorb/facet-layout) ───────────────────────── */
     case "console-layout":
       return [
         {
@@ -3198,28 +3203,6 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                   </div>
                 }
               />
-            </div>
-          ),
-        },
-        {
-          label: "Spotlight card",
-          node: (
-            <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
-              <SpotlightCard className="w-64 rounded-xl border border-border bg-background p-6">
-                <p className="text-sm font-semibold text-foreground">Move your cursor over me</p>
-              </SpotlightCard>
-            </div>
-          ),
-        },
-        {
-          label: "Border beam",
-          node: (
-            <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
-              <BorderBeamCard className="w-64">
-                <div className="rounded-xl p-6">
-                  <p className="text-sm font-semibold text-foreground">Animated border</p>
-                </div>
-              </BorderBeamCard>
             </div>
           ),
         },
@@ -3566,6 +3549,98 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                   { id: "3", title: "Password changed", timestamp: new Date(Date.now() - 30 * 86400000).toISOString(), icon: "shield" },
                 ]}
               />
+            </div>
+          ),
+        },
+      ];
+
+    case "chart":
+      return [
+        {
+          label: "Line",
+          node: (
+            <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
+              <Chart x={CHART_X} series={CHART_SERIES} type="line" width={560} />
+            </div>
+          ),
+        },
+        {
+          label: "Bar",
+          node: (
+            <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
+              <Chart x={CHART_X} series={CHART_SERIES} type="bar" width={560} />
+            </div>
+          ),
+        },
+        {
+          label: "Area",
+          node: (
+            <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
+              <Chart x={CHART_X} series={CHART_SERIES} type="area" width={560} />
+            </div>
+          ),
+        },
+        {
+          label: "Pie",
+          node: (
+            <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
+              <Chart x={CHART_X} series={CHART_SERIES} type="pie" width={560} />
+            </div>
+          ),
+        },
+        {
+          label: "Donut",
+          node: (
+            <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
+              <Chart x={CHART_X} series={CHART_SERIES} type="donut" width={560} />
+            </div>
+          ),
+        },
+        {
+          label: "Composed",
+          node: (
+            <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
+              <Chart
+                x={CHART_X}
+                series={[
+                  { id: "line", label: "L", data: [30, 80, 50, 60, 90], type: "line" },
+                  { id: "bar", label: "B", data: [40, 60, 70, 30, 50], type: "bar" },
+                ]}
+                type="composed"
+                width={560}
+              />
+            </div>
+          ),
+        },
+        {
+          label: "Horizontal",
+          node: (
+            <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
+              <Chart x={CHART_X} series={CHART_SERIES} type="bar" layout="horizontal" width={560} />
+            </div>
+          ),
+        },
+        {
+          label: "Stacked",
+          node: (
+            <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
+              <Chart x={CHART_X} series={CHART_SERIES} type="bar" stacked width={560} />
+            </div>
+          ),
+        },
+        {
+          label: "Smooth",
+          node: (
+            <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
+              <Chart x={CHART_X} series={CHART_SERIES} type="line" curve="smooth" width={560} />
+            </div>
+          ),
+        },
+        {
+          label: "Step",
+          node: (
+            <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
+              <Chart x={CHART_X} series={CHART_SERIES} type="line" curve="step" width={560} />
             </div>
           ),
         },

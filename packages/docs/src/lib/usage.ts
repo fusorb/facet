@@ -47,12 +47,12 @@ function importName(slug: string): string {
  * generated import + a generic render.
  */
 const USAGE: Record<string, string> = {
-  button: `import { Button } from "@arcevo/facet-components";
+  button: `import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return <Button variant="default" size="lg">Get started</Button>;
 }`,
-  badge: `import { Badge, Icon } from "@arcevo/facet-components";
+  badge: `import { Badge, Icon } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -64,7 +64,7 @@ function Example() {
   );
 }
 `,
-  pill: `import { Pill, PillGroup, PillTrigger } from "@arcevo/facet-components";
+  pill: `import { Pill, PillGroup, PillTrigger } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -87,7 +87,7 @@ function Example() {
   );
 }
 `,
-  alert: `import { Alert, AlertTitle, AlertDescription } from "@arcevo/facet-components";
+  alert: `import { Alert, AlertTitle, AlertDescription } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -97,7 +97,7 @@ function Example() {
     </Alert>
   );
 }`,
-  card: `import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@arcevo/facet-components";
+  card: `import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -110,7 +110,7 @@ function Example() {
     </Card>
   );
 }`,
-  accordion: `import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@arcevo/facet-components";
+  accordion: `import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -122,7 +122,7 @@ function Example() {
     </Accordion>
   );
 }`,
-  tabs: `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@arcevo/facet-components";
+  tabs: `import { Tabs, TabsList, TabsTrigger, TabsContent } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -136,8 +136,8 @@ function Example() {
     </Tabs>
   );
 }`,
-  dialog: `import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@arcevo/facet-components";
-import { Button } from "@arcevo/facet-components";
+  dialog: `import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@fusorb/facet-components";
+import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -152,8 +152,8 @@ function Example() {
     </Dialog>
   );
 }`,
-  "alert-dialog": `import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogAction, AlertDialogCancel } from "@arcevo/facet-components";
-import { Button } from "@arcevo/facet-components";
+  "alert-dialog": `import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogAction, AlertDialogCancel } from "@fusorb/facet-components";
+import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -174,8 +174,8 @@ function Example() {
     </AlertDialog>
   );
 }`,
-  "confirm-alert-dialog": `import { ConfirmAlertDialog } from "@arcevo/facet-components";
-import { Button } from "@arcevo/facet-components";
+  "confirm-alert-dialog": `import { ConfirmAlertDialog } from "@fusorb/facet-components";
+import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -189,13 +189,13 @@ function Example() {
     />
   );
 }`,
-  input: `import { Input } from "@arcevo/facet-components";
+  input: `import { Input } from "@fusorb/facet-components";
 
 function Example() {
   return <Input placeholder="Type here..." />;
 }`,
-  checkbox: `import { Checkbox } from "@arcevo/facet-components";
-import { Label } from "@arcevo/facet-components";
+  checkbox: `import { Checkbox } from "@fusorb/facet-components";
+import { Label } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -205,8 +205,8 @@ function Example() {
     </div>
   );
 }`,
-  switch: `import { Switch } from "@arcevo/facet-components";
-import { Label } from "@arcevo/facet-components";
+  switch: `import { Switch } from "@fusorb/facet-components";
+import { Label } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -216,17 +216,17 @@ function Example() {
     </div>
   );
 }`,
-  progress: `import { Progress } from "@arcevo/facet-components";
+  progress: `import { Progress } from "@fusorb/facet-components";
 
 function Example() {
   return <Progress value={60} />;
 }`,
-  spinner: `import { Spinner } from "@arcevo/facet-components";
+  spinner: `import { Spinner } from "@fusorb/facet-components";
 
 function Example() {
   return <Spinner variant="primary" />;
 }`,
-  select: `import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@arcevo/facet-components";
+  select: `import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -239,12 +239,12 @@ function Example() {
     </Select>
   );
 }`,
-  slider: `import { Slider } from "@arcevo/facet-components";
+  slider: `import { Slider } from "@fusorb/facet-components";
 
 function Example() {
   return <Slider defaultValue={[50]} max={100} step={1} />;
 }`,
-  "input-otp": `import { InputOTP, InputOTPGroup, InputOTPSlot } from "@arcevo/facet-components";
+  "input-otp": `import { InputOTP, InputOTPGroup, InputOTPSlot } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -260,8 +260,8 @@ function Example() {
     </InputOTP>
   );
 }`,
-  tooltip: `import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@arcevo/facet-components";
-import { Button } from "@arcevo/facet-components";
+  tooltip: `import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@fusorb/facet-components";
+import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -273,7 +273,7 @@ function Example() {
     </TooltipProvider>
   );
 }`,
-  avatar: `import { Avatar, AvatarImage, AvatarFallback } from "@arcevo/facet-components";
+  avatar: `import { Avatar, AvatarImage, AvatarFallback } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -283,7 +283,7 @@ function Example() {
     </Avatar>
   );
 }`,
-  "avatar-group": `import { AvatarGroup } from "@arcevo/facet-components";
+  "avatar-group": `import { AvatarGroup } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -296,7 +296,7 @@ function Example() {
     />
   );
 }`,
-  breadcrumb: `import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis } from "@arcevo/facet-components";
+  breadcrumb: `import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -313,8 +313,8 @@ function Example() {
     </Breadcrumb>
   );
 }`,
-  "button-group": `import { ButtonGroup } from "@arcevo/facet-components";
-import { Button } from "@arcevo/facet-components";
+  "button-group": `import { ButtonGroup } from "@fusorb/facet-components";
+import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -325,7 +325,7 @@ function Example() {
     </ButtonGroup>
   );
 }`,
-  collapsible: `import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@arcevo/facet-components";
+  collapsible: `import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -335,7 +335,7 @@ function Example() {
     </Collapsible>
   );
 }`,
-  combobox: `import { Combobox } from "@arcevo/facet-components";
+  combobox: `import { Combobox } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -349,7 +349,7 @@ function Example() {
     />
   );
 }`,
-  command: `import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@arcevo/facet-components";
+  command: `import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -365,7 +365,7 @@ function Example() {
     </Command>
   );
 }`,
-  "context-menu": `import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator } from "@arcevo/facet-components";
+  "context-menu": `import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -382,8 +382,8 @@ function Example() {
     </ContextMenu>
   );
 }`,
-  "dropdown-menu": `import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "@arcevo/facet-components";
-import { Button } from "@arcevo/facet-components";
+  "dropdown-menu": `import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "@fusorb/facet-components";
+import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -400,8 +400,8 @@ function Example() {
     </DropdownMenu>
   );
 }`,
-  "empty-state": `import { EmptyState } from "@arcevo/facet-components";
-import { Button } from "@arcevo/facet-components";
+  "empty-state": `import { EmptyState } from "@fusorb/facet-components";
+import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -412,8 +412,8 @@ function Example() {
     />
   );
 }`,
-  "hover-card": `import { HoverCard, HoverCardTrigger, HoverCardContent } from "@arcevo/facet-components";
-import { Button } from "@arcevo/facet-components";
+  "hover-card": `import { HoverCard, HoverCardTrigger, HoverCardContent } from "@fusorb/facet-components";
+import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -428,17 +428,17 @@ function Example() {
     </HoverCard>
   );
 }`,
-  kbd: `import { Kbd, getModSymbol } from "@arcevo/facet-components";
+  kbd: `import { Kbd, getModSymbol } from "@fusorb/facet-components";
 
 function Example() {
   return <Kbd>{getModSymbol()}K</Kbd>;
 }`,
-  label: `import { Label } from "@arcevo/facet-components";
+  label: `import { Label } from "@fusorb/facet-components";
 
 function Example() {
   return <Label htmlFor="email">Email</Label>;
 }`,
-  menubar: `import { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator, MenubarLabel, MenubarCheckboxItem, MenubarRadioGroup, MenubarRadioItem, MenubarSubTrigger, MenubarSubContent, MenubarShortcut } from "@arcevo/facet-components";
+  menubar: `import { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator, MenubarLabel, MenubarCheckboxItem, MenubarRadioGroup, MenubarRadioItem, MenubarSubTrigger, MenubarSubContent, MenubarShortcut } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -454,7 +454,7 @@ function Example() {
     </Menubar>
   );
 }`,
-  navbar: `import { Navbar, ThemeProvider } from "@arcevo/facet-components";
+  navbar: `import { Navbar, ThemeProvider } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -471,7 +471,7 @@ function Example() {
     </ThemeProvider>
   );
 }`,
-  "navigation-menu": `import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from "@arcevo/facet-components";
+  "navigation-menu": `import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -487,7 +487,7 @@ function Example() {
     </NavigationMenu>
   );
 }`,
-  pagination: `import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext, PaginationLink, PaginationEllipsis } from "@arcevo/facet-components";
+  pagination: `import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext, PaginationLink, PaginationEllipsis } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -512,8 +512,8 @@ function Example() {
     </Pagination>
   );
 }`,
-  popover: `import { Popover, PopoverTrigger, PopoverContent } from "@arcevo/facet-components";
-import { Button } from "@arcevo/facet-components";
+  popover: `import { Popover, PopoverTrigger, PopoverContent } from "@fusorb/facet-components";
+import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -525,8 +525,8 @@ function Example() {
     </Popover>
   );
 }`,
-  "radio-group": `import { RadioGroup, RadioGroupItem } from "@arcevo/facet-components";
-import { Label } from "@arcevo/facet-components";
+  "radio-group": `import { RadioGroup, RadioGroupItem } from "@fusorb/facet-components";
+import { Label } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -542,7 +542,7 @@ function Example() {
     </RadioGroup>
   );
 }`,
-  "scroll-area": `import { ScrollArea, ScrollBar } from "@arcevo/facet-components";
+  "scroll-area": `import { ScrollArea, ScrollBar } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -554,7 +554,7 @@ function Example() {
     </ScrollArea>
   );
 }`,
-  separator: `import { Separator } from "@arcevo/facet-components";
+  separator: `import { Separator } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -565,8 +565,8 @@ function Example() {
     </div>
   );
 }`,
-  sheet: `import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@arcevo/facet-components";
-import { Button } from "@arcevo/facet-components";
+  sheet: `import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@fusorb/facet-components";
+import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -583,7 +583,7 @@ function Example() {
     </Sheet>
   );
 }`,
-  skeleton: `import { Skeleton } from "@arcevo/facet-components";
+  skeleton: `import { Skeleton } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -593,7 +593,7 @@ function Example() {
     </div>
   );
 }`,
-  sonner: `import { Toaster, toast } from "@arcevo/facet-components";
+  sonner: `import { Toaster, toast } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -603,7 +603,7 @@ function Example() {
     </>
   );
 }`,
-  table: `import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@arcevo/facet-components";
+  table: `import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -623,17 +623,17 @@ function Example() {
     </Table>
   );
 }`,
-  textarea: `import { Textarea } from "@arcevo/facet-components";
+  textarea: `import { Textarea } from "@fusorb/facet-components";
 
 function Example() {
   return <Textarea placeholder="Write something..." />;
 }`,
-  toggle: `import { Toggle } from "@arcevo/facet-components";
+  toggle: `import { Toggle } from "@fusorb/facet-components";
 
 function Example() {
   return <Toggle aria-label="Bold">B</Toggle>;
 }`,
-  "toggle-group": `import { ToggleGroup, ToggleGroupItem } from "@arcevo/facet-components";
+  "toggle-group": `import { ToggleGroup, ToggleGroupItem } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -644,7 +644,7 @@ function Example() {
     </ToggleGroup>
   );
 }`,
-  dropzone: `import { Dropzone } from "@arcevo/facet-components";
+  dropzone: `import { Dropzone } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -655,12 +655,12 @@ function Example() {
     />
   );
 }`,
-  "color-picker": `import { ColorPicker } from "@arcevo/facet-components";
+  "color-picker": `import { ColorPicker } from "@fusorb/facet-components";
 
 function Example() {
   return <ColorPicker value="#6366f1" label="Brand accent" />;
 }`,
-  qrcode: `import { QRCode } from "@arcevo/facet-components";
+  qrcode: `import { QRCode } from "@fusorb/facet-components";
 
 function Example() {
   return <QRCode value="https://facet.arcevocirqle.com.ng" size={140} label="facet docs" />;
@@ -670,7 +670,7 @@ function Branded() {
   // Embed any icon or brand image: logo (URL), logoSize, logoPosition.
   return (
     <QRCode
-      value="https://github.com/arcevodev/facet"
+      value="https://github.com/fusorb/facet"
       size={160}
       logo="https://raw.githubusercontent.com/github/explore/main/topics/github/github.png"
       logoSize={36}
@@ -678,7 +678,7 @@ function Branded() {
     />
   );
 }`,
-  marquee: `import { Marquee } from "@arcevo/facet-components";
+  marquee: `import { Marquee } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -688,8 +688,8 @@ function Example() {
     />
   );
 }`,
-  roadmap: `import { Roadmap } from "@arcevo/facet-components";
-import type { RoadmapItem } from "@arcevo/facet-components";
+  roadmap: `import { Roadmap } from "@fusorb/facet-components";
+import type { RoadmapItem } from "@fusorb/facet-components";
 
 const items: RoadmapItem[] = [
   { title: "Auth presets", description: "Fintech, med, edu", status: "done", date: "v1.0" },
@@ -700,8 +700,8 @@ const items: RoadmapItem[] = [
 function Example() {
   return <Roadmap items={items} />;
 }`,
-  form: `import { Form, FormField, useForm } from "@arcevo/facet-components";
-import { Button, Input } from "@arcevo/facet-components";
+  form: `import { Form, FormField, useForm } from "@fusorb/facet-components";
+import { Button, Input } from "@fusorb/facet-components";
 
 interface FormValues {
   name: string;
@@ -722,8 +722,8 @@ function Example() {
     </Form>
   );
 }`,
-  "data-table": `import { DataTable } from "@arcevo/facet-components";
-import type { DataTableColumn } from "@arcevo/facet-components";
+  "data-table": `import { DataTable } from "@fusorb/facet-components";
+import type { DataTableColumn } from "@fusorb/facet-components";
 
 interface Row extends Record<string, unknown> {
   id: string;
@@ -778,12 +778,12 @@ function Paged() {
     />
   );
 }`,
-  "date-picker": `import { DatePicker } from "@arcevo/facet-components";
+  "date-picker": `import { DatePicker } from "@fusorb/facet-components";
 
 function Example() {
   return <DatePicker label="Due date" />;
 }`,
-  "number-input": `import { NumberInput, CURRENCIES } from "@arcevo/facet-components";
+  "number-input": `import { NumberInput, CURRENCIES } from "@fusorb/facet-components";
 
 function Example() {
   return <NumberInput label="Quantity" min={0} max={10} />;
@@ -803,7 +803,7 @@ function Price() {
 
 // Custom currency list:
 // <NumberInput currencyPicker currencyOptions={[{ code: "XBT", symbol: "₿", name: "Bitcoin" }]} />`,
-  "country-code-input": `import { CountryCodeInput, ISO_COUNTRY_CODES } from "@arcevo/facet-components";
+  "country-code-input": `import { CountryCodeInput, ISO_COUNTRY_CODES } from "@fusorb/facet-components";
 
 function Example() {
   // Full ISO list, Africa only
@@ -815,33 +815,33 @@ function Example() {
     />
   );
 }`,
-  "location-picker": `import { LocationPicker } from "@arcevo/facet-components";
+  "location-picker": `import { LocationPicker } from "@fusorb/facet-components";
 
 function Example() {
   return <LocationPicker showLocality />;
 }
 
 // Standalone levels:
-// import { CountryInput, StateInput, LGAInput } from "@arcevo/facet-components";
+// import { CountryInput, StateInput, LGAInput } from "@fusorb/facet-components";
 // <CountryInput value={c} onValueChange={setC} />
 // <StateInput country={c} value={s} onValueChange={setS} />
 // <LGAInput country={c} region={s} value={l} onValueChange={setL} />`,
-  "date-input": `import { DateInput } from "@arcevo/facet-components";
+  "date-input": `import { DateInput } from "@fusorb/facet-components";
 
 function Example() {
   return <DateInput label="Start date" value="2026-03-05" />;
 }`,
-  "password-input": `import { PasswordInput } from "@arcevo/facet-components";
+  "password-input": `import { PasswordInput } from "@fusorb/facet-components";
 
 function Example() {
   return <PasswordInput label="Password" placeholder="••••••••" />;
 }`,
-  "mail-input": `import { MailInput } from "@arcevo/facet-components";
+  "mail-input": `import { MailInput } from "@fusorb/facet-components";
 
 function Example() {
   return <MailInput placeholder="you@example.com" required />;
 }`,
-  "infinite-scroll": `import { InfiniteScroll } from "@arcevo/facet-components";
+  "infinite-scroll": `import { InfiniteScroll } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -850,7 +850,7 @@ function Example() {
     </InfiniteScroll>
   );
 }`,
-  "notification-drawer": `import { NotificationDrawer } from "@arcevo/facet-components";
+  "notification-drawer": `import { NotificationDrawer } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -861,19 +861,19 @@ function Example() {
     />
   );
 }`,
-  "sign-in": `import { SignIn } from "@arcevo/facet-auth";
-import { ArcProvider } from "@arcevo/facet-auth";
+  "sign-in": `import { SignIn } from "@fusorb/facet-auth";
+import { ArcProvider } from "@fusorb/facet-auth";
 
 <ArcProvider client={client}>
   <SignIn config={fintechPreset} />
 </ArcProvider>`,
-  "console-layout": `import { ConsoleLayout, defaultLayoutPreset } from "@arcevo/facet-layout";
+  "console-layout": `import { ConsoleLayout, defaultLayoutPreset } from "@fusorb/facet-layout";
 
 <ConsoleLayout config={defaultLayoutPreset} mode="full">
   <YourContent />
 </ConsoleLayout>`,
-  "auth-layout": `import { AuthLayout, fintechLayoutPreset } from "@arcevo/facet-layout";
-import { SignIn, fintechPreset } from "@arcevo/facet-auth";
+  "auth-layout": `import { AuthLayout, fintechLayoutPreset } from "@fusorb/facet-layout";
+import { SignIn, fintechPreset } from "@fusorb/facet-auth";
 
 <AuthLayout config={fintechLayoutPreset}>
   <SignIn config={fintechPreset} />
@@ -890,8 +890,8 @@ import { SignIn, fintechPreset } from "@arcevo/facet-auth";
 >
   <SignIn config={fintechPreset} />
 </AuthLayout>`,
-  "landing-layout": `import { LandingLayout } from "@arcevo/facet-layout";
-import { Navbar } from "@arcevo/facet-components";
+  "landing-layout": `import { LandingLayout } from "@fusorb/facet-layout";
+import { Navbar } from "@fusorb/facet-components";
 
 <LandingLayout
   nav={<Navbar variant="pill" brand={brand} links={links} />}
@@ -900,7 +900,7 @@ import { Navbar } from "@arcevo/facet-components";
 >
   <section>Feature grid</section>
 </LandingLayout>`,
-  sidebar: `import { Sidebar, LayoutProvider, fintechLayoutPreset } from "@arcevo/facet-layout";
+  sidebar: `import { Sidebar, LayoutProvider, fintechLayoutPreset } from "@fusorb/facet-layout";
 
 <LayoutProvider>
   <div className="flex">
@@ -908,12 +908,12 @@ import { Navbar } from "@arcevo/facet-components";
     <main className="flex-1">Content</main>
   </div>
 </LayoutProvider>`,
-  topbar: `import { Topbar, LayoutProvider } from "@arcevo/facet-layout";
+  topbar: `import { Topbar, LayoutProvider } from "@fusorb/facet-layout";
 
 <LayoutProvider>
   <Topbar />
 </LayoutProvider>`,
-  animated: `import { Spotlight, Aurora, Beams, GridPattern, SparkleButton } from "@arcevo/facet-components";
+  animated: `import { Spotlight, Aurora, Beams, GridPattern, SparkleButton } from "@fusorb/facet-components";
 
 // Hero section with animated layers under your content.
 <div className="relative flex h-[60vh] items-center justify-center overflow-hidden">
@@ -927,7 +927,7 @@ import { Navbar } from "@arcevo/facet-components";
 
 // CTA with a sparkle burst on click.
 <SparkleButton label="Get started" />`,
-  "animated-button": `import { AnimatedButton } from "@arcevo/facet-components";
+  "animated-button": `import { AnimatedButton } from "@fusorb/facet-components";
 
 // Pick an animation variant (shine default, sparkle, ripple, magnetic, none).
 <AnimatedButton animation="sparkle">Get started</AnimatedButton>
@@ -942,7 +942,7 @@ import { Navbar } from "@arcevo/facet-components";
 //   <BillingPage config={{ plans, ctaButton: { animation: "sparkle" } }} />
 //   <FeedbackPage email="hi@x.com" submitButton={{ animation: "shine" }} />
 //   <SignUp submitButton={{ animation: "sparkle" }} />`,
-   "text-animations": `import { TypewriterText, BlurText, WaveText, FlipText, SplitText, FadeUpText, ShimmerText, GradientText, LetterSpacingText, CountUpText, DissolveText } from "@arcevo/facet-components";
+   "text-animations": `import { TypewriterText, BlurText, WaveText, FlipText, SplitText, FadeUpText, ShimmerText, GradientText, LetterSpacingText, CountUpText, DissolveText } from "@fusorb/facet-components";
 
 // Cycle through phrases with a type/erase loop and a blinking caret.
 <TypewriterText phrases={["one identity", "every door", "your key"]} />
@@ -976,7 +976,7 @@ import { Navbar } from "@arcevo/facet-components";
 
 // Each character dissolves in, staggered.
 <DissolveText text="Dissolve in" className="font-heading text-2xl font-bold" />`,
-  "micro-interactions": `import { TiltCard, GlowCard, RippleButton, MagneticButton, ShineButton, ScrollReveal, DissolveButton } from "@arcevo/facet-components";
+  "micro-interactions": `import { TiltCard, GlowCard, RippleButton, MagneticButton, ShineButton, ScrollReveal, DissolveButton } from "@fusorb/facet-components";
 
 // A card that tilts toward the cursor in 3D.
 <TiltCard maxTilt={10} className="w-64 rounded-xl border p-6">
@@ -1012,7 +1012,7 @@ import { Navbar } from "@arcevo/facet-components";
 <DissolveButton className="rounded-md bg-primary px-6 py-2 text-primary-foreground">
   Dissolve
 </DissolveButton>`,
-  footer: `import { Footer } from "@arcevo/facet-components";
+  footer: `import { Footer } from "@fusorb/facet-components";
 
 <Footer
   brand={{ name: "facet", tagline: "The Arcevo UI system" }}
@@ -1020,7 +1020,7 @@ import { Navbar } from "@arcevo/facet-components";
     { title: "Product", links: [{ label: "Components", href: "/components" }] },
     { title: "Resources", links: [{ label: "Docs", href: "/docs" }] },
   ]}
-  socials={[{ label: "GitHub", href: "https://github.com/arcevodev", icon: "github" }]}
+  socials={[{ label: "GitHub", href: "https://github.com/fusorb", icon: "github" }]}
   bottomLinks={[{ label: "Feedback", href: "/feedback" }]}
   legal={\`© \${new Date().getFullYear()} facet. MIT License.\`}
 />
@@ -1028,19 +1028,19 @@ import { Navbar } from "@arcevo/facet-components";
 // Use variant="streamline" for a clean grid, how-it-works steps, and
 // research notices (modeled after the stream-wise footer pattern).
 // <Footer variant="streamline" brand={{ name: "facet" }} columns={[]} steps={[]} notices={[]} />`,
-  "feedback-page": `import { FeedbackPage } from "@arcevo/facet-components";
+  "feedback-page": `import { FeedbackPage } from "@fusorb/facet-components";
 
 <FeedbackPage
   title="Feedback & contact"
   description="Found a bug? Want a feature? We read everything."
-  email="hello@arcevo.com"
+  email="hello@fusorb.com"
   back={{ onClick: () => history.back() }}
   channels={[
     { label: "WhatsApp", href: "https://wa.me/123456", icon: "message-circle", description: "Chat with us" },
     { label: "LinkedIn", href: "https://linkedin.com/company/arcevo", icon: "linkedin", description: "Company page" },
   ]}
 />`,
-  "not-found": `import { NotFound } from "@arcevo/facet-components";
+  "not-found": `import { NotFound } from "@fusorb/facet-components";
 
 <NotFound
   title="Page not found"
@@ -1052,8 +1052,8 @@ import { Navbar } from "@arcevo/facet-components";
 
 // animation: "shimmer" | "aurora" | "none"
 // Pass \`children\` to fully override the 404 / title / description / CTA block.`,
-  "billing-page": `import { BillingPage } from "@arcevo/facet-components";
-import type { BillingPlan } from "@arcevo/facet-components";
+  "billing-page": `import { BillingPage } from "@fusorb/facet-components";
+import type { BillingPlan } from "@fusorb/facet-components";
 
 const plans: BillingPlan[] = [
   { id: "free", name: "Free", price: 0, features: ["1 project", "Community support"] },
@@ -1073,8 +1073,8 @@ function Example() {
     />
   );
 }`,
-  "billing-page-table": `import { BillingPageTable } from "@arcevo/facet-components";
-import type { BillingPlan } from "@arcevo/facet-components";
+  "billing-page-table": `import { BillingPageTable } from "@fusorb/facet-components";
+import type { BillingPlan } from "@fusorb/facet-components";
 
 const plans: BillingPlan[] = [
   { id: "free", name: "Free", price: 0, features: [] },
@@ -1094,8 +1094,8 @@ function Example() {
     />
   );
 }`,
-  "billing-page-freemium": `import { BillingPageFreemium } from "@arcevo/facet-components";
-import type { BillingPlan } from "@arcevo/facet-components";
+  "billing-page-freemium": `import { BillingPageFreemium } from "@fusorb/facet-components";
+import type { BillingPlan } from "@fusorb/facet-components";
 
 const plans: BillingPlan[] = [
   { id: "free", name: "Free", price: 0, features: ["1 project", "Community support"] },
@@ -1111,7 +1111,7 @@ function Example() {
     />
   );
 }`,
-  "card-animations": `import { FlipCard, DissolveCard } from "@arcevo/facet-components";
+  "card-animations": `import { FlipCard, DissolveCard } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1127,12 +1127,12 @@ function Example() {
 <DissolveCard className="w-64 rounded-xl border p-6">
   Dissolve in
 </DissolveCard>`,
-  "otp-verification-card": `import { OtpVerificationCard } from "@arcevo/facet-components";
+  "otp-verification-card": `import { OtpVerificationCard } from "@fusorb/facet-components";
 
 function Example() {
   return <OtpVerificationCard onVerify={async (code) => validate(code)} />;
 }`,
-  "two-factor-setup-panel": `import { TwoFactorSetupPanel } from "@arcevo/facet-components";
+  "two-factor-setup-panel": `import { TwoFactorSetupPanel } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1144,12 +1144,12 @@ function Example() {
     />
   );
 }`,
-  "password-strength-meter": `import { PasswordStrengthMeter } from "@arcevo/facet-components";
+  "password-strength-meter": `import { PasswordStrengthMeter } from "@fusorb/facet-components";
 
 function Example() {
   return <PasswordStrengthMeter value={password} />;
 }`,
-  "api-key-manager": `import { ApiKeyManager } from "@arcevo/facet-components";
+  "api-key-manager": `import { ApiKeyManager } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1160,12 +1160,12 @@ function Example() {
     />
   );
 }`,
-  "invite-team-form": `import { InviteTeamForm } from "@arcevo/facet-components";
+  "invite-team-form": `import { InviteTeamForm } from "@fusorb/facet-components";
 
 function Example() {
   return <InviteTeamForm onInvite={async (invitees) => sendInvites(invitees)} />;
 }`,
-  "account-settings-panel": `import { AccountSettingsPanel } from "@arcevo/facet-components";
+  "account-settings-panel": `import { AccountSettingsPanel } from "@fusorb/facet-components";
 
 const sections = [
   { id: "profile", label: "Profile", icon: "user" },
@@ -1183,7 +1183,7 @@ function Example() {
     />
   );
 }`,
-  "security-section-card": `import { SecuritySectionCard } from "@arcevo/facet-components";
+  "security-section-card": `import { SecuritySectionCard } from "@fusorb/facet-components";
 
 const features = [
   { id: "mfa", title: "Two-factor authentication", description: "Protect your account", icon: "lock" },
@@ -1193,7 +1193,7 @@ const features = [
 function Example() {
   return <SecuritySectionCard features={features} onSelect={(f) => open(f.id)} />;
 }`,
-  "announcement-bar": `import { AnnouncementBar } from "@arcevo/facet-components";
+  "announcement-bar": `import { AnnouncementBar } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1202,7 +1202,7 @@ function Example() {
     </AnnouncementBar>
   );
 }`,
-  "cookie-consent": `import { CookieConsent } from "@arcevo/facet-components";
+  "cookie-consent": `import { CookieConsent } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1212,7 +1212,7 @@ function Example() {
     />
   );
 }`,
-  "testimonial-showcase": `import { TestimonialShowcase } from "@arcevo/facet-components";
+  "testimonial-showcase": `import { TestimonialShowcase } from "@fusorb/facet-components";
 
 const testimonials = [
   { quote: "The auth forms saved us weeks.", author: "Ada", role: "CTO", initials: "A" },
@@ -1222,7 +1222,7 @@ const testimonials = [
 function Example() {
   return <TestimonialShowcase testimonials={testimonials} mode="grid" />;
 }`,
-  "faq-section": `import { FaqSection } from "@arcevo/facet-components";
+  "faq-section": `import { FaqSection } from "@fusorb/facet-components";
 
 const items = [
   { q: "Is it framework agnostic?", a: "Yes. The core is dependency-free React." },
@@ -1231,7 +1231,7 @@ const items = [
 function Example() {
   return <FaqSection items={items} title="FAQ" />;
 }`,
-  "page-header": `import { PageHeader } from "@arcevo/facet-components";
+  "page-header": `import { PageHeader } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1243,12 +1243,12 @@ function Example() {
     />
   );
 }`,
-  "stat-card": `import { StatCard } from "@arcevo/facet-components";
+  "stat-card": `import { StatCard } from "@fusorb/facet-components";
 
 function Example() {
   return <StatCard label="Monthly revenue" value="$48,290" delta={12.4} hint="vs last month" />;
 }`,
-  "activity-feed": `import { ActivityFeed } from "@arcevo/facet-components";
+  "activity-feed": `import { ActivityFeed } from "@fusorb/facet-components";
 
 const items = [
   { id: "1", title: "Ada signed in", timestamp: new Date().toISOString(), icon: "log-in" },
@@ -1257,7 +1257,7 @@ const items = [
 function Example() {
   return <ActivityFeed items={items} />;
 }`,
-  "aspect-ratio": `import { AspectRatio } from "@arcevo/facet-components";
+  "aspect-ratio": `import { AspectRatio } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1266,7 +1266,7 @@ function Example() {
     </AspectRatio>
   );
 }`,
-  "resizable": `import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@arcevo/facet-components";
+  "resizable": `import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1295,7 +1295,7 @@ function Example() {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1317,7 +1317,7 @@ function Example() {
   );
 }`,
 
-  chart: `import { Chart } from "@arcevo/facet-components";
+  chart: `import { Chart } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1346,7 +1346,7 @@ function Example() {
   DrawerTitle,
   DrawerDescription,
   DrawerFooter,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1370,7 +1370,7 @@ function Example() {
   StepperNav,
   StepperPanel,
   useStepper,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 
 const stepper = useStepper({
   steps: [
@@ -1389,7 +1389,7 @@ function Example() {
   );
 }`,
 
-  tree: `import { Tree } from "@arcevo/facet-components";
+  tree: `import { Tree } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1409,7 +1409,7 @@ function Example() {
   );
 }`,
 
-  "changelog-list": `import { ChangelogList } from "@arcevo/facet-components";
+  "changelog-list": `import { ChangelogList } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1428,7 +1428,7 @@ function Example() {
   );
 }`,
 
-  "consent-capture": `import { ConsentCapture } from "@arcevo/facet-components";
+  "consent-capture": `import { ConsentCapture } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1440,13 +1440,13 @@ function Example() {
   );
 }`,
 
-  "cookie-banner": `import { CookieBanner } from "@arcevo/facet-components";
+  "cookie-banner": `import { CookieBanner } from "@fusorb/facet-components";
 
 function Example() {
   return <CookieBanner onChoose={() => {}} />;
 }`,
 
-  "data-table-page": `import { DataTable } from "@arcevo/facet-components";
+  "data-table-page": `import { DataTable } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1467,13 +1467,13 @@ function Example() {
   );
 }`,
 
-  "date-range-picker": `import { DateRangePicker } from "@arcevo/facet-components";
+  "date-range-picker": `import { DateRangePicker } from "@fusorb/facet-components";
 
 function Example() {
   return <DateRangePicker />;
 }`,
 
-  "empty-state-page": `import { EmptyStatePage } from "@arcevo/facet-components";
+  "empty-state-page": `import { EmptyStatePage } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1484,7 +1484,7 @@ function Example() {
   );
 }`,
 
-  "glow-border-card": `import { GlowBorderCard } from "@arcevo/facet-components";
+  "glow-border-card": `import { GlowBorderCard } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1494,7 +1494,7 @@ function Example() {
   );
 }`,
 
-  "input-group": `import { Input, InputGroup, InputGroupAddon } from "@arcevo/facet-components";
+  "input-group": `import { Input, InputGroup, InputGroupAddon } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1505,7 +1505,7 @@ function Example() {
   );
 }`,
 
-  "kanban-board": `import { KanbanBoard, useKanban } from "@arcevo/facet-components";
+  "kanban-board": `import { KanbanBoard, useKanban } from "@fusorb/facet-components";
 
 const board = useKanban({
   columns: [
@@ -1518,7 +1518,7 @@ function Example() {
   return <KanbanBoard board={board} />;
 }`,
 
-  "mention-input": `import { MentionInput } from "@arcevo/facet-components";
+  "mention-input": `import { MentionInput } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1530,7 +1530,7 @@ function Example() {
   );
 }`,
 
-  "multi-combobox": `import { MultiCombobox } from "@arcevo/facet-components";
+  "multi-combobox": `import { MultiCombobox } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1546,19 +1546,19 @@ function Example() {
   );
 }`,
 
-  "otp-input": `import { OtpInput } from "@arcevo/facet-components";
+  "otp-input": `import { OtpInput } from "@fusorb/facet-components";
 
 function Example() {
   return <OtpInput value="123456" onChange={() => {}} />;
 }`,
 
-  "phone-input": `import { PhoneInput } from "@arcevo/facet-components";
+  "phone-input": `import { PhoneInput } from "@fusorb/facet-components";
 
 function Example() {
   return <PhoneInput value="+14155552671" onChange={() => {}} />;
 }`,
 
-  "pricing-comparison": `import { PricingComparison } from "@arcevo/facet-components";
+  "pricing-comparison": `import { PricingComparison } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1586,31 +1586,31 @@ function Example() {
   );
 }`,
 
-  "qr-scanner": `import { QrScanner } from "@arcevo/facet-components";
+  "qr-scanner": `import { QrScanner } from "@fusorb/facet-components";
 
 function Example() {
   return <QrScanner onScan={(result) => console.log(result)} autoStart={false} />;
 }`,
 
-  "range-slider": `import { RangeSlider } from "@arcevo/facet-components";
+  "range-slider": `import { RangeSlider } from "@fusorb/facet-components";
 
 function Example() {
   return <RangeSlider value={[25, 75]} onChange={() => {}} min={0} max={100} />;
 }`,
 
-  "rating-input": `import { RatingInput } from "@arcevo/facet-components";
+  "rating-input": `import { RatingInput } from "@fusorb/facet-components";
 
 function Example() {
   return <RatingInput value={4} onChange={() => {}} />;
 }`,
 
-  "rich-text-editor": `import { RichTextEditor } from "@arcevo/facet-components";
+  "rich-text-editor": `import { RichTextEditor } from "@fusorb/facet-components";
 
 function Example() {
   return <RichTextEditor value="<p>Hello world</p>" onChange={() => {}} />;
 }`,
 
-  "shine-border-card": `import { ShineBorderCard } from "@arcevo/facet-components";
+  "shine-border-card": `import { ShineBorderCard } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1620,13 +1620,13 @@ function Example() {
   );
 }`,
 
-  "tag-input": `import { TagInput } from "@arcevo/facet-components";
+  "tag-input": `import { TagInput } from "@fusorb/facet-components";
 
 function Example() {
   return <TagInput value={["react", "typescript"]} onChange={() => {}} />;
 }`,
 
-  "wizard-form-page": `import { WizardFormPage, Input } from "@arcevo/facet-components";
+  "wizard-form-page": `import { WizardFormPage, Input } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1647,7 +1647,7 @@ function Example() {
 export function usageCode(slug: string): string {
   if (USAGE[slug]) return USAGE[slug];
   const name = importName(slug);
-  return `import { ${name} } from "@arcevo/facet-components";
+  return `import { ${name} } from "@fusorb/facet-components";
 
 function Example() {
   return <${name} />;
@@ -1712,7 +1712,7 @@ export function variantUsage(slug: string): { label: string; code: string }[] {
     const facet = ids.filter(
       (id) => !knownPkgIds.has(id) && !PLACEHOLDER_COMPONENTS.has(id),
     );
-    if (facet.length > 0) parts.push(`import { ${facet.join(", ")} } from "@arcevo/facet-components";`);
+    if (facet.length > 0) parts.push(`import { ${facet.join(", ")} } from "@fusorb/facet-components";`);
     return parts.join("\n");
   };
   return Object.entries(variants).map(([label, code]) => ({
@@ -2328,7 +2328,7 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
   <AvatarFallback>JD</AvatarFallback>
 </Avatar>`,
     "Authenticated user": `<UserAvatar
-  user={{ name: "Ada Lovelace", email: "ada@arcevo.dev" }}
+  user={{ name: "Ada Lovelace", email: "ada@fusorb.dev" }}
   items={[
     { label: "Profile", shortcut: "⇧⌘P", icon: "users" },
     { label: "Settings", shortcut: "⌘,", icon: "settings" },
@@ -2779,7 +2779,7 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
   },
   qrcode: {
     Default: `<QRCode value="https://facet.arcevocirqle.com.ng" size={120} label="facet docs" />`,
-    Large: `<QRCode value="https://github.com/arcevodev/facet" size={160} label="facet GitHub" />`,
+    Large: `<QRCode value="https://github.com/fusorb/facet" size={160} label="facet GitHub" />`,
     Colored: `<QRCode
   value="https://facet.arcevocirqle.com.ng"
   size={120}
@@ -2787,7 +2787,7 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
   label="branded"
 />`,
     Logo: `<QRCode
-  value="https://github.com/arcevodev/facet"
+  value="https://github.com/fusorb/facet"
   size={160}
   logo="/brand.png"
   logoSize={36}
@@ -3085,12 +3085,6 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
   front={<div className="flex h-full items-center justify-center rounded-xl border border-border bg-background">Front</div>}
   back={<div className="flex h-full items-center justify-center rounded-xl bg-primary text-primary-foreground">Back</div>}
 />`,
-    "Spotlight card": `<SpotlightCard className="w-64 rounded-xl border border-border bg-background p-6">
-  <p className="text-sm font-semibold">Move your cursor over me</p>
-</SpotlightCard>`,
-    "Border beam": `<BorderBeamCard className="w-64">
-  <div className="rounded-xl p-6">Animated border</div>
-</BorderBeamCard>`,
     "Shine card": `<ShineCard className="w-64 rounded-xl border border-border bg-background p-6">
   <p className="text-sm font-semibold">Hover for a sheen</p>
 </ShineCard>`,
@@ -3124,19 +3118,53 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     "Positive delta": `<StatCard label="Monthly revenue" value="$48,290" delta={12.4} hint="vs last month" />`,
     "Negative delta": `<StatCard label="Churn rate" value="2.1%" delta={-0.4} hint="vs last month" />`,
   },
+  "chart": {
+    Line: `<Chart x={["Mon","Tue","Wed","Thu","Fri"]} series={[
+  { id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] },
+  { id: "orders", label: "Orders", data: [40, 60, 70, 30, 50] },
+]} type="line" />`,
+    Bar: `<Chart x={["Mon","Tue","Wed","Thu","Fri"]} series={[
+  { id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] },
+  { id: "orders", label: "Orders", data: [40, 60, 70, 30, 50] },
+]} type="bar" />`,
+    Area: `<Chart x={["Mon","Tue","Wed","Thu","Fri"]} series={[
+  { id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] },
+  { id: "orders", label: "Orders", data: [40, 60, 70, 30, 50] },
+]} type="area" />`,
+    Pie: `<Chart x={["Mon","Tue","Wed","Thu","Fri"]} series={[{ id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] }]} type="pie" />`,
+    Donut: `<Chart x={["Mon","Tue","Wed","Thu","Fri"]} series={[{ id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] }]} type="donut" />`,
+    Composed: `<Chart x={["Mon","Tue","Wed","Thu","Fri"]} series={[
+  { id: "line", label: "L", data: [30, 80, 50, 60, 90], type: "line" },
+  { id: "bar", label: "B", data: [40, 60, 70, 30, 50], type: "bar" },
+]} type="composed" />`,
+    Horizontal: `<Chart x={["Mon","Tue","Wed","Thu","Fri"]} series={[
+  { id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] },
+  { id: "orders", label: "Orders", data: [40, 60, 70, 30, 50] },
+]} type="bar" layout="horizontal" />`,
+    Stacked: `<Chart x={["Mon","Tue","Wed","Thu","Fri"]} series={[
+  { id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] },
+  { id: "orders", label: "Orders", data: [40, 60, 70, 30, 50] },
+]} type="bar" stacked />`,
+    Smooth: `<Chart x={["Mon","Tue","Wed","Thu","Fri"]} series={[
+  { id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] },
+  { id: "orders", label: "Orders", data: [40, 60, 70, 30, 50] },
+]} type="line" curve="smooth" />`,
+    Step: `<Chart x={["Mon","Tue","Wed","Thu","Fri"]} series={[
+  { id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] },
+  { id: "orders", label: "Orders", data: [40, 60, 70, 30, 50] },
+]} type="line" curve="step" />`,
+  },
 };
-
-/** The package a slug's components live in (for usage import lines). */
 const PACKAGE_BY_SLUG: Record<string, string> = {
-  "sign-in": "@arcevo/facet-auth",
-  "sign-up": "@arcevo/facet-auth",
-  "mfa-dialog": "@arcevo/facet-auth",
-  guard: "@arcevo/facet-auth",
-  "console-layout": "@arcevo/facet-layout",
-  "auth-layout": "@arcevo/facet-layout",
-  "landing-layout": "@arcevo/facet-layout",
-  sidebar: "@arcevo/facet-layout",
-  topbar: "@arcevo/facet-layout",
+  "sign-in": "@fusorb/facet-auth",
+  "sign-up": "@fusorb/facet-auth",
+  "mfa-dialog": "@fusorb/facet-auth",
+  guard: "@fusorb/facet-auth",
+  "console-layout": "@fusorb/facet-layout",
+  "auth-layout": "@fusorb/facet-layout",
+  "landing-layout": "@fusorb/facet-layout",
+  sidebar: "@fusorb/facet-layout",
+  topbar: "@fusorb/facet-layout",
 };
 
 /** Components imported from a non-components package, keyed by slug. */
@@ -3159,6 +3187,6 @@ const PACKAGE_IMPORTS: Record<string, string[]> = {
  */
 const EXTRA_PACKAGE_IMPORTS: Record<string, Record<string, string[]>> = {
   "auth-layout": {
-    "@arcevo/facet-auth": ["SignIn", "fintechPreset", "defaultPreset"],
+    "@fusorb/facet-auth": ["SignIn", "fintechPreset", "defaultPreset"],
   },
 };

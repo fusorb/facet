@@ -21,7 +21,7 @@ import {
   InfiniteScroll,
   type RoadmapItem,
   type DataTableColumn,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 
 /**
  * Live demos for the "Ready to Use" docs pages. Each demo is a small,
@@ -72,9 +72,9 @@ export function QRCodeDemo() {
     <div className="not-prose space-y-6">
       <div className="flex flex-wrap items-end gap-6">
         <QRCode value="https://facet.arcevocirqle.com.ng" size={140} label="facet docs QR code" />
-        <QRCode value="https://github.com/arcevodev/facet" size={140} label="facet GitHub QR code" />
+        <QRCode value="https://github.com/fusorb/facet" size={140} label="facet GitHub QR code" />
         <QRCode
-          value="https://github.com/arcevodev/facet"
+          value="https://github.com/fusorb/facet"
           size={160}
           label="QR code with brand logo"
           logo={QR_BRAND_MARK}

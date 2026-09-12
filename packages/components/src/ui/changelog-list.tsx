@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: ChangelogList
+ * @fusorb/facet-components: ChangelogList
  *
  * A ready-to-use changelog / release notes list. Vertical timeline of
  * releases, each with a version, date, tag chips (Added / Changed /

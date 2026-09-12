@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: OtpVerificationCard
+ * @fusorb/facet-components: OtpVerificationCard
  *
  * A ready-to-use one-time-password verification card: auto-focusing
  * OTP input, resend countdown, error state, and a submit action. Fully

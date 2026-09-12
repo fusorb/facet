@@ -1,5 +1,5 @@
 {
-  "name": "@arcevo/facet-cli",
+  "name": "@fusorb/facet-cli",
   "version": "2.0.0",
   "description": "facet CLI: scaffold docs + email template sites, add components, generate tree-shaken icon registries, and audit/update your facet setup from the terminal.",
   "type": "module",
@@ -34,11 +34,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArcevoDev/facet.git",
+    "url": "git+https://github.com/fusorb/facet.git",
     "directory": "packages/cli"
   },
   "bugs": {
-    "url": "https://github.com/ArcevoDev/facet/issues"
+    "url": "https://github.com/fusorb/facet/issues"
   },
   "homepage": "https://facet.arcevocirqle.com.ng",
   "license": "MIT",

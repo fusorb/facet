@@ -1,5 +1,5 @@
 import { FEATURES } from "../data/features.js";
-import { LightIcon } from "@arcevo/facet-components/light";
+import { LightIcon } from "@fusorb/facet-components/light";
 
 export function FeaturesSection() {
   return (

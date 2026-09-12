@@ -29,9 +29,9 @@ packages/auth/         ← Auth components + domain presets (fintech, med, edu)
 packages/layout/       ← Domain-configurable app shell (ConsoleLayout, AuthLayout, LandingLayout)
 packages/store/        ← Framework-agnostic Zustand stores (auth + tenant) + token-refresh bridge
 packages/emails/       ← Framework-agnostic email builder + React bridge (renderEmail, EmailLayout)
-packages/docs/         ← Installable docs engine: @arcevo/facet-docs (<DocsApp config pages />)
+packages/docs/         ← Installable docs engine: @fusorb/facet-docs (<DocsApp config pages />)
 packages/cli/          ← Scaffold docs, audit/update, add components, generate icon registry
-apps/docs/             ← Docs demo site: thin consumer of @arcevo/facet-docs (private, @arcevo/facet-docs-site)
+apps/docs/             ← Docs demo site: thin consumer of @fusorb/facet-docs (private, @fusorb/facet-docs-site)
 apps/landing/          ← Landing page
 ```
 
@@ -48,7 +48,7 @@ apps/landing/          ← Landing page
 
 ## SDK Architecture
 
-`@arcevo/facet-sdk` is a pure fetch client. No React, no axios. Each API domain
+`@fusorb/facet-sdk` is a pure fetch client. No React, no axios. Each API domain
 gets its own class that takes `ArcIdClient` in its constructor. Consumers
 instantiate the modules they need:
 
@@ -100,7 +100,7 @@ COMPLETE → (onSuccess callback) → redirect
 3. ✅ `packages/components/`: 113 styled Radix components + theme system + IconRegistry (Stepper, KanbanBoard, ChangelogList added in 1.11.0; WizardFormPage, DateRangePicker, Chart, EmptyStatePage, QrScanner, ConsentCapture, PricingComparison, Tree, MultiCombobox, TagInput, RangeSlider, RatingInput, CookieBanner, OtpInput, RichTextEditor, PhoneInput, MentionInput, ShineBorderCard, GlowBorderCard, Pill added in 1.12.0)
 4. ✅ `packages/auth/`: ArcProvider, SignIn (controlled `step`/`onStepChange` API), SignUp, UserButton, Guard, MfaDialog, 7 standalone forms
 5. ✅ `packages/layout/`: ConsoleLayout (full + rail modes), AuthLayout (renamed from AppLayout, alias kept), LandingLayout, 5 presets
-6. ✅ `packages/docs/`: installable config-driven docs engine (`@arcevo/facet-docs`) + thin demo consumer at `apps/docs/` (`@arcevo/facet-docs-site`)
+6. ✅ `packages/docs/`: installable config-driven docs engine (`@fusorb/facet-docs`) + thin demo consumer at `apps/docs/` (`@fusorb/facet-docs-site`)
 7. ✅ Changesets + npm publish pipeline
 8. ✅ `apps/landing/`: rebuilt public-facing site (vite + tailwind v4) + feedback page (`/feedback`) with mail/WhatsApp/socials
 9. ✅ Tests: vitest workspace, 362 test definitions across 31 files (sdk 2, components 21, auth 6, layout 2); 276 of those are component tests (21 files, 1 pre-existing flake: theme.test.tsx Radix/jsdom)
@@ -110,7 +110,7 @@ COMPLETE → (onSuccess callback) → redirect
 13. ✅ P0 fixes landed (2026-08-03): `check-docs-inventory.mjs` rewritten as a barrel+manifest drift gate (no story dependency); Storybook fully purged (48 story fixtures deleted, `@storybook/react-vite` removed from root devDeps); `packages/docs` added to root tsconfig references. Docs site has Auth as a nested sidebar group and Components grouped by category, with the interactive SignIn demo as the single home on /auth/sign-in.
 14. ✅ Docs-site gallery split (committed in b1da261): base UI components, the auth/layout surfaces, and the "Ready to Use" extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form) are now separated. The base `/components` gallery shows UI primitives only, auth/layout have their own guide pages with interactive demos, and ready-to-use extras get a dedicated `/ready-to-use` section with live previews + copyable snippets. Component pages use the reusable `<InteractiveDemo>` (variant tabs with live preview + matching code side-by-side).
 15. ⚠️ `pnpm lint` hangs on this machine (environment issue). CLI `tsc` is pathologically slow; use editor LSP diagnostics on changed files as the typecheck signal.
-16. ✅ Architectural debt sprint - 10 items resolved and committed: `@arcevo/facet-store` stabilized at 1.0.0 (was 0.1.0-alpha), `@arcevo/facet-cli` stabilized at 1.0.0 (was 0.8.0); CLI deps resolved dynamically from the installed components package.json (no hardcoded BUNDLED_DEPS); CLI self-update is CI-aware (skips update check in CI, suggests npx fallback); docs engine has 6 test files (manifest, nav, pages, docs-app integration); scan.ts detects Fastify/OpenAPI backend routes + generates API reference pages; `facet clean` is opt-in destructive (`--delete-local` flag; `--yes` preset never deletes files); icon catalog is lazy-loaded (1,500-icon map deferred, ~30 semantic icons resolved synchronously); SDK table↔barrel + icon-map drift gates wired into CI; `facet install` (`.alias("add")`) + `facet copy` (component source) split clarifies the commands; template-merge.ts marker bug fixed. See `.changeset/stabilize-cli-store.md`.
+16. ✅ Architectural debt sprint - 10 items resolved and committed: `@fusorb/facet-store` stabilized at 1.0.0 (was 0.1.0-alpha), `@fusorb/facet-cli` stabilized at 1.0.0 (was 0.8.0); CLI deps resolved dynamically from the installed components package.json (no hardcoded BUNDLED_DEPS); CLI self-update is CI-aware (skips update check in CI, suggests npx fallback); docs engine has 6 test files (manifest, nav, pages, docs-app integration); scan.ts detects Fastify/OpenAPI backend routes + generates API reference pages; `facet clean` is opt-in destructive (`--delete-local` flag; `--yes` preset never deletes files); icon catalog is lazy-loaded (1,500-icon map deferred, ~30 semantic icons resolved synchronously); SDK table↔barrel + icon-map drift gates wired into CI; `facet install` (`.alias("add")`) + `facet copy` (component source) split clarifies the commands; template-merge.ts marker bug fixed. See `.changeset/stabilize-cli-store.md`.
 17. ✅ CI gates: `build → check:docs → check:icons → check:sdk-drift → typecheck → test (workspace) → sandbox:e2e`. Version job has `permissions: contents: write` (fixes 403 on changesets version PR push).
 
 ## Known Gaps for arc-id Consumption
@@ -123,7 +123,7 @@ When arc-id adopts facet as its frontend, these need resolution:
 2. ✅ **Placeholder handlers**: `handlePasskeyAuth` now calls `passkeySdk.authenticationOptions()` → `navigator.credentials.get()` → `passkeySdk.authenticate()`. `handleForgotPasswordSubmit` calls `authSdk.forgotPassword()`. No longer stubs.
 3. ✅ **Test infrastructure**: Vitest workspace, 362 test definitions across 31 files (sdk 2, components 21, auth 6, layout 2).
 4. ✅ **SignIn MFA challenge**: Wired to `MfaVerifyForm` (2026-07-31).
-5. ✅ **Duplicate dropdowns**: `layout/UserMenu` now uses `@arcevo/facet-components` `DropdownMenu`.
+5. ✅ **Duplicate dropdowns**: `layout/UserMenu` now uses `@fusorb/facet-components` `DropdownMenu`.
 6. ✅ **Type strictness**: SDK now has strict domain interfaces in `sdk/src/types.ts`; `Record<string, unknown>` eliminated.
 7. ✅ **Sidebar router coupling**: `RouterAdapter` pattern (`router.tsx`) supports Next.js App Router, Remix, and React Router.
 8. ✅ **Theme switching**: `ThemeProvider`/`useTheme`/`ThemeToggle` with localStorage persistence + system preference detection.
@@ -139,12 +139,12 @@ When arc-id adopts facet as its frontend, these need resolution:
 
 arc-id will consume facet as npm-published packages:
 
-- `src/components/ui/*` → replace with `@arcevo/facet-components`
-- `src/components/auth/*` → replace with `@arcevo/facet-auth`
-- `src/sdk/*` → replace with `@arcevo/facet-sdk`
-- `globals.css :root` → replace with `@arcevo/facet-tokens/tokens.css`
+- `src/components/ui/*` → replace with `@fusorb/facet-components`
+- `src/components/auth/*` → replace with `@fusorb/facet-auth`
+- `src/sdk/*` → replace with `@fusorb/facet-sdk`
+- `globals.css :root` → replace with `@fusorb/facet-tokens/tokens.css`
 
-arc-id keeps: Zustand stores, hooks, providers (tenant hydration), pages, layout components (until replacing with `@arcevo/facet-layout`).
+arc-id keeps: Zustand stores, hooks, providers (tenant hydration), pages, layout components (until replacing with `@fusorb/facet-layout`).
 
 ## Commands
 

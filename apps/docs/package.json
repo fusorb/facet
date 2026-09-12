@@ -1,8 +1,8 @@
 {
-  "name": "@arcevo/facet-docs-site",
+  "name": "@fusorb/facet-docs-site",
   "version": "1.0.12",
   "private": true,
-  "description": "facet's own docs site: a thin consumer of @arcevo/facet-docs, deployed to docs.facet.arcevocirqle.com.ng.",
+  "description": "facet's own docs site: a thin consumer of @fusorb/facet-docs, deployed to docs.facet.arcevocirqle.com.ng.",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,10 +14,10 @@
     "react": "^19",
     "react-dom": "^19",
     "react-router-dom": "^7.1.1",
-    "@arcevo/facet-docs": "workspace:*",
-    "@arcevo/facet-tokens": "workspace:*",
-    "@arcevo/facet-components": "workspace:*",
-    "@arcevo/facet-layout": "workspace:*"
+    "@fusorb/facet-docs": "workspace:*",
+    "@fusorb/facet-tokens": "workspace:*",
+    "@fusorb/facet-components": "workspace:*",
+    "@fusorb/facet-layout": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19",

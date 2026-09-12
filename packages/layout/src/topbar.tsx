@@ -1,13 +1,13 @@
 /**
- * @arcevo/facet-layout: Topbar
+ * @fusorb/facet-layout: Topbar
  *
  * Sticky top bar with mobile hamburger, tenant switcher, user menu, and an
- * optional built-in theme toggle (renders @arcevo/facet-components'
+ * optional built-in theme toggle (renders @fusorb/facet-components'
  * ThemeToggle; requires a ThemeProvider ancestor).
  */
 
 import * as React from "react";
-import { ThemeToggle } from "@arcevo/facet-components";
+import { ThemeToggle } from "@fusorb/facet-components";
 import { useLayout } from "./layout-context.js";
 import { UserMenu } from "./user-menu.js";
 import { TenantSwitcher } from "./tenant-switcher.js";

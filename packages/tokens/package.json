@@ -1,5 +1,5 @@
 {
-  "name": "@arcevo/facet-tokens",
+  "name": "@fusorb/facet-tokens",
   "version": "1.1.4",
   "description": "Design tokens for the ArcevoCirqle ecosystem: Alpha Palette colors, typography, spacing, surfaces, and sub-brand accents in OKLCH, as CSS variables and a Tailwind v4 theme.",
   "type": "module",
@@ -33,11 +33,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArcevoDev/facet.git",
+    "url": "git+https://github.com/fusorb/facet.git",
     "directory": "packages/tokens"
   },
   "bugs": {
-    "url": "https://github.com/ArcevoDev/facet/issues"
+    "url": "https://github.com/fusorb/facet/issues"
   },
   "homepage": "https://facet.arcevocirqle.com.ng",
   "license": "MIT",

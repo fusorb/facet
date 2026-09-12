@@ -1,9 +1,9 @@
 /**
- * @arcevo/facet-layout: Domain-configurable app shell components.
+ * @fusorb/facet-layout: Domain-configurable app shell components.
  *
  * Usage:
- *   import { ConsoleLayout, Sidebar, PageHeader } from "@arcevo/facet-layout";
- *   import { defaultLayoutPreset } from "@arcevo/facet-layout";
+ *   import { ConsoleLayout, Sidebar, PageHeader } from "@fusorb/facet-layout";
+ *   import { defaultLayoutPreset } from "@fusorb/facet-layout";
  *
  *   <ConsoleLayout config={defaultLayoutPreset}>
  *     <PageHeader title="Dashboard" />

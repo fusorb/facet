@@ -12,9 +12,9 @@ import {
   CardDescription,
   CardContent,
   Badge,
-} from "@arcevo/facet-components";
-import { LandingLayout } from "@arcevo/facet-layout";
-import { LightIcon } from "@arcevo/facet-components/light";
+} from "@fusorb/facet-components";
+import { LandingLayout } from "@fusorb/facet-layout";
+import { LightIcon } from "@fusorb/facet-components/light";
 import { Nav } from "../components/Nav.js";
 import { Footer } from "../components/Footer.js";
 import {
@@ -47,7 +47,7 @@ export function SecurityPage() {
           <div className="flex items-center justify-between rounded-md border border-border p-3">
             <div>
               <p className="font-medium text-foreground">Ada Lovelace</p>
-              <p className="text-xs text-muted-foreground">ada.lovelace@arcevocirqle.com.ng</p>
+              <p className="text-xs text-muted-foreground">ada.lovelace@fusorbcirqle.com.ng</p>
             </div>
             <Badge variant="outline">Owner</Badge>
           </div>
@@ -89,7 +89,7 @@ export function SecurityPage() {
           </CardContent>
         </Card>
         <TwoFactorSetupPanel
-          otpauthUri="otpauth://totp/facet:ada.lovelace@arcevocirqle.com.ng?secret=JBSWY3DPEHPK3PXP&issuer=facet"
+          otpauthUri="otpauth://totp/facet:ada.lovelace@fusorbcirqle.com.ng?secret=JBSWY3DPEHPK3PXP&issuer=facet"
           secret="JBSW-Y3DP-EHPK-3PXP"
           recoveryCodes={[
             "a1b2-c3d4",
@@ -213,7 +213,7 @@ export function SecurityPage() {
             Account settings, API keys, MFA, sessions, the surfaces every auth
             console needs, wired from the ready-to-use components in
             <code className="ml-1 rounded bg-secondary/50 px-2 py-1 text-sm">
-              @arcevo/facet-components
+              @fusorb/facet-components
             </code>
             .
           </p>

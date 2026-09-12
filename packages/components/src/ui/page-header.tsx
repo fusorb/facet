@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: PageHeader
+ * @fusorb/facet-components: PageHeader
  *
  * A page header: breadcrumb trail (optional), title, description, and
  * actions. Composes the Breadcrumb primitive. Fully customizable.

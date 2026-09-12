@@ -3,7 +3,7 @@ import { render, screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SignIn } from "./sign-in.js";
 import { ArcProvider } from "./provider.js";
-import { ArcIdClient } from "@arcevo/facet-sdk";
+import { ArcIdClient } from "@fusorb/facet-sdk";
 import { createMemoryStorage } from "./test-storage.js";
 import { defaultConfig } from "./types.js";
 // RTL's auto-cleanup doesn't fire under this setup (shared setup has no RTL),

@@ -2,9 +2,9 @@
  * Extended gallery manifest.
  *
  * The auto-generated `docsManifest` covers the 90 UI components in
- * `@arcevo/facet-components`. The gallery should also preview auth and
+ * `@fusorb/facet-components`. The gallery should also preview auth and
  * layout surfaces, so this module merges hand-written entries for the
- * `@arcevo/facet-auth` and `@arcevo/facet-layout` packages into a single
+ * `@fusorb/facet-auth` and `@fusorb/facet-layout` packages into a single
  * `extendedManifest` that the gallery (index + detail pages + sidebar
  * section) consumes.
  *
@@ -19,7 +19,7 @@ export type { DocsManifestEntry } from "../manifest.js";
 
 /** Auth + layout entries that are previewable in the gallery. */
 export const extendedEntries: DocsManifestEntry[] = [
-  // ── Auth (@arcevo/facet-auth) ────────────────────────────────
+  // ── Auth (@fusorb/facet-auth) ────────────────────────────────
   {
     name: "Sign In",
     slug: "sign-in",
@@ -27,7 +27,7 @@ export const extendedEntries: DocsManifestEntry[] = [
       "Configurable sign-in state machine: email + password, magic link, passkey, OAuth, and forgot password.",
     category: "auth",
   },
-  // ── Layout (@arcevo/facet-layout) ────────────────────────────
+  // ── Layout (@fusorb/facet-layout) ────────────────────────────
   {
     name: "Console Layout",
     slug: "console-layout",

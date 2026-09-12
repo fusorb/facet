@@ -1,5 +1,5 @@
-import { ChangelogList, Pill, facetChangelog } from "@arcevo/facet-components";
-import { LightIcon } from "@arcevo/facet-components/light";
+import { ChangelogList, Pill, facetChangelog } from "@fusorb/facet-components";
+import { LightIcon } from "@fusorb/facet-components/light";
 
 export function ChangelogSection() {
   return (

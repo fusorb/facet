@@ -31,7 +31,7 @@ describe("facet add <component> end-to-end", () => {
       expect(written).toContain(file);
       expect(fs.existsSync(file)).toBe(true);
       const content = fs.readFileSync(file, "utf8");
-      expect(content).toContain('import { Button } from "@arcevo/facet-components"');
+      expect(content).toContain('import { Button } from "@fusorb/facet-components"');
       expect(content).toContain("export default Button");
 
       // The facet barrel re-exports the component by name.

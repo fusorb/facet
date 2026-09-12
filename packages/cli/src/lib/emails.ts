@@ -3,7 +3,7 @@
  *
  * `facet emails init` reads the consumer's repo and figures out what mail
  * stack they already have (react-email, mjml, nodemailer, resend, ...),
- * then either plans a migration to @arcevo/facet-emails or a fresh
+ * then either plans a migration to @fusorb/facet-emails or a fresh
  * scaffold. Everything is non-destructive: this module only reports and
  * plans; the command writes files after confirmation.
  */
@@ -54,9 +54,9 @@ export interface MailDetection {
   mailPackages: string[];
   /** The primary mail renderer, if any (for the migration guide). */
   renderer: MailRenderer | null;
-  /** Whether @arcevo/facet-emails is already a dependency. */
+  /** Whether @fusorb/facet-emails is already a dependency. */
   facetEmailsInstalled: boolean;
-  /** Whether @arcevo/facet-components is already a dependency. */
+  /** Whether @fusorb/facet-components is already a dependency. */
   facetComponentsInstalled: boolean;
   /** Whether a mail setup already exists (renderer or provider). */
   hasExisting: boolean;
@@ -159,8 +159,8 @@ export function detectMailSetup(cwd: string): MailDetection {
     framework,
     mailPackages,
     renderer,
-    facetEmailsInstalled: Boolean(deps["@arcevo/facet-emails"]),
-    facetComponentsInstalled: Boolean(deps["@arcevo/facet-components"]),
+    facetEmailsInstalled: Boolean(deps["@fusorb/facet-emails"]),
+    facetComponentsInstalled: Boolean(deps["@fusorb/facet-components"]),
     hasExisting: mailPackages.length > 0,
     monorepo,
   };

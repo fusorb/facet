@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: CookieConsent
+ * @fusorb/facet-components: CookieConsent
  *
  * A GDPR-style cookie consent banner with Accept / Decline and an
  * optional preferences disclosure. Persists the choice to localStorage.

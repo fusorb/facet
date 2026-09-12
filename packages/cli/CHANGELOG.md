@@ -1,4 +1,4 @@
-# @arcevo/facet-cli
+# @fusorb/facet-cli
 
 ## 2.0.0
 
@@ -28,10 +28,10 @@
   - Auto-update check on CLI startup (pnpm-style notification box, 24h cache, CI skip, --no-update-check)
   - `facet self-update`: updates the globally-installed facet-cli
   - `facet install <name>`: installs a facet package by shorthand or full name
-    (full: `facet install @arcevo/facet-layout`, shorthand: `facet install layout`)
-    Supports the scoped-dropped alias `facet-cli` -> `@arcevo/facet-cli` (so any
+    (full: `facet install @fusorb/facet-layout`, shorthand: `facet install layout`)
+    Supports the scoped-dropped alias `facet-cli` -> `@fusorb/facet-cli` (so any
     `facet-X` alias resolves), and `-g`/`--global` to install globally, e.g.
-    `facet install -g facet-cli` runs `npm i -g @arcevo/facet-cli@latest`.
+    `facet install -g facet-cli` runs `npm i -g @fusorb/facet-cli@latest`.
   - `facet copy <ComponentName>`: copies a component into your source (shadcn-style) only
     (passing a package name prints a redirect hint to `facet install`)
   - `facet latest`: shows latest published versions of all facet packages
@@ -46,7 +46,7 @@
 
   - cli: `resolveFacetVersions()` now uses an `AbortController` with a 3s timeout (was unbounded); `discoverFacetPackages()` timeout reduced from 5s to 3s.
   - cli: Add `LUCIDE_ALIASES` entry `alert-circle → circle-alert` so the deprecated lucide name still resolves in generated icon registries.
-  - components: Add `alert-circle`, `external-link`, `globe`, and `store` to the `@arcevo/facet-components/light` `LightIcon` set (used by the landing and docs sites).
+  - components: Add `alert-circle`, `external-link`, `globe`, and `store` to the `@fusorb/facet-components/light` `LightIcon` set (used by the landing and docs sites).
 
 ## 0.8.0
 
@@ -85,7 +85,7 @@
 
 - e25905c: feat(cli): dynamically discover facet packages + auto-apply updates
 
-  - `facet pkg` / `facet doctor` / `facet update` now discover `@arcevo/facet-*` packages dynamically from the npm registry scope (`/-/v1/search?text=scope:arcevo`, 5s timeout, falls back to the static baseline) merged with whatever the consumer declares. A newly published facet package (e.g. `@arcevo/facet-emails`) shows up without a CLI release.
+  - `facet pkg` / `facet doctor` / `facet update` now discover `@fusorb/facet-*` packages dynamically from the npm registry scope (`/-/v1/search?text=scope:arcevo`, 5s timeout, falls back to the static baseline) merged with whatever the consumer declares. A newly published facet package (e.g. `@fusorb/facet-emails`) shows up without a CLI release.
   - `facet update` now applies updates by default (confirmation prompt unless `-y`), with `--dry-run` to only print the command. `facet up` remains the always-apply variant.
 
 ## 0.6.0
@@ -94,24 +94,24 @@
 
 - 76b902c: feat: email template primitives (Section/Row/Column, variants, code grid) + `facet emails init`
 
-  **@arcevo/facet-emails**
+  **@fusorb/facet-emails**
 
   - New `EmailSection` / `EmailRow` / `EmailColumn` primitives (table-based containers matching react-email Section/Row/Column), so consumers can build grid/detail layouts.
   - `EmailSecurityNotice` gains a `variant` prop (`warning` | `danger` | `info`) and a children/callout form in addition to the IP/device table form.
   - `EmailCodeBlock` now supports a `codes: string[]` + `columns: 1 | 2` grid path for recovery-code style emails, alongside the existing single-code path.
   - All primitives continue to accept inline `style` objects and inherit the `brand` tokens (primary, background, surface, text, muted, fontFamily, radius, brandName) passed to `renderEmail`, so consumers can fully re-brand without forking.
 
-  **@arcevo/facet-cli**
+  **@fusorb/facet-cli**
 
   - New `facet emails init` command that detects the consumer's mail setup (react-email, mjml, nodemailer, resend, sendgrid, SES, postmark) from the manifests and either:
     - offers a migration path when an existing renderer is found, or
     - scaffolds a fresh `emails/` dir (brand tokens, layout wrapper, template registry with a sample welcome template, dev preview server, provider `send.ts` for resend/nodemailer, and `.env.example`).
-  - Auto-installs `@arcevo/facet-emails` plus the provider SDK via the detected package manager (fails soft printing the exact command), and prints the setup guide (provider keys, preview URL, how to send).
+  - Auto-installs `@fusorb/facet-emails` plus the provider SDK via the detected package manager (fails soft printing the exact command), and prints the setup guide (provider keys, preview URL, how to send).
   - Flags: `-y`, `--framework`, `--migrate` / `--fresh`, `--provider resend|nodemailer|none`, `--location`, `--name`.
 
   **Consumer validation**
 
-  - arc-id's mail system (13 templates, components, engine, preview route) now renders through `@arcevo/facet-emails` with ArcID's own design tokens mapped into the brand option; all templates verified rendering valid HTML + plain text with no `undefined`. react-email is removed from arc-id; resend stays for delivery.
+  - arc-id's mail system (13 templates, components, engine, preview route) now renders through `@fusorb/facet-emails` with ArcID's own design tokens mapped into the brand option; all templates verified rendering valid HTML + plain text with no `undefined`. react-email is removed from arc-id; resend stays for delivery.
 
 ## 0.5.0
 
@@ -137,7 +137,7 @@
 
   - Detects the stack: package manager, monorepo layout, framework
     (next/remix/react-vite/plain-js/python), language, styling, and
-    @arcevo/facet-* usage.
+    @fusorb/facet-* usage.
   - Detects the API surface: Fastify + @fastify/swagger (dynamic mode,
     OpenAPI info + a bounded route inventory from route files) or a
     committed openapi.json/swagger.json.
@@ -170,11 +170,11 @@
 
   CLI -- new commands for consumer-safety and repo hygiene:
 
-  - `facet clean`: detects dependencies already bundled by @arcevo/facet-components
+  - `facet clean`: detects dependencies already bundled by @fusorb/facet-components
     (radix primitives, lucide-react, cmdk, input-otp, qrcode.react, react-hook-form,
     sonner, class-variance-authority, clsx, tailwind-merge), removes them from the
     consumer's manifests, rewrites shadcn/ui-style imports (and direct radix/lucide
-    imports) to `@arcevo/facet-components`, and deletes dead local `ui/` components.
+    imports) to `@fusorb/facet-components`, and deletes dead local `ui/` components.
     Safe by default: `--dry-run` shows the plan, prompts for confirmation (or `-y`),
     and prints the exact remove command for the detected package manager instead of
     auto-running it.
@@ -186,7 +186,7 @@
     scripts exist. Non-destructive.
   - `facet up`: applies the facet package updates (non-dry-run sibling of
     `facet update`) using the detected package manager.
-  - `facet doctor` now also reports dependencies that @arcevo/facet-components
+  - `facet doctor` now also reports dependencies that @fusorb/facet-components
     already bundles and suggests `facet clean`.
   - `facet docs init` UX fixes: "Decide for me" now skips the question prompts
     (it previously asked everything then discarded the answers); the summary says
@@ -207,7 +207,7 @@
 
   New commands for inspecting and maintaining a consumer's facet setup:
 
-  - `facet pkg`: lists every published @arcevo/facet-* package with the latest
+  - `facet pkg`: lists every published @fusorb/facet-* package with the latest
     registry version, the declared range in the consumer's manifests, and the
     resolved installed version. Flags `(update available)` when outdated.
   - `facet doctor`: audits the current repo (package manager, monorepo layout,
@@ -236,7 +236,7 @@
   `src/docs/` -- root recommended), language, framework (React+Vite,
   Next.js, Remix, plain JS, Python), and template kind.
   - Detects the consumer's styling setup (facet tokens / Tailwind / plain
-    CSS) and recommends wiring `@arcevo/facet-tokens` so consumers get the
+    CSS) and recommends wiring `@fusorb/facet-tokens` so consumers get the
     Alpha Palette theming without restyling every component.
   - Adds a **barrel export decision** (`--barrel auto|always|never`, or a
     wizard prompt): `auto` creates an `index.ts` when it fits the layout,
@@ -258,7 +258,7 @@
       a starter registry, so a Python repo can own its docs content in
       markdown and hand the JSON to any React host for rendering.
   - Adds `facet add <component>`: a shadcn-style copy-into-source workflow,
-    with a recommendation to import from `@arcevo/facet-components` instead.
+    with a recommendation to import from `@fusorb/facet-components` instead.
     Placement is flexible: by default it decides based on what the consumer
     already has (flat into the components root when a barrel exists, else a
     clean `facet/` subdirectory), with `--dir`, `--ui-dir`, `--flat`,

@@ -1,5 +1,5 @@
 ---
-"@arcevo/facet-components": minor
+"@fusorb/facet-components": minor
 ---
 
 Chart: add pie/donut/composed chart types, per-series type override, smooth & step curves, crosshair cursor, floating tooltip, stacked mode, animation, legend toggle, horizontal bars, bar grouping, and histogram support.

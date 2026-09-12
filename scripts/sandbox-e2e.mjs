@@ -5,8 +5,8 @@
  * real CLI commands against it (via the built CLI binary) to verify:
  *
  *   - facet latest                 (read-only: fetch all facet package versions)
- *   - facet add @arcevo/facet-tokens (installs a facet package via detected PM)
- *   - facet add tokens (shorthand)  (resolves short name → full @arcevo/facet-* pkg)
+ *   - facet add @fusorb/facet-tokens (installs a facet package via detected PM)
+ *   - facet add tokens (shorthand)  (resolves short name → full @fusorb/facet-* pkg)
  *   - facet clean -y               (detects unused bundled deps + auto-runs remove)
  *   - facet doctor                 (analyzes the sandbox for issues)
  *   - facet --log <cmd>            (verbose output on read-only commands)
@@ -82,7 +82,7 @@ function setupSandboxWithBundledDeps() {
   mkdirSync(SANDBOX, { recursive: true });
   mkdirSync(join(SANDBOX, "src"), { recursive: true });
 
-  // Simulate a consumer that has @arcevo/facet-components + a redundant
+  // Simulate a consumer that has @fusorb/facet-components + a redundant
   // bundled dep (embla-carousel-react) that facet-components already includes
   writeFileSync(
     join(SANDBOX, "package.json"),
@@ -94,8 +94,8 @@ function setupSandboxWithBundledDeps() {
         type: "module",
         packageManager: "npm@10.0.0",
         dependencies: {
-          "@arcevo/facet-components": "workspace:*",
-          "@arcevo/facet-tokens": "1.1.4",
+          "@fusorb/facet-components": "workspace:*",
+          "@fusorb/facet-tokens": "1.1.4",
           "embla-carousel-react": "8.0.0",
         },
       },
@@ -126,7 +126,7 @@ function setupSandboxWithBundledDeps() {
   // but does NOT import embla-carousel-react (so it IS flagged as bundled dep)
   writeFileSync(
     join(SANDBOX, "src", "app.jsx"),
-    "import { vars } from '@arcevo/facet-tokens';\nconsole.log(vars);\n",
+    "import { vars } from '@fusorb/facet-tokens';\nconsole.log(vars);\n",
   );
 
   console.log("Sandbox (bundled-deps) created at:", SANDBOX);
@@ -148,15 +148,15 @@ try {
   // --- Test 1: facet latest (read-only) ---
   console.log("\n=== TEST 1: facet latest ===");
   const latestOut = runFacet(["--no-update-check", "latest"]);
-  results["facet latest"] = latestOut.includes("@arcevo/facet-");
+  results["facet latest"] = latestOut.includes("@fusorb/facet-");
   console.log(latestOut.slice(0, 600));
   console.log("PASS:", results["facet latest"]);
 
-  // --- Test 2: facet add @arcevo/facet-tokens (installs a facet package) ---
+  // --- Test 2: facet add @fusorb/facet-tokens (installs a facet package) ---
   // We only verify CLI logic (PM detection + version resolve + install cmd)
   // since the actual npm install is slow and environment-dependent.
-  console.log("\n=== TEST 2: facet add @arcevo/facet-tokens --log ===");
-  const addOut = runFacet(["--no-update-check", "add", "@arcevo/facet-tokens", "--log"], SANDBOX, 30000);
+  console.log("\n=== TEST 2: facet add @fusorb/facet-tokens --log ===");
+  const addOut = runFacet(["--no-update-check", "add", "@fusorb/facet-tokens", "--log"], SANDBOX, 30000);
   results["facet add <pkg>"] = addOut.includes("Package manager:") && addOut.includes("Installing");
   console.log(addOut.slice(0, 800));
   console.log("PASS:", results["facet add <pkg>"]);
@@ -164,7 +164,7 @@ try {
   // --- Test 3: facet add shorthand (facet add tokens) ---
   console.log("\n=== TEST 3: facet add tokens (shorthand) ===");
   const shortcutOut = runFacet(["--no-update-check", "add", "tokens", "--log"], SANDBOX, 30000);
-  results["facet add shorthand"] = shortcutOut.includes("Installing facet package: @arcevo/facet-tokens");
+  results["facet add shorthand"] = shortcutOut.includes("Installing facet package: @fusorb/facet-tokens");
   console.log(shortcutOut.slice(0, 400));
   console.log("PASS:", results["facet add shorthand"]);
 
@@ -186,10 +186,10 @@ try {
   const cleanOut = runFacet(["--no-update-check", "clean", "--yes"], SANDBOX, 60000);
   const cleanPkg = JSON.parse(readFileSync(join(SANDBOX, "package.json"), "utf-8"));
   const removedEmbla = !("embla-carousel-react" in (cleanPkg.dependencies || {}));
-  const keptTokens = "@arcevo/facet-tokens" in (cleanPkg.dependencies || {});
+  const keptTokens = "@fusorb/facet-tokens" in (cleanPkg.dependencies || {});
   results["facet clean -y (auto-run)"] = removedEmbla && keptTokens;
   console.log(cleanOut.slice(0, 1000));
-  console.log("package.json retains @arcevo/facet-tokens (used):", keptTokens);
+  console.log("package.json retains @fusorb/facet-tokens (used):", keptTokens);
   console.log("package.json removed embla-carousel-react (unused bundled):", removedEmbla);
   console.log("PASS:", results["facet clean -y (auto-run)"]);
 

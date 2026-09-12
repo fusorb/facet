@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: text animations
+ * @fusorb/facet-components: text animations
  *
  * Reusable, zero-dependency text effects for hero sections and headers.
  * All are SSR-safe: the text renders in its final state on the server,

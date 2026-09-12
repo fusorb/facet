@@ -419,7 +419,7 @@ CHAPTER 25 -- The Footer and Icons That Didn't Come From Home
 ---------------------------------------------------------------
 The landing app had its own Footer and its own brand icons (GitHub, LinkedIn,
 Instagram, Facebook, TikTok) -- the exact same SVGs that already lived in
-@arcevo/facet-components. When the shared package gained a config-driven Footer
+@fusorb/facet-components. When the shared package gained a config-driven Footer
 and registered brand icons in its icon registry, the landing was never updated
 to use them. The local copies just lingered, silently duplicating work.
 
@@ -430,9 +430,9 @@ The fix:
   - Exported individual brand icon components from the facet-components
     barrel so any consumer can import them directly.
   - Turned the landing's BrandIcons.tsx into a thin re-export from
-    @arcevo/facet-components (with a TiktokIcon→TikTokIcon alias to keep the
+    @fusorb/facet-components (with a TiktokIcon→TikTokIcon alias to keep the
     local naming). Nav and FeedbackPage now pull icons from one source.
-  - Rewrote the landing Footer.tsx to render @arcevo/facet-components'
+  - Rewrote the landing Footer.tsx to render @fusorb/facet-components'
     <Footer> -- configured with the landing's brand, legal line, socials,
     footer links, and contact info, all resolved through LightIcon (which
     already includes brand icons in its map) and the shared CONTACT data.

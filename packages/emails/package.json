@@ -1,5 +1,5 @@
 {
-  "name": "@arcevo/facet-emails",
+  "name": "@fusorb/facet-emails",
   "version": "1.1.1",
   "description": "Framework-agnostic email template renderer for the ArcevoCirqle ecosystem: render React or plain template trees to email-safe HTML and text, with template primitives and a dev preview server. Zero runtime dependencies.",
   "type": "module",
@@ -36,11 +36,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArcevoDev/facet.git",
+    "url": "git+https://github.com/fusorb/facet.git",
     "directory": "packages/emails"
   },
   "bugs": {
-    "url": "https://github.com/ArcevoDev/facet/issues"
+    "url": "https://github.com/fusorb/facet/issues"
   },
   "homepage": "https://facet.arcevocirqle.com.ng",
   "license": "MIT",

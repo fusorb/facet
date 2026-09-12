@@ -74,7 +74,7 @@ describe("detectMailSetup", () => {
     try {
       writeFile(dir, "package.json", JSON.stringify({
         name: "app",
-        dependencies: { "@arcevo/facet-emails": "1.0.0" },
+        dependencies: { "@fusorb/facet-emails": "1.0.0" },
       }));
       const d = detectMailSetup(dir);
       expect(d.facetEmailsInstalled).toBe(true);
@@ -214,7 +214,7 @@ describe("generateEmailsScaffold", () => {
       brandName: "Acme",
       facetEmailsRange: "latest",
     });
-    expect(add.deps["@arcevo/facet-emails"]).toBe("latest");
+    expect(add.deps["@fusorb/facet-emails"]).toBe("latest");
     expect(add.deps.resend).toBeDefined();
     expect(add.scripts["mail:preview"]).toContain("emails/preview-server.ts");
   });

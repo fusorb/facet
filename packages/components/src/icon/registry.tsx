@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: Icon registry
+ * @fusorb/facet-components: Icon registry
  *
  * Resolves semantic + lowercase kebab lucide icon names to components, so
  * consumers and domain presets can override icons without forking
@@ -16,7 +16,7 @@
  *   4. Lowercase lucide name map (any of lucide's 1.5k+ icons, e.g. "heart").
  *
  * Usage:
- *   import { Icon, registerIcon, IconProvider } from "@arcevo/facet-components";
+ *   import { Icon, registerIcon, IconProvider } from "@fusorb/facet-components";
  *
  *   registerIcon("settings", MyCustomSettingsIcon);
  *

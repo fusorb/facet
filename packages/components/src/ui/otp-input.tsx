@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: OtpInput
+ * @fusorb/facet-components: OtpInput
  *
  * A standalone OTP / one-time-code input. Hosts pass a string value
  * (length === maxLength) and `onChange`. Supports auto-advance,

@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { LayoutConfig, NavItem, NavSection } from "@arcevo/facet-layout";
+import type { LayoutConfig, NavItem, NavSection } from "@fusorb/facet-layout";
 import type { DocsPage } from "./pages.js";
 import { extendedManifest } from "./manifest.js";
 
@@ -191,7 +191,7 @@ function buildComponentsSection(): NavSection {
   return { title: "Components", id: "components", items };
 }
 
-/** Slugs of the extended @arcevo/facet-layout guide entries. */
+/** Slugs of the extended @fusorb/facet-layout guide entries. */
 const EXTENDED_LAYOUT_SLUGS = new Set([
   "console-layout",
   "auth-layout",

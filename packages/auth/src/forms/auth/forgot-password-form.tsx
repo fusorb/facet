@@ -27,7 +27,7 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 
 /* ── Props ─────────────────────────────────────────────────── */
 

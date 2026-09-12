@@ -1,4 +1,4 @@
-import type { DocsPage, DocsSiteConfig } from "@arcevo/facet-docs";
+import type { DocsPage, DocsSiteConfig } from "@fusorb/facet-docs";
 import { docsPages } from "./pages.js";
 import { createElement } from "react";
 

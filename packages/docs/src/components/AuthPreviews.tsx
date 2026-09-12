@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ArcProvider, SignIn, SignUp, Guard } from "@arcevo/facet-auth";
-import { LoginForm, MfaVerifyForm } from "@arcevo/facet-auth";
-import { ArcIdClient } from "@arcevo/facet-sdk";
+import { ArcProvider, SignIn, SignUp, Guard } from "@fusorb/facet-auth";
+import { LoginForm, MfaVerifyForm } from "@fusorb/facet-auth";
+import { ArcIdClient } from "@fusorb/facet-sdk";
 import { CodeBlock } from "./CodeBlock.js";
 
 /** No network: bootstrap stays signed out because no token is stored. */
@@ -57,7 +57,7 @@ export function AuthPreviews() {
       <PreviewShell
         title="SignUp"
         description="Account creation with appearance / config / slots customization."
-        code={`import { SignUp } from "@arcevo/facet-auth";
+        code={`import { SignUp } from "@fusorb/facet-auth";
 
 <SignUp
   config={eduPreset}
@@ -74,7 +74,7 @@ export function AuthPreviews() {
       <PreviewShell
         title="MfaDialog"
         description="The MFA challenge in a dialog, with verify / setup / recovery phases."
-        code={`import { MfaDialog } from "@arcevo/facet-auth";
+        code={`import { MfaDialog } from "@fusorb/facet-auth";
 
 <MfaDialog
   open={open}
@@ -116,7 +116,7 @@ export function AuthPreviews() {
       <PreviewShell
         title="Standalone forms"
         description="Independently importable forms: LoginForm, MagicLinkForm, ForgotPasswordForm, MfaVerifyForm."
-        code={`import { LoginForm } from "@arcevo/facet-auth";
+        code={`import { LoginForm } from "@fusorb/facet-auth";
 
 <LoginForm
   onSubmit={async (email, password) => {

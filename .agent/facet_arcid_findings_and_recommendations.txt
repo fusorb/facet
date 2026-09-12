@@ -8,7 +8,7 @@ actual source files (not just doc claims), and live npm registry lookups.
 ----------------------------------------------------------------------------
 - facet: 10-package monorepo (tokens, sdk, components, auth, layout, store,
   docs, cli, emails) + 2 apps (landing, docs-site). Published to npm under
-  @arcevo/facet-*. Live at facet.arcevocirqle.com.ng /
+  @fusorb/facet-*. Live at facet.arcevocirqle.com.ng /
   docs.facet.arcevocirqle.com.ng.
 - arc-id: Fastify + Prisma + Next.js 16 monorepo, sovereign multi-tenant
   identity backend. Already consumes facet packages in production code
@@ -85,7 +85,7 @@ sides:
 ----------------------------------------------------------------------------
 - arc-id CLAUDE.md states: "arc-id keeps its indigo primary via override."
   This does NOT match the current source. src/styles/globals.css has no
-  --primary override — it fully imports @arcevo/facet-tokens/tailwind.css
+  --primary override — it fully imports @fusorb/facet-tokens/tailwind.css
   and only overrides font-family fallback stacks. facet-tokens' own Alpha
   Palette already resolves --primary to Electric Cyan (#4AD3F5), so the
   design system migration for color appears DONE, not pending as the doc
@@ -118,7 +118,7 @@ sides:
 4. VERSION DRIFT — ARC-ID IS BEHIND FACET'S OWN STABLE RELEASES
 ----------------------------------------------------------------------------
 arc-id/package.json pins:
-  "@arcevo/facet-cli": "^0.8.0"      — facet's local repo has stabilized
+  "@fusorb/facet-cli": "^0.8.0"      — facet's local repo has stabilized
                                         this to 1.0.0 (per facet's own
                                         CLAUDE.md); npm registry confirms
                                         0.8.0 is still the latest PUBLISHED
@@ -126,7 +126,7 @@ arc-id/package.json pins:
                                         bump arc-id is missing — it's a
                                         publish that facet hasn't shipped
                                         yet (see prior review, item 2).
-  "@arcevo/facet-store": "^0.1.0"    — same situation; facet's repo shows
+  "@fusorb/facet-store": "^0.1.0"    — same situation; facet's repo shows
                                         this stabilized to 1.0.0 locally,
                                         not yet on npm.
 
@@ -175,11 +175,11 @@ against your stated ecosystem plan (ArcWallet on React Native/Expo).
 
 Confirmed by direct inspection of facet's own docs content and package
 descriptions:
-  - @arcevo/facet-store: explicitly "web + React Native" — pure Zustand,
+  - @fusorb/facet-store: explicitly "web + React Native" — pure Zustand,
     no React DOM dependency. Works today in RN.
-  - @arcevo/facet-sdk: explicitly framework-agnostic (fetch-based, zero
+  - @fusorb/facet-sdk: explicitly framework-agnostic (fetch-based, zero
     React) — works today in RN.
-  - @arcevo/facet-tokens: "framework-agnostic" is claimed, but in practice
+  - @fusorb/facet-tokens: "framework-agnostic" is claimed, but in practice
     it ships as CSS custom properties (tokens.css/tailwind.css). CSS
     variables do not exist in React Native's styling model — RN needs the
     actual hex/oklch VALUES as a JS object, not a stylesheet. The Alpha
@@ -187,7 +187,7 @@ descriptions:
     so this part is technically reusable, but nothing currently packages
     it as an RN-consumable theme (e.g. a NativeWind config or a plain JS
     theme object with the same token names as the CSS variables).
-  - @arcevo/facet-components, @arcevo/facet-auth, @arcevo/facet-layout:
+  - @fusorb/facet-components, @fusorb/facet-auth, @fusorb/facet-layout:
     all built on Radix UI primitives + DOM elements + Tailwind classNames.
     None of this renders in React Native. There is currently no RN
     equivalent of Button, Card, SignIn, ConsoleLayout, etc.
@@ -207,7 +207,7 @@ explicitly rather than discovering it mid-build:
     forms) styled from the same Alpha Palette token values. Keeps design
     consistency; doesn't reuse facet-components code directly.
   Option B (higher effort, higher payoff): a facet-native package
-    (@arcevo/facet-native) mirroring facet-components' primitive layer
+    (@fusorb/facet-native) mirroring facet-components' primitive layer
     using RN-compatible primitives (React Native Paper, Tamagui, or
     Gluestack as the underlying primitive layer instead of Radix), wired
     to the same Alpha Palette tokens and the same facet-auth state

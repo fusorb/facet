@@ -1,4 +1,4 @@
-# @arcevo/facet-auth
+# @fusorb/facet-auth
 
 ## 1.2.3
 
@@ -10,8 +10,8 @@
   - facet-auth: `<ArcProvider>` now emits a dev-time `console.warn` when no explicit `storage` prop is provided (fires once per page-load). `defaultStorage` and the `TokenStorage` type now carry a prominent JSDoc security warning documenting the XSS risk of storing tokens in `localStorage`.
   - facet-store: `createZustandTokenStorage` gains an optional `persist` adapter argument so consumers can plug in a cookie-backed persistence strategy for the access token. The refresh token is never passed through the persist adapter.
 
-- cfabae9: Add an ESM `"use client"` banner to the `dist` builds of `@arcevo/facet-components`,
-  `@arcevo/facet-auth`, and `@arcevo/facet-layout`.
+- cfabae9: Add an ESM `"use client"` banner to the `dist` builds of `@fusorb/facet-components`,
+  `@fusorb/facet-auth`, and `@fusorb/facet-layout`.
 
   Next.js 15+/16 App Router builds React Server Components with the `react-server`
   condition, which resolves `react-hook-form` to `react-server.esm.mjs` - an entry that
@@ -32,22 +32,22 @@
 - Updated dependencies [1bf5de5]
 - Updated dependencies [1bf5de5]
 - Updated dependencies [cfabae9]
-  - @arcevo/facet-components@1.11.0
-  - @arcevo/facet-sdk@1.2.0
+  - @fusorb/facet-components@1.11.0
+  - @fusorb/facet-sdk@1.2.0
 
 ## 1.2.2
 
 ### Patch Changes
 
 - Updated dependencies [b7accc3]
-  - @arcevo/facet-components@1.10.0
+  - @fusorb/facet-components@1.10.0
 
 ## 1.2.1
 
 ### Patch Changes
 
 - Updated dependencies [18547dc]
-  - @arcevo/facet-components@1.9.0
+  - @fusorb/facet-components@1.9.0
 
 ## 1.2.0
 
@@ -75,42 +75,42 @@
 - Updated dependencies [9360e93]
 - Updated dependencies [8d922f7]
 - Updated dependencies [78b6543]
-  - @arcevo/facet-components@1.8.0
+  - @fusorb/facet-components@1.8.0
 
 ## 1.1.6
 
 ### Patch Changes
 
 - Updated dependencies [d2b43d0]
-  - @arcevo/facet-components@1.7.0
+  - @fusorb/facet-components@1.7.0
 
 ## 1.1.5
 
 ### Patch Changes
 
 - Updated dependencies [8a7aef3]
-  - @arcevo/facet-components@1.6.0
+  - @fusorb/facet-components@1.6.0
 
 ## 1.1.4
 
 ### Patch Changes
 
 - Updated dependencies [b95bcb0]
-  - @arcevo/facet-sdk@1.1.0
+  - @fusorb/facet-sdk@1.1.0
 
 ## 1.1.3
 
 ### Patch Changes
 
 - Updated dependencies [3554506]
-  - @arcevo/facet-components@1.5.0
+  - @fusorb/facet-components@1.5.0
 
 ## 1.1.2
 
 ### Patch Changes
 
 - Updated dependencies
-  - @arcevo/facet-components@1.4.0
+  - @fusorb/facet-components@1.4.0
 
 ## 1.1.1
 
@@ -121,7 +121,7 @@
 - Updated dependencies [69c1fec]
 - Updated dependencies [b878bfd]
 - Updated dependencies [6bb55a2]
-  - @arcevo/facet-components@1.3.0
+  - @fusorb/facet-components@1.3.0
 
 ## 1.1.0
 
@@ -132,14 +132,14 @@
 ### Patch Changes
 
 - Updated dependencies [3de0e04]
-  - @arcevo/facet-components@1.2.0
+  - @fusorb/facet-components@1.2.0
 
 ## 1.0.3
 
 ### Patch Changes
 
 - Updated dependencies [3752a98]
-  - @arcevo/facet-components@1.1.0
+  - @fusorb/facet-components@1.1.0
 
 ## 1.0.2
 
@@ -147,7 +147,7 @@
 
 - Updated dependencies
 - Updated dependencies
-  - @arcevo/facet-components@1.0.2
+  - @fusorb/facet-components@1.0.2
 
 ## 1.0.1
 
@@ -155,8 +155,8 @@
 
 - d94a724: chore: update homepage to facet.arcevocirqle.com.ng
 - Updated dependencies [d94a724]
-  - @arcevo/facet-components@1.0.1
-  - @arcevo/facet-sdk@1.0.1
+  - @fusorb/facet-components@1.0.1
+  - @fusorb/facet-sdk@1.0.1
 
 ## 1.0.0
 
@@ -167,5 +167,5 @@
 ### Patch Changes
 
 - Updated dependencies [e79cbd5]
-  - @arcevo/facet-sdk@1.0.0
-  - @arcevo/facet-components@1.0.0
+  - @fusorb/facet-sdk@1.0.0
+  - @fusorb/facet-components@1.0.0

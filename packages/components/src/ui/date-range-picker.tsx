@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: DateRangePicker
+ * @fusorb/facet-components: DateRangePicker
  *
  * A composable date-range picker with two modes:
  * - "single": a single Date picker with quick presets.

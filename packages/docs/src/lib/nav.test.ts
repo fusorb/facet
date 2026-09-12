@@ -2,7 +2,7 @@
 import { describe, it, expect } from "vitest";
 import { buildDocsLayoutConfig, isExtendedLayoutSlug, type DocsSiteConfig } from "./nav.js";
 import type { DocsPage } from "./pages.js";
-import type { NavSection } from "@arcevo/facet-layout";
+import type { NavSection } from "@fusorb/facet-layout";
 
 // ── Test helpers ──────────────────────────────────────────
 

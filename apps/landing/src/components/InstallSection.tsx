@@ -4,7 +4,7 @@ import {
   CardHeader,
   CardTitle,
   Marquee,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 import { INSTALL_STEPS } from "../data/features.js";
 
 export function InstallSection() {

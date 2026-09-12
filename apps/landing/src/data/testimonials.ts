@@ -1,4 +1,4 @@
-import type { Testimonial } from "@arcevo/facet-components";
+import type { Testimonial } from "@fusorb/facet-components";
 
 /**
  * Testimonials for the landing page. Quotes are intentionally framed around

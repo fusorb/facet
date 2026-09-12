@@ -1,5 +1,5 @@
 /**
- * CLI self-update: check the npm registry for a newer @arcevo/facet-cli
+ * CLI self-update: check the npm registry for a newer @fusorb/facet-cli
  * release and show a pnpm-style notification box when one exists.
  *
  * The check is best-effort: it never blocks the CLI, never throws, and
@@ -14,7 +14,7 @@ import { compareVersions } from "./types.js";
 
 const require = createRequire(import.meta.url);
 
-const CLI_PACKAGE = "@arcevo/facet-cli";
+const CLI_PACKAGE = "@fusorb/facet-cli";
 const CHECK_CACHE_MS = 1000 * 60 * 60 * 24; // 24h between notifications
 
 export interface CliVersionState {
@@ -98,14 +98,14 @@ export function isCiEnvironment(): boolean {
  *  falling back to npm (always available). */
 export function globalInstallCommand(): string {
   const ua = process.env.npm_config_user_agent || "";
-  if (ua.includes("pnpm")) return "pnpm add -g @arcevo/facet-cli@latest";
-  if (ua.includes("yarn")) return "yarn global add @arcevo/facet-cli@latest";
-  if (ua.includes("bun")) return "bun add -g @arcevo/facet-cli@latest";
-  return "npm i -g @arcevo/facet-cli@latest";
+  if (ua.includes("pnpm")) return "pnpm add -g @fusorb/facet-cli@latest";
+  if (ua.includes("yarn")) return "yarn global add @fusorb/facet-cli@latest";
+  if (ua.includes("bun")) return "bun add -g @fusorb/facet-cli@latest";
+  return "npm i -g @fusorb/facet-cli@latest";
 }
 
 /** Ephemeral command that runs the latest facet-cli without a global install.
  *  Works in restricted/CI environments that lack global write permissions. */
 export function npxRunCommand(): string {
-  return "npx @arcevo/facet-cli@latest";
+  return "npx @fusorb/facet-cli@latest";
 }

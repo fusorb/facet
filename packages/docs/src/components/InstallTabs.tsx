@@ -1,8 +1,8 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@arcevo/facet-components/light";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@fusorb/facet-components/light";
 import { usePackageManager } from "../context.js";
 
 export interface InstallCommand {
-  /** Package spec as it appears in the command, e.g. "@arcevo/facet-components". */
+  /** Package spec as it appears in the command, e.g. "@fusorb/facet-components". */
   pkg: string;
   /** Extra packages appended to the same install line (optional). */
   extras?: string[];
@@ -17,7 +17,7 @@ const MANAGERS = [
 
 /**
  * Framework-agnostic install block with tabs for each package manager.
- * Every command is real: the @arcevo/facet-* packages publish to npm, so
+ * Every command is real: the @fusorb/facet-* packages publish to npm, so
  * pnpm, npm, yarn, and bun can all install them.
  *
  * Compact by design: the manager tabs are narrow chips (not full-width

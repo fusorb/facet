@@ -1,4 +1,4 @@
-import type { IconName } from "@arcevo/facet-components";
+import type { IconName } from "@fusorb/facet-components";
 import { getDocsUrl } from "../lib/docs-url.js";
 
 export interface EcosystemEntry {
@@ -26,7 +26,7 @@ export function getEcosystemDocsUrl(entry: EcosystemEntry): string {
 export const ECOSYSTEM: EcosystemEntry[] = [
   {
     slug: "docs-package",
-  name: "@arcevo/facet-docs",
+  name: "@fusorb/facet-docs",
   title: "Docs Engine",
   version: "1.4.7",
     icon: "book-open",
@@ -35,7 +35,7 @@ export const ECOSYSTEM: EcosystemEntry[] = [
       "Installable docs engine: mount <DocsApp> with your own brand, nav, and pages.",
     analysis: [
       "The docs package is a zero-config, type-safe documentation engine built on Vite + React. It takes two props - a DocsSiteConfig (brand, navigation, ecosystem links) and a DocsPage[] registry - and renders a full docs site with live code previews, variant tabs, and copyable snippets.",
-      "Pages are declared as data, not components: each DocPage is a list of typed blocks (paragraph, heading, code, install, table, ul) that the renderer turns into styled content. This keeps the docs surface in sync with the package surface - a CI gate verifies that every exported component from @arcevo/facet-components has a matching docs entry.",
+      "Pages are declared as data, not components: each DocPage is a list of typed blocks (paragraph, heading, code, install, table, ul) that the renderer turns into styled content. This keeps the docs surface in sync with the package surface - a CI gate verifies that every exported component from @fusorb/facet-components has a matching docs entry.",
       "The engine is designed to be consumed as a library, not a framework. An external project drops <DocsApp config={theirConfig} pages={theirPages} /> into a Vite shell and gets a fully branded docs site. facet dogfoods it here: this very site is a consumer of itself.",
     ],
     features: [
@@ -49,7 +49,7 @@ export const ECOSYSTEM: EcosystemEntry[] = [
     example: [
       {
         lang: "tsx",
-        code: `import { DocsApp } from "@arcevo/facet-docs";
+        code: `import { DocsApp } from "@fusorb/facet-docs";
 
 <DocsApp config={demoConfig} pages={demoPages} />`,
       },
@@ -58,7 +58,7 @@ export const ECOSYSTEM: EcosystemEntry[] = [
   },
   {
     slug: "layout",
-    name: "@arcevo/facet-layout",
+    name: "@fusorb/facet-layout",
     title: "Layout",
     version: "1.4.2",
     icon: "building",
@@ -81,7 +81,7 @@ export const ECOSYSTEM: EcosystemEntry[] = [
     example: [
       {
         lang: "tsx",
-        code: `import { ConsoleLayout, enterpriseLayoutPreset } from "@arcevo/facet-layout";
+        code: `import { ConsoleLayout, enterpriseLayoutPreset } from "@fusorb/facet-layout";
 
 <ConsoleLayout config={enterpriseLayoutPreset} tenants={tenants}>
   <YourRoutes />
@@ -101,9 +101,9 @@ export const ECOSYSTEM: EcosystemEntry[] = [
       "Which facet packages work outside React and how to bridge them.",
     analysis: [
       "facet is a React-first ecosystem, but not every package requires React. This assessment maps each package to a layer so teams using non-React stacks (Vue, Svelte, plain HTML, mobile, backend) can still consume the parts that matter.",
-      "Pure CSS layer (@arcevo/facet-tokens): CSS variables for colors, typography, spacing, and animation keyframes. Any stack that includes a CSS file gets the design system. This is the most broadly consumable layer.",
-      "Pure TS layer (@arcevo/facet-sdk, @arcevo/facet-store): the SDK is a pure-fetch client with zero React; the store is Zustand without React in the store logic (React hooks are an optional consumer layer). Both work in Node, Deno, React Native, or any environment with fetch + a state primitive.",
-      "React layer (@arcevo/facet-components, @arcevo/facet-auth, @arcevo/facet-layout, @arcevo/facet-docs): these require React at runtime. For non-React consumers, the component registry can be copied via the CLI (facet copy) into the consumer's framework, or the components can be used via SSR/SSG with framework adapters.",
+      "Pure CSS layer (@fusorb/facet-tokens): CSS variables for colors, typography, spacing, and animation keyframes. Any stack that includes a CSS file gets the design system. This is the most broadly consumable layer.",
+      "Pure TS layer (@fusorb/facet-sdk, @fusorb/facet-store): the SDK is a pure-fetch client with zero React; the store is Zustand without React in the store logic (React hooks are an optional consumer layer). Both work in Node, Deno, React Native, or any environment with fetch + a state primitive.",
+      "React layer (@fusorb/facet-components, @fusorb/facet-auth, @fusorb/facet-layout, @fusorb/facet-docs): these require React at runtime. For non-React consumers, the component registry can be copied via the CLI (facet copy) into the consumer's framework, or the components can be used via SSR/SSG with framework adapters.",
     ],
     features: [
       "Layer matrix: CSS, pure-TS, and React layers clearly separated",
@@ -116,7 +116,7 @@ export const ECOSYSTEM: EcosystemEntry[] = [
       {
         lang: "ts",
         code: `// Pure TS / non-React usage
-import { ArcIdClient, AuthSdk } from "@arcevo/facet-sdk";
+import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
 
 const client = new ArcIdClient({ baseUrl: "https://auth.example.com/api/v1" });
 const auth = new AuthSdk(client);
@@ -127,7 +127,7 @@ const { data } = await auth.me();`,
   },
   {
     slug: "cli",
-    name: "@arcevo/facet-cli",
+    name: "@fusorb/facet-cli",
     title: "CLI",
     version: "2.0.0",
     icon: "terminal",
@@ -163,7 +163,7 @@ facet docs init   # scaffold docs site`,
   },
   {
     slug: "emails",
-    name: "@arcevo/facet-emails",
+    name: "@fusorb/facet-emails",
     title: "Emails",
     version: "1.1.1",
     icon: "mail",
@@ -186,7 +186,7 @@ facet docs init   # scaffold docs site`,
     example: [
       {
         lang: "ts",
-        code: `import { renderEmail, emailLayout, emailButton, emailText } from "@arcevo/facet-emails";
+        code: `import { renderEmail, emailLayout, emailButton, emailText } from "@fusorb/facet-emails";
 
 const html = renderEmail(
   emailLayout(
@@ -201,7 +201,7 @@ const html = renderEmail(
   },
   {
     slug: "sdk",
-  name: "@arcevo/facet-sdk",
+  name: "@fusorb/facet-sdk",
   title: "arc-id SDK",
   version: "1.2.0",
     icon: "zap",
@@ -211,7 +211,7 @@ const html = renderEmail(
     analysis: [
       "The SDK is a pure-fetch, framework-agnostic TypeScript client for the arc-id identity API. It mirrors all 62 routes across 10 domain-specific modules (Auth, Identity, OAuth, Passkey, Tenant, VC, Webhooks, Billing, Audit, Idp) and normalizes the { success, data } envelope so methods return the inner payload directly.",
       "Two integration modes: first-party (own arc-id backend) uses session-based flows with no client credentials; external integration (OAuth2/OIDC) uses the authorize → exchange → refresh pattern with PKCE support. The SDK handles both flows natively.",
-      "Auto-refresh is wired through callbacks (onTokenRefresh, onAuthCleared), not built-in. This makes the SDK agnostic to your state management - pair it with @arcevo/facet-store via createZustandTokenStorage, or wire it to your own store. Every endpoint is audited against arc-id's ROUTES index via scripts/audit-sdk-coverage.cjs (62/62 covered).",
+      "Auto-refresh is wired through callbacks (onTokenRefresh, onAuthCleared), not built-in. This makes the SDK agnostic to your state management - pair it with @fusorb/facet-store via createZustandTokenStorage, or wire it to your own store. Every endpoint is audited against arc-id's ROUTES index via scripts/audit-sdk-coverage.cjs (62/62 covered).",
     ],
     features: [
       "Pure fetch, zero React, framework-agnostic",
@@ -224,7 +224,7 @@ const html = renderEmail(
     example: [
       {
         lang: "ts",
-        code: `import { ArcIdClient, AuthSdk } from "@arcevo/facet-sdk";
+        code: `import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
 
 const client = new ArcIdClient({ baseUrl: "https://auth.example.com/api/v1" });
 const auth = new AuthSdk(client);
@@ -237,7 +237,7 @@ const { data, error } = await auth.login("user@example.com", "pw");
   },
   {
     slug: "store",
-  name: "@arcevo/facet-store",
+  name: "@fusorb/facet-store",
   title: "State Stores",
   version: "2.0.0",
     icon: "store",
@@ -260,8 +260,8 @@ const { data, error } = await auth.login("user@example.com", "pw");
     example: [
       {
         lang: "ts",
-        code: `import { createZustandTokenStorage } from "@arcevo/facet-store";
-import { ArcIdClient, AuthSdk } from "@arcevo/facet-sdk";
+        code: `import { createZustandTokenStorage } from "@fusorb/facet-store";
+import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
 
 const client = new ArcIdClient({
   baseUrl,
@@ -280,24 +280,24 @@ const client = new ArcIdClient({
   },
   {
     slug: "components",
-    name: "@arcevo/facet-components",
+    name: "@fusorb/facet-components",
     title: "Components",
     version: "1.11.0",
     icon: "boxes",
-    short: "113 styled, accessible React components",
+    short: "111 styled, accessible React components",
     description:
       "Radix-quality primitives, themed with the Alpha Palette, ready to copy or import.",
     analysis: [
-      "The components package is the visual layer: 113 polished, accessible React components built on Radix primitives and themed with the Alpha Palette tokens. Every component ships typed, focus-managed, dark-mode-aware, and SSR-safe - so consumers get shadcn quality without inheriting shadcn's drift problem.",
+      "The components package is the visual layer: 111 polished, accessible React components built on Radix primitives and themed with the Alpha Palette tokens. Every component ships typed, focus-managed, dark-mode-aware, and SSR-safe - so consumers get shadcn quality without inheriting shadcn's drift problem.",
       "Three layers of composition: Layer 1 are headless primitives (Button, Input, Card); Layer 2 are styled surfaces built on those primitives (Marquee, Tabs, DataTable, NumberInput); Layer 3 are ready-to-use pages wired from the layers below (BillingPage, FeedbackPage, AccountSettingsPanel, StatCard, ActivityFeed, PageHeader, ApiKeyManager, TestimonialShowcase, OtpVerificationCard, TwoFactorSetupPanel, InviteTeamForm, PasswordStrengthMeter, SecuritySectionCard, CookieConsent, AnnouncementBar, NotFound, FaqSection).",
-      "The card-animation family (FlipCard, SpotlightCard, BorderBeamCard, ShineCard, GradientBorderCard, RevealCard, HoverScaleCard, MagneticCard, DissolveCard, GlowCard, TiltCard) covers the 'shadcn-ish aesthetic' without forcing consumers to wire it up - drop one in and you get a motion story that respects the design system.",
-      "Iconography is pluggable: <Icon> resolves any lucide-style kebab name out of the box via the IconRegistry (registered in @arcevo/facet-components (1.11.0)). To use react-icons, heroicons, or your own SVG components, pass overrides via <IconProvider overrides={{ settings: MyIcon }}> per app/domain, or `registerIcon(\"name\", MyIcon)` globally.",
-      "Theming happens through CSS variables emitted by @arcevo/facet-tokens. Override any token at runtime via <ThemeProvider overrideVars={{ '--primary': '...' }}> without recompiling. Dark mode is built in and respects the system preference until the user overrides it.",
+      "The card-animation family (FlipCard, ShineCard, GradientBorderCard, RevealCard, HoverScaleCard, MagneticCard, DissolveCard, GlowCard, TiltCard) covers the 'shadcn-ish aesthetic' without forcing consumers to wire it up - drop one in and you get a motion story that respects the design system.",
+      "Iconography is pluggable: <Icon> resolves any lucide-style kebab name out of the box via the IconRegistry (registered in @fusorb/facet-components (1.11.0)). To use react-icons, heroicons, or your own SVG components, pass overrides via <IconProvider overrides={{ settings: MyIcon }}> per app/domain, or `registerIcon(\"name\", MyIcon)` globally.",
+      "Theming happens through CSS variables emitted by @fusorb/facet-tokens. Override any token at runtime via <ThemeProvider overrideVars={{ '--primary': '...' }}> without recompiling. Dark mode is built in and respects the system preference until the user overrides it.",
     ],
     features: [
       "113 typed Radix-powered components, named-export only",
       "Layered architecture: primitives → styled surfaces → ready-to-use pages",
-      "Alpha Palette tokens via @arcevo/facet-tokens (CSS variables, no recompile)",
+      "Alpha Palette tokens via @fusorb/facet-tokens (CSS variables, no recompile)",
       "Icon registry: lucide out of the box, swap in any icon set per app/domain",
       "Card-animation family (11 motion cards) and micro-interactions (10+ buttons)",
       "SSR-safe: one-shot animations render initial state on the server",
@@ -306,7 +306,7 @@ const client = new ArcIdClient({
     example: [
       {
         lang: "tsx",
-        code: `import { Button, Card, CardHeader, CardTitle, CardContent, Marquee, TypewriterText } from "@arcevo/facet-components";
+        code: `import { Button, Card, CardHeader, CardTitle, CardContent, Marquee, TypewriterText } from "@fusorb/facet-components";
 
 <Card>
   <CardHeader>
@@ -322,7 +322,7 @@ const client = new ArcIdClient({
   },
   {
     slug: "auth",
-    name: "@arcevo/facet-auth",
+    name: "@fusorb/facet-auth",
     title: "Auth",
     version: "1.2.3",
     icon: "shield-check",
@@ -347,7 +347,7 @@ const client = new ArcIdClient({
     example: [
       {
         lang: "tsx",
-        code: `import { ArcProvider, SignIn, fintechPreset } from "@arcevo/facet-auth";
+        code: `import { ArcProvider, SignIn, fintechPreset } from "@fusorb/facet-auth";
 
 <ArcProvider config={fintechPreset} client={arcIdClient}>
   <SignIn
@@ -361,7 +361,7 @@ const client = new ArcIdClient({
   },
   {
     slug: "tokens",
-    name: "@arcevo/facet-tokens",
+    name: "@fusorb/facet-tokens",
     title: "Tokens",
     version: "1.1.4",
     icon: "palette",
@@ -386,7 +386,7 @@ const client = new ArcIdClient({
       {
         lang: "tsx",
         code: `/* tokens.css */
-@import "@arcevo/facet-tokens/tokens.css";
+@import "@fusorb/facet-tokens/tokens.css";
 
 :root {
   /* override per-brand */

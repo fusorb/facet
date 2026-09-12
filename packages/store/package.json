@@ -1,5 +1,5 @@
 {
-  "name": "@arcevo/facet-store",
+  "name": "@fusorb/facet-store",
   "version": "2.0.0",
   "description": "Framework-agnostic state stores for ArcID auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
   "type": "module",
@@ -30,11 +30,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArcevoDev/facet.git",
+    "url": "git+https://github.com/fusorb/facet.git",
     "directory": "packages/store"
   },
   "bugs": {
-    "url": "https://github.com/ArcevoDev/facet/issues"
+    "url": "https://github.com/fusorb/facet/issues"
   },
   "homepage": "https://facet.arcevocirqle.com.ng",
   "license": "MIT",
@@ -51,7 +51,7 @@
     "identity"
   ],
   "dependencies": {
-    "@arcevo/facet-sdk": "workspace:*",
+    "@fusorb/facet-sdk": "workspace:*",
     "zustand": "^5.0.14"
   },
   "peerDependencies": {

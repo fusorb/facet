@@ -1,26 +1,26 @@
 import type { PackageManager } from "./types.js";
 
 /**
- * The @arcevo/facet-* packages we know about. Used as a fallback baseline;
+ * The @fusorb/facet-* packages we know about. Used as a fallback baseline;
  * the CLI ALSO discovers facet packages dynamically from the npm registry
  * scope + the consumer's declared deps, so a newly published package shows
  * up even before this list is updated.
  */
 export const ALL_FACET_PACKAGES = [
-  "@arcevo/facet-auth",
-  "@arcevo/facet-cli",
-  "@arcevo/facet-components",
-  "@arcevo/facet-docs",
-  "@arcevo/facet-emails",
-  "@arcevo/facet-layout",
-  "@arcevo/facet-sdk",
-  "@arcevo/facet-store",
-  "@arcevo/facet-tokens",
+  "@fusorb/facet-auth",
+  "@fusorb/facet-cli",
+  "@fusorb/facet-components",
+  "@fusorb/facet-docs",
+  "@fusorb/facet-emails",
+  "@fusorb/facet-layout",
+  "@fusorb/facet-sdk",
+  "@fusorb/facet-store",
+  "@fusorb/facet-tokens",
 ] as const;
 
 export type AllFacetPackage = (typeof ALL_FACET_PACKAGES)[number];
 
-/** Discover facet packages dynamically: the npm @arcevo scope (via the
+/** Discover facet packages dynamically: the npm @fusorb scope (via the
  *  registry search API) merged with the static baseline. Returns a set of
  *  package names; falls back to the baseline alone if the registry is
  *  unreachable or slow (3s timeout so the CLI never hangs on the network). */
@@ -40,7 +40,7 @@ export async function discoverFacetPackages(): Promise<string[]> {
       };
       const scoped = (data.objects ?? [])
         .map((o) => o.package?.name ?? "")
-        .filter((n): n is string => Boolean(n) && n.startsWith("@arcevo/facet-"));
+        .filter((n): n is string => Boolean(n) && n.startsWith("@fusorb/facet-"));
       return Array.from(new Set([...baseline, ...scoped]));
     } finally {
       clearTimeout(timer);
@@ -56,10 +56,10 @@ export async function discoverFacetPackages(): Promise<string[]> {
  * scaffold never pins an outdated or guessed version.
  */
 export const FACET_PACKAGES = [
-  "@arcevo/facet-docs",
-  "@arcevo/facet-tokens",
-  "@arcevo/facet-components",
-  "@arcevo/facet-layout",
+  "@fusorb/facet-docs",
+  "@fusorb/facet-tokens",
+  "@fusorb/facet-components",
+  "@fusorb/facet-layout",
 ] as const;
 
 export type FacetPackage = (typeof FACET_PACKAGES)[number];
@@ -67,10 +67,10 @@ export type FacetPackage = (typeof FACET_PACKAGES)[number];
 /** Fallback ranges used only when the registry is unreachable. These stay
  * loose (^) so the consumer's installer still pulls the latest compatible. */
 const FALLBACK_RANGES: Record<FacetPackage, string> = {
-  "@arcevo/facet-docs": "^1.0.0",
-  "@arcevo/facet-tokens": "^1.0.0",
-  "@arcevo/facet-components": "^1.0.0",
-  "@arcevo/facet-layout": "^1.0.0",
+  "@fusorb/facet-docs": "^1.0.0",
+  "@fusorb/facet-tokens": "^1.0.0",
+  "@fusorb/facet-components": "^1.0.0",
+  "@fusorb/facet-layout": "^1.0.0",
 };
 
 /**

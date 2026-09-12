@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { User } from "@arcevo/facet-sdk";
+import type { User } from "@fusorb/facet-sdk";
 
 export type { User };
 

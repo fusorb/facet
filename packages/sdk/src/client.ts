@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-sdk: Base HTTP client
+ * @fusorb/facet-sdk: Base HTTP client
  *
  * Pure fetch. No framework dependencies. Matches arc-id's ApiResponse shape.
  *

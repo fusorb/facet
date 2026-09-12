@@ -152,7 +152,7 @@ EP 06 -- The Vercel Rolldown Meltdown
 --------------------------------------------------------------------------------
 What broke:
   Vercel deploys of `apps/docs` failed with a Rolldown resolution error: the
-  app imported `@arcevo/facet-components` / `@arcevo/facet-docs`, but those
+  app imported `@fusorb/facet-components` / `@fusorb/facet-docs`, but those
   packages' `dist/` didn't exist yet because the app's `buildCommand` ran
   before workspace deps were built.
 
@@ -164,10 +164,10 @@ Root cause:
 How we fixed it:
   Changed each app's `vercel.json` `buildCommand` from `pnpm build` to
   `turbo run build --filter=<app>...` (and the landing analog). Turbo's
-  `--filter` respects `^build` so `@arcevo/facet-components` and
-  `@arcevo/facet-docs` build before the app that consumes them. Verified
-  `turbo run build --filter=@arcevo/facet-docs-site...` exits 0 locally
-  (7 pkgs) and `--filter=@arcevo/facet-landing...` (6 pkgs).
+  `--filter` respects `^build` so `@fusorb/facet-components` and
+  `@fusorb/facet-docs` build before the app that consumes them. Verified
+  `turbo run build --filter=@fusorb/facet-docs-site...` exits 0 locally
+  (7 pkgs) and `--filter=@fusorb/facet-landing...` (6 pkgs).
 
 State: automated. Vercel now runs the full turbo build graph per app.
 
@@ -179,7 +179,7 @@ imports." Filter, don't recurse into the whole repo.
 EP 07 -- The Dirty Tree Almost Shipped
 --------------------------------------------------------------------------------
 What broke:
-  The local tracker claimed `@arcevo/facet-store@0.1.0` was published and
+  The local tracker claimed `@fusorb/facet-store@0.1.0` was published and
   README said "9 packages" -- but the working tree was a 64-entry mess of
   uncommitted refinements, version bumps, new components (`not-found.tsx`,
   the 85th), untracked `packages/store`, and 2 pending changesets. Nothing
@@ -236,11 +236,11 @@ EP 09 -- Router Coupling
 --------------------------------------------------------------------------------
 What broke:
   `layout/UserMenu` imported its own dropdown, duplicating
-  `@arcevo/facet-components`. Worse, the layout shell was coupled to one
+  `@fusorb/facet-components`. Worse, the layout shell was coupled to one
   router, so Next.js App Router, Remix, and React Router could not share it.
 
 How we fixed it:
-  - `layout/UserMenu` now uses `@arcevo/facet-components`' `DropdownMenu`
+  - `layout/UserMenu` now uses `@fusorb/facet-components`' `DropdownMenu`
     (one dropdown, one implementation).
   - Introduced the `RouterAdapter` pattern (`layout/src/router.tsx`): an
     injectable adapter that each consumer provides for App Router / Remix /
@@ -296,7 +296,7 @@ moment that cracked open on a consumer's machine.
 EP 11 -- The Consumer Who Said "Your Tokens Are Dark-Only"
 --------------------------------------------------------------------------------
 What broke:
-   A downstream consumer dropped `@arcevo/facet-tokens` onto a subtree with
+   A downstream consumer dropped `@fusorb/facet-tokens` onto a subtree with
    `data-theme="light"` and half the palette went undefined. The complaint:
    "light theme is incomplete."
 
@@ -567,7 +567,7 @@ the filenames. Audit the runner, not just the report.
 EP 22 -- The Stale Dist That Shipped
 --------------------------------------------------------------------------------
 What broke:
-   A consumer installed the latest `@arcevo/facet-layout` and got a type error:
+   A consumer installed the latest `@fusorb/facet-layout` and got a type error:
    `ConsoleLayoutMode` was `"full" | "rail"` but the source had shipped an
    `"overlay"` mode. The consumer was on the new version; the `dist` was stale.
 
@@ -686,16 +686,16 @@ How we fixed it:
      FigmaIcon, SpotifyIcon) from the facet-components barrel
      (`src/index.ts` + `src/icon/index.ts`).
    - Rewrote `apps/landing/src/components/BrandIcons.tsx` as a thin
-     re-export from `@arcevo/facet-components` (aliasing `TiktokIcon` →
+     re-export from `@fusorb/facet-components` (aliasing `TiktokIcon` →
      `TikTokIcon` to preserve the landing's local naming). Nav.tsx and
      FeedbackPage.tsx now pull brand icons from the single source of truth.
    - Rewrote `apps/landing/src/components/Footer.tsx` to render
-     `<Footer>` from `@arcevo/facet-components` (variant="minimal"),
+     `<Footer>` from `@fusorb/facet-components` (variant="minimal"),
      configured with the landing's brand, legal line, socials, footer
      links, and contact info — all resolved through `LightIcon` (which
      includes `brandIcons` in its map) and `CONTACT` from `../lib/socials`.
    - Fixed the AboutPage hardcoded docs URL to use `getDocsUrl()`.
-   - Added a changeset (`@arcevo/facet-components: minor`).
+   - Added a changeset (`@fusorb/facet-components: minor`).
 
 State: automated. The landing now consumes the shared Footer + brand icons;
 no SVG is duplicated in the landing anymore. The drift gate (EP 03) still

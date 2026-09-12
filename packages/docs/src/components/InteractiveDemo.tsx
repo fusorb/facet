@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Tabs, TabsList, TabsTrigger } from "@arcevo/facet-components/light";
+import { Tabs, TabsList, TabsTrigger } from "@fusorb/facet-components/light";
 import { CodeBlock } from "./CodeBlock.js";
 import { ThemePreviewFrame } from "./ThemePreviewFrame.js";
 import { variantUsage } from "../lib/usage.js";

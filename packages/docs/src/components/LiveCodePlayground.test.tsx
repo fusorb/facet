@@ -18,7 +18,7 @@ const components = { Button: MockButton };
 
 afterEach(cleanup);
 
-const FULL_CODE = `import { Button } from "@arcevo/facet-components";
+const FULL_CODE = `import { Button } from "@fusorb/facet-components";
 
 function Example() {
   return <Button variant="default">Get started</Button>;
@@ -184,7 +184,7 @@ describe("LiveCodePlayground", () => {
 
   it("renders PasswordStrengthMeter even when value parses to undefined", () => {
     const code =
-"import { PasswordStrengthMeter } from \"@arcevo/facet-components\";\n\nfunction Example() {\n  return <PasswordStrengthMeter value={password} />;\n}";
+"import { PasswordStrengthMeter } from \"@fusorb/facet-components\";\n\nfunction Example() {\n  return <PasswordStrengthMeter value={password} />;\n}";
     render(
       <LiveCodePlayground defaultCode={code} components={playgroundComponents} />,
     );
@@ -195,7 +195,7 @@ describe("LiveCodePlayground", () => {
   it("renders AnnouncementBar despite a prior dismissal in localStorage", () => {
     localStorage.setItem("facet-announcement-dismissed", "1");
     const code =
-"import { AnnouncementBar } from \"@arcevo/facet-components\";\n\nfunction Example() {\n  return <AnnouncementBar>Deal of the day</AnnouncementBar>;\n}";
+"import { AnnouncementBar } from \"@fusorb/facet-components\";\n\nfunction Example() {\n  return <AnnouncementBar>Deal of the day</AnnouncementBar>;\n}";
     render(
       <LiveCodePlayground defaultCode={code} components={playgroundComponents} />,
     );

@@ -37,7 +37,7 @@ const mockPrompts = vi.mocked(prompts);
 describe("facet docs init end-to-end (wizard + write)", () => {
   it("resolves current versions from the registry", async () => {
     const versions = await resolveFacetVersions();
-    expect(versions["@arcevo/facet-docs"]).toMatch(/^\^/);
+    expect(versions["@fusorb/facet-docs"]).toMatch(/^\^/);
   });
 
   it("runs the wizard and writes a real scaffold to disk", async () => {
@@ -53,7 +53,7 @@ describe("facet docs init end-to-end (wizard + write)", () => {
 
       // The scaffolded package.json exists and carries resolved ranges.
       const pkg = JSON.parse(fs.readFileSync(path.join(cwd, "package.json"), "utf8"));
-      expect(pkg.dependencies["@arcevo/facet-docs"]).toMatch(/^\^/);
+      expect(pkg.dependencies["@fusorb/facet-docs"]).toMatch(/^\^/);
 
       // The consumer's own pages file exists (never facet's authored docs).
       const pages = fs.readFileSync(path.join(cwd, "src", "pages.ts"), "utf8");

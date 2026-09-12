@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: ShineBorderCard
+ * @fusorb/facet-components: ShineBorderCard
  *
  * A card with an animated shine that travels around the border. A
  * distinct surface from `BorderBeamCard` (which uses a conic beam)
@@ -27,7 +27,7 @@ export interface ShineBorderCardProps extends React.HTMLAttributes<HTMLDivElemen
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
-const DEFAULT_COLOR = "hsl(var(--primary))";
+const DEFAULT_COLOR = "var(--primary)";
 
 /* ── Component ─────────────────────────────────────────────── */
 

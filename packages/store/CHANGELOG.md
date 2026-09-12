@@ -1,4 +1,4 @@
-# @arcevo/facet-store
+# @fusorb/facet-store
 
 ## 2.0.0
 
@@ -19,16 +19,16 @@
   - facet-store: `createZustandTokenStorage` gains an optional `persist` adapter argument so consumers can plug in a cookie-backed persistence strategy for the access token. The refresh token is never passed through the persist adapter.
 
 - Updated dependencies [b1da261]
-  - @arcevo/facet-sdk@1.2.0
+  - @fusorb/facet-sdk@1.2.0
 
 ## 0.1.0
 
 ### Minor Changes
 
-- b7accc3: feat(store): extract ArcID Zustand auth/tenant stores into @arcevo/facet-store
+- b7accc3: feat(store): extract ArcID Zustand auth/tenant stores into @fusorb/facet-store
 
   Pulls the framework-agnostic state stores (auth session + tenant) out of
-  ArcID into a standalone `@arcevo/facet-store` package that is consumable
+  ArcID into a standalone `@fusorb/facet-store` package that is consumable
   across web and React Native. The stores are pure Zustand (`create`, no React
   coupling in the store logic) - React is only required by the auto-generated
   hooks at the consumer boundary, so it stays a peer, not a bundled dependency.
@@ -36,4 +36,4 @@
   Consumers share one source of truth: arc-id, the docs preview surface, and
   the RN wallet app. The state layer has zero `any` and zero arc-id-specific
   logic (verified: `grep any src/store` returns no matches); types
-  (`User`/`Tenant`) are re-exported from `@arcevo/facet-sdk`.
+  (`User`/`Tenant`) are re-exported from `@fusorb/facet-sdk`.

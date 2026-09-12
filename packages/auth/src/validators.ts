@@ -1,5 +1,5 @@
 /**
- * Form validation schemas for @arcevo/facet-auth forms.
+ * Form validation schemas for @fusorb/facet-auth forms.
  *
  * Zod schemas power client-side validation in the auth forms. Each form
  * accepts an optional `validate` flag; when enabled, values are checked
@@ -8,7 +8,7 @@
  * Exported so consumers can reuse the schemas (e.g. with their own
  * react-hook-form instances) or extend them per domain:
  *
- *   import { loginSchema } from "@arcevo/facet-auth";
+ *   import { loginSchema } from "@fusorb/facet-auth";
  *   const domainLogin = loginSchema.extend({ tenantId: z.string() });
  */
 

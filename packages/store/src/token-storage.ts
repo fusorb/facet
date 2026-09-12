@@ -1,4 +1,4 @@
-import type { RefreshResult, ApiResponse } from "@arcevo/facet-sdk";
+import type { RefreshResult, ApiResponse } from "@fusorb/facet-sdk";
 
 /**
  * Minimal interface for a Zustand auth store that the token bridge needs.

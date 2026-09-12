@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-sdk: Strict domain types
+ * @fusorb/facet-sdk: Strict domain types
  *
  * Concrete response shapes for every arc-id endpoint. Replace the
  * previous `Record<string, unknown>` blobs so consumers get typed

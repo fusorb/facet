@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-emails: framework-agnostic email renderer
+ * @fusorb/facet-emails: framework-agnostic email renderer
  *
  * The core accepts a plain, serializable "template tree" and renders it to
  * email-safe HTML and plain text. No React, no react-email, no runtime

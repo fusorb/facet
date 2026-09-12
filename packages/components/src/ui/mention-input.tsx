@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: MentionInput
+ * @fusorb/facet-components: MentionInput
  *
  * A plain-text input with `@mention` autocomplete. Hosts pass a list of
  * available users (id, name, avatar) and a value string; the component

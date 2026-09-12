@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { ConsoleLayout, CommandPalette } from "@arcevo/facet-layout";
+import { ConsoleLayout, CommandPalette } from "@fusorb/facet-layout";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   LightIcon,
   Kbd,
-} from "@arcevo/facet-components/light";
+} from "@fusorb/facet-components/light";
 import { buildDocsLayoutConfig } from "../lib/nav.js";
 import { useDocsRouterAdapter } from "../lib/docs-router.js";
 import { useDocsApp } from "../context.js";

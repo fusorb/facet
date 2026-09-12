@@ -15,17 +15,17 @@ describe("currentCliVersion", () => {
 });
 
 describe("globalInstallCommand", () => {
-  it("returns a global install command for @arcevo/facet-cli", () => {
+  it("returns a global install command for @fusorb/facet-cli", () => {
     const cmd = globalInstallCommand();
-    expect(cmd).toContain("@arcevo/facet-cli@latest");
+    expect(cmd).toContain("@fusorb/facet-cli@latest");
     // One of the supported global install patterns.
     expect(cmd).toMatch(/^(npm i -g|pnpm add -g|bun add -g|yarn global add)/);
   });
 });
 
 describe("npxRunCommand", () => {
-  it("returns an npx command for @arcevo/facet-cli", () => {
-    expect(npxRunCommand()).toBe("npx @arcevo/facet-cli@latest");
+  it("returns an npx command for @fusorb/facet-cli", () => {
+    expect(npxRunCommand()).toBe("npx @fusorb/facet-cli@latest");
   });
 });
 

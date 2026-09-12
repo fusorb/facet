@@ -1,23 +1,24 @@
 {
-  "name": "facet",
+  "name": "@fusorb/facet",
   "version": "0.1.0",
   "private": true,
   "description": "Domain-customizable auth-first component system for the Arcevo ecosystem",
   "type": "module",
   "scripts": {
     "build": "pnpm build:tokens && pnpm -r build && pnpm build:docs",
-    "build:tokens": "pnpm -F @arcevo/facet-tokens build",
-    "build:components": "pnpm -F @arcevo/facet-components build",
-    "build:sdk": "pnpm -F @arcevo/facet-sdk build",
+    "build:tokens": "pnpm -F @fusorb/facet-tokens build",
+    "build:components": "pnpm -F @fusorb/facet-components build",
+    "build:sdk": "pnpm -F @fusorb/facet-sdk build",
     "release": "pnpm build && pnpm changeset publish",
-    "dev:landing": "pnpm -F @arcevo/facet-landing dev",
-    "dev:docs-site": "pnpm -F @arcevo/facet-docs-site dev",
-    "build:docs": "pnpm -F @arcevo/facet-docs build && pnpm -F @arcevo/facet-docs-site build",
+    "dev:landing": "pnpm -F @fusorb/facet-landing dev",
+    "dev:docs-site": "pnpm -F @fusorb/facet-docs-site dev",
+    "build:docs": "pnpm -F @fusorb/facet-docs build && pnpm -F @fusorb/facet-docs-site build",
     "lint": "eslint . --ext .ts,.tsx --ignore-pattern dist --ignore-pattern .next",
     "format": "prettier --write \"**/*.{ts,tsx,json,css,md}\" --ignore-path .gitignore",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "pnpm -r typecheck",
+    "check:components": "node scripts/check-component-flexibility.mjs",
     "check:docs": "node scripts/check-docs-inventory.mjs",
     "check:icons": "node scripts/gen-icon-map.mjs --check",
     "check:sdk-coverage": "node scripts/audit-sdk-coverage.cjs",
@@ -28,7 +29,7 @@
     "sandbox:e2e": "node scripts/sandbox-e2e.mjs",
     "lint:turbo": "turbo run lint",
     "analyze": "pnpm -r run build:analyze && pnpm analyze:apps",
-    "analyze:apps": "pnpm --filter @arcevo/facet-landing analyze",
+    "analyze:apps": "pnpm --filter @fusorb/facet-landing analyze",
     "nuke": "pnpm clean --lockfile"
   },
   "devDependencies": {
@@ -53,5 +54,5 @@
     "node": ">=22",
     "pnpm": ">=9"
   },
-  "packageManager": "pnpm@11.24.0"
+  "packageManager": "pnpm@12.4.0"
 }

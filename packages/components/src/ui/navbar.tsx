@@ -118,7 +118,7 @@ export interface NavbarProps
    *  auth (arc-id SDK `useAuth()` / `me()` exposes the `UserAvatarUser` shape). */
   user?: UserAvatarUser;
   /** Render the built-in theme toggle in the actions area.
-   *  Requires a <ThemeProvider> ancestor (from @arcevo/facet-components). */
+   *  Requires a <ThemeProvider> ancestor (from @fusorb/facet-components). */
   showThemeToggle?: boolean;
    /** Mobile menu content: defaults to a stacked list of links.
     *  When provided, the element receives `onNavigate` (which closes the menu

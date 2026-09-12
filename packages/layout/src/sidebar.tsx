@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-layout: Sidebar
+ * @fusorb/facet-layout: Sidebar
  *
  * Fixed-width navigation panel for desktop.
  * Renders sections and items from LayoutConfig.navigation.
@@ -20,7 +20,7 @@ import {
   TooltipTrigger,
   TooltipContent,
   Icon,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 import type { LayoutConfig, NavItem, NavSection } from "./types.js";
 import type { RouterAdapter } from "./router.js";
 

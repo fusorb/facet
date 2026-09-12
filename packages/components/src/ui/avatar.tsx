@@ -51,7 +51,7 @@ const AvatarFallback = React.forwardRef<
 ));
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-/** Minimal shape of an authenticated user (matches @arcevo/facet-sdk User). */
+/** Minimal shape of an authenticated user (matches @fusorb/facet-sdk User). */
 export interface UserAvatarUser {
   name?: string | null;
   email?: string | null;

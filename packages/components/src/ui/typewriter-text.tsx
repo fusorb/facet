@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: TypewriterText
+ * @fusorb/facet-components: TypewriterText
  *
  * Cycles through a list of phrases with a type/erase loop and a blinking
  * caret. Zero dependencies (pure React + a few timeouts). SSR-safe: the

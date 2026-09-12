@@ -1,16 +1,16 @@
 /* =================================================================
- * @arcevo/facet-tokens: Tailwind v4 Theme Extension
+ * @fusorb/facet-tokens: Tailwind v4 Theme Extension
  *
  * Maps facet design tokens (CSS custom properties from tokens.css)
  * into Tailwind v4 utility classes. Import after tokens.css and
  * tailwindcss itself:
  *
  *   @import "tailwindcss";
- *   @import "@arcevo/facet-tokens/tokens.css";
- *   @import "@arcevo/facet-tokens/tailwind.css";
+ *   @import "@fusorb/facet-tokens/tokens.css";
+ *   @import "@fusorb/facet-tokens/tailwind.css";
  *
  * (Or just use the combined entry point:
- *   @import "@arcevo/facet-tokens/index.css";
+ *   @import "@fusorb/facet-tokens/index.css";
  *  which chains all three in the correct order.)
  *
  * Also pulls in `tw-animate-css` (v4-native replacement for

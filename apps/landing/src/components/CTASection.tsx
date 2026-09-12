@@ -1,4 +1,4 @@
-import { Button, SparkleButton } from "@arcevo/facet-components";
+import { Button, SparkleButton } from "@fusorb/facet-components";
 import { getDocsUrl } from "../lib/docs-url.js";
 
 export function CTASection() {
@@ -20,7 +20,7 @@ export function CTASection() {
           <Button
             variant="outline"
             size="lg"
-            onClick={() => window.open("https://github.com/arcevodev/facet")}
+            onClick={() => window.open("https://github.com/fusorb/facet")}
           >
             Star on GitHub
           </Button>

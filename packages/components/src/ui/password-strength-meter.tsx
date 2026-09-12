@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: PasswordStrengthMeter
+ * @fusorb/facet-components: PasswordStrengthMeter
  *
  * A password strength meter with a segmented bar and a rules checklist.
  * Pairs naturally with PasswordInput. Fully customizable via props and

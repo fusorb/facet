@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-layout: Layout context
+ * @fusorb/facet-layout: Layout context
  *
  * Manages sidebar open/close state and the optional RouterAdapter.
  * ConsoleLayout provides this; consumers can call `useLayout()` from

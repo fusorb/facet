@@ -20,7 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 
 /* ── Props ─────────────────────────────────────────────────── */
 

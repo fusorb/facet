@@ -1,6 +1,6 @@
-import { Footer as FacetFooter } from "@arcevo/facet-components";
-import type { FooterSocial, FooterLink, FooterColumn } from "@arcevo/facet-components";
-import { LightIcon } from "@arcevo/facet-components/light";
+import { Footer as FacetFooter } from "@fusorb/facet-components";
+import type { FooterSocial, FooterLink, FooterColumn } from "@fusorb/facet-components";
+import { LightIcon } from "@fusorb/facet-components/light";
 import { CONTACT } from "../lib/socials.js";
 import { getDocsUrl } from "../lib/docs-url.js";
 
@@ -13,7 +13,7 @@ const SOCIALS: FooterSocial[] = [
 
 const FOOTER_LINKS: FooterLink[] = [
   { label: "Feedback", href: "/feedback", icon: "mail" },
-  { label: "GitHub", href: "https://github.com/arcevodev/facet", icon: "github" },
+  { label: "GitHub", href: "https://github.com/fusorb/facet", icon: "github" },
   { label: "Documentation", href: getDocsUrl(), icon: "book-open" },
 ];
 
@@ -58,7 +58,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     title: "Developers",
     links: [
       { label: "Install", href: "#install" },
-      { label: "GitHub", href: "https://github.com/arcevodev/facet" },
+      { label: "GitHub", href: "https://github.com/fusorb/facet" },
     ],
   },
 ];

@@ -1,13 +1,13 @@
 import { act, render, renderHook, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ArcIdClient } from "@arcevo/facet-sdk";
+import { ArcIdClient } from "@fusorb/facet-sdk";
 import { ArcProvider, useAuth } from "./provider.js";
 import { createMemoryStorage } from "./test-storage.js";
 import type { AuthUser } from "./types.js";
 
 const USER: AuthUser = {
   id: "u1",
-  email: "ada@arcevo.dev",
+  email: "ada@fusorb.dev",
   name: "Ada Lovelace",
   memberships: [],
   plan: "pro",
@@ -177,7 +177,7 @@ describe("ArcProvider", () => {
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
     await act(async () => {
-      await result.current.login({ email: "ada@arcevo.dev", password: "pw" });
+      await result.current.login({ email: "ada@fusorb.dev", password: "pw" });
     });
 
     expect(result.current.isAuthenticated).toBe(true);
@@ -205,7 +205,7 @@ describe("ArcProvider", () => {
 
     let loginRes: Awaited<ReturnType<typeof result.current.login>>;
     await act(async () => {
-      loginRes = await result.current.login({ email: "ada@arcevo.dev", password: "pw" });
+      loginRes = await result.current.login({ email: "ada@fusorb.dev", password: "pw" });
     });
 
     // MFA gate: sessionId + requiresMfa, no tokens yet.
@@ -243,7 +243,7 @@ describe("ArcProvider", () => {
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
     await act(async () => {
-      await result.current.login({ email: "ada@arcevo.dev", password: "nope" });
+      await result.current.login({ email: "ada@fusorb.dev", password: "nope" });
     });
 
     expect(result.current.isAuthenticated).toBe(false);
@@ -303,5 +303,5 @@ describe("ArcProvider", () => {
 
 function ConsumerProbe() {
   const { login } = useAuth();
-  return <button onClick={() => login({ email: "ada@arcevo.dev", password: "pw" })}>Login</button>;
+  return <button onClick={() => login({ email: "ada@fusorb.dev", password: "pw" })}>Login</button>;
 }

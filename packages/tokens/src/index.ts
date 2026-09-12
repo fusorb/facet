@@ -1,14 +1,14 @@
 /**
- * @arcevo/facet-tokens: Design tokens for the Arcevo ecosystem
+ * @fusorb/facet-tokens: Design tokens for the Arcevo ecosystem
  *
  * Single source of truth for the Alpha Palette, typography scale,
  * spacing system, and sub-brand accent colors.
  *
  * Usage:
- *   import { alpha, typography, spacing, subBrands } from "@arcevo/facet-tokens";
+ *   import { alpha, typography, spacing, subBrands } from "@fusorb/facet-tokens";
  *
  * CSS custom properties are available at:
- *   import "@arcevo/facet-tokens/tokens.css";
+ *   import "@fusorb/facet-tokens/tokens.css";
  */
 
 export { alpha } from "./colors";

@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: FeedbackPage
+ * @fusorb/facet-components: FeedbackPage
  *
  * A ready-to-use, fully customizable feedback/contact page. The email
  * form opens a prefilled mailto (no backend needed); contact channels
@@ -10,7 +10,7 @@
  *   <FeedbackPage
  *     title="Feedback & contact"
  *     description="Found a bug? Want a feature? We read everything."
- *     email="hello@arcevo.com"
+ *     email="hello@fusorb.com"
  *     channels={[
  *       { label: "WhatsApp", href: "https://wa.me/...", icon: "message-circle", description: "Chat with us" },
  *     ]}

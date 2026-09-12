@@ -13,7 +13,7 @@ import { CodeBlock } from "../components/CodeBlock.js";
 import { InstallTabs } from "../components/InstallTabs.js";
 import { InteractiveDemo } from "../components/InteractiveDemo.js";
 import { KeyboardShortcuts } from "../components/KeyboardShortcuts.js";
-import { ChangelogList, type ChangelogRelease } from "@arcevo/facet-components";
+import { ChangelogList, type ChangelogRelease } from "@fusorb/facet-components";
 import type { DocsBlock } from "../lib/pages.js";
 import { useDocsApp } from "../context.js";
 import { useDocsKeyboardNav, useDocsNavigation } from "../lib/keyboard-nav.js";

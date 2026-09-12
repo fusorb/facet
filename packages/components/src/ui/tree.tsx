@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: Tree
+ * @fusorb/facet-components: Tree
  *
  * A collapsible nested list (Tree) with optional selection. Renders a
  * tree of {id, label, children?, icon?, disabled?}. Hosts can also

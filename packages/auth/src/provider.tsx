@@ -20,8 +20,8 @@
  */
 
 import * as React from "react";
-import { type ArcIdClient, AuthSdk } from "@arcevo/facet-sdk";
-import type { LoginResult, TokenBundle } from "@arcevo/facet-sdk";
+import { type ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
+import type { LoginResult, TokenBundle } from "@fusorb/facet-sdk";
 import type { AuthContextValue, AuthUser, LoginParams, RegisterParams } from "./types.js";
 import { defaultStorage, type TokenStorage } from "./storage.js";
 
@@ -89,7 +89,7 @@ export function ArcProvider({
     warnedRef.current = true;
     // eslint-disable-next-line no-console
     console.warn(
-      "[@arcevo/facet-auth] ArcProvider is using defaultStorage (localStorage). " +
+      "[@fusorb/facet-auth] ArcProvider is using defaultStorage (localStorage). " +
         "localStorage is vulnerable to XSS - refresh tokens stored here can be " +
         "stolen. For production, pass an explicit `storage` prop backed by " +
         "httpOnly cookies. This warning is shown once per page-load.",

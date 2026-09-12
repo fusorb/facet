@@ -2,7 +2,6 @@ import {
   PageHeader,
   StatCard,
   ActivityFeed,
-  GradientBorderCard,
   HoverScaleCard,
   ScrollReveal,
   Card,
@@ -16,9 +15,9 @@ import {
   TabsContent,
   Badge,
   Pill,
-} from "@arcevo/facet-components";
-import { LandingLayout } from "@arcevo/facet-layout";
-import { LightIcon } from "@arcevo/facet-components/light";
+} from "@fusorb/facet-components";
+import { LandingLayout } from "@fusorb/facet-layout";
+import { LightIcon } from "@fusorb/facet-components/light";
 import { Nav } from "../components/Nav.js";
 import { Footer } from "../components/Footer.js";
 import { DASHBOARD_STATS_FULL, DASHBOARD_ACTIVITY } from "../data/dashboard-demo.js";
@@ -30,7 +29,7 @@ import { getDocsUrl } from "../lib/docs-url.js";
  *   - PageHeader (breadcrumb + title + actions)
  *   - StatCard grid (KPI cards with deltas)
  *   - ActivityFeed (grouped + relative time)
- *   - GradientBorderCard / HoverScaleCard framing
+ *   - Card / HoverScaleCard framing
  *   - Staggered ScrollReveal entrance on load
  *   - Tabs to switch between feed / table views
  *
@@ -82,7 +81,7 @@ export function DashboardDemoPage() {
       <section className="mx-auto max-w-7xl px-8 py-8">
         <div className="grid gap-6 lg:grid-cols-3">
           <ScrollReveal delay={300} duration={600}>
-            <GradientBorderCard className="lg:col-span-2">
+            <Card className="lg:col-span-2">
               <div className="p-5">
                 <div className="mb-4 flex items-center justify-between">
                   <h2 className="font-heading text-lg font-semibold text-foreground">
@@ -104,7 +103,7 @@ export function DashboardDemoPage() {
                   </TabsContent>
                 </Tabs>
               </div>
-            </GradientBorderCard>
+            </Card>
           </ScrollReveal>
 
           <ScrollReveal delay={375} duration={600}>
@@ -146,18 +145,18 @@ export function DashboardDemoPage() {
         <p className="mt-2 text-sm text-muted-foreground">
           Each card below is one of the motion surfaces in
           <code className="ml-1 rounded bg-secondary/50 px-2 py-1 text-xs">
-            @arcevo/facet-components
+            @fusorb/facet-components
           </code>
           . Same Card primitive, motion bolted on. Hover to feel the effect.
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <ScrollReveal delay={150} duration={500}>
-            <GradientBorderCard>
+            <Card>
               <CardHeader>
                 <CardTitle className="text-sm">GradientBorderCard</CardTitle>
                 <CardDescription>Static gradient border frame</CardDescription>
               </CardHeader>
-            </GradientBorderCard>
+            </Card>
           </ScrollReveal>
           <ScrollReveal delay={225} duration={500}>
             <HoverScaleCard>

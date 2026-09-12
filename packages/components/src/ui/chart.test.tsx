@@ -332,4 +332,61 @@ describe("Chart", () => {
     // No hover state, no axes → no lines at all
     expect(container.querySelector("line")).toBeNull();
   });
+
+  it("does not render cursor-tracking point circles by default", async () => {
+    const { container } = render(
+      <Chart x={SAMPLE_X} series={SAMPLE_SERIES} type="line" />,
+    );
+    const svg = container.querySelector("svg")!;
+    await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
+    // The colored circles that "chase" the cursor are opt-in. By default only
+    // the crosshair line + fixed data-point markers render.
+    expect(container.querySelectorAll('circle[stroke="var(--background)"]')).toHaveLength(0);
+  });
+
+  it("renders cursor-tracking point circles only when crosshairPoints=true", async () => {
+    const { container } = render(
+      <Chart x={SAMPLE_X} series={SAMPLE_SERIES} type="line" crosshairPoints />,
+    );
+    const svg = container.querySelector("svg")!;
+    await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
+    // One tracking circle per visible series (2 in SAMPLE_SERIES).
+    expect(container.querySelectorAll('circle[stroke="var(--background)"]').length).toBe(2);
+  });
+
+  it("pie slices use opacity dimming, no scale transform (consistent hover)", () => {
+    const { container } = render(
+      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="pie" showLegend={false} />,
+    );
+    const paths = container.querySelectorAll("path");
+    expect(paths.length).toBe(5);
+    // No slice should carry a transform/scale on hover.
+    expect(container.querySelectorAll('path[style*="scale"]')).toHaveLength(0);
+    expect(container.querySelectorAll('path[style*="transform"]')).toHaveLength(0);
+  });
+
+  it("wraps in a scrollable container when maxHeight is set", () => {
+    const { container } = render(
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="bar"
+        layout="horizontal"
+        maxHeight={200}
+        showLegend={false}
+      />,
+    );
+    const wrap = container.firstChild as HTMLElement;
+    expect(wrap).toHaveClass("overflow-y-auto");
+    expect(wrap).toHaveStyle({ maxHeight: "200px" });
+  });
+
+  it("includes zero on the cartesian y-axis (starts from zero)", () => {
+    const { container } = render(
+      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="bar" showLegend={false} />,
+    );
+    const ticks = Array.from(container.querySelectorAll("text")).map((t) => t.textContent);
+    // minY = Math.min(0, ...data) => 0 is always an axis tick
+    expect(ticks).toContain("0");
+  });
 });

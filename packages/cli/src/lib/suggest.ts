@@ -101,9 +101,9 @@ export function generalRepoProvider(ctx: RepoContext): string[] {
   }
 
   // Dependency hygiene: facet CLI not present as a devDependency.
-  if (!ctx.facetPackages.includes("@arcevo/facet-cli")) {
+  if (!ctx.facetPackages.includes("@fusorb/facet-cli")) {
     s.push(
-      `Add the facet CLI to your devDependencies to run these helpers anywhere: \`${ctx.pm} add -D @arcevo/facet-cli\`.`,
+      `Add the facet CLI to your devDependencies to run these helpers anywhere: \`${ctx.pm} add -D @fusorb/facet-cli\`.`,
     );
   }
 

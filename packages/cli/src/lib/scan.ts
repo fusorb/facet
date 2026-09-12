@@ -301,7 +301,7 @@ export function scanRepo(cwd: string): RepoScan {
   const facetDeps = { ...(rootPkg.dependencies ?? {}), ...(rootPkg.devDependencies ?? {}) } as Record<string, string>;
   const facetDepsFiltered: Record<string, string> = {};
   for (const [name, range] of Object.entries(facetDeps)) {
-    if (name.startsWith("@arcevo/facet-")) facetDepsFiltered[name] = range;
+    if (name.startsWith("@fusorb/facet-")) facetDepsFiltered[name] = range;
   }
   const api = detectOpenApi(cwd, rootPkg);
   const docs = detectExistingDocs(cwd);
@@ -409,7 +409,7 @@ export function draftDocs(scan: RepoScan, outDir: string): GeneratedFile[] {
         type: "ul",
         items: Object.keys(facetDeps).length
           ? Object.entries(facetDeps).map(([n, v]) => `${n}@${v}`)
-          : ["No @arcevo/facet-* packages detected."],
+          : ["No @fusorb/facet-* packages detected."],
       },
     ],
   });

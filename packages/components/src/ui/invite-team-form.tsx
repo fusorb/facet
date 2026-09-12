@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: InviteTeamForm
+ * @fusorb/facet-components: InviteTeamForm
  *
  * A ready-to-use team invite form: add multiple email addresses, pick a
  * role, and send. Handles per-email validation and duplicate detection.

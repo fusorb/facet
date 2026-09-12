@@ -1,5 +1,5 @@
 ---
-"@arcevo/facet-components": minor
+"@fusorb/facet-components": minor
 ---
 
 Add 21 ready-to-use components that developers repeatedly rebuild:
@@ -25,7 +25,7 @@ Add 21 ready-to-use components that developers repeatedly rebuild:
 - `ShineBorderCard` — card with animated border shine
 - `GlowBorderCard` — card with pulsing border glow
 
-Also includes `PasswordStrengthMeter` wiring in `@arcevo/facet-auth`
+Also includes `PasswordStrengthMeter` wiring in `@fusorb/facet-auth`
 (`SignUp` + `ResetPasswordForm`, opt-out via `showPasswordStrength` prop),
-a `changelog` block type in `@arcevo/facet-docs`, and `facet docs init`
+a `changelog` block type in `@fusorb/facet-docs`, and `facet docs init`
 now scaffolds a populated `/changelog` page.

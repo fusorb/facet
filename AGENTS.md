@@ -43,7 +43,7 @@ build/test/typecheck state.
 
 ## Publish Status
 
-Packages publish to npm under the `@arcevo/facet-*` scope via Changesets,
+Packages publish to npm under the `@fusorb/facet-*` scope via Changesets,
 driven by GitHub Actions (`.github/workflows/ci-cd.yml`). The workflow runs
 three jobs:
 

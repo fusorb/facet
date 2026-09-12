@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-layout: Core types
+ * @fusorb/facet-layout: Core types
  *
  * LayoutConfig drives the entire app shell: sidebar nav, brand identity,
  * and feature toggles. Domain presets in presets.ts provide pre-built

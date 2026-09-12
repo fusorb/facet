@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-layout: Tenant Switcher
+ * @fusorb/facet-layout: Tenant Switcher
  *
  * Select dropdown for switching between organisations/tenants.
  * Auto-hidden when there's only one tenant.

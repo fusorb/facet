@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: RatingInput
+ * @fusorb/facet-components: RatingInput
  *
  * A 5-star (or N-item) rating input. Hosts pass `value` (a number) and
  * `onChange`. Supports a label, hover preview, half-star precision,

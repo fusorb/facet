@@ -1,9 +1,9 @@
 import * as React from "react";
-import * as FacetComponents from "@arcevo/facet-components";
-import * as FacetAuth from "@arcevo/facet-auth";
-import { ArcIdClient } from "@arcevo/facet-sdk";
-import * as FacetLayout from "@arcevo/facet-layout";
-import { defaultLayoutPreset, fintechLayoutPreset } from "@arcevo/facet-layout";
+import * as FacetComponents from "@fusorb/facet-components";
+import * as FacetAuth from "@fusorb/facet-auth";
+import { ArcIdClient } from "@fusorb/facet-sdk";
+import * as FacetLayout from "@fusorb/facet-layout";
+import { defaultLayoutPreset, fintechLayoutPreset } from "@fusorb/facet-layout";
 
 /**
  * Component registry for the live playground.
@@ -230,7 +230,7 @@ function KanbanBoardWithDemo(props: any) {
 
 /**
  * Registry consumed by the live playground(s). Spreads the entire
- * `@arcevo/facet-components` barrel, then layers in auth + layout components
+ * `@fusorb/facet-components` barrel, then layers in auth + layout components
  * (with demo context) and doc placeholders / demo-data wrappers.
  */
 export const playgroundComponents: Record<string, React.ComponentType<any>> = {

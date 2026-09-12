@@ -1,7 +1,7 @@
 {
-  "name": "@arcevo/facet-auth",
+  "name": "@fusorb/facet-auth",
   "version": "1.2.3",
-  "description": "Domain-customizable auth components for the ArcevoCirqle ecosystem: ArcProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @arcevo/facet-sdk.",
+  "description": "Domain-customizable auth components for the ArcevoCirqle ecosystem: ArcProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
   "type": "module",
   "exports": {
     ".": {
@@ -30,11 +30,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArcevoDev/facet.git",
+    "url": "git+https://github.com/fusorb/facet.git",
     "directory": "packages/auth"
   },
   "bugs": {
-    "url": "https://github.com/ArcevoDev/facet/issues"
+    "url": "https://github.com/fusorb/facet/issues"
   },
   "homepage": "https://facet.arcevocirqle.com.ng",
   "license": "MIT",
@@ -48,8 +48,8 @@
     "auth-ui"
   ],
   "dependencies": {
-    "@arcevo/facet-components": "workspace:*",
-    "@arcevo/facet-sdk": "workspace:*",
+    "@fusorb/facet-components": "workspace:*",
+    "@fusorb/facet-sdk": "workspace:*",
     "@hookform/resolvers": "^5.5.7",
     "react-hook-form": "^7.83.0",
     "zod": "^4.4.3"

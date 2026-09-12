@@ -76,8 +76,8 @@ long-lived refresh tokens.
 
 | facet package      | Version | arc-id pin (per findings) | Status       |
 |--------------------|---------|--------------------------|--------------|
-| `@arcevo/facet-cli`   | 1.0.0   | `^0.8.0`                 | OUTDATED     |
-| `@arcevo/facet-store` | 1.0.0   | `^0.1.0`                 | OUTDATED     |
+| `@fusorb/facet-cli`   | 1.0.0   | `^0.8.0`                 | OUTDATED     |
+| `@fusorb/facet-store` | 1.0.0   | `^0.1.0`                 | OUTDATED     |
 
 Both facet-cli and facet-store were **stabilized to 1.0.0** in commit
 `43ccd14` ("chore: stabilize store + cli at 1.0.0").  arc-id's pins are
@@ -101,7 +101,7 @@ match.
 
 ### What we found
 
-arc-id's Tailwind config sets `@source` to `@arcevo/facet-components`,
+arc-id's Tailwind config sets `@source` to `@fusorb/facet-components`,
 but that path resolves to the **package root** (`dist/` or `src/`), not
 the `src/` files.  Tailwind's static analysis can't extract class names from
 compiled output, so some utility classes are purged at build time.
@@ -114,7 +114,7 @@ Nothing — the config lives in arc-id.
 
 Update `tailwind.config` `@source` to point at the actual source files:
 ```
-@source "./node_modules/@arcevo/facet-components/src/**/*.{ts,tsx}"
+@source "./node_modules/@fusorb/facet-components/src/**/*.{ts,tsx}"
 ```
 
 ---
@@ -125,10 +125,10 @@ Update `tailwind.config` `@source` to point at the actual source files:
 
 arc-id has a mobile web shell but no native mobile client.  The facet ecosystem
 is designed to support this:
-- `@arcevo/facet-sdk` — pure fetch, works in React Native
-- `@arcevo/facet-store` — Zustand, logic has zero React; React hooks are optional
-- `@arcevo/facet-tokens` — pure CSS variables, framework-agnostic
-- `@arcevo/facet-components` — React-only; copy via `facet copy` for non-React
+- `@fusorb/facet-sdk` — pure fetch, works in React Native
+- `@fusorb/facet-store` — Zustand, logic has zero React; React hooks are optional
+- `@fusorb/facet-tokens` — pure CSS variables, framework-agnostic
+- `@fusorb/facet-components` — React-only; copy via `facet copy` for non-React
 
 ### What we can fix from the facet side
 
@@ -140,7 +140,7 @@ library can be copied via `facet copy <component>`.
 
 Evaluate the RN strategy from the roadmap (`/arc-id` Phase 2):
 - **Option A** (expo-plugin): Wrap arc-id's auth flow in an Expo plugin
-- **Option B** (arc-id SDK): Ship a `@arcevo/arc-id-react-native` package
+- **Option B** (arc-id SDK): Ship a `@fusorb/arc-id-react-native` package
   that delegates to the SDK + store
 - **Option C** (deep link shim): Mobile web → native app deep link
 
@@ -193,7 +193,7 @@ Evaluate the RN strategy from the roadmap (`/arc-id` Phase 2):
 - **62/62 SDK endpoints audited** against arc-id's Routes index (verified
   in `packages/sdk/`).  `scripts/audit-sdk-coverage.cjs` passes.
 - **All facet packages are at 1.0.0+** and published to npm under
-  `@arcevo/facet-*` scope.
+  `@fusorb/facet-*` scope.
 - **`createZustandTokenStorage`** has a re-entrancy guard on the refresh
   hook — prevents infinite loops when the refresh request itself 401s.
 - **facet-docs CI gate** (`check:docs`) verifies barrel ↔ manifest
@@ -213,8 +213,8 @@ Evaluate the RN strategy from the roadmap (`/arc-id` Phase 2):
 | 3 | P0       | facet     | Add optional `persist` adapter to `createZustandTokenStorage` |
 | 4 | P0       | arc-id    | Move refresh token to httpOnly+Secure+SameSite cookie   |
 | 5 | P0       | arc-id    | Delete `persistSession` / `clearPersistedSession`       |
-| 6 | P1       | arc-id    | Bump `@arcevo/facet-cli` pin to `^1.0.0`                |
-| 7 | P1       | arc-id    | Bump `@arcevo/facet-store` pin to `^1.0.0`              |
+| 6 | P1       | arc-id    | Bump `@fusorb/facet-cli` pin to `^1.0.0`                |
+| 7 | P1       | arc-id    | Bump `@fusorb/facet-store` pin to `^1.0.0`              |
 | 8 | P1       | arc-id    | Fix Tailwind `@source` to resolve to `src/**/*.tsx`    |
 | 9 | P2       | arc-id    | Correct doc claim "Tokens are stored in memory only"    |
 | 10| P2       | facet     | Replace `fs.cpSync` CSS copy with PostCSS pipeline       |

@@ -18,10 +18,10 @@ const answers = {
   template: "component-library" as const,
   barrel: "auto" as const,
   facetVersions: {
-    "@arcevo/facet-docs": "^1.2.0",
-    "@arcevo/facet-tokens": "^1.0.2",
-    "@arcevo/facet-components": "^1.1.1",
-    "@arcevo/facet-layout": "^1.0.3",
+    "@fusorb/facet-docs": "^1.2.0",
+    "@fusorb/facet-tokens": "^1.0.2",
+    "@fusorb/facet-components": "^1.1.1",
+    "@fusorb/facet-layout": "^1.0.3",
   },
 };
 
@@ -45,7 +45,7 @@ describe("generateReactVite", () => {
   it("wires facet tokens when requested", () => {
     const files = generateReactVite(answers, "/repo");
     const css = files.find((f) => f.path.endsWith("app.css"))!.content;
-    expect(css).toContain('@import "@arcevo/facet-tokens/tokens.css"');
+    expect(css).toContain('@import "@fusorb/facet-tokens/tokens.css"');
     expect(css).toContain("tailwind.css");
   });
 
@@ -55,7 +55,7 @@ describe("generateReactVite", () => {
     expect(pages).toContain("docsPages");
     // The consumer's own pages file is plain data: the engine only supplies
     // the DocsPage type, never authored content.
-    expect(pages).toContain('from "@arcevo/facet-docs"'); // type-only import
+    expect(pages).toContain('from "@fusorb/facet-docs"'); // type-only import
     expect(pages).not.toContain("DocsApp");
   });
 });
@@ -177,7 +177,7 @@ describe("generateComponentAdd", () => {
     expect(files).toHaveLength(2);
     const file = files.find((f) => f.path.replace(/\\/g, "/").endsWith("facet/Button.tsx"))!;
     expect(file.path.replace(/\\/g, "/")).toContain("src/components/facet/Button.tsx");
-    expect(file.content).toContain('import { Button } from "@arcevo/facet-components"');
+    expect(file.content).toContain('import { Button } from "@fusorb/facet-components"');
     expect(file.content).toContain("Recommended: import from the package instead of copying source");
 
     const barrel = files.find((f) => f.path.replace(/\\/g, "/").endsWith("src/components/facet/index.ts"))!;
@@ -207,7 +207,7 @@ describe("mergePackageJson", () => {
     });
     expect(result.existed).toBe(false);
     const parsed = JSON.parse(result.content);
-    expect(parsed.dependencies["@arcevo/facet-docs"]).toBe("^1.2.0");
+    expect(parsed.dependencies["@fusorb/facet-docs"]).toBe("^1.2.0");
     expect(parsed.scripts["docs:dev"]).toBe("vite");
   });
 
@@ -231,7 +231,7 @@ describe("mergePackageJson", () => {
     expect(parsed.dependencies.fastify).toBe("^4.0.0");
     expect(parsed.scripts.start).toBe("node server.js");
     // Facet deps added, distinct docs scripts added.
-    expect(parsed.dependencies["@arcevo/facet-docs"]).toBe("^1.2.0");
+    expect(parsed.dependencies["@fusorb/facet-docs"]).toBe("^1.2.0");
     expect(parsed.scripts["docs:dev"]).toBe("vite");
   });
 
@@ -304,12 +304,12 @@ describe("detectPackageManager + install commands", () => {
 
   it("builds a facet install command with resolved ranges", () => {
     const cmd = facetInstallCommand("pnpm", {
-      "@arcevo/facet-docs": "^1.2.0",
-      "@arcevo/facet-tokens": "^1.0.2",
-      "@arcevo/facet-components": "^1.1.1",
-      "@arcevo/facet-layout": "^1.0.3",
+      "@fusorb/facet-docs": "^1.2.0",
+      "@fusorb/facet-tokens": "^1.0.2",
+      "@fusorb/facet-components": "^1.1.1",
+      "@fusorb/facet-layout": "^1.0.3",
     });
-    expect(cmd).toContain("@arcevo/facet-docs@^1.2.0");
+    expect(cmd).toContain("@fusorb/facet-docs@^1.2.0");
     expect(cmd).toContain("pnpm add");
   });
 });

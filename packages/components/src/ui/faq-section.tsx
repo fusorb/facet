@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: FaqSection
+ * @fusorb/facet-components: FaqSection
  *
  * A ready-to-use FAQ section built on the Accordion primitive. Data-driven
  * with optional two-column layout. Fully customizable via props.

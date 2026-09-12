@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import { ArcProvider } from "./provider.js";
-import { ArcIdClient } from "@arcevo/facet-sdk";
+import { ArcIdClient } from "@fusorb/facet-sdk";
 import { createMemoryStorage } from "./test-storage.js";
 import { SignUp } from "./sign-up.js";
 import { LoginForm } from "./forms/auth/login-form.js";

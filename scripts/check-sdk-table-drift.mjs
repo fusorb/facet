@@ -1,5 +1,5 @@
 /**
- * Drift gate: @arcevo/facet-sdk barrel exports vs the docs SDK-module table.
+ * Drift gate: @fusorb/facet-sdk barrel exports vs the docs SDK-module table.
  *
  * The docs site renders a hand-authored "Modules" table of SDK classes in
  * `apps/docs/src/pages.ts` (e.g. `` [`AuthSdk`, "..."] ``). That table is NOT

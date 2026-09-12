@@ -9,8 +9,8 @@ import {
   buttonVariants,
   cn,
   Separator,
-} from "@arcevo/facet-components";
-import { LightIcon } from "@arcevo/facet-components/light";
+} from "@fusorb/facet-components";
+import { LightIcon } from "@fusorb/facet-components/light";
 
 interface TeaserTier {
   id: string;

@@ -56,7 +56,7 @@ export interface DocsAnswers {
   framework: Framework;
   /** Consumer's styling setup. */
   styling: Styling;
-  /** Whether to wire @arcevo/facet-tokens (recommended). */
+  /** Whether to wire @fusorb/facet-tokens (recommended). */
   useFacetTokens: boolean;
   /** Docs template kind. */
   template: TemplateKind;
@@ -98,13 +98,13 @@ export function detectStyling(cwd: string): Styling {
     }
   };
 
-  // Facet tokens: tokens.css imported or @arcevo/facet-tokens in deps.
+  // Facet tokens: tokens.css imported or @fusorb/facet-tokens in deps.
   const pkg = has("package.json") ? readJson("package.json") : {};
   const deps = { ...(pkg.dependencies ?? {}), ...(pkg.devDependencies ?? {}) } as Record<
     string,
     string
   >;
-  if (deps["@arcevo/facet-tokens"] || read("src/app.css").includes("facet-tokens")) {
+  if (deps["@fusorb/facet-tokens"] || read("src/app.css").includes("facet-tokens")) {
     return "facet-tokens";
   }
   if (deps.tailwindcss || has("tailwind.config.js") || has("tailwind.config.ts")) {
@@ -202,7 +202,7 @@ export function collectFacetDeps(cwd: string): Record<string, string> {
     for (const section of ["dependencies", "devDependencies", "peerDependencies"]) {
       const deps = (pkg[section] ?? {}) as Record<string, string>;
       for (const [name, range] of Object.entries(deps)) {
-        if (name.startsWith("@arcevo/facet-")) merged[name] = range;
+        if (name.startsWith("@fusorb/facet-")) merged[name] = range;
       }
     }
   }
@@ -226,7 +226,7 @@ export function collectFacetDeps(cwd: string): Record<string, string> {
     for (const section of ["dependencies", "devDependencies", "peerDependencies"]) {
       const deps = (mpkg[section] ?? {}) as Record<string, string>;
       for (const [name, range] of Object.entries(deps)) {
-        if (name.startsWith("@arcevo/facet-")) merged[name] = range;
+        if (name.startsWith("@fusorb/facet-")) merged[name] = range;
       }
     }
   }

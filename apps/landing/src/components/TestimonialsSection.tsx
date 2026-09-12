@@ -1,4 +1,4 @@
-import { Marquee, Card, CardContent } from "@arcevo/facet-components";
+import { Marquee, Card, CardContent } from "@fusorb/facet-components";
 import { TESTIMONIALS } from "../data/testimonials.js";
 
 /**
@@ -21,7 +21,7 @@ function TestimonialCard({ t }: { t: (typeof TESTIMONIALS)[number] }) {
           <span
             aria-hidden="true"
             className="flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
-            style={{ backgroundColor: t.accent ?? "hsl(var(--primary))" }}
+            style={{ backgroundColor: t.accent ?? "var(--primary)" }}
           >
             {t.initials ?? "?"}
           </span>

@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: PhoneInput
+ * @fusorb/facet-components: PhoneInput
  *
  * A full phone-number input with a country-code dropdown and E.164
  * formatting. Distinct from `CountryCodeInput` (which is the bare

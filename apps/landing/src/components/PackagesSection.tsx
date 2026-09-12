@@ -1,5 +1,5 @@
 import { PACKAGES } from "../data/features.js";
-import { LightIcon } from "@arcevo/facet-components/light";
+import { LightIcon } from "@fusorb/facet-components/light";
 
 export function PackagesSection() {
   return (

@@ -12,9 +12,9 @@ export default defineConfig({
     alias: [
       // Resolve facet packages to source so the docs site reflects the
       // latest component and docs-engine refinements without a dist rebuild.
-      { find: /^@arcevo\/facet-docs$/, replacement: resolve(__dirname, "../../packages/docs/src/index.ts") },
-      { find: /^@arcevo\/facet-components\/light$/, replacement: resolve(__dirname, "../../packages/components/src/light.ts") },
-      { find: /^@arcevo\/facet-components$/, replacement: resolve(__dirname, "../../packages/components/src/index.ts") },
+      { find: /^@fusorb\/facet-docs$/, replacement: resolve(__dirname, "../../packages/docs/src/index.ts") },
+      { find: /^@fusorb\/facet-components\/light$/, replacement: resolve(__dirname, "../../packages/components/src/light.ts") },
+      { find: /^@fusorb\/facet-components$/, replacement: resolve(__dirname, "../../packages/components/src/index.ts") },
     ],
   },
 });

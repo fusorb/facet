@@ -1,14 +1,13 @@
 ---
-"@arcevo/facet-components": minor
-"@arcevo/facet-auth": minor
-"@arcevo/facet-docs": minor
-"@arcevo/facet-cli": minor
-"@arcevo/facet-landing": minor
+"@fusorb/facet-components": minor
+"@fusorb/facet-auth": minor
+"@fusorb/facet-docs": minor
+"@fusorb/facet-cli": minor
 ---
 
 # Ready-to-use pages: Stepper, KanbanBoard, ChangelogList
 
-Three new ready-to-use surfaces in `@arcevo/facet-components`:
+Three new ready-to-use surfaces in `@fusorb/facet-components`:
 
 - **`Stepper`** — headless-first wizard primitive (`useStepper` hook +
   `Stepper` / `StepperNav` / `StepperPanel` / `StepperFooter` renderers).

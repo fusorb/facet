@@ -1,13 +1,13 @@
 /**
- * @arcevo/facet-emails: dev preview server
+ * @fusorb/facet-emails: dev preview server
  *
  * A tiny, dependency-light preview server (plain node:http) that renders
  * registered templates to HTML and serves them with a small dev toolbar.
  * Framework-agnostic: templates can be plain `TemplateNode` trees or, via
  * the React bridge, React elements.
  *
- *   import { startEmailPreviewServer } from "@arcevo/facet-emails/server";
- *   import { emailLayout, emailButton } from "@arcevo/facet-emails";
+ *   import { startEmailPreviewServer } from "@fusorb/facet-emails/server";
+ *   import { emailLayout, emailButton } from "@fusorb/facet-emails";
  *
  *   startEmailPreviewServer({
  *     templates: {

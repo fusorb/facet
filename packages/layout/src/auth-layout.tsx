@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-layout: AuthLayout
+ * @fusorb/facet-layout: AuthLayout
  *
  * Auth page shell: split panel on desktop, centered card on mobile.
  * Used for login, register, MFA, forgot-password pages.

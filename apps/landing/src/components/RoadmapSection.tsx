@@ -1,4 +1,4 @@
-import { Roadmap } from "@arcevo/facet-components";
+import { Roadmap } from "@fusorb/facet-components";
 import { ROADMAP } from "../data/features.js";
 
 export function RoadmapSection() {

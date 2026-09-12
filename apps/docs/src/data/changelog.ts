@@ -1,7 +1,7 @@
-import type { ChangelogRelease } from "@arcevo/facet-components";
+import type { ChangelogRelease } from "@fusorb/facet-components";
 
 /**
- * facet release log, version-aligned with @arcevo/facet-components.
+ * facet release log, version-aligned with @fusorb/facet-components.
  *
  * This is the single source of truth rendered by both the docs-site
  * /changelog route and the landing site's ChangelogSection. Update when
@@ -17,7 +17,7 @@ export const facetChangelog: ChangelogRelease[] = [
     changes: [
       {
         kind: "added",
-        text: "21 ready-to-use surfaces: WizardFormPage, DateRangePicker, Chart, EmptyStatePage, QrScanner, ConsentCapture, DataTablePage, PricingComparison, Tree, MultiCombobox, TagInput, RangeSlider, RatingInput, CookieBanner, OtpInput, RichTextEditor, PhoneInput, MentionInput, ShineBorderCard, GlowBorderCard, BorderBeamCard",
+        text: "19 ready-to-use surfaces: WizardFormPage, DateRangePicker, Chart, EmptyStatePage, QrScanner, ConsentCapture, DataTable, PricingComparison, Tree, MultiCombobox, TagInput, RangeSlider, RatingInput, CookieBanner, OtpInput, RichTextEditor, PhoneInput, MentionInput, ShineBorderCard, GlowBorderCard",
       },
       {
         kind: "added",
@@ -39,7 +39,7 @@ export const facetChangelog: ChangelogRelease[] = [
     tag: "docs",
     title: "Docs Engine 1.4.7",
     changes: [
-      { kind: "added", text: "@arcevo/facet-docs changelog block type for DocsApp content pages - pass { type: \"changelog\", releases: [...] } to render ChangelogList inline" },
+      { kind: "added", text: "@fusorb/facet-docs changelog block type for DocsApp content pages - pass { type: \"changelog\", releases: [...] } to render ChangelogList inline" },
       { kind: "added", text: "facet docs init now scaffolds a populated /changelog page so consumers ship with a working release log on day one" },
       { kind: "added", text: "LiveCodePlayground on component pages - default-usage code block is now an editable, live-rendered sandbox (second preview box pattern)" },
       { kind: "added", text: "LiveCodePlayground ErrorBoundary surfaces a readable message when a demo snippet throws instead of hanging the page loader" },
@@ -68,7 +68,7 @@ export const facetChangelog: ChangelogRelease[] = [
       { kind: "added", text: "Ecosystem page now lists every published package (Components, Auth, Layout, Tokens + Docs, CLI, Emails, SDK, Store, Stack Agnosticism)" },
       { kind: "added", text: "/pricing page (BillingPage + BillingPageTable + BillingPageFreemium)" },
       { kind: "added", text: "/security page (AccountSettingsPanel + SecuritySectionCard + ApiKeyManager + TwoFactorSetupPanel + PasswordStrengthMeter)" },
-      { kind: "added", text: "/dashboard-demo page (PageHeader + StatCard + ActivityFeed + BorderBeamCard + SpotlightCard)" },
+      { kind: "added", text: "/dashboard-demo page (PageHeader + StatCard + ActivityFeed + Card + HoverScaleCard)" },
     ],
   },
   {

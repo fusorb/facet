@@ -1,10 +1,9 @@
 /**
- * @arcevo/facet-components: GlowBorderCard
+ * @fusorb/facet-components: GlowBorderCard
  *
  * A card with a pulsing glow around the border. Distinct from
- * `GlowCard` (which has an inner glow) and `BorderBeamCard` (which
- * sweeps a conic beam) and `ShineBorderCard` (which travels a
- * highlight along the border).
+ * `GlowCard` (which has an inner glow) and `ShineBorderCard`
+ * (which travels a highlight along the border).
  */
 
 import * as React from "react";
@@ -27,7 +26,7 @@ export interface GlowBorderCardProps extends React.HTMLAttributes<HTMLDivElement
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
-const DEFAULT_COLOR = "hsl(var(--primary))";
+const DEFAULT_COLOR = "var(--primary)";
 
 /* ── Component ─────────────────────────────────────────────── */
 

@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: Not Found (404)
+ * @fusorb/facet-components: Not Found (404)
  *
  * A fully composable, customizable not-found page. The giant "404" can
  * use a gradient text fill, a shimmer sweep, or an Aurora background, or

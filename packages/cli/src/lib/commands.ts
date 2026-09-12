@@ -36,7 +36,7 @@ export interface FacetPackageInfo {
 export async function collectFacetPackageState(cwd: string): Promise<FacetPackageInfo[]> {
   const declared = collectFacetDeps(cwd);
   const searchDirs = [cwd, ...workspaceMemberDirs(cwd)];
-  // Discover the facet scope dynamically (npm registry @arcevo search)
+  // Discover the facet scope dynamically (npm registry @fusorb search)
   // merged with the static baseline AND whatever the consumer declares,
   // so any facet package shows up even before the CLI ships it.
   const discovered = await discoverFacetPackages();
@@ -95,7 +95,7 @@ function readdirSafe(p: string): string[] {
 /** Read the resolved version of `name` from node_modules across `dirs`
  * (cwd first, then workspace members), walking up from each. */
 export function readInstalledVersion(dirs: string[], name: string): string | undefined {
-  const parts = name.split("/"); // "@arcevo/facet-auth" -> ["@arcevo", "facet-auth"]
+  const parts = name.split("/"); // "@fusorb/facet-auth" -> ["@fusorb", "facet-auth"]
   const paths: string[] = [];
   for (const dir of dirs) {
     paths.push(pathJoin(dir, "node_modules", ...parts, "package.json"));
@@ -149,11 +149,11 @@ export function buildDoctorReport(cwd: string, infos: FacetPackageInfo[]) {
   const findings: string[] = [];
   const suggestions: string[] = [];
 
-  const hasComponents = infos.some((i) => i.name === "@arcevo/facet-components" && (i.declared || i.installed));
-  const hasTokens = infos.some((i) => i.name === "@arcevo/facet-tokens" && (i.declared || i.installed));
+  const hasComponents = infos.some((i) => i.name === "@fusorb/facet-components" && (i.declared || i.installed));
+  const hasTokens = infos.some((i) => i.name === "@fusorb/facet-tokens" && (i.declared || i.installed));
   const outdated = infos.filter((i) => i.outdated);
 
-  // Deps that @arcevo/facet-components already bundles (radix, lucide, ...).
+  // Deps that @fusorb/facet-components already bundles (radix, lucide, ...).
   const unnecessary = scanUnnecessaryDeps(cwd);
   const unnecessaryNames = unnecessary.flatMap((e) => e.deps.map((d) => d.name));
 
@@ -165,23 +165,23 @@ export function buildDoctorReport(cwd: string, infos: FacetPackageInfo[]) {
   );
 
   if (unnecessaryNames.length) {
-    findings.push(`Unnecessary deps (bundled by @arcevo/facet-components): ${unnecessaryNames.join(", ")}`);
-    suggestions.push(`These are already provided by @arcevo/facet-components. Remove them: \`facet clean\` does this automatically (rewrites imports + deletes dead local components).`);
+    findings.push(`Unnecessary deps (bundled by @fusorb/facet-components): ${unnecessaryNames.join(", ")}`);
+    suggestions.push(`These are already provided by @fusorb/facet-components. Remove them: \`facet clean\` does this automatically (rewrites imports + deletes dead local components).`);
   }
 
   if (!hasComponents && !hasTokens) {
     findings.push("facet usage: none detected");
     suggestions.push("Run `facet docs init` to scaffold a docs site, or add the packages with `facet add`/your package manager.");
   } else {
-    findings.push(`facet usage: ${infos.filter((i) => i.declared || i.installed).map((i) => i.name.replace("@arcevo/facet-", "")).join(", ") || "none"}`);
+    findings.push(`facet usage: ${infos.filter((i) => i.declared || i.installed).map((i) => i.name.replace("@fusorb/facet-", "")).join(", ") || "none"}`);
     if (!hasTokens) {
-      suggestions.push("Import @arcevo/facet-tokens (tokens.css + tailwind.css) so component styling resolves.");
+      suggestions.push("Import @fusorb/facet-tokens (tokens.css + tailwind.css) so component styling resolves.");
     }
     if (outdated.length) {
       suggestions.push(`Update available for: ${outdated.map((i) => i.name).join(", ")}. Run \`facet update\`.`);
     }
     for (const info of infos) {
-      if (info.name === "@arcevo/facet-components" && info.declared && info.declared.startsWith("workspace:")) {
+      if (info.name === "@fusorb/facet-components" && info.declared && info.declared.startsWith("workspace:")) {
         suggestions.push("You depend on facet-components via workspace:*; when publishing your package, swap it for a registry range (e.g. ^1.2.0).");
       }
     }
@@ -243,9 +243,9 @@ export function installFacetPackages(
 
 /**
  * Build a global install command for one or more facet packages (e.g.
- * `pnpm add -g @arcevo/facet-cli@2.0.0`). Used by `facet install -g` so a
+ * `pnpm add -g @fusorb/facet-cli@2.0.0`). Used by `facet install -g` so a
  * consumer can write `facet install -g facet-cli` (short name) instead of
- * the full `@arcevo/facet-cli`. Global installs never use the workspace
+ * the full `@fusorb/facet-cli`. Global installs never use the workspace
  * `-w` flag.
  */
 export function globalInstallFacetPackages(
@@ -261,29 +261,29 @@ export function globalInstallFacetPackages(
   }
 }
 
-/** True when the given name is a facet package (starts with @arcevo/facet-). */
+/** True when the given name is a facet package (starts with @fusorb/facet-). */
 export function isFacetPackage(name: string): boolean {
-  return name.startsWith("@arcevo/facet-");
+  return name.startsWith("@fusorb/facet-");
 }
 
 /**
  * Resolve a shorthand or full name to a facet package name.
- * - "@arcevo/facet-layout" → "@arcevo/facet-layout"  (full name, returned as-is)
- * - "facet-layout"         → "@arcevo/facet-layout"  (alias: drops the @arcevo/ scope,
- *   so users can write `facet install -g facet-cli` instead of `@arcevo/facet-cli`)
- * - "layout"               → "@arcevo/facet-layout"  (shorthand)
+ * - "@fusorb/facet-layout" → "@fusorb/facet-layout"  (full name, returned as-is)
+ * - "facet-layout"         → "@fusorb/facet-layout"  (alias: drops the @fusorb/ scope,
+ *   so users can write `facet install -g facet-cli` instead of `@fusorb/facet-cli`)
+ * - "layout"               → "@fusorb/facet-layout"  (shorthand)
  * - "Button"               → undefined              (not a facet package → component copy)
  */
 export function resolveFacetPackageName(name: string): string | undefined {
   if (isFacetPackage(name)) return name;
-  // Alias that drops the @arcevo/ scope: "facet-cli" -> "@arcevo/facet-cli".
+  // Alias that drops the @fusorb/ scope: "facet-cli" -> "@fusorb/facet-cli".
   // Lets users reference the package the short way, e.g. `npm i -g facet-cli`.
   if (name.startsWith("facet-")) {
-    const scoped = `@arcevo/${name}` as const;
+    const scoped = `@fusorb/${name}` as const;
     if ((ALL_FACET_PACKAGES as readonly string[]).includes(scoped)) return scoped;
   }
-  // Plain shorthand: "layout" -> "@arcevo/facet-layout"
-  const full = `@arcevo/facet-${name}` as const;
+  // Plain shorthand: "layout" -> "@fusorb/facet-layout"
+  const full = `@fusorb/facet-${name}` as const;
   if ((ALL_FACET_PACKAGES as readonly string[]).includes(full)) return full;
   return undefined;
 }

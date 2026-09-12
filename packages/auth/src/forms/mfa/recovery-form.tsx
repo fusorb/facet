@@ -4,7 +4,7 @@
 
 import * as React from "react";
 
-import { Button, ShineButton, buttonVariants, cn, Input, DialogHeader, DialogTitle, DialogDescription } from "@arcevo/facet-components";
+import { Button, ShineButton, buttonVariants, cn, Input, DialogHeader, DialogTitle, DialogDescription } from "@fusorb/facet-components";
 
 /* ── Props ─────────────────────────────────────────────────── */
 

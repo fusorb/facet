@@ -62,5 +62,5 @@ if (!uncovered.length) console.log("  (none - full coverage)");
 else for (const p of uncovered) console.log("  ", p);
 
 const covered = arcPaths.length - uncovered.length;
-console.log(`\n=== Coverage: ${covered}/${arcPaths.length} arc-id routes covered by @arcevo/facet-sdk ===`);
+console.log(`\n=== Coverage: ${covered}/${arcPaths.length} arc-id routes covered by @fusorb/facet-sdk ===`);
 if (uncovered.length) process.exitCode = 1;

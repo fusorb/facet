@@ -7,7 +7,7 @@
  * can simply continue typing the full address.
  *
  * Usage:
- *   import { MailInput } from "@arcevo/facet-components";
+ *   import { MailInput } from "@fusorb/facet-components";
  *   <MailInput placeholder="you@example.com" required />
  */
 

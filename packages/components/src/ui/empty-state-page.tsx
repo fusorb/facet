@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: EmptyStatePage
+ * @fusorb/facet-components: EmptyStatePage
  *
  * A full-page "you don't have any X yet" surface with optional
  * illustration slot, primary + secondary CTA, and a description slot.

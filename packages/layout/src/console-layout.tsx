@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-layout: ConsoleLayout
+ * @fusorb/facet-layout: ConsoleLayout
  *
  * Dashboard shell: fixed sidebar + topbar + content area.
  * On mobile the sidebar is a slide-in panel (no overlay so the hamburger
@@ -9,7 +9,7 @@
  */
 
 import * as React from "react";
-import { useOptionalAuth } from "@arcevo/facet-auth";
+import { useOptionalAuth } from "@fusorb/facet-auth";
 import { useLayout, LayoutProvider } from "./layout-context.js";
 import { Sidebar } from "./sidebar.js";
 import { Topbar } from "./topbar.js";

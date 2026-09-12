@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: AnimatedButton
+ * @fusorb/facet-components: AnimatedButton
  *
  * A uniform animated button used by composed components (billing pages,
  * feedback page, auth forms) and available to consumers directly. Pick an

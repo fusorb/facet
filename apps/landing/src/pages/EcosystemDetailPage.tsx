@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { LandingLayout } from "@arcevo/facet-layout";
-import { ShineButton, buttonVariants, cn } from "@arcevo/facet-components";
-import { LightIcon } from "@arcevo/facet-components/light";
+import { LandingLayout } from "@fusorb/facet-layout";
+import { ShineButton, buttonVariants, cn } from "@fusorb/facet-components";
+import { LightIcon } from "@fusorb/facet-components/light";
 import { ECOSYSTEM, getEcosystemDocsUrl } from "../data/ecosystem.js";
 import { Nav } from "../components/Nav.js";
 import { Footer } from "../components/Footer.js";

@@ -37,7 +37,7 @@ function warnDefaultStorage(): void {
   warnedAboutDefaultStorage = true;
   // eslint-disable-next-line no-console
   console.warn(
-    "[@arcevo/facet-auth] `defaultStorage` writes tokens to localStorage, which is " +
+    "[@fusorb/facet-auth] `defaultStorage` writes tokens to localStorage, which is " +
       "vulnerable to XSS. For production, pass an explicit `storage` prop to " +
       "<ArcProvider> backed by httpOnly cookies. This warning is shown once.",
   );

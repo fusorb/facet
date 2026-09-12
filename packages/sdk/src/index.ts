@@ -1,10 +1,10 @@
 /**
- * @arcevo/facet-sdk: arc-id API client
+ * @fusorb/facet-sdk: arc-id API client
  *
  * Pure fetch. No framework dependencies.
  *
  * First-party app (own arc-id backend - session-based auth):
- *   import { ArcIdClient, AuthSdk } from "@arcevo/facet-sdk";
+ *   import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
  *
  *   const client = new ArcIdClient({ baseUrl: "https://auth.arcevo.dev/api/v1" });
  *   const auth = new AuthSdk(client);

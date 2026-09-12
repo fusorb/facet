@@ -41,7 +41,7 @@ describe("scanUnnecessaryDeps", () => {
       writePkg(dir, {
         name: "app",
         dependencies: {
-          "@arcevo/facet-components": "^1.2.0",
+          "@fusorb/facet-components": "^1.2.0",
           "@radix-ui/react-dialog": "^1.1.6",
           "lucide-react": "^1.30.0",
           "react": "^19",
@@ -131,7 +131,7 @@ describe("scanImports + rewriteImports", () => {
       const changed = rewriteImports(matches);
       expect(changed).toContain(file);
       const source = fs.readFileSync(file, "utf8");
-      expect(source).toContain('from "@arcevo/facet-components"');
+      expect(source).toContain('from "@fusorb/facet-components"');
       expect(source).not.toContain("@radix-ui/react-dialog");
       expect(source).not.toContain("@/components/ui/button");
     } finally {
@@ -147,7 +147,7 @@ describe("removeBundledDeps + removeCommand", () => {
       const pkgPath = path.join(dir, "package.json");
       writePkg(dir, {
         name: "app",
-        dependencies: { "@arcevo/facet-components": "^1.2.0", "@radix-ui/react-dialog": "^1.1.6" },
+        dependencies: { "@fusorb/facet-components": "^1.2.0", "@radix-ui/react-dialog": "^1.1.6" },
         devDependencies: { "lucide-react": "^1.30.0" },
       });
       const { content, removed } = removeBundledDeps(pkgPath, ["@radix-ui/react-dialog", "lucide-react"]);
@@ -155,7 +155,7 @@ describe("removeBundledDeps + removeCommand", () => {
       expect(content).toBeTruthy();
       const parsed = JSON.parse(content!) as Record<string, any>;
       expect(parsed.dependencies["@radix-ui/react-dialog"]).toBeUndefined();
-      expect(parsed.dependencies["@arcevo/facet-components"]).toBe("^1.2.0");
+      expect(parsed.dependencies["@fusorb/facet-components"]).toBe("^1.2.0");
       expect(parsed.devDependencies["lucide-react"]).toBeUndefined();
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
@@ -174,9 +174,9 @@ describe("removeBundledDeps + removeCommand", () => {
     expect(globalRemoveCommand("pnpm", ["@radix-ui/react-dialog", "lucide-react"])).toBe(
       "pnpm remove -g @radix-ui/react-dialog lucide-react",
     );
-    expect(globalRemoveCommand("npm", ["@arcevo/facet-cli"])).toBe("npm uninstall -g @arcevo/facet-cli");
-    expect(globalRemoveCommand("yarn", ["@arcevo/facet-cli"])).toBe("yarn global remove @arcevo/facet-cli");
-    expect(globalRemoveCommand("bun", ["@arcevo/facet-cli"])).toBe("bun remove -g @arcevo/facet-cli");
+    expect(globalRemoveCommand("npm", ["@fusorb/facet-cli"])).toBe("npm uninstall -g @fusorb/facet-cli");
+    expect(globalRemoveCommand("yarn", ["@fusorb/facet-cli"])).toBe("yarn global remove @fusorb/facet-cli");
+    expect(globalRemoveCommand("bun", ["@fusorb/facet-cli"])).toBe("bun remove -g @fusorb/facet-cli");
   });
 });
 

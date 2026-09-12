@@ -1,4 +1,4 @@
-# @arcevo/facet-layout
+# @fusorb/facet-layout
 
 ## 1.4.2
 
@@ -16,8 +16,8 @@
     navigation moved to a `useEffect` keyed on route change. Added `asPath` to
     `RouterAdapter` interface and default adapter.
 
-- cfabae9: Add an ESM `"use client"` banner to the `dist` builds of `@arcevo/facet-components`,
-  `@arcevo/facet-auth`, and `@arcevo/facet-layout`.
+- cfabae9: Add an ESM `"use client"` banner to the `dist` builds of `@fusorb/facet-components`,
+  `@fusorb/facet-auth`, and `@fusorb/facet-layout`.
 
   Next.js 15+/16 App Router builds React Server Components with the `react-server`
   condition, which resolves `react-hook-form` to `react-server.esm.mjs` - an entry that
@@ -40,16 +40,16 @@
 - Updated dependencies [1bf5de5]
 - Updated dependencies [1bf5de5]
 - Updated dependencies [cfabae9]
-  - @arcevo/facet-auth@1.2.3
-  - @arcevo/facet-components@1.11.0
+  - @fusorb/facet-auth@1.2.3
+  - @fusorb/facet-components@1.11.0
 
 ## 1.4.1
 
 ### Patch Changes
 
 - Updated dependencies [b7accc3]
-  - @arcevo/facet-components@1.10.0
-  - @arcevo/facet-auth@1.2.2
+  - @fusorb/facet-components@1.10.0
+  - @fusorb/facet-auth@1.2.2
 
 ## 1.4.0
 
@@ -57,7 +57,7 @@
 
 - 18547dc: feat(components): MailInput with domain suggestions + Dissolve animation family
 
-  ### @arcevo/facet-components (minor)
+  ### @fusorb/facet-components (minor)
   - **MailInput** -- email input with a domain-suggestion dropdown. Typing `@` (or
     continuing after it) surfaces common provider domains (gmail.com,
     icloud.com, etc.); click or press Enter to auto-complete. Works controlled
@@ -79,7 +79,7 @@ asChild`) for accessible, right/middle-clickable links; `renderButton`
   - New `facet-dissolve` CSS keyframe in tokens (shared by DissolveText,
     DissolveButton, DissolveCard, AnimatedButton dissolve variant).
 
-  ### @arcevo/facet-layout (minor)
+  ### @fusorb/facet-layout (minor)
   - **Sidebar** -- new `singleOpen` (accordion) prop; `Collapse all` / `Expand
 all` toolbar buttons; active section scrolls into view.
   - **ConsoleLayout** -- passes `singleOpen` through to the sidebar (both docked
@@ -88,10 +88,10 @@ all` toolbar buttons; active section scrolls into view.
     (all persisted to localStorage alongside the existing `toggleSection`).
   - The docs layout opts into `singleOpen`.
 
-  ### @arcevo/facet-tokens (patch)
+  ### @fusorb/facet-tokens (patch)
   - New `--animate-facet-dissolve` keyframe (500ms ease-out, both fill-mode).
 
-  ### @arcevo/facet-docs (patch)
+  ### @fusorb/facet-docs (patch)
   - Docs manifest regenerated: `mail-input` added (inputs category);
     `typewriter-text` now documented as tabs on the text-animations page
     instead of a standalone slug.
@@ -105,8 +105,8 @@ all` toolbar buttons; active section scrolls into view.
 ### Patch Changes
 
 - Updated dependencies [18547dc]
-  - @arcevo/facet-components@1.9.0
-  - @arcevo/facet-auth@1.2.1
+  - @fusorb/facet-components@1.9.0
+  - @fusorb/facet-auth@1.2.1
 
 ## 1.3.4
 
@@ -117,30 +117,30 @@ all` toolbar buttons; active section scrolls into view.
 - Updated dependencies [8d922f7]
 - Updated dependencies [2236aa8]
 - Updated dependencies [78b6543]
-  - @arcevo/facet-auth@1.2.0
-  - @arcevo/facet-components@1.8.0
+  - @fusorb/facet-auth@1.2.0
+  - @fusorb/facet-components@1.8.0
 
 ## 1.3.3
 
 ### Patch Changes
 
 - Updated dependencies [d2b43d0]
-  - @arcevo/facet-components@1.7.0
-  - @arcevo/facet-auth@1.1.6
+  - @fusorb/facet-components@1.7.0
+  - @fusorb/facet-auth@1.1.6
 
 ## 1.3.2
 
 ### Patch Changes
 
 - Updated dependencies [8a7aef3]
-  - @arcevo/facet-components@1.6.0
-  - @arcevo/facet-auth@1.1.5
+  - @fusorb/facet-components@1.6.0
+  - @fusorb/facet-auth@1.1.5
 
 ## 1.3.1
 
 ### Patch Changes
 
-- @arcevo/facet-auth@1.1.4
+- @fusorb/facet-auth@1.1.4
 
 ## 1.3.0
 
@@ -190,16 +190,16 @@ all` toolbar buttons; active section scrolls into view.
 ### Patch Changes
 
 - Updated dependencies [3554506]
-  - @arcevo/facet-components@1.5.0
-  - @arcevo/facet-auth@1.1.3
+  - @fusorb/facet-components@1.5.0
+  - @fusorb/facet-auth@1.1.3
 
 ## 1.2.1
 
 ### Patch Changes
 
 - Updated dependencies
-  - @arcevo/facet-components@1.4.0
-  - @arcevo/facet-auth@1.1.2
+  - @fusorb/facet-components@1.4.0
+  - @fusorb/facet-auth@1.1.2
 
 ## 1.2.0
 
@@ -209,11 +209,11 @@ all` toolbar buttons; active section scrolls into view.
 
   CLI -- new commands for consumer-safety and repo hygiene:
 
-  - `facet clean`: detects dependencies already bundled by @arcevo/facet-components
+  - `facet clean`: detects dependencies already bundled by @fusorb/facet-components
     (radix primitives, lucide-react, cmdk, input-otp, qrcode.react, react-hook-form,
     sonner, class-variance-authority, clsx, tailwind-merge), removes them from the
     consumer's manifests, rewrites shadcn/ui-style imports (and direct radix/lucide
-    imports) to `@arcevo/facet-components`, and deletes dead local `ui/` components.
+    imports) to `@fusorb/facet-components`, and deletes dead local `ui/` components.
     Safe by default: `--dry-run` shows the plan, prompts for confirmation (or `-y`),
     and prints the exact remove command for the detected package manager instead of
     auto-running it.
@@ -225,7 +225,7 @@ all` toolbar buttons; active section scrolls into view.
     scripts exist. Non-destructive.
   - `facet up`: applies the facet package updates (non-dry-run sibling of
     `facet update`) using the detected package manager.
-  - `facet doctor` now also reports dependencies that @arcevo/facet-components
+  - `facet doctor` now also reports dependencies that @fusorb/facet-components
     already bundles and suggests `facet clean`.
   - `facet docs init` UX fixes: "Decide for me" now skips the q prompts
     (it previously asked everything then discarded the answers); the summary says
@@ -278,8 +278,8 @@ all` toolbar buttons; active section scrolls into view.
 - Updated dependencies [69c1fec]
 - Updated dependencies [b878bfd]
 - Updated dependencies [6bb55a2]
-  - @arcevo/facet-components@1.3.0
-  - @arcevo/facet-auth@1.1.1
+  - @fusorb/facet-components@1.3.0
+  - @fusorb/facet-auth@1.1.1
 
 ## 1.1.1
 
@@ -287,5 +287,5 @@ all` toolbar buttons; active section scrolls into view.
 
 - Updated dependencies [3de0e04]
 - Updated dependencies [568497d]
-  - @arcevo/facet-components@1.2.0
-  - @arcevo/facet-auth@1.1.0
+  - @fusorb/facet-components@1.2.0
+  - @fusorb/facet-auth@1.1.0

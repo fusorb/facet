@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-layout: LandingLayout
+ * @fusorb/facet-layout: LandingLayout
  *
  * Full-bleed marketing/landing page shell.
  * Glassmorphic hero section, glow CTAs, text-gradient headings.

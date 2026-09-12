@@ -1,6 +1,6 @@
-# @arcevo/facet-docs-site
+# @fusorb/facet-docs-site
 
-facet's own docs site: a **thin consumer** of the `@arcevo/facet-docs`
+facet's own docs site: a **thin consumer** of the `@fusorb/facet-docs`
 package. It proves the install-and-configure model works exactly as an
 external consumer (arc-id, arcbase, arc-wallet) would use it, with no forking
 and no copied source. Everything renders from the config + pages passed to
@@ -13,7 +13,7 @@ Deployed to https://docs.facet.arcevocirqle.com.ng.
 - **`src/demo-config.ts`**: the `DocsSiteConfig` (brand "facet", ecosystem
   link to arc-id) and the pages registry (facet's canonical pages).
 - **`src/pages.ts`**: facet's own authored guide pages: the documentation
-  *content*. This lives in the consumer, not in the `@arcevo/facet-docs`
+  *content*. This lives in the consumer, not in the `@fusorb/facet-docs`
   package, so installing the package never ships facet's docs.
 - **`src/app.tsx`**: mounts `<DocsApp config={demoConfig} pages={demoPages} />`.
 
@@ -26,8 +26,8 @@ usage tabs.
 ## Consume it like an external consumer
 
 ```tsx
-import { DocsApp } from "@arcevo/facet-docs";
-import type { DocsPage, DocsSiteConfig } from "@arcevo/facet-docs";
+import { DocsApp } from "@fusorb/facet-docs";
+import type { DocsPage, DocsSiteConfig } from "@fusorb/facet-docs";
 
 const config: DocsSiteConfig = { brand: { name: "my-app" }, navigation: [] };
 const pages: DocsPage[] = [
@@ -46,4 +46,4 @@ export function App() {
 - `pnpm typecheck`: TypeScript check
 
 This app is private and never published. The publishable artifact is
-`@arcevo/facet-docs` under `packages/`.
+`@fusorb/facet-docs` under `packages/`.

@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: TestimonialShowcase
+ * @fusorb/facet-components: TestimonialShowcase
  *
  * A ready-to-use social-proof grid (or carousel) of testimonials with
  * quote, author, role, and avatar. Composes the Avatar + Card primitives

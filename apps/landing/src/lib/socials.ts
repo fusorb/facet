@@ -4,7 +4,7 @@
 
 export const CONTACT = {
   /** Professional feedback channel (mailto). */
-  email: "feedback@arcevocirqle.com.ng",
+  email: "feedback@fusorbcirqle.com.ng",
   /** WhatsApp (wa.me with country code). */
   whatsapp: "https://wa.me/2347064274648",
   /** Instagram, Facebook, TikTok: shared username, URL pattern shown. */

@@ -14,12 +14,12 @@ import {
   OtpVerificationCard,
   Input,
   Label,
-} from "@arcevo/facet-components";
-import { LightIcon } from "@arcevo/facet-components/light";
+} from "@fusorb/facet-components";
+import { LightIcon } from "@fusorb/facet-components/light";
 
 /**
- * Live auth surfaces from @arcevo/facet-auth and the ready-to-use
- * auth components from @arcevo/facet-components. Switches between the
+ * Live auth surfaces from @fusorb/facet-auth and the ready-to-use
+ * auth components from @fusorb/facet-components. Switches between the
  * PasswordStrengthMeter (signup moment) and the OtpVerificationCard
  * (MFA moment) so the landing shows the two halves of every auth flow.
  */
@@ -34,7 +34,7 @@ export function AuthShowcaseSection() {
           Auth flows you can show, not describe
         </h2>
         <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-          Live surfaces from <code className="rounded bg-secondary/50 px-2 py-1 text-xs">@arcevo/facet-auth</code>:
+          Live surfaces from <code className="rounded bg-secondary/50 px-2 py-1 text-xs">@fusorb/facet-auth</code>:
           password strength, MFA verification, and the rest of the state
           machine.
         </p>

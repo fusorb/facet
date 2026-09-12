@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: Chart
+ * @fusorb/facet-components: Chart
  *
  * An SVG-based chart primitive supporting line, bar, area, pie, donut,
  * and composed (mixed-type) charts. Pure-SVG, no heavy deps, and
@@ -7,7 +7,7 @@
  *
  * Inspired by recharts patterns:
  *  - Per-series `type` → composed charts (e.g. line + bar on same axes)
- *  - Crosshair cursor that follows the mouse
+ *  - Crosshair cursor line that follows the mouse (point markers are opt-in via `crosshairPoints`)
  *  - Floating tooltip positioned at the cursor
  *  - Smooth / step / linear curve interpolation
  *  - Stacking for bars and areas
@@ -15,7 +15,7 @@
  *  - Fade-in entry animation
  *
  * Usage:
- *   import { Chart } from "@arcevo/facet-components";
+ *   import { Chart } from "@fusorb/facet-components";
  *   <Chart x={["Mon", "Tue"]} series={[{ id: "a", label: "A", data: [30, 80] }]} />
  */
 
@@ -69,7 +69,7 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   showTooltip?: boolean;
   /** Show a crosshair cursor that follows the mouse. Default: equals showTooltip. */
   showCrosshair?: boolean;
-  /** Chart height in pixels. Default: 240 (cartesian), 320 (radial). */
+  /** Chart height in pixels. Default: 240 (cartesian), 480 (radial). */
   height?: number;
   /** Format a y value (e.g. abbreviate 1000 → "1k"). */
   formatY?: (n: number) => string;
@@ -101,19 +101,47 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   onLegendToggle?: (seriesId: string, visible: boolean) => void;
   /** Called when hover state changes. */
   onHover?: (state: { seriesIndex: number; dataIndex: number } | null) => void;
+  /** Wrap the chart in a vertically scrollable container when its natural
+   * height exceeds this pixel value. Ideal for horizontal bar charts with many
+   * categories. */
+  maxHeight?: number;
+  /** Row height (px) per category for horizontal bar charts; drives the
+   * auto-grown chart height so bars/labels don't crowd. Default: 36. */
+  rowHeight?: number;
+  /** Render colored point markers that track the crosshair cursor.
+   * Default: false — points stay fixed at their data positions and only the
+   * crosshair line follows the mouse. */
+  crosshairPoints?: boolean;
+  /** Chart viewBox width in pixels. Default: 800. Set to match your container
+   * for crisp text at any rendered size. */
+  width?: number;
+  /** Font size (px) for axis tick labels and category labels. Default: 11. */
+  axisFontSize?: number;
+  /** Font size (px) for pie/donut slice labels (primary line). Default: 12. */
+  pieLabelFontSize?: number;
+  /** Custom renderer for pie/donut slice labels. Receives the slice index,
+   * value, percentage (0–100), x-axis label, and the source series. When
+   * omitted the default rich label (bold category + muted value) is used. */
+  renderSliceLabel?: (
+    index: number,
+    value: number,
+    percent: number,
+    xLabel: string | number,
+    series: ChartSeries,
+  ) => React.ReactNode;
 }
 
 /* ── Constants ─────────────────────────────────────────────── */
 
 const DEFAULT_HEIGHT = 240;
 const DEFAULT_HEIGHT_RADIAL = 480;
-const DEFAULT_COLOR = "hsl(var(--primary))";
+const DEFAULT_COLOR = "var(--primary)";
 const PALETTE = [
-  "hsl(var(--primary))",
-  "hsl(var(--chart-2, 220 70% 50%))",
-  "hsl(var(--chart-3, 160 60% 45%))",
-  "hsl(var(--chart-4, 30 80% 55%))",
-  "hsl(var(--chart-5, 280 65% 60%))",
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
 ];
 
 /* CSS keyframes injected once for the entry animation. */
@@ -210,6 +238,7 @@ function pieSlices(
   cy: number,
   radius: number,
   values: number[],
+  labelGap = 24,
 ): Array<{ path: string; midAngle: number; labelX: number; labelY: number }> {
   const total = values.reduce((a, b) => a + b, 0);
   if (total === 0) return [];
@@ -231,7 +260,7 @@ function pieSlices(
 
     const path = `M ${cx.toFixed(2)} ${cy.toFixed(2)} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${radius} ${radius} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z`;
 
-    const labelR = radius + 16;
+    const labelR = radius + labelGap;
     slices.push({
       path,
       midAngle,
@@ -323,12 +352,22 @@ export function Chart({
   legendPosition = "bottom",
   onLegendToggle,
   onHover,
+  maxHeight,
+  rowHeight,
+  crosshairPoints = false,
+  width = 800,
+  axisFontSize = 11,
+  pieLabelFontSize = 12,
+  renderSliceLabel,
+  style,
   className,
   ...rest
 }: ChartProps) {
   const isRadial = type === "pie" || type === "donut";
   const effectiveHeight = height ?? (isRadial ? DEFAULT_HEIGHT_RADIAL : DEFAULT_HEIGHT);
   const crosshair = showCrosshair ?? showTooltip;
+  const n = x.length;
+  const scaleRef = React.useRef(1);
 
   const [hover, setHover] = React.useState<{
     seriesIndex: number;
@@ -346,6 +385,22 @@ export function Chart({
   React.useEffect(() => {
     if (animate) injectKeyframes();
   }, [animate]);
+
+  // Keep scaleRef in sync with the SVG's rendered width so mouse coordinates
+  // (in container pixels) map correctly to the viewBox coordinate space. This
+  // is what makes the crosshair line align perfectly at any rendered width.
+  React.useEffect(() => {
+    const svgEl = svgRef.current;
+    if (!svgEl) return;
+    const computeScale = () => {
+      const rect = svgEl.getBoundingClientRect();
+      scaleRef.current = rect.width > 0 ? width / rect.width : 1;
+    };
+    computeScale();
+    const ro = new ResizeObserver(computeScale);
+    ro.observe(svgEl);
+    return () => ro.disconnect();
+  }, [width]);
 
   React.useEffect(() => {
     onHover?.(hover);
@@ -368,15 +423,22 @@ export function Chart({
   };
 
   /* ── Cartesian layout math ──────────────────────────────── */
-  const width = 800;
   const padding = {
     top: 16,
     right: 16,
     bottom: showAxes ? 32 : 8,
-    left: showAxes ? 48 : 8,
+    left: showAxes ? 56 : 8,
   };
   const plotW = width - padding.left - padding.right;
-  const plotH = effectiveHeight - padding.top - padding.bottom;
+
+  // Horizontal bar charts auto-grow in height so each category gets at least
+  // `rowHeight` px of vertical room (unless the consumer pinned `height`).
+  const rowH = rowHeight ?? 36;
+  const chartHeight =
+    type === "bar" && layout === "horizontal" && height === undefined
+      ? Math.max(effectiveHeight, n * rowH + padding.top + padding.bottom)
+      : effectiveHeight;
+  const plotH = chartHeight - padding.top - padding.bottom;
 
   const allValues = visibleSeries.flatMap((s) => s.data);
   const minY = Math.min(0, ...allValues);
@@ -384,16 +446,21 @@ export function Chart({
   const range = maxY - minY || 1;
 
   const yTicks = niceTicks(minY, maxY, 4);
-  const n = x.length;
   const xStep = n > 1 ? plotW / (n - 1) : plotW;
   const xOf = (i: number) =>
     n === 1 ? padding.left + plotW / 2 : padding.left + i * xStep;
   const yOf = (v: number) => padding.top + plotH - ((v - minY) / range) * plotH;
+  // Category position along the height axis — used by horizontal bar layout so
+  // bars distribute across plotH (not plotW) and never overlap.
+  const catY = (i: number) =>
+    n === 1 ? padding.top + plotH / 2 : padding.top + (i * plotH) / Math.max(n - 1, 1);
 
   /* ── Radial layout math ──────────────────────────────────── */
   const cx = width / 2;
-  const cy = effectiveHeight / 2;
-  const maxRadius = Math.min(plotW, plotH) / 2 - 16;
+  const cy = chartHeight / 2;
+  const maxRadius = isRadial
+    ? Math.min(width, chartHeight) / 2 - 32
+    : Math.min(plotW, plotH) / 2 - 16;
   const innerR = type === "donut"
     ? (innerRadius ?? maxRadius * 0.4)
     : 0;
@@ -401,17 +468,20 @@ export function Chart({
   /* ── Hover handlers ───────────────────────────────────────── */
 
   const handlePointerMove = (e: React.MouseEvent<SVGSVGElement>) => {
-    const rect = svgRef.current?.getBoundingClientRect() ?? containerRef.current?.getBoundingClientRect();
+    const svg = svgRef.current ?? containerRef.current;
+    const rect = svg?.getBoundingClientRect();
     if (!rect) return;
     const relX = e.clientX - rect.left;
     const relY = e.clientY - rect.top;
+    scaleRef.current = rect.width > 0 ? width / rect.width : 1;
     setMousePos({ x: relX, y: relY });
 
     if (crosshair && n > 0) {
+      const bx = relX * scaleRef.current;
       let bestI = 0;
       let bestDist = Infinity;
       for (let i = 0; i < n; i++) {
-        const d = Math.abs(xOf(i) - relX);
+        const d = Math.abs(xOf(i) - bx);
         if (d < bestDist) {
           bestDist = d;
           bestI = i;
@@ -444,6 +514,28 @@ export function Chart({
   function renderCartesian() {
     return (
       <>
+        {/* Axis spines — visible left/bottom borders that "ground" the chart */}
+        {showAxes && (
+          <>
+            <line
+              x1={padding.left}
+              x2={padding.left}
+              y1={padding.top}
+              y2={padding.top + plotH}
+              stroke="var(--border)"
+              strokeWidth={1}
+            />
+            <line
+              x1={padding.left}
+              x2={padding.left + plotW}
+              y1={padding.top + plotH}
+              y2={padding.top + plotH}
+              stroke="var(--border)"
+              strokeWidth={1}
+            />
+          </>
+        )}
+
         {/* Y-axis grid + labels */}
         {showAxes &&
           yTicks.map((tick, i) => (
@@ -453,7 +545,7 @@ export function Chart({
                 x2={padding.left + plotW}
                 y1={yOf(tick)}
                 y2={yOf(tick)}
-                stroke="hsl(var(--border))"
+                stroke="var(--border)"
                 strokeDasharray="2 4"
                 strokeWidth={1}
               />
@@ -462,8 +554,8 @@ export function Chart({
                 y={yOf(tick)}
                 textAnchor="end"
                 dominantBaseline="middle"
-                fontSize={11}
-                fill="hsl(var(--muted-foreground))"
+                fontSize={axisFontSize}
+                fill="var(--muted-foreground)"
               >
                 {formatY(tick)}
               </text>
@@ -478,41 +570,45 @@ export function Chart({
               x={xOf(i)}
               y={padding.top + plotH + 18}
               textAnchor="middle"
-              fontSize={11}
-              fill="hsl(var(--muted-foreground))"
+              fontSize={axisFontSize}
+              fill="var(--muted-foreground)"
             >
               {formatX ? formatX(v) : String(v)}
             </text>
           ))}
 
-        {/* Crosshair */}
+        {/* Crosshair — the line follows the cursor; colored point markers that
+            "chase" the mouse are opt-in via crosshairPoints (off by default) */}
         {crosshair && hover && (
           <>
             <line
-              x1={mousePos ? mousePos.x : xOf(hover.dataIndex)}
-              x2={mousePos ? mousePos.x : xOf(hover.dataIndex)}
+              x1={mousePos ? mousePos.x * scaleRef.current : xOf(hover.dataIndex)}
+              x2={mousePos ? mousePos.x * scaleRef.current : xOf(hover.dataIndex)}
               y1={padding.top}
               y2={padding.top + plotH}
-              stroke="hsl(var(--foreground))"
+              stroke="var(--foreground)"
               strokeOpacity={0.15}
               strokeDasharray="3 3"
               strokeWidth={1}
+              style={{ transition: "opacity 0.15s ease" }}
             />
-            {visibleSeries.map((s, si) => {
-              const val = s.data[hover.dataIndex];
-              if (val == null) return null;
-              return (
-                <circle
-                  key={`cross-${s.id}`}
-                  cx={mousePos ? mousePos.x : xOf(hover.dataIndex)}
-                  cy={yOf(val)}
-                  r={3}
-                  fill={colorFor(si, s, defaultColor)}
-                  stroke="hsl(var(--background))"
-                  strokeWidth={1.5}
-                />
-              );
-            })}
+            {crosshairPoints &&
+              visibleSeries.map((s, si) => {
+                const val = s.data[hover.dataIndex];
+                if (val == null) return null;
+                return (
+                  <circle
+                    key={`cross-${s.id}`}
+                    cx={mousePos ? mousePos.x * scaleRef.current : xOf(hover.dataIndex)}
+                    cy={yOf(val)}
+                    r={3}
+                    fill={colorFor(si, s, defaultColor)}
+                    stroke="var(--background)"
+                    strokeWidth={1.5}
+                    style={{ transition: "cx 0.05s ease-out, cy 0.05s ease-out" }}
+                  />
+                );
+              })}
           </>
         )}
 
@@ -559,7 +655,7 @@ export function Chart({
                         <rect
                           key={`bar-${i}`}
                           x={Math.min(startX, baseX)}
-                          y={xOf(i) - thick / 2}
+                          y={catY(i) - thick / 2}
                           width={Math.abs(startX - baseX)}
                           height={thick}
                           fill={color}
@@ -574,7 +670,7 @@ export function Chart({
               return (
                 <g key={s.id} style={animStyle}>
                   {s.data.map((v, i) => {
-                    const barY = xOf(i) - groupH / 2 + barIdx * slotH + (slotH - barH) / 2;
+                    const barY = catY(i) - groupH / 2 + barIdx * slotH + (slotH - barH) / 2;
                     const valX = yOf(v);
                     return (
                       <rect
@@ -585,7 +681,7 @@ export function Chart({
                         height={barH}
                         fill={color}
                         rx={4}
-                        opacity={hover && hover.dataIndex === i ? 1 : 0.85}
+                        opacity={hover && hover.dataIndex !== i ? 0.85 : 1}
                       />
                     );
                   })}
@@ -610,7 +706,7 @@ export function Chart({
                         height={Math.abs(yOf(vTop) - yOf(baseline))}
                         fill={color}
                         rx={4}
-                        opacity={hover && hover.dataIndex === i ? 1 : 0.85}
+                        opacity={hover && hover.dataIndex !== i ? 0.85 : 1}
                       />
                     );
                   })}
@@ -631,7 +727,7 @@ export function Chart({
                       height={Math.abs(yOf(v) - yOf(0))}
                       fill={color}
                       rx={4}
-                      opacity={hover && hover.dataIndex === i ? 1 : 0.85}
+                      opacity={hover && hover.dataIndex !== i ? 0.85 : 1}
                     />
                   );
                 })}
@@ -675,6 +771,7 @@ export function Chart({
                     r={hover?.dataIndex === i2 ? 5 : 3}
                     fill={color}
                     opacity={hover && hover.dataIndex !== i2 ? 0.4 : 1}
+                    style={{ transition: "r 0.15s ease, opacity 0.15s ease" }}
                   />
                 );
               })}
@@ -702,7 +799,7 @@ export function Chart({
         const endAngle = startAngle + fraction * 2 * Math.PI;
         const path = donutSlicePath(cx, cy, maxRadius, innerR, startAngle, endAngle);
         const midAngle = (startAngle + endAngle) / 2;
-        const labelR = maxRadius + 16;
+        const labelR = maxRadius + 24;
         donutSlices.push({
           path,
           midAngle,
@@ -719,13 +816,14 @@ export function Chart({
               key={`slice-${i}`}
               d={sl.path}
               fill={colorFor(i, first, defaultColor)}
-              stroke="hsl(var(--background))"
+              stroke="var(--background)"
               strokeWidth={1.5}
               style={{
                 opacity: hover && hover.dataIndex !== i ? 0.4 : 1,
                 cursor: "pointer",
               }}
               onMouseEnter={() => setHover({ seriesIndex: 0, dataIndex: i })}
+              onMouseLeave={() => setHover(null)}
             />
           ))}
 
@@ -735,9 +833,9 @@ export function Chart({
             y={cy - 6}
             textAnchor="middle"
             dominantBaseline="central"
-            fontSize={18}
+            fontSize={pieLabelFontSize * 1.5}
             fontWeight={600}
-            fill="hsl(var(--foreground))"
+            fill="var(--foreground)"
           >
             {total > 0 ? formatY(total) : "–"}
           </text>
@@ -746,30 +844,65 @@ export function Chart({
             y={cy + 8}
             textAnchor="middle"
             dominantBaseline="central"
-            fontSize={11}
-            fill="hsl(var(--muted-foreground))"
+            fontSize={axisFontSize}
+            fill="var(--muted-foreground)"
           >
             {x.length} {x.length === 1 ? "slice" : "slices"}
           </text>
 
-          {/* Slice labels */}
+          {/* Donut slice labels */}
           {showAxes &&
             donutSlices.map((sl, i) => {
               const pct = total > 0 ? ((values[i]! / total) * 100).toFixed(1) : "0";
-              const label = formatX ? formatX(x[i]!) : String(x[i]);
+              const slicedX = x[i]!;
+              const labelText = formatX ? formatX(slicedX) : String(slicedX);
               const isHovered = hover?.dataIndex === i;
+              const cos = Math.cos(sl.midAngle);
+              const anchor: "start" | "end" | "middle" =
+                cos > 0.05 ? "start" : cos < -0.05 ? "end" : "middle";
+              const xOffset = cos > 0.05 ? 6 : cos < -0.05 ? -6 : 0;
+              const textX = sl.labelX + xOffset;
+              const edgeX = cx + maxRadius * Math.cos(sl.midAngle);
+              const edgeY = cy + maxRadius * Math.sin(sl.midAngle);
+
               return (
-                <text
-                  key={`label-${i}`}
-                  x={sl.labelX}
-                  y={sl.labelY}
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                  fontSize={10}
-                  fill={isHovered ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))"}
-                >
-                  {`${label} (${pct}%)`}
-                </text>
+                <g key={`label-${i}`}>
+                  <line
+                    x1={edgeX}
+                    y1={edgeY}
+                    x2={sl.labelX}
+                    y2={sl.labelY}
+                    stroke="var(--muted-foreground)"
+                    strokeWidth={1}
+                    strokeOpacity={0.4}
+                  />
+                  {renderSliceLabel
+                    ? (
+                      <g transform={`translate(${sl.labelX}, ${sl.labelY})`}>
+                        {renderSliceLabel(i, values[i]!, Number(pct), slicedX, first)}
+                      </g>
+                    )
+                    : (
+                      <text
+                        x={textX}
+                        y={sl.labelY}
+                        textAnchor={anchor}
+                        dominantBaseline="central"
+                        fontSize={pieLabelFontSize}
+                        fill={isHovered ? "var(--foreground)" : "var(--muted-foreground)"}
+                      >
+                        <tspan fontWeight={600}>{labelText}</tspan>
+                        <tspan
+                          x={textX}
+                          dy="1.3em"
+                          fontSize={pieLabelFontSize * 0.8}
+                          fill={isHovered ? "var(--foreground)" : "var(--muted-foreground)"}
+                        >
+                          {` (${pct}%)`}
+                        </tspan>
+                      </text>
+                    )}
+                </g>
               );
             })}
         </>
@@ -783,32 +916,69 @@ export function Chart({
       <>
         {slices.map((sl, i) => {
           const isHovered = hover?.dataIndex === i;
+          const slicedX = x[i]!;
+          const labelText = formatX ? formatX(slicedX) : String(slicedX);
+          const pct = total > 0 ? ((values[i]! / total) * 100).toFixed(1) : "0";
+          const cos = Math.cos(sl.midAngle);
+          const anchor: "start" | "end" | "middle" =
+            cos > 0.05 ? "start" : cos < -0.05 ? "end" : "middle";
+          const xOffset = cos > 0.05 ? 6 : cos < -0.05 ? -6 : 0;
+          const textX = sl.labelX + xOffset;
+          const edgeX = cx + maxRadius * Math.cos(sl.midAngle);
+          const edgeY = cy + maxRadius * Math.sin(sl.midAngle);
+
           return (
             <g key={`slice-${i}`}>
               <path
                 d={sl.path}
                 fill={colorFor(i, first, defaultColor)}
-                stroke="hsl(var(--background))"
+                stroke="var(--background)"
                 strokeWidth={1.5}
                 style={{
                   opacity: hover && hover.dataIndex !== i ? 0.4 : 1,
                   cursor: "pointer",
-                  transform: isHovered ? "scale(1.03)" : "scale(1)",
-                  transformOrigin: `${sl.labelX}px ${sl.labelY}px`,
                 }}
                 onMouseEnter={() => setHover({ seriesIndex: 0, dataIndex: i })}
+                onMouseLeave={() => setHover(null)}
               />
               {showAxes && (
-                <text
-                  x={sl.labelX}
-                  y={sl.labelY}
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                  fontSize={10}
-                  fill={isHovered ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))"}
-                >
-                  {formatX ? formatX(x[i]!) : String(x[i])}
-                </text>
+                <g>
+                  <line
+                    x1={edgeX}
+                    y1={edgeY}
+                    x2={sl.labelX}
+                    y2={sl.labelY}
+                    stroke="var(--muted-foreground)"
+                    strokeWidth={1}
+                    strokeOpacity={0.4}
+                  />
+                  {renderSliceLabel
+                    ? (
+                      <g transform={`translate(${sl.labelX}, ${sl.labelY})`}>
+                        {renderSliceLabel(i, values[i]!, Number(pct), slicedX, first)}
+                      </g>
+                    )
+                    : (
+                      <text
+                        x={textX}
+                        y={sl.labelY}
+                        textAnchor={anchor}
+                        dominantBaseline="central"
+                        fontSize={pieLabelFontSize}
+                        fill={isHovered ? "var(--foreground)" : "var(--muted-foreground)"}
+                      >
+                        <tspan fontWeight={600}>{labelText}</tspan>
+                        <tspan
+                          x={textX}
+                          dy="1.3em"
+                          fontSize={pieLabelFontSize * 0.8}
+                          fill={isHovered ? "var(--foreground)" : "var(--muted-foreground)"}
+                        >
+                          {` (${pct}%)`}
+                        </tspan>
+                      </text>
+                    )}
+                </g>
               )}
             </g>
           );
@@ -907,10 +1077,11 @@ export function Chart({
 
     return (
       <div
-        className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-md border border-border bg-popover px-3 py-1.5 text-xs shadow-md"
+        className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-md border border-border bg-popover px-3 py-1.5 text-xs shadow-md transition-opacity duration-150"
         style={{
           left: mousePos ? mousePos.x : "50%",
           top: mousePos ? mousePos.y : "50%",
+          opacity: mousePos ? 1 : 0,
         }}
       >
         {content}
@@ -963,12 +1134,11 @@ export function Chart({
 
   /* ── Final render ─────────────────────────────────────────── */
 
-  const chartHeight = effectiveHeight;
-
   return (
     <div
       ref={containerRef}
-      className={cn("relative w-full", className)}
+      className={cn("relative w-full", maxHeight ? "overflow-y-auto" : undefined, className)}
+      style={maxHeight ? { maxHeight: `${maxHeight}px`, ...style } : style}
       {...rest}
     >
       {showLegend && legendPosition === "top" && renderLegend()}

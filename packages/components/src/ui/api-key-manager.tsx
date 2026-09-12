@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: ApiKeyManager
+ * @fusorb/facet-components: ApiKeyManager
  *
  * A ready-to-use API key manager: create keys with a scope + expiry,
  * copy secrets, reveal truncated keys, and revoke them. Controlled via

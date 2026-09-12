@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: Brand & social icons as inline SVGs.
+ * @fusorb/facet-components: Brand & social icons as inline SVGs.
  *
  * lucide-react deprecated its brand/social icon set and has been removing
  * entries (13 of the former ~28 are already gone in 0.468). We keep the

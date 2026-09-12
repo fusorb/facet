@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: WizardFormPage
+ * @fusorb/facet-components: WizardFormPage
  *
  * A drop-in multi-step form page: combines `Stepper` (navigation),
  * `react-hook-form` (state), and an injectable `resolver` (e.g.

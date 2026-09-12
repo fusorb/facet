@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: ActivityFeed
+ * @fusorb/facet-components: ActivityFeed
  *
  * A chronological activity/event feed: icon, title, description, and
  * relative timestamp per item, with an optional grouping header per day.

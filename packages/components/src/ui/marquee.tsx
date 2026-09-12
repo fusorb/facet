@@ -37,7 +37,7 @@ export interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
  * A CSS-only marquee. Children are duplicated to form a seamless loop, and
  * the track animates with a transform translateX keyframe. Accessibility
  * focus and hover pauses are handled without JavaScript animation state.
- * The `facet-marquee` keyframe is defined in `@arcevo/facet-tokens`
+ * The `facet-marquee` keyframe is defined in `@fusorb/facet-tokens`
  * (tokens.css / tailwind.css).
  *
  * The "strip" variant shares the same engine (item duplication +

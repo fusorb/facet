@@ -1,4 +1,4 @@
-import type { ActivityItem, ApiKey } from "@arcevo/facet-components";
+import type { ActivityItem, ApiKey } from "@fusorb/facet-components";
 
 /**
  * Dashboard demo data for the home-page dashboard preview and the
@@ -21,7 +21,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
   {
     id: "evt-1",
     title: "New identity verified",
-    description: "Tenant arcevocirqle-prod - credential issued for ada.lovelace@arcevocirqle.com.ng",
+    description: "Tenant arcevocirqle-prod - credential issued for ada.lovelace@fusorbcirqle.com.ng",
     timestamp: MINS_AGO(3),
     icon: "badge-check",
     accent: "#10b981",
@@ -29,7 +29,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
   {
     id: "evt-2",
     title: "Passkey registered",
-    description: "kenny.gr8@arcevocirqle.com.ng added a WebAuthn passkey on Chrome / macOS",
+    description: "kenny.gr8@fusorbcirqle.com.ng added a WebAuthn passkey on Chrome / macOS",
     timestamp: MINS_AGO(11),
     icon: "fingerprint-pattern",
     accent: "#06b6d4",
@@ -69,7 +69,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
   {
     id: "evt-7",
     title: "API key revoked",
-    description: "facet_live_a82f…31bd - manual revoke by ada.lovelace@arcevocirqle.com.ng",
+    description: "facet_live_a82f…31bd - manual revoke by ada.lovelace@fusorbcirqle.com.ng",
     timestamp: DAYS_AGO(1),
     icon: "shield-x",
     accent: "#ef4444",

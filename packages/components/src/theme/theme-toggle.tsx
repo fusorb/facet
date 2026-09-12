@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: ThemeToggle
+ * @fusorb/facet-components: ThemeToggle
  *
  * Single-button theme switcher: by default it inherits the system theme
  * (no explicit choice) and a click toggles between light and dark.
@@ -26,7 +26,6 @@ export function ThemeToggle({ className, label = "Toggle theme" }: ThemeTogglePr
   React.useEffect(() => setMounted(true), []);
 
   const isDark = resolvedTheme === "dark";
-  const TriggerIcon = isDark ? "moon" : "sun";
 
   return (
     <button
@@ -39,7 +38,28 @@ export function ThemeToggle({ className, label = "Toggle theme" }: ThemeTogglePr
         className,
       )}
     >
-      {mounted ? <LightIcon name={TriggerIcon} className="size-4" /> : <span className="size-4" />}
+      {mounted ? (
+        <span className="relative flex h-4 w-4 items-center justify-center">
+          <LightIcon
+            name="sun"
+            size={16}
+            className={cn(
+              "absolute transition-all duration-300 ease-in-out",
+              isDark ? "opacity-0 scale-50 rotate-90" : "opacity-100 scale-100 rotate-0",
+            )}
+          />
+          <LightIcon
+            name="moon"
+            size={16}
+            className={cn(
+              "absolute transition-all duration-300 ease-in-out",
+              isDark ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-50 -rotate-90",
+            )}
+          />
+        </span>
+      ) : (
+        <span className="size-4" />
+      )}
     </button>
   );
 }

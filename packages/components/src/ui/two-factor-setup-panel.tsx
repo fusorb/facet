@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: TwoFactorSetupPanel
+ * @fusorb/facet-components: TwoFactorSetupPanel
  *
  * A ready-to-use 2FA enrollment flow: scan the QR (or enter a manual
  * secret), confirm with a one-time code, then reveal recovery codes.

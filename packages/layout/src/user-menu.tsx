@@ -1,13 +1,13 @@
 /**
- * @arcevo/facet-layout: User Menu
+ * @fusorb/facet-layout: User Menu
  *
  * Avatar + dropdown with user info, settings link, and sign out.
- * Uses useAuth() from @arcevo/facet-auth and UserAvatar from @arcevo/facet-components.
+ * Uses useAuth() from @fusorb/facet-auth and UserAvatar from @fusorb/facet-components.
  */
 
 import * as React from "react";
-import { useOptionalAuth } from "@arcevo/facet-auth";
-import { UserAvatar, Skeleton } from "@arcevo/facet-components";
+import { useOptionalAuth } from "@fusorb/facet-auth";
+import { UserAvatar, Skeleton } from "@fusorb/facet-components";
 import { useLayout } from "./layout-context.js";
 
 export interface UserMenuProps {

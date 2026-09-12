@@ -166,7 +166,7 @@ export async function runInitWizard(
       name: "styling",
       message: "How is your app styled today?",
       choices: [
-        { title: "facet tokens (recommended)", description: "Already using @arcevo/facet-tokens", value: "facet-tokens" },
+        { title: "facet tokens (recommended)", description: "Already using @fusorb/facet-tokens", value: "facet-tokens" },
         { title: "Tailwind CSS", description: "Utility-first CSS with Tailwind", value: "tailwind" },
         { title: "Plain CSS", description: "Hand-written CSS files", value: "plain-css" },
         { title: "None / custom", description: "Bring your own styling setup", value: "none" },
@@ -176,7 +176,7 @@ export async function runInitWizard(
     {
       type: "toggle",
       name: "useFacetTokens",
-      message: "Wire up @arcevo/facet-tokens for theming? (recommended: saves restyling every component)",
+      message: "Wire up @fusorb/facet-tokens for theming? (recommended: saves restyling every component)",
       initial: true,
       active: "Yes, use facet tokens",
       inactive: "No, keep my styling",

@@ -4,7 +4,7 @@ packages:
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
-  - '@arcevo/facet-cli@2.0.0'
+  - '@fusorb/facet-cli@2.0.0'
 overrides:
   brace-expansion@<1.1.17: ^1.1.17
   brace-expansion@<1.1.18: ^1.1.18

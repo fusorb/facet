@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { Badge, Aurora, Beams, SparkleButton, Spotlight, TypewriterText } from "@arcevo/facet-components";
-import { LightIcon, useTheme } from "@arcevo/facet-components/light";
+import { Badge, Aurora, Beams, SparkleButton, Spotlight, TypewriterText } from "@fusorb/facet-components";
+import { LightIcon, useTheme } from "@fusorb/facet-components/light";
 import { getDocsUrl } from "../lib/docs-url.js";
 import { STATS } from "../data/features.js";
 

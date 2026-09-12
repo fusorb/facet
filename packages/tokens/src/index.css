@@ -1,10 +1,10 @@
 /* =================================================================
- * @arcevo/facet-tokens: Bootstrap CSS
+ * @fusorb/facet-tokens: Bootstrap CSS
  *
  * Single-import entry point for consumers. Replaces the three-line
  * import chain (tailwindcss + tokens.css + tailwind.css) with one:
  *
- *   @import "@arcevo/facet-tokens/index.css";
+ *   @import "@fusorb/facet-tokens/index.css";
  *
  * Order matters:
  *   1. tailwindcss   -- base, components, utilities
@@ -21,8 +21,8 @@
 @import "./tailwind.css";
 
 /* ── Scanner hints for facet packages (relative to dist/index.css) ── */
-/* dist/index.css sits at node_modules/@arcevo/facet-tokens/dist/
-   so ../../ reaches node_modules/@arcevo/ where sibling packages live. */
+/* dist/index.css sits at node_modules/@fusorb/facet-tokens/dist/
+   so ../../ reaches node_modules/@fusorb/ where sibling packages live. */
 @source "../../facet-components/dist/**/*.js";
 @source "../../facet-layout/dist/**/*.js";
 @source "../../facet-auth/dist/**/*.js";

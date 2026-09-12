@@ -2,7 +2,7 @@
  * Toaster: styled sonner toast provider.
  *
  * Usage in an app root layout:
- *   import { Toaster } from "@arcevo/facet-components";
+ *   import { Toaster } from "@fusorb/facet-components";
  *
  *   <Toaster />
  *

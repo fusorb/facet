@@ -1,11 +1,11 @@
 /**
- * Domain preset registry for @arcevo/facet-layout.
+ * Domain preset registry for @fusorb/facet-layout.
  *
- * Mirrors the @arcevo/facet-auth registry: register custom layout presets
+ * Mirrors the @fusorb/facet-auth registry: register custom layout presets
  * (or override built-ins) without forking the package.
  *
  * Usage:
- *   import { registerLayoutPreset, resolveLayoutPreset } from "@arcevo/facet-layout";
+ *   import { registerLayoutPreset, resolveLayoutPreset } from "@fusorb/facet-layout";
  *
  *   registerLayoutPreset("gov", {
  *     brand: { name: "GovPort", tagline: "Citizen Identity" },

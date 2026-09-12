@@ -1,4 +1,4 @@
-# @arcevo/facet-tokens
+# @fusorb/facet-tokens
 
 ## 1.1.4
 
@@ -12,7 +12,7 @@
 
 - 18547dc: feat(components): MailInput with domain suggestions + Dissolve animation family
 
-  ### @arcevo/facet-components (minor)
+  ### @fusorb/facet-components (minor)
   - **MailInput** -- email input with a domain-suggestion dropdown. Typing `@` (or
     continuing after it) surfaces common provider domains (gmail.com,
     icloud.com, etc.); click or press Enter to auto-complete. Works controlled
@@ -34,7 +34,7 @@ asChild`) for accessible, right/middle-clickable links; `renderButton`
   - New `facet-dissolve` CSS keyframe in tokens (shared by DissolveText,
     DissolveButton, DissolveCard, AnimatedButton dissolve variant).
 
-  ### @arcevo/facet-layout (minor)
+  ### @fusorb/facet-layout (minor)
   - **Sidebar** -- new `singleOpen` (accordion) prop; `Collapse all` / `Expand
 all` toolbar buttons; active section scrolls into view.
   - **ConsoleLayout** -- passes `singleOpen` through to the sidebar (both docked
@@ -43,10 +43,10 @@ all` toolbar buttons; active section scrolls into view.
     (all persisted to localStorage alongside the existing `toggleSection`).
   - The docs layout opts into `singleOpen`.
 
-  ### @arcevo/facet-tokens (patch)
+  ### @fusorb/facet-tokens (patch)
   - New `--animate-facet-dissolve` keyframe (500ms ease-out, both fill-mode).
 
-  ### @arcevo/facet-docs (patch)
+  ### @fusorb/facet-docs (patch)
   - Docs manifest regenerated: `mail-input` added (inputs category);
     `typewriter-text` now documented as tabs on the text-animations page
     instead of a standalone slug.

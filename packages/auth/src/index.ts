@@ -1,8 +1,8 @@
 /**
- * @arcevo/facet-auth: domain-customizable auth components wired to arc-id SDK.
+ * @fusorb/facet-auth: domain-customizable auth components wired to arc-id SDK.
  *
  * Usage:
- *   import { ArcProvider, SignIn, Guard } from "@arcevo/facet-auth";
+ *   import { ArcProvider, SignIn, Guard } from "@fusorb/facet-auth";
  *
  *   <ArcProvider client={arcIdClient}>
  *     <Guard fallback={<SignIn />}>

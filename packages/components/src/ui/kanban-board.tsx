@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: KanbanBoard
+ * @fusorb/facet-components: KanbanBoard
  *
  * A ready-to-use kanban board: columns of cards, drag-and-drop between
  * columns (with native HTML5 DnD), move-card-up/down within a column,

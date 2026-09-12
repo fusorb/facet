@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: TagInput
+ * @fusorb/facet-components: TagInput
  *
  * A free-form tag/chip input. Hosts pass a string[] and the component
  * handles the input, splitting on Enter / comma / Tab, rendering chips

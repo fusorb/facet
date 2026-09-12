@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Kbd } from "@arcevo/facet-components/light";
+import { Kbd } from "@fusorb/facet-components/light";
 
 /** A single shortcut row: what it does + the keys. */
 export interface KeyboardShortcut {

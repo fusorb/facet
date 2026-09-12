@@ -1,5 +1,5 @@
 {
-  "name": "@arcevo/facet-landing",
+  "name": "@fusorb/facet-landing",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -14,9 +14,9 @@
     "react": "^19",
     "react-dom": "^19",
     "react-router-dom": "^7.1.1",
-    "@arcevo/facet-tokens": "workspace:*",
-    "@arcevo/facet-layout": "workspace:*",
-    "@arcevo/facet-components": "workspace:*"
+    "@fusorb/facet-tokens": "workspace:*",
+    "@fusorb/facet-layout": "workspace:*",
+    "@fusorb/facet-components": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19",

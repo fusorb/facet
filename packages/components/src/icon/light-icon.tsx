@@ -1,11 +1,11 @@
 /**
- * @arcevo/facet-components/light - minimal icon surface
+ * @fusorb/facet-components/light - minimal icon surface
  *
  * A slim Icon for the `/light` entry: resolves the built-in semantic +
  * brand icons WITHOUT importing the full 1763-icon lucide map. Use this
  * in eager app shells that only need common icons (settings, search,
  * check, moon, sun, ...). For arbitrary lucide icons use the main
- * barrel's <Icon> or the tree-shakeable @arcevo/facet-components/icons.
+ * barrel's <Icon> or the tree-shakeable @fusorb/facet-components/icons.
  */
 
 import * as React from "react";

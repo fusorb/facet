@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: QrScanner
+ * @fusorb/facet-components: QrScanner
  *
  * Browser-based QR / barcode scanner using the BarcodeDetector API where
  * available, with a graceful fallback to camera capture + jsQR (when

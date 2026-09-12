@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: ConsentCapture
+ * @fusorb/facet-components: ConsentCapture
  *
  * A scroll-to-accept legal consent surface. The submit button is blocked
  * until the consumer scrolls the document to the bottom and ticks the
@@ -126,7 +126,7 @@ export function ConsentCapture({
     // Reset to a clean canvas.
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = "hsl(var(--foreground))";
+    ctx.strokeStyle = "var(--foreground)";
     ctx.lineWidth = 2;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";

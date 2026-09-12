@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: AnnouncementBar
+ * @fusorb/facet-components: AnnouncementBar
  *
  * A dismissible top announcement banner, persisted in localStorage by
  * default so it only shows once per visitor. Fully customizable.

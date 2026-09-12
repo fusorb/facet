@@ -4,9 +4,9 @@ import {
   BillingPageFreemium,
   type BillingPlan,
   type BillingPageConfig,
-} from "@arcevo/facet-components";
-import { LandingLayout } from "@arcevo/facet-layout";
-import { LightIcon } from "@arcevo/facet-components/light";
+} from "@fusorb/facet-components";
+import { LandingLayout } from "@fusorb/facet-layout";
+import { LightIcon } from "@fusorb/facet-components/light";
 import { Nav } from "../components/Nav.js";
 import { Footer } from "../components/Footer.js";
 import { getDocsUrl } from "../lib/docs-url.js";
@@ -78,7 +78,7 @@ const FACET_PLANS: BillingPlan[] = [
       "Cancel anytime, no perks locked",
     ],
     customPriceLabel: "Donations",
-    cta: { label: "Sponsor on GitHub", href: "https://github.com/sponsors/arcevodev", variant: "outline" },
+    cta: { label: "Sponsor on GitHub", href: "https://github.com/sponsors/fusorb", variant: "outline" },
   },
 ];
 

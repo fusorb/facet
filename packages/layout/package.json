@@ -1,5 +1,5 @@
 {
-  "name": "@arcevo/facet-layout",
+  "name": "@fusorb/facet-layout",
   "version": "1.4.2",
   "description": "Domain-configurable app shell for the ArcevoCirqle ecosystem: Sidebar, Topbar, AuthLayout, ConsoleLayout, LandingLayout, PageHeader, TenantSwitcher, and 5 domain presets (fintech, med, edu, enterprise, default).",
   "type": "module",
@@ -30,11 +30,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArcevoDev/facet.git",
+    "url": "git+https://github.com/fusorb/facet.git",
     "directory": "packages/layout"
   },
   "bugs": {
-    "url": "https://github.com/ArcevoDev/facet/issues"
+    "url": "https://github.com/fusorb/facet/issues"
   },
   "homepage": "https://facet.arcevocirqle.com.ng",
   "license": "MIT",
@@ -48,8 +48,8 @@
     "dashboard"
   ],
   "dependencies": {
-    "@arcevo/facet-auth": "workspace:*",
-    "@arcevo/facet-components": "workspace:*"
+    "@fusorb/facet-auth": "workspace:*",
+    "@fusorb/facet-components": "workspace:*"
   },
   "peerDependencies": {
     "react": "^19",

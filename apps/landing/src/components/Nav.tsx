@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Navbar, Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@arcevo/facet-components";
-import { LightIcon } from "@arcevo/facet-components/light";
-import type { NavLink } from "@arcevo/facet-components";
+import { Navbar, Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@fusorb/facet-components";
+import { LightIcon } from "@fusorb/facet-components/light";
+import type { NavLink } from "@fusorb/facet-components";
 import { getDocsUrl } from "../lib/docs-url.js";
 import { GithubIcon } from "./BrandIcons.js";
 
@@ -149,7 +149,7 @@ function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
 
       <div className="my-1 h-px bg-border" />
       <a
-        href="https://github.com/arcevodev/facet"
+        href="https://github.com/fusorb/facet"
         target="_blank"
         rel="noreferrer"
         className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-foreground"
@@ -212,7 +212,7 @@ export function Nav() {
       actions={
         <div className="flex items-center gap-2">
           <a
-            href="https://github.com/arcevodev/facet"
+            href="https://github.com/fusorb/facet"
             target="_blank"
             rel="noreferrer"
             className="hidden items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground lg:flex"

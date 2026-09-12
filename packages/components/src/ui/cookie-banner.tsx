@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: CookieBanner
+ * @fusorb/facet-components: CookieBanner
  *
  * A top-bar cookie notice with three CTAs (Accept all, Reject
  * non-essential, Manage). Distinct from `CookieConsent` (which is a

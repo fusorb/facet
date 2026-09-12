@@ -16,8 +16,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@arcevo/facet-components";
-import { LightIcon } from "@arcevo/facet-components/light";
+} from "@fusorb/facet-components";
+import { LightIcon } from "@fusorb/facet-components/light";
 import { extendedManifest } from "../lib/manifest.js";
 import { isExtendedLayoutSlug } from "../lib/nav.js";
 import { ComponentPreview } from "../components/previews.js";

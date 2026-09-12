@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: StatCard
+ * @fusorb/facet-components: StatCard
  *
  * A KPI metric card: label, value, optional delta vs. previous period,
  * and an optional icon. Pairs with a sparkline if you pass children.

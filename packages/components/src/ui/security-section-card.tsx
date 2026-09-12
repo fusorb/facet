@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: SecuritySectionCard
+ * @fusorb/facet-components: SecuritySectionCard
  *
  * A ready-to-use security features grid: each item is a clickable card
  * with an icon, title, and description. Great as the landing surface of

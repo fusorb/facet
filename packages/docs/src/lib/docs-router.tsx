@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
-import type { RouterAdapter, RouterLinkProps } from "@arcevo/facet-layout";
+import type { RouterAdapter, RouterLinkProps } from "@fusorb/facet-layout";
 
 /**
  * Bridges facet-layout's RouterAdapter to react-router so Sidebar,

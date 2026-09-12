@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { createZustandTokenStorage } from "./token-storage.js";
-import type { ApiResponse, RefreshResult, ApiError } from "@arcevo/facet-sdk";
+import type { ApiResponse, RefreshResult, ApiError } from "@fusorb/facet-sdk";
 
 /** Minimal fake auth store that satisfies TokenStoreLike. */
 function makeFakeStore() {

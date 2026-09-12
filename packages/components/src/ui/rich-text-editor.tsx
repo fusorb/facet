@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: RichTextEditor
+ * @fusorb/facet-components: RichTextEditor
  *
  * A lightweight rich text editor: bold / italic / underline / lists /
  * links / headings. Built on a `contenteditable` div + the standard

@@ -2,7 +2,7 @@
  * Email scaffold generators for `facet emails init`.
  *
  * Produces a consumer-owned `emails/` directory wired to
- * @arcevo/facet-emails: thin brand wrappers over the package primitives, a
+ * @fusorb/facet-emails: thin brand wrappers over the package primitives, a
  * template registry with sample data, a dev preview server, a provider
  * send module (resend / nodemailer), and the package.json merge (deps +
  * mail:preview script).
@@ -31,7 +31,7 @@ export function generateEmailsScaffold(
     path: path.join(dir, "brand.ts"),
     content: `// Brand tokens for the facet-emails renderer. Edit these to theme
 // every email in this project (colors, fonts, radius).
-import type { EmailBrand } from "@arcevo/facet-emails";
+import type { EmailBrand } from "@fusorb/facet-emails";
 
 export const emailBrand: EmailBrand = {
   primary: "#6366f1",
@@ -51,7 +51,7 @@ export const emailBrand: EmailBrand = {
     path: path.join(dir, "layout.tsx"),
     content: `// Consumer-owned layout wrapper over the facet-emails EmailLayout.
 import * as React from "react";
-import { EmailLayout } from "@arcevo/facet-emails";
+import { EmailLayout } from "@fusorb/facet-emails";
 
 export interface AppEmailLayoutProps {
   previewText: string;
@@ -89,7 +89,7 @@ const brandName = emailBrand.brandName ?? "App";
 // these; swap the sample props for real data at send time.
 import * as React from "react";
 import { AppEmailLayout } from "./layout";
-import { EmailButton, EmailText } from "@arcevo/facet-emails";
+import { EmailButton, EmailText } from "@fusorb/facet-emails";
 
 export const TEMPLATE_REGISTRY: Record<string, React.ReactElement> = {
   welcome: React.createElement(
@@ -108,7 +108,7 @@ export const TEMPLATE_NAMES = Object.keys(TEMPLATE_REGISTRY);
     path: path.join(dir, "preview-server.ts"),
     content: `// Dev preview server for your email templates.
 // Start with:  pnpm mail:preview   (or the package manager you use)
-import { startEmailPreviewServer } from "@arcevo/facet-emails/server";
+import { startEmailPreviewServer } from "@fusorb/facet-emails/server";
 import { TEMPLATE_REGISTRY, TEMPLATE_NAMES } from "./template-registry";
 import { emailBrand } from "./brand";
 
@@ -241,7 +241,7 @@ export function emailsPackageJsonAdditions(input: EmailsScaffoldInput): {
   scripts: Record<string, string>;
 } {
   const deps: Record<string, string> = {
-    "@arcevo/facet-emails": input.facetEmailsRange,
+    "@fusorb/facet-emails": input.facetEmailsRange,
   };
   if (input.provider === "resend") deps.resend = "^6.0.0";
   if (input.provider === "nodemailer") deps.nodemailer = "^6.9.0";

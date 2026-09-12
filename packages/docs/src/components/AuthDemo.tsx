@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ArcProvider, SignIn } from "@arcevo/facet-auth";
-import type { SignInStep } from "@arcevo/facet-auth";
-import { ArcIdClient } from "@arcevo/facet-sdk";
+import { ArcProvider, SignIn } from "@fusorb/facet-auth";
+import type { SignInStep } from "@fusorb/facet-auth";
+import { ArcIdClient } from "@fusorb/facet-sdk";
 import {
   Checkbox,
   Label,
@@ -10,7 +10,7 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 import { CodeBlock } from "./CodeBlock.js";
 
 const OAUTH_PROVIDERS = ["google", "github", "microsoft"] as const;

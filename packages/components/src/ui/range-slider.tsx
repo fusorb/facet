@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: RangeSlider
+ * @fusorb/facet-components: RangeSlider
  *
  * A two-thumb range slider with an active-track highlight, optional
  * value labels, and accessible keyboard navigation. Distinct from

@@ -1,12 +1,12 @@
 /**
- * @arcevo/facet-emails: optional React bridge
+ * @fusorb/facet-emails: optional React bridge
  *
  * Converts React elements into `TemplateNode` trees so React users get JSX
  * ergonomics on top of the framework-agnostic core renderer. React is an
  * optional peer dependency: the core (`render.ts`) never imports it.
  *
- *   import { renderEmailFromReact } from "@arcevo/facet-emails";
- *   import { EmailButton } from "@arcevo/facet-emails";
+ *   import { renderEmailFromReact } from "@fusorb/facet-emails";
+ *   import { EmailButton } from "@fusorb/facet-emails";
  *
  *   const html = renderEmailFromReact(<EmailButton href="...">Go</EmailButton>);
  */

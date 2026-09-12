@@ -31,48 +31,48 @@ function writePkg(dir: string, pkg: Record<string, unknown>) {
 }
 
 const SAMPLE: FacetPackageInfo[] = [
-  { name: "@arcevo/facet-auth", latest: "1.1.0", outdated: false },
-  { name: "@arcevo/facet-cli", latest: "0.2.0", outdated: false },
+  { name: "@fusorb/facet-auth", latest: "1.1.0", outdated: false },
+  { name: "@fusorb/facet-cli", latest: "0.2.0", outdated: false },
   {
-    name: "@arcevo/facet-components",
+    name: "@fusorb/facet-components",
     latest: "1.2.0",
     installed: "1.1.0",
     declared: "^1.1.0",
     outdated: true,
   },
-  { name: "@arcevo/facet-docs", latest: "1.2.0", outdated: false },
-  { name: "@arcevo/facet-layout", latest: "1.1.1", outdated: false },
-  { name: "@arcevo/facet-sdk", latest: "1.0.1", outdated: false },
-  { name: "@arcevo/facet-tokens", latest: "1.1.0", outdated: false },
+  { name: "@fusorb/facet-docs", latest: "1.2.0", outdated: false },
+  { name: "@fusorb/facet-layout", latest: "1.1.1", outdated: false },
+  { name: "@fusorb/facet-sdk", latest: "1.0.1", outdated: false },
+  { name: "@fusorb/facet-tokens", latest: "1.1.0", outdated: false },
 ];
 
 describe("planUpdates", () => {
   it("returns only outdated packages", () => {
     const updates = planUpdates(SAMPLE);
     expect(updates).toHaveLength(1);
-    expect(updates[0]!.name).toBe("@arcevo/facet-components");
+    expect(updates[0]!.name).toBe("@fusorb/facet-components");
   });
 });
 
 describe("updateCommand", () => {
   it("builds a pnpm command", () => {
-    expect(updateCommand("pnpm", [{ name: "@arcevo/facet-components", latest: "1.2.0" }])).toBe(
-      "pnpm add @arcevo/facet-components@^1.2.0",
+    expect(updateCommand("pnpm", [{ name: "@fusorb/facet-components", latest: "1.2.0" }])).toBe(
+      "pnpm add @fusorb/facet-components@^1.2.0",
     );
   });
 
   it("adds -w for pnpm workspaces", () => {
     expect(
-      updateCommand("pnpm", [{ name: "@arcevo/facet-components", latest: "1.2.0" }], true),
-    ).toBe("pnpm -w add @arcevo/facet-components@^1.2.0");
+      updateCommand("pnpm", [{ name: "@fusorb/facet-components", latest: "1.2.0" }], true),
+    ).toBe("pnpm -w add @fusorb/facet-components@^1.2.0");
   });
 
   it("builds npm and yarn commands", () => {
-    expect(updateCommand("npm", [{ name: "@arcevo/facet-tokens", latest: "1.1.0" }])).toBe(
-      "npm install @arcevo/facet-tokens@^1.1.0",
+    expect(updateCommand("npm", [{ name: "@fusorb/facet-tokens", latest: "1.1.0" }])).toBe(
+      "npm install @fusorb/facet-tokens@^1.1.0",
     );
-    expect(updateCommand("yarn", [{ name: "@arcevo/facet-tokens", latest: "1.1.0" }])).toBe(
-      "yarn workspace add @arcevo/facet-tokens@^1.1.0",
+    expect(updateCommand("yarn", [{ name: "@fusorb/facet-tokens", latest: "1.1.0" }])).toBe(
+      "yarn workspace add @fusorb/facet-tokens@^1.1.0",
     );
   });
 });
@@ -81,7 +81,7 @@ describe("formatPackageTable", () => {
   it("renders the header and rows", () => {
     const table = formatPackageTable(SAMPLE);
     expect(table).toContain("Package");
-    expect(table).toContain("@arcevo/facet-components");
+    expect(table).toContain("@fusorb/facet-components");
     expect(table).toContain("(update available)");
   });
 });
@@ -92,12 +92,12 @@ describe("buildDoctorReport", () => {
     try {
       writePkg(dir, {
         name: "app",
-        dependencies: { "@arcevo/facet-components": "^1.1.0" },
+        dependencies: { "@fusorb/facet-components": "^1.1.0" },
       });
       const report = buildDoctorReport(dir, SAMPLE);
       expect(report.pm).toBe("npm");
       expect(report.monorepo).toBe(false);
-      expect(report.outdated.map((i) => i.name)).toContain("@arcevo/facet-components");
+      expect(report.outdated.map((i) => i.name)).toContain("@fusorb/facet-components");
       expect(report.suggestions.some((s) => s.includes("facet update"))).toBe(true);
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
@@ -109,11 +109,11 @@ describe("buildDoctorReport", () => {
     try {
       writePkg(dir, {
         name: "app",
-        dependencies: { "@arcevo/facet-components": "^1.2.0" },
+        dependencies: { "@fusorb/facet-components": "^1.2.0" },
       });
       const infos: FacetPackageInfo[] = [
-        { name: "@arcevo/facet-components", latest: "1.2.0", declared: "^1.2.0", outdated: false },
-        ...SAMPLE.filter((i) => i.name !== "@arcevo/facet-components"),
+        { name: "@fusorb/facet-components", latest: "1.2.0", declared: "^1.2.0", outdated: false },
+        ...SAMPLE.filter((i) => i.name !== "@fusorb/facet-components"),
       ];
       const report = buildDoctorReport(dir, infos);
       expect(report.suggestions.some((s) => s.includes("facet-tokens"))).toBe(true);
@@ -127,11 +127,11 @@ describe("buildDoctorReport", () => {
     try {
       writePkg(dir, {
         name: "app",
-        dependencies: { "@arcevo/facet-components": "workspace:*" },
+        dependencies: { "@fusorb/facet-components": "workspace:*" },
       });
       const infos: FacetPackageInfo[] = [
-        { name: "@arcevo/facet-components", latest: "1.2.0", declared: "workspace:*", outdated: false },
-        ...SAMPLE.filter((i) => i.name !== "@arcevo/facet-components"),
+        { name: "@fusorb/facet-components", latest: "1.2.0", declared: "workspace:*", outdated: false },
+        ...SAMPLE.filter((i) => i.name !== "@fusorb/facet-components"),
       ];
       const report = buildDoctorReport(dir, infos);
       expect(report.suggestions.some((s) => s.includes("workspace:*"))).toBe(true);
@@ -187,13 +187,13 @@ describe("collectFacetDeps", () => {
       writePkg(path.join(dir, "client"), {
         name: "client",
         dependencies: {
-          "@arcevo/facet-components": "1.2.0",
-          "@arcevo/facet-tokens": "1.1.0",
+          "@fusorb/facet-components": "1.2.0",
+          "@fusorb/facet-tokens": "1.1.0",
         },
       });
       const deps = collectFacetDeps(dir);
-      expect(deps["@arcevo/facet-components"]).toBe("1.2.0");
-      expect(deps["@arcevo/facet-tokens"]).toBe("1.1.0");
+      expect(deps["@fusorb/facet-components"]).toBe("1.2.0");
+      expect(deps["@fusorb/facet-tokens"]).toBe("1.1.0");
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
@@ -204,10 +204,10 @@ describe("readInstalledVersion", () => {
   it("reads the version from node_modules/<pkg>/package.json", () => {
     const dir = tmp();
     try {
-      const pkgDir = path.join(dir, "node_modules", "@arcevo", "facet-auth");
+      const pkgDir = path.join(dir, "node_modules", "@fusorb", "facet-auth");
       fs.mkdirSync(pkgDir, { recursive: true });
-      writePkg(pkgDir, { name: "@arcevo/facet-auth", version: "1.1.1" });
-      expect(readInstalledVersion([dir], "@arcevo/facet-auth")).toBe("1.1.1");
+      writePkg(pkgDir, { name: "@fusorb/facet-auth", version: "1.1.1" });
+      expect(readInstalledVersion([dir], "@fusorb/facet-auth")).toBe("1.1.1");
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
@@ -217,7 +217,7 @@ describe("readInstalledVersion", () => {
     const dir = tmp();
     try {
       writePkg(dir, { name: "app" });
-      expect(readInstalledVersion([dir], "@arcevo/facet-not-there")).toBeUndefined();
+      expect(readInstalledVersion([dir], "@fusorb/facet-not-there")).toBeUndefined();
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
@@ -240,10 +240,10 @@ describe("discoverFacetPackages", () => {
     }
   });
 
-  it("only returns @arcevo/facet-* scoped packages", async () => {
+  it("only returns @fusorb/facet-* scoped packages", async () => {
     const names = await discoverFacetPackages();
     for (const n of names) {
-      expect(n.startsWith("@arcevo/facet-")).toBe(true);
+      expect(n.startsWith("@fusorb/facet-")).toBe(true);
     }
   });
 });
@@ -261,9 +261,9 @@ describe("detectPackageManager", () => {
 });
 
 describe("isFacetPackage", () => {
-  it("returns true for @arcevo/facet-* names", () => {
-    expect(isFacetPackage("@arcevo/facet-layout")).toBe(true);
-    expect(isFacetPackage("@arcevo/facet-components")).toBe(true);
+  it("returns true for @fusorb/facet-* names", () => {
+    expect(isFacetPackage("@fusorb/facet-layout")).toBe(true);
+    expect(isFacetPackage("@fusorb/facet-components")).toBe(true);
   });
 
   it("returns false for non-facet names", () => {
@@ -275,22 +275,22 @@ describe("isFacetPackage", () => {
 
 describe("resolveFacetPackageName", () => {
   it("resolves full package names as-is", () => {
-    expect(resolveFacetPackageName("@arcevo/facet-components")).toBe("@arcevo/facet-components");
-    expect(resolveFacetPackageName("@arcevo/facet-layout")).toBe("@arcevo/facet-layout");
+    expect(resolveFacetPackageName("@fusorb/facet-components")).toBe("@fusorb/facet-components");
+    expect(resolveFacetPackageName("@fusorb/facet-layout")).toBe("@fusorb/facet-layout");
   });
 
   it("resolves shorthand names to full facet packages", () => {
-    expect(resolveFacetPackageName("components")).toBe("@arcevo/facet-components");
-    expect(resolveFacetPackageName("layout")).toBe("@arcevo/facet-layout");
-    expect(resolveFacetPackageName("tokens")).toBe("@arcevo/facet-tokens");
-    expect(resolveFacetPackageName("store")).toBe("@arcevo/facet-store");
-    expect(resolveFacetPackageName("@arcevo/facet-store")).toBe("@arcevo/facet-store");
+    expect(resolveFacetPackageName("components")).toBe("@fusorb/facet-components");
+    expect(resolveFacetPackageName("layout")).toBe("@fusorb/facet-layout");
+    expect(resolveFacetPackageName("tokens")).toBe("@fusorb/facet-tokens");
+    expect(resolveFacetPackageName("store")).toBe("@fusorb/facet-store");
+    expect(resolveFacetPackageName("@fusorb/facet-store")).toBe("@fusorb/facet-store");
   });
 
-  it("resolves scoped-dropped aliases (facet-cli -> @arcevo/facet-cli)", () => {
-    expect(resolveFacetPackageName("facet-cli")).toBe("@arcevo/facet-cli");
-    expect(resolveFacetPackageName("facet-components")).toBe("@arcevo/facet-components");
-    expect(resolveFacetPackageName("facet-layout")).toBe("@arcevo/facet-layout");
+  it("resolves scoped-dropped aliases (facet-cli -> @fusorb/facet-cli)", () => {
+    expect(resolveFacetPackageName("facet-cli")).toBe("@fusorb/facet-cli");
+    expect(resolveFacetPackageName("facet-components")).toBe("@fusorb/facet-components");
+    expect(resolveFacetPackageName("facet-layout")).toBe("@fusorb/facet-layout");
   });
 
   it("returns undefined for non-facet component names (falls through to copy)", () => {
@@ -303,72 +303,72 @@ describe("resolveFacetPackageName", () => {
 describe("installFacetPackages", () => {
   it("builds a pnpm command with version", () => {
     expect(
-      installFacetPackages("pnpm", [{ name: "@arcevo/facet-layout", latest: "1.2.0" }]),
-    ).toBe("pnpm add @arcevo/facet-layout@^1.2.0");
+      installFacetPackages("pnpm", [{ name: "@fusorb/facet-layout", latest: "1.2.0" }]),
+    ).toBe("pnpm add @fusorb/facet-layout@^1.2.0");
   });
 
   it("adds -w for pnpm workspaces", () => {
     expect(
-      installFacetPackages("pnpm", [{ name: "@arcevo/facet-layout", latest: "1.2.0" }], true),
-    ).toBe("pnpm -w add @arcevo/facet-layout@^1.2.0");
+      installFacetPackages("pnpm", [{ name: "@fusorb/facet-layout", latest: "1.2.0" }], true),
+    ).toBe("pnpm -w add @fusorb/facet-layout@^1.2.0");
   });
 
   it("joins multiple packages into one command", () => {
     expect(
       installFacetPackages("pnpm", [
-        { name: "@arcevo/facet-layout", latest: "1.2.0" },
-        { name: "@arcevo/facet-tokens", latest: "1.1.0" },
+        { name: "@fusorb/facet-layout", latest: "1.2.0" },
+        { name: "@fusorb/facet-tokens", latest: "1.1.0" },
       ]),
-    ).toBe("pnpm add @arcevo/facet-layout@^1.2.0 @arcevo/facet-tokens@^1.1.0");
+    ).toBe("pnpm add @fusorb/facet-layout@^1.2.0 @fusorb/facet-tokens@^1.1.0");
   });
 
   it("builds npm and yarn commands", () => {
     expect(
-      installFacetPackages("npm", [{ name: "@arcevo/facet-tokens", latest: "1.1.0" }]),
-    ).toBe("npm install @arcevo/facet-tokens@^1.1.0");
+      installFacetPackages("npm", [{ name: "@fusorb/facet-tokens", latest: "1.1.0" }]),
+    ).toBe("npm install @fusorb/facet-tokens@^1.1.0");
     expect(
-      installFacetPackages("yarn", [{ name: "@arcevo/facet-tokens", latest: "1.1.0" }]),
-    ).toBe("yarn workspace add @arcevo/facet-tokens@^1.1.0");
+      installFacetPackages("yarn", [{ name: "@fusorb/facet-tokens", latest: "1.1.0" }]),
+    ).toBe("yarn workspace add @fusorb/facet-tokens@^1.1.0");
   });
 });
 
 describe("globalInstallFacetPackages", () => {
   it("builds npm command with -g and no caret", () => {
     expect(
-      globalInstallFacetPackages("npm", [{ name: "@arcevo/facet-cli", latest: "0.8.0" }]),
-    ).toBe("npm i -g @arcevo/facet-cli@0.8.0");
+      globalInstallFacetPackages("npm", [{ name: "@fusorb/facet-cli", latest: "0.8.0" }]),
+    ).toBe("npm i -g @fusorb/facet-cli@0.8.0");
   });
 
   it("builds pnpm global command", () => {
     expect(
-      globalInstallFacetPackages("pnpm", [{ name: "@arcevo/facet-cli", latest: "0.8.0" }]),
-    ).toBe("pnpm add -g @arcevo/facet-cli@0.8.0");
+      globalInstallFacetPackages("pnpm", [{ name: "@fusorb/facet-cli", latest: "0.8.0" }]),
+    ).toBe("pnpm add -g @fusorb/facet-cli@0.8.0");
   });
 
   it("builds yarn global command", () => {
     expect(
-      globalInstallFacetPackages("yarn", [{ name: "@arcevo/facet-cli", latest: "0.8.0" }]),
-    ).toBe("yarn global add @arcevo/facet-cli@0.8.0");
+      globalInstallFacetPackages("yarn", [{ name: "@fusorb/facet-cli", latest: "0.8.0" }]),
+    ).toBe("yarn global add @fusorb/facet-cli@0.8.0");
   });
 
   it("builds bun global command", () => {
     expect(
-      globalInstallFacetPackages("bun", [{ name: "@arcevo/facet-cli", latest: "0.8.0" }]),
-    ).toBe("bun add -g @arcevo/facet-cli@0.8.0");
+      globalInstallFacetPackages("bun", [{ name: "@fusorb/facet-cli", latest: "0.8.0" }]),
+    ).toBe("bun add -g @fusorb/facet-cli@0.8.0");
   });
 
   it("joins multiple packages into one global command", () => {
     expect(
       globalInstallFacetPackages("pnpm", [
-        { name: "@arcevo/facet-cli", latest: "0.8.0" },
-        { name: "@arcevo/facet-layout", latest: "1.2.0" },
+        { name: "@fusorb/facet-cli", latest: "0.8.0" },
+        { name: "@fusorb/facet-layout", latest: "1.2.0" },
       ]),
-    ).toBe("pnpm add -g @arcevo/facet-cli@0.8.0 @arcevo/facet-layout@1.2.0");
+    ).toBe("pnpm add -g @fusorb/facet-cli@0.8.0 @fusorb/facet-layout@1.2.0");
   });
 
   it("never emits a workspace -w flag", () => {
     expect(
-      globalInstallFacetPackages("pnpm", [{ name: "@arcevo/facet-cli", latest: "0.8.0" }]),
+      globalInstallFacetPackages("pnpm", [{ name: "@fusorb/facet-cli", latest: "0.8.0" }]),
     ).not.toContain(" -w");
   });
 });

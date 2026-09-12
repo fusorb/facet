@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: MultiCombobox
+ * @fusorb/facet-components: MultiCombobox
  *
  * A multi-select chips combobox. Hosts pass an option list and a value
  * (string[]) and the component handles the search input, chip rendering,

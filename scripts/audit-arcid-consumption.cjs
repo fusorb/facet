@@ -3,7 +3,7 @@ const path = require("path");
 
 // 1. Every arc-id endpoint (from the ROUTES index + actual route files).
 const routesSrc = fs.readFileSync(
-  "C:/Users/HP/Desktop/ArcevoDev/arc-id/src/lib/api/routes/index.ts",
+  "C:/Users/HP/Desktop/fusorb/arc-id/src/lib/api/routes/index.ts",
   "utf8",
 );
 const paths = new Set();
@@ -38,13 +38,13 @@ function walk(d, acc = []) {
 }
 // Only the client-facing dirs (not the server modules).
 const appFiles = [
-  ...walk("C:/Users/HP/Desktop/ArcevoDev/arc-id/src/app"),
-  ...walk("C:/Users/HP/Desktop/ArcevoDev/arc-id/src/components"),
-  ...walk("C:/Users/HP/Desktop/ArcevoDev/arc-id/src/store"),
-  ...walk("C:/Users/HP/Desktop/ArcevoDev/arc-id/src/hooks"),
-  ...walk("C:/Users/HP/Desktop/ArcevoDev/arc-id/src/providers"),
-  ...walk("C:/Users/HP/Desktop/ArcevoDev/arc-id/src/lib"),
-  ...walk("C:/Users/HP/Desktop/ArcevoDev/arc-id/src/sdk"),
+  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/app"),
+  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/components"),
+  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/store"),
+  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/hooks"),
+  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/providers"),
+  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/lib"),
+  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/sdk"),
 ];
 const appSource = appFiles.map((f) => fs.readFileSync(f, "utf8")).join("\n");
 

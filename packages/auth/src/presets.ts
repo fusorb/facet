@@ -5,7 +5,7 @@
  * allowed methods, etc.) to the security and UX needs of that domain.
  *
  * Usage:
- *   import { fintechPreset } from "@arcevo/facet-auth";
+ *   import { fintechPreset } from "@fusorb/facet-auth";
  *
  *   <SignIn config={fintechPreset} />
  */

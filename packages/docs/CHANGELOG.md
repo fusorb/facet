@@ -1,4 +1,4 @@
-# @arcevo/facet-docs
+# @fusorb/facet-docs
 
 ## 1.4.7
 
@@ -14,20 +14,20 @@
 - Updated dependencies [1bf5de5]
 - Updated dependencies [1bf5de5]
 - Updated dependencies [cfabae9]
-  - @arcevo/facet-auth@1.2.3
-  - @arcevo/facet-components@1.11.0
-  - @arcevo/facet-sdk@1.2.0
-  - @arcevo/facet-layout@1.4.2
+  - @fusorb/facet-auth@1.2.3
+  - @fusorb/facet-components@1.11.0
+  - @fusorb/facet-sdk@1.2.0
+  - @fusorb/facet-layout@1.4.2
 
 ## 1.4.6
 
 ### Patch Changes
 
 - Updated dependencies [b7accc3]
-  - @arcevo/facet-components@1.10.0
-  - @arcevo/facet-tokens@1.1.4
-  - @arcevo/facet-auth@1.2.2
-  - @arcevo/facet-layout@1.4.1
+  - @fusorb/facet-components@1.10.0
+  - @fusorb/facet-tokens@1.1.4
+  - @fusorb/facet-auth@1.2.2
+  - @fusorb/facet-layout@1.4.1
 
 ## 1.4.5
 
@@ -35,7 +35,7 @@
 
 - 18547dc: feat(components): MailInput with domain suggestions + Dissolve animation family
 
-  ### @arcevo/facet-components (minor)
+  ### @fusorb/facet-components (minor)
   - **MailInput** -- email input with a domain-suggestion dropdown. Typing `@` (or
     continuing after it) surfaces common provider domains (gmail.com,
     icloud.com, etc.); click or press Enter to auto-complete. Works controlled
@@ -57,7 +57,7 @@ asChild`) for accessible, right/middle-clickable links; `renderButton`
   - New `facet-dissolve` CSS keyframe in tokens (shared by DissolveText,
     DissolveButton, DissolveCard, AnimatedButton dissolve variant).
 
-  ### @arcevo/facet-layout (minor)
+  ### @fusorb/facet-layout (minor)
   - **Sidebar** -- new `singleOpen` (accordion) prop; `Collapse all` / `Expand
 all` toolbar buttons; active section scrolls into view.
   - **ConsoleLayout** -- passes `singleOpen` through to the sidebar (both docked
@@ -66,10 +66,10 @@ all` toolbar buttons; active section scrolls into view.
     (all persisted to localStorage alongside the existing `toggleSection`).
   - The docs layout opts into `singleOpen`.
 
-  ### @arcevo/facet-tokens (patch)
+  ### @fusorb/facet-tokens (patch)
   - New `--animate-facet-dissolve` keyframe (500ms ease-out, both fill-mode).
 
-  ### @arcevo/facet-docs (patch)
+  ### @fusorb/facet-docs (patch)
   - Docs manifest regenerated: `mail-input` added (inputs category);
     `typewriter-text` now documented as tabs on the text-animations page
     instead of a standalone slug.
@@ -81,10 +81,10 @@ all` toolbar buttons; active section scrolls into view.
     (documented elsewhere), `gen-docs-manifest` excludes it from generation.
 
 - Updated dependencies [18547dc]
-  - @arcevo/facet-components@1.9.0
-  - @arcevo/facet-layout@1.4.0
-  - @arcevo/facet-tokens@1.1.3
-  - @arcevo/facet-auth@1.2.1
+  - @fusorb/facet-components@1.9.0
+  - @fusorb/facet-layout@1.4.0
+  - @fusorb/facet-tokens@1.1.3
+  - @fusorb/facet-auth@1.2.1
 
 ## 1.4.4
 
@@ -96,19 +96,19 @@ all` toolbar buttons; active section scrolls into view.
 - Updated dependencies [8d922f7]
 - Updated dependencies [2236aa8]
 - Updated dependencies [78b6543]
-  - @arcevo/facet-auth@1.2.0
-  - @arcevo/facet-components@1.8.0
-  - @arcevo/facet-tokens@1.1.2
-  - @arcevo/facet-layout@1.3.4
+  - @fusorb/facet-auth@1.2.0
+  - @fusorb/facet-components@1.8.0
+  - @fusorb/facet-tokens@1.1.2
+  - @fusorb/facet-layout@1.3.4
 
 ## 1.4.3
 
 ### Patch Changes
 
 - Updated dependencies [d2b43d0]
-  - @arcevo/facet-components@1.7.0
-  - @arcevo/facet-auth@1.1.6
-  - @arcevo/facet-layout@1.3.3
+  - @fusorb/facet-components@1.7.0
+  - @fusorb/facet-auth@1.1.6
+  - @fusorb/facet-layout@1.3.3
 
 ## 1.4.2
 
@@ -116,19 +116,19 @@ all` toolbar buttons; active section scrolls into view.
 
 - Updated dependencies [8a7aef3]
 - Updated dependencies [b95bcb0]
-  - @arcevo/facet-components@1.6.0
-  - @arcevo/facet-tokens@1.1.1
-  - @arcevo/facet-auth@1.1.5
-  - @arcevo/facet-layout@1.3.2
+  - @fusorb/facet-components@1.6.0
+  - @fusorb/facet-tokens@1.1.1
+  - @fusorb/facet-auth@1.1.5
+  - @fusorb/facet-layout@1.3.2
 
 ## 1.4.1
 
 ### Patch Changes
 
 - Updated dependencies [b95bcb0]
-  - @arcevo/facet-sdk@1.1.0
-  - @arcevo/facet-auth@1.1.4
-  - @arcevo/facet-layout@1.3.1
+  - @fusorb/facet-sdk@1.1.0
+  - @fusorb/facet-auth@1.1.4
+  - @fusorb/facet-layout@1.3.1
 
 ## 1.4.0
 
@@ -178,9 +178,9 @@ all` toolbar buttons; active section scrolls into view.
 ### Patch Changes
 
 - Updated dependencies [3554506]
-  - @arcevo/facet-components@1.5.0
-  - @arcevo/facet-layout@1.3.0
-  - @arcevo/facet-auth@1.1.3
+  - @fusorb/facet-components@1.5.0
+  - @fusorb/facet-layout@1.3.0
+  - @fusorb/facet-auth@1.1.3
 
 ## 1.3.1
 
@@ -195,9 +195,9 @@ all` toolbar buttons; active section scrolls into view.
   Docs package: demos, variants, and usage snippets updated for all of the above.
 
 - Updated dependencies
-  - @arcevo/facet-components@1.4.0
-  - @arcevo/facet-auth@1.1.2
-  - @arcevo/facet-layout@1.2.1
+  - @fusorb/facet-components@1.4.0
+  - @fusorb/facet-auth@1.1.2
+  - @fusorb/facet-layout@1.2.1
 
 ## 1.3.0
 
@@ -302,9 +302,9 @@ all` toolbar buttons; active section scrolls into view.
 - Updated dependencies [2dae8e2]
 - Updated dependencies [b878bfd]
 - Updated dependencies [6bb55a2]
-  - @arcevo/facet-components@1.3.0
-  - @arcevo/facet-layout@1.2.0
-  - @arcevo/facet-auth@1.1.1
+  - @fusorb/facet-components@1.3.0
+  - @fusorb/facet-layout@1.2.0
+  - @fusorb/facet-auth@1.1.1
 
 ## 1.2.0
 
@@ -321,10 +321,10 @@ all` toolbar buttons; active section scrolls into view.
 - Updated dependencies [3de0e04]
 - Updated dependencies [568497d]
 - Updated dependencies [3de0e04]
-  - @arcevo/facet-components@1.2.0
-  - @arcevo/facet-auth@1.1.0
-  - @arcevo/facet-tokens@1.1.0
-  - @arcevo/facet-layout@1.1.1
+  - @fusorb/facet-components@1.2.0
+  - @fusorb/facet-auth@1.1.0
+  - @fusorb/facet-tokens@1.1.0
+  - @fusorb/facet-layout@1.1.1
 
 ## 1.1.0
 
@@ -340,6 +340,6 @@ all` toolbar buttons; active section scrolls into view.
 - Updated dependencies [3752a98]
 - Updated dependencies [3752a98]
 - Updated dependencies [3752a98]
-  - @arcevo/facet-components@1.1.0
-  - @arcevo/facet-layout@1.1.0
-  - @arcevo/facet-auth@1.0.3
+  - @fusorb/facet-components@1.1.0
+  - @fusorb/facet-layout@1.1.0
+  - @fusorb/facet-auth@1.0.3

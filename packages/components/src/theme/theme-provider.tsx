@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: ThemeProvider
+ * @fusorb/facet-components: ThemeProvider
  *
  * Light / dark / system theming driven by a data attribute on <html>.
  * Persists the choice to localStorage and follows the OS preference

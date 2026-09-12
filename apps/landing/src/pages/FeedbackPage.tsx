@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { LandingLayout } from "@arcevo/facet-layout";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, Button, Separator, Label, Input, Textarea } from "@arcevo/facet-components";
-import { LightIcon } from "@arcevo/facet-components/light";
+import { LandingLayout } from "@fusorb/facet-layout";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, Button, Separator, Label, Input, Textarea } from "@fusorb/facet-components";
+import { LightIcon } from "@fusorb/facet-components/light";
 import { CONTACT } from "../lib/socials.js";
 import { Nav } from "../components/Nav.js";
 import { Footer } from "../components/Footer.js";
@@ -142,7 +142,7 @@ export function FeedbackPage() {
           <LinkedinIcon size={20} className="text-primary" />
           <div>
             <div className="text-sm font-medium text-foreground">LinkedIn</div>
-            <div className="text-xs text-muted-foreground">Company page: @arcevocirqle</div>
+            <div className="text-xs text-muted-foreground">Company page: @fusorbcirqle</div>
           </div>
         </a>
         <a

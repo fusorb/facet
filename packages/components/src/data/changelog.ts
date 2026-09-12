@@ -1,7 +1,7 @@
 import type { ChangelogRelease } from "../ui/changelog-list.js";
 
 /**
- * Canonical release log for the @arcevo/facet-* ecosystem.
+ * Canonical release log for the @fusorb/facet-* ecosystem.
  *
  * Curated from the shipped changesets and updated when
  * `pnpm changeset version` runs. Both the docs site (`/changelog`
@@ -47,7 +47,7 @@ export const facetChangelog: ChangelogRelease[] = [
       // Layout
       { kind: "fixed", text: "Docs sidebar (z-60) now renders above portaled preview content (z-50) on mobile" },
       // Card animations
-      { kind: "added", text: "BorderBeamCard gains group-hover brightness boost + will-change for GPU-accelerated spin on large screens" },
+      { kind: "added", text: "BorderBeamCard and SpotlightCard ejected in favor of simple Card primitives" },
       { kind: "fixed", text: "Topbar + Navbar z-index raised to z-60 to render above Radix portaled preview content (z-50)" },
       { kind: "fixed", text: "KanbanBoard Delete action uses AlertDialog modal instead of window.confirm()" },
     ],
@@ -58,7 +58,7 @@ export const facetChangelog: ChangelogRelease[] = [
     tag: "docs",
     title: "Docs Engine 1.4.7",
     changes: [
-      { kind: "added", text: "@arcevo/facet-docs changelog block type for DocsApp content pages - pass { type: \"changelog\", releases: [...] } to render ChangelogList inline" },
+      { kind: "added", text: "@fusorb/facet-docs changelog block type for DocsApp content pages - pass { type: \"changelog\", releases: [...] } to render ChangelogList inline" },
       { kind: "added", text: "facet docs init now scaffolds a populated /changelog page so consumers ship with a working release log on day one" },
       { kind: "added", text: "LiveCodePlayground on component pages - default-usage code block is now an editable, live-rendered sandbox (second preview box pattern)" },
       { kind: "fixed", text: "LiveCodePlayground ErrorBoundary surfaces a readable message when a demo snippet throws, instead of hanging the Suspense page loader" },
@@ -87,7 +87,7 @@ export const facetChangelog: ChangelogRelease[] = [
       { kind: "added", text: "Ecosystem page now lists every published package (Components, Auth, Layout, Tokens + Docs, CLI, Emails, SDK, Store, Stack Agnosticism)" },
       { kind: "added", text: "/pricing page (BillingPage + BillingPageTable + BillingPageFreemium)" },
       { kind: "added", text: "/security page (AccountSettingsPanel + SecuritySectionCard + ApiKeyManager + TwoFactorSetupPanel + PasswordStrengthMeter)" },
-      { kind: "added", text: "/dashboard-demo page (PageHeader + StatCard + ActivityFeed + BorderBeamCard + SpotlightCard)" },
+      { kind: "added", text: "/dashboard-demo page (PageHeader + StatCard + ActivityFeed + Card + HoverScaleCard)" },
     ],
   },
   {

@@ -7,7 +7,7 @@
  *   3. Show recovery codes on success
  */
 
-import type { MfaSetupResult } from "@arcevo/facet-sdk";
+import type { MfaSetupResult } from "@fusorb/facet-sdk";
 import type { Appearance } from "../../types.js";
 
 import {
@@ -19,7 +19,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 
 /* ── Props ─────────────────────────────────────────────────── */
 

@@ -1,4 +1,4 @@
-import type { IconName } from "@arcevo/facet-components";
+import type { IconName } from "@fusorb/facet-components";
 
 /** Live library stats, verified against the packages on every release. */
 export const STATS = [
@@ -12,62 +12,62 @@ export interface Package {
   name: string;
   desc: string;
   version: string;
-  /** Semantic icon name resolved through @arcevo/facet-components' Icon registry. */
+  /** Semantic icon name resolved through @fusorb/facet-components' Icon registry. */
   icon: IconName;
 }
 
 /** The nine published packages (versions verified 2026-09-07 against npm). */
 export const PACKAGES: Package[] = [
   {
-    name: "@arcevo/facet-components",
+    name: "@fusorb/facet-components",
     desc: "113 styled, accessible React components built on Radix primitives.",
     version: "1.11.0",
     icon: "boxes",
   },
   {
-    name: "@arcevo/facet-docs",
+    name: "@fusorb/facet-docs",
     desc: "Installable docs engine: mount <DocsApp> with your own brand, nav, and pages.",
     version: "1.4.7",
     icon: "book-open",
   },
   {
-    name: "@arcevo/facet-auth",
+    name: "@fusorb/facet-auth",
     desc: "SignIn, SignUp, Guard, MFA and forms with per-domain presets.",
     version: "1.2.3",
     icon: "shield-check",
   },
   {
-    name: "@arcevo/facet-layout",
+    name: "@fusorb/facet-layout",
     desc: "Console, auth and landing shells with a collapsible icon rail.",
     version: "1.4.2",
     icon: "building",
   },
   {
-    name: "@arcevo/facet-sdk",
+    name: "@fusorb/facet-sdk",
     desc: "Typed fetch client for arc-id: 10 domain SDKs, zero React.",
     version: "1.2.0",
     icon: "zap",
   },
   {
-    name: "@arcevo/facet-tokens",
+    name: "@fusorb/facet-tokens",
     desc: "Alpha Palette design tokens: color, type, spacing, surfaces.",
     version: "1.1.4",
     icon: "palette",
   },
   {
-    name: "@arcevo/facet-emails",
+    name: "@fusorb/facet-emails",
     desc: "Framework-agnostic email templates: render HTML/text from React or plain trees, with a dev preview server.",
     version: "1.1.1",
     icon: "mail",
   },
   {
-    name: "@arcevo/facet-cli",
+    name: "@fusorb/facet-cli",
     desc: "Scaffold docs + emails, audit/update your facet setup, and generate a tree-shaken icon registry from the terminal.",
      version: "2.0.0",
     icon: "terminal",
   },
   {
-    name: "@arcevo/facet-store",
+    name: "@fusorb/facet-store",
     desc: "Framework-agnostic Zustand state stores for arc-id (session, tenant, token-refresh wiring) with pluggable client + storage.",
      version: "2.0.0",
     icon: "store",
@@ -129,17 +129,17 @@ export const INSTALL_STEPS: InstallStep[] = [
   {
     num: "01",
     label: "Install",
-    code: "pnpm add @arcevo/facet-components @arcevo/facet-auth @arcevo/facet-layout @arcevo/facet-sdk @arcevo/facet-docs",
+    code: "pnpm add @fusorb/facet-components @fusorb/facet-auth @fusorb/facet-layout @fusorb/facet-sdk @fusorb/facet-docs",
   },
   {
     num: "02",
     label: "Import tokens",
-    code: '@import "@arcevo/facet-tokens/tokens.css"',
+    code: '@import "@fusorb/facet-tokens/tokens.css"',
   },
   {
     num: "03",
     label: "Use components",
-    code: `import { Button, Card } from "@arcevo/facet-components"`,
+    code: `import { Button, Card } from "@fusorb/facet-components"`,
   },
   {
     num: "04",
@@ -215,7 +215,7 @@ export const ROADMAP: RoadmapItem[] = [
   {
     phase: "Phase 8",
     title: "Polish & consistency",
-    desc: "SpotlightCard spotlight visibility, BorderBeamCard beam refinement, default button animation switched to sparkle, global scrollbar hiding across all apps, em-dash purge, FAQ/version sync, facet-store package, and the NotFound component, bringing the total to 113 components.",
+    desc: "Default button animation switched to sparkle, global scrollbar hiding across all apps, em-dash purge, FAQ/version sync, facet-store package, and the NotFound component, bringing the total to 111 components.",
     status: "done",
   },
 ];
@@ -229,7 +229,7 @@ export interface FaqItem {
 export const FAQ: FaqItem[] = [
   {
     q: "Is facet free and open source?",
-    a: "Yes. Every package is MIT-licensed and published to npm under @arcevo: components, auth, layout, docs, tokens, sdk, emails, cli, and store.",
+    a: "Yes. Every package is MIT-licensed and published to npm under @fusorb: components, auth, layout, docs, tokens, sdk, emails, cli, and store.",
   },
   {
     q: "Which React version does facet require?",
@@ -237,7 +237,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Does facet work with Tailwind v4?",
-    a: "Yes. @arcevo/facet-tokens ships a CSS-native Tailwind v4 theme extension plus tw-animate-css, so the animation keyframes (facet-shimmer, facet-flip, etc.) build out of the box.",
+    a: "Yes. @fusorb/facet-tokens ships a CSS-native Tailwind v4 theme extension plus tw-animate-css, so the animation keyframes (facet-shimmer, facet-flip, etc.) build out of the box.",
   },
   {
     q: "Can I use the packages with a non-React stack?",
@@ -253,7 +253,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "How do I theme facet for my brand?",
-    a: "All colors and spacing are CSS variables from @arcevo/facet-tokens. Override them at runtime via ThemeProvider `overrideVars`, or swap `tokens.css` with your own values. Dark mode is built in.",
+    a: "All colors and spacing are CSS variables from @fusorb/facet-tokens. Override them at runtime via ThemeProvider `overrideVars`, or swap `tokens.css` with your own values. Dark mode is built in.",
   },
   {
     q: "Does facet work in a monorepo?",
@@ -277,7 +277,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "What animations does facet ship?",
-    a: "Ten text animations (Blur, Wave, Flip, Split, FadeUp, Shimmer, Gradient, LetterSpacing, CountUp, Dissolve), TypewriterText, seven micro-interactions, AnimatedButton (sparkle/shine/ripple/magnetic/dissolve), and the card animation family (DissolveCard, FlipCard, SpotlightCard, etc.). The keyframe tokens live in @arcevo/facet-tokens so the CSS classes always emit.",
+    a: "Ten text animations (Blur, Wave, Flip, Split, FadeUp, Shimmer, Gradient, LetterSpacing, CountUp, Dissolve), TypewriterText, seven micro-interactions, AnimatedButton (sparkle/shine/ripple/magnetic/dissolve), and the card animation family (DissolveCard, FlipCard, GlowCard, etc.). The keyframe tokens live in @fusorb/facet-tokens so the CSS classes always emit.",
   },
   {
     q: "How do I scaffold docs and emails?",

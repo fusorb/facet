@@ -10,15 +10,15 @@ design manual (Alpha Palette), and your auth requirements differ per sector
 
 | Package | Description | Status |
 | --- | --- | --- |
-| `@arcevo/facet-tokens` | Design tokens: Alpha Palette, typography, spacing, CSS vars | ✅ 1.1.4 |
-| `@arcevo/facet-sdk` | arc-id API client (pure fetch, typed, 10 domain SDKs) | ✅ 1.2.0 |
-| `@arcevo/facet-components` | 113+ styled UI components (Radix + tailwind-merge + variants) | ✅ 1.11.0 |
-| `@arcevo/facet-auth` | Auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms | ✅ 1.2.3 |
-| `@arcevo/facet-layout` | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets | ✅ 1.4.2 |
-| `@arcevo/facet-store` | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native | ✅ 2.0.0 |
-| `@arcevo/facet-docs` | Installable docs engine: mount `<DocsApp>` with your own brand, nav, pages | ✅ 1.4.7 |
-| `@arcevo/facet-cli` | Scaffold docs (`facet docs init` + `facet docs scan`), audit/update (`facet pkg/up/doctor`), copy components (`facet copy`), generate a tree-shaken icon registry (`facet icons generate`) | ✅ 2.0.0 |
-| `@arcevo/facet-emails` | Framework-agnostic email builder + React bridge (`renderEmail`, `emailLayout`, `EmailLayout`) | ✅ 1.1.1 |
+| `@fusorb/facet-tokens` | Design tokens: Alpha Palette, typography, spacing, CSS vars | ✅ 1.1.4 |
+| `@fusorb/facet-sdk` | arc-id API client (pure fetch, typed, 10 domain SDKs) | ✅ 1.2.0 |
+| `@fusorb/facet-components` | 111+ styled UI components (Radix + tailwind-merge + variants) | ✅ 1.11.0 |
+| `@fusorb/facet-auth` | Auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms | ✅ 1.2.3 |
+| `@fusorb/facet-layout` | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets | ✅ 1.4.2 |
+| `@fusorb/facet-store` | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native | ✅ 2.0.0 |
+| `@fusorb/facet-docs` | Installable docs engine: mount `<DocsApp>` with your own brand, nav, pages | ✅ 1.4.7 |
+| `@fusorb/facet-cli` | Scaffold docs (`facet docs init` + `facet docs scan`), audit/update (`facet pkg/up/doctor`), copy components (`facet copy`), generate a tree-shaken icon registry (`facet icons generate`) | ✅ 2.0.0 |
+| `@fusorb/facet-emails` | Framework-agnostic email builder + React bridge (`renderEmail`, `emailLayout`, `EmailLayout`) | ✅ 1.1.1 |
 
 Published to npm: components 1.11.0, layout 1.4.2, docs 1.4.7, auth 1.2.3, cli 2.0.0, tokens 1.1.4, store 2.0.0, sdk 1.2.0, emails 1.1.1.
 
@@ -30,9 +30,9 @@ Published to npm: components 1.11.0, layout 1.4.2, docs 1.4.7, auth 1.2.3, cli 2
 ## Documentation
 
 The docs site (`apps/docs`) is a thin consumer of the installable
-`@arcevo/facet-docs` engine, the same package any project can mount with its
+`@fusorb/facet-docs` engine, the same package any project can mount with its
 own brand, nav, and pages. Guides cover getting started, auth, layout,
-them, tokens, and the docs package itself; the component gallery shows all 113 components with live demos and usage tabs.
+them, tokens, and the docs package itself; the component gallery shows all 111 components with live demos and usage tabs.
 
 ```sh
 pnpm dev:docs-site  # run the docs site locally (Vite, port 5173)
@@ -44,9 +44,9 @@ Scaffold a docs site in any repo (framework-agnostic) with the interactive
 wizard, or copy a component into your source:
 
 ```sh
-npx @arcevo/facet-cli docs init   # pick name, location, stack, styling
-npx @arcevo/facet-cli copy button  # shadcn-style copy (package import recommended)
-npx @arcevo/facet-cli icons generate  # scan repo, emit a tree-shaken icons.generated.tsx
+npx @fusorb/facet-cli docs init   # pick name, location, stack, styling
+npx @fusorb/facet-cli copy button  # shadcn-style copy (package import recommended)
+npx @fusorb/facet-cli icons generate  # scan repo, emit a tree-shaken icons.generated.tsx
 ```
 
 The wizard detects your frontend framework (ignoring backend stacks), your
@@ -67,8 +67,8 @@ pnpm typecheck # all 11 projects
 Consume in your app:
 
 ```tsx
-import { ConsoleLayout, enterpriseLayoutPreset } from "@arcevo/facet-layout";
-import { Guard } from "@arcevo/facet-auth";
+import { ConsoleLayout, enterpriseLayoutPreset } from "@fusorb/facet-layout";
+import { Guard } from "@fusorb/facet-auth";
 
 function App() {
   return (
@@ -105,7 +105,7 @@ Framework-agnostic slot-based shells: no routing dependency:
 ### Auth System
 
 ```tsx
-import { SignIn, fintechPreset } from "@arcevo/facet-auth";
+import { SignIn, fintechPreset } from "@fusorb/facet-auth";
 
 // Domain presets customise every copy, step, and behaviour
 <SignIn config={fintechPreset} onSuccess={(result) => router.push("/dashboard")} />;
@@ -116,7 +116,7 @@ Forms are independently importable: `LoginForm`, `MagicLinkForm`, `ForgotPasswor
 
 ## Publishing
 
-Packages publish to npm under the `@arcevo/facet-*` scope via Changesets,
+Packages publish to npm under the `@fusorb/facet-*` scope via Changesets,
 driven by GitHub Actions (`.github/workflows/ci-cd.yml`). The workflow runs
 three jobs:
 

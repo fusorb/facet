@@ -1,8 +1,8 @@
-import { DocsApp } from "@arcevo/facet-docs";
+import { DocsApp } from "@fusorb/facet-docs";
 import { demoConfig, demoPages } from "./demo-config.js";
 
 /**
- * facet's own docs site: a thin consumer of @arcevo/facet-docs.
+ * facet's own docs site: a thin consumer of @fusorb/facet-docs.
  * Everything renders from the config + pages passed below.
  */
 export default function App() {
@@ -12,7 +12,7 @@ export default function App() {
       pages={demoPages}
       topbar={
         <a
-          href="https://github.com/arcevodev/facet"
+          href="https://github.com/fusorb/facet"
           target="_blank"
           rel="noreferrer"
           className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:block"
@@ -22,7 +22,7 @@ export default function App() {
       }
       links={[
         { label: "About facet", href: "https://facet.arcevocirqle.com.ng", icon: "sparkles" },
-        { label: "GitHub", href: "https://github.com/arcevodev/facet", icon: "github" },
+        { label: "GitHub", href: "https://github.com/fusorb/facet", icon: "github" },
       ]}
     />
   );

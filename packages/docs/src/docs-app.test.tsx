@@ -19,10 +19,10 @@ import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
 import "@testing-library/jest-dom/vitest";
 
 // ── Stubs for heavy external modules ───────────────────────────
-// ConsoleLayout + CommandPalette live in @arcevo/facet-layout, a heavy
+// ConsoleLayout + CommandPalette live in @fusorb/facet-layout, a heavy
 // graph.  Stub them so we exercise the docs engine's routing/context
 // rather than the layout shell.
-vi.mock("@arcevo/facet-layout", () => {
+vi.mock("@fusorb/facet-layout", () => {
   const Stub = ({ children, ...rest }: any) =>
     React.createElement("div", { "data-testid": "console-layout", ...rest }, children);
   const VoidStub = () => React.createElement("div", { "data-testid": "command-palette" });
@@ -32,9 +32,9 @@ vi.mock("@arcevo/facet-layout", () => {
   };
 });
 
-// NotFound comes from the full @arcevo/facet-components package (lazy
+// NotFound comes from the full @fusorb/facet-components package (lazy
 // route).  Stub it; /light subpath is mocked separately below.
-vi.mock("@arcevo/facet-components", () => ({
+vi.mock("@fusorb/facet-components", () => ({
   NotFound: () => React.createElement("div", { "data-testid": "not-found" }, "404"),
 }));
 
@@ -42,7 +42,7 @@ vi.mock("@arcevo/facet-components", () => ({
 // and by content block components (CodeBlock, InstallTabs, KeyboardShortcuts,
 // DocsLayout's SettingsMenu).  Provide lightweight stubs so jsdom doesn't
 // need the full Radix + icon-catalog graph.
-vi.mock("@arcevo/facet-components/light", () => {
+vi.mock("@fusorb/facet-components/light", () => {
   const stub =
     (tag: string) =>
     ({ children, ...rest }: any) =>
@@ -271,7 +271,7 @@ import type { DocsSiteConfig, DocsPage } from "./index.js";
 const consumerConfig: DocsSiteConfig = {
   brand: { name: "ArcID" },
   navigation: [{ title: "Guides", items: [{ label: "Overview", href: "/" }] }],
-  ecosystem: [{ label: "GitHub", href: "https://github.com/arcevodev" }],
+  ecosystem: [{ label: "GitHub", href: "https://github.com/fusorb" }],
 };
 
 const consumerPages: DocsPage[] = [
@@ -286,13 +286,13 @@ const consumerPages: DocsPage[] = [
       {
         type: "ul",
         items: [
-          "`@arcevo/facet-tokens`: Design tokens.",
-          "`@arcevo/facet-sdk`: API client.",
-          "`@arcevo/facet-components`: UI components.",
+          "`@fusorb/facet-tokens`: Design tokens.",
+          "`@fusorb/facet-sdk`: API client.",
+          "`@fusorb/facet-components`: UI components.",
         ],
       },
       { type: "code", text: "pnpm install\npnpm build" },
-      { type: "link", label: "GitHub repo", href: "https://github.com/arcevodev/facet" },
+      { type: "link", label: "GitHub repo", href: "https://github.com/fusorb/facet" },
     ],
   },
   {
@@ -307,8 +307,8 @@ const consumerPages: DocsPage[] = [
         type: "table",
         headers: ["Method", "Package"],
         rows: [
-          ["Password", "@arcevo/facet-auth"],
-          ["OAuth", "@arcevo/facet-auth"],
+          ["Password", "@fusorb/facet-auth"],
+          ["OAuth", "@fusorb/facet-auth"],
         ],
       },
     ],
@@ -362,7 +362,7 @@ describe("DocsApp integration - consumer-style config + pages", () => {
     await screen.findByTestId("console-layout", {}, { timeout: 5000 });
     expect(screen.getByRole("heading", { name: "Authentication" })).toBeInTheDocument();
     expect(screen.getByText("Password")).toBeInTheDocument();
-    expect(screen.getAllByText("@arcevo/facet-auth")).toHaveLength(2);
+    expect(screen.getAllByText("@fusorb/facet-auth")).toHaveLength(2);
   });
 
   it("renders link blocks as anchor tags", async () => {
@@ -371,7 +371,7 @@ describe("DocsApp integration - consumer-style config + pages", () => {
 
     await screen.findByTestId("console-layout", {}, { timeout: 5000 });
     const link = screen.getByText("GitHub repo");
-    expect(link.closest("a")).toHaveAttribute("href", "https://github.com/arcevodev/facet");
+    expect(link.closest("a")).toHaveAttribute("href", "https://github.com/fusorb/facet");
   });
 
   it("renders 404 for unknown routes", async () => {

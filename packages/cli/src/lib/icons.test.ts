@@ -35,7 +35,7 @@ describe("toKebab", () => {
 describe("scanFileNames", () => {
   it("finds Icon and LightIcon name props", () => {
     const src = `
-      import { Icon } from "@arcevo/facet-components";
+      import { Icon } from "@fusorb/facet-components";
       <Icon name="settings" />
       <LightIcon name="chevron-down" />
       <Icon name="trash" className="size-4" />
@@ -162,7 +162,7 @@ describe("scanIcons", () => {
       writeFile(
         dir,
         "client/src/pages/Home.tsx",
-        `import { Icon } from "@arcevo/facet-components"; <Icon name="heart" />`,
+        `import { Icon } from "@fusorb/facet-components"; <Icon name="heart" />`,
       );
       const scan = scanIcons(dir);
       expect(scan.kebabNames).toContain("heart");
@@ -255,7 +255,7 @@ describe("resolveUsedIcons + generateIconRegistry", () => {
     // The generated module must import from facet's icons subpath (the
     // consumer has facet-components, not necessarily lucide-react), and
     // import SVGProps (React namespace isn't in scope under react-jsx).
-    expect(file.content).toContain('from "@arcevo/facet-components/icons"');
+    expect(file.content).toContain('from "@fusorb/facet-components/icons"');
     expect(file.content).toContain('import type { SVGProps } from "react"');
   });
 
@@ -280,7 +280,7 @@ describe("resolveUsedIcons + generateIconRegistry", () => {
     // Only inspect the import block (entries legitimately repeat exports).
     const importBlock = file.content.slice(
       file.content.indexOf("import {"),
-      file.content.indexOf("} from \"@arcevo/facet-components/icons\"") + "} from \"@arcevo/facet-components/icons\"".length,
+      file.content.indexOf("} from \"@fusorb/facet-components/icons\"") + "} from \"@fusorb/facet-components/icons\"".length,
     );
     const count = (needle: string) => importBlock.split(needle).length - 1;
     // Each export appears exactly once in the import block.

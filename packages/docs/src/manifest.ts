@@ -18,13 +18,13 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Account Settings Panel",
     "slug": "account-settings-panel",
-    "description": "@arcevo/facet-components: AccountSettingsPanel",
+    "description": "@fusorb/facet-components: AccountSettingsPanel",
     "category": "ready-to-use"
   },
   {
     "name": "Activity Feed",
     "slug": "activity-feed",
-    "description": "@arcevo/facet-components: ActivityFeed",
+    "description": "@fusorb/facet-components: ActivityFeed",
     "category": "ready-to-use"
   },
   {
@@ -42,25 +42,25 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Animated",
     "slug": "animated",
-    "description": "@arcevo/facet-components: Animated backgrounds & micro-interactions",
+    "description": "@fusorb/facet-components: Animated backgrounds & micro-interactions",
     "category": "animation"
   },
   {
     "name": "Animated Button",
     "slug": "animated-button",
-    "description": "@arcevo/facet-components: AnimatedButton",
+    "description": "@fusorb/facet-components: AnimatedButton",
     "category": "animation"
   },
   {
     "name": "Announcement Bar",
     "slug": "announcement-bar",
-    "description": "@arcevo/facet-components: AnnouncementBar",
+    "description": "@fusorb/facet-components: AnnouncementBar",
     "category": "ready-to-use"
   },
   {
     "name": "Api Key Manager",
     "slug": "api-key-manager",
-    "description": "@arcevo/facet-components: ApiKeyManager",
+    "description": "@fusorb/facet-components: ApiKeyManager",
     "category": "ready-to-use"
   },
   {
@@ -90,7 +90,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Billing Page",
     "slug": "billing-page",
-    "description": "@arcevo/facet-components: Billing / pricing page components",
+    "description": "@fusorb/facet-components: Billing / pricing page components",
     "category": "pages"
   },
   {
@@ -120,7 +120,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Card Animations",
     "slug": "card-animations",
-    "description": "@arcevo/facet-components: card animations",
+    "description": "@fusorb/facet-components: card animations",
     "category": "animation"
   },
   {
@@ -132,13 +132,13 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Changelog List",
     "slug": "changelog-list",
-    "description": "@arcevo/facet-components: ChangelogList",
+    "description": "@fusorb/facet-components: ChangelogList",
     "category": "ready-to-use"
   },
   {
     "name": "Chart",
     "slug": "chart",
-    "description": "@arcevo/facet-components: Chart",
+    "description": "@fusorb/facet-components: Chart",
     "category": "ready-to-use"
   },
   {
@@ -174,7 +174,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Consent Capture",
     "slug": "consent-capture",
-    "description": "@arcevo/facet-components: ConsentCapture",
+    "description": "@fusorb/facet-components: ConsentCapture",
     "category": "ready-to-use"
   },
   {
@@ -186,13 +186,13 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Cookie Banner",
     "slug": "cookie-banner",
-    "description": "@arcevo/facet-components: CookieBanner",
+    "description": "@fusorb/facet-components: CookieBanner",
     "category": "ready-to-use"
   },
   {
     "name": "Cookie Consent",
     "slug": "cookie-consent",
-    "description": "@arcevo/facet-components: CookieConsent",
+    "description": "@fusorb/facet-components: CookieConsent",
     "category": "ready-to-use"
   },
   {
@@ -222,7 +222,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Date Range Picker",
     "slug": "date-range-picker",
-    "description": "@arcevo/facet-components: DateRangePicker",
+    "description": "@fusorb/facet-components: DateRangePicker",
     "category": "inputs"
   },
   {
@@ -258,25 +258,25 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Empty State Page",
     "slug": "empty-state-page",
-    "description": "@arcevo/facet-components: EmptyStatePage",
+    "description": "@fusorb/facet-components: EmptyStatePage",
     "category": "pages"
   },
   {
     "name": "Faq Section",
     "slug": "faq-section",
-    "description": "@arcevo/facet-components: FaqSection",
+    "description": "@fusorb/facet-components: FaqSection",
     "category": "ready-to-use"
   },
   {
     "name": "Feedback Page",
     "slug": "feedback-page",
-    "description": "@arcevo/facet-components: FeedbackPage",
+    "description": "@fusorb/facet-components: FeedbackPage",
     "category": "pages"
   },
   {
     "name": "Footer",
     "slug": "footer",
-    "description": "@arcevo/facet-components: Footer",
+    "description": "@fusorb/facet-components: Footer",
     "category": "pages"
   },
   {
@@ -288,7 +288,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Glow Border Card",
     "slug": "glow-border-card",
-    "description": "@arcevo/facet-components: GlowBorderCard",
+    "description": "@fusorb/facet-components: GlowBorderCard",
     "category": "animation"
   },
   {
@@ -324,13 +324,13 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Invite Team Form",
     "slug": "invite-team-form",
-    "description": "@arcevo/facet-components: InviteTeamForm",
+    "description": "@fusorb/facet-components: InviteTeamForm",
     "category": "ready-to-use"
   },
   {
     "name": "Kanban Board",
     "slug": "kanban-board",
-    "description": "@arcevo/facet-components: KanbanBoard",
+    "description": "@fusorb/facet-components: KanbanBoard",
     "category": "ready-to-use"
   },
   {
@@ -366,7 +366,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Mention Input",
     "slug": "mention-input",
-    "description": "@arcevo/facet-components: MentionInput",
+    "description": "@fusorb/facet-components: MentionInput",
     "category": "inputs"
   },
   {
@@ -378,13 +378,13 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Micro Interactions",
     "slug": "micro-interactions",
-    "description": "@arcevo/facet-components: card & button micro-interactions",
+    "description": "@fusorb/facet-components: card & button micro-interactions",
     "category": "animation"
   },
   {
     "name": "Multi Combobox",
     "slug": "multi-combobox",
-    "description": "@arcevo/facet-components: MultiCombobox",
+    "description": "@fusorb/facet-components: MultiCombobox",
     "category": "inputs"
   },
   {
@@ -402,7 +402,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Not Found",
     "slug": "not-found",
-    "description": "@arcevo/facet-components: Not Found (404)",
+    "description": "@fusorb/facet-components: Not Found (404)",
     "category": "pages"
   },
   {
@@ -420,19 +420,19 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Otp Input",
     "slug": "otp-input",
-    "description": "@arcevo/facet-components: OtpInput",
+    "description": "@fusorb/facet-components: OtpInput",
     "category": "inputs"
   },
   {
     "name": "Otp Verification Card",
     "slug": "otp-verification-card",
-    "description": "@arcevo/facet-components: OtpVerificationCard",
+    "description": "@fusorb/facet-components: OtpVerificationCard",
     "category": "ready-to-use"
   },
   {
     "name": "Page Header",
     "slug": "page-header",
-    "description": "@arcevo/facet-components: PageHeader",
+    "description": "@fusorb/facet-components: PageHeader",
     "category": "ready-to-use"
   },
   {
@@ -450,13 +450,13 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Password Strength Meter",
     "slug": "password-strength-meter",
-    "description": "@arcevo/facet-components: PasswordStrengthMeter",
+    "description": "@fusorb/facet-components: PasswordStrengthMeter",
     "category": "ready-to-use"
   },
   {
     "name": "Phone Input",
     "slug": "phone-input",
-    "description": "@arcevo/facet-components: PhoneInput",
+    "description": "@fusorb/facet-components: PhoneInput",
     "category": "inputs"
   },
   {
@@ -474,7 +474,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Pricing Comparison",
     "slug": "pricing-comparison",
-    "description": "@arcevo/facet-components: PricingComparison",
+    "description": "@fusorb/facet-components: PricingComparison",
     "category": "ready-to-use"
   },
   {
@@ -486,7 +486,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Qr Scanner",
     "slug": "qr-scanner",
-    "description": "@arcevo/facet-components: QrScanner",
+    "description": "@fusorb/facet-components: QrScanner",
     "category": "ready-to-use"
   },
   {
@@ -504,13 +504,13 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Range Slider",
     "slug": "range-slider",
-    "description": "@arcevo/facet-components: RangeSlider",
+    "description": "@fusorb/facet-components: RangeSlider",
     "category": "inputs"
   },
   {
     "name": "Rating Input",
     "slug": "rating-input",
-    "description": "@arcevo/facet-components: RatingInput",
+    "description": "@fusorb/facet-components: RatingInput",
     "category": "inputs"
   },
   {
@@ -522,7 +522,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Rich Text Editor",
     "slug": "rich-text-editor",
-    "description": "@arcevo/facet-components: RichTextEditor",
+    "description": "@fusorb/facet-components: RichTextEditor",
     "category": "inputs"
   },
   {
@@ -540,7 +540,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Security Section Card",
     "slug": "security-section-card",
-    "description": "@arcevo/facet-components: SecuritySectionCard",
+    "description": "@fusorb/facet-components: SecuritySectionCard",
     "category": "ready-to-use"
   },
   {
@@ -564,7 +564,7 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Shine Border Card",
     "slug": "shine-border-card",
-    "description": "@arcevo/facet-components: ShineBorderCard",
+    "description": "@fusorb/facet-components: ShineBorderCard",
     "category": "animation"
   },
   {
@@ -594,13 +594,13 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Stat Card",
     "slug": "stat-card",
-    "description": "@arcevo/facet-components: StatCard",
+    "description": "@fusorb/facet-components: StatCard",
     "category": "ready-to-use"
   },
   {
     "name": "Stepper",
     "slug": "stepper",
-    "description": "@arcevo/facet-components: Stepper",
+    "description": "@fusorb/facet-components: Stepper",
     "category": "ready-to-use"
   },
   {
@@ -624,19 +624,19 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Tag Input",
     "slug": "tag-input",
-    "description": "@arcevo/facet-components: TagInput",
+    "description": "@fusorb/facet-components: TagInput",
     "category": "inputs"
   },
   {
     "name": "Testimonial Showcase",
     "slug": "testimonial-showcase",
-    "description": "@arcevo/facet-components: TestimonialShowcase",
+    "description": "@fusorb/facet-components: TestimonialShowcase",
     "category": "ready-to-use"
   },
   {
     "name": "Text Animations",
     "slug": "text-animations",
-    "description": "@arcevo/facet-components: text animations",
+    "description": "@fusorb/facet-components: text animations",
     "category": "animation"
   },
   {
@@ -666,19 +666,19 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Tree",
     "slug": "tree",
-    "description": "@arcevo/facet-components: Tree",
+    "description": "@fusorb/facet-components: Tree",
     "category": "ready-to-use"
   },
   {
     "name": "Two Factor Setup Panel",
     "slug": "two-factor-setup-panel",
-    "description": "@arcevo/facet-components: TwoFactorSetupPanel",
+    "description": "@fusorb/facet-components: TwoFactorSetupPanel",
     "category": "ready-to-use"
   },
   {
     "name": "Wizard Form Page",
     "slug": "wizard-form-page",
-    "description": "@arcevo/facet-components: WizardFormPage",
+    "description": "@fusorb/facet-components: WizardFormPage",
     "category": "pages"
   },
   {

@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: card & button micro-interactions
+ * @fusorb/facet-components: card & button micro-interactions
  *
  * Subtle, dependency-free interactive surfaces: 3D tilt cards, cursor
  * glow, ripple/magnetic/shine buttons, and a generic scroll-reveal

@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-emails: template primitives
+ * @fusorb/facet-emails: template primitives
  *
  * Every primitive exists in two forms:
  *   - A plain function returning a `TemplateNode` (framework-agnostic):

@@ -36,8 +36,8 @@ Scope: the items marked P0/P1 in facet_arcid_findings_and_recommendations.txt.
      hand-roll again.
 
 2. Publish facet's stabilization backlog to npm:
-   - @arcevo/facet-cli 1.0.0 (currently 0.8.0 on npm)
-   - @arcevo/facet-store 1.0.0 (currently 0.1.0 on npm) — do this in the
+   - @fusorb/facet-cli 1.0.0 (currently 0.8.0 on npm)
+   - @fusorb/facet-store 1.0.0 (currently 0.1.0 on npm) — do this in the
      same pass as the token-storage fix, since the fix touches this
      package directly.
 
@@ -114,7 +114,7 @@ Do this once Phase 1 is far enough along that you have 2-3 headless
 hooks already proven (useStepper, useConsentGate at minimum), and before
 committing calendar time to Phase 3.
 
-Decision: NativeWind-port vs. a real @arcevo/facet-native package.
+Decision: NativeWind-port vs. a real @fusorb/facet-native package.
 
   Option A — NativeWind + hand-ported subset
     Lower effort, lower fidelity. Port Button, Input, Card, and the core
@@ -123,7 +123,7 @@ Decision: NativeWind-port vs. a real @arcevo/facet-native package.
     tokens and (if Phase 1 was done headless-first) the validation/state
     hooks.
 
-  Option B — @arcevo/facet-native package
+  Option B — @fusorb/facet-native package
     Higher effort, higher payoff. Mirrors facet-components' primitive
     layer using an RN-compatible primitive library (React Native Paper,
     Tamagui, or Gluestack in place of Radix), wired to the same Alpha
@@ -159,7 +159,7 @@ Radix" idea raised during planning):
   toward RN support, invalidating ~276 existing component tests, and
   destabilizing a library arc-id already fully depends on in production.
 
-  Option B is the settled direction: @arcevo/facet-native as a genuinely
+  Option B is the settled direction: @fusorb/facet-native as a genuinely
   separate package with its own RN-appropriate primitive layer (React
   Native Paper, Tamagui, or Gluestack — pick one during Phase 2 proper —
   in place of Radix), sharing only what's actually platform-agnostic:
@@ -203,7 +203,7 @@ facet-store and facet-sdk need no work here — both are already
 framework-agnostic and work in RN today.
 
 Exit criteria: a minimal working RN screen (sign-in + MFA) rendered from
-@arcevo/facet-native (or the NativeWind port) against a real Expo app,
+@fusorb/facet-native (or the NativeWind port) against a real Expo app,
 before ArcWallet's own feature work begins on top of it.
 
 

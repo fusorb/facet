@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LightIcon } from "@arcevo/facet-components/light";
+import { LightIcon } from "@fusorb/facet-components/light";
 import {
    Button,
   Badge,
@@ -211,7 +211,7 @@ import {
   TagInput,
   Tree,
   WizardFormPage,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 import {
   DropzoneDemo,
   ColorPickerDemo,
@@ -228,8 +228,8 @@ import {
   PasswordInputDemo,
   InfiniteScrollDemo,
 } from "./ReadyToUseDemos.js";
-import { ArcProvider, SignIn, SignUp, Guard, LoginForm, MfaVerifyForm } from "@arcevo/facet-auth";
-import { ArcIdClient } from "@arcevo/facet-sdk";
+import { ArcProvider, SignIn, SignUp, Guard, LoginForm, MfaVerifyForm } from "@fusorb/facet-auth";
+import { ArcIdClient } from "@fusorb/facet-sdk";
 import {
   ConsoleLayout,
   AuthLayout,
@@ -239,7 +239,7 @@ import {
   LayoutProvider,
   defaultLayoutPreset,
   fintechLayoutPreset,
-} from "@arcevo/facet-layout";
+} from "@fusorb/facet-layout";
 
 /** No network: bootstrap stays signed out because no token is stored. */
 const DEMO_CLIENT = new ArcIdClient({ baseUrl: "https://demo.invalid" });
@@ -367,7 +367,7 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
           <UserAvatar
             user={{
               name: "Ada Lovelace",
-              email: "ada@arcevo.dev",
+              email: "ada@fusorb.dev",
               memberships: [{ tenantId: "1", name: "Arcevo" }],
             }}
             items={[
@@ -1365,9 +1365,9 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
         { key: "role", header: "Role" },
       ];
       const rows: Row[] = [
-        { id: "1", name: "Ada Lovelace", email: "ada@arcevo.com", role: "Engineer" },
-        { id: "2", name: "Alan Turing", email: "alan@arcevo.com", role: "Designer" },
-        { id: "3", name: "Grace Hopper", email: "grace@arcevo.com", role: "Lead" },
+        { id: "1", name: "Ada Lovelace", email: "ada@fusorb.com", role: "Engineer" },
+        { id: "2", name: "Alan Turing", email: "alan@fusorb.com", role: "Designer" },
+        { id: "3", name: "Grace Hopper", email: "grace@fusorb.com", role: "Lead" },
       ];
       return (
         <div className="w-full max-w-4xl rounded-lg border border-border bg-background p-6">

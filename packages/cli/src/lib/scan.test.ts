@@ -16,11 +16,11 @@ describe("scanRepo", () => {
   it("detects a plain frontend repo", () => {
     const dir = tmp();
     try {
-      writePkg(dir, { name: "app", dependencies: { "@arcevo/facet-components": "1.5.0" } });
+      writePkg(dir, { name: "app", dependencies: { "@fusorb/facet-components": "1.5.0" } });
       fs.writeFileSync(path.join(dir, "tsconfig.json"), "{}");
       const scan = scanRepo(dir);
       expect(scan.language).toBe("typescript");
-      expect(scan.facetDeps["@arcevo/facet-components"]).toBe("1.5.0");
+      expect(scan.facetDeps["@fusorb/facet-components"]).toBe("1.5.0");
       expect(scan.api).toBeNull();
       expect(scan.monorepo).toBeNull();
     } finally {

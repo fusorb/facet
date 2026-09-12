@@ -1,6 +1,6 @@
-# @arcevo/facet-cli
+# @fusorb/facet-cli
 
-Scaffold and generate `@arcevo/facet-docs` sites. Framework and
+Scaffold and generate `@fusorb/facet-docs` sites. Framework and
 language-agnostic: the init wizard asks for your stack and tailors what it
 generates, so TypeScript, JavaScript, React+Vite, Next.js, Remix, plain JS,
 and even Python repos all get a docs scaffold that fits.
@@ -8,11 +8,11 @@ and even Python repos all get a docs scaffold that fits.
 ## Install
 
 ```bash
-pnpm add -g @arcevo/facet-cli
+pnpm add -g @fusorb/facet-cli
 # or
-npx @arcevo/facet-cli
+npx @fusorb/facet-cli
 # keep it current globally with the scoped-dropped short name:
-facet install -g facet-cli   # -> npm i -g @arcevo/facet-cli@latest
+facet install -g facet-cli   # -> npm i -g @fusorb/facet-cli@latest
 ```
 
 ## How it stays current
@@ -43,7 +43,7 @@ the CLI documentation at <https://docs.facet.arcevocirqle.com.ng/cli>.
 
 ### `facet pkg`
 
-Show every published `@arcevo/facet-*` package: the latest registry version,
+Show every published `@fusorb/facet-*` package: the latest registry version,
 what your repo declares, and what is actually installed. Flags `(update
 available)` when a newer version exists. Works in single packages and
 monorepos (workspace members are scanned for facet deps).
@@ -52,14 +52,14 @@ monorepos (workspace members are scanned for facet deps).
 
 Audit the current repo: package manager, monorepo/workspace layout, which
 facet packages are used, and best-practice suggestions (e.g. wire
-`@arcevo/facet-tokens` when components are used without it, swap
+`@fusorb/facet-tokens` when components are used without it, swap
 `workspace:*` ranges for registry ranges before publishing, run
 `facet update` when packages are outdated).
 
 ### `facet update`
 
 Apply updates for the facet packages that have newer published versions:
-installs the outdated `@arcevo/facet-*` packages at their latest published
+installs the outdated `@fusorb/facet-*` packages at their latest published
 versions using the detected package manager, with a confirmation prompt
 (skip it with `-y`). Pass `--dry-run` to only print the exact install
 command. In a monorepo it detects the workspace layout and includes the
@@ -68,18 +68,18 @@ root/workspace flag.
 ### `facet up`
 
 Apply the facet package updates (the always-apply variant of `facet
-update`): installs the outdated `@arcevo/facet-*` packages at their latest
+update`): installs the outdated `@fusorb/facet-*` packages at their latest
 published versions using the detected package manager without prompting.
 Pass `--dry-run` to only print the command.
 
 ### `facet clean`
 
-Consumer-safety cleanup for repos that use `@arcevo/facet-components`. It
+Consumer-safety cleanup for repos that use `@fusorb/facet-components`. It
 finds dependencies the package already bundles (radix primitives,
 `lucide-react`, `cmdk`, `input-otp`, `qrcode.react`, `react-hook-form`,
 `sonner`, `class-variance-authority`, `clsx`, `tailwind-merge`), removes them
 from your manifests, rewrites shadcn/ui-style imports (and direct
-radix/lucide imports) to `@arcevo/facet-components`, and deletes dead local
+radix/lucide imports) to `@fusorb/facet-components`, and deletes dead local
 `ui/` components.
 
 Safe by default:
@@ -92,12 +92,12 @@ Safe by default:
 ### `facet install <name...>` (alias `facet add`)
 
 Install one or more facet packages by shorthand (`layout`, `store`, `auth`),
-alias (`facet-cli`), or full name (`@arcevo/facet-layout`). Pass several names
+alias (`facet-cli`), or full name (`@fusorb/facet-layout`). Pass several names
 to install them together in a single add invocation (one lockfile write).
 
 ```bash
-facet add layout tokens sdk        # installs @arcevo/facet-layout, -tokens, -sdk
-facet install @arcevo/facet-auth   # full name works too
+facet add layout tokens sdk        # installs @fusorb/facet-layout, -tokens, -sdk
+facet install @fusorb/facet-auth   # full name works too
 facet add layout layout            # deduped automatically
 facet install -g facet-cli         # global install (alias of `pnpm add -g`)
 ```
@@ -113,7 +113,7 @@ Remove one or more installed facet packages by the same shorthand/alias/full-nam
 syntax as install. Multiple names are removed in a single invocation.
 
 ```bash
-facet remove layout tokens     # removes @arcevo/facet-layout, @arcevo/facet-tokens
+facet remove layout tokens     # removes @fusorb/facet-layout, @fusorb/facet-tokens
 facet rm -g facet-cli          # global uninstall (alias of `npm uninstall -g`)
 ```
 
@@ -123,7 +123,7 @@ instead.
 
 ### `facet emails init`
 
-Scaffold or migrate email templates wired to `@arcevo/facet-emails`. It
+Scaffold or migrate email templates wired to `@fusorb/facet-emails`. It
 detects the consumer's mail setup from the manifests:
 
 - **react-email / mjml / nodemailer** present -> offers to migrate (build the
@@ -134,7 +134,7 @@ detects the consumer's mail setup from the manifests:
   `emails/layout.tsx`, `emails/template-registry.tsx`, `emails/preview-server.ts`,
   `emails/send.ts` (resend/nodemailer/no provider), and `.env.example`.
 
-It auto-installs `@arcevo/facet-emails` (and the provider SDK) via the
+It auto-installs `@fusorb/facet-emails` (and the provider SDK) via the
 detected package manager, fails soft printing the exact command when the
 install can't run, and prints the setup guide (provider keys, preview URL,
 how to send).
@@ -254,13 +254,13 @@ registry, so a Python repo owns its docs in markdown and hands the JSON
 to any React host for rendering.
 
 **The scaffold never copies facet's own docs.** You get the engine
-(`@arcevo/facet-docs`) and an empty `pages` registry to fill with your
+(`@fusorb/facet-docs`) and an empty `pages` registry to fill with your
 content.
 
 ### `facet copy <component>`
 
 Copy a component into your source (shadcn-style). **Recommended:** import
-from `@arcevo/facet-components` instead: you get updates, tree-shaking,
+from `@fusorb/facet-components` instead: you get updates, tree-shaking,
 and the token system. Copying source means you own every future fix. This
 exists for consumers who prefer a copy-into-source workflow.
 
@@ -288,7 +288,7 @@ import { Button, Badge } from "@/components/facet";
 
 ## Theming
 
-When you choose facet tokens, the scaffold wires `@arcevo/facet-tokens`
+When you choose facet tokens, the scaffold wires `@fusorb/facet-tokens`
 (tokens.css + tailwind.css) and the `ThemeProvider` + `overrideVars` story,
 so you get the whole Alpha Palette system (dark mode, frost/glass surfaces)
 with one import instead of restyling every component.
@@ -302,7 +302,7 @@ pnpm typecheck
 
 ## Why a CLI?
 
-The `@arcevo/facet-docs` package is an engine: it ships the shell, gallery,
+The `@fusorb/facet-docs` package is an engine: it ships the shell, gallery,
 and block types, but no authored content. `facet docs init` gives consumers
 a starting point without forking or cloning: the engine stays installable,
 the content stays theirs.

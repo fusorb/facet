@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: AccountSettingsPanel
+ * @fusorb/facet-components: AccountSettingsPanel
  *
  * A Clerk-style account settings card: a large panel with a left nav of
  * sections (Profile, Security, Sessions...) and a content area. The

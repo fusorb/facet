@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn, useTheme } from "@arcevo/facet-components/light";
+import { cn, useTheme } from "@fusorb/facet-components/light";
 
 export interface ThemePreviewFrameProps {
   children: React.ReactNode;

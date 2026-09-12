@@ -1,12 +1,12 @@
 /**
- * @arcevo/facet-components: Styled shadcn-equivalent UI components
+ * @fusorb/facet-components: Styled shadcn-equivalent UI components
  *
  * These are Layer 2 components: Radix primitives + Alpha Palette styling.
  * No business logic, just polished, accessible UI.
  *
  * Usage:
- *   import { Button, Card, Input } from "@arcevo/facet-components";
- *   import "@arcevo/facet-components/tokens.css";
+ *   import { Button, Card, Input } from "@fusorb/facet-components";
+ *   import "@fusorb/facet-components/tokens.css";
  */
 
 export { cn, isMac, getModSymbol } from "./utils.js";
@@ -597,10 +597,6 @@ export {
 export {
   type FlipCardProps,
   FlipCard,
-  type SpotlightCardProps,
-  SpotlightCard,
-  type BorderBeamCardProps,
-  BorderBeamCard,
   type ShineCardProps,
   ShineCard,
   type GradientBorderCardProps,

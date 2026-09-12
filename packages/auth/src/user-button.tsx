@@ -9,9 +9,9 @@ import * as React from "react";
 import { useAuth } from "./provider.js";
 import type { Appearance, ComponentSlots } from "./types.js";
 
-import { Badge, Button } from "@arcevo/facet-components";
-import { Avatar, AvatarFallback } from "@arcevo/facet-components";
-import { getModSymbol, cn } from "@arcevo/facet-components";
+import { Badge, Button } from "@fusorb/facet-components";
+import { Avatar, AvatarFallback } from "@fusorb/facet-components";
+import { getModSymbol, cn } from "@fusorb/facet-components";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -20,7 +20,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
   DropdownMenuShortcut,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 
 /* ── Copy ──────────────────────────────────────────────────── */
 

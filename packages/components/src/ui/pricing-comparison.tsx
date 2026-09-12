@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-components: PricingComparison
+ * @fusorb/facet-components: PricingComparison
  *
  * A mobile-friendly pricing comparison page: tier cards (Free / Pro /
  * Team / Enterprise) with feature matrix. Distinct from

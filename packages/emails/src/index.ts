@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-emails: framework-agnostic email templates
+ * @fusorb/facet-emails: framework-agnostic email templates
  *
  * Render React elements OR plain template trees to email-safe HTML and
  * text, with template primitives (layout, button, text, code block,
@@ -7,11 +7,11 @@
  * the core.
  *
  * React usage:
- *   import { renderEmailFromReact, EmailLayout, EmailButton } from "@arcevo/facet-emails";
+ *   import { renderEmailFromReact, EmailLayout, EmailButton } from "@fusorb/facet-emails";
  *   const html = renderEmailFromReact(<EmailLayout previewText="Hi"><EmailButton href="#">Go</EmailButton></EmailLayout>);
  *
  * Framework-agnostic usage:
- *   import { renderEmail, emailLayout, emailButton } from "@arcevo/facet-emails";
+ *   import { renderEmail, emailLayout, emailButton } from "@fusorb/facet-emails";
  *   const html = renderEmail(emailLayout({ previewText: "Hi", heading: "Welcome" }, emailButton({ href: "#", children: "Go" })));
  */
 

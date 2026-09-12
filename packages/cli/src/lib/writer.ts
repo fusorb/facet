@@ -80,10 +80,10 @@ export function mergePackageJson(
           : {};
 
   const facetDeps = {
-    "@arcevo/facet-docs": resolved.facetDocs,
-    "@arcevo/facet-tokens": resolved.facetTokens,
-    "@arcevo/facet-components": resolved.facetComponents,
-    "@arcevo/facet-layout": resolved.facetLayout,
+    "@fusorb/facet-docs": resolved.facetDocs,
+    "@fusorb/facet-tokens": resolved.facetTokens,
+    "@fusorb/facet-components": resolved.facetComponents,
+    "@fusorb/facet-layout": resolved.facetLayout,
   };
 
   // Fresh Next/Remix scaffolds need the framework + React runtime.

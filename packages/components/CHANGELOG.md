@@ -1,4 +1,4 @@
-# @arcevo/facet-components
+# @fusorb/facet-components
 
 ## 1.11.0
 
@@ -30,10 +30,10 @@
   - Auto-update check on CLI startup (pnpm-style notification box, 24h cache, CI skip, --no-update-check)
   - `facet self-update`: updates the globally-installed facet-cli
   - `facet install <name>`: installs a facet package by shorthand or full name
-    (full: `facet install @arcevo/facet-layout`, shorthand: `facet install layout`)
-    Supports the scoped-dropped alias `facet-cli` -> `@arcevo/facet-cli` (so any
+    (full: `facet install @fusorb/facet-layout`, shorthand: `facet install layout`)
+    Supports the scoped-dropped alias `facet-cli` -> `@fusorb/facet-cli` (so any
     `facet-X` alias resolves), and `-g`/`--global` to install globally, e.g.
-    `facet install -g facet-cli` runs `npm i -g @arcevo/facet-cli@latest`.
+    `facet install -g facet-cli` runs `npm i -g @fusorb/facet-cli@latest`.
   - `facet copy <ComponentName>`: copies a component into your source (shadcn-style) only
     (passing a package name prints a redirect hint to `facet install`)
   - `facet latest`: shows latest published versions of all facet packages
@@ -81,10 +81,10 @@
 
   - cli: `resolveFacetVersions()` now uses an `AbortController` with a 3s timeout (was unbounded); `discoverFacetPackages()` timeout reduced from 5s to 3s.
   - cli: Add `LUCIDE_ALIASES` entry `alert-circle → circle-alert` so the deprecated lucide name still resolves in generated icon registries.
-  - components: Add `alert-circle`, `external-link`, `globe`, and `store` to the `@arcevo/facet-components/light` `LightIcon` set (used by the landing and docs sites).
+  - components: Add `alert-circle`, `external-link`, `globe`, and `store` to the `@fusorb/facet-components/light` `LightIcon` set (used by the landing and docs sites).
 
-- cfabae9: Add an ESM `"use client"` banner to the `dist` builds of `@arcevo/facet-components`,
-  `@arcevo/facet-auth`, and `@arcevo/facet-layout`.
+- cfabae9: Add an ESM `"use client"` banner to the `dist` builds of `@fusorb/facet-components`,
+  `@fusorb/facet-auth`, and `@fusorb/facet-layout`.
 
   Next.js 15+/16 App Router builds React Server Components with the `react-server`
   condition, which resolves `react-hook-form` to `react-server.esm.mjs` - an entry that
@@ -107,7 +107,7 @@
 ### Patch Changes
 
 - Updated dependencies [b7accc3]
-  - @arcevo/facet-tokens@1.1.4
+  - @fusorb/facet-tokens@1.1.4
 
 ## 1.9.0
 
@@ -115,7 +115,7 @@
 
 - 18547dc: feat(components): MailInput with domain suggestions + Dissolve animation family
 
-  ### @arcevo/facet-components (minor)
+  ### @fusorb/facet-components (minor)
   - **MailInput** -- email input with a domain-suggestion dropdown. Typing `@` (or
     continuing after it) surfaces common provider domains (gmail.com,
     icloud.com, etc.); click or press Enter to auto-complete. Works controlled
@@ -137,7 +137,7 @@ asChild`) for accessible, right/middle-clickable links; `renderButton`
   - New `facet-dissolve` CSS keyframe in tokens (shared by DissolveText,
     DissolveButton, DissolveCard, AnimatedButton dissolve variant).
 
-  ### @arcevo/facet-layout (minor)
+  ### @fusorb/facet-layout (minor)
   - **Sidebar** -- new `singleOpen` (accordion) prop; `Collapse all` / `Expand
 all` toolbar buttons; active section scrolls into view.
   - **ConsoleLayout** -- passes `singleOpen` through to the sidebar (both docked
@@ -146,10 +146,10 @@ all` toolbar buttons; active section scrolls into view.
     (all persisted to localStorage alongside the existing `toggleSection`).
   - The docs layout opts into `singleOpen`.
 
-  ### @arcevo/facet-tokens (patch)
+  ### @fusorb/facet-tokens (patch)
   - New `--animate-facet-dissolve` keyframe (500ms ease-out, both fill-mode).
 
-  ### @arcevo/facet-docs (patch)
+  ### @fusorb/facet-docs (patch)
   - Docs manifest regenerated: `mail-input` added (inputs category);
     `typewriter-text` now documented as tabs on the text-animations page
     instead of a standalone slug.
@@ -163,7 +163,7 @@ all` toolbar buttons; active section scrolls into view.
 ### Patch Changes
 
 - Updated dependencies [18547dc]
-  - @arcevo/facet-tokens@1.1.3
+  - @fusorb/facet-tokens@1.1.3
 
 ## 1.8.0
 
@@ -206,7 +206,7 @@ all` toolbar buttons; active section scrolls into view.
   Docs: new dedicated "Animation" sidebar section grouping text animations
   under a "Text" parent plus surfaces (Aurora/Beams/GridPattern/Spotlight/
   SparkleButton) and micro-interactions as top-level items. Keyframes added
-  to @arcevo/facet-tokens (facet-text-blur, facet-text-wave, facet-shimmer,
+  to @fusorb/facet-tokens (facet-text-blur, facet-text-wave, facet-shimmer,
   facet-gradient-shift, facet-flip, facet-fade-up, facet-glow-pulse).
 
 - 78b6543: feat: TypewriterText component - a dependency-free type/erase text animation for hero sections and headers
@@ -218,15 +218,15 @@ all` toolbar buttons; active section scrolls into view.
 ### Patch Changes
 
 - Updated dependencies [a058223]
-  - @arcevo/facet-tokens@1.1.2
+  - @fusorb/facet-tokens@1.1.2
 
 ## 1.7.0
 
 ### Minor Changes
 
-- d2b43d0: feat: config-driven billing pages, footer variants, and the new @arcevo/facet-emails package
+- d2b43d0: feat: config-driven billing pages, footer variants, and the new @fusorb/facet-emails package
 
-  **@arcevo/facet-components**
+  **@fusorb/facet-components**
 
   - New billing / pricing page components, all consuming a shared config-driven plan model (`BillingPageConfig` + `BillingPlan`) so tiers (Free / Starter / Pro / Enterprise / any other names), prices, intervals, feature lists, and CTAs are plain data:
     - `BillingPage` - a responsive card grid with a monthly/yearly toggle, per-plan icons, highlighted "Most popular" treatment, and feature bullets.
@@ -234,12 +234,12 @@ all` toolbar buttons; active section scrolls into view.
     - `BillingPageFreemium` - a free/paid split: hero pitch for the free tier + one featured paid plan, then a compact card list for the rest.
   - `Footer` gains a `variant` prop: `default` (unchanged), `minimal`, `columns`, `newsletter`, and `split`, plus an optional `newsletter` capture slot. Existing consumers are unaffected.
 
-  **@arcevo/facet-emails** (new package)
+  **@fusorb/facet-emails** (new package)
 
   - Framework-agnostic email template renderer: render plain, serializable template trees (`{ tag, props, children }`) to email-safe HTML and plain text with zero runtime dependencies.
   - Optional React bridge: write emails in JSX with `EmailLayout`, `EmailButton`, `EmailText`, `EmailCodeBlock`, `EmailDivider`, `EmailLink`, `EmailSecurityNotice`, and `EmailList`, all compiled down to template trees.
   - Brand token injection (colors, fonts, radius) through the render options.
-  - Dependency-light dev preview server (`@arcevo/facet-emails/server`) with a template index and per-template HTML/text previews.
+  - Dependency-light dev preview server (`@fusorb/facet-emails/server`) with a template index and per-template HTML/text previews.
 
 ## 1.6.0
 
@@ -263,7 +263,7 @@ all` toolbar buttons; active section scrolls into view.
 ### Patch Changes
 
 - Updated dependencies [b95bcb0]
-  - @arcevo/facet-tokens@1.1.1
+  - @fusorb/facet-tokens@1.1.1
 
 ## 1.5.0
 
@@ -328,7 +328,7 @@ all` toolbar buttons; active section scrolls into view.
 
 - 865bf7e: feat(components): add a slim `/light` subpath entry
 
-  `@arcevo/facet-components/light` re-exports only the lightweight,
+  `@fusorb/facet-components/light` re-exports only the lightweight,
   high-frequency modules (cn, Button, Icon registry, ThemeProvider/useTheme/
   ThemeToggle, DropdownMenu family, Kbd, Tabs). Consumers whose eager app
   shell only needs those can import from `/light` instead of the full barrel,
@@ -336,7 +336,7 @@ all` toolbar buttons; active section scrolls into view.
   stay out of the initial bundle.
 
   ```ts
-  import { Icon, ThemeProvider, DropdownMenu } from "@arcevo/facet-components/light";
+  import { Icon, ThemeProvider, DropdownMenu } from "@fusorb/facet-components/light";
   ```
 
 - 6bb55a2: feat(components): add `timeline` variant to Roadmap
@@ -397,7 +397,7 @@ all` toolbar buttons; active section scrolls into view.
 ### Patch Changes
 
 - Updated dependencies [3de0e04]
-  - @arcevo/facet-tokens@1.1.0
+  - @fusorb/facet-tokens@1.1.0
 
 ## 1.1.0
 
@@ -423,7 +423,7 @@ all` toolbar buttons; active section scrolls into view.
 
 - d94a724: chore: update homepage to facet.arcevocirqle.com.ng
 - Updated dependencies [d94a724]
-  - @arcevo/facet-tokens@1.0.1
+  - @fusorb/facet-tokens@1.0.1
 
 ## 1.0.0
 
@@ -434,4 +434,4 @@ all` toolbar buttons; active section scrolls into view.
 ### Patch Changes
 
 - Updated dependencies [e79cbd5]
-  - @arcevo/facet-tokens@1.0.0
+  - @fusorb/facet-tokens@1.0.0

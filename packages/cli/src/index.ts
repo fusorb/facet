@@ -75,7 +75,7 @@ docsCommand
   .option("--language <language>", "TypeScript or JavaScript (default: TypeScript)")
   .option("--framework <framework>", "react-vite, next, remix, plain-js, or python (default: detected)")
   .option("--styling <styling>", "facet-tokens, tailwind, plain-css, or none (default: detected)")
-  .option("--no-tokens", "Do not wire @arcevo/facet-tokens theming")
+  .option("--no-tokens", "Do not wire @fusorb/facet-tokens theming")
   .option("--template <template>", "component-library, api-reference, or product-docs (default: component-library)")
   .option("--use-template <name>", "Merge an existing template dir from ./templates into the scaffold")
   .option("--barrel <mode>", "Create a barrel export for the generated site: auto (create when it fits, default), always, or never")
@@ -200,7 +200,7 @@ docsCommand
       console.log("  Add markdown under ./content and run the content pipeline.");
     }
     if (answers.useFacetTokens) {
-      console.log("  Theming: @arcevo/facet-tokens is wired via ThemeProvider + overrideVars.");
+      console.log("  Theming: @fusorb/facet-tokens is wired via ThemeProvider + overrideVars.");
     }
     console.log("\nFacet packages resolved from the npm registry at init time (no pinned versions):");
     for (const [name, range] of Object.entries(answers.facetVersions)) {
@@ -306,7 +306,7 @@ const emailsCommand = program.command("emails").description("Email template comm
 emailsCommand
   .command("init")
   .description(
-    "Scaffold or migrate email templates wired to @arcevo/facet-emails (detects react-email/mjml/nodemailer/resend)",
+    "Scaffold or migrate email templates wired to @fusorb/facet-emails (detects react-email/mjml/nodemailer/resend)",
   )
   .option("-y, --yes", "Use detected defaults without prompting")
   .option("--framework <framework>", "Override the detected frontend framework")
@@ -411,7 +411,7 @@ emailsCommand
 
     // Install missing deps.
     const pm = detectPackageManager(cwd);
-    const missing = Object.entries(deps).filter(([name]) => !detection.facetEmailsInstalled && name === "@arcevo/facet-emails");
+    const missing = Object.entries(deps).filter(([name]) => !detection.facetEmailsInstalled && name === "@fusorb/facet-emails");
     if (missing.length) {
       const installArgs = Object.keys(deps).join(" ");
       const cmd = `${pm} add ${installArgs}`;
@@ -533,13 +533,13 @@ program
     console.log(`Copied ${component} to ${written[0]}`);
     const barrel = written.find((f) => f.endsWith(`/index.${answers.language === "javascript" ? "js" : "ts"}`));
     if (barrel) console.log(`Barrel: ${barrel}`);
-    console.log("Note: importing from @arcevo/facet-components is recommended over copying source.");
+    console.log("Note: importing from @fusorb/facet-components is recommended over copying source.");
   });
 
 program
   .command("install <names...>")
   .alias("add")
-  .description("Install one or more facet packages by shorthand (e.g. 'layout'), alias (e.g. 'facet-cli'), or full name (e.g. '@arcevo/facet-layout'). Alias: `facet add`. Pass multiple names to install them together in one go.")
+  .description("Install one or more facet packages by shorthand (e.g. 'layout'), alias (e.g. 'facet-cli'), or full name (e.g. '@fusorb/facet-layout'). Alias: `facet add`. Pass multiple names to install them together in one go.")
   .option("-g, --global", "Install globally (e.g. `facet install -g facet-cli`) instead of locally")
   .action(async (names: string[], opts: { global?: boolean }) => {
     const cwd = process.cwd();
@@ -557,7 +557,7 @@ program
       for (const input of unknown) {
         console.error(`"${input}" is not a known facet package.`);
       }
-      console.error("Install by shorthand (e.g. 'layout', 'store', 'auth'), alias (e.g. 'facet-cli'), or full name (e.g. '@arcevo/facet-layout').");
+      console.error("Install by shorthand (e.g. 'layout', 'store', 'auth'), alias (e.g. 'facet-cli'), or full name (e.g. '@fusorb/facet-layout').");
       for (const input of unknown) {
         console.error(`To copy the "${input}" component instead, use: facet copy ${input}`);
       }
@@ -565,7 +565,7 @@ program
       return;
     }
 
-    // Dedupe (e.g. `facet add layout @arcevo/facet-layout` -> one install).
+    // Dedupe (e.g. `facet add layout @fusorb/facet-layout` -> one install).
     const unique = Array.from(new Map(resolved.map((r) => [r.name, r])).values());
 
     vlog(`Installing facet packages: ${unique.map((r) => r.name).join(", ")}`);
@@ -612,7 +612,7 @@ program
 program
   .command("remove <names...>")
   .aliases(["rm", "uninstall"])
-  .description("Remove one or more installed facet packages by shorthand (e.g. 'layout'), alias (e.g. 'facet-cli'), or full name (e.g. '@arcevo/facet-layout'). Aliases: `facet rm`, `facet uninstall`.")
+  .description("Remove one or more installed facet packages by shorthand (e.g. 'layout'), alias (e.g. 'facet-cli'), or full name (e.g. '@fusorb/facet-layout'). Aliases: `facet rm`, `facet uninstall`.")
   .option("-g, --global", "Remove globally (e.g. `facet remove -g facet-cli`) instead of locally")
   .action(async (names: string[], opts: { global?: boolean }) => {
     const cwd = process.cwd();
@@ -630,12 +630,12 @@ program
       for (const input of unknown) {
         console.error(`"${input}" is not a known facet package.`);
       }
-      console.error("Remove by shorthand (e.g. 'layout', 'store', 'auth'), alias (e.g. 'facet-cli'), or full name (e.g. '@arcevo/facet-layout').");
+      console.error("Remove by shorthand (e.g. 'layout', 'store', 'auth'), alias (e.g. 'facet-cli'), or full name (e.g. '@fusorb/facet-layout').");
       process.exitCode = 1;
       return;
     }
 
-    // Dedupe (e.g. `facet rm layout @arcevo/facet-layout` -> one removal).
+    // Dedupe (e.g. `facet rm layout @fusorb/facet-layout` -> one removal).
     const unique = Array.from(new Set(resolved));
 
     vlog(`Removing facet packages: ${unique.join(", ")}`);
@@ -763,7 +763,7 @@ program
 // `facet up`: apply the facet package updates (non-dry-run sibling of update).
 program
   .command("up")
-  .description("Update installed @arcevo/facet-* packages to the latest published versions")
+  .description("Update installed @fusorb/facet-* packages to the latest published versions")
   .option("--dry-run", "Only print the update commands without running anything")
   .action(async (opts: { dryRun?: boolean }) => {
     const cwd = process.cwd();
@@ -808,7 +808,7 @@ program
 // `facet clean`: remove deps bundled by facet-components + rewrite shadcn-style imports.
 program
   .command("clean")
-  .description("Remove deps bundled by @arcevo/facet-components and rewrite shadcn/ui-style imports to the facet package")
+  .description("Remove deps bundled by @fusorb/facet-components and rewrite shadcn/ui-style imports to the facet package")
   .option("--dry-run", "Show what would change without touching files")
   .option("-y, --yes", "Skip confirmation prompts")
   .option("--delete-local", "Also delete dead local component files (destructive; not run by default)")
@@ -831,7 +831,7 @@ program
         console.log(`  ${entry.pkgName}: remove ${entry.deps.map((d) => d.name).join(", ")}`);
       }
       for (const imp of plan.imports) {
-        console.log(`  rewrite ${imp.from} -> @arcevo/facet-components (${imp.kind})`);
+        console.log(`  rewrite ${imp.from} -> @fusorb/facet-components (${imp.kind})`);
       }
       if (plan.deletableFiles.length) {
         console.log(`  delete unused local components (requires --delete-local):`);
@@ -1017,7 +1017,7 @@ program
       return;
     }
     vlog(`Current version: ${currentCliVersion()}`);
-    const latest = await resolveLatestVersion("@arcevo/facet-cli");
+    const latest = await resolveLatestVersion("@fusorb/facet-cli");
     if (!latest) {
       console.error("Could not resolve the latest facet-cli version from the npm registry.");
       process.exitCode = 1;
@@ -1040,7 +1040,7 @@ program
       console.log("");
       console.log("Trying ephemeral npx fallback...");
       try {
-        execSync(`npx --yes @arcevo/facet-cli@latest --help`, { stdio: "inherit" });
+        execSync(`npx --yes @fusorb/facet-cli@latest --help`, { stdio: "inherit" });
         console.log("");
         console.log("Latest version verified via npx. Run without installing:");
         console.log(`  ${npxRunCommand()} <command>`);
@@ -1048,7 +1048,7 @@ program
         console.error("npx fallback also failed. Run one of these manually:");
         console.error(`  ${cmd}`);
         console.error(`  ${npxRunCommand()} <command>`);
-        console.error("  pnpm add -g @arcevo/facet-cli@latest");
+        console.error("  pnpm add -g @fusorb/facet-cli@latest");
         process.exitCode = 1;
       }
     }
@@ -1057,7 +1057,7 @@ program
 // `facet latest`: show the latest published versions of all facet packages.
 program
   .command("latest")
-  .description("Show the latest published versions of all @arcevo/facet-* packages")
+  .description("Show the latest published versions of all @fusorb/facet-* packages")
   .action(async () => {
     vlog("Resolving latest versions from npm registry...");
     const names = await discoverFacetPackages();

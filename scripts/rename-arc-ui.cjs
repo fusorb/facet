@@ -10,7 +10,7 @@ const targets = files.filter(
 let changed = 0;
 for (const f of targets) {
   const orig = fs.readFileSync(f, "utf8");
-  const s = orig.replace(/@arc-ui\//g, "@arcevo/facet-").replace(/\barc-ui\b/g, "facet");
+  const s = orig.replace(/@arc-ui\//g, "@fusorb/facet-").replace(/\barc-ui\b/g, "facet");
   if (s !== orig) {
     fs.writeFileSync(f, s);
     changed++;

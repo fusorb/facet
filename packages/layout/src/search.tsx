@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-layout: CommandPalette
+ * @fusorb/facet-layout: CommandPalette
  *
  * Framework-agnostic Ctrl+K command palette with a full-screen dialog
  * overlay (GitHub / VS Code style). Commands are derived dynamically
@@ -41,7 +41,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   Icon,
-} from "@arcevo/facet-components";
+} from "@fusorb/facet-components";
 import type { LayoutConfig, NavItem } from "./types.js";
 
 /* ── Search history (persisted) ────────────────────────────── */

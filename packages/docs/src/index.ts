@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-docs
+ * @fusorb/facet-docs
  *
  * Installable, config-driven documentation site engine.
  *

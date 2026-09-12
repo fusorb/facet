@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Icon } from "@arcevo/facet-components";
+import { Icon } from "@fusorb/facet-components";
 
 /**
  * Props for {@link LiveCodePlayground}.
@@ -646,8 +646,8 @@ function renderFromCode(
  * Integration sketch:
  *
  * ```tsx
- * import { LiveCodePlayground } from "@arcevo/facet-docs";
- * import * as Facet from "@arcevo/facet-components";
+ * import { LiveCodePlayground } from "@fusorb/facet-docs";
+ * import * as Facet from "@fusorb/facet-components";
  *
  * <LiveCodePlayground
  *   defaultCode={usageCode(slug)}

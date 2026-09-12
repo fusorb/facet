@@ -1,5 +1,5 @@
 /**
- * @arcevo/facet-layout: RouterAdapter
+ * @fusorb/facet-layout: RouterAdapter
  *
  * Framework-agnostic navigation. facet components never import a router
  * directly; consumers pass a RouterAdapter into <LayoutProvider> (or a

@@ -1,5 +1,5 @@
 {
-  "name": "@arcevo/facet-components",
+  "name": "@fusorb/facet-components",
   "version": "1.11.0",
   "description": "Radix-based UI component library for the ArcevoCirqle ecosystem: 113 accessible, styled components using the Alpha Palette design tokens",
   "type": "module",
@@ -48,11 +48,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArcevoDev/facet.git",
+    "url": "git+https://github.com/fusorb/facet.git",
     "directory": "packages/components"
   },
   "bugs": {
-    "url": "https://github.com/ArcevoDev/facet/issues"
+    "url": "https://github.com/fusorb/facet/issues"
   },
   "homepage": "https://facet.arcevocirqle.com.ng",
   "license": "MIT",
@@ -65,7 +65,7 @@
     "tailwindcss"
   ],
   "dependencies": {
-    "@arcevo/facet-tokens": "workspace:*",
+    "@fusorb/facet-tokens": "workspace:*",
     "@radix-ui/react-accordion": "^1.2.8",
     "@radix-ui/react-alert-dialog": "^1.1.23",
     "@radix-ui/react-aspect-ratio": "^1.1.15",

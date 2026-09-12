@@ -1,7 +1,7 @@
 /**
- * @arcevo/facet-layout: Domain presets
+ * @fusorb/facet-layout: Domain presets
  *
- * Five pre-built LayoutConfig presets matching @arcevo/facet-auth presets.
+ * Five pre-built LayoutConfig presets matching @fusorb/facet-auth presets.
  * Consumers mix-and-match: authPreset + layoutPreset for a complete domain.
  */
 
