@@ -23,8 +23,8 @@ import "@testing-library/jest-dom/vitest";
 // graph.  Stub them so we exercise the docs engine's routing/context
 // rather than the layout shell.
 vi.mock("@fusorb/facet-layout", () => {
-  const Stub = ({ children, ...rest }: any) =>
-    React.createElement("div", { "data-testid": "console-layout", ...rest }, children);
+  const Stub = ({ children }: any) =>
+    React.createElement("div", { "data-testid": "console-layout" }, children);
   const VoidStub = () => React.createElement("div", { "data-testid": "command-palette" });
   return {
     ConsoleLayout: Stub,

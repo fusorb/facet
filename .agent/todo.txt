@@ -53,8 +53,8 @@ P2 - Stale Cleanup & Migration Fixes        [IN PROGRESS]
   [x] Rebuilt components (dist/index.d.ts + light.d.ts fresh)
   [x] Rebuilt auth (dist with @fusorb/ imports)
   [x] Rebuilt docs library (dist/index.d.ts fresh)
-  [ ] Run full build + typecheck + tests to verify
-  [ ] Commit all changes
+  [x] Run full build + typecheck + tests to verify
+  [x] Commit all changes
 
 Recent Log
 ----------
@@ -72,3 +72,4 @@ Recent Log
 [08:20] Chart tests pass (32/32), components + auth typecheck passes
 [07:59] ThemeToggle size={16} verified (already in working tree)
 [07:55] Chart improvements applied: width prop, font size props, pie/donut leader lines, two-line labels, renderSliceLabel, bar opacity consistency
+[14:22] Session 2026-09-12: deleted stray .agent PNGs + debug .mjs scripts + image.png/image1.png; fixed docs-app.test.tsx mock prop-leak (singleOpen/themeToggle); verified build + typecheck + tests (720/720 graceful); committing

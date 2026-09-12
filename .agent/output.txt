@@ -5,7 +5,7 @@ Build Status
 ------------
 Build:        all 11 packages + 2 apps — clean ✓
 Typecheck:    all 12 packages + 2 apps green ✓
-Tests:        700 pass (running full suite to confirm 2/2 fixed)
+Tests:        720/720 pass — graceful ✓
 Docs drift:   barrel <-> manifest <-> CLAUDE.md synced (113 components)
 
 Component Inventory
@@ -75,8 +75,8 @@ P5 - Fusorb Migration Fixes + P1 Chart Polish  [IN PROGRESS]
   [x] Docs changelog: removed stale DataTablePage + BorderBeamCard
   [x] pnpm build — all 11 packages + 2 apps clean ✓
   [x] pnpm -r typecheck — all 12 packages + 2 apps green ✓
-  [ ] pnpm test — full suite (running in background)
-  [ ] Commit
+  [x] pnpm test — full suite (All 720 tests across 56 files pass)
+  [x] Commit
 
 Recent Log
 ----------
@@ -100,3 +100,9 @@ Recent Log
 [10:15] DataTablePage removed — barrel + manifest + docs updated
 [10:10] Chart component rewritten — pie/donut/composed/curves/crosshair/tooltip/animation
 [10:05] Changeset created for chart + datatable changes
+
+Session 2026-09-12 (cleanup + playground-error fix + verification)
+[14:22] Cleanup: deleted stray .agent PNGs + debug .mjs scripts + image.png/image1.png removal; cleared session test artifacts
+[14:21] Fix: docs-app.test.tsx ConsoleLayout mock stub no longer spreads singleOpen/themeToggle onto <div> → removes React prop warnings
+[14:20] Verified: build clean ✓, typecheck green ✓, tests 720/720 graceful ✓
+[14:15] Investigated playgrounds: ErrorBoundary + registry wrappers (auth/PasswordStrengthMeter/AnnouncementBar/QrScanner) already robust; 'errs' were mock prop-leaks (fixed) + intentional boundary test
