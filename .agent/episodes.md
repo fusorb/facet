@@ -906,4 +906,142 @@ from prop → resolved value → style/attribute, not just that the prop is
 accepted in the destructuring.
 
 ================================================================================
+
+EP 30 -- The Chart That Became a System (And the Tooltip That Vanished)
+--------------------------------------------------------------------------------
+What broke:
+   EP 29 covered the crosshair snap fix narrowly. In truth, the work that
+   landed in the same sweep was far broader: 4 changesets across 3 commits,
+   104 lines of chart.tsx changes (79 added, 27 removed), a hidden-tooltip
+   bug with THREE compounding root causes, a DataTable feature expansion +
+   DataTablePage removal, Fusorb migration fixes, and a manifest drift fix
+   that had silently hidden a component from the docs.
+
+   EP 30 exists because the canon is not a single-patch log — every past
+   drift, correction, changeset, and repo-state change gets written here.
+   This is that write.
+
+Scope of recent changes (2026-09-12 through 2026-09-13):
+   - 4 changesets: chart-crosshair-snap, chart-axes-scroll-fixes,
+     chart-pie-label-improvements, chart-datatable-enhancements
+   - 5 commits: d7da2c6 → bbcd766 → 63fb165 → 776a8a1 → 0506770
+     → f2ebd1a → 046ca4f → 94158a5 → 70b7054 → 3bc29f2
+   - 107 lines of chart.tsx (32→128 lines), plus full chart.test.tsx rewrite
+   - 4 additional components added to barrel + manifest (total: 114)
+   - 15 changesets in .changeset/ spanning chart, datatable, stepper,
+     kanban, pill, playground, and ready-to-use components
+
+Root cause A — Hidden tooltip (3 compounding bugs):
+   1. The tooltip's Tailwind `duration-150` class was a hardcoded string
+      literal, not wired to the `transitionDuration` prop. Changing the
+      prop did nothing — the same "declared but not wired" bug from EP 29.
+   2. `crosshairPoints` (colored dot markers) defaulted to `true`. These
+      dots rendered above the tooltip, intercepting hover events and making
+      the tooltip invisible at certain cursor positions.
+   3. `handlePointerMove` bailed when `rect.width === 0` — a jsdom quirk
+      in test environments that masked pointer events and caused tests to
+      miss the real crosshair positioning logic.
+
+Root cause B — Hardcoded visual debt:
+   chart.tsx accumulated ~30 hardcoded magic numbers over its evolution:
+   crosshair width 1.5, dot radius 3→6, bar hover scale 1.15, fade 0.3s,
+   transition 0.15s, crosshair tracking 0.05s, label gap 24 (was hardcoded
+   ignoring parameter), donut inner radius ratio, curve tension, font
+   sizes, gridline widths, opacity thresholds. Each was a consumer
+   customization barrier — a prop you couldn't actually change.
+
+Root cause C — TypeScript drift (Fusorb migration):
+   - TS2304: `isRadial` and `n` missing `const` keyword in chart.tsx —
+     the Fusorb build (stricter TS config) caught what the old lax config
+     silently allowed.
+   - TS6133: unused `isHovered` variable in donut path rendering —
+     dead code from an earlier hover-scale iteration.
+   - CSS `hsl(var(--x))` → `var(--x)` in 4 files: CSS variables now resolve
+     to oklch directly; the `hsl()` wrapper was a left-over from the
+     pre-Alpha-Palette era and caused invalid color values in some builds.
+
+Root cause D — Manifest drift:
+   `ChartRangeSelector` was exported in the barrel but its docs manifest
+   entry was missing. The drift gate (EP 03) caught the mismatch: 113
+   barrel exports vs 112 manifest entries. Added the entry; CLAUDE.md
+   count: 113 → 114.
+
+How we fixed it:
+   Chart v2 (8 named constants + configurable props):
+   - `crosshairSnap` (default true): snaps line+dot to xOf(hover.dataIndex)
+   - `crosshairPoints` (default false): dot markers opt-in (was true)
+   - `width` (default 800): customizable viewBox width
+   - `axisFontSize` (default 11), `pieLabelFontSize` (default 12)
+   - `renderSliceLabel`: fully custom pie/donut label content
+   - `sliceLabelThreshold`, `barRadius`, `maxHeight`, `rowHeight` (default 36)
+   - `animationDuration` (default 500), `transitionDuration` (default 150):
+     wired to ALL CSS transitions/animations (was hardcoded 0.15s/0.05s/0.3s)
+   - Named constants: CROSSHAIR_SNAP_TRUE_TYPES, CROSSHAIR_SNAP_FALSE_TYPES,
+     DEFAULT_ROW_HEIGHT, DEFAULT_DOT_HOVER_SCALE, DEFAULT_SLICE_HOVER_SCALE,
+     DEFAULT_BAR_HOVER_SCALE, etc.
+   - 6 chart types: Line, Bar, Area, Pie, Donut, Composed + smooth/step/
+     stacked/grouped/histogram/horizontal variants
+   - Visible axis spine lines (solid y-axis + x-axis), increased left
+     padding 48→56px
+   - Horizontal bars: full X↔Y axis swap via isHorizontal + catY positioning
+   - Horizontal crosshair: guide line tracks Y, dot tracks X
+     (commit 3bc29f2 — extends EP 29's snap to horizontal layout)
+   - Radial hover: scale 1.15 → opacity 0.85 dim (eliminates layout jitter)
+   - Pie/Donut: leader lines, two-line labels, text anchoring, 24px gap
+   - Bar opacity: 1.0 default, 0.85 non-hovered on hover (consistent)
+   - Fixed 3 failing tests: handlePointerMove zero-width bail,
+     ResizeObserver scaleRef formula (was `scaleRef * rect.width`,
+     now `width / rect.width`), tooltip duration-150 → prop-wired
+
+   DataTable:
+   - `loading` prop: Skeleton rows during async fetch
+   - `density` prop: "compact" | "comfortable" (row height control)
+   - `emptyState` prop: custom empty-state rendering
+   - `total` prop: footer summary row
+
+   DataTablePage:
+   - REMOVED entirely — features merged into DataTable
+   - barrel + manifest + previews.tsx + usage.ts all updated
+
+   Fusorb migration:
+   - Fixed TS2304 (missing const) + TS6133 (unused var) in chart.tsx
+   - Fixed CSS `hsl(var())` → `var()` in shine-border, glow-border,
+     consent-capture, TestimonialsSection
+   - Created `packages/docs/tsup.config.ts` (DTS module resolution fix
+     for @fusorb/facet-components/light)
+   - Added `check:components` script to package.json
+
+   Test counts:
+   - Chart tests: 55 → 57 (EP 29) → 57 (EP 30, no change, horizontal bar
+     tests added to existing file) — 57/57 pass
+   - Full suite: 739 (baseline) → 745/745 across 56 files, 7 projects
+   - 3 previously failing tests fixed (handlePointerMove, ResizeObserver,
+     manifest)
+
+   Changesets created (in .changeset/):
+   - chart-crosshair-snap.md — crosshairSnap + animation props
+   - chart-axes-scroll-fixes.md — axis spines, maxHeight, rowHeight,
+     crosshairPoints, pie hover, 3 test fixes
+   - chart-pie-label-improvements.md — width, fontSize, leader lines,
+     pie/donut hover, bar opacity, ThemeToggle sizing
+   - chart-datatable-enhancements.md — chart types, DataTable props,
+     DataTablePage removal
+
+State: automated. `pnpm build` — all 11 packages + 2 apps clean ✓.
+   `pnpm -r typecheck` — all 12 packages + 2 apps green ✓.
+   `pnpm test` — 745/745 across 56 files ✓. `check:docs` — 114
+   components, barrel↔manifest↔CLAUDE.md all synced ✓.
+   Commit 3bc29f2: "fix(chart): crosshair snap + animation props for
+   horizontal bar layout" — closes the loop on the session.
+
+   Lesson: a rewrite that lands as multiple changesets across multiple
+   commits is not "not done" — it's the evolution the canon tracks.
+   EP 29's narrow frame missed the breadth. EP 30 captures the whole:
+   the Chart didn't just get a snap toggle — it became a configurable
+   system. The tooltip didn't just come back — the animation wiring that
+   hid it was the same bug class as the crosshair animation props. Three
+   independent root causes can live in the same feature. Write them all
+   down.
+
+================================================================================
 END

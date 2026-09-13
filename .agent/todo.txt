@@ -1,59 +1,28 @@
-facet - session plan (2026-09-13)
-============================================================
-Baseline (verified green): build + typecheck all packages; 739/739 tests.
-Playground "errs": intentional `demo component exploded` caught by
-  PlaygroundErrorBoundary (LiveCodePlayground.test.tsx, 16/16 pass). Not a real
-  breakage.
+# FACET — Session Priority Tracker
+# Session: 2026-09-13  (FINAL)
+# Status: COMMITTED 3bc29f2 (horizontal bar crosshair + animation props)
 
-TODOS:
-[x] Baseline green (build/typecheck/739 tests)
-[x] Confirm hidden-tooltip bug + radial hover + x-label/0 overlap
-[x] Fix chart.tsx (working tree):
-    - Remove `hidden`; clamp+offset tooltip (tooltipOffset prop) ✓
-    - Band-scale xOf/catY so first/last category labels clear the "0" tick ✓
-    - Radial hover: skip cartesian snap for radial (!isRadial) ✓
-    - Radial per-slice legend (proper slice representation) ✓
-    - Donut center: renderCenter prop + readable subtitle ✓
-    - sliceLabelThreshold prop (hide tiny-slice labels) ✓
-    - barRadius prop (replace hardcoded rx={4}) ✓
-    - Horizontal bar: categories left / values bottom (hOf), correct orientation ✓
-[x] Add chart.test.tsx coverage for new behavior (55→57 tests) ✓
-[x] Fix 3 failing tests:
-    - Origin-point regex: match comma-separated SVG coords (M 56,200) ✓
-    - Crosshair test: find crosshair line by stroke-dasharray="4 2", not spine ✓
-    - Manifest: add chart-range-selector entry + update CLAUDE.md count (113→114) ✓
-[x] Crosshair: snap to nearest data point by default (crosshairSnap prop, default true)
-    - crosshairX = crosshairSnap ? xOf(hover.dataIndex) : mousePos.x ✓
-    - Vertical line + dot both snap to band-center xOf(hover.dataIndex) ✓
-    - crosshairDotWidth/cx/cy all use snapped position ✓
-    - crosshairPoints circles already snapped (xOf(hover.dataIndex)) ✓
-    - Wrapped crosshair block in !isRadial (radial chart bleed fix) ✓
-    - Test: crosshair snaps to data point (cx=128=xOf(0), cy=140=yOf(30)) ✓
-    - Test: crosshairSnap={false} follows cursor (cx=100=mousePos.x) ✓
-[x] Hardcoded values → configurable props + named constants:
-    - lineWidth, dotRadius, dotInactiveOpacity (0.4→0.45 to match barInactiveOpacity) ✓
-    - crosshairWidth, crosshairDasharray, crosshairOpacity, crosshairDotRadius,
-      crosshairDotWidth ✓
-    - axisWidth, gridlineWidth, gridlineDasharray, sliceWidth, legendInactiveOpacity ✓
-    - DEFAULT_RADIAL_MARGIN, DEFAULT_CARTESIAN_MARGIN, DEFAULT_RADIAL_LABEL_GAP,
-      DEFAULT_DONUT_INNER_RADIUS_RATIO, DEFAULT_TIP_WIDTH/HEIGHT ✓
-    - DONUT_TOTAL_SCALE, DONUT_SUBTITLE_SCALE, PIE_SECONDARY_LABEL_SCALE ✓
-    - DEFAULT_DOT_HOVER_SCALE, DEFAULT_SLICE_HOVER_SCALE, DEFAULT_BAR_HOVER_SCALE ✓
-    - Fixed labelR bug (maxRadius + labelGap, was hardcoded 24) ✓
-[x] Animation customization (transitionDuration + animationDuration fully wired):
-    - animationDuration now drives fade-in CSS animation (was hardcoded 0.3s) ✓
-    - transitionDuration now drives ALL hover transitions (was hardcoded 0.15s):
-      dot radius/opacity/strokeWidth/transform, bar scale, slice hover, labels ✓
-    - Tooltip transition uses transitionDuration (was Tailwind duration-150) ✓
-    - crosshair-point tracking uses transitionDuration/3 (was hardcoded 0.05s) ✓
-[x] Verify: components typecheck clean + chart tests 57/57 pass ✓
-[x] Re-run CI gates (check:docs, manifest test) — all pass ✓
-[x] README.md: component count aligned (111+ → 114) ✓
-[x] Sweep stale artifacts: deleted .agent/image.png (was pre-existing session artifact,
-    no longer needed after code-level diagnosis of crosshair drift) ✓
-[x] Add EP 29 to episodes.md + episodes-plain.md (crosshair snap + animation wiring) ✓
-[x] Add changeset (.changeset/chart-crosshair-snap.md) ✓
-[ ] Update .agent/output.txt (status reflects snap + animation wiring)
-[ ] Align CLAUDE.md: update stale claims (check:docs 90→114, test count, build date)
-[ ] Verify full test suite (expect 745/745), docs drift, typecheck all green
-[ ] Commit code changes (excluding PNGs) 
+## COMPLETED
+[x] 0. BASELINE GREEN — build clean, typecheck green, 739→745 tests
+[x] 1. CHART v2 REWRITE — crosshairSnap, crosshairPoints, animation props, width,
+    fontSize, renderSliceLabel, donut center, sliceLabelThreshold, barRadius,
+    radial hover fix, catY, horizontal bars, named constants, axis spines,
+    maxHeight, rowHeight. 57/57 chart tests, 745/745 full suite.
+[x] 2. DATA TABLE — loading, density, emptyState, total props
+[x] 3. DATATABLEPAGE REMOVAL — merged into DataTable (barrel + manifest updated)
+[x] 4. FUSORB MIGRATION FIXES — TS2304/TS6133, CSS hsl()→var(), tsup config,
+    check:components, manifest drift (chart-range-selector 113→114)
+[x] 5. CHANGESETS — 4 chart changesets + 6 others (stepper, pill, kanban,
+    playground, ready-to-use, stabilize-cli-store)
+[x] 6. EP 30 — comprehensive episode in episodes.md + episodes-plain.md
+[x] 7. ARC-ID VERIFICATION — arcid_summary.md verified against ../arc-id
+[x] 8. .AGENT CLEANUP — deleted commit-tracker.txt + findings file (merged
+    useful info into arcid_summary.md)
+[x] 9. OUTPUT.TXT + TODO.TXT — synced to final state
+[x] 10. PACKAGE.JSON — description count 113 → 114
+[x] 11. COMMIT — 3bc29f2 (horizontal bar crosshair + animation props)
+
+## NEW — INVESTIGATION
+[ ] Line chart crosshair duplication bug (hovered data pts affected, not region;
+    "duplicated crosshair" appearance). Need to examine crosshair rendering logic
+    in chart.tsx to find root cause.

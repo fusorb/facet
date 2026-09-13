@@ -564,3 +564,119 @@ the nearest sharp edge by default.
 Takeaway: a prop declared but not wired is worse than no prop at all. It looks
 configurable but silently ignores the consumer. Verify prop → value → style
 end-to-end.
+
+--------------------------------------------------------------------------------
+
+CHAPTER 30 -- The Chart That Became a System (And the Tooltip That Vanished)
+------------------------------
+Chapter 29 told the story of the crosshair snap fix — one narrow bug, one clean
+fix. But the truth of what landed in that same sweep was much bigger. This
+chapter catches up: everything the canon missed.
+
+The work happened across 4 changesets and 5 commits (2026-09-12 through
+2026-09-13). It touched the Chart, the DataTable, the build pipeline, the docs
+manifest, and the arc-id verification. EP 30 exists because the canon is not a
+single-patch log — every past drift, correction, changeset, and repo-state
+change gets written here.
+
+The Hidden Tooltip
+
+A consumer reported the chart tooltip was invisible. Three things had to line up
+for it to fail:
+  1. The tooltip's animation speed was hardcoded ("0.15 seconds") instead of
+     listening to the `transitionDuration` prop — the exact same "declared but
+     not wired" bug from Chapter 29, but in a different spot.
+  2. The crosshair's dot markers (crosshairPoints) were ON by default. Those
+     dots sat on top of the tooltip and stole the hover — so the tooltip never
+     got the signal to show.
+  3. The pointer-handler gave up entirely when the SVG had zero width (a
+     jsdom test-environment quirk), so tests never caught the real positioning
+     logic.
+
+The fix: wire the prop for real, flip crosshairPoints to OFF by default, and
+stop bailing on zero-width rects.
+
+The Hardcoded Debt
+
+Chart.tsx had accumulated ~30 magic numbers: dot radius 3→6, bar hover scale
+1.15x, fade 0.3s, transition 0.15s, crosshair tracking 0.05s, label gap 24
+(ignored its own parameter), donut inner radius, curve tension, font sizes,
+gridline widths, opacity thresholds. Every one of these was a knob a consumer
+could not turn.
+
+The fix: replaced them all with named constants and configurable props.
+`width`, `axisFontSize`, `pieLabelFontSize`, `barRadius`, `sliceLabelThreshold`,
+`maxHeight`, `rowHeight`, `animationDuration`, `transitionDuration`,
+`crosshairSnap`, `crosshairPoints`, `renderSliceLabel` — 13 new config points.
+The Chart didn't just get one fix — it became a configurable system.
+
+The TypeScript Drift (Fusorb Migration)
+
+  - `isRadial` and `n` were missing the `const` keyword — valid under the old
+    lax TS config, caught immediately by Fusorb's stricter build.
+  - An unused `isHovered` variable in the donut path was dead code from an
+    earlier hover-scale experiment.
+  - `hsl(var(--x))` in 4 files was a left-over from the pre-Alpha-Palette era.
+    CSS variables now resolve to oklch directly; the `hsl()` wrapper produced
+    invalid colors in some builds.
+
+The fix: `const` declarations, deleted dead code, `hsl(var())` → `var()`
+everywhere.
+
+The Manifest Drift
+
+`ChartRangeSelector` was exported in the barrel but missing from the docs
+manifest. The drift gate (Chapter 3) caught it: 113 barrel entries vs 112
+manifest entries. The count went 113 → 114. One missing line, silently hiding
+a component from the docs site.
+
+The DataTable Evolution
+
+DataTable got four new props:
+  - `loading` — skeleton rows during async fetch
+  - `density` — "compact" or "comfortable" row height
+  - `emptyState` — custom empty rendering
+  - `total` — footer summary row
+
+DataTablePage was REMOVED entirely — its features merged into DataTable. No
+orphaned page, no stale exports, no drift.
+
+The Arc-id Verification
+
+Verified the arc-id sibling repo (`../arc-id`) against the `.agent/arcid_summary.md`
+findings:
+  - TOKEN STORAGE: PARTIALLY HARDENED. arc-id's refresh-token cookie migration
+    (commit ab4e3a7) moved the refresh token to an httpOnly cookie.
+    `persistSession` now stores only the user object (NOT tokens). facet's
+    `defaultStorage` already has the JSDoc warning + dev-time console.warn.
+  - VERSION DRIFT: RESOLVED. arc-id now pins @arcevo/facet-cli ^2.0.0 and
+    @arcevo/facet-store ^2.0.0 (was ^0.8.0/^0.1.0).
+  - TAILWIND @SOURCE: CORRECTLY CONFIGURED for v4 (dist/ paths, not src/).
+    The old .agent recommendation was wrong.
+  - API KEY BACKEND: FULLY BUILT (v0.2.0). 13 files in src/modules/api-key/.
+  - DOC DRIFT: arc-id CLAUDE.md/AGENTS.md version pins still stale.
+  (Full results merged into .agent/arcid_summary.md.)
+
+The .agent Clean-up
+
+Deleted two stale files:
+  - `commit-tracker.txt` — trivial (just a commit message string)
+  - `facet_arcid_findings_and_recommendations.txt` — 266 lines, all superseded
+    by the verified arcid_summary.md. Useful facts merged; everything else
+    discarded.
+
+The Numbers
+
+  - Chart tests: 55 → 57 (then held at 57 with horizontal bar tests)
+  - Full suite: 739 → 745/745 across 56 files, 7 projects
+  - 3 previously failing tests fixed
+  - Build: all 11 packages + 2 apps clean
+  - Typecheck: all 12 packages + 2 apps green
+  - check:docs: 114 components, barrel↔manifest↔CLAUDE.md synced
+
+Takeaway: a rewrite that lands as four changesets across five commits is not
+"not done" — it's the evolution the canon tracks. Chapter 29's narrow frame
+missed the breadth. The Chart didn't just get a snap toggle — it became a
+configurable system. The tooltip didn't just come back — the animation wiring
+that hid it was the same bug class as the crosshair animation props. Three
+independent root causes can live in the same feature. Write them all down.

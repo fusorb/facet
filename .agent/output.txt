@@ -1,154 +1,136 @@
 facet — live dashboard
 ====================
+Last sync: 2026-09-13  (session final)
 
-Build Status
-------------
+## Build Status
 Build:        all 11 packages + 2 apps — clean ✓
 Typecheck:    all 12 packages + 2 apps green ✓
 Tests:        745/745 pass — graceful ✓
 Docs drift:   barrel <-> manifest <-> CLAUDE.md synced (114 components)
 
-Component Inventory
--------------------
-- chart.tsx           : 6 chart types, crosshair (snap-to-data-point, crosshairSnap prop),
-                       tooltip, animation (duration customizable via animationDuration/transitionDuration props), legend toggle,
-                       smooth/step curves, stacked, horizontal bars, grouped bars, histogram,
-                       axis spine lines, scrollable (maxHeight), auto-grow height (rowHeight)
+## Component Inventory
+- chart.tsx           : 6 chart types, crosshair (snap-to-data-point via
+                         crosshairSnap prop), horizontal bar support (axis swap),
+                         tooltip (prop-wired transitionDuration), animation
+                         (animationDuration/transitionDuration), legend toggle,
+                         smooth/step curves, stacked, grouped, histogram,
+                         axis spine lines, scrollable (maxHeight), auto-grow height
+                         (rowHeight), barRadius, pie labels (renderSliceLabel,
+                         leader lines, sliceLabelThreshold), donut center
+- chart-range-selector  : NEW (was missing from manifest → 113→114)
 - data-table.tsx      : enhanced — loading, density, emptyState, total props
 - data-table-page.tsx : REMOVED (features merged into data-table.tsx)
-- barrel (index.ts)   : DataTablePage removed, DataTableDensity exported, Chart types + ChartRangeSelector exported
+- barrel (index.ts)   : DataTablePage removed, DataTableDensity exported,
+                         Chart types + ChartRangeSelector exported
 
-Priority List
--------------
-P0 - Chart Fixes & Improvements          [DONE]
-  [x] Root cause: `const width = 800;` placement fix applied
-  [x] Crosshair coordinate conversion fix (scaleRef + viewBox mapping)
-  [x] Fix 3 failing chart tests (handlePointerMove rect.width===0 bail)
-  [x] Fix ResizeObserver scaleRef formula (inverted ratio corrected)
-  [x] Add visible axis spine lines (y-axis + x-axis) for proper framing
-  [x] Add maxHeight prop for scrollable charts (many categories)
-  [x] Add rowHeight prop (default 36) for horizontal bar auto-grow
-  [x] catY positioning: horizontal bars distribute across plotH, not plotW
-  [x] Add chart variant cells to docs (variantCells case "chart")
-  [x] Add VARIANT_USAGE["chart"] entries matching variant labels
-  [x] pnpm build — clean
-  [x] pnpm -r typecheck — all 11 packages green
-  [x] pnpm test — 715/715 pass
-  [x] Changeset created
+## Priority List
+P0 - Chart v2 Rewrite                       [DONE]
+  [x] crosshairSnap: snap to nearest data point by default (true for
+      line/area/composed, false for bar/histogram)
+  [x] crosshairPoints: default false (was true — caused hidden tooltip)
+  [x] Horizontal bars: full X↔Y axis swap via isHorizontal + catY
+  [x] Horizontal crosshair: guide tracks Y, dot tracks X (commit 3bc29f2)
+  [x] animationDuration + transitionDuration: wired to ALL CSS (was hardcoded
+      0.15s/0.05s/0.3s)
+  [x] width prop, axisFontSize/pieLabelFontSize, renderSliceLabel,
+      sliceLabelThreshold, barRadius, maxHeight, rowHeight props
+  [x] Named constants replace ~30 hardcoded magic numbers
+  [x] Visible axis spine lines, increased left padding 48→56px
+  [x] Radial hover: scale 1.15 → opacity 0.85 dim (eliminates jitter)
+  [x] Pie/Donut: leader lines, two-line labels, text anchoring
+  [x] Bar opacity: 1.0 default, 0.85 non-hovered on hover
+  [x] Fixed 3 failing tests (handlePointerMove, ResizeObserver, tooltip)
+  [x] 57/57 chart tests, 745/745 full suite
 
-P1 - DataTable Enhancement               [DONE]
+P1 - DataTable Enhancement                    [DONE]
   [x] loading prop (Skeleton)
   [x] density prop (compact / comfortable)
   [x] emptyState prop
   [x] total prop
   [x] Tests
 
-P2 - DataTablePage Removal               [DONE]
-  [x] Features merged into DataTable
-  [x] File deleted, barrel + manifest + previews + usage updated
+P2 - DataTablePage Removal                    [DONE]
+  [x] File deleted, features merged into DataTable
+  [x] Barrel + manifest + previews + usage updated
 
-P3 - Tracker / Docs Sync                 [DONE]
-  [x] todo.txt + output.txt synced
-  [x] CLAUDE.md + README.md: 114 → 113
-  [x] Manifest regenerated (113 entries)
-  [x] .gitignore covers scratchpad/
-  [x] Stale files deleted (_c.txt, build_out.txt)
+P3 - Manifest Drift Fix                       [DONE]
+  [x] chart-range-selector entry added (was missing → barrel mismatch)
+  [x] CLAUDE.md + README.md: 113 → 114
+  [x] package.json description: 113 → 114
 
-P4 - Verification & Commit               [DONE]
-  [x] pnpm build — clean
-  [x] pnpm -r typecheck — all green
-  [x] tests — 715 pass
-  [x] check:docs — passes
+P4 - Fusorb Migration Fixes (P0)              [DONE]
+  [x] TS2304: missing `const` on isRadial + n in chart.tsx
+  [x] TS6133: unused isHovered removed from donut path rendering
+  [x] CSS hsl(var(...)) → var(...) in 4 files (oklch colors)
+  [x] packages/docs/tsup.config.ts created (DTS module resolution fix)
+  [x] check:components script added to package.json
+  [x] All packages rebuilt with fresh dist
 
-P5 - Fusorb Migration Fixes + P1 Chart Polish  [DONE]
-  [x] Fixed TS2304: missing `const` on `isRadial` + `n` in chart.tsx
-  [x] Fixed TS6133: unused `isHovered` removed from donut path rendering
-  [x] Fixed stale `hsl(var(...))` → `var(...)` in 4 files (CSS vars use oklch)
-  [x] Created packages/docs/tsup.config.ts (DTS module resolution fix)
-  [x] Updated docs package.json build scripts (tsup config-based)
-  [x] Added check:components script to package.json
-  [x] Rebuilt all packages + apps (fresh dist)
-  [x] Chart: width prop, axisFontSize/pieLabelFontSize props, renderSliceLabel
-  [x] Pie/Donut: leader lines, two-line labels, text anchoring, label gap 24px
-  [x] Bar opacity consistency (1.0 default, dim 0.85 on non-hover)
-  [x] ThemeToggle: size={16} (match nav icon size)
-  [x] Variants: width={560} for crisp text in cards
-  [x] Docs changelog: removed stale DataTablePage + BorderBeamCard
-  [x] pnpm build — all 11 packages + 2 apps clean ✓
-  [x] pnpm -r typecheck — all 12 packages + 2 apps green ✓
-  [x] pnpm test — full suite (All 720 tests across 56 files pass)
-  [x] Commit
+P5 - Tracker / Docs Sync                      [DONE]
+  [x] todo.txt + output.txt synced to final state
+  [x] episodes.md + episodes-plain.md: EP 29 + EP 30 added
+  [x] Read-to-Use components: 10 items resolved
 
-P6 - Crosshair Snap Fix + Animation Wiring   [2026-09-13]
-  [x] Root cause: crosshair dot cx used mousePos.x (raw mouse) while data dots used xOf(i2)
-      — crosshair floated at cursor instead of aligning with data-point dots
-  [x] Added crosshairSnap prop (default true): snaps line+dot to xOf(hover.dataIndex)
-      Set crosshairSnap={false} to follow raw cursor (previous behavior)
-  [x] Wired transitionDuration (150ms) into ALL hover transitions — was hardcoded 0.15s
-  [x] Wired animationDuration (500ms) into CSS fade-in — was hardcoded 0.3s
-  [x] Tests: 57/57 chart, 745/745 full suite
-  [x] Changeset created
+P6 - Arc-id Verification                      [DONE]
+  [x] arcid_summary.md verified against ../arc-id source
+  [x] Token storage: PARTIALLY FIXED — httpOnly cookie + persistSession
+      repurposed (stores user only, not tokens)
+  [x] Version drift: RESOLVED — all facet packages at 2.0.0/1.x
+  [x] Tailwind @source: CORRECTLY CONFIGURED (dist/ paths, v4)
+  [x] API key backend: FULLY BUILT (v0.2.0, 13 files)
+  [x] Doc drift: STALE in arc-id CLAUDE.md/AGENTS.md (still open)
+
+P7 - .agent Cleanup                            [DONE]
+  [x] Deleted commit-tracker.txt (trivial — just a commit message)
+  [d] Deleted facet_arcid_findings_and_recommendations.txt (266 lines, stale —
+      merged useful info into arcid_summary.md)
+  [x] arcid_summary.md rewritten with verified findings
+  [x] EP 30 written (comprehensive — all chart work + DataTable + migration
+      + manifest + arc-id verification)
+
+## Changesets (.changeset/)
+- chart-crosshair-snap.md      — crosshairSnap + animation props
+- chart-axes-scroll-fixes.md   — axis spines, maxHeight, rowHeight, catY,
+                                  crosshairPoints, pie hover, 3 test fixes
+- chart-pie-label-improvements — width, fontSize, leader lines, pie/donut hover,
+                                  bar opacity, ThemeToggle sizing
+- chart-datatable-enhancements — chart types, DataTable props, DataTablePage removal
+- ready-to-use-components-1.12 — 4 new ready-to-use components (Stepper, KanbanBoard,
+                                  ChangelogList, ChartRangeSelector)
+- stepper-kanban-changelog     — Stepper + KanbanBoard changelog
+- pill-component               — Pill component addition
+- playground-robustness-fixes  — playground error boundary + mock stub fixes
+- kanban-actions-chart-nav-zindex — Kanban board actions + chart nav z-index fix
+- stabilize-cli-store          — CLI + Store stabilization to 1.0.0
+
+## Commits
+3bc29f2  fix(chart): crosshair snap + animation props for horizontal bar layout
+70b7054  fix(chart): crosshair snaps to data points + animation props wired
+94158a5  fix(docs): clean up stray .agent artifacts and fix playground test mock prop leak
+046ca4f  feat: fusorb migration + chart polish + migration fixes
+f2ebd1a  feat: v1 polish — icon system, copy props, count/version sync, and fixes
+776a8a1  fix(docs): replace DataTablePage with DataTable in previews + usage
+63fb165  feat: Chart enhancements, DataTable density/loading/emptyState, remove DataTablePage
+bbcd766  fix: commit pending avatar roleBadge slot + footer renderLink prop + tracker update
+d7da2c6  fix: review-driven polish - changelog, stale counts, dashboard animation, marquee testimonials, feedback layout, UserButton role badge
 
 Recent Log
 ----------
-[09:10] Full pnpm build — all 11 packages + 2 apps SUCCESS ✓
-[09:08] Full pnpm typecheck — all 12 packages + 2 apps green ✓
-[09:05] Rebuilt docs lib with tsup.config.ts — DTS passes ✓
-[08:34] Docs package rebuilt with tsup.config.ts — DTS passes ✓
-[08:32] Fixed hsl(var(...)) → var(...) in shine-border, glow-border, consent-capture, TestimonialsSection
-[08:30] Updated packages/docs package.json: build → "tsup", build:analyze → "tsup --metafile"
-[08:28] Created packages/docs/tsup.config.ts — fixes @fusorb/facet-components/light DTS resolution
-[08:25] Fixed TS errors in chart.tsx: const isRadial, const n, removed unused isHovered
-[08:20] Chart tests pass (32/32); components + auth typecheck pass
-[10:58] Docs build verified — DataTablePage→DataTable fix resolves MISSING_EXPORT
-[10:52] Commit: fix(docs) replace DataTablePage with DataTable in previews + usage
-[10:50] Commit: feat Chart enhancements + DataTable density/loading + DataTablePage removal
-[10:40] Build fix — removed DataTablePage refs from previews.tsx + usage.ts
-[10:35] Tests verified — 32 pass (chart + data-table)
-[10:30] Chart tests updated — fixed assertions after test run
-[10:25] DataTable tests added — loading, density, emptyState, total
-[10:20] DataTable enhanced — loading, density, emptyState, total props
-[10:15] DataTablePage removed — barrel + manifest + docs updated
-[10:10] Chart component rewritten — pie/donut/composed/curves/crosshair/tooltip/animation
-[10:05] Changeset created for chart + datatable changes
-
-Session 2026-09-12 (cleanup + playground-error fix + verification)
-[14:22] Cleanup: deleted stray .agent PNGs + debug .mjs scripts + image.png/image1.png removal; cleared session test artifacts
-[14:21] Fix: docs-app.test.tsx ConsoleLayout mock stub no longer spreads singleOpen/themeToggle onto <div> → removes React prop warnings
-[14:20] Verified: build clean ✓, typecheck green ✓, tests 720/720 graceful ✓
-[14:15] Investigated playgrounds: ErrorBoundary + registry wrappers (auth/PasswordStrengthMeter/AnnouncementBar/QrScanner) already robust; 'errs' were mock prop-leaks (fixed) + intentional boundary test
-
-Session 2026-09-12 (chart test fixes)
-[22:54] Fixed chart.test.tsx origin-point test: regex `/M ([\d.]+) ([\d.]+)/` failed on comma-separated coords (`M 56,200`); updated to `/M ([\d.]+),([\d.]+)/`
-[22:54] Fixed chart.test.tsx crosshair snap test: `querySelector("line")` grabbed the y-axis spine (x1=56) instead of the crosshair (x1=128); now filters by `stroke-dasharray="4 2"`
-[22:54] Fixed manifest.test.ts: added `chart-range-selector` entry to docs manifest + updated CLAUDE.md component count 113→114
-[22:55] Verified: 55/55 chart tests pass; 3/3 manifest tests pass; check:docs inventory all green
-[22:55] Full suite: 743/743 tests pass (3 failures fixed + 4 new tests added; 0 regressions)
-[22:50] Audit: replaced all hardcoded visual values in chart.tsx with configurable props + named constants:
-       - crosshairWidth, crosshairDasharray, crosshairOpacity, crosshairDotRadius, crosshairDotWidth
-       - lineWidth, dotRadius, dotInactiveOpacity (0.4→0.45 to match barInactiveOpacity)
-       - axisWidth, gridlineWidth, gridlineDasharray, sliceWidth, legendInactiveOpacity
-       - DEFAULT_RADIAL_MARGIN, DEFAULT_CARTESIAN_MARGIN, DEFAULT_DONUT_INNER_RADIUS_RATIO
-       - DEFAULT_RADIAL_LABEL_GAP, DEFAULT_TIP_WIDTH/HEIGHT, DEFAULT_CURVE_TENSION
-       - DONUT_TOTAL_SCALE, DONUT_SUBTITLE_SCALE, PIE_SECONDARY_LABEL_SCALE
-       - DEFAULT_DOT_HOVER_SCALE, DEFAULT_SLICE_HOVER_SCALE, DEFAULT_BAR_HOVER_SCALE
-[22:47] Crosshair perfected: vertical line + dot now DYNAMIC — follows cursor (mousePos.x in viewBox coords),
-       no double-scaling bug; dot cx uses mousePos.x (stays on line), cy uses mousePos.y (follows cursor)
-       rather than jumping to snapped data-point Y only; wrapped crosshair block in !isRadial
-[22:48] Fixed labelR bug: `maxRadius + labelGap` (was hardcoded 24, ignored the labelGap parameter)
-[22:54] Fixed chart.test.tsx origin-point test: regex `/M ([\d.]+) ([\d.]+)/` → `/M ([\d.]+),([\d.]+)/` (comma-separated SVG coords)
-[22:54] Fixed chart.test.tsx crosshair test: `querySelector("line")` grabbed y-axis spine (x1=56);
-       now filters by `stroke-dasharray="4 2"` to find the crosshair line
-[22:54] Fixed manifest.test.ts: added `chart-range-selector` entry to docs manifest; CLAUDE.md 113→114
-
-Session 2026-09-13 (crosshair snap fix + animation customization)
-[01:14] Tests: 745/745 pass ✓ (56 files, 7 projects — all green)
-[01:10] CORRECTION: Crosshair changed from DYNAMIC (follows cursor) to SNAP (xOf(hover.dataIndex)) —
-        fixes user-reported "floating to the right" misalignment with data-point dots.
-        crosshairSnap prop added (default true; false reverts to cursor-follow).
-[01:05] Animation: transitionDuration + animationDuration now wired to actual CSS transitions/animations
-        (were declared as props but ignored — hardcoded 0.3s fade-in, 0.15s transitions)
-[01:00] Tests: replaced "crosshair follows cursor" test with "crosshair snaps to data point";
-        added crosshairSnap={false} test + transitionDuration test (57/57 chart tests)
-[00:45] Diagnosis: crosshair dot cx=mousePos.x vs data dots cx=xOf(i2) — band-center mismatch
-        causes crosshair to float at cursor, not align with growing data-point dots
+[01:20] 3bc29f2 — Commit: "fix(chart): crosshair snap + animation props for horizontal bar layout"
+        - Horizontal bar crosshair axis swap (line tracks Y, dot tracks X)
+        - JSDoc updated: crosshairSnap defaults true for line/area/composed,
+          false for bar/histogram
+        - Removed DEFAULT_CROSSHAIR_SNAP constant, added isHorizontal variable
+        - 2 new horizontal crosshair tests (cx/cy assertions at data point)
+[00:45] Deleted .agent/commit-tracker.txt + facet_arcid_findings_and_recommendations.txt
+        (merged useful info into arcid_summary.md + EP 30)
+[00:30] Verified arc-id (../arc-id) against .agent findings:
+        - persistSession now stores only { user }, refresh token via httpOnly cookie
+        - All facet packages upgraded to ^2.0.0 / 1.x (was ^0.8.0 / ^0.1.0)
+        - Tailwind @source correctly uses dist/ paths (v4 requirement)
+        - API key backend fully built in src/modules/api-key/ (v0.2.0)
+        - arc-id CLAUDE.md/AGENTS.md version pins still stale
+[00:15] EP 30 written — comprehensive (all chart work, DataTable, migration, manifest,
+        arc-id verification, .agent cleanup)
+[00:10] arcid_summary.md rewritten — merged findings file + verified against arc-id repo
+[00:00] EP 29 + changesets already committed (70b7054)
