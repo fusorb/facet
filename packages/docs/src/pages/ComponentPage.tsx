@@ -7,13 +7,6 @@ import { InteractiveDemo } from "../components/InteractiveDemo.js";
 import { PageNav } from "../components/Guide.js";
 import { useDocsKeyboardNav, useDocsNavigation } from "../lib/keyboard-nav.js";
 import type { Control } from "../components/Playground.js";
-import { usageCode } from "../lib/usage.js";
-import { LiveCodePlayground } from "../components/LiveCodePlayground.js";
-import { playgroundComponents } from "../components/playground-registry.js";
-
-// Shared registry: facet-components + auth/layout placeholders + demo-data
-// wrappers, so the live preview matches the centralized PlaygroundPage.
-const liveComponents = playgroundComponents;
 
 /** Variant/size controls for components that have obvious options. */
 export function demoControls(slug: string): Control[] | undefined {
@@ -129,16 +122,6 @@ export function ComponentPage() {
           copyable code side-by-side on desktop (stacked on mobile). */}
       <div className="mt-6">
         <InteractiveDemo slug={slug} title={null} />
-      </div>
-
-      {/* Live playground -- the second preview box.
-          The default-usage code becomes an editable sandbox where consumers
-          can type JSX and see the result render in real-time, no copy-paste
-          needed.  Built on the existing LiveCodePlayground seed + the
-          component barrel registry, no new components to maintain. */}
-      <div className="mt-8">
-        <h2 className="font-heading text-lg font-semibold text-foreground mb-3">Live playground</h2>
-        <LiveCodePlayground defaultCode={usageCode(slug)} components={liveComponents} />
       </div>
 
       <PageNav

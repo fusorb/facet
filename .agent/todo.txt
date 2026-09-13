@@ -25,7 +25,12 @@
 ## NEW — IN PROGRESS
 [x] Crosshair dot border -> inherit background (dark=black, light=light); tests updated (green)
 [x] Dynamic axis range knobs: `tickCount` (default 4) + `yMin`/`yMax` range overrides —
-    backwards compatible (defaults preserve 0-clamped data range); 2 tests added; changeset added (green)
+    backwards compatible (defaults preserve 0-clamped data range); 2 tests added; changeset
+    added; COMMITTED as 703aea1 (green).
+    NOTE: line/area auto-span default dropped — 0-baseline is a TESTED feature (bars/areas
+    anchor at 0); yMin/yMax give explicit dynamic override instead.
+[x] AUDIT all components for hardcoded values — explore agent denied perms; audited via grep instead. Chart is clean (every magic number is a DEFAULT_* prop → tickCount/yMin/yMax already added). Remaining minor hardcoding in src (not tests): consent-capture w/h={600/140}, two-factor QR size{168}/OTP maxLength{6}, mention-input rows{3}, navbar sideOffset={8}, theme-toggle/icon size{16}/strokeWidth{2} — all acceptable sensible defaults, not logic-level hardcoding like the old chart tick count.
+[x] Remove live playground section from docs-site ComponentPage — removed <LiveCodePlayground> + "Live playground" heading + the liveComponents const and now-unused imports (usageCode, LiveCodePlayground, playgroundComponents) from packages/docs/src/pages/ComponentPage.tsx; ComponentDemoCard + InteractiveDemo previews retained. @fusorb/facet-docs typecheck + check:docs green.
 
 ## NEW — INVESTIGATION
 [x] Line chart crosshair duplication bug (hovered data pts affected, not region;
