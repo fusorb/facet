@@ -1285,11 +1285,13 @@ style={{
               {s.data.map((v, i2) => {
                 const off = isStacked && isArea ? stackedBaseline(si, i2, "area") : 0;
                 const isActive = hover?.dataIndex === i2;
+                const dotCx = xOf(i2);
+                const dotCy = yOf(v + off);
                 return (
                   <circle
                     key={`dot-${i2}`}
-                    cx={xOf(i2)}
-                    cy={yOf(v + off)}
+                    cx={dotCx}
+                    cy={dotCy}
                     r={isActive ? dotRadius + 2 : dotRadius}
                     fill={color}
                     stroke={isActive ? resolvedColors.foreground : undefined}
@@ -1299,6 +1301,7 @@ style={{
                       transition:
                         `r ${transitionDuration / 1000}s ease-out, opacity ${transitionDuration / 1000}s ease, stroke-width ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease-out`,
                       transform: isActive ? `scale(${DEFAULT_DOT_HOVER_SCALE})` : "scale(1)",
+                      transformOrigin: `${dotCx}px ${dotCy}px`,
                     }}
                   />
                 );
