@@ -405,6 +405,27 @@ describe("Chart", () => {
     expect(ticks).toContain("0");
   });
 
+  it("limits value-axis ticks to tickCount", () => {
+    const { container } = render(
+      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="bar" tickCount={2} showLegend={false} />,
+    );
+    const yTicks = Array.from(container.querySelectorAll("text")).filter(
+      (t) => t.getAttribute("text-anchor") === "end",
+    );
+    // tickCount=2 → niceTicks yields 3 values: min, mid, max
+    expect(yTicks).toHaveLength(3);
+  });
+
+  it("extends the value-axis range to yMax when provided", () => {
+    const { container } = render(
+      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="bar" yMax={100} showLegend={false} />,
+    );
+    const yTicks = Array.from(container.querySelectorAll("text")).filter(
+      (t) => t.getAttribute("text-anchor") === "end",
+    );
+    expect(yTicks.map((t) => t.textContent)).toContain("100");
+  });
+
   it("insets the first x-axis category label inside the plot (no overlap with the 0 tick)", () => {
     const { getByText } = render(
       <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="line" showLegend={false} />,
@@ -629,7 +650,7 @@ describe("Chart", () => {
     const dot = Array.from(container.querySelectorAll("circle")).find(
       (c) =>
         c.getAttribute("fill") === "var(--background)" &&
-        c.getAttribute("stroke") === "var(--foreground)",
+        c.getAttribute("stroke") === "var(--background)",
     );
     expect(dot).toBeFalsy();
     // Tooltip snaps to the nearest data point (index 0 → "Mon")
@@ -654,7 +675,7 @@ describe("Chart", () => {
     const dot = Array.from(container.querySelectorAll("circle")).find(
       (c) =>
         c.getAttribute("fill") === "var(--background)" &&
-        c.getAttribute("stroke") === "var(--foreground)",
+        c.getAttribute("stroke") === "var(--background)",
     );
     expect(dot).toBeInTheDocument();
     expect(parseFloat(dot!.getAttribute("cx")!)).toBe(100);
@@ -681,7 +702,7 @@ describe("Chart", () => {
     const dot = Array.from(container.querySelectorAll("circle")).find(
       (c) =>
         c.getAttribute("fill") === "var(--background)" &&
-        c.getAttribute("stroke") === "var(--foreground)",
+        c.getAttribute("stroke") === "var(--background)",
     );
     expect(dot).toBeInTheDocument();
     expect(parseFloat(dot!.getAttribute("cx")!)).toBe(100);
@@ -707,7 +728,7 @@ describe("Chart", () => {
     const dot = Array.from(container.querySelectorAll("circle")).find(
       (c) =>
         c.getAttribute("fill") === "var(--background)" &&
-        c.getAttribute("stroke") === "var(--foreground)",
+        c.getAttribute("stroke") === "var(--background)",
     );
     expect(dot).toBeFalsy();
   });

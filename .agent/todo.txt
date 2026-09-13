@@ -1,6 +1,6 @@
 # FACET — Session Priority Tracker
 # Session: 2026-09-13  (FINAL)
-# Status: COMMITTED 3bc29f2 (horizontal bar crosshair + animation props)
+# Status: COMMITTED 7daa663 (v2 polish + dot centering + bar follow-cursor)
 
 ## COMPLETED
 [x] 0. BASELINE GREEN — build clean, typecheck green, 739→745 tests
@@ -22,7 +22,42 @@
 [x] 10. PACKAGE.JSON — description count 113 → 114
 [x] 11. COMMIT — 3bc29f2 (horizontal bar crosshair + animation props)
 
+## NEW — IN PROGRESS
+[x] Crosshair dot border -> inherit background (dark=black, light=light); tests updated (green)
+[x] Dynamic axis range knobs: `tickCount` (default 4) + `yMin`/`yMax` range overrides —
+    backwards compatible (defaults preserve 0-clamped data range); 2 tests added; changeset added (green)
+
 ## NEW — INVESTIGATION
-[ ] Line chart crosshair duplication bug (hovered data pts affected, not region;
-    "duplicated crosshair" appearance). Need to examine crosshair rendering logic
-    in chart.tsx to find root cause.
+[x] Line chart crosshair duplication bug (hovered data pts affected, not region;
+    "duplicated crosshair" appearance). Examined crosshair + dot rendering in
+    chart.tsx. ROOT CAUSE found (see EP 31 notes):
+    - Active data-point DOT uses `transform: scale(1.15)` with NO transformOrigin.
+      SVG <circle> default transform-origin is the viewport (0,0), so the hover
+      scale shifts the dot centre from (cx,cy) to (cx*1.15, cy*1.15) — the dot
+      drifts right/down off the snapped crosshair line (images: with-hover.png).
+      Pie slices already set transformOrigin=${cx}px ${cy}px; line dots do NOT.
+    - Secondary tension: comment at L970 says "guide line ALWAYS follows raw
+      cursor (Recharts pattern)" but code L997 snaps the line (catPos = isSnapped
+      ? snapCat : trackCat). For line charts crosshairSnap defaults true, so the
+      line snaps (jumps) rather than following the cursor.
+    - Bar charts (image 1, dot-not-following): crosshairSnap defaults false →
+      dynamic snap within 8px. Current bar behaviour matches desired model; image
+      1 likely reflects PRE-3bc29f2 state where line snapped for all types.
+    - .log files: trivial chunk-size warnings only (no action).
+
+## NEW — FIX (committed)
+[x] Line dot centering (commit e3ed0a4): Add transformOrigin to line
+    data-point dots. SVG <circle> scales around viewport (0,0) by default;
+    the active dot's scale(1.15) was shifting it to (cx*1.15, cy*1.15),
+    drifting it off the snapped crosshair line. Mirrors pie-slice fix
+    (L1354/L1488). Confirmed by .agent/image.png (dots sit exactly on the
+    snapped guide line). 59/59 chart tests pass.
+[x] Bar crosshair follow-cursor (commit 7daa663): Removed the hardcoded
+    8px SNAP_THRESHOLD; isSnapped = crosshairSnap. Bars/histograms (default
+    false) now follow the cursor smoothly (no snap/float jitter), with
+    interpolateAtX pinning the dot's value to a bar as the cursor passes
+    its column. Line charts (default true) still snap + hide the intersection
+    dot — undisturbed. Matches image1.png + crosshair tests 2/3/4.
+[ ] Bar hover scaleX/scaleY (L1122/1158/1197/1232): audited — same
+    transformOrigin gap (scale 1.1 without anchor), but no image evidence
+    of drift and not the cursor/crosshair focus; left unchanged (latent).

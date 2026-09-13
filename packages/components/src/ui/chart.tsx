@@ -93,6 +93,12 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   formatY?: (n: number) => string;
   /** Format an x value (e.g. "Jan", "Q1"). */
   formatX?: (v: string | number) => string;
+  /** Number of ticks drawn on the value axis. Default: 4. */
+  tickCount?: number;
+  /** Minimum value of the value axis; overrides the auto-computed range. */
+  yMin?: number;
+  /** Maximum value of the value axis; overrides the auto-computed range. */
+  yMax?: number;
   /** Override a tooltip value. */
   formatTooltipValue?: (value: number, series: ChartSeries, dataIndex: number) => string;
   /** Custom tooltip renderer. */
@@ -263,6 +269,7 @@ const DEFAULT_CROSSHAIR_DOT_WIDTH = 1.5;
 const DEFAULT_AXIS_WIDTH = 1;
 const DEFAULT_GRIDLINE_WIDTH = 1;
 const DEFAULT_GRIDLINE_DASHARRAY = "2 4";
+const DEFAULT_TICK_COUNT = 4;
 const DEFAULT_SLICE_WIDTH = 1.5;
 const DEFAULT_LEGEND_INACTIVE_OPACITY = 0.3;
 const DEFAULT_DOT_HOVER_SCALE = 1.15;
@@ -600,6 +607,9 @@ export function Chart({
   height,
   formatY = defaultFormatY,
   formatX,
+  tickCount = DEFAULT_TICK_COUNT,
+  yMin,
+  yMax,
   formatTooltipValue,
   renderTooltip,
   defaultColor = DEFAULT_COLOR,
@@ -763,11 +773,12 @@ export function Chart({
   const plotH = chartHeight - padding.top - padding.bottom;
 
   const allValues = visibleSeries.flatMap((s) => s.data);
-  const minY = Math.min(0, ...allValues);
-  const maxY = Math.max(0, ...allValues);
+  const nums = allValues.map((v) => (v == null ? 0 : v));
+  const minY = yMin ?? Math.min(0, ...nums);
+  const maxY = yMax ?? Math.max(0, ...nums);
   const range = maxY - minY || 1;
 
-  const yTicks = niceTicks(minY, maxY, 4);
+  const yTicks = niceTicks(minY, maxY, tickCount);
   // Category positions are band-centered so the first/last category (and its
   // axis label) sits fully inside the plot instead of touching the y-axis spine
   // / "0" tick or running to the right edge — the cause of the first x-axis
@@ -1022,7 +1033,7 @@ export function Chart({
                   cy={dotCy}
                   r={crosshairDotRadius}
                   fill={resolvedColors.background}
-                  stroke={resolvedColors.foreground}
+                  stroke={resolvedColors.background}
                   strokeWidth={crosshairDotWidth}
                   style={{ transition: `opacity ${transitionDuration / 1000}s ease` }}
                 />
