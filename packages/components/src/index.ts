@@ -765,6 +765,7 @@ export {
 export {
   type ChartRangePreset,
   type ChartRangeSelectorProps,
+  type ChartRangeSelectorPosition,
   ChartRangeSelector,
 } from "./ui/chart-range-selector.js";
 

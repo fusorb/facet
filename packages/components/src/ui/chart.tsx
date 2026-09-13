@@ -23,6 +23,7 @@
 
 import * as React from "react";
 import { cn } from "../utils.js";
+import { ChartRangeSelector, type ChartRangeSelectorProps } from "./chart-range-selector.js";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
@@ -208,12 +209,29 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
    *  The draw-animation duration is controlled separately by `animationDuration`.
    *  Default: 150. */
   transitionDuration?: number;
-  /** Whether the crosshair (vertical line + dot) snaps to the nearest data
-   *  point's x position. Defaults to `true` for line/area/composed charts
-   *  (crosshair sits exactly on the data-point dots), and `false` for
-   *  bar/histogram charts (crosshair tracks the raw cursor for precise
-   *  value reading). Override with an explicit boolean. */
+  /** Whether the crosshair intersection dot snaps to the nearest data point.
+   *  The crosshair line ALWAYS follows the raw cursor (Recharts pattern).
+   *  When `true` (default for line/area/composed), the dot is hidden — the
+   *  active data-point dot already marks the position, so rendering both
+   *  would create a visual duplicate. When `false` (default for
+   *  bar/histogram), the dot follows the cursor and shows the interpolated
+   *  value at the hover point. Override with an explicit boolean. */
   crosshairSnap?: boolean;
+  /** Optional range selector rendered inside the chart container.
+   *  Fully opt-in — only rendered when provided. Accepts position, size,
+   *  and minimizable props; see {@link ChartRangeSelectorProps}. */
+  rangeSelector?: Pick<
+    ChartRangeSelectorProps,
+    | "presets"
+    | "active"
+    | "onChange"
+    | "position"
+    | "size"
+    | "minimizable"
+    | "defaultMinimized"
+    | "minimized"
+    | "onMinimizedChange"
+  >;
 }
 
 /* ── Constants ─────────────────────────────────────────────── */
@@ -281,8 +299,8 @@ function injectKeyframes() {
   style.id = ANIMATION_ID;
   style.textContent = `
 @keyframes facet-chart-fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 @keyframes facet-chart-draw {
   from { stroke-dashoffset: var(--facet-path-len); }
@@ -626,8 +644,9 @@ export function Chart({
   curveTension = DEFAULT_CURVE_TENSION,
   colors: chartColors = {},
   transitionDuration = DEFAULT_TRANSITION_DURATION,
-  // Line/area/composed charts snap to data points; bar/histogram charts track the cursor.
+  // Crosshair line always follows cursor; dot hidden (snaps) for line/area/composed, dot follows for bar/histogram
   crosshairSnap = type !== "bar" && type !== "histogram",
+  rangeSelector,
   style,
   className,
   ...rest
@@ -949,13 +968,15 @@ export function Chart({
           ))}
 
         {/* Crosshair — guide line + intersection dot on cursor hover.
-            Vertical line for line/area/vbar (tracks X); horizontal line for
-            hbar layout (tracks Y). Snaps to the nearest data point when
-            `crosshairSnap` is true (default for line/area/composed — dot sits
-            exactly on the line graph's dots, no floating offset). Follows the
-            raw cursor when false (default for bar/histogram). Per-series colored
-            markers are opt-in via crosshairPoints (off by default). Only rendered
-            for cartesian charts. */}
+            The guide line ALWAYS follows the raw cursor (Recharts pattern),
+            giving a stable reference at the exact hover x/y. The intersection
+            dot snaps to the nearest data point when `crosshairSnap` is true and
+            is HIDDEN (the active data-point dot already marks the position —
+            rendering both would create a visual duplicate). When `crosshairSnap`
+            is false (default for bar/histogram), the dot follows the cursor and
+            shows the interpolated value at the hover point. Per-series colored
+            markers are opt-in via `crosshairPoints` (off by default). Only
+            rendered for cartesian charts. */}
         {crosshair && hover && !isRadial && (() => {
           // Horizontal bar charts swap the axes: category axis is Y (catY),
           // value axis is X (xOfVal). Vertical charts use X for category (xOf),
@@ -965,10 +986,15 @@ export function Chart({
           const firstData = visibleSeries[0]?.data ?? [];
           const snapCat = catPosOf(hover.dataIndex);
           const trackCat = mousePos ? (isHorizontal ? mousePos.y : mousePos.x) : snapCat;
-          const catPos = crosshairSnap ? snapCat : trackCat;
-          // Dot's value-axis coordinate:
-          //  snapped → exact data-point position
-          //  following cursor → interpolated value (vertical) or raw cursor X (horizontal)
+          // Dynamic snap: explicitly snap when crosshairSnap is true;
+          // otherwise snap to the nearest data point only when the cursor is
+          // within SNAP_THRESHOLD px along the category axis — giving the
+          // "follow cursor, stick to data point when hovered" behavior.
+          const SNAP_THRESHOLD = 8;
+          const isSnapped =
+            crosshairSnap ||
+            (mousePos !== null && Math.abs(trackCat - snapCat) < SNAP_THRESHOLD);
+          const catPos = isSnapped ? snapCat : trackCat;
           const valPos = crosshairSnap
             ? valPosOf(firstData[hover.dataIndex] ?? 0)
             : (isHorizontal
@@ -993,14 +1019,17 @@ export function Chart({
                 strokeWidth={crosshairWidth}
                 style={{ transition: `opacity ${transitionDuration / 1000}s ease, stroke-opacity ${transitionDuration / 1000}s ease` }}
               />
-              <circle
-                cx={dotCx}
-                cy={dotCy}
-                r={crosshairDotRadius}
-                fill={resolvedColors.background}
-                stroke={resolvedColors.foreground}
-                strokeWidth={crosshairDotWidth}
-              />
+              {!isSnapped && (
+                <circle
+                  cx={dotCx}
+                  cy={dotCy}
+                  r={crosshairDotRadius}
+                  fill={resolvedColors.background}
+                  stroke={resolvedColors.foreground}
+                  strokeWidth={crosshairDotWidth}
+                  style={{ transition: `opacity ${transitionDuration / 1000}s ease` }}
+                />
+              )}
               {crosshairPoints &&
                 visibleSeries.map((s, si) => {
                   const val = s.data[hover.dataIndex];
@@ -1712,6 +1741,19 @@ style={{
       </svg>
       {showLegend && legendPosition === "bottom" && renderLegend()}
       {showTooltip && renderTooltipEl()}
+      {rangeSelector && (
+        <ChartRangeSelector
+          presets={rangeSelector.presets}
+          active={rangeSelector.active}
+          onChange={rangeSelector.onChange}
+          position={rangeSelector.position}
+          size={rangeSelector.size}
+          minimizable={rangeSelector.minimizable}
+          defaultMinimized={rangeSelector.defaultMinimized}
+          minimized={rangeSelector.minimized}
+          onMinimizedChange={rangeSelector.onMinimizedChange}
+        />
+      )}
     </div>
   );
 }

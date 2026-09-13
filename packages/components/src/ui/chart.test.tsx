@@ -612,31 +612,27 @@ describe("Chart", () => {
 
   // ── Crosshair ───────────────────────────────────────────────────
 
-  it("crosshair snaps to the hovered data point by default", async () => {
+  it("crosshair line follows cursor; dot hidden when snapped", async () => {
     const { container } = render(
       <Chart x={SAMPLE_X} series={SAMPLE_SERIES} type="line" />,
     );
     const svg = container.querySelector("svg")!;
     await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
-    // The crosshair line is the dashed line with "4 2" (spines are solid, gridlines use "2 4").
     const crosshair = Array.from(container.querySelectorAll("line")).find(
       (l) => l.getAttribute("stroke-dasharray") === "4 2",
     );
     expect(crosshair).toBeInTheDocument();
-    // Snap: crosshair sits on the nearest data point (index 0 → xOf(0) = 128).
-    // In jsdom scaleRef = 1 → mousePos.x = relX = 100, but snap overrides to xOf(0).
+    // Line snaps to the nearest data point (index 0 → xOf(0) = 128).
     expect(parseFloat(crosshair!.getAttribute("x1")!)).toBe(128);
-    // Crosshair dot snaps to the same x, with Y interpolated from the data line.
+    // Crosshair dot is hidden when crosshairSnap=true (default for line) —
+    // the active data-point dot already marks the position.
     const dot = Array.from(container.querySelectorAll("circle")).find(
       (c) =>
         c.getAttribute("fill") === "var(--background)" &&
         c.getAttribute("stroke") === "var(--foreground)",
     );
-    expect(dot).toBeInTheDocument();
-    expect(parseFloat(dot!.getAttribute("cx")!)).toBe(128);
-    // At x=128 (the first data point), interpolateAtX returns yOf(data[0]) = yOf(30) = 140.
-    expect(parseFloat(dot!.getAttribute("cy")!)).toBe(140);
-    // Tooltip also snaps to the nearest data point (index 0 → "Mon")
+    expect(dot).toBeFalsy();
+    // Tooltip snaps to the nearest data point (index 0 → "Mon")
     const tooltip = container.querySelector('[class*="shadow-md"]');
     expect(tooltip).toHaveTextContent("Mon");
   });
@@ -692,7 +688,7 @@ describe("Chart", () => {
     expect(parseFloat(dot!.getAttribute("cy")!)).toBe(50);
   });
 
-  it("snaps the crosshair to the data point for horizontal bar charts when crosshairSnap is true", async () => {
+  it("crosshair line follows cursor (horizontal) even when crosshairSnap is true", async () => {
     const { container } = render(
       <Chart x={SAMPLE_X} series={SAMPLE_SERIES} type="bar" layout="horizontal" crosshairSnap={true} />,
     );
@@ -702,20 +698,18 @@ describe("Chart", () => {
       (l) => l.getAttribute("stroke-dasharray") === "4 2",
     );
     expect(crosshair).toBeInTheDocument();
-    // Snapped: horizontal line at catY(0) = padding.top + 0.5 * (plotH / 5) = 20 + 18 = 38
-    expect(parseFloat(crosshair!.getAttribute("y1")!)).toBe(38);
-    expect(parseFloat(crosshair!.getAttribute("y2")!)).toBe(38);
-    expect(parseFloat(crosshair!.getAttribute("x1")!)).toBe(56);  // padding.left
-    expect(parseFloat(crosshair!.getAttribute("x2")!)).toBe(776); // padding.left + plotW
-    // Dot at data-point position: (xOfVal(30), catY(0)) = (296, 38)
+    // Line snaps to catY(0) = 38 when crosshairSnap is true
+    expect(parseFloat(crosshair!.getAttribute("x1")!)).toBe(56);   // padding.left
+    expect(parseFloat(crosshair!.getAttribute("x2")!)).toBe(776);  // padding.left + plotW
+    expect(parseFloat(crosshair!.getAttribute("y1")!)).toBe(38);  // snapped to catY(0)
+    expect(parseFloat(crosshair!.getAttribute("y2")!)).toBe(38);   // snapped to catY(0)
+    // Crosshair dot is hidden when crosshairSnap=true
     const dot = Array.from(container.querySelectorAll("circle")).find(
       (c) =>
         c.getAttribute("fill") === "var(--background)" &&
         c.getAttribute("stroke") === "var(--foreground)",
     );
-    expect(dot).toBeInTheDocument();
-    expect(parseFloat(dot!.getAttribute("cx")!)).toBe(296);
-    expect(parseFloat(dot!.getAttribute("cy")!)).toBe(38);
+    expect(dot).toBeFalsy();
   });
 
   it("honors transitionDuration in hover transitions", async () => {

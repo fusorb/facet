@@ -242,7 +242,7 @@ export interface RevealCardProps extends React.HTMLAttributes<HTMLDivElement> {
 export function RevealCard({
   delay = 0,
   duration = 600,
-  y = 24,
+  y: _y = 24,
   className,
   children,
   style,
@@ -268,13 +268,12 @@ export function RevealCard({
   return (
     <div
       ref={ref}
-      className={cn("w-full will-change-transform", className)}
+      className={cn("w-full will-change-opacity", className)}
       style={
         {
           ...style,
           opacity: visible ? 1 : 0,
-          transform: visible ? "none" : `translateY(${y}px)`,
-          transition: `opacity ${duration}ms ease-out ${delay}ms, transform ${duration}ms ease-out ${delay}ms`,
+          transition: `opacity ${duration}ms ease-out ${delay}ms`,
         } as React.CSSProperties
       }
       {...props}

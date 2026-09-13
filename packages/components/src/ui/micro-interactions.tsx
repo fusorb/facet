@@ -297,12 +297,11 @@ export function ScrollReveal({
   return (
     <div
       ref={ref}
-      className={cn("will-change-transform", className)}
+      className={cn("will-change-opacity", className)}
       style={{
         ...style,
         opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(16px)",
-        transition: `opacity ${duration}ms ease-out, transform ${duration}ms ease-out`,
+        transition: `opacity ${duration}ms ease-out`,
         transitionDelay: `${delay}ms`,
       }}
       {...props}
