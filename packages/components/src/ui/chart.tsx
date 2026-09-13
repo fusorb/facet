@@ -208,10 +208,11 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
    *  The draw-animation duration is controlled separately by `animationDuration`.
    *  Default: 150. */
   transitionDuration?: number;
-  /** When true (default), the crosshair vertical line and intersection dot snap
-   *  to the hovered data point's x position so they sit exactly on the
-   *  meeting point of the line graph's dots. When false, the crosshair tracks
-   *  the raw cursor for a free-floating cursor feel. */
+  /** Whether the crosshair (vertical line + dot) snaps to the nearest data
+   *  point's x position. Defaults to `true` for line/area/composed charts
+   *  (crosshair sits exactly on the data-point dots), and `false` for
+   *  bar/histogram charts (crosshair tracks the raw cursor for precise
+   *  value reading). Override with an explicit boolean. */
   crosshairSnap?: boolean;
 }
 
@@ -260,7 +261,6 @@ const DONUT_TOTAL_SCALE = 1.5;
 const DONUT_SUBTITLE_SCALE = 1.3;
 const PIE_SECONDARY_LABEL_SCALE = 0.8;
 const DEFAULT_TRANSITION_DURATION = 150;
-const DEFAULT_CROSSHAIR_SNAP = true;
 
 /** Falls-back chart colors. Individual entries can be overridden via the
  *  `colors` prop — omitted keys inherit from the design-token theme. */
@@ -626,12 +626,14 @@ export function Chart({
   curveTension = DEFAULT_CURVE_TENSION,
   colors: chartColors = {},
   transitionDuration = DEFAULT_TRANSITION_DURATION,
-  crosshairSnap = DEFAULT_CROSSHAIR_SNAP,
+  // Line/area/composed charts snap to data points; bar/histogram charts track the cursor.
+  crosshairSnap = type !== "bar" && type !== "histogram",
   style,
   className,
   ...rest
 }: ChartProps) {
   const isRadial = type === "pie" || type === "donut";
+  const isHorizontal = type === "bar" && layout === "horizontal";
   const effectiveHeight = height ?? (isRadial ? DEFAULT_HEIGHT_RADIAL : DEFAULT_HEIGHT);
   const crosshair = showCrosshair ?? showTooltip;
   const n = x.length;
@@ -788,11 +790,14 @@ export function Chart({
     // actual slice under the cursor, so the highlighted slice diverges from the
     // data shown in the tooltip / opacity dimming.
     if (crosshair && n > 0 && !isRadial) {
-      const bx = relX * scaleRef.current;
+      // For horizontal bar charts the category axis is Y (catY) — scan cursor
+      // Y against catY(i). For vertical charts scan cursor X against xOf(i).
+      const axisPos = (isHorizontal ? relY : relX) * scaleRef.current;
+      const posOf = isHorizontal ? catY : xOf;
       let bestI = 0;
       let bestDist = Infinity;
       for (let i = 0; i < n; i++) {
-        const d = Math.abs(xOf(i) - bx);
+        const d = Math.abs(posOf(i) - axisPos);
         if (d < bestDist) {
           bestDist = d;
           bestI = i;
@@ -943,25 +948,45 @@ export function Chart({
             </g>
           ))}
 
-        {/* Crosshair — vertical guide line that follows the cursor (dynamic),
-            with a dot at the nearest data-point's Y for precision targeting.
-            Colored per-series markers are opt-in via crosshairPoints (off by
-            default). Only rendered for cartesian charts.
-            When `crosshairSnap` is true (default), the line and dot snap to
-            the hovered data point's x so they sit exactly on the line graph's
-            dots — no floating offset. When false, they track the raw cursor. */}
+        {/* Crosshair — guide line + intersection dot on cursor hover.
+            Vertical line for line/area/vbar (tracks X); horizontal line for
+            hbar layout (tracks Y). Snaps to the nearest data point when
+            `crosshairSnap` is true (default for line/area/composed — dot sits
+            exactly on the line graph's dots, no floating offset). Follows the
+            raw cursor when false (default for bar/histogram). Per-series colored
+            markers are opt-in via crosshairPoints (off by default). Only rendered
+            for cartesian charts. */}
         {crosshair && hover && !isRadial && (() => {
-          const snapX = xOf(hover.dataIndex);
-          const trackX = mousePos ? mousePos.x : snapX;
-          const cxPos = crosshairSnap ? snapX : trackX;
-          const cyPos = interpolateAtX(cxPos, visibleSeries[0]?.data ?? [], xOf, yOf);
+          // Horizontal bar charts swap the axes: category axis is Y (catY),
+          // value axis is X (xOfVal). Vertical charts use X for category (xOf),
+          // Y for value (yOf).
+          const catPosOf = isHorizontal ? catY : xOf;
+          const valPosOf = isHorizontal ? xOfVal : yOf;
+          const firstData = visibleSeries[0]?.data ?? [];
+          const snapCat = catPosOf(hover.dataIndex);
+          const trackCat = mousePos ? (isHorizontal ? mousePos.y : mousePos.x) : snapCat;
+          const catPos = crosshairSnap ? snapCat : trackCat;
+          // Dot's value-axis coordinate:
+          //  snapped → exact data-point position
+          //  following cursor → interpolated value (vertical) or raw cursor X (horizontal)
+          const valPos = crosshairSnap
+            ? valPosOf(firstData[hover.dataIndex] ?? 0)
+            : (isHorizontal
+                ? (mousePos ? mousePos.x : valPosOf(firstData[hover.dataIndex] ?? 0))
+                : interpolateAtX(trackCat, firstData, xOf, yOf));
+          // Line spans the full plot dimension perpendicular to the category axis
+          const lineProps = isHorizontal
+            ? { x1: padding.left, x2: padding.left + plotW, y1: catPos, y2: catPos }
+            : { x1: catPos, x2: catPos, y1: padding.top, y2: padding.top + plotH };
+          const dotCx = isHorizontal ? valPos : catPos;
+          const dotCy = isHorizontal ? catPos : valPos;
           return (
             <>
               <line
-                x1={cxPos}
-                x2={cxPos}
-                y1={padding.top}
-                y2={padding.top + plotH}
+                x1={lineProps.x1}
+                x2={lineProps.x2}
+                y1={lineProps.y1}
+                y2={lineProps.y2}
                 stroke={resolvedColors.foreground}
                 strokeOpacity={crosshairOpacity}
                 strokeDasharray={crosshairDasharray}
@@ -969,8 +994,8 @@ export function Chart({
                 style={{ transition: `opacity ${transitionDuration / 1000}s ease, stroke-opacity ${transitionDuration / 1000}s ease` }}
               />
               <circle
-                cx={cxPos}
-                cy={cyPos}
+                cx={dotCx}
+                cy={dotCy}
                 r={crosshairDotRadius}
                 fill={resolvedColors.background}
                 stroke={resolvedColors.foreground}
@@ -983,8 +1008,8 @@ export function Chart({
                   return (
                     <circle
                       key={`cross-${s.id}`}
-                      cx={xOf(hover.dataIndex)}
-                      cy={yOf(val)}
+                      cx={isHorizontal ? xOfVal(val) : xOf(hover.dataIndex)}
+                      cy={isHorizontal ? catY(hover.dataIndex) : yOf(val)}
                       r={dotRadius}
                       fill={colorFor(si, s, defaultColor, palette)}
                       stroke={resolvedColors.background}

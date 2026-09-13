@@ -666,6 +666,58 @@ describe("Chart", () => {
     expect(parseFloat(dot!.getAttribute("cy")!)).toBe(140);
   });
 
+  it("crosshair follows the cursor (horizontal line) for horizontal bar charts", async () => {
+    const { container } = render(
+      <Chart x={SAMPLE_X} series={SAMPLE_SERIES} type="bar" layout="horizontal" />,
+    );
+    const svg = container.querySelector("svg")!;
+    await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
+    const crosshair = Array.from(container.querySelectorAll("line")).find(
+      (l) => l.getAttribute("stroke-dasharray") === "4 2",
+    );
+    expect(crosshair).toBeInTheDocument();
+    // Horizontal bar: crosshair is a HORIZONTAL line at cursor Y (50 in jsdom)
+    expect(parseFloat(crosshair!.getAttribute("x1")!)).toBe(56);  // padding.left
+    expect(parseFloat(crosshair!.getAttribute("x2")!)).toBe(776); // padding.left + plotW
+    expect(parseFloat(crosshair!.getAttribute("y1")!)).toBe(50);  // cursor Y
+    expect(parseFloat(crosshair!.getAttribute("y2")!)).toBe(50);   // cursor Y
+    // Dot at raw cursor position (follows cursor, not snap)
+    const dot = Array.from(container.querySelectorAll("circle")).find(
+      (c) =>
+        c.getAttribute("fill") === "var(--background)" &&
+        c.getAttribute("stroke") === "var(--foreground)",
+    );
+    expect(dot).toBeInTheDocument();
+    expect(parseFloat(dot!.getAttribute("cx")!)).toBe(100);
+    expect(parseFloat(dot!.getAttribute("cy")!)).toBe(50);
+  });
+
+  it("snaps the crosshair to the data point for horizontal bar charts when crosshairSnap is true", async () => {
+    const { container } = render(
+      <Chart x={SAMPLE_X} series={SAMPLE_SERIES} type="bar" layout="horizontal" crosshairSnap={true} />,
+    );
+    const svg = container.querySelector("svg")!;
+    await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
+    const crosshair = Array.from(container.querySelectorAll("line")).find(
+      (l) => l.getAttribute("stroke-dasharray") === "4 2",
+    );
+    expect(crosshair).toBeInTheDocument();
+    // Snapped: horizontal line at catY(0) = padding.top + 0.5 * (plotH / 5) = 20 + 18 = 38
+    expect(parseFloat(crosshair!.getAttribute("y1")!)).toBe(38);
+    expect(parseFloat(crosshair!.getAttribute("y2")!)).toBe(38);
+    expect(parseFloat(crosshair!.getAttribute("x1")!)).toBe(56);  // padding.left
+    expect(parseFloat(crosshair!.getAttribute("x2")!)).toBe(776); // padding.left + plotW
+    // Dot at data-point position: (xOfVal(30), catY(0)) = (296, 38)
+    const dot = Array.from(container.querySelectorAll("circle")).find(
+      (c) =>
+        c.getAttribute("fill") === "var(--background)" &&
+        c.getAttribute("stroke") === "var(--foreground)",
+    );
+    expect(dot).toBeInTheDocument();
+    expect(parseFloat(dot!.getAttribute("cx")!)).toBe(296);
+    expect(parseFloat(dot!.getAttribute("cy")!)).toBe(38);
+  });
+
   it("honors transitionDuration in hover transitions", async () => {
     const { container } = render(
       <Chart
