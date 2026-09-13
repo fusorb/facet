@@ -4,12 +4,13 @@
 
 Chart v2 polish — crosshair fix, animations, and range selector:
 
-- **Crosshair duplication fix**: The intersection dot is now hidden when the
-  crosshair snaps to a data point — it was rendering on top of the active
-  data-point dot, creating a "duplicated/blinking" appearance. The guide line
-  snaps to the nearest data point; bar/histogram charts dynamically snap within
-  an 8px threshold (following the cursor otherwise), giving the "follow cursor,
-  stick to data point when hovered" behavior.
+- **Crosshair**: The guide line + intersection dot snap to the nearest data point
+  when `crosshairSnap` is on; the dot is hidden there (the active marker already
+  marks the position, so rendering both would look duplicated). When off (the
+  default for bar/histogram), the line and dot track the raw cursor and
+  `interpolateAtX` pins the dot's value to a bar as it passes — bar/histogram
+  crosshairs follow the cursor smoothly. The old fixed 8px snap window (which made
+  bars jitter between snapping and floating) is removed.
 
 - **Crosshair dot centering**: The active data-point dot's hover `scale(1.15)`
   is now anchored to the dot's centre with `transformOrigin` (matching the

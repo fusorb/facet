@@ -986,14 +986,11 @@ export function Chart({
           const firstData = visibleSeries[0]?.data ?? [];
           const snapCat = catPosOf(hover.dataIndex);
           const trackCat = mousePos ? (isHorizontal ? mousePos.y : mousePos.x) : snapCat;
-          // Dynamic snap: explicitly snap when crosshairSnap is true;
-          // otherwise snap to the nearest data point only when the cursor is
-          // within SNAP_THRESHOLD px along the category axis — giving the
-          // "follow cursor, stick to data point when hovered" behavior.
-          const SNAP_THRESHOLD = 8;
-          const isSnapped =
-            crosshairSnap ||
-            (mousePos !== null && Math.abs(trackCat - snapCat) < SNAP_THRESHOLD);
+          // Snap to the data point only when `crosshairSnap` is on; otherwise the
+          // guide line and dot track the raw cursor (interpolateAtX pins the dot's
+          // value to a bar as the cursor passes its column). No fixed pixel
+          // threshold — bar/histogram crosshairs follow the cursor smoothly.
+          const isSnapped = crosshairSnap;
           const catPos = isSnapped ? snapCat : trackCat;
           const valPos = crosshairSnap
             ? valPosOf(firstData[hover.dataIndex] ?? 0)
