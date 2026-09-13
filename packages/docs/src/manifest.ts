@@ -142,6 +142,12 @@ export const docsManifest: DocsManifestEntry[] = [
     "category": "ready-to-use"
   },
   {
+    "name": "Chart Range Selector",
+    "slug": "chart-range-selector",
+    "description": "@fusorb/facet-components: ChartRangeSelector",
+    "category": "data-display"
+  },
+  {
     "name": "Checkbox",
     "slug": "checkbox",
     "description": "",

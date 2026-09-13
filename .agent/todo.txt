@@ -1,75 +1,59 @@
-facet — live dashboard
-====================
+facet - session plan (2026-09-13)
+============================================================
+Baseline (verified green): build + typecheck all packages; 739/739 tests.
+Playground "errs": intentional `demo component exploded` caught by
+  PlaygroundErrorBoundary (LiveCodePlayground.test.tsx, 16/16 pass). Not a real
+  breakage.
 
-Build Status
-------------
-Build:        all 11 packages + 2 apps — clean ✓
-Typecheck:    all 12 packages + 2 apps green ✓
-Tests:        running full suite (chart tests 32/32 ✓)
-Docs drift:   barrel <-> manifest <-> CLAUDE.md synced (113 components)
-
-Current P0
-----------
-P0 - Chart Fixes & Improvements              [DONE]
-  [x] Root cause: `const width = 800;` placement fix applied
-  [x] Crosshair coordinate conversion fix applied
-  [x] Build + typecheck pass
-  [x] Fix failing tests: handlePointerMove bails on rect.width === 0 (jsdom)
-  [x] Fix axes positioning: add visible axis spine lines (y-axis + x-axis)
-  [x] Add chart variant cells to docs (variantCells case "chart")
-  [x] Add VARIANT_USAGE["chart"] entries matching variant labels
-  [x] Add scrollable prop for charts with many categories (maxHeight)
-  [x] Auto-grow height for horizontal bar charts (rowHeight per category)
-  [x] catY positioning for horizontal bars (distribute across plotH, not plotW)
-  [x] ResizeObserver scaleRef formula corrected (width/rect.width, not inverse)
-  [x] Re-run tests to verify all pass (32 chart tests)
-
-P1 - Chart Polish & Theme Toggle           [IN PROGRESS]
-  [x] Add `width` prop to Chart (default 800) — fixes tiny text in narrow containers
-  [x] Add `axisFontSize` prop (default 11) and `pieLabelFontSize` prop (default 12)
-  [x] Pie/Donut: leader lines from slice edge to label (not compacted)
-  [x] Pie/Donut: two-line labels — bold category + muted percentage
-  [x] Pie/Donut: text anchoring based on slice angle for readability
-  [x] Pie/Donut: `renderSliceLabel` prop for fully custom label content (bold+sublabel, icons)
-  [x] Pie/Donut: label gap 16→24px + onMouseLeave clears hover state
-  [x] Pie/Donut: coherent hover focus — full opacity by default, dim to 0.4 for non-hovered
-  [x] Cartesian bars: opacity consistency (1.0 default, 0.85 dim on hover like pie/donut)
-  [x] Variant cells: width={560} for crisp text at card body width
-  [x] ThemeToggle: size={16} on LightIcon (was defaulting to 24px, overflowing 16px container)
-  [x] Docs changelog: removed stale DataTablePage + BorderBeamCard refs
-  [x] Wired check-component-flexibility.mjs into package.json as check:components
-  [x] Changeset created: chart-pie-label-improvements.md
-
-P2 - Stale Cleanup & Migration Fixes        [IN PROGRESS]
-  [x] Fixed TS2304: missing `const` on `isRadial` and `n` in chart.tsx (P0 code)
-  [x] Fixed TS6133: unused `isHovered` in donut path rendering
-  [x] Fixed stale `hsl(var(...))` → `var(...)` in 4 files (CSS vars use oklch, not HSL)
-      - components/ui/shine-border-card.tsx
-      - components/ui/glow-border-card.tsx
-      - components/ui/consent-capture.tsx
-      - landing/components/TestimonialsSection.tsx
-  [x] Created packages/docs/tsup.config.ts (missing after fusorb migration — fixed DTS resolution)
-  [x] Updated docs package.json: build → "tsup", build:analyze → "tsup --metafile"
-  [x] Rebuilt components (dist/index.d.ts + light.d.ts fresh)
-  [x] Rebuilt auth (dist with @fusorb/ imports)
-  [x] Rebuilt docs library (dist/index.d.ts fresh)
-  [x] Run full build + typecheck + tests to verify
-  [x] Commit all changes
-
-Recent Log
-----------
-[09:10] Full pnpm build — all 11 packages + 2 apps SUCCESS ✓
-[09:08] Full pnpm typecheck — all 12 packages + 2 apps green ✓
-[09:05] Rebuilt docs library with tsup.config.ts — DTS passes ✓
-[08:52] Full test suite launched (background)
-[08:35] Full build launched (background)
-[08:35] Full typecheck launched (background)
-[08:33] Docs package rebuilt successfully with tsup.config.ts — DTS passes
-[08:32] Fixed hsl(var(...)) → var(...) in 4 files (CSS vars use oklch format)
-[08:30] Updated docs package.json build scripts to use tsup config
-[08:28] Created packages/docs/tsup.config.ts (fixes @fusorb/facet-components/light DTS resolution)
-[08:25] Fixed TS errors in chart.tsx: const isRadial, const n, removed unused isHovered
-[08:20] Chart tests pass (32/32), components + auth typecheck passes
-[07:59] ThemeToggle size={16} verified (already in working tree)
-[07:55] Chart improvements applied: width prop, font size props, pie/donut leader lines, two-line labels, renderSliceLabel, bar opacity consistency
-[14:22] Session 2026-09-12: deleted stray .agent PNGs + debug .mjs scripts + image.png/image1.png; fixed docs-app.test.tsx mock prop-leak (singleOpen/themeToggle); verified build + typecheck + tests (720/720 graceful); committing
+TODOS:
+[x] Baseline green (build/typecheck/739 tests)
+[x] Confirm hidden-tooltip bug + radial hover + x-label/0 overlap
+[x] Fix chart.tsx (working tree):
+    - Remove `hidden`; clamp+offset tooltip (tooltipOffset prop) ✓
+    - Band-scale xOf/catY so first/last category labels clear the "0" tick ✓
+    - Radial hover: skip cartesian snap for radial (!isRadial) ✓
+    - Radial per-slice legend (proper slice representation) ✓
+    - Donut center: renderCenter prop + readable subtitle ✓
+    - sliceLabelThreshold prop (hide tiny-slice labels) ✓
+    - barRadius prop (replace hardcoded rx={4}) ✓
+    - Horizontal bar: categories left / values bottom (hOf), correct orientation ✓
+[x] Add chart.test.tsx coverage for new behavior (55→57 tests) ✓
+[x] Fix 3 failing tests:
+    - Origin-point regex: match comma-separated SVG coords (M 56,200) ✓
+    - Crosshair test: find crosshair line by stroke-dasharray="4 2", not spine ✓
+    - Manifest: add chart-range-selector entry + update CLAUDE.md count (113→114) ✓
+[x] Crosshair: snap to nearest data point by default (crosshairSnap prop, default true)
+    - crosshairX = crosshairSnap ? xOf(hover.dataIndex) : mousePos.x ✓
+    - Vertical line + dot both snap to band-center xOf(hover.dataIndex) ✓
+    - crosshairDotWidth/cx/cy all use snapped position ✓
+    - crosshairPoints circles already snapped (xOf(hover.dataIndex)) ✓
+    - Wrapped crosshair block in !isRadial (radial chart bleed fix) ✓
+    - Test: crosshair snaps to data point (cx=128=xOf(0), cy=140=yOf(30)) ✓
+    - Test: crosshairSnap={false} follows cursor (cx=100=mousePos.x) ✓
+[x] Hardcoded values → configurable props + named constants:
+    - lineWidth, dotRadius, dotInactiveOpacity (0.4→0.45 to match barInactiveOpacity) ✓
+    - crosshairWidth, crosshairDasharray, crosshairOpacity, crosshairDotRadius,
+      crosshairDotWidth ✓
+    - axisWidth, gridlineWidth, gridlineDasharray, sliceWidth, legendInactiveOpacity ✓
+    - DEFAULT_RADIAL_MARGIN, DEFAULT_CARTESIAN_MARGIN, DEFAULT_RADIAL_LABEL_GAP,
+      DEFAULT_DONUT_INNER_RADIUS_RATIO, DEFAULT_TIP_WIDTH/HEIGHT ✓
+    - DONUT_TOTAL_SCALE, DONUT_SUBTITLE_SCALE, PIE_SECONDARY_LABEL_SCALE ✓
+    - DEFAULT_DOT_HOVER_SCALE, DEFAULT_SLICE_HOVER_SCALE, DEFAULT_BAR_HOVER_SCALE ✓
+    - Fixed labelR bug (maxRadius + labelGap, was hardcoded 24) ✓
+[x] Animation customization (transitionDuration + animationDuration fully wired):
+    - animationDuration now drives fade-in CSS animation (was hardcoded 0.3s) ✓
+    - transitionDuration now drives ALL hover transitions (was hardcoded 0.15s):
+      dot radius/opacity/strokeWidth/transform, bar scale, slice hover, labels ✓
+    - Tooltip transition uses transitionDuration (was Tailwind duration-150) ✓
+    - crosshair-point tracking uses transitionDuration/3 (was hardcoded 0.05s) ✓
+[x] Verify: components typecheck clean + chart tests 57/57 pass ✓
+[x] Re-run CI gates (check:docs, manifest test) — all pass ✓
+[x] README.md: component count aligned (111+ → 114) ✓
+[x] Sweep stale artifacts: deleted .agent/image.png (was pre-existing session artifact,
+    no longer needed after code-level diagnosis of crosshair drift) ✓
+[x] Add EP 29 to episodes.md + episodes-plain.md (crosshair snap + animation wiring) ✓
+[x] Add changeset (.changeset/chart-crosshair-snap.md) ✓
+[ ] Update .agent/output.txt (status reflects snap + animation wiring)
+[ ] Align CLAUDE.md: update stale claims (check:docs 90→114, test count, build date)
+[ ] Verify full test suite (expect 745/745), docs drift, typecheck all green
+[ ] Commit code changes (excluding PNGs) 

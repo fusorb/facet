@@ -24,7 +24,7 @@ Three customization axes: `appearance` (style), `config` (behavior flags), `slot
 ```
 packages/tokens/       ← Design tokens (finished)
 packages/sdk/          ← arc-id SDK (finished)
-packages/components/   ← 113 styled Radix components (shadcn-style, Radix + tailwind-merge)
+packages/components/   ← 114 styled Radix components (shadcn-style, Radix + tailwind-merge)
 packages/auth/         ← Auth components + domain presets (fintech, med, edu)
 packages/layout/       ← Domain-configurable app shell (ConsoleLayout, AuthLayout, LandingLayout)
 packages/store/        ← Framework-agnostic Zustand stores (auth + tenant) + token-refresh bridge
@@ -93,17 +93,17 @@ COMPLETE → (onSuccess callback) → redirect
 | Session TTL  | 15 min  | 30 min | 24 hr | 8 hr       |
 | Magic link   | ✅      | ❌     | ✅    | ❌         |
 
-## Build Status (2026-08-18)
+## Build Status (2026-09-13)
 
 1. ✅ `packages/tokens/`: Complete
 2. ✅ `packages/sdk/`: Complete, strict domain types (`sdk/src/types.ts`)
-3. ✅ `packages/components/`: 113 styled Radix components + theme system + IconRegistry (Stepper, KanbanBoard, ChangelogList added in 1.11.0; WizardFormPage, DateRangePicker, Chart, EmptyStatePage, QrScanner, ConsentCapture, PricingComparison, Tree, MultiCombobox, TagInput, RangeSlider, RatingInput, CookieBanner, OtpInput, RichTextEditor, PhoneInput, MentionInput, ShineBorderCard, GlowBorderCard, Pill added in 1.12.0)
+3. ✅ `packages/components/`: 114 styled Radix components + theme system + IconRegistry (Stepper, KanbanBoard, ChangelogList added in 1.11.0; WizardFormPage, DateRangePicker, Chart, EmptyStatePage, QrScanner, ConsentCapture, PricingComparison, Tree, MultiCombobox, TagInput, RangeSlider, RatingInput, CookieBanner, OtpInput, RichTextEditor, PhoneInput, MentionInput, ShineBorderCard, GlowBorderCard, Pill added in 1.12.0)
 4. ✅ `packages/auth/`: ArcProvider, SignIn (controlled `step`/`onStepChange` API), SignUp, UserButton, Guard, MfaDialog, 7 standalone forms
 5. ✅ `packages/layout/`: ConsoleLayout (full + rail modes), AuthLayout (renamed from AppLayout, alias kept), LandingLayout, 5 presets
 6. ✅ `packages/docs/`: installable config-driven docs engine (`@fusorb/facet-docs`) + thin demo consumer at `apps/docs/` (`@fusorb/facet-docs-site`)
 7. ✅ Changesets + npm publish pipeline
 8. ✅ `apps/landing/`: rebuilt public-facing site (vite + tailwind v4) + feedback page (`/feedback`) with mail/WhatsApp/socials
-9. ✅ Tests: vitest workspace, 362 test definitions across 31 files (sdk 2, components 21, auth 6, layout 2); 276 of those are component tests (21 files, 1 pre-existing flake: theme.test.tsx Radix/jsdom)
+9. ✅ Tests: vitest workspace, 745 tests across 56 files (7 projects: sdk, store, components, auth, layout, cli, docs); 1 pre-existing flake: theme.test.tsx Radix/jsdom
 10. ✅ SignIn mfa_challenge wired to MfaVerifyForm
 11. ✅ SignIn controlled `step`/`onStepChange` + `<SignInFlowDemo>` live-linked state machine + `<AuthDemo>` config block
 12. ✅ Docs restructure landed (568497d): old `apps/docs-site` removed, `packages/docs` engine + `apps/docs` thin consumer. Docs site includes an interactive SignIn demo with a method switcher (config toggles + preview + synced copyable code), a reusable `demo` content block for any manifest slug (auth/layout/forms guide pages), and a keyboard-shortcuts table on Overview + Getting Started.
@@ -121,7 +121,7 @@ When arc-id adopts facet as its frontend, these need resolution:
 
 1. ✅ **SDK 401 auto-refresh**: Added `onTokenRefresh` callback to `ArcIdClient` (`client.ts:113-124`). Automatic retry on 401.
 2. ✅ **Placeholder handlers**: `handlePasskeyAuth` now calls `passkeySdk.authenticationOptions()` → `navigator.credentials.get()` → `passkeySdk.authenticate()`. `handleForgotPasswordSubmit` calls `authSdk.forgotPassword()`. No longer stubs.
-3. ✅ **Test infrastructure**: Vitest workspace, 362 test definitions across 31 files (sdk 2, components 21, auth 6, layout 2).
+3. ✅ **Test infrastructure**: Vitest workspace, 745 tests across 56 files (7 projects: sdk, store, components, auth, layout, cli, docs).
 4. ✅ **SignIn MFA challenge**: Wired to `MfaVerifyForm` (2026-07-31).
 5. ✅ **Duplicate dropdowns**: `layout/UserMenu` now uses `@fusorb/facet-components` `DropdownMenu`.
 6. ✅ **Type strictness**: SDK now has strict domain interfaces in `sdk/src/types.ts`; `Record<string, unknown>` eliminated.

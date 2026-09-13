@@ -763,6 +763,12 @@ export {
 } from "./ui/chart.js";
 
 export {
+  type ChartRangePreset,
+  type ChartRangeSelectorProps,
+  ChartRangeSelector,
+} from "./ui/chart-range-selector.js";
+
+export {
   type EmptyStatePageCTA,
   type EmptyStatePageProps,
   EmptyStatePage,

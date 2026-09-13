@@ -525,3 +525,42 @@ CLI's icon scanner couldn't find it — added an alias to map it to the new name
 
 Takeaway: never let a network timeout equal a test timeout. Give your code a
 timeout bound, and give your tests a wider ceiling to absorb variance.
+
+--------------------------------------------------------------------------------
+
+CHAPTER 29 -- The Crosshair That Drifted Past Its Mark
+-----------------------------------------------------
+The chart's crosshair (the vertical line and dot that highlights a data point
+on hover) was made "dynamic" — it followed the raw cursor instead of snapping
+to the data points. The crosshair dot bound to the raw mouse X coordinate,
+while the actual data-point dots sat at fixed band-centered positions. When
+you hovered a data point, the data dots grew (highlighting them), but the
+crosshair dot stayed at whatever X the cursor was at — floating away,
+typically to the right, never landing on the point it was meant to showcase.
+
+On top of that, two animation props (`animationDuration`, `transitionDuration`)
+existed on the component but were never wired in. The fade-in used a hardcoded
+0.3s and every hover transition used hardcoded 0.15s — changing the props did
+nothing.
+
+The fix:
+  - Added a `crosshairSnap` prop (default: true). When on, both the crosshair
+    line and dot bind to the exact data-point X (`xOf(hover.dataIndex)`), so
+    the dot sits concentric with the growing data-point markers. When false,
+    the crosshair follows the raw cursor (the old behavior).
+  - `animationDuration` now drives the fade-in animation.
+  - `transitionDuration` now drives all hover transitions (dot radius, bar
+    scale, slice hover, labels, tooltip, crosshair-point tracking).
+  - 3 chart tests updated: the old "follows cursor" test became a "snaps to
+    data point" test; added a `crosshairSnap={false}` regression test and a
+    `transitionDuration` test.
+
+The user asked to review the screenshot — the diagnosis came from the code, not
+the image. The crosshair was at the mouse X, the data dots were at the band
+center, and the gap was the drift. Now the crosshair snaps to the data point.
+No amount of cursor wiggling changes the alignment — the crosshair locks onto
+the nearest sharp edge by default.
+
+Takeaway: a prop declared but not wired is worse than no prop at all. It looks
+configurable but silently ignores the consumer. Verify prop → value → style
+end-to-end.

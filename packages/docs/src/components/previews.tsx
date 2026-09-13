@@ -192,6 +192,7 @@ import {
   useKanban,
   ChangelogList,
   Chart,
+  ChartRangeSelector,
   ConsentCapture,
   CookieBanner,
   DataTable,
@@ -1323,12 +1324,21 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
     }
     case "chart":
       return (
-        <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
+        <div className="w-full max-w-xl space-y-4 rounded-lg border border-border bg-background p-6">
+          <ChartRangeSelector
+            presets={[
+              { label: "7d", value: "7d" },
+              { label: "This month", value: "month" },
+              { label: "30d", value: "30d" },
+              { label: "90d", value: "90d" },
+            ]}
+            active="7d"
+            onChange={() => {}}
+          />
           <Chart
             x={["Mon", "Tue", "Wed", "Thu", "Fri"]}
             series={[
-              { id: "visitors", label: "Visitors", data: [12, 19, 8, 24, 15] },
-              { id: "orders", label: "Orders", data: [5, 14, 6, 18, 9] },
+              { id: "sales", label: "Sales", data: [12, 19, 8, 24, 15] },
             ]}
             type="bar"
           />

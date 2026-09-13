@@ -12,7 +12,7 @@ design manual (Alpha Palette), and your auth requirements differ per sector
 | --- | --- | --- |
 | `@fusorb/facet-tokens` | Design tokens: Alpha Palette, typography, spacing, CSS vars | ✅ 1.1.4 |
 | `@fusorb/facet-sdk` | arc-id API client (pure fetch, typed, 10 domain SDKs) | ✅ 1.2.0 |
-| `@fusorb/facet-components` | 111+ styled UI components (Radix + tailwind-merge + variants) | ✅ 1.11.0 |
+| `@fusorb/facet-components` | 114 styled UI components (Radix + tailwind-merge + variants) | ✅ 1.11.0 |
 | `@fusorb/facet-auth` | Auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms | ✅ 1.2.3 |
 | `@fusorb/facet-layout` | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets | ✅ 1.4.2 |
 | `@fusorb/facet-store` | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native | ✅ 2.0.0 |
@@ -32,7 +32,7 @@ Published to npm: components 1.11.0, layout 1.4.2, docs 1.4.7, auth 1.2.3, cli 2
 The docs site (`apps/docs`) is a thin consumer of the installable
 `@fusorb/facet-docs` engine, the same package any project can mount with its
 own brand, nav, and pages. Guides cover getting started, auth, layout,
-them, tokens, and the docs package itself; the component gallery shows all 111 components with live demos and usage tabs.
+them, tokens, and the docs package itself; the component gallery shows all 114 components with live demos and usage tabs.
 
 ```sh
 pnpm dev:docs-site  # run the docs site locally (Vite, port 5173)

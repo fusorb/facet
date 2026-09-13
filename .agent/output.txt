@@ -5,17 +5,18 @@ Build Status
 ------------
 Build:        all 11 packages + 2 apps — clean ✓
 Typecheck:    all 12 packages + 2 apps green ✓
-Tests:        720/720 pass — graceful ✓
-Docs drift:   barrel <-> manifest <-> CLAUDE.md synced (113 components)
+Tests:        745/745 pass — graceful ✓
+Docs drift:   barrel <-> manifest <-> CLAUDE.md synced (114 components)
 
 Component Inventory
 -------------------
-- chart.tsx           : 6 chart types, crosshair, tooltip, animation, legend toggle,
+- chart.tsx           : 6 chart types, crosshair (snap-to-data-point, crosshairSnap prop),
+                       tooltip, animation (duration customizable via animationDuration/transitionDuration props), legend toggle,
                        smooth/step curves, stacked, horizontal bars, grouped bars, histogram,
                        axis spine lines, scrollable (maxHeight), auto-grow height (rowHeight)
 - data-table.tsx      : enhanced — loading, density, emptyState, total props
 - data-table-page.tsx : REMOVED (features merged into data-table.tsx)
-- barrel (index.ts)   : DataTablePage removed, DataTableDensity exported, Chart types exported
+- barrel (index.ts)   : DataTablePage removed, DataTableDensity exported, Chart types + ChartRangeSelector exported
 
 Priority List
 -------------
@@ -59,7 +60,7 @@ P4 - Verification & Commit               [DONE]
   [x] tests — 715 pass
   [x] check:docs — passes
 
-P5 - Fusorb Migration Fixes + P1 Chart Polish  [IN PROGRESS]
+P5 - Fusorb Migration Fixes + P1 Chart Polish  [DONE]
   [x] Fixed TS2304: missing `const` on `isRadial` + `n` in chart.tsx
   [x] Fixed TS6133: unused `isHovered` removed from donut path rendering
   [x] Fixed stale `hsl(var(...))` → `var(...)` in 4 files (CSS vars use oklch)
@@ -77,6 +78,16 @@ P5 - Fusorb Migration Fixes + P1 Chart Polish  [IN PROGRESS]
   [x] pnpm -r typecheck — all 12 packages + 2 apps green ✓
   [x] pnpm test — full suite (All 720 tests across 56 files pass)
   [x] Commit
+
+P6 - Crosshair Snap Fix + Animation Wiring   [2026-09-13]
+  [x] Root cause: crosshair dot cx used mousePos.x (raw mouse) while data dots used xOf(i2)
+      — crosshair floated at cursor instead of aligning with data-point dots
+  [x] Added crosshairSnap prop (default true): snaps line+dot to xOf(hover.dataIndex)
+      Set crosshairSnap={false} to follow raw cursor (previous behavior)
+  [x] Wired transitionDuration (150ms) into ALL hover transitions — was hardcoded 0.15s
+  [x] Wired animationDuration (500ms) into CSS fade-in — was hardcoded 0.3s
+  [x] Tests: 57/57 chart, 745/745 full suite
+  [x] Changeset created
 
 Recent Log
 ----------
@@ -106,3 +117,38 @@ Session 2026-09-12 (cleanup + playground-error fix + verification)
 [14:21] Fix: docs-app.test.tsx ConsoleLayout mock stub no longer spreads singleOpen/themeToggle onto <div> → removes React prop warnings
 [14:20] Verified: build clean ✓, typecheck green ✓, tests 720/720 graceful ✓
 [14:15] Investigated playgrounds: ErrorBoundary + registry wrappers (auth/PasswordStrengthMeter/AnnouncementBar/QrScanner) already robust; 'errs' were mock prop-leaks (fixed) + intentional boundary test
+
+Session 2026-09-12 (chart test fixes)
+[22:54] Fixed chart.test.tsx origin-point test: regex `/M ([\d.]+) ([\d.]+)/` failed on comma-separated coords (`M 56,200`); updated to `/M ([\d.]+),([\d.]+)/`
+[22:54] Fixed chart.test.tsx crosshair snap test: `querySelector("line")` grabbed the y-axis spine (x1=56) instead of the crosshair (x1=128); now filters by `stroke-dasharray="4 2"`
+[22:54] Fixed manifest.test.ts: added `chart-range-selector` entry to docs manifest + updated CLAUDE.md component count 113→114
+[22:55] Verified: 55/55 chart tests pass; 3/3 manifest tests pass; check:docs inventory all green
+[22:55] Full suite: 743/743 tests pass (3 failures fixed + 4 new tests added; 0 regressions)
+[22:50] Audit: replaced all hardcoded visual values in chart.tsx with configurable props + named constants:
+       - crosshairWidth, crosshairDasharray, crosshairOpacity, crosshairDotRadius, crosshairDotWidth
+       - lineWidth, dotRadius, dotInactiveOpacity (0.4→0.45 to match barInactiveOpacity)
+       - axisWidth, gridlineWidth, gridlineDasharray, sliceWidth, legendInactiveOpacity
+       - DEFAULT_RADIAL_MARGIN, DEFAULT_CARTESIAN_MARGIN, DEFAULT_DONUT_INNER_RADIUS_RATIO
+       - DEFAULT_RADIAL_LABEL_GAP, DEFAULT_TIP_WIDTH/HEIGHT, DEFAULT_CURVE_TENSION
+       - DONUT_TOTAL_SCALE, DONUT_SUBTITLE_SCALE, PIE_SECONDARY_LABEL_SCALE
+       - DEFAULT_DOT_HOVER_SCALE, DEFAULT_SLICE_HOVER_SCALE, DEFAULT_BAR_HOVER_SCALE
+[22:47] Crosshair perfected: vertical line + dot now DYNAMIC — follows cursor (mousePos.x in viewBox coords),
+       no double-scaling bug; dot cx uses mousePos.x (stays on line), cy uses mousePos.y (follows cursor)
+       rather than jumping to snapped data-point Y only; wrapped crosshair block in !isRadial
+[22:48] Fixed labelR bug: `maxRadius + labelGap` (was hardcoded 24, ignored the labelGap parameter)
+[22:54] Fixed chart.test.tsx origin-point test: regex `/M ([\d.]+) ([\d.]+)/` → `/M ([\d.]+),([\d.]+)/` (comma-separated SVG coords)
+[22:54] Fixed chart.test.tsx crosshair test: `querySelector("line")` grabbed y-axis spine (x1=56);
+       now filters by `stroke-dasharray="4 2"` to find the crosshair line
+[22:54] Fixed manifest.test.ts: added `chart-range-selector` entry to docs manifest; CLAUDE.md 113→114
+
+Session 2026-09-13 (crosshair snap fix + animation customization)
+[01:14] Tests: 745/745 pass ✓ (56 files, 7 projects — all green)
+[01:10] CORRECTION: Crosshair changed from DYNAMIC (follows cursor) to SNAP (xOf(hover.dataIndex)) —
+        fixes user-reported "floating to the right" misalignment with data-point dots.
+        crosshairSnap prop added (default true; false reverts to cursor-follow).
+[01:05] Animation: transitionDuration + animationDuration now wired to actual CSS transitions/animations
+        (were declared as props but ignored — hardcoded 0.3s fade-in, 0.15s transitions)
+[01:00] Tests: replaced "crosshair follows cursor" test with "crosshair snaps to data point";
+        added crosshairSnap={false} test + transitionDuration test (57/57 chart tests)
+[00:45] Diagnosis: crosshair dot cx=mousePos.x vs data dots cx=xOf(i2) — band-center mismatch
+        causes crosshair to float at cursor, not align with growing data-point dots

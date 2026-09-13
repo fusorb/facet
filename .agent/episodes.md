@@ -847,4 +847,63 @@ Lesson: a network timeout that equals the test timeout leaves no headroom for
    need a wider ceiling (15s) that absorbs variance.
 
 ================================================================================
+
+EP 29 -- The Crosshair That Drifted Past Its Mark
+--------------------------------------------------------------------------------
+What broke:
+   The Chart component's crosshair (vertical line + dot that highlights a data
+   point on hover) was made "dynamic" -- it followed the raw cursor position
+   instead of snapping to data points. The crosshair dot used `mousePos.x`
+   (continuous mouse coordinates) while the data-point dots used
+   `xOf(hover.dataIndex)` (band-centered positions). The result: the crosshair
+   dot floated at wherever the mouse happened to be, drifting away from the
+   data-point dots (the "sharp edges" that grow on hover), appearing to sit to
+   the right of the point it was meant to showcase.
+
+   Additionally, `animationDuration` and `transitionDuration` props were
+   declared on ChartProps but NOT wired into the CSS -- the fade-in used a
+   hardcoded 0.3s and all hover transitions used hardcoded 0.15s (crosshair-
+   point tracking used 0.05s). The props were accepted but silently ignored.
+
+Root cause:
+   - The crosshair dot `cx` bound to `mousePos.x` while data dots bound to
+     `xOf(i2)`. When hovering a data point, `hover.dataIndex` snapped to the
+     nearest index (for the tooltip + data-dot growth), but the crosshair dot
+     stayed at the raw mouse X -- no alignment.
+   - `transitionDuration` was destructured from props but the inline `style`
+     objects all used string literals (`"0.15s"`, `"0.05s"`, `"0.3s"`), so
+     changing the prop had zero effect on the actual transitions.
+
+How we fixed it:
+   - Added `crosshairSnap` prop (default: `true`). When enabled, both the
+     crosshair vertical line and the intersection dot bind to
+     `xOf(hover.dataIndex)` -- the exact data-point X -- so the dot sits
+     concentric with the growing data-point markers. When `false`, the
+     crosshair follows `mousePos.x` (the previous free-follow behavior).
+   - Wired `animationDuration` into the CSS fade-in animation (was 0.3s
+     hardcoded; now `${animationDuration/1000}s`).
+   - Wired `transitionDuration` into every inline transition: dot radius/
+     opacity/stroke-width/transform, bar scale, slice hover, label opacity,
+     crosshair line/stroke-dash, crosshair-point tracking (was 0.15s/0.05s;
+     now `${transitionDuration/1000}s` and `${transitionDuration/3000}s`).
+   - Replaced the tooltip's Tailwind `duration-150` class with an inline
+     `transition: \`opacity ${transitionDuration/1000}s ease\`` so the prop
+     covers tooltips too.
+   - Updated 3 chart tests: replaced the old "crosshair follows cursor" test
+     with a "crosshair snaps to data point (cx=128, cy=140 at dataIndex=0)"
+     test; added a `crosshairSnap={false}` regression test; added a
+     `transitionDuration` test asserting the custom duration appears in the
+     active dot's inline style.
+
+State: automated. `pnpm test` passes 745/745. `check:docs` green (114
+   components). `pnpm -r typecheck` clean. `crosshairSnap` defaults to true,
+   so the crosshair aligns with data points out of the box; consumers who
+   want free-cursor tracking opt in with `crosshairSnap={false}`.
+
+Lesson: a prop declared but not wired is worse than no prop at all -- it
+creates a false promise to the consumer. Always verify the full data flow
+from prop → resolved value → style/attribute, not just that the prop is
+accepted in the destructuring.
+
+================================================================================
 END
