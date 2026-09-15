@@ -12,7 +12,13 @@
 
 import * as React from "react";
 import { cn } from "../utils.js";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./card.js";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "./card.js";
 import { Icon, type IconName } from "../icon/index.js";
 
 export interface SettingsSection {
@@ -26,8 +32,10 @@ export interface SettingsSection {
   icon?: IconName;
 }
 
-export interface AccountSettingsPanelProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "content"> {
+export interface AccountSettingsPanelProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "content"
+> {
   /** The nav sections. */
   sections: SettingsSection[];
   /** Map of section id -> content node. */
@@ -66,7 +74,8 @@ export function AccountSettingsPanel({
       <CardHeader>
         <CardTitle>{copy.title ?? "Account settings"}</CardTitle>
         <CardDescription>
-          {copy.description ?? "Manage your profile, security, and preferences."}
+          {copy.description ??
+            "Manage your profile, security, and preferences."}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -93,7 +102,9 @@ export function AccountSettingsPanel({
                         : "text-muted-foreground hover:bg-muted hover:text-foreground",
                     )}
                   >
-                    {s.icon && <Icon name={s.icon} className="size-4 shrink-0" />}
+                    {s.icon && (
+                      <Icon name={s.icon} className="size-4 shrink-0" />
+                    )}
                     <span className="whitespace-nowrap">{s.label}</span>
                   </button>
                 );
@@ -101,7 +112,9 @@ export function AccountSettingsPanel({
             </div>
           </nav>
           {/* Active section content */}
-          <div className="min-w-0 flex-1">{active ? content[active] : null}</div>
+          <div className="min-w-0 flex-1">
+            {active ? content[active] : null}
+          </div>
         </div>
       </CardContent>
     </Card>

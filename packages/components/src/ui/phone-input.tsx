@@ -74,7 +74,10 @@ const DEFAULT_COUNTRIES: PhoneCountry[] = [
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
-function detectCountryFromValue(value: string, countries: PhoneCountry[]): PhoneCountry | undefined {
+function detectCountryFromValue(
+  value: string,
+  countries: PhoneCountry[],
+): PhoneCountry | undefined {
   // Find the longest matching dial code.
   const sorted = [...countries].sort((a, b) => b.dial.length - a.dial.length);
   return sorted.find((c) => value.startsWith(c.dial));
@@ -124,7 +127,10 @@ export function PhoneInput({
   // Close dropdown on outside click.
   React.useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -193,7 +199,9 @@ export function PhoneInput({
             >
               <span aria-hidden>{c.flag}</span>
               <span className="flex-1 truncate">{c.name}</span>
-              <span className="tabular-nums text-muted-foreground">{c.dial}</span>
+              <span className="tabular-nums text-muted-foreground">
+                {c.dial}
+              </span>
             </li>
           ))}
         </ul>

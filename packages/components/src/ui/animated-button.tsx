@@ -17,9 +17,15 @@
 import * as React from "react";
 import { Button } from "./button.js";
 import { SparkleButton } from "./animated.js";
-import { RippleButton, MagneticButton, ShineButton, DissolveButton } from "./micro-interactions.js";
+import {
+  RippleButton,
+  MagneticButton,
+  ShineButton,
+  DissolveButton,
+} from "./micro-interactions.js";
 
-export type AnimatedButtonVariant = "sparkle" | "ripple" | "magnetic" | "shine" | "dissolve" | "none";
+export type AnimatedButtonVariant =
+  "sparkle" | "ripple" | "magnetic" | "shine" | "dissolve" | "none";
 
 export interface AnimatedButtonRenderProps {
   children?: React.ReactNode;
@@ -29,8 +35,7 @@ export interface AnimatedButtonRenderProps {
   className?: string;
 }
 
-export interface AnimatedButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface AnimatedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Animation variant. Default: "sparkle". */
   animation?: AnimatedButtonVariant;
   /** Fully replace the built-in button with your own component. */

@@ -22,7 +22,12 @@
 import * as React from "react";
 import { type ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
 import type { LoginResult, TokenBundle } from "@fusorb/facet-sdk";
-import type { AuthContextValue, AuthUser, LoginParams, RegisterParams } from "./types.js";
+import type {
+  AuthContextValue,
+  AuthUser,
+  LoginParams,
+  RegisterParams,
+} from "./types.js";
 import { defaultStorage, type TokenStorage } from "./storage.js";
 
 /* ── Context ───────────────────────────────────────────────── */
@@ -39,7 +44,10 @@ export interface ArcProviderProps {
    *  Useful for loading tenant/scoped data on app boot. */
   onSessionRestore?: (user: AuthUser) => void;
   /** Called when auth state changes (login, logout, session expiry). */
-  onAuthChange?: (state: { isAuthenticated: boolean; user: AuthUser | null }) => void;
+  onAuthChange?: (state: {
+    isAuthenticated: boolean;
+    user: AuthUser | null;
+  }) => void;
 }
 
 interface AuthState {
@@ -150,27 +158,29 @@ export function ArcProvider({
           onSessionRestore?.(user);
         } else {
           // Token expired: try refresh
-          return refreshAccessToken(authSdk, client, storage).then((newToken) => {
-            if (newToken) {
-              return authSdk.me().then((r) => {
-                if (r.data) {
-                  const refreshedUser = r.data;
-                  setState((prev) => ({
-                    ...prev,
-                    user: refreshedUser,
-                    accessToken: newToken,
-                    refreshToken: storage.getRefreshToken(),
-                    isLoading: false,
-                  }));
-                  hydratedRef.current = true;
-                  onSessionRestore?.(refreshedUser);
-                } else {
-                  throw new Error("Session expired");
-                }
-              });
-            }
-            throw new Error("Session expired");
-          });
+          return refreshAccessToken(authSdk, client, storage).then(
+            (newToken) => {
+              if (newToken) {
+                return authSdk.me().then((r) => {
+                  if (r.data) {
+                    const refreshedUser = r.data;
+                    setState((prev) => ({
+                      ...prev,
+                      user: refreshedUser,
+                      accessToken: newToken,
+                      refreshToken: storage.getRefreshToken(),
+                      isLoading: false,
+                    }));
+                    hydratedRef.current = true;
+                    onSessionRestore?.(refreshedUser);
+                  } else {
+                    throw new Error("Session expired");
+                  }
+                });
+              }
+              throw new Error("Session expired");
+            },
+          );
         }
       })
       .catch(() => {
@@ -211,7 +221,10 @@ export function ArcProvider({
         }
         const user = result.identity as AuthUser;
         applyTokenPair(
-          { accessToken: result.accessToken!, refreshToken: result.refreshToken! },
+          {
+            accessToken: result.accessToken!,
+            refreshToken: result.refreshToken!,
+          },
           user,
         );
       } else {
@@ -229,9 +242,13 @@ export function ArcProvider({
   const register = React.useCallback(
     async (params: RegisterParams) => {
       setState((prev) => ({ ...prev, isLoading: true, error: null }));
-      const res = await authSdk.register(params.name, params.email, params.password);
+      const res = await authSdk.register(
+        params.name,
+        params.email,
+        params.password,
+      );
       if (res.data) {
-        // arc-id registration returns the identity only; no tokens.
+        // SovGrant registration returns the identity only; no tokens.
         // Email verification is required before first sign-in.
         setState((prev) => ({ ...prev, isLoading: false }));
       } else {
@@ -261,7 +278,10 @@ export function ArcProvider({
           memberships: [],
         }) as AuthUser;
         applyTokenPair(
-          { accessToken: bundle.accessToken, refreshToken: bundle.refreshToken },
+          {
+            accessToken: bundle.accessToken,
+            refreshToken: bundle.refreshToken,
+          },
           user,
         );
       } else {
@@ -290,7 +310,10 @@ export function ArcProvider({
           memberships: [],
         }) as AuthUser;
         applyTokenPair(
-          { accessToken: bundle.accessToken, refreshToken: bundle.refreshToken },
+          {
+            accessToken: bundle.accessToken,
+            refreshToken: bundle.refreshToken,
+          },
           user,
         );
       } else {

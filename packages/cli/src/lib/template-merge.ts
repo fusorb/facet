@@ -1,4 +1,11 @@
-import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} from "node:fs";
 import path from "node:path";
 import { readExistingPackageJson, type PackageJsonShape } from "./writer.js";
 
@@ -72,9 +79,18 @@ function mergePackageJsonContent(
   const merged: PackageJsonShape = {
     ...existing,
     scripts: { ...(incoming.scripts ?? {}), ...(existing.scripts ?? {}) },
-    dependencies: { ...(incoming.dependencies ?? {}), ...(existing.dependencies ?? {}) },
-    devDependencies: { ...(incoming.devDependencies ?? {}), ...(existing.devDependencies ?? {}) },
-    peerDependencies: { ...(incoming.peerDependencies ?? {}), ...(existing.peerDependencies ?? {}) },
+    dependencies: {
+      ...(incoming.dependencies ?? {}),
+      ...(existing.dependencies ?? {}),
+    },
+    devDependencies: {
+      ...(incoming.devDependencies ?? {}),
+      ...(existing.devDependencies ?? {}),
+    },
+    peerDependencies: {
+      ...(incoming.peerDependencies ?? {}),
+      ...(existing.peerDependencies ?? {}),
+    },
   };
   return JSON.stringify(merged, null, 2) + "\n";
 }
@@ -86,14 +102,24 @@ function mergePackageJsonContent(
  * the end when there is no trailing brace). This is the controlled,
  * opt-in way to "merge the implementation in" without clobbering.
  */
-function appendMergedCode(targetAbs: string, templateContent: string): string | null {
+function appendMergedCode(
+  targetAbs: string,
+  templateContent: string,
+): string | null {
   const markerIdx = templateContent.indexOf(MARKER);
   if (markerIdx === -1) return null;
-  const addition = templateContent.slice(markerIdx + MARKER.length).replace(/^\s*\n/, "");
+  const addition = templateContent
+    .slice(markerIdx + MARKER.length)
+    .replace(/^\s*\n/, "");
   const existing = readFileSync(targetAbs, "utf8");
   const braceIdx = existing.lastIndexOf("}");
   if (braceIdx !== -1) {
-    return existing.slice(0, braceIdx).trimEnd() + "\n" + addition.trimEnd() + "\n}\n";
+    return (
+      existing.slice(0, braceIdx).trimEnd() +
+      "\n" +
+      addition.trimEnd() +
+      "\n}\n"
+    );
   }
   return existing.trimEnd() + "\n" + addition.trimEnd() + "\n";
 }
@@ -115,7 +141,12 @@ export function mergeTemplateFiles(
   targetDir: string,
   options: MergeOptions = {},
 ): TemplateMergeResult {
-  const result: TemplateMergeResult = { written: [], skipped: [], conflicts: [], merged: [] };
+  const result: TemplateMergeResult = {
+    written: [],
+    skipped: [],
+    conflicts: [],
+    merged: [],
+  };
   const relFiles = walkFiles(templateDir);
   const targetAbs = path.resolve(cwd, targetDir);
 

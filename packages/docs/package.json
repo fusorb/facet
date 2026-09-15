@@ -1,7 +1,7 @@
 {
   "name": "@fusorb/facet-docs",
   "version": "1.4.7",
-  "description": "Installable, config-driven documentation site engine for the Arcevo ecosystem: component gallery with variant pages, per-variant usage tabs, install tabs, and an optional ecosystem links section. Mount <DocsApp config={...} /> with your own brand, pages, and nav.",
+  "description": "Installable, config-driven documentation site engine: component gallery with variant pages, per-variant usage tabs, install tabs, and an optional ecosystem links section. Mount <DocsApp config={...} /> with your own brand, pages, and nav.",
   "type": "module",
   "exports": {
     ".": {
@@ -37,13 +37,12 @@
   "bugs": {
     "url": "https://github.com/fusorb/facet/issues"
   },
-  "homepage": "https://facet.arcevocirqle.com.ng",
+  "homepage": "https://github.com/fusorb/facet",
   "license": "MIT",
   "keywords": [
     "docs",
     "documentation",
     "component-library",
-    "arcevocirqle",
     "facet",
     "react"
   ],

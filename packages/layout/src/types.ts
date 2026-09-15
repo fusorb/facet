@@ -9,7 +9,7 @@
 import type { ReactNode } from "react";
 import type { RouterAdapter } from "./router.js";
 
-/* ── Nav shape (mirrors arc-id's navConfig structure) ──────── */
+/* ── Nav shape (mirrors SovGrant's navConfig structure) ──────── */
 
 export interface NavItem {
   /** Full route path e.g. "/dashboard" or "/security/sessions" */

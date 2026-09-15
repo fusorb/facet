@@ -7,7 +7,14 @@
 
 import * as React from "react";
 import { cn } from "../utils.js";
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from "./breadcrumb.js";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "./breadcrumb.js";
 
 export interface PageHeaderCrumb {
   label: string;
@@ -54,7 +61,9 @@ export function PageHeader({
                     ) : c.href ? (
                       <BreadcrumbLink href={c.href}>{c.label}</BreadcrumbLink>
                     ) : (
-                      <span className="text-sm text-muted-foreground">{c.label}</span>
+                      <span className="text-sm text-muted-foreground">
+                        {c.label}
+                      </span>
                     )}
                   </BreadcrumbItem>
                   {!last && <BreadcrumbSeparator />}
@@ -71,10 +80,20 @@ export function PageHeader({
         )}
       >
         <div className="min-w-0 space-y-1">
-          <h1 className="font-heading text-2xl font-bold text-foreground sm:text-3xl">{title}</h1>
-          {description && <p className="max-w-2xl text-sm text-muted-foreground">{description}</p>}
+          <h1 className="font-heading text-2xl font-bold text-foreground sm:text-3xl">
+            {title}
+          </h1>
+          {description && (
+            <p className="max-w-2xl text-sm text-muted-foreground">
+              {description}
+            </p>
+          )}
         </div>
-        {actions && <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div>}
+        {actions && (
+          <div className="flex shrink-0 flex-wrap items-center gap-2">
+            {actions}
+          </div>
+        )}
       </div>
     </div>
   );

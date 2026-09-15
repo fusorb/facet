@@ -91,14 +91,18 @@ export function CookieConsent({
         <div className="space-y-2 text-sm text-muted-foreground">
           {message ?? (
             <p>
-              We use cookies to improve your experience and analyze traffic. You can accept or
-              decline them below.
+              We use cookies to improve your experience and analyze traffic. You
+              can accept or decline them below.
             </p>
           )}
           {details && <div className="text-xs">{details}</div>}
         </div>
         <div className="flex shrink-0 gap-2">
-          <Button size="sm" variant="outline" onClick={() => decide("declined")}>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => decide("declined")}
+          >
             {declineLabel}
           </Button>
           <Button size="sm" onClick={() => decide("accepted")}>

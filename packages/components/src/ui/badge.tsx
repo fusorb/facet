@@ -9,7 +9,8 @@ const badgeVariants = cva(
       variant: {
         default: "border-transparent bg-primary text-primary-foreground shadow",
         secondary: "border-transparent bg-secondary text-secondary-foreground",
-        destructive: "border-transparent bg-destructive text-destructive-foreground shadow",
+        destructive:
+          "border-transparent bg-destructive text-destructive-foreground shadow",
         outline: "text-foreground",
         success: "border-transparent bg-success text-success-foreground shadow",
         warning: "border-transparent bg-warning text-warning-foreground shadow",
@@ -22,14 +23,23 @@ const badgeVariants = cva(
 );
 
 export interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof badgeVariants> {
   /** Optional leading icon element (e.g. lucide <Sparkles />) */
   icon?: React.ReactNode;
   /** Render an icon-only square badge. Default: false */
   iconOnly?: boolean;
 }
 
-function Badge({ className, variant, icon, iconOnly, children, ...props }: BadgeProps) {
+function Badge({
+  className,
+  variant,
+  icon,
+  iconOnly,
+  children,
+  ...props
+}: BadgeProps) {
   return (
     <div
       className={cn(

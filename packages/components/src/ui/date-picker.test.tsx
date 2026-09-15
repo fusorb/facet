@@ -27,7 +27,9 @@ describe("date helpers", () => {
   });
 
   it("addMonths rolls over year boundaries", () => {
-    expect(toIsoDate(startOfMonth(addMonths(new Date(2026, 11, 20), 2)))).toBe("2027-02-01");
+    expect(toIsoDate(startOfMonth(addMonths(new Date(2026, 11, 20), 2)))).toBe(
+      "2027-02-01",
+    );
   });
 
   it("formatDate renders a readable string", () => {
@@ -67,7 +69,13 @@ describe("DatePicker", () => {
   });
 
   it("renders horizontal scroll mode with day strip", async () => {
-    render(<DatePicker label="Due date" scrollMode="horizontal" horizontalDays={14} />);
+    render(
+      <DatePicker
+        label="Due date"
+        scrollMode="horizontal"
+        horizontalDays={14}
+      />,
+    );
     await userEvent.click(screen.getByLabelText("Due date"));
     const today = new Date();
     const label = formatDate(today);
@@ -76,7 +84,9 @@ describe("DatePicker", () => {
 
   it("disables all interactions when disabledAll is set", async () => {
     const onValueChange = vi.fn();
-    render(<DatePicker label="Due date" onValueChange={onValueChange} disabledAll />);
+    render(
+      <DatePicker label="Due date" onValueChange={onValueChange} disabledAll />,
+    );
     const trigger = screen.getByLabelText("Due date");
     expect(trigger).toBeDisabled();
     // Trigger should not open the popover when disabled.
@@ -104,11 +114,18 @@ describe("DatePicker", () => {
 
   it("clamps to minYear and maxYear", async () => {
     render(
-      <DatePicker label="Due date" value={new Date(2026, 2, 5)} minYear={2020} maxYear={2030} />,
+      <DatePicker
+        label="Due date"
+        value={new Date(2026, 2, 5)}
+        minYear={2020}
+        maxYear={2030}
+      />,
     );
     await userEvent.click(screen.getByLabelText("Due date"));
     const yearSelect = screen.getByLabelText("Select year");
-    const options = Array.from(yearSelect.querySelectorAll("option")).map((o) => Number(o.value));
+    const options = Array.from(yearSelect.querySelectorAll("option")).map((o) =>
+      Number(o.value),
+    );
     expect(Math.min(...options)).toBe(2020);
     expect(Math.max(...options)).toBe(2030);
   });

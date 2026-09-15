@@ -1,7 +1,7 @@
 /* =================================================================
  * @fusorb/facet-tokens: Design Token CSS Custom Properties
  *
- * Dark-first design system for the Arcevo ecosystem.
+ * Dark-first design system.
  * Import this file to make all tokens available as CSS variables.
  *
  *   @import "@fusorb/facet-tokens/tokens.css";
@@ -9,9 +9,6 @@
  * (Or just use the combined one-liner entry point:
  *   @import "@fusorb/facet-tokens/index.css";
  *  which chains tailwindcss + tokens.css + tailwind.css for you.)
- *
- * The variable names match arc-id's globals.css exactly so that
- * arc-id can replace its stylesheet with this one: zero migration cost.
  * ================================================================= */
 
 /* ── Alpha Palette (raw brand colors) ─────────────────────────── */
@@ -38,9 +35,9 @@
   --popover: oklch(0.14 0.02 240);
   --popover-foreground: oklch(0.95 0.01 240);
 
-  /* Primary: indigo, maps to arc-id brand */
-  --primary: oklch(0.58 0.23 273);
-  --primary-foreground: oklch(0.99 0 0);
+  /* Primary: Electric Cyan (Alpha Palette brand) */
+  --primary: oklch(0.82 0.13 220);
+  --primary-foreground: oklch(0.17 0.03 240);
 
   /* Secondary: subtle surface */
   --secondary: oklch(0.19 0.02 240);
@@ -69,11 +66,11 @@
   /* Borders and inputs */
   --border: oklch(0.22 0.02 240);
   --input: oklch(0.22 0.02 240);
-  --ring: oklch(0.58 0.23 273 / 50%);
+  --ring: oklch(0.82 0.13 220 / 50%);
   --radius: 0.5rem;
 
   /* Charts */
-  --chart-1: oklch(0.58 0.23 273);
+  --chart-1: oklch(0.82 0.13 220);
   --chart-2: oklch(0.696 0.17 162);
   --chart-3: oklch(0.398 0.07 227);
   --chart-4: oklch(0.828 0.189 84);
@@ -82,12 +79,12 @@
   /* Sidebar */
   --sidebar: oklch(0.135 0.02 240);
   --sidebar-foreground: oklch(0.95 0.01 240);
-  --sidebar-primary: oklch(0.58 0.23 273);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-primary: oklch(0.82 0.13 220);
+  --sidebar-primary-foreground: oklch(0.17 0.03 240);
   --sidebar-accent: oklch(0.19 0.02 240);
   --sidebar-accent-foreground: oklch(0.95 0.01 240);
   --sidebar-border: oklch(0.22 0.02 240);
-  --sidebar-ring: oklch(0.58 0.23 273 / 50%);
+  --sidebar-ring: oklch(0.82 0.13 220 / 50%);
 
   /* ── Radius scale ───────────────────────────────────────────── */
   --radius-sm: calc(var(--radius) * 0.6);
@@ -100,6 +97,15 @@
   /* ── Sub-brand accent overrides (set via JS at runtime) ─────── */
   --sub-brand-accent: var(--primary);
   --sub-brand-accent-foreground: var(--primary-foreground);
+
+  /* ── Elevation / shadow scale (namespaced to avoid Tailwind utility clash) ── */
+  --elevation-sm: 0 1px 2px oklch(0 0 0 / 20%);
+  --elevation-md: 0 8px 32px oklch(0 0 0 / 30%);
+  --elevation-lg: 0 12px 40px oklch(0 0 0 / 40%);
+  --elevation-inset: inset 0 0 0 1px oklch(1 0 0 / 4%);
+
+  /* ── Hero glow (marketing surfaces) ─────────────────────────── */
+  --hero-glow: oklch(0.82 0.13 220 / 30%);
 }
 
 /* ── Light theme ──────────────────────────────────────────────── */
@@ -127,8 +133,8 @@
   --popover: oklch(0.99 0 0);
   --popover-foreground: oklch(0.15 0.02 240);
 
-  --primary: oklch(0.52 0.23 273);
-  --primary-foreground: oklch(0.99 0 0);
+  --primary: oklch(0.75 0.13 220);
+  --primary-foreground: oklch(0.17 0.03 240);
 
   --secondary: oklch(0.92 0.01 240);
   --secondary-foreground: oklch(0.15 0.02 240);
@@ -152,11 +158,11 @@
 
   --border: oklch(0.85 0.02 240);
   --input: oklch(0.85 0.02 240);
-  --ring: oklch(0.52 0.23 273 / 50%);
+  --ring: oklch(0.75 0.13 220 / 50%);
   --radius: 0.5rem;
 
   /* Charts (light-optimized: darker, higher-contrast hues) */
-  --chart-1: oklch(0.52 0.23 273);
+  --chart-1: oklch(0.75 0.13 220);
   --chart-2: oklch(0.55 0.15 162);
   --chart-3: oklch(0.4 0.08 227);
   --chart-4: oklch(0.72 0.19 84);
@@ -164,12 +170,12 @@
 
   --sidebar: oklch(0.95 0.01 240);
   --sidebar-foreground: oklch(0.15 0.02 240);
-  --sidebar-primary: oklch(0.52 0.23 273);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-primary: oklch(0.75 0.13 220);
+  --sidebar-primary-foreground: oklch(0.17 0.03 240);
   --sidebar-accent: oklch(0.9 0.02 240);
   --sidebar-accent-foreground: oklch(0.15 0.02 240);
   --sidebar-border: oklch(0.85 0.02 240);
-  --sidebar-ring: oklch(0.52 0.23 273 / 50%);
+  --sidebar-ring: oklch(0.75 0.13 220 / 50%);
 
   /* Radius scale (identical values; declared here so the light theme is
    * self-contained for consumers that set [data-theme="light"] on a
@@ -185,6 +191,13 @@
   --sub-brand-accent: var(--primary);
   --sub-brand-accent-foreground: var(--primary-foreground);
 
+  .glow-primary {
+    box-shadow:
+      0 0 25px -5px color-mix(in oklab, var(--primary) 10%, transparent),
+      0 0 10px -6px color-mix(in oklab, var(--primary) 15%, transparent);
+  }
+
+  /* Deprecated alias (previously misnamed "indigo"). */
   .glow-indigo {
     box-shadow:
       0 0 25px -5px color-mix(in oklab, var(--primary) 10%, transparent),
@@ -199,7 +212,9 @@
 }
 
 /* ── Base reset (opt-in via @layer base) ──────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   border-color: var(--border);
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -212,14 +227,11 @@
  * Longhand properties so component-level `transition:` shorthands
  * can still override on an opt-out basis. */
 @media (prefers-reduced-motion: no-preference) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     transition-property:
-      background-color,
-      border-color,
-      color,
-      opacity,
-      box-shadow,
-      transform;
+      background-color, border-color, color, opacity, box-shadow, transform;
     transition-duration: 0.25s;
     transition-timing-function: ease;
   }
@@ -255,6 +267,13 @@ summary {
 }
 
 /* ── Utility classes ──────────────────────────────────────────── */
+.glow-primary {
+  box-shadow:
+    0 0 25px -5px color-mix(in oklab, var(--primary) 15%, transparent),
+    0 0 10px -6px color-mix(in oklab, var(--primary) 20%, transparent);
+}
+
+/* Deprecated alias (previously misnamed "indigo"). */
 .glow-indigo {
   box-shadow:
     0 0 25px -5px color-mix(in oklab, var(--primary) 15%, transparent),
@@ -273,9 +292,7 @@ summary {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid oklch(1 0 0 / 8%);
-  box-shadow:
-    0 8px 32px oklch(0 0 0 / 30%),
-    inset 0 0 0 1px oklch(1 0 0 / 4%);
+  box-shadow: var(--elevation-md), var(--elevation-inset);
 }
 
 [data-theme="light"] .glass-card {
@@ -294,9 +311,7 @@ summary {
   --frost-bg: oklch(0.155 0.02 240 / 82%);
   --frost-blur: 16px;
   --frost-border: 1px solid oklch(1 0 0 / 10%);
-  --frost-shadow:
-    0 8px 32px oklch(0 0 0 / 35%),
-    inset 0 0 0 1px oklch(1 0 0 / 5%);
+  --frost-shadow: var(--elevation-md), inset 0 0 0 1px oklch(1 0 0 / 5%);
 
   background: var(--frost-bg);
   backdrop-filter: blur(var(--frost-blur));
@@ -309,12 +324,15 @@ summary {
   --frost-bg: oklch(0.99 0.01 240 / 88%);
   --frost-border: 1px solid oklch(0 0 0 / 10%);
   --frost-shadow:
-    0 8px 32px oklch(0 0 0 / 12%),
-    inset 0 0 0 1px oklch(1 0 0 / 60%);
+    0 8px 32px oklch(0 0 0 / 12%), inset 0 0 0 1px oklch(1 0 0 / 60%);
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, oklch(0.75 0.15 273) 0%, oklch(0.85 0.08 220) 100%);
+  background: linear-gradient(
+    135deg,
+    oklch(0.82 0.13 220) 0%,
+    oklch(0.9 0.1 215) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

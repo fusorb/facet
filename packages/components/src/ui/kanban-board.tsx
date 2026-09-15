@@ -127,7 +127,10 @@ export interface KanbanApi {
   /** Move a card to a target column at a target index. */
   moveCard: (cardId: string, toColumnId: string, toIndex?: number) => void;
   /** Add a new card to a column (pushes to the end). */
-  addCard: (columnId: string, card: Omit<KanbanCardDef, "id"> & { id?: string }) => string;
+  addCard: (
+    columnId: string,
+    card: Omit<KanbanCardDef, "id"> & { id?: string },
+  ) => string;
   /** Remove a card. Returns true if it existed. */
   removeCard: (cardId: string) => boolean;
   /** Update one card by id (partial). */
@@ -137,7 +140,9 @@ export interface KanbanApi {
   /** Remove an empty column (no-op if it has cards). Returns true if removed. */
   removeColumn: (columnId: string) => boolean;
   /** Look up a card by id (helper). */
-  findCard: (cardId: string) => { card: KanbanCardDef; column: KanbanColumnDef } | null;
+  findCard: (
+    cardId: string,
+  ) => { card: KanbanCardDef; column: KanbanColumnDef } | null;
 }
 
 /** A single row in a card's action menu. */
@@ -159,7 +164,8 @@ export interface KanbanCardAction {
 /* ── useKanban hook (state only) ──────────────────────────── */
 
 let CARD_ID_SEQ = 0;
-const nextCardId = () => `card-${Date.now().toString(36)}-${(CARD_ID_SEQ++).toString(36)}`;
+const nextCardId = () =>
+  `card-${Date.now().toString(36)}-${(CARD_ID_SEQ++).toString(36)}`;
 
 export function useKanban(options: UseKanbanOptions): KanbanApi {
   const { columns: initial, onColumnsChange, onCardMove, readOnly } = options;
@@ -167,7 +173,10 @@ export function useKanban(options: UseKanbanOptions): KanbanApi {
   const [internal, setInternal] = React.useState<KanbanColumnDef[]>(initial);
 
   const setColumns = React.useCallback(
-    (next: KanbanColumnDef[] | ((prev: KanbanColumnDef[]) => KanbanColumnDef[])) => {
+    (
+      next:
+        KanbanColumnDef[] | ((prev: KanbanColumnDef[]) => KanbanColumnDef[]),
+    ) => {
       setInternal((prev) => {
         const value = typeof next === "function" ? next(prev) : next;
         onColumnsChange?.(value);
@@ -230,7 +239,9 @@ export function useKanban(options: UseKanbanOptions): KanbanApi {
       const id = card.id ?? nextCardId();
       setColumns((cols) =>
         cols.map((c) =>
-          c.id === columnId ? { ...c, cards: [...c.cards, { ...card, id }] } : c,
+          c.id === columnId
+            ? { ...c, cards: [...c.cards, { ...card, id }] }
+            : c,
         ),
       );
       return id;
@@ -329,14 +340,17 @@ const KanbanContext = React.createContext<{
 
 function useKanbanContext(component: string) {
   const ctx = React.useContext(KanbanContext);
-  if (!ctx) throw new Error(`${component} must be rendered inside <KanbanBoard>.`);
+  if (!ctx)
+    throw new Error(`${component} must be rendered inside <KanbanBoard>.`);
   return ctx;
 }
 
 /* ── KanbanCard ──────────────────────────────────────────── */
 
-export interface KanbanCardProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "title" | "onSelect"> {
+export interface KanbanCardProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "title" | "onSelect"
+> {
   card: KanbanCardDef;
   /** Optional click handler (open detail panel). */
   onSelect?: (card: KanbanCardDef) => void;
@@ -427,7 +441,18 @@ function defaultCardActions(
  * title, description, tags, and assignee avatar.
  */
 export const KanbanCard = React.forwardRef<HTMLDivElement, KanbanCardProps>(
-  function KanbanCard({ card, onSelect, actions, showHandle = true, showActions = true, className, ...props }, ref) {
+  function KanbanCard(
+    {
+      card,
+      onSelect,
+      actions,
+      showHandle = true,
+      showActions = true,
+      className,
+      ...props
+    },
+    ref,
+  ) {
     const ctx = useKanbanContext("KanbanCard");
     const { drag, setDrag, readOnly } = ctx;
 
@@ -435,7 +460,8 @@ export const KanbanCard = React.forwardRef<HTMLDivElement, KanbanCardProps>(
     const [editTitle, setEditTitle] = React.useState("");
     const [editDesc, setEditDesc] = React.useState("");
     const [editTags, setEditTags] = React.useState("");
-    const [deletingCard, setDeletingCard] = React.useState<KanbanCardDef | null>(null);
+    const [deletingCard, setDeletingCard] =
+      React.useState<KanbanCardDef | null>(null);
 
     React.useEffect(() => {
       if (editing) {
@@ -448,7 +474,12 @@ export const KanbanCard = React.forwardRef<HTMLDivElement, KanbanCardProps>(
     const resolvedActions =
       showActions === false || readOnly
         ? []
-        : actions ?? defaultCardActions(ctx.board, () => setEditing(true), (card) => setDeletingCard(card));
+        : (actions ??
+          defaultCardActions(
+            ctx.board,
+            () => setEditing(true),
+            (card) => setDeletingCard(card),
+          ));
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
       if (readOnly) return;
@@ -477,7 +508,8 @@ export const KanbanCard = React.forwardRef<HTMLDivElement, KanbanCardProps>(
         onClick={() => onSelect?.(card)}
         className={cn(
           "group rounded-lg border border-border bg-background p-3 text-left shadow-sm transition-colors",
-          !readOnly && "cursor-grab hover:border-primary/40 active:cursor-grabbing",
+          !readOnly &&
+            "cursor-grab hover:border-primary/40 active:cursor-grabbing",
           isDragging && "opacity-50",
           className,
         )}
@@ -490,7 +522,9 @@ export const KanbanCard = React.forwardRef<HTMLDivElement, KanbanCardProps>(
             </span>
           )}
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-foreground">{card.title}</p>
+            <p className="truncate text-sm font-medium text-foreground">
+              {card.title}
+            </p>
             {card.description && (
               <p className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">
                 {card.description}
@@ -586,19 +620,33 @@ export const KanbanCard = React.forwardRef<HTMLDivElement, KanbanCardProps>(
               <div className="space-y-3">
                 <div>
                   <Label className="text-xs">Title</Label>
-                  <Input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
+                  <Input
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                  />
                 </div>
                 <div>
                   <Label className="text-xs">Description</Label>
-                  <Textarea value={editDesc} onChange={(e) => setEditDesc(e.target.value)} rows={3} />
+                  <Textarea
+                    value={editDesc}
+                    onChange={(e) => setEditDesc(e.target.value)}
+                    rows={3}
+                  />
                 </div>
                 <div>
                   <Label className="text-xs">Tags (comma-separated)</Label>
-                  <Input value={editTags} onChange={(e) => setEditTags(e.target.value)} />
+                  <Input
+                    value={editTags}
+                    onChange={(e) => setEditTags(e.target.value)}
+                  />
                 </div>
               </div>
               <DialogFooter className="mt-4">
-                <Button type="button" variant="outline" onClick={() => setEditing(false)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setEditing(false)}
+                >
                   Cancel
                 </Button>
                 <Button type="submit" disabled={!editTitle.trim()}>
@@ -617,7 +665,8 @@ export const KanbanCard = React.forwardRef<HTMLDivElement, KanbanCardProps>(
             <AlertDialogHeader>
               <AlertDialogTitle>Delete this card?</AlertDialogTitle>
               <AlertDialogDescription>
-                This action cannot be undone. This will permanently remove "{deletingCard?.title}".
+                This action cannot be undone. This will permanently remove "
+                {deletingCard?.title}".
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
@@ -653,9 +702,21 @@ export interface KanbanColumnProps extends React.HTMLAttributes<HTMLDivElement> 
  * column.
  */
 export const KanbanColumn = React.forwardRef<HTMLDivElement, KanbanColumnProps>(
-  function KanbanColumn({ column, emptyHint = "Drop cards here", className, ...props }, ref) {
+  function KanbanColumn(
+    { column, emptyHint = "Drop cards here", className, ...props },
+    ref,
+  ) {
     const ctx = useKanbanContext("KanbanColumn");
-    const { readOnly, drag, setDrag, overColumnId, setOverColumnId, board, renderAddCard, onAddCard } = ctx;
+    const {
+      readOnly,
+      drag,
+      setDrag,
+      overColumnId,
+      setOverColumnId,
+      board,
+      renderAddCard,
+      onAddCard,
+    } = ctx;
     const isOver = overColumnId === column.id && drag != null;
     const isDragging = drag?.cardId != null;
     const [adding, setAdding] = React.useState(false);
@@ -719,7 +780,8 @@ export const KanbanColumn = React.forwardRef<HTMLDivElement, KanbanColumnProps>(
       setAdding(false);
     };
 
-    const overLimit = column.limit != null && column.cards.length > column.limit;
+    const overLimit =
+      column.limit != null && column.cards.length > column.limit;
 
     return (
       <div
@@ -742,18 +804,22 @@ export const KanbanColumn = React.forwardRef<HTMLDivElement, KanbanColumnProps>(
                 style={{
                   background: column.accent
                     ? `${column.accent}1a`
-                    : "var(--primary, #6366f1)1a",
-                  color: column.accent ?? "var(--primary, #6366f1)",
+                    : "var(--primary)1a",
+                  color: column.accent ?? "var(--primary)",
                 }}
               >
                 <Icon name={column.icon} className="size-3.5" />
               </span>
             )}
-            <h3 className="truncate text-sm font-semibold text-foreground">{column.title}</h3>
+            <h3 className="truncate text-sm font-semibold text-foreground">
+              {column.title}
+            </h3>
             <span
               className={cn(
                 "inline-flex shrink-0 items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium",
-                overLimit ? "bg-destructive/10 text-destructive" : "bg-muted text-muted-foreground",
+                overLimit
+                  ? "bg-destructive/10 text-destructive"
+                  : "bg-muted text-muted-foreground",
               )}
             >
               {column.cards.length}
@@ -772,15 +838,28 @@ export const KanbanColumn = React.forwardRef<HTMLDivElement, KanbanColumnProps>(
                 </button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-md">
-                {renderAddCard
-                  ? renderAddCard({ column, open: adding, onClose: () => setAdding(false), onSubmit: handleSubmit })
-                  : <DefaultAddCardForm column={column} onSubmit={handleSubmit} onCancel={() => setAdding(false)} />}
+                {renderAddCard ? (
+                  renderAddCard({
+                    column,
+                    open: adding,
+                    onClose: () => setAdding(false),
+                    onSubmit: handleSubmit,
+                  })
+                ) : (
+                  <DefaultAddCardForm
+                    column={column}
+                    onSubmit={handleSubmit}
+                    onCancel={() => setAdding(false)}
+                  />
+                )}
               </DialogContent>
             </Dialog>
           )}
         </header>
         {column.description && (
-          <p className="px-3 pb-2 text-xs text-muted-foreground">{column.description}</p>
+          <p className="px-3 pb-2 text-xs text-muted-foreground">
+            {column.description}
+          </p>
         )}
         <div className="flex-1 space-y-2 overflow-y-auto p-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {isDragging && !readOnly && insertAt === 0 && (
@@ -795,7 +874,10 @@ export const KanbanColumn = React.forwardRef<HTMLDivElement, KanbanColumnProps>(
               <React.Fragment key={card.id}>
                 <KanbanCard card={card} />
                 {isDragging && !readOnly && insertAt === idx + 1 && (
-                  <div className="h-px w-full -mx-2 bg-primary" aria-hidden="true" />
+                  <div
+                    className="h-px w-full -mx-2 bg-primary"
+                    aria-hidden="true"
+                  />
                 )}
               </React.Fragment>
             ))
@@ -911,7 +993,16 @@ export function KanbanBoard({
 
   return (
     <KanbanContext.Provider
-      value={{ board, readOnly: false, drag, setDrag, overColumnId, setOverColumnId, renderAddCard, onAddCard }}
+      value={{
+        board,
+        readOnly: false,
+        drag,
+        setDrag,
+        overColumnId,
+        setOverColumnId,
+        renderAddCard,
+        onAddCard,
+      }}
     >
       <div
         className={cn(

@@ -1,6 +1,6 @@
 # @fusorb/facet-docs
 
-Installable, config-driven documentation site **engine** for the Arcevo
+Installable, config-driven documentation site **engine** for the facet
 ecosystem. Mount `<DocsApp config={...} pages={...} />` with your own
 brand, nav, content pages, and ecosystem links, with no forking or copied
 source.
@@ -33,7 +33,7 @@ import type { DocsPage, DocsSiteConfig } from "@fusorb/facet-docs";
 const config: DocsSiteConfig = {
   brand: { name: "my-app", tagline: "My product docs" },
   navigation: [], // optional extra sections
-  ecosystem: [{ label: "arc-id", href: "/arc-id" }], // optional
+  ecosystem: [{ label: "SovGrant", href: "/SovGrant" }], // optional
 };
 
 const pages: DocsPage[] = [
@@ -45,7 +45,11 @@ const pages: DocsPage[] = [
     blocks: [
       { type: "p", text: "Hello." },
       { type: "h2", text: "Quick start" },
-      { type: "code", lang: "tsx", text: "import { Button } from \"@fusorb/facet-components\";" },
+      {
+        type: "code",
+        lang: "tsx",
+        text: 'import { Button } from "@fusorb/facet-components";',
+      },
       { type: "install", pkg: "@fusorb/facet-components" },
       { type: "ul", items: ["One", "Two"] },
     ],
@@ -59,19 +63,19 @@ export function App() {
 
 ## Content blocks
 
-| Block | Shape | Renders |
-|-------|-------|---------|
-| `p` | `{ text }` | paragraph |
-| `h2` | `{ text }` | section heading |
-| `code` | `{ text, lang? }` | code block with copy button |
-| `install` | `{ pkg, extras? }` | pnpm / npm / yarn / bun tabs |
-| `ul` | `{ items }` | bullet list |
-| `link` | `{ label, href }` | internal link |
-| `authDemo` | `{}` | live `<SignIn>`: config checkboxes drive a method switcher, a live preview, and the synced config code |
-| `authPreviews` | `{}` | live previews of SignUp, MfaDialog, Guard, and forms |
-| `layoutPreviews` | `{}` | live previews of ConsoleLayout, AuthLayout, Sidebar/Topbar, LandingLayout |
-| `demo` | `{ slug, title?, description?, labels? }` | reusable interactive demo for any manifest slug: variant switcher + live preview + copyable code |
-| `keyboardShortcuts` | `{}` | Kbd-chip keyboard shortcuts table |
+| Block               | Shape                                     | Renders                                                                                                |
+| ------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `p`                 | `{ text }`                                | paragraph                                                                                              |
+| `h2`                | `{ text }`                                | section heading                                                                                        |
+| `code`              | `{ text, lang? }`                         | code block with copy button                                                                            |
+| `install`           | `{ pkg, extras? }`                        | pnpm / npm / yarn / bun tabs                                                                           |
+| `ul`                | `{ items }`                               | bullet list                                                                                            |
+| `link`              | `{ label, href }`                         | internal link                                                                                          |
+| `authDemo`          | `{}`                                      | live `<SignIn>`: config checkboxes drive a method switcher, a live preview, and the synced config code |
+| `authPreviews`      | `{}`                                      | live previews of SignUp, MfaDialog, Guard, and forms                                                   |
+| `layoutPreviews`    | `{}`                                      | live previews of ConsoleLayout, AuthLayout, Sidebar/Topbar, LandingLayout                              |
+| `demo`              | `{ slug, title?, description?, labels? }` | reusable interactive demo for any manifest slug: variant switcher + live preview + copyable code       |
+| `keyboardShortcuts` | `{}`                                      | Kbd-chip keyboard shortcuts table                                                                      |
 
 ## Sidebar
 
@@ -107,7 +111,7 @@ without forking the docs engine.
 ## Ecosystem links
 
 Set `config.ecosystem` to add a final "Ecosystem" sidebar section linking
-to your other products' docs (e.g. arc-id, arcbase, arc-wallet).
+to your other products' docs (e.g. SovGrant, Relnex, SovPort).
 
 ## Development
 

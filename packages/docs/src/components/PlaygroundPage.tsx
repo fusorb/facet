@@ -1,10 +1,7 @@
 import * as React from "react";
 import { LiveCodePlayground } from "./LiveCodePlayground.js";
 import { usageCode } from "../lib/usage.js";
-import {
-  extendedManifest,
-  type DocsManifestEntry,
-} from "../lib/manifest.js";
+import { extendedManifest, type DocsManifestEntry } from "../lib/manifest.js";
 import { playgroundComponents } from "./playground-registry.js";
 
 export interface PlaygroundPageProps {
@@ -29,8 +26,10 @@ function useCategoryGroups(
       group.push(entry);
       map.set(label, group);
     }
-    return Array.from(map, ([category, entries]) => ({ category, entries }))
-      .sort((a, b) => a.category.localeCompare(b.category));
+    return Array.from(map, ([category, entries]) => ({
+      category,
+      entries,
+    })).sort((a, b) => a.category.localeCompare(b.category));
   }, [entries]);
 }
 

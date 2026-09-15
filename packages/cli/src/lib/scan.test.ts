@@ -9,14 +9,20 @@ function tmp(): string {
 }
 
 function writePkg(dir: string, pkg: Record<string, unknown>) {
-  fs.writeFileSync(path.join(dir, "package.json"), JSON.stringify(pkg, null, 2));
+  fs.writeFileSync(
+    path.join(dir, "package.json"),
+    JSON.stringify(pkg, null, 2),
+  );
 }
 
 describe("scanRepo", () => {
   it("detects a plain frontend repo", () => {
     const dir = tmp();
     try {
-      writePkg(dir, { name: "app", dependencies: { "@fusorb/facet-components": "1.5.0" } });
+      writePkg(dir, {
+        name: "app",
+        dependencies: { "@fusorb/facet-components": "1.5.0" },
+      });
       fs.writeFileSync(path.join(dir, "tsconfig.json"), "{}");
       const scan = scanRepo(dir);
       expect(scan.language).toBe("typescript");
@@ -53,7 +59,11 @@ fastify.post("/auth/login", { schema: { tags: ["Auth"] } }, handler);`,
       expect(scan.api).not.toBeNull();
       expect(scan.api!.info.title).toBe("ArcID API");
       expect(scan.api!.routes.length).toBeGreaterThanOrEqual(2);
-      expect(scan.api!.routes.some((r) => r.method === "POST" && r.path === "/auth/login")).toBe(true);
+      expect(
+        scan.api!.routes.some(
+          (r) => r.method === "POST" && r.path === "/auth/login",
+        ),
+      ).toBe(true);
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
@@ -107,7 +117,10 @@ describe("draftDocs", () => {
       });
       // The fixture uses .ts source files, so a tsconfig makes the language
       // detection agree and the draft pages/config are emitted as .ts.
-      fs.writeFileSync(path.join(dir, "tsconfig.json"), JSON.stringify({ compilerOptions: {} }));
+      fs.writeFileSync(
+        path.join(dir, "tsconfig.json"),
+        JSON.stringify({ compilerOptions: {} }),
+      );
       fs.mkdirSync(path.join(dir, "src/api/plugins"), { recursive: true });
       fs.mkdirSync(path.join(dir, "src/api/routes"), { recursive: true });
       fs.writeFileSync(

@@ -1,7 +1,7 @@
 {
   "name": "@fusorb/facet-layout",
   "version": "1.4.2",
-  "description": "Domain-configurable app shell for the ArcevoCirqle ecosystem: Sidebar, Topbar, AuthLayout, ConsoleLayout, LandingLayout, PageHeader, TenantSwitcher, and 5 domain presets (fintech, med, edu, enterprise, default).",
+  "description": "Domain-configurable app shell: Sidebar, Topbar, AuthLayout, ConsoleLayout, LandingLayout, PageHeader, TenantSwitcher, and 5 domain presets (fintech, med, edu, enterprise, default).",
   "type": "module",
   "exports": {
     ".": {
@@ -36,14 +36,13 @@
   "bugs": {
     "url": "https://github.com/fusorb/facet/issues"
   },
-  "homepage": "https://facet.arcevocirqle.com.ng",
+  "homepage": "https://github.com/fusorb/facet",
   "license": "MIT",
   "keywords": [
     "layout",
     "sidebar",
     "topbar",
     "app-shell",
-    "arcevocirqle",
     "react",
     "dashboard"
   ],

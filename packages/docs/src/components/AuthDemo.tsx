@@ -31,7 +31,10 @@ export interface AuthDemoConfig {
 }
 
 /** The step the live <SignIn> preview is driven to. */
-export type AuthDemoStep = Exclude<SignInStep, "idle" | "check_session" | "check_mfa">;
+export type AuthDemoStep = Exclude<
+  SignInStep,
+  "idle" | "check_session" | "check_mfa"
+>;
 
 /** Method name -> the SignIn step that renders that method's form. */
 const METHOD_STEPS = {
@@ -42,7 +45,10 @@ const METHOD_STEPS = {
 } as const satisfies Record<string, AuthDemoStep>;
 
 /** Whether a method is offered under the current config. */
-function methodEnabled(config: AuthDemoConfig, method: keyof typeof METHOD_STEPS): boolean {
+function methodEnabled(
+  config: AuthDemoConfig,
+  method: keyof typeof METHOD_STEPS,
+): boolean {
   switch (method) {
     case "Email + password":
       return true;
@@ -79,23 +85,26 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
 
   // No network: bootstrap stays signed out because no token is stored.
   // A real consumer passes their own ArcIdClient here.
-  const client = React.useMemo(() => new ArcIdClient({ baseUrl: "https://demo.invalid" }), []);
+  const client = React.useMemo(
+    () => new ArcIdClient({ baseUrl: "https://demo.invalid" }),
+    [],
+  );
 
   const selectMethod = (method: keyof typeof METHOD_STEPS) => {
     setStep(METHOD_STEPS[method]);
   };
 
-  const activeMethod = (Object.keys(METHOD_STEPS) as (keyof typeof METHOD_STEPS)[]).find(
-    (m) => METHOD_STEPS[m] === step && methodEnabled(config, m),
-  );
+  const activeMethod = (
+    Object.keys(METHOD_STEPS) as (keyof typeof METHOD_STEPS)[]
+  ).find((m) => METHOD_STEPS[m] === step && methodEnabled(config, m));
 
   // If the active method is disabled by a checkbox, hop to the first
   // enabled method so the preview + code never show a grayed-out method.
   React.useEffect(() => {
     if (!activeMethod) {
-      const first = (Object.keys(METHOD_STEPS) as (keyof typeof METHOD_STEPS)[]).find((m) =>
-        methodEnabled(config, m),
-      );
+      const first = (
+        Object.keys(METHOD_STEPS) as (keyof typeof METHOD_STEPS)[]
+      ).find((m) => methodEnabled(config, m));
       if (first) setStep(METHOD_STEPS[first]);
     }
   }, [activeMethod, config]);
@@ -127,11 +136,12 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
     }));
   };
 
-  const methodCheckboxes: { method: keyof typeof METHOD_STEPS; id: string }[] = [
-    { method: "Email + password", id: "auth-method-email" },
-    { method: "Magic link", id: "auth-method-magic-link" },
-    { method: "Passkey", id: "auth-method-passkey" },
-  ];
+  const methodCheckboxes: { method: keyof typeof METHOD_STEPS; id: string }[] =
+    [
+      { method: "Email + password", id: "auth-method-email" },
+      { method: "Magic link", id: "auth-method-magic-link" },
+      { method: "Passkey", id: "auth-method-passkey" },
+    ];
 
   const configCode = `<SignIn
   config={{
@@ -151,7 +161,8 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
         <CardHeader>
           <CardTitle>Configuration</CardTitle>
           <CardDescription>
-            Check the methods and providers your app offers. The preview and code update live.
+            Check the methods and providers your app offers. The preview and
+            code update live.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
@@ -159,7 +170,10 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
           {methodCheckboxes.map(({ method, id }) => {
             const enabled = methodEnabled(config, method);
             return (
-              <div key={method} className="flex items-center justify-between gap-3">
+              <div
+                key={method}
+                className="flex items-center justify-between gap-3"
+              >
                 <div className="flex items-center gap-2">
                   <Checkbox
                     id={id}
@@ -185,11 +199,17 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
                   if (config.oauthProviders.length > 0) {
                     setConfig((prev) => ({ ...prev, oauthProviders: [] }));
                   } else {
-                    setConfig((prev) => ({ ...prev, oauthProviders: ["google"] }));
+                    setConfig((prev) => ({
+                      ...prev,
+                      oauthProviders: ["google"],
+                    }));
                   }
                 }}
               />
-              <Label htmlFor="auth-method-oauth" className="text-sm font-normal">
+              <Label
+                htmlFor="auth-method-oauth"
+                className="text-sm font-normal"
+              >
                 OAuth
               </Label>
             </div>
@@ -207,7 +227,10 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
                   checked={config.oauthProviders.includes(provider)}
                   onCheckedChange={() => toggleProvider(provider)}
                 />
-                <Label htmlFor={`oauth-${provider}`} className="text-sm font-normal">
+                <Label
+                  htmlFor={`oauth-${provider}`}
+                  className="text-sm font-normal"
+                >
                   {provider}
                 </Label>
               </div>
@@ -222,32 +245,37 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
           <CardHeader>
             <CardTitle>Sign-in methods</CardTitle>
             <CardDescription>
-              Pick a method to preview it. Disabled methods are off in the config.
+              Pick a method to preview it. Disabled methods are off in the
+              config.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            {(Object.keys(METHOD_STEPS) as (keyof typeof METHOD_STEPS)[]).map((method) => {
-              const enabled = methodEnabled(config, method);
-              return (
-                <button
-                  key={method}
-                  type="button"
-                  disabled={!enabled}
-                  onClick={() => selectMethod(method)}
-                  aria-pressed={active === method}
-                  className={`flex w-full items-center justify-between rounded-lg border px-4 py-3 text-left text-sm font-medium transition-colors ${
-                    active === method
-                      ? "border-primary/60 bg-primary/10 text-primary"
-                      : "border-border bg-background text-foreground hover:bg-accent/40"
-                  } ${!enabled ? "cursor-not-allowed opacity-40" : ""}`}
-                >
-                  <span>{method}</span>
-                  {!enabled && (
-                    <span className="text-xs font-normal text-muted-foreground">off</span>
-                  )}
-                </button>
-              );
-            })}
+            {(Object.keys(METHOD_STEPS) as (keyof typeof METHOD_STEPS)[]).map(
+              (method) => {
+                const enabled = methodEnabled(config, method);
+                return (
+                  <button
+                    key={method}
+                    type="button"
+                    disabled={!enabled}
+                    onClick={() => selectMethod(method)}
+                    aria-pressed={active === method}
+                    className={`flex w-full items-center justify-between rounded-lg border px-4 py-3 text-left text-sm font-medium transition-colors ${
+                      active === method
+                        ? "border-primary/60 bg-primary/10 text-primary"
+                        : "border-border bg-background text-foreground hover:bg-accent/40"
+                    } ${!enabled ? "cursor-not-allowed opacity-40" : ""}`}
+                  >
+                    <span>{method}</span>
+                    {!enabled && (
+                      <span className="text-xs font-normal text-muted-foreground">
+                        off
+                      </span>
+                    )}
+                  </button>
+                );
+              },
+            )}
           </CardContent>
         </Card>
 
@@ -256,7 +284,8 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
           <CardHeader>
             <CardTitle>Live preview</CardTitle>
             <CardDescription>
-              Renders the {active} step from `config` alone, no backend required.
+              Renders the {active} step from `config` alone, no backend
+              required.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -265,7 +294,9 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
                 config={config}
                 step={step}
                 onStepChange={(next) => setStep(next as AuthDemoStep)}
-                slots={{ complete: <p className="text-sm text-success">Signed in!</p> }}
+                slots={{
+                  complete: <p className="text-sm text-success">Signed in!</p>,
+                }}
               />
             </ArcProvider>
           </CardContent>

@@ -29,11 +29,14 @@ export interface TemplateInfo {
 export function readTemplateManifest(dir: string): TemplateManifest | null {
   const file = path.join(dir, "template.json");
   try {
-    const raw = JSON.parse(readFileSync(file, "utf8")) as Partial<TemplateManifest>;
+    const raw = JSON.parse(
+      readFileSync(file, "utf8"),
+    ) as Partial<TemplateManifest>;
     if (!raw.name) return null;
     return {
       name: raw.name,
-      kind: raw.kind === "emails" ? "emails" : raw.kind === "any" ? "any" : "docs",
+      kind:
+        raw.kind === "emails" ? "emails" : raw.kind === "any" ? "any" : "docs",
       description: raw.description,
       include: raw.include,
       exclude: raw.exclude,
@@ -84,10 +87,16 @@ export function discoverTemplates(cwd: string): TemplateInfo[] {
     const manifest = readTemplateManifest(abs);
     const kinds: TemplateKind[] = [];
     if (manifest) kinds.push(manifest.kind);
-    else if (abs.includes(path.join("emails", "templates"))) kinds.push("emails");
+    else if (abs.includes(path.join("emails", "templates")))
+      kinds.push("emails");
     else if (abs.includes(path.join("docs", "templates"))) kinds.push("docs");
     else kinds.push("any");
-    out.push({ name: manifest?.name ?? path.basename(abs), dir: abs, manifest, kinds });
+    out.push({
+      name: manifest?.name ?? path.basename(abs),
+      dir: abs,
+      manifest,
+      kinds,
+    });
   };
 
   const walk = (root: string, depth: number) => {

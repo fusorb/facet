@@ -15,7 +15,11 @@ export interface TenantSwitcherProps {
   onSwitch: (tenantId: string) => void;
 }
 
-export function TenantSwitcher({ tenants, activeTenant, onSwitch }: TenantSwitcherProps) {
+export function TenantSwitcher({
+  tenants,
+  activeTenant,
+  onSwitch,
+}: TenantSwitcherProps) {
   const [open, setOpen] = React.useState(false);
 
   // Auto-hide when there's 0 or 1 tenants

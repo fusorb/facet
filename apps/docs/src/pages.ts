@@ -1,5 +1,5 @@
 import type { DocsPage } from "@fusorb/facet-docs";
-import { facetChangelog } from "@fusorb/facet-components";
+import { facetChangelog } from "./data/changelog.js";
 
 /**
  * facet's own authored guide pages.
@@ -14,23 +14,23 @@ export const docsPages: DocsPage[] = [
     path: "/",
     title: "Overview",
     section: "guides",
-    description: "Domain-customizable, auth-first component system for the Arcevo ecosystem.",
+    description: "Domain-customizable, auth-first component system.",
     blocks: [
       {
         type: "p",
-        text: "facet is what you get when you own the identity backend (arc-id), have a formal design manual (Alpha Palette), and your auth requirements differ per sector (fintech vs med vs edu vs enterprise).",
+        text: "facet is what you get when you own the identity backend (SovGrant), have a formal design manual (Alpha Palette), and your auth requirements differ per sector (fintech vs med vs edu vs enterprise).",
       },
       { type: "h2", text: "Packages" },
       {
         type: "ul",
         items: [
           "`@fusorb/facet-tokens`: Alpha Palette design tokens, typography, spacing, CSS variables.",
-          "`@fusorb/facet-sdk`: arc-id API client (pure fetch, typed, 10 domain SDKs).",
+          "`@fusorb/facet-sdk`: SovGrant API client (pure fetch, typed, 10 domain SDKs).",
           "`@fusorb/facet-components`: 113 styled UI components (Radix + tailwind-merge + variants), including ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form, Stepper, KanbanBoard, ChangelogList, Pill).",
           "`@fusorb/facet-auth`: auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms.",
           "`@fusorb/facet-layout`: domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets.",
-           "`@fusorb/facet-store`: framework-agnostic Zustand state stores - auth session + tenant state, plus `createZustandTokenStorage` bridge for 401 auto-refresh, web + React Native.",
-          "`@fusorb/facet-docs`: this config-driven docs engine, installable by any Arcevo project.",
+          "`@fusorb/facet-store`: framework-agnostic Zustand state stores - auth session + tenant state, plus `createZustandTokenStorage` bridge for 401 auto-refresh, web + React Native.",
+          "`@fusorb/facet-docs`: this config-driven docs engine, installable by any project.",
           "`@fusorb/facet-emails`: framework-agnostic email templates: render HTML/text from React or plain trees, with a dev preview server.",
           "`@fusorb/facet-cli`: scaffold docs + emails sites, audit and update your facet setup from the terminal.",
         ],
@@ -67,7 +67,7 @@ function App() {
       { type: "h2", text: "Publishing" },
       {
         type: "p",
-        text: "Packages publish to npm under the `@fusorb/facet-*` scope via Changesets. The GitHub Actions workflow runs a validation gate (build, typecheck, docs inventory) and an auto-version job that opens the \"Version Packages\" PR on main. Publishing itself is done locally by the maintainer (`pnpm changeset publish`) from a clean tree, after `pnpm -r build` passes.",
+        text: 'Packages publish to npm under the `@fusorb/facet-*` scope via Changesets. The GitHub Actions workflow runs a validation gate (build, typecheck, docs inventory) and an auto-version job that opens the "Version Packages" PR on main. Publishing itself is done locally by the maintainer (`pnpm changeset publish`) from a clean tree, after `pnpm -r build` passes.',
       },
     ],
   },
@@ -81,7 +81,11 @@ function App() {
       {
         type: "install",
         pkg: "@fusorb/facet-components",
-        extras: ["@fusorb/facet-sdk", "@fusorb/facet-auth", "@fusorb/facet-layout"],
+        extras: [
+          "@fusorb/facet-sdk",
+          "@fusorb/facet-auth",
+          "@fusorb/facet-layout",
+        ],
       },
       { type: "p", text: "Tokens are optional but recommended:" },
       {
@@ -260,7 +264,7 @@ function MyHeader() {
       { type: "h2", text: "Dark mode utilities" },
       {
         type: "p",
-        text: "The Tailwind v4 theme extension registers a `dark:` variant scoped to `[data-theme=\"dark\"]`, so you can write theme-aware utilities:",
+        text: 'The Tailwind v4 theme extension registers a `dark:` variant scoped to `[data-theme="dark"]`, so you can write theme-aware utilities:',
       },
       {
         type: "code",
@@ -287,7 +291,8 @@ function MyHeader() {
     path: "/tokens",
     title: "Design Tokens",
     section: "guides",
-    description: "Alpha Palette tokens: color, typography, spacing, and surfaces.",
+    description:
+      "Alpha Palette tokens: color, typography, spacing, and surfaces.",
     blocks: [
       {
         type: "p",
@@ -324,7 +329,7 @@ function MyHeader() {
     path: "/auth",
     title: "Auth",
     section: "auth",
-    description: "Domain-customizable auth components wired to arc-id.",
+    description: "Domain-customizable auth components wired to SovGrant.",
     blocks: [
       {
         type: "p",
@@ -462,7 +467,8 @@ function MyHeader() {
     path: "/auth/mfa",
     title: "MFA",
     section: "auth",
-    description: "Multi-factor authentication: MfaDialog and the verify/setup/recovery forms.",
+    description:
+      "Multi-factor authentication: MfaDialog and the verify/setup/recovery forms.",
     blocks: [
       {
         type: "p",
@@ -546,10 +552,31 @@ function MyHeader() {
       { type: "h2", text: "Preset differences" },
       {
         type: "table",
-        headers: ["Preset", "MFA", "Passkey", "Magic link", "Session TTL", "Use Case"],
+        headers: [
+          "Preset",
+          "MFA",
+          "Passkey",
+          "Magic link",
+          "Session TTL",
+          "Use Case",
+        ],
         rows: [
-          ["`fintechPreset`", "Required", "Off", "On", "15 min", "Trading, banking"],
-          ["`medPreset`", "Required", "Off", "Off", "30 min", "HIPAA-compliant"],
+          [
+            "`fintechPreset`",
+            "Required",
+            "Off",
+            "On",
+            "15 min",
+            "Trading, banking",
+          ],
+          [
+            "`medPreset`",
+            "Required",
+            "Off",
+            "Off",
+            "30 min",
+            "HIPAA-compliant",
+          ],
           ["`eduPreset`", "Optional", "On", "On", "24 hr", "Student portals"],
           ["`enterprisePreset`", "Required", "On", "Off", "8 hr", "SSO + MFA"],
           ["`defaultPreset`", "Optional", "On", "On", "8 hr", "General"],
@@ -586,7 +613,8 @@ function MyHeader() {
     path: "/docs-package",
     title: "Docs Package",
     section: "ecosystem",
-    description: "Install @fusorb/facet-docs in your own project: mount, config, pages, and blocks.",
+    description:
+      "Install @fusorb/facet-docs in your own project: mount, config, pages, and blocks.",
     blocks: [
       {
         type: "p",
@@ -612,7 +640,7 @@ import type { DocsPage, DocsSiteConfig } from "@fusorb/facet-docs";
 const config: DocsSiteConfig = {
   brand: { name: "my-app", tagline: "My product docs" },
   navigation: [], // optional extra sidebar sections
-  ecosystem: [{ label: "arc-id", href: "/arc-id" }], // optional
+  ecosystem: [{ label: "SovGrant", href: "/SovGrant" }], // optional
 };
 
 const pages: DocsPage[] = [
@@ -646,14 +674,34 @@ export function App() {
           ["`p`", "`{ text }`", "Paragraph with inline code/bold/links"],
           ["`h2`", "`{ text }`", "Section heading"],
           ["`code`", "`{ text, lang? }`", "Code block with copy button"],
-          ["`install`", "`{ pkg, extras? }`", "pnpm / npm / yarn / bun install tabs"],
+          [
+            "`install`",
+            "`{ pkg, extras? }`",
+            "pnpm / npm / yarn / bun install tabs",
+          ],
           ["`ul`", "`{ items }`", "Bullet list"],
           ["`table`", "`{ headers, rows }`", "Responsive table"],
           ["`link`", "`{ label, href }`", "Internal link"],
-          ["`demo`", "`{ slug, title?, labels? }`", "Reusable interactive demo: variant switcher + live preview + copyable code for any manifest slug"],
-          ["`authDemo`", "`{}`", "Live SignIn demo: config checkboxes drive a method switcher, a live preview, and the copyable config code in lockstep"],
-          ["`authPreviews`", "`{}`", "Live auth previews (SignUp, MfaDialog, Guard, forms) with copyable code"],
-          ["`layoutPreviews`", "`{}`", "Live layout previews (ConsoleLayout, AuthLayout, Sidebar/Topbar, LandingLayout) with copyable code"],
+          [
+            "`demo`",
+            "`{ slug, title?, labels? }`",
+            "Reusable interactive demo: variant switcher + live preview + copyable code for any manifest slug",
+          ],
+          [
+            "`authDemo`",
+            "`{}`",
+            "Live SignIn demo: config checkboxes drive a method switcher, a live preview, and the copyable config code in lockstep",
+          ],
+          [
+            "`authPreviews`",
+            "`{}`",
+            "Live auth previews (SignUp, MfaDialog, Guard, forms) with copyable code",
+          ],
+          [
+            "`layoutPreviews`",
+            "`{}`",
+            "Live layout previews (ConsoleLayout, AuthLayout, Sidebar/Topbar, LandingLayout) with copyable code",
+          ],
           ["`keyboardShortcuts`", "`{}`", "Docs keyboard shortcuts table"],
         ],
       },
@@ -692,7 +740,7 @@ export function App() {
       { type: "h2", text: "ConsoleLayout" },
       {
         type: "p",
-        text: "Dashboard shell: sidebar + topbar + content area. Two sidebar versions: `mode=\"full\"` (always-labeled) and `mode=\"rail\"` (collapsible to an icon-only rail, persisted in localStorage). Mobile collapses to a Sheet.",
+        text: 'Dashboard shell: sidebar + topbar + content area. Two sidebar versions: `mode="full"` (always-labeled) and `mode="rail"` (collapsible to an icon-only rail, persisted in localStorage). Mobile collapses to a Sheet.',
       },
       {
         type: "code",
@@ -708,7 +756,7 @@ export function App() {
       { type: "h2", text: "LandingLayout" },
       {
         type: "p",
-        text: "Full-bleed marketing page with glassmorphic hero and glow CTAs. Pair with the `Navbar` `pill` variant for a floating frosted bar.",
+        text: "Full-bleed marketing page with a glassmorphic hero and hover-lift CTAs. Pair with the `Navbar` `pill` variant for a flush, scroll-aware glass header.",
       },
       { type: "h2", text: "Sidebar & Topbar" },
       {
@@ -741,12 +789,13 @@ export function App() {
     path: "/foundations/icon",
     title: "Icon",
     section: "foundations",
-    description: "Semantic icon registry: built-in lucide map, global overrides, and per-domain context overrides.",
+    description:
+      "Semantic icon registry: built-in lucide map, global overrides, and per-domain context overrides.",
     blocks: [
       { type: "h2", text: "Why a registry" },
       {
         type: "p",
-        text: "Rather than importing lucide-react icons directly everywhere, facet exposes a semantic registry. Components reference icon names (\"settings\", \"logout\", ...), and consumers can swap the actual icon per domain without forking components.",
+        text: 'Rather than importing lucide-react icons directly everywhere, facet exposes a semantic registry. Components reference icon names ("settings", "logout", ...), and consumers can swap the actual icon per domain without forking components.',
       },
       { type: "h2", text: "Built-in set" },
       {
@@ -756,7 +805,7 @@ export function App() {
       { type: "h2", text: "Dynamic lucide names" },
       {
         type: "p",
-        text: "Any lucide icon resolves by its lowercase kebab name: <Icon name=\"heart\" />, <Icon name=\"alarm-clock\" />, <Icon name=\"arrow-up-right\" />. camelCase aliases (chevronDown, triangleAlert) still resolve for back-compat.",
+        text: 'Any lucide icon resolves by its lowercase kebab name: <Icon name="heart" />, <Icon name="alarm-clock" />, <Icon name="arrow-up-right" />. camelCase aliases (chevronDown, triangleAlert) still resolve for back-compat.',
       },
       { type: "h2", text: "Render an icon" },
       {
@@ -809,7 +858,8 @@ registerIcon("shield", (props) => <Icon name="shield-alert" {...props} />);`,
     path: "/foundations/theme",
     title: "Theme",
     section: "foundations",
-    description: "ThemeProvider, useTheme, and ThemeToggle for light/dark/system theming.",
+    description:
+      "ThemeProvider, useTheme, and ThemeToggle for light/dark/system theming.",
     blocks: [
       { type: "h2", text: "ThemeProvider" },
       {
@@ -821,7 +871,7 @@ registerIcon("shield", (props) => <Icon name="shield-alert" {...props} />);`,
       },
       {
         type: "p",
-        text: "Sets a data-theme attribute on <html>, persists to localStorage (\"facet-theme\"), and follows the OS preference in system mode.",
+        text: 'Sets a data-theme attribute on <html>, persists to localStorage ("facet-theme"), and follows the OS preference in system mode.',
       },
       { type: "h2", text: "useTheme" },
       {
@@ -831,7 +881,7 @@ registerIcon("shield", (props) => <Icon name="shield-alert" {...props} />);`,
       },
       {
         type: "p",
-        text: "resolvedTheme is the concrete \"light\" | \"dark\" value after system resolution, handy for conditional rendering.",
+        text: 'resolvedTheme is the concrete "light" | "dark" value after system resolution, handy for conditional rendering.',
       },
       { type: "h2", text: "ThemeToggle" },
       {
@@ -856,7 +906,8 @@ registerIcon("shield", (props) => <Icon name="shield-alert" {...props} />);`,
     path: "/stack-agnosticism",
     title: "Stack Agnosticism",
     section: "ecosystem",
-    description: "Which facet layers work outside React, and which are React-only by design.",
+    description:
+      "Which facet layers work outside React, and which are React-only by design.",
     blocks: [
       {
         type: "p",
@@ -867,15 +918,43 @@ registerIcon("shield", (props) => <Icon name="shield-alert" {...props} />);`,
         type: "table",
         headers: ["Layer", "Stack", "Works outside React?"],
         rows: [
-          ["`@fusorb/facet-tokens`", "CSS variables + Tailwind v4 theme", "Yes, plain CSS, any framework, no JS"],
-          ["`@fusorb/facet-sdk`", "TypeScript, pure fetch", "Yes, any runtime (browser, Node, edge)"],
-          ["`@fusorb/facet-store`", "Zustand stores + token-refresh bridge", "Yes - stores are pure Zustand (usable without React via getState/setState); `createZustandTokenStorage` is fully framework-agnostic; React is a peer only for hook consumption"],
-          ["`@fusorb/facet-emails`", "Template-tree renderer (zero runtime deps)", "Yes, any host (plain JS, Node, JSON trees)"],
-          ["`@fusorb/facet-cli`", "Node CLI", "Yes, scaffolds docs + emails for React, Next, Remix, plain JS, Python"],
-          ["`@fusorb/facet-components`", "React + Radix + tailwind-merge", "No, React 18/19 only"],
+          [
+            "`@fusorb/facet-tokens`",
+            "CSS variables + Tailwind v4 theme",
+            "Yes, plain CSS, any framework, no JS",
+          ],
+          [
+            "`@fusorb/facet-sdk`",
+            "TypeScript, pure fetch",
+            "Yes, any runtime (browser, Node, edge)",
+          ],
+          [
+            "`@fusorb/facet-store`",
+            "Zustand stores + token-refresh bridge",
+            "Yes - stores are pure Zustand (usable without React via getState/setState); `createZustandTokenStorage` is fully framework-agnostic; React is a peer only for hook consumption",
+          ],
+          [
+            "`@fusorb/facet-emails`",
+            "Template-tree renderer (zero runtime deps)",
+            "Yes, any host (plain JS, Node, JSON trees)",
+          ],
+          [
+            "`@fusorb/facet-cli`",
+            "Node CLI",
+            "Yes, scaffolds docs + emails for React, Next, Remix, plain JS, Python",
+          ],
+          [
+            "`@fusorb/facet-components`",
+            "React + Radix + tailwind-merge",
+            "No, React 18/19 only",
+          ],
           ["`@fusorb/facet-layout`", "React", "No, React 18/19 only"],
           ["`@fusorb/facet-auth`", "React", "No, React 18/19 only"],
-          ["`@fusorb/facet-docs`", "React + react-router", "No, React 18/19 only"],
+          [
+            "`@fusorb/facet-docs`",
+            "React + react-router",
+            "No, React 18/19 only",
+          ],
         ],
       },
       { type: "h2", text: "Why React-only for UI" },
@@ -909,7 +988,8 @@ registerIcon("shield", (props) => <Icon name="shield-alert" {...props} />);`,
     path: "/cli",
     title: "CLI",
     section: "ecosystem",
-    description: "Scaffold docs sites, draft docs from your repo, copy components, and generate a tree-shaken icon registry with @fusorb/facet-cli.",
+    description:
+      "Scaffold docs sites, draft docs from your repo, copy components, and generate a tree-shaken icon registry with @fusorb/facet-cli.",
     blocks: [
       {
         type: "p",
@@ -932,7 +1012,7 @@ facet docs init -y`,
       },
       {
         type: "p",
-        text: "The wizard opens with a \"Decide for me\" option: detect your stack and use the best defaults, or walk through each choice: name (blank falls back to `docs`), location (`.` recommended, `docs/`, or `src/docs/`), language, framework, styling, template kind, and whether to create a barrel export. Choosing \"Decide for me\" skips the rest of the questions and uses the detected defaults.",
+        text: 'The wizard opens with a "Decide for me" option: detect your stack and use the best defaults, or walk through each choice: name (blank falls back to `docs`), location (`.` recommended, `docs/`, or `src/docs/`), language, framework, styling, template kind, and whether to create a barrel export. Choosing "Decide for me" skips the rest of the questions and uses the detected defaults.',
       },
       {
         type: "p",
@@ -943,10 +1023,22 @@ facet docs init -y`,
         type: "table",
         headers: ["Framework", "What you get"],
         rows: [
-          ["`react-vite`", "Full thin-consumer app (config + pages registry + app shell)"],
-          ["`next`", "`src/app/docs` route (\"use client\" → DocsApp) + config/pages"],
-          ["`remix`", "`app/routes/docs` route (\"use client\" → DocsApp) + config/pages"],
-          ["`plain-js`", "Framework-agnostic pages registry + markdown content pipeline"],
+          [
+            "`react-vite`",
+            "Full thin-consumer app (config + pages registry + app shell)",
+          ],
+          [
+            "`next`",
+            '`src/app/docs` route ("use client" → DocsApp) + config/pages',
+          ],
+          [
+            "`remix`",
+            '`app/routes/docs` route ("use client" → DocsApp) + config/pages',
+          ],
+          [
+            "`plain-js`",
+            "Framework-agnostic pages registry + markdown content pipeline",
+          ],
           ["`python`", "`docs_pipeline.py` → pages.json + starter registry"],
         ],
       },
@@ -1042,23 +1134,74 @@ facet docs scan --out docs && facet docs scan -y`,
         type: "table",
         headers: ["Command", "Description"],
         rows: [
-          ["`facet pkg`", "Show latest published facet versions vs what this repo declares and installs"],
-          ["`facet doctor`", "Audit the repo: layout, facet deps, unnecessary bundled deps, best-practice suggestions"],
-          ["`facet up`", "Apply facet package updates at the latest published versions"],
-          ["`facet clean`", "Remove deps bundled by facet-components + rewrite shadcn/ui-style imports (dry-run/confirm)"],
-          ["`facet scripts`", "Add useful npm scripts (docs, quality, facet:action, prep) without overwriting yours"],
-          ["`facet prep`", "Pre-go-live sync: check deps, doctor, and run your typecheck/build/test"],
-          ["`facet update`", "Apply updates for installed facet packages (confirm prompt, `-y` to skip; `--dry-run` to only print)"],
-          ["`facet docs init`", "Scaffold a docs site (interactive wizard or `-y`)"],
-          ["`facet docs scan`", "Read this repo and draft a documentation layer (pages + sidebar + API reference) for review"],
-          ["`facet copy <component>`", "Copy a component into your source (shadcn-style)"],
-          ["`facet add <name> [-g]` / `facet install <name> [-g]`", "Install a facet package by shorthand (e.g. 'layout'), scoped-dropped alias (e.g. 'facet-cli'), or full name (e.g. '@fusorb/facet-layout'). Pass -g/--global to install globally"],
-          ["`facet icons generate`", "Scan your source and emit a tree-shaken lucide icon registry"],
-          ["`facet emails init`", "Scaffold or migrate email templates wired to facet-emails (detects react-email/mjml/nodemailer/resend)"],
-          ["`facet templates list`", "Discover template dirs in the repo (under `./templates/`)"],
-          ["`facet templates describe <name>`", "Show a template's manifest and files"],
-          ["`facet latest`", "Show the latest published versions of all @fusorb/facet-* packages"],
-          ["`facet self-update`", "Update the globally-installed facet-cli to the latest published version"],
+          [
+            "`facet pkg`",
+            "Show latest published facet versions vs what this repo declares and installs",
+          ],
+          [
+            "`facet doctor`",
+            "Audit the repo: layout, facet deps, unnecessary bundled deps, best-practice suggestions",
+          ],
+          [
+            "`facet up`",
+            "Apply facet package updates at the latest published versions",
+          ],
+          [
+            "`facet clean`",
+            "Remove deps bundled by facet-components + rewrite shadcn/ui-style imports (dry-run/confirm)",
+          ],
+          [
+            "`facet scripts`",
+            "Add useful npm scripts (docs, quality, facet:action, prep) without overwriting yours",
+          ],
+          [
+            "`facet prep`",
+            "Pre-go-live sync: check deps, doctor, and run your typecheck/build/test",
+          ],
+          [
+            "`facet update`",
+            "Apply updates for installed facet packages (confirm prompt, `-y` to skip; `--dry-run` to only print)",
+          ],
+          [
+            "`facet docs init`",
+            "Scaffold a docs site (interactive wizard or `-y`)",
+          ],
+          [
+            "`facet docs scan`",
+            "Read this repo and draft a documentation layer (pages + sidebar + API reference) for review",
+          ],
+          [
+            "`facet copy <component>`",
+            "Copy a component into your source (shadcn-style)",
+          ],
+          [
+            "`facet add <name> [-g]` / `facet install <name> [-g]`",
+            "Install a facet package by shorthand (e.g. 'layout'), scoped-dropped alias (e.g. 'facet-cli'), or full name (e.g. '@fusorb/facet-layout'). Pass -g/--global to install globally",
+          ],
+          [
+            "`facet icons generate`",
+            "Scan your source and emit a tree-shaken lucide icon registry",
+          ],
+          [
+            "`facet emails init`",
+            "Scaffold or migrate email templates wired to facet-emails (detects react-email/mjml/nodemailer/resend)",
+          ],
+          [
+            "`facet templates list`",
+            "Discover template dirs in the repo (under `./templates/`)",
+          ],
+          [
+            "`facet templates describe <name>`",
+            "Show a template's manifest and files",
+          ],
+          [
+            "`facet latest`",
+            "Show the latest published versions of all @fusorb/facet-* packages",
+          ],
+          [
+            "`facet self-update`",
+            "Update the globally-installed facet-cli to the latest published version",
+          ],
         ],
       },
       { type: "h2", text: "Flags" },
@@ -1073,7 +1216,10 @@ facet docs scan --out docs && facet docs scan -y`,
         rows: [
           ["`-V, --version`", "Print the installed CLI version"],
           ["`-h, --help`", "Show the command reference and exit"],
-          ["`--no-update-check`", "Skip the startup check for facet-cli updates"],
+          [
+            "`--no-update-check`",
+            "Skip the startup check for facet-cli updates",
+          ],
           ["`--log`", "Verbose output: show internal steps and debug info"],
         ],
       },
@@ -1082,16 +1228,40 @@ facet docs scan --out docs && facet docs scan -y`,
         type: "table",
         headers: ["Flag", "Description"],
         rows: [
-          ["`-y, --yes`", "Non-interactive: detect your stack and use the best defaults"],
+          [
+            "`-y, --yes`",
+            "Non-interactive: detect your stack and use the best defaults",
+          ],
           ["`--name <name>`", "Docs site name (default: `docs`)"],
-          ["`--location <location>`", "`.` (root, recommended), `docs`, or `src/docs` (default: `.`)"],
-          ["`--language <language>`", "`typescript` or `javascript` (default: TypeScript)"],
-          ["`--framework <framework>`", "`react-vite`, `next`, `remix`, `plain-js`, or `python` (default: detected)"],
-          ["`--styling <styling>`", "`facet-tokens`, `tailwind`, `plain-css`, or `none` (default: detected)"],
+          [
+            "`--location <location>`",
+            "`.` (root, recommended), `docs`, or `src/docs` (default: `.`)",
+          ],
+          [
+            "`--language <language>`",
+            "`typescript` or `javascript` (default: TypeScript)",
+          ],
+          [
+            "`--framework <framework>`",
+            "`react-vite`, `next`, `remix`, `plain-js`, or `python` (default: detected)",
+          ],
+          [
+            "`--styling <styling>`",
+            "`facet-tokens`, `tailwind`, `plain-css`, or `none` (default: detected)",
+          ],
           ["`--no-tokens`", "Do not wire `@fusorb/facet-tokens` theming"],
-          ["`--template <template>`", "`component-library`, `api-reference`, or `product-docs` (default: `component-library`)"],
-          ["`--use-template <name>`", "Merge an existing template dir from `./templates` into the scaffold (never clobbers existing files)"],
-          ["`--barrel <mode>`", "`auto` (create when it fits, default), `always`, or `never`"],
+          [
+            "`--template <template>`",
+            "`component-library`, `api-reference`, or `product-docs` (default: `component-library`)",
+          ],
+          [
+            "`--use-template <name>`",
+            "Merge an existing template dir from `./templates` into the scaffold (never clobbers existing files)",
+          ],
+          [
+            "`--barrel <mode>`",
+            "`auto` (create when it fits, default), `always`, or `never`",
+          ],
         ],
       },
       { type: "h2", text: "facet docs scan flags" },
@@ -1100,7 +1270,10 @@ facet docs scan --out docs && facet docs scan -y`,
         headers: ["Flag", "Description"],
         rows: [
           ["`--out <dir>`", "Where the draft lands (default: `docs`)"],
-          ["`-y, --yes`", "Write the draft without confirmation (overwrites existing files)"],
+          [
+            "`-y, --yes`",
+            "Write the draft without confirmation (overwrites existing files)",
+          ],
         ],
       },
       { type: "h2", text: "facet icons generate flags" },
@@ -1108,8 +1281,14 @@ facet docs scan --out docs && facet docs scan -y`,
         type: "table",
         headers: ["Flag", "Description"],
         rows: [
-          ["`--path <path>`", "Where to write `icons.generated.tsx` (default: detected from repo layout)"],
-          ["`-y, --yes`", "Overwrite an existing generated registry without confirmation"],
+          [
+            "`--path <path>`",
+            "Where to write `icons.generated.tsx` (default: detected from repo layout)",
+          ],
+          [
+            "`-y, --yes`",
+            "Overwrite an existing generated registry without confirmation",
+          ],
         ],
       },
       { type: "h2", text: "facet emails init" },
@@ -1136,10 +1315,22 @@ facet emails init --provider resend`,
         rows: [
           ["`-y, --yes`", "Use detected defaults without prompting"],
           ["`--framework <fw>`", "Override the detected frontend framework"],
-          ["`--migrate`", "Force migration mode (build on an existing mail package)"],
-          ["`--fresh`", "Force a fresh scaffold (ignore any existing mail package)"],
-          ["`--provider <p>`", "`resend`, `nodemailer`, or `none` (override detection)"],
-          ["`--location <dir>`", "Where the emails dir lands (default: `emails`)"],
+          [
+            "`--migrate`",
+            "Force migration mode (build on an existing mail package)",
+          ],
+          [
+            "`--fresh`",
+            "Force a fresh scaffold (ignore any existing mail package)",
+          ],
+          [
+            "`--provider <p>`",
+            "`resend`, `nodemailer`, or `none` (override detection)",
+          ],
+          [
+            "`--location <dir>`",
+            "Where the emails dir lands (default: `emails`)",
+          ],
           ["`--name <name>`", "Brand name used in the email layout header"],
         ],
       },
@@ -1150,8 +1341,14 @@ facet emails init --provider resend`,
         rows: [
           ["`--js`", "Generate JavaScript instead of TypeScript"],
           ["`--dir <dir>`", "Components directory (default: `src/components`)"],
-          ["`--ui-dir <name>`", "Subdirectory holding the copies (default: `facet`; ignored with `--flat`)"],
-          ["`--flat`", "Place components directly in `--dir` instead of a subdirectory"],
+          [
+            "`--ui-dir <name>`",
+            "Subdirectory holding the copies (default: `facet`; ignored with `--flat`)",
+          ],
+          [
+            "`--flat`",
+            "Place components directly in `--dir` instead of a subdirectory",
+          ],
           ["`--no-barrel`", "Do not create or update any barrel export"],
           ["`--barrel`", "Always create a barrel export"],
         ],
@@ -1166,7 +1363,8 @@ facet emails init --provider resend`,
     path: "/emails",
     title: "Emails",
     section: "ecosystem",
-    description: "Framework-agnostic email templates with @fusorb/facet-emails: render HTML/text from React or plain trees, brand tokens, and a dev preview server.",
+    description:
+      "Framework-agnostic email templates with @fusorb/facet-emails: render HTML/text from React or plain trees, brand tokens, and a dev preview server.",
     blocks: [
       {
         type: "p",
@@ -1216,10 +1414,19 @@ const html = renderEmailFromReact(
         rows: [
           ["`EmailLayout`", "Outer shell: preview text, brand header, footer."],
           ["`EmailButton`", "CTA link-button (primary / danger / outline)."],
-          ["`EmailText`", "Paragraph variants (default / small / muted / code)."],
+          [
+            "`EmailText`",
+            "Paragraph variants (default / small / muted / code).",
+          ],
           ["`EmailCodeBlock`", "Single code (MFA) or a recovery-codes grid."],
-          ["`EmailSection` / `EmailRow` / `EmailColumn`", "Table-based layout containers for detail/grid sections."],
-          ["`EmailSecurityNotice`", "Warning / danger / info callout, or an IP/device table."],
+          [
+            "`EmailSection` / `EmailRow` / `EmailColumn`",
+            "Table-based layout containers for detail/grid sections.",
+          ],
+          [
+            "`EmailSecurityNotice`",
+            "Warning / danger / info callout, or an IP/device table.",
+          ],
           ["`EmailLink`", "Styled inline link."],
           ["`EmailDivider`", "Horizontal rule."],
           ["`EmailList`", "Feature bullet list."],
@@ -1282,18 +1489,19 @@ startEmailPreviewServer({
     path: "/sdk",
     title: "SDK",
     section: "ecosystem",
-    description: "The typed arc-id API client (@fusorb/facet-sdk): first-party sessions + OAuth2/OIDC for external integrations.",
+    description:
+      "The typed SovGrant API client (@fusorb/facet-sdk): first-party sessions + OAuth2/OIDC for external integrations.",
     blocks: [
       {
         type: "p",
-        text: "`@fusorb/facet-sdk` is a pure-fetch, framework-agnostic TypeScript client for arc-id. It mirrors arc-id's full REST surface (62 routes across auth, identity, oauth, tenants, credentials, billing, audit, webhooks, idp) and normalizes the `{ success, data }` envelope so SDK methods return the inner payload directly.",
+        text: "`@fusorb/facet-sdk` is a pure-fetch, framework-agnostic TypeScript client for SovGrant. It mirrors SovGrant's full REST surface (62 routes across auth, identity, oauth, tenants, credentials, billing, audit, webhooks, idp) and normalizes the `{ success, data }` envelope so SDK methods return the inner payload directly.",
       },
       { type: "h2", text: "Install" },
       {
         type: "install",
         pkg: "@fusorb/facet-sdk",
       },
-      { type: "h2", text: "First-party app (own arc-id backend)" },
+      { type: "h2", text: "First-party app (own SovGrant backend)" },
       {
         type: "code",
         text: `import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
@@ -1311,7 +1519,7 @@ const { data, error } = await auth.login("user@example.com", "pw");
       { type: "h2", text: "External integration (OAuth2/OIDC)" },
       {
         type: "p",
-        text: "For third-party apps talking to a shared arc-id instance, configure the registered OAuth client and use the OIDC flow:",
+        text: "For third-party apps talking to a shared SovGrant instance, configure the registered OAuth client and use the OIDC flow:",
       },
       {
         type: "code",
@@ -1321,7 +1529,7 @@ const { data, error } = await auth.login("user@example.com", "pw");
   clientSecret: "…", // confidential clients only
 });
 
-// 1. Authorize: arc-id's /oauth/authorize is a JSON API (bearer auth)
+// 1. Authorize: SovGrant's /oauth/authorize is a JSON API (bearer auth)
 //    returning an authorization code, not a browser redirect.
 const { data } = await auth.authorize({
   redirectUri: "https://app.example.com/callback",
@@ -1382,12 +1590,30 @@ const client = new ArcIdClient({
         type: "table",
         headers: ["Module", "Covers"],
         rows: [
-          ["`AuthSdk`", "login, register, MFA, sessions, magic-link, password, step-up, switch-context, OAuth authorize/exchange/refresh/client-credentials"],
-          ["`IdentitySdk`", "profile, admin (list/suspend/reinstate), devices, linked accounts, delegations, onboarding, wallet DID"],
-          ["`OAuthSdk`", "clients, consent, tokens, introspection, revocation, userinfo, jwks"],
-          ["`PasskeySdk`", "WebAuthn registration + authentication options/verify"],
-          ["`TenantSdk`", "tenants, members, policies, signing keys, DID, invites"],
-          ["`VcSdk`", "issue, verify, revoke, status lists, offers, verifiable credential workflows"],
+          [
+            "`AuthSdk`",
+            "login, register, MFA, sessions, magic-link, password, step-up, switch-context, OAuth authorize/exchange/refresh/client-credentials",
+          ],
+          [
+            "`IdentitySdk`",
+            "profile, admin (list/suspend/reinstate), devices, linked accounts, delegations, onboarding, wallet DID",
+          ],
+          [
+            "`OAuthSdk`",
+            "clients, consent, tokens, introspection, revocation, userinfo, jwks",
+          ],
+          [
+            "`PasskeySdk`",
+            "WebAuthn registration + authentication options/verify",
+          ],
+          [
+            "`TenantSdk`",
+            "tenants, members, policies, signing keys, DID, invites",
+          ],
+          [
+            "`VcSdk`",
+            "issue, verify, revoke, status lists, offers, verifiable credential workflows",
+          ],
           ["`WebhooksSdk`", "endpoint management + events + retry"],
           ["`BillingSdk`", "subscription"],
           ["`AuditSdk`", "audit logs"],
@@ -1396,7 +1622,7 @@ const client = new ArcIdClient({
       },
       {
         type: "p",
-        text: "Every endpoint string in the SDK is audited against arc-id's `ROUTES` index (`scripts/audit-sdk-coverage.cjs` reports 62/62 covered).",
+        text: "Every endpoint string in the SDK is audited against SovGrant's `ROUTES` index (`scripts/audit-sdk-coverage.cjs` reports 62/62 covered).",
       },
     ],
   },
@@ -1404,7 +1630,8 @@ const client = new ArcIdClient({
     path: "/store",
     title: "Store",
     section: "ecosystem",
-    description: "Framework-agnostic Zustand state stores for arc-id sessions + tenant state, with a token-refresh bridge for 401 auto-recovery.",
+    description:
+      "Framework-agnostic Zustand state stores for SovGrant sessions + tenant state, with a token-refresh bridge for 401 auto-recovery.",
     blocks: [
       {
         type: "p",
@@ -1425,8 +1652,16 @@ const client = new ArcIdClient({
         type: "table",
         headers: ["Store", "State", "Purpose"],
         rows: [
-          ["`useAuthStore`", "user, accessToken, refreshToken, isAuthenticated, isLoading", "Session + token state; methods: setAuth, setUser, setTokens, clearAuth, setLoading"],
-          ["`useTenantStore`", "activeTenant, tenants, isLoading", "Tenant selection + membership cache; methods: setActiveTenant, setTenants, setLoading, reset"],
+          [
+            "`useAuthStore`",
+            "user, accessToken, refreshToken, isAuthenticated, isLoading",
+            "Session + token state; methods: setAuth, setUser, setTokens, clearAuth, setLoading",
+          ],
+          [
+            "`useTenantStore`",
+            "activeTenant, tenants, isLoading",
+            "Tenant selection + membership cache; methods: setActiveTenant, setTenants, setLoading, reset",
+          ],
         ],
       },
       {
@@ -1471,7 +1706,7 @@ const client = new ArcIdClient({
       },
       {
         type: "p",
-        text: "See [Stack Agnosticism](/stack-agnosticism) for the full layer matrix. The store has zero arc-id-specific logic - it depends only on `@fusorb/facet-sdk` types and `zustand`. A `TokenStoreLike` and a `TokenRefresher` are the only contracts `createZustandTokenStorage` needs, so you can wire it to any store or refresh implementation.",
+        text: "See [Stack Agnosticism](/stack-agnosticism) for the full layer matrix. The store has zero SovGrant-specific logic - it depends only on `@fusorb/facet-sdk` types and `zustand`. A `TokenStoreLike` and a `TokenRefresher` are the only contracts `createZustandTokenStorage` needs, so you can wire it to any store or refresh implementation.",
       },
     ],
   },
@@ -1479,7 +1714,7 @@ const client = new ArcIdClient({
     path: "/changelog",
     title: "Changelog",
     section: "ecosystem",
-    description: "Release log for @fusorb/facet-components and the Arcevo ecosystem.",
+    description: "Release log for @fusorb/facet-components.",
     blocks: [
       {
         type: "p",
@@ -1493,4 +1728,3 @@ const client = new ArcIdClient({
     ],
   },
 ];
-

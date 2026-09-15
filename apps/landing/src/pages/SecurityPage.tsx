@@ -13,10 +13,9 @@ import {
   CardContent,
   Badge,
 } from "@fusorb/facet-components";
-import { LandingLayout } from "@fusorb/facet-layout";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { Nav } from "../components/Nav.js";
-import { Footer } from "../components/Footer.js";
+import { PageShell } from "../components/PageShell.js";
+import { site } from "../site.config.js";
 import {
   SECURITY_FEATURES,
   DEMO_API_KEYS,
@@ -39,15 +38,17 @@ export function SecurityPage() {
         <CardHeader>
           <CardTitle>Profile</CardTitle>
           <CardDescription>
-            Display name, email, and locale. Live-editable in a real app, the demo
-            surface here just shows the section shape.
+            Display name, email, and locale. Live-editable in a real app, the
+            demo surface here just shows the section shape.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3 text-sm text-muted-foreground">
           <div className="flex items-center justify-between rounded-md border border-border p-3">
             <div>
               <p className="font-medium text-foreground">Ada Lovelace</p>
-              <p className="text-xs text-muted-foreground">ada.lovelace@fusorbcirqle.com.ng</p>
+              <p className="text-xs text-muted-foreground">
+                ada.lovelace@acme.dev
+              </p>
             </div>
             <Badge variant="outline">Owner</Badge>
           </div>
@@ -75,8 +76,8 @@ export function SecurityPage() {
               Password
             </CardTitle>
             <CardDescription>
-              Update your password. The PasswordStrengthMeter and PasswordInput are
-              the same surfaces shipped in the SignIn / SignUp forms.
+              Update your password. The PasswordStrengthMeter and PasswordInput
+              are the same surfaces shipped in the SignIn / SignUp forms.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -89,7 +90,7 @@ export function SecurityPage() {
           </CardContent>
         </Card>
         <TwoFactorSetupPanel
-          otpauthUri="otpauth://totp/facet:ada.lovelace@fusorbcirqle.com.ng?secret=JBSWY3DPEHPK3PXP&issuer=facet"
+          otpauthUri={`otpauth://totp/${site.brand.name}:ada.lovelace@acme.dev?secret=JBSWY3DPEHPK3PXP&issuer=${site.brand.name}`}
           secret="JBSW-Y3DP-EHPK-3PXP"
           recoveryCodes={[
             "a1b2-c3d4",
@@ -118,9 +119,21 @@ export function SecurityPage() {
         <CardContent>
           <ul className="space-y-2">
             {[
-              { device: "MacBook Pro · Chrome", location: "Lagos, NG", current: true },
-              { device: "iPhone 15 · Safari", location: "Lagos, NG", current: false },
-              { device: "CI runner · Linux", location: "us-east-1", current: false },
+              {
+                device: "MacBook Pro · Chrome",
+                location: "Lagos, NG",
+                current: true,
+              },
+              {
+                device: "iPhone 15 · Safari",
+                location: "Lagos, NG",
+                current: false,
+              },
+              {
+                device: "CI runner · Linux",
+                location: "us-east-1",
+                current: false,
+              },
             ].map((s) => (
               <li
                 key={s.device}
@@ -140,7 +153,7 @@ export function SecurityPage() {
                 {!s.current && (
                   <button
                     type="button"
-                    className="text-xs font-medium text-destructive hover:underline"
+                    className="cursor-pointer text-xs font-medium text-destructive hover:underline"
                   >
                     Revoke
                   </button>
@@ -155,7 +168,7 @@ export function SecurityPage() {
       <ApiKeyManager
         keys={DEMO_API_KEYS}
         onCreate={async ({ name }) => ({
-          secret: `facet_live_${name.replace(/\W+/g, "-").toLowerCase()}_${Math.random()
+          secret: `demo_live_${name.replace(/\W+/g, "-").toLowerCase()}_${Math.random()
             .toString(36)
             .slice(2, 10)}`,
         })}
@@ -169,7 +182,8 @@ export function SecurityPage() {
         <CardHeader>
           <CardTitle>Notifications</CardTitle>
           <CardDescription>
-            Choose how facet notifies you about events in your account.
+            Choose how {site.brand.name} notifies you about events in your
+            account.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3 text-sm">
@@ -177,11 +191,15 @@ export function SecurityPage() {
             { id: "email-mfa", label: "MFA challenge by email", on: true },
             { id: "email-issue", label: "Credential issuance", on: true },
             { id: "email-rotation", label: "API key rotation", on: false },
-            { id: "webhook-issue", label: "Webhook delivery failures", on: true },
+            {
+              id: "webhook-issue",
+              label: "Webhook delivery failures",
+              on: true,
+            },
           ].map((row) => (
             <label
               key={row.id}
-              className="flex items-center justify-between rounded-md border border-border p-3"
+              className="flex cursor-pointer items-center justify-between rounded-md border border-border p-3"
             >
               <span className="font-medium text-foreground">{row.label}</span>
               <input
@@ -198,33 +216,32 @@ export function SecurityPage() {
   };
 
   return (
-    <LandingLayout
-      nav={<Nav />}
-      footer={<Footer />}
-      hero={
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-secondary/50 ring-1 ring-border">
-            <LightIcon name="shield-check" className="size-5 text-primary" />
-          </span>
-          <h1 className="mt-3 font-heading text-4xl font-bold text-foreground sm:text-5xl">
-            Security surface, ready to ship
-          </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Account settings, API keys, MFA, sessions, the surfaces every auth
-            console needs, wired from the ready-to-use components in
-            <code className="ml-1 rounded bg-secondary/50 px-2 py-1 text-sm">
-              @fusorb/facet-components
-            </code>
-            .
-          </p>
-        </div>
+    <PageShell
+      kicker={
+        <span className="mx-auto inline-flex h-10 w-10 items-center justify-center rounded-xl bg-secondary/50 ring-1 ring-border">
+          <LightIcon name="shield-check" className="size-5 text-primary" />
+        </span>
+      }
+      title="Security surface, ready to ship"
+      description={
+        <>
+          Account settings, API keys, MFA, sessions. The surfaces every auth
+          console needs, wired from the ready-to-use components in{" "}
+          <code className="rounded bg-secondary/50 px-2 py-1 text-sm">
+            @fusorb/facet-components
+          </code>
+          .
+        </>
       }
     >
       {/* Top: SecuritySectionCard grid - the "tiles" that greet the user */}
       <section className="mx-auto max-w-7xl px-8 py-12">
-        <h2 className="text-2xl font-bold text-foreground">At a glance</h2>
+        <h2 className="font-heading text-2xl font-bold text-foreground">
+          At a glance
+        </h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Click any tile to jump to the matching section in the settings panel below.
+          Click any tile to jump to the matching section in the settings panel
+          below.
         </p>
         <div className="mt-6">
           <SecuritySectionCard features={SECURITY_FEATURES} columns={3} />
@@ -233,10 +250,12 @@ export function SecurityPage() {
 
       {/* Bottom: full AccountSettingsPanel - nav + per-section content */}
       <section className="mx-auto max-w-5xl px-8 py-12">
-        <h2 className="text-2xl font-bold text-foreground">Settings</h2>
+        <h2 className="font-heading text-2xl font-bold text-foreground">
+          Settings
+        </h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The full AccountSettingsPanel: nav on the left (collapses to a scrollable
-          tab row on mobile), per-section content on the right.
+          The full AccountSettingsPanel: nav on the left (collapses to a
+          scrollable tab row on mobile), per-section content on the right.
         </p>
         <div className="mt-6">
           <AccountSettingsPanel sections={ACCOUNT_SECTIONS} content={content} />
@@ -246,10 +265,10 @@ export function SecurityPage() {
       {/* CTA back to docs */}
       <section className="mx-auto max-w-3xl px-8 py-12 text-center">
         <p className="text-sm text-muted-foreground">
-          Every surface above is a typed component. Read the docs to wire them into
-          your own console, and your own auth backend.
+          Every surface above is a typed component. Read the docs to wire them
+          into your own console, and your own auth backend.
         </p>
       </section>
-    </LandingLayout>
+    </PageShell>
   );
 }

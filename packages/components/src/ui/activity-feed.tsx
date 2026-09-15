@@ -59,7 +59,11 @@ export function dayLabel(iso: string, now = new Date()): string {
   const diffDays = Math.round((today.getTime() - that.getTime()) / 86400000);
   if (diffDays === 0) return "Today";
   if (diffDays === 1) return "Yesterday";
-  return d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+  return d.toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 /**
@@ -78,7 +82,12 @@ export function ActivityFeed({
 }: ActivityFeedProps) {
   if (items.length === 0) {
     return (
-      <div className={cn("flex flex-col items-center gap-2 rounded-md border border-dashed border-border py-8 text-center", className)}>
+      <div
+        className={cn(
+          "flex flex-col items-center gap-2 rounded-md border border-dashed border-border py-8 text-center",
+          className,
+        )}
+      >
         <Icon name="inbox" className="size-6 text-muted-foreground" />
         <p className="text-sm text-muted-foreground">{emptyText}</p>
       </div>
@@ -110,8 +119,8 @@ export function ActivityFeed({
         <span
           className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
           style={{
-            background: `${item.accent ?? "var(--primary, #6366f1)"}1a`,
-            color: item.accent ?? "var(--primary, #6366f1)",
+            background: `${item.accent ?? "var(--primary)"}1a`,
+            color: item.accent ?? "var(--primary)",
           }}
           aria-hidden="true"
         >
@@ -119,10 +128,18 @@ export function ActivityFeed({
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline justify-between gap-2">
-            <p className="truncate text-sm font-medium text-foreground">{item.title}</p>
-            <time className="shrink-0 text-xs text-muted-foreground">{timeFormatter(item.timestamp)}</time>
+            <p className="truncate text-sm font-medium text-foreground">
+              {item.title}
+            </p>
+            <time className="shrink-0 text-xs text-muted-foreground">
+              {timeFormatter(item.timestamp)}
+            </time>
           </div>
-          {item.description && <p className="mt-0.5 text-sm text-muted-foreground">{item.description}</p>}
+          {item.description && (
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              {item.description}
+            </p>
+          )}
         </div>
       </li>,
     );

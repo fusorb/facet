@@ -67,7 +67,8 @@ const Marquee = React.forwardRef<HTMLDivElement, MarqueeProps>(
 
     // Normalize gap: numeric px (clamped to a safe 4-32px band so spacing
     // never collapses or explodes), or a passthrough CSS length string.
-    const gapCss = typeof gap === "number" ? `${Math.min(32, Math.max(4, gap))}px` : gap;
+    const gapCss =
+      typeof gap === "number" ? `${Math.min(32, Math.max(4, gap))}px` : gap;
 
     return (
       <div

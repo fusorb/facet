@@ -26,7 +26,10 @@ function Key({ token }: { token: string }) {
  * token renders the platform modifier (⌘ on macOS, Ctrl elsewhere), so
  * the same data works on every OS.
  */
-export function KeyboardShortcuts({ title = "Keyboard shortcuts", shortcuts }: KeyboardShortcutsProps) {
+export function KeyboardShortcuts({
+  title = "Keyboard shortcuts",
+  shortcuts,
+}: KeyboardShortcutsProps) {
   return (
     <div className="not-prose overflow-hidden rounded-lg border border-border">
       <div className="border-b border-border bg-muted/30 px-4 py-2 text-sm font-medium text-foreground">

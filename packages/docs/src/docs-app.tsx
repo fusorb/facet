@@ -2,7 +2,11 @@ import * as React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import type { IconName } from "@fusorb/facet-components";
 import { ThemeProvider } from "@fusorb/facet-components/light";
-import { DocsAppProvider, PackageManagerProvider, type DocsAppValue } from "./context.js";
+import {
+  DocsAppProvider,
+  PackageManagerProvider,
+  type DocsAppValue,
+} from "./context.js";
 import { DocsContentPage } from "./pages/DocsContentPage.js";
 
 // The layout shell (ConsoleLayout + CommandPalette) pulls the heavy
@@ -16,13 +20,19 @@ const DocsLayout = React.lazy(() =>
 // (every variant preview + the whole components barrel), so they are
 // lazy-loaded too.
 const ComponentsPage = React.lazy(() =>
-  import("./pages/ComponentsPage.js").then((m) => ({ default: m.ComponentsPage })),
+  import("./pages/ComponentsPage.js").then((m) => ({
+    default: m.ComponentsPage,
+  })),
 );
 const ComponentPage = React.lazy(() =>
-  import("./pages/ComponentPage.js").then((m) => ({ default: m.ComponentPage })),
+  import("./pages/ComponentPage.js").then((m) => ({
+    default: m.ComponentPage,
+  })),
 );
 const ReadyToUsePage = React.lazy(() =>
-  import("./pages/ReadyToUsePage.js").then((m) => ({ default: m.ReadyToUsePage })),
+  import("./pages/ReadyToUsePage.js").then((m) => ({
+    default: m.ReadyToUsePage,
+  })),
 );
 const PagesPage = React.lazy(() =>
   import("./pages/PagesPage.js").then((m) => ({ default: m.PagesPage })),
@@ -93,13 +103,23 @@ export function DocsApp({
               <Routes>
                 <Route element={<DocsLayout />}>
                   {pages.map((page) => (
-                    <Route key={page.path} path={page.path} element={<DocsContentPage />} />
+                    <Route
+                      key={page.path}
+                      path={page.path}
+                      element={<DocsContentPage />}
+                    />
                   ))}
                   {showComponents && (
                     <>
                       <Route path="/components" element={<ComponentsPage />} />
-                      <Route path="/components/:slug" element={<ComponentPage />} />
-                      <Route path="/ready-to-use" element={<ReadyToUsePage />} />
+                      <Route
+                        path="/components/:slug"
+                        element={<ComponentPage />}
+                      />
+                      <Route
+                        path="/ready-to-use"
+                        element={<ReadyToUsePage />}
+                      />
                       <Route path="/pages" element={<PagesPage />} />
                     </>
                   )}

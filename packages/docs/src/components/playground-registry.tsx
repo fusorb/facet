@@ -10,7 +10,7 @@ import { defaultLayoutPreset, fintechLayoutPreset } from "@fusorb/facet-layout";
  *
  * The gallery's usage snippets are copy-pasteable docs snippets: they reference
  * ambient identifiers (`client`, `fintechPreset`, `columns`, ...) and components
- * from every Arcevo package (`facet-components`, `facet-auth`, `facet-layout`).
+ * from every facet package (`facet-components`, `facet-auth`, `facet-layout`).
  * The playground can't execute JS, so this registry makes every referenced tag
  * resolve to something that renders:
  *
@@ -79,8 +79,14 @@ const ConsoleLayout = LayoutComponentWithDefault(
   FacetLayout.ConsoleLayout,
   defaultLayoutPreset,
 );
-const AuthLayout = LayoutComponentWithDefault(FacetLayout.AuthLayout, fintechLayoutPreset);
-const Sidebar = LayoutComponentWithDefault(FacetLayout.Sidebar, fintechLayoutPreset);
+const AuthLayout = LayoutComponentWithDefault(
+  FacetLayout.AuthLayout,
+  fintechLayoutPreset,
+);
+const Sidebar = LayoutComponentWithDefault(
+  FacetLayout.Sidebar,
+  fintechLayoutPreset,
+);
 
 /* ── Doc placeholders ── names used in usage snippets where the reader is
    expected to replace them with their own content. */
@@ -162,7 +168,10 @@ const DEFAULT_FAQ = [
     q: "Is it framework agnostic?",
     a: "Yes. The core is dependency-free React.",
   },
-  { q: "Can I theme it?", a: "Yes - every component is wired to the design token system." },
+  {
+    q: "Can I theme it?",
+    a: "Yes - every component is wired to the design token system.",
+  },
 ];
 function FaqSection(props: any) {
   return (
@@ -176,7 +185,10 @@ const DEFAULT_ACTIVITY = [
 ];
 function ActivityFeed(props: any) {
   return (
-    <FacetComponents.ActivityFeed {...props} items={props.items ?? DEFAULT_ACTIVITY} />
+    <FacetComponents.ActivityFeed
+      {...props}
+      items={props.items ?? DEFAULT_ACTIVITY}
+    />
   );
 }
 
@@ -213,8 +225,12 @@ const DEMO_STEPPER_STEPS = [
   { id: "confirm", title: "Confirm" },
 ];
 function StepperProviderWithDemo(props: any) {
-  const demo = (FacetComponents as any).useStepper({ steps: DEMO_STEPPER_STEPS });
-  return <FacetComponents.StepperProvider {...props} value={props.value ?? demo} />;
+  const demo = (FacetComponents as any).useStepper({
+    steps: DEMO_STEPPER_STEPS,
+  });
+  return (
+    <FacetComponents.StepperProvider {...props} value={props.value ?? demo} />
+  );
 }
 
 const DEMO_KANBAN_COLUMNS = [
@@ -222,7 +238,9 @@ const DEMO_KANBAN_COLUMNS = [
   { id: "done", title: "Done", cards: [] },
 ];
 function KanbanBoardWithDemo(props: any) {
-  const demo = (FacetComponents as any).useKanban({ columns: DEMO_KANBAN_COLUMNS });
+  const demo = (FacetComponents as any).useKanban({
+    columns: DEMO_KANBAN_COLUMNS,
+  });
   return <FacetComponents.KanbanBoard {...props} board={props.board ?? demo} />;
 }
 
@@ -275,12 +293,20 @@ export const playgroundComponents: Record<string, React.ComponentType<any>> = {
   // means dismissal never persists across remounts in the playground.
   AnnouncementBar: (props: any) => {
     const id = React.useId();
-    return <FacetComponents.AnnouncementBar {...props} storageKey={`facet-announcement-preview${id}`} />;
+    return (
+      <FacetComponents.AnnouncementBar
+        {...props}
+        storageKey={`facet-announcement-preview${id}`}
+      />
+    );
   },
   // The usage snippet references a bare `password` variable; the playground
   // parser resolves it to undefined, and the component calls value.length.
   // Provide a sane demo value so the preview renders.
   PasswordStrengthMeter: (props: any) => (
-    <FacetComponents.PasswordStrengthMeter {...props} value={props.value ?? "Str0ng!Pass"} />
+    <FacetComponents.PasswordStrengthMeter
+      {...props}
+      value={props.value ?? "Str0ng!Pass"}
+    />
   ),
 };

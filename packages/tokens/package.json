@@ -1,7 +1,7 @@
 {
   "name": "@fusorb/facet-tokens",
   "version": "1.1.4",
-  "description": "Design tokens for the ArcevoCirqle ecosystem: Alpha Palette colors, typography, spacing, surfaces, and sub-brand accents in OKLCH, as CSS variables and a Tailwind v4 theme.",
+  "description": "Design tokens: Alpha Palette colors, typography, spacing, surfaces, and sub-brand accents in OKLCH, as CSS variables and a Tailwind v4 theme.",
   "type": "module",
   "exports": {
     ".": {
@@ -23,7 +23,7 @@
     "**/*.css"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts --clean && node -e \"require('fs').cpSync('src/tokens.css', 'dist/tokens.css'); require('fs').cpSync('src/tailwind.css', 'dist/tailwind.css'); require('fs').cpSync('src/index.css', 'dist/index.css')\"",
+    "build": "tsup src/index.ts --format esm --dts --clean && node -e \"require('fs').cpSync('src/tokens.css', 'dist/tokens.css'); require('fs').cpSync('src/tailwind.css', 'dist/tailwind.css'); require('fs').cpSync('src/index.css', 'dist/index.css')\" && node minify-css.cjs",
     "build:analyze": "tsup src/index.ts --format esm --dts --metafile",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit"
@@ -39,16 +39,16 @@
   "bugs": {
     "url": "https://github.com/fusorb/facet/issues"
   },
-  "homepage": "https://facet.arcevocirqle.com.ng",
+  "homepage": "https://github.com/fusorb/facet",
   "license": "MIT",
   "keywords": [
     "design-tokens",
     "alpha-palette",
-    "arcevocirqle",
     "ui",
     "oklch"
   ],
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "tsup": "^8.5.1",
     "typescript": "^5"
   },

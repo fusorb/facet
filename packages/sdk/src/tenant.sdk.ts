@@ -2,7 +2,7 @@
  * Tenant SDK: Multi-tenant CRUD, members, policy, DID, signing keys, projects,
  * onboarding flows, JWKS
  *
- * arc-id paths: /tenants/*, /auth/switch-context, /tenants/invites/accept
+ * SovGrant paths: /tenants/*, /auth/switch-context, /tenants/invites/accept
  */
 
 import { ArcIdClient } from "./client.js";
@@ -60,7 +60,10 @@ export class TenantSdk {
     return this.client.post<void>(`/tenants/${tenantId}/members`, data);
   }
 
-  removeMember(tenantId: string, identityId: string): Promise<ApiResponse<void>> {
+  removeMember(
+    tenantId: string,
+    identityId: string,
+  ): Promise<ApiResponse<void>> {
     return this.client.del<void>(`/tenants/${tenantId}/members/${identityId}`);
   }
 
@@ -70,13 +73,18 @@ export class TenantSdk {
     return this.client.get<TenantPolicy>(`/tenants/${tenantId}/policy`);
   }
 
-  updatePolicy(tenantId: string, data: TenantPolicy): Promise<ApiResponse<void>> {
+  updatePolicy(
+    tenantId: string,
+    data: TenantPolicy,
+  ): Promise<ApiResponse<void>> {
     return this.client.patch<void>(`/tenants/${tenantId}/policy`, data);
   }
 
   /* ── Invites ──────────────────────────────────────────────── */
 
-  acceptInvite(data: { token: string }): Promise<ApiResponse<InviteAcceptResult>> {
+  acceptInvite(data: {
+    token: string;
+  }): Promise<ApiResponse<InviteAcceptResult>> {
     return this.client.post<InviteAcceptResult>("/invites/accept", data);
   }
 
@@ -86,7 +94,10 @@ export class TenantSdk {
     return this.client.get<TenantDid>(`/tenants/${tenantId}/did`);
   }
 
-  provisionDid(tenantId: string, data: { domain: string }): Promise<ApiResponse<void>> {
+  provisionDid(
+    tenantId: string,
+    data: { domain: string },
+  ): Promise<ApiResponse<void>> {
     return this.client.post<void>(`/tenants/${tenantId}/did`, data);
   }
 
@@ -100,7 +111,10 @@ export class TenantSdk {
     tenantId: string,
     data: { displayName?: string; expiresAt?: string },
   ): Promise<ApiResponse<SigningKey>> {
-    return this.client.post<SigningKey>(`/tenants/${tenantId}/signing-keys`, data);
+    return this.client.post<SigningKey>(
+      `/tenants/${tenantId}/signing-keys`,
+      data,
+    );
   }
 
   revokeSigningKey(tenantId: string, kid: string): Promise<ApiResponse<void>> {
@@ -120,8 +134,13 @@ export class TenantSdk {
     return this.client.post<Project>(`/tenants/${tenantId}/projects`, data);
   }
 
-  getProject(tenantId: string, projectId: string): Promise<ApiResponse<Project>> {
-    return this.client.get<Project>(`/tenants/${tenantId}/projects/${projectId}`);
+  getProject(
+    tenantId: string,
+    projectId: string,
+  ): Promise<ApiResponse<Project>> {
+    return this.client.get<Project>(
+      `/tenants/${tenantId}/projects/${projectId}`,
+    );
   }
 
   updateProject(
@@ -129,10 +148,16 @@ export class TenantSdk {
     projectId: string,
     data: { name?: string; description?: string },
   ): Promise<ApiResponse<Project>> {
-    return this.client.patch<Project>(`/tenants/${tenantId}/projects/${projectId}`, data);
+    return this.client.patch<Project>(
+      `/tenants/${tenantId}/projects/${projectId}`,
+      data,
+    );
   }
 
-  deleteProject(tenantId: string, projectId: string): Promise<ApiResponse<void>> {
+  deleteProject(
+    tenantId: string,
+    projectId: string,
+  ): Promise<ApiResponse<void>> {
     return this.client.del<void>(`/tenants/${tenantId}/projects/${projectId}`);
   }
 
@@ -149,7 +174,10 @@ export class TenantSdk {
     );
   }
 
-  listOnboardingFlows(tenantId: string, projectId: string): Promise<ApiResponse<OnboardingFlow[]>> {
+  listOnboardingFlows(
+    tenantId: string,
+    projectId: string,
+  ): Promise<ApiResponse<OnboardingFlow[]>> {
     return this.client.get<OnboardingFlow[]>(
       `/tenants/${tenantId}/projects/${projectId}/onboarding-flows`,
     );
@@ -191,6 +219,8 @@ export class TenantSdk {
 
   /** GET /tenants/:slug/jwks: bare { keys } payload. */
   getJwksBySlug(slug: string): Promise<ApiResponse<{ keys: JwkKey[] }>> {
-    return this.client.get<{ keys: JwkKey[] }>(`/tenants/${slug}/jwks`, { bare: true });
+    return this.client.get<{ keys: JwkKey[] }>(`/tenants/${slug}/jwks`, {
+      bare: true,
+    });
   }
 }

@@ -25,7 +25,11 @@ export { toKebab } from "./icon/registry.js";
 
 /* ── Theme system ────────────────────────────────────────────── */
 export { ThemeProvider, useTheme, ThemeToggle } from "./theme/index.js";
-export type { Theme, ThemeProviderProps, ThemeToggleProps } from "./theme/index.js";
+export type {
+  Theme,
+  ThemeProviderProps,
+  ThemeToggleProps,
+} from "./theme/index.js";
 
 /* ── Dropdown menu ───────────────────────────────────────────── */
 export {
@@ -50,9 +54,4 @@ export {
 export { Kbd } from "./ui/kbd.js";
 
 /* ── Tabs ────────────────────────────────────────────────────── */
-export {
-  Tabs,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
-} from "./ui/tabs.js";
+export { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs.js";

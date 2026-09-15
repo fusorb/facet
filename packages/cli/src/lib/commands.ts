@@ -1,6 +1,10 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { dirname, join as pathJoin } from "node:path";
-import { discoverFacetPackages, resolveLatestVersion, ALL_FACET_PACKAGES } from "./registry.js";
+import {
+  discoverFacetPackages,
+  resolveLatestVersion,
+  ALL_FACET_PACKAGES,
+} from "./registry.js";
 import { scanUnnecessaryDeps } from "./deps.js";
 import {
   compareVersions,
@@ -33,7 +37,9 @@ export interface FacetPackageInfo {
  * we report unknown (not "up to date") so `facet up` never falsely
  * claims everything is current.
  */
-export async function collectFacetPackageState(cwd: string): Promise<FacetPackageInfo[]> {
+export async function collectFacetPackageState(
+  cwd: string,
+): Promise<FacetPackageInfo[]> {
   const declared = collectFacetDeps(cwd);
   const searchDirs = [cwd, ...workspaceMemberDirs(cwd)];
   // Discover the facet scope dynamically (npm registry @fusorb search)
@@ -94,7 +100,10 @@ function readdirSafe(p: string): string[] {
 
 /** Read the resolved version of `name` from node_modules across `dirs`
  * (cwd first, then workspace members), walking up from each. */
-export function readInstalledVersion(dirs: string[], name: string): string | undefined {
+export function readInstalledVersion(
+  dirs: string[],
+  name: string,
+): string | undefined {
   const parts = name.split("/"); // "@fusorb/facet-auth" -> ["@fusorb", "facet-auth"]
   const paths: string[] = [];
   for (const dir of dirs) {
@@ -149,13 +158,19 @@ export function buildDoctorReport(cwd: string, infos: FacetPackageInfo[]) {
   const findings: string[] = [];
   const suggestions: string[] = [];
 
-  const hasComponents = infos.some((i) => i.name === "@fusorb/facet-components" && (i.declared || i.installed));
-  const hasTokens = infos.some((i) => i.name === "@fusorb/facet-tokens" && (i.declared || i.installed));
+  const hasComponents = infos.some(
+    (i) => i.name === "@fusorb/facet-components" && (i.declared || i.installed),
+  );
+  const hasTokens = infos.some(
+    (i) => i.name === "@fusorb/facet-tokens" && (i.declared || i.installed),
+  );
   const outdated = infos.filter((i) => i.outdated);
 
   // Deps that @fusorb/facet-components already bundles (radix, lucide, ...).
   const unnecessary = scanUnnecessaryDeps(cwd);
-  const unnecessaryNames = unnecessary.flatMap((e) => e.deps.map((d) => d.name));
+  const unnecessaryNames = unnecessary.flatMap((e) =>
+    e.deps.map((d) => d.name),
+  );
 
   findings.push(`Package manager: ${pm}`);
   findings.push(
@@ -165,24 +180,47 @@ export function buildDoctorReport(cwd: string, infos: FacetPackageInfo[]) {
   );
 
   if (unnecessaryNames.length) {
-    findings.push(`Unnecessary deps (bundled by @fusorb/facet-components): ${unnecessaryNames.join(", ")}`);
-    suggestions.push(`These are already provided by @fusorb/facet-components. Remove them: \`facet clean\` does this automatically (rewrites imports + deletes dead local components).`);
+    findings.push(
+      `Unnecessary deps (bundled by @fusorb/facet-components): ${unnecessaryNames.join(", ")}`,
+    );
+    suggestions.push(
+      `These are already provided by @fusorb/facet-components. Remove them: \`facet clean\` does this automatically (rewrites imports + deletes dead local components).`,
+    );
   }
 
   if (!hasComponents && !hasTokens) {
     findings.push("facet usage: none detected");
-    suggestions.push("Run `facet docs init` to scaffold a docs site, or add the packages with `facet add`/your package manager.");
+    suggestions.push(
+      "Run `facet docs init` to scaffold a docs site, or add the packages with `facet add`/your package manager.",
+    );
   } else {
-    findings.push(`facet usage: ${infos.filter((i) => i.declared || i.installed).map((i) => i.name.replace("@fusorb/facet-", "")).join(", ") || "none"}`);
+    findings.push(
+      `facet usage: ${
+        infos
+          .filter((i) => i.declared || i.installed)
+          .map((i) => i.name.replace("@fusorb/facet-", ""))
+          .join(", ") || "none"
+      }`,
+    );
     if (!hasTokens) {
-      suggestions.push("Import @fusorb/facet-tokens (tokens.css + tailwind.css) so component styling resolves.");
+      suggestions.push(
+        "Import @fusorb/facet-tokens (tokens.css + tailwind.css) so component styling resolves.",
+      );
     }
     if (outdated.length) {
-      suggestions.push(`Update available for: ${outdated.map((i) => i.name).join(", ")}. Run \`facet update\`.`);
+      suggestions.push(
+        `Update available for: ${outdated.map((i) => i.name).join(", ")}. Run \`facet update\`.`,
+      );
     }
     for (const info of infos) {
-      if (info.name === "@fusorb/facet-components" && info.declared && info.declared.startsWith("workspace:")) {
-        suggestions.push("You depend on facet-components via workspace:*; when publishing your package, swap it for a registry range (e.g. ^1.2.0).");
+      if (
+        info.name === "@fusorb/facet-components" &&
+        info.declared &&
+        info.declared.startsWith("workspace:")
+      ) {
+        suggestions.push(
+          "You depend on facet-components via workspace:*; when publishing your package, swap it for a registry range (e.g. ^1.2.0).",
+        );
       }
     }
   }
@@ -204,10 +242,14 @@ export function updateCommand(
   const pkgs = targets.map((t) => `${t.name}@^${t.latest}`).join(" ");
   const rootFlag = workspace ? " -w" : "";
   switch (pm) {
-    case "pnpm": return `pnpm${rootFlag} add ${pkgs}`;
-    case "yarn": return `yarn workspace add ${pkgs}`;
-    case "bun": return `bun add ${pkgs}`;
-    default: return `npm install ${pkgs}`;
+    case "pnpm":
+      return `pnpm${rootFlag} add ${pkgs}`;
+    case "yarn":
+      return `yarn workspace add ${pkgs}`;
+    case "bun":
+      return `bun add ${pkgs}`;
+    default:
+      return `npm install ${pkgs}`;
   }
 }
 
@@ -234,10 +276,14 @@ export function installFacetPackages(
   const rootFlag = workspace ? " -w" : "";
   const pkgs = targets.map((t) => `${t.name}@^${t.latest}`).join(" ");
   switch (pm) {
-    case "pnpm": return `pnpm${rootFlag} add ${pkgs}`;
-    case "yarn": return `yarn workspace add ${pkgs}`;
-    case "bun": return `bun add ${pkgs}`;
-    default: return `npm install ${pkgs}`;
+    case "pnpm":
+      return `pnpm${rootFlag} add ${pkgs}`;
+    case "yarn":
+      return `yarn workspace add ${pkgs}`;
+    case "bun":
+      return `bun add ${pkgs}`;
+    default:
+      return `npm install ${pkgs}`;
   }
 }
 
@@ -254,10 +300,14 @@ export function globalInstallFacetPackages(
 ): string {
   const pkgs = targets.map((t) => `${t.name}@${t.latest}`).join(" ");
   switch (pm) {
-    case "pnpm": return `pnpm add -g ${pkgs}`;
-    case "yarn": return `yarn global add ${pkgs}`;
-    case "bun": return `bun add -g ${pkgs}`;
-    default: return `npm i -g ${pkgs}`;
+    case "pnpm":
+      return `pnpm add -g ${pkgs}`;
+    case "yarn":
+      return `yarn global add ${pkgs}`;
+    case "bun":
+      return `bun add -g ${pkgs}`;
+    default:
+      return `npm i -g ${pkgs}`;
   }
 }
 
@@ -280,7 +330,8 @@ export function resolveFacetPackageName(name: string): string | undefined {
   // Lets users reference the package the short way, e.g. `npm i -g facet-cli`.
   if (name.startsWith("facet-")) {
     const scoped = `@fusorb/${name}` as const;
-    if ((ALL_FACET_PACKAGES as readonly string[]).includes(scoped)) return scoped;
+    if ((ALL_FACET_PACKAGES as readonly string[]).includes(scoped))
+      return scoped;
   }
   // Plain shorthand: "layout" -> "@fusorb/facet-layout"
   const full = `@fusorb/facet-${name}` as const;

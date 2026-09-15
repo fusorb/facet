@@ -112,7 +112,9 @@ function globDirs(cwd: string, globs: string[]): string[] {
 }
 
 function detectLanguage(cwd: string): "typescript" | "javascript" {
-  return existsSync(path.join(cwd, "tsconfig.json")) ? "typescript" : "javascript";
+  return existsSync(path.join(cwd, "tsconfig.json"))
+    ? "typescript"
+    : "javascript";
 }
 
 /* ── OpenAPI / swagger detection ───────────────────────────── */
@@ -122,7 +124,10 @@ function detectLanguage(cwd: string): "typescript" | "javascript" {
  * that registers it. Returns the plugin's openapi.info + a best-effort
  * route inventory from files that register routes with schemas.
  */
-function detectFastifySwagger(cwd: string, rootPkg: Record<string, any>): OpenApiDoc | null {
+function detectFastifySwagger(
+  cwd: string,
+  rootPkg: Record<string, any>,
+): OpenApiDoc | null {
   const deps = {
     ...(rootPkg.dependencies ?? {}),
     ...(rootPkg.devDependencies ?? {}),
@@ -131,7 +136,14 @@ function detectFastifySwagger(cwd: string, rootPkg: Record<string, any>): OpenAp
 
   // Find the swagger plugin file (named *swagger*, in src/api/plugins or
   // src/plugins or anywhere under src).
-  const srcDirs = ["src", "src/api", "src/api/plugins", "src/plugins", "server", "app"];
+  const srcDirs = [
+    "src",
+    "src/api",
+    "src/api/plugins",
+    "src/plugins",
+    "server",
+    "app",
+  ];
   let pluginFile = "";
   for (const dir of srcDirs) {
     const abs = path.join(cwd, dir);
@@ -149,7 +161,9 @@ function detectFastifySwagger(cwd: string, rootPkg: Record<string, any>): OpenAp
   if (pluginFile) {
     const src = read(path.join(cwd, pluginFile));
     const title = src.match(/title:\s*"([^"]+)"/)?.[1];
-    const desc = src.match(/description:\s*(?:SWAGGER_DESCRIPTION|`([^`]*)`|"([^"]*)")/)?.[1];
+    const desc = src.match(
+      /description:\s*(?:SWAGGER_DESCRIPTION|`([^`]*)`|"([^"]*)")/,
+    )?.[1];
     const version = src.match(/version:\s*"([^"]+)"/)?.[1];
     if (title) info.title = title;
     if (desc) info.description = desc.trim();
@@ -183,12 +197,15 @@ function detectFastifySwagger(cwd: string, rootPkg: Record<string, any>): OpenAp
         // Only read route-like files (name contains "route" or the dir is a
         // dedicated routes dir at depth <= 2) to keep the scan fast.
         if (!/\.(ts|js)$/.test(f)) continue;
-        const isRouteFile = /route/i.test(f) || /^routes?$/.test(path.basename(path.dirname(full)));
+        const isRouteFile =
+          /route/i.test(f) ||
+          /^routes?$/.test(path.basename(path.dirname(full)));
         if (!isRouteFile) continue;
         filesScanned++;
         const src = read(full);
         // Match `fastify.get("/path", ...)` or `.get("/path", { schema: ... })`.
-        const re = /\.(get|post|put|patch|delete|head|options)\(\s*["']([^"']+)["']\s*,?\s*(\{[^}]*schema[^}]*\})?/g;
+        const re =
+          /\.(get|post|put|patch|delete|head|options)\(\s*["']([^"']+)["']\s*,?\s*(\{[^}]*schema[^}]*\})?/g;
         let m: RegExpExecArray | null;
         while ((m = re.exec(src))) {
           const method = m[1]!.toUpperCase();
@@ -218,7 +235,12 @@ function detectFastifySwagger(cwd: string, rootPkg: Record<string, any>): OpenAp
 
 /** Detect a committed openapi.json / swagger.json. */
 function detectOpenApiFile(cwd: string): OpenApiDoc | null {
-  const candidates = ["openapi.json", "openapi.yaml", "swagger.json", "public/openapi.json"];
+  const candidates = [
+    "openapi.json",
+    "openapi.yaml",
+    "swagger.json",
+    "public/openapi.json",
+  ];
   for (const name of candidates) {
     const p = path.join(cwd, name);
     if (!existsSync(p)) continue;
@@ -227,7 +249,9 @@ function detectOpenApiFile(cwd: string): OpenApiDoc | null {
       const paths = doc.paths ?? {};
       const routes: ApiRoute[] = [];
       for (const [routePath, methods] of Object.entries(paths)) {
-        for (const [method, op] of Object.entries(methods as Record<string, any>)) {
+        for (const [method, op] of Object.entries(
+          methods as Record<string, any>,
+        )) {
           routes.push({
             method: method.toUpperCase(),
             path: routePath,
@@ -253,7 +277,10 @@ function detectOpenApiFile(cwd: string): OpenApiDoc | null {
 }
 
 /** Detect the API surface: Fastify swagger first, then committed openapi. */
-export function detectOpenApi(cwd: string, rootPkg: Record<string, any>): OpenApiDoc | null {
+export function detectOpenApi(
+  cwd: string,
+  rootPkg: Record<string, any>,
+): OpenApiDoc | null {
   return detectFastifySwagger(cwd, rootPkg) ?? detectOpenApiFile(cwd);
 }
 
@@ -278,7 +305,8 @@ export function detectExistingDocs(cwd: string): ExistingDocs {
         }
         if (/\.(md|mdx)$/.test(f)) {
           markdownCount++;
-          if (dir === "docs/planning") planningFiles.push(path.relative(cwd, full));
+          if (dir === "docs/planning")
+            planningFiles.push(path.relative(cwd, full));
         }
       }
     };
@@ -298,7 +326,10 @@ export function scanRepo(cwd: string): RepoScan {
   const styling = detectStyling(cwd);
   const rootPkg = readJson(path.join(cwd, "package.json"));
   const members = monorepo ? globDirs(cwd, monorepo) : [];
-  const facetDeps = { ...(rootPkg.dependencies ?? {}), ...(rootPkg.devDependencies ?? {}) } as Record<string, string>;
+  const facetDeps = {
+    ...(rootPkg.dependencies ?? {}),
+    ...(rootPkg.devDependencies ?? {}),
+  } as Record<string, string>;
   const facetDepsFiltered: Record<string, string> = {};
   for (const [name, range] of Object.entries(facetDeps)) {
     if (name.startsWith("@fusorb/facet-")) facetDepsFiltered[name] = range;
@@ -308,7 +339,9 @@ export function scanRepo(cwd: string): RepoScan {
 
   const summaryLines: string[] = [];
   summaryLines.push(`Package manager: ${pm}`);
-  summaryLines.push(`Repo layout: ${monorepo ? `monorepo (${monorepo.join(", ")})` : "single package"}`);
+  summaryLines.push(
+    `Repo layout: ${monorepo ? `monorepo (${monorepo.join(", ")})` : "single package"}`,
+  );
   summaryLines.push(`Framework: ${framework} (${language})`);
   summaryLines.push(`Styling: ${styling}`);
   summaryLines.push(
@@ -380,10 +413,9 @@ export function draftDocs(scan: RepoScan, outDir: string): GeneratedFile[] {
     blocks: [
       {
         type: "p",
-        text:
-          scan.docs.readme
-            ? "This overview is drafted from the repo README, stack detection, and the API surface."
-            : "This overview is drafted from the detected stack. Review and expand it.",
+        text: scan.docs.readme
+          ? "This overview is drafted from the repo README, stack detection, and the API surface."
+          : "This overview is drafted from the detected stack. Review and expand it.",
       },
       {
         type: "p",
@@ -425,7 +457,7 @@ export function draftDocs(scan: RepoScan, outDir: string): GeneratedFile[] {
       { type: "p", text: "Detected package manager:" },
       { type: "pre", text: `${scan.pm} install` },
       { type: "h2", text: "Run" },
-      { type: "pre", text: scan.framework === "next" || scan.framework === "remix" ? `${scan.pm} dev` : `${scan.pm} dev` },
+      { type: "pre", text: `${scan.pm} dev` },
       { type: "h2", text: "API" },
       {
         type: "p",
@@ -460,7 +492,7 @@ export function draftDocs(scan: RepoScan, outDir: string): GeneratedFile[] {
             rows: routes.map((r) => [
               r.method,
               `\`${r.path}\``,
-               r.hasSchema ? "yes" : "n/a",
+              r.hasSchema ? "yes" : "n/a",
             ]),
           },
         ]),
@@ -488,7 +520,10 @@ export const docsConfig = {
       openapi: "3.1.0",
       info: api.info,
       paths: Object.fromEntries(
-        api.routes.map((r) => [r.path, { [r.method.toLowerCase()]: { summary: r.summary } }]),
+        api.routes.map((r) => [
+          r.path,
+          { [r.method.toLowerCase()]: { summary: r.summary } },
+        ]),
       ),
     };
     files.push({

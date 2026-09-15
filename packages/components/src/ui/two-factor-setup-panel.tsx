@@ -54,7 +54,11 @@ export interface TwoFactorSetupPanelProps extends React.HTMLAttributes<HTMLDivEl
   }>;
 }
 
-const STEP_META: { id: "scan" | "confirm" | "codes"; icon: IconName; label: string }[] = [
+const STEP_META: {
+  id: "scan" | "confirm" | "codes";
+  icon: IconName;
+  label: string;
+}[] = [
   { id: "scan", icon: "qrcode", label: "Scan" },
   { id: "confirm", icon: "shield-check", label: "Verify" },
   { id: "codes", icon: "key-round", label: "Recovery" },
@@ -107,13 +111,23 @@ export function TwoFactorSetupPanel({
     <Card className={cn("w-full max-w-md", className)} {...props}>
       <CardHeader>
         {/* Stepper */}
-        <div className="mb-2 flex items-center gap-2" aria-label="Setup progress">
+        <div
+          className="mb-2 flex items-center gap-2"
+          aria-label="Setup progress"
+        >
           {STEP_META.map((s, i) => {
             const isActive = s.id === step;
             const isDone = i < activeIndex;
             return (
               <React.Fragment key={s.id}>
-                {i > 0 && <div className={cn("h-px flex-1", isDone ? "bg-primary" : "bg-border")} />}
+                {i > 0 && (
+                  <div
+                    className={cn(
+                      "h-px flex-1",
+                      isDone ? "bg-primary" : "bg-border",
+                    )}
+                  />
+                )}
                 <div
                   className={cn(
                     "flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium",
@@ -136,24 +150,41 @@ export function TwoFactorSetupPanel({
         </CardTitle>
         <CardDescription>
           {step === "scan" &&
-            (copy.description ?? "Scan the QR code with your authenticator app, then enter the code it shows.")}
-          {step === "confirm" && (copy.confirmHint ?? "Enter the 6-digit code from your authenticator app.")}
-          {step === "codes" && (copy.codesHint ?? "Save these codes somewhere safe. Each code works once.")}
+            (copy.description ??
+              "Scan the QR code with your authenticator app, then enter the code it shows.")}
+          {step === "confirm" &&
+            (copy.confirmHint ??
+              "Enter the 6-digit code from your authenticator app.")}
+          {step === "codes" &&
+            (copy.codesHint ??
+              "Save these codes somewhere safe. Each code works once.")}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
         {step === "scan" && (
           <>
             <div className="flex justify-center">
-              <QRCode value={otpauthUri} size={168} className="rounded-md border border-border bg-background p-2" />
+              <QRCode
+                value={otpauthUri}
+                size={168}
+                className="rounded-md border border-border bg-background p-2"
+              />
             </div>
             <div className="space-y-1">
               <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
                 <Icon name="key-round" className="size-3.5" />
                 {copy.manualTitle ?? "Can't scan? Enter this code manually."}
               </p>
-              <Input readOnly value={secret} aria-label={copy.manualTitle ?? "Manual secret"} className="font-mono" />
-              <p className="text-xs text-muted-foreground">{copy.manualHint ?? "Keep it secret. Anyone with it can set up 2FA."}</p>
+              <Input
+                readOnly
+                value={secret}
+                aria-label={copy.manualTitle ?? "Manual secret"}
+                className="font-mono"
+              />
+              <p className="text-xs text-muted-foreground">
+                {copy.manualHint ??
+                  "Keep it secret. Anyone with it can set up 2FA."}
+              </p>
             </div>
             <Button className="w-full" onClick={() => setStep("confirm")}>
               <Icon name="shield-check" className="mr-1.5 size-4" />
@@ -183,12 +214,19 @@ export function TwoFactorSetupPanel({
               </InputOTP>
             </div>
             {error && (
-              <p role="alert" className="flex items-center justify-center gap-1.5 text-center text-sm text-destructive">
+              <p
+                role="alert"
+                className="flex items-center justify-center gap-1.5 text-center text-sm text-destructive"
+              >
                 <Icon name="circle-alert" className="size-3.5" />
                 {error}
               </p>
             )}
-            <Button type="submit" className="w-full" disabled={verifying || code.length !== 6}>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={verifying || code.length !== 6}
+            >
               {verifying ? (
                 <span className="inline-flex items-center gap-2">
                   <Spinner className="size-4" />
@@ -201,7 +239,12 @@ export function TwoFactorSetupPanel({
                 </span>
               )}
             </Button>
-            <Button type="button" variant="ghost" className="w-full" onClick={() => setStep("scan")}>
+            <Button
+              type="button"
+              variant="ghost"
+              className="w-full"
+              onClick={() => setStep("scan")}
+            >
               {copy.back ?? "Back"}
             </Button>
           </form>

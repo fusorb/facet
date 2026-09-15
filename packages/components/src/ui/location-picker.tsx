@@ -40,7 +40,13 @@ import {
   type Locality,
 } from "./location-data.js";
 
-export { DEFAULT_COUNTRIES, DEFAULT_REGIONS, DEFAULT_LOCALITIES, getRegionLabel, getLocalityLabel };
+export {
+  DEFAULT_COUNTRIES,
+  DEFAULT_REGIONS,
+  DEFAULT_LOCALITIES,
+  getRegionLabel,
+  getLocalityLabel,
+};
 export type { Country, Region, Locality };
 
 /* ── Searchable select helper ──────────────────────────────── */
@@ -97,9 +103,14 @@ function SearchableSelect({
 
   return (
     <Select value={value} onValueChange={onValueChange} disabled={disabled}>
-      <SelectTrigger aria-label={ariaLabel ?? placeholder} className={cn("h-9 w-full text-sm", triggerClassName)}>
+      <SelectTrigger
+        aria-label={ariaLabel ?? placeholder}
+        className={cn("h-9 w-full text-sm", triggerClassName)}
+      >
         {prefix ? (
-          <span className="inline-flex items-center gap-1.5 truncate">{prefix}</span>
+          <span className="inline-flex items-center gap-1.5 truncate">
+            {prefix}
+          </span>
         ) : (
           <SelectValue placeholder={placeholder} />
         )}
@@ -112,12 +123,17 @@ function SearchableSelect({
             placeholder={searchPlaceholder}
           />
         )}
-        {filtered.length > 0 ? filtered : <div className="px-2 py-1.5 text-sm text-muted-foreground">No matches</div>}
+        {filtered.length > 0 ? (
+          filtered
+        ) : (
+          <div className="px-2 py-1.5 text-sm text-muted-foreground">
+            No matches
+          </div>
+        )}
       </SelectContent>
     </Select>
   );
 }
-
 
 export interface LocationValue {
   country?: string;
@@ -222,7 +238,8 @@ export function StateInput({
   // ZA/CA/RW, "governorate" for EG, "emirate" for AE, etc.
   const regionTerm = getRegionLabel(country);
   const resolvedPlaceholder =
-    placeholder ?? (list?.length ? `Select ${regionTerm}` : "Select a country first");
+    placeholder ??
+    (list?.length ? `Select ${regionTerm}` : "Select a country first");
 
   return (
     <SearchableSelect
@@ -240,8 +257,16 @@ export function StateInput({
             <span className="rounded-sm border border-border bg-muted/40 px-1.5 py-px text-[11px] font-medium uppercase text-muted-foreground">
               {country}
             </span>
-            <span className="truncate text-xs text-muted-foreground">{countryName}</span>
-            <SelectValue placeholder={list?.length ? resolvedPlaceholder : `No ${regionTerm}s available`} />
+            <span className="truncate text-xs text-muted-foreground">
+              {countryName}
+            </span>
+            <SelectValue
+              placeholder={
+                list?.length
+                  ? resolvedPlaceholder
+                  : `No ${regionTerm}s available`
+              }
+            />
           </>
         ) : undefined
       }
@@ -298,7 +323,8 @@ export function LGAInput({
   // Dynamic label: "LGA" for NG, "county" for US, "district" for GB/GH.
   const localityTerm = getLocalityLabel(country);
   const resolvedPlaceholder =
-    placeholder ?? (list?.length ? `Select ${localityTerm}` : "Select a state first");
+    placeholder ??
+    (list?.length ? `Select ${localityTerm}` : "Select a state first");
 
   return (
     <SearchableSelect
@@ -316,8 +342,16 @@ export function LGAInput({
             <span className="rounded-sm border border-border bg-muted/40 px-1.5 py-px text-[11px] font-medium uppercase text-muted-foreground">
               {country}
             </span>
-            <span className="truncate text-xs text-muted-foreground">{countryName}</span>
-            <SelectValue placeholder={list?.length ? resolvedPlaceholder : `No ${localityTerm}s available`} />
+            <span className="truncate text-xs text-muted-foreground">
+              {countryName}
+            </span>
+            <SelectValue
+              placeholder={
+                list?.length
+                  ? resolvedPlaceholder
+                  : `No ${localityTerm}s available`
+              }
+            />
           </>
         ) : undefined
       }
@@ -330,7 +364,9 @@ export function LGAInput({
         ))
       ) : (
         <SelectItem value="__none" disabled>
-          {country && region ? `No ${localityTerm}s available` : "Select a state first"}
+          {country && region
+            ? `No ${localityTerm}s available`
+            : "Select a state first"}
         </SelectItem>
       )}
     </SearchableSelect>
@@ -352,7 +388,9 @@ export function LocationPicker({
   className,
 }: LocationPickerProps) {
   const [asyncRegions, setAsyncRegions] = React.useState<Region[] | null>(null);
-  const [asyncLocalities, setAsyncLocalities] = React.useState<Locality[] | null>(null);
+  const [asyncLocalities, setAsyncLocalities] = React.useState<
+    Locality[] | null
+  >(null);
   const [loadingRegions, setLoadingRegions] = React.useState(false);
   const [loadingLocalities, setLoadingLocalities] = React.useState(false);
 
@@ -386,13 +424,13 @@ export function LocationPicker({
 
   const regionList: Region[] | null = loadRegions
     ? asyncRegions
-    : (value?.country ? staticRegions[value.country] : null) ?? null;
+    : ((value?.country ? staticRegions[value.country] : null) ?? null);
 
   const localityList: Locality[] | null = loadLocalities
     ? asyncLocalities
-    : (value?.country && value.region
+    : ((value?.country && value.region
         ? DEFAULT_LOCALITIES[value.country]?.[value.region]
-        : null) ?? null;
+        : null) ?? null);
 
   const regionTerm = getRegionLabel(value?.country);
   const localityTerm = getLocalityLabel(value?.country);
@@ -485,7 +523,9 @@ export function LocationPicker({
             ))
           ) : (
             <SelectItem value="__none" disabled>
-              {loadingLocalities ? "Loading..." : `No ${localityTerm}s available`}
+              {loadingLocalities
+                ? "Loading..."
+                : `No ${localityTerm}s available`}
             </SelectItem>
           )}
         </SearchableSelect>

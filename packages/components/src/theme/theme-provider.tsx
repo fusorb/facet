@@ -43,7 +43,9 @@ interface ThemeContextValue {
   toggleTheme: () => void;
 }
 
-const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined);
+const ThemeContext = React.createContext<ThemeContextValue | undefined>(
+  undefined,
+);
 
 const STORAGE_KEY = "facet-theme";
 const SYSTEM_QUERY = "(prefers-color-scheme: light)";
@@ -144,7 +146,9 @@ export function ThemeProvider({
     [theme, setTheme, resolvedTheme, toggleTheme],
   );
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  );
 }
 
 export function useTheme(): ThemeContextValue {

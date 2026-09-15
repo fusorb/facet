@@ -10,7 +10,7 @@ It overrides/supplements CLAUDE.md for AI agents.
 2. After every significant milestone, update `.agent/todo.txt` status dashboard.
 3. When starting a new package, read any existing `.agent/**` planning files
    first before writing code.
-4. `.agent/` is tracked in git; it contains the live dashboard
+4. `.agent/` is local-only (gitignored); it contains the live dashboard
    (`output.txt`), todo tracker (`todo.txt`), and the architectural
    episode canon (`episodes.md`, `episodes-plain.md`).
 
@@ -20,7 +20,7 @@ It overrides/supplements CLAUDE.md for AI agents.
   fintech vs med vs edu): not one-size-fits-all.
 - Include a welcoming landing page and deployed documentation site alongside
   the component library.
-- Build a differentiated component library wired to arc-id SDK, not a generic
+- Build a differentiated component library wired to SovGrant SDK, not a generic
   clone of existing UI libraries.
 
 ## File Structure Rules
@@ -38,8 +38,9 @@ The repo is in a commit-stable state (working tree clean). The three P0
 breakages from the previous analysis (storiesDir path, missing
 @storybook/react, root tsconfig reference) were fixed on 2026-08-03 in
 commit 43ccd14: Storybook is fully purged and the drift gate is a barrel
-+ manifest check. See CLAUDE.md build status for the verified
-build/test/typecheck state.
+
+- manifest check. See CLAUDE.md build status for the verified
+  build/test/typecheck state.
 
 ## Publish Status
 

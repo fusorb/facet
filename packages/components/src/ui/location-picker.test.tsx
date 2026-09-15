@@ -21,7 +21,12 @@ describe("LocationPicker", () => {
 
   it("shows regions after a country is picked", async () => {
     const onValueChange = vi.fn();
-    render(<LocationPicker value={{ country: "NG" }} onValueChange={onValueChange} />);
+    render(
+      <LocationPicker
+        value={{ country: "NG" }}
+        onValueChange={onValueChange}
+      />,
+    );
     expect(screen.getByLabelText("Region")).toBeInTheDocument();
     // Radix Select portals its listbox to document.body.
     const region = screen.getByLabelText("Region");
@@ -56,13 +61,21 @@ describe("LocationPicker", () => {
     expect(screen.queryByLabelText("Locality")).not.toBeInTheDocument();
 
     render(
-      <LocationPicker value={{ country: "NG", region: "lagos" }} showLocality />,
+      <LocationPicker
+        value={{ country: "NG", region: "lagos" }}
+        showLocality
+      />,
     );
     expect(screen.getByLabelText("Locality")).toBeInTheDocument();
   });
 
   it("lists localities for a selected region", async () => {
-    render(<LocationPicker value={{ country: "NG", region: "lagos" }} showLocality />);
+    render(
+      <LocationPicker
+        value={{ country: "NG", region: "lagos" }}
+        showLocality
+      />,
+    );
     const locality = screen.getByLabelText("Locality");
     locality.focus();
     fireEvent.keyDown(locality, { key: "ArrowDown" });
@@ -72,9 +85,16 @@ describe("LocationPicker", () => {
   it("uses async loadRegions when provided", async () => {
     const loadRegions = vi.fn(async () => [{ id: "tx", name: "Texas" }]);
     function Harness() {
-      const [value, setValue] = React.useState<{ country?: string; region?: string }>({});
+      const [value, setValue] = React.useState<{
+        country?: string;
+        region?: string;
+      }>({});
       return (
-        <LocationPicker value={value} onValueChange={setValue} loadRegions={loadRegions} />
+        <LocationPicker
+          value={value}
+          onValueChange={setValue}
+          loadRegions={loadRegions}
+        />
       );
     }
     render(<Harness />);
@@ -85,7 +105,9 @@ describe("LocationPicker", () => {
     fireEvent.click(await screen.findByText("United States"));
     expect(loadRegions).toHaveBeenCalledWith("US");
     // The region select becomes available after a country is chosen.
-    await waitFor(() => expect(screen.getByLabelText("Region")).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByLabelText("Region")).toBeInTheDocument(),
+    );
   });
 
   it("exports the bundled datasets", () => {
@@ -95,20 +117,84 @@ describe("LocationPicker", () => {
 
   it("covers every African country", () => {
     for (const c of [
-      "DZ", "AO", "BJ", "BW", "BF", "BI", "CV", "CM", "CF", "TD", "KM",
-      "CG", "CD", "CI", "DJ", "EG", "GQ", "ER", "SZ", "ET", "GA", "GM",
-      "GH", "GN", "GW", "KE", "LS", "LR", "LY", "MG", "MW", "ML", "MR",
-      "MU", "MA", "MZ", "NA", "NE", "NG", "RW", "ST", "SN", "SC", "SL",
-      "SO", "ZA", "SS", "SD", "TZ", "TG", "TN", "UG", "ZM", "ZW",
+      "DZ",
+      "AO",
+      "BJ",
+      "BW",
+      "BF",
+      "BI",
+      "CV",
+      "CM",
+      "CF",
+      "TD",
+      "KM",
+      "CG",
+      "CD",
+      "CI",
+      "DJ",
+      "EG",
+      "GQ",
+      "ER",
+      "SZ",
+      "ET",
+      "GA",
+      "GM",
+      "GH",
+      "GN",
+      "GW",
+      "KE",
+      "LS",
+      "LR",
+      "LY",
+      "MG",
+      "MW",
+      "ML",
+      "MR",
+      "MU",
+      "MA",
+      "MZ",
+      "NA",
+      "NE",
+      "NG",
+      "RW",
+      "ST",
+      "SN",
+      "SC",
+      "SL",
+      "SO",
+      "ZA",
+      "SS",
+      "SD",
+      "TZ",
+      "TG",
+      "TN",
+      "UG",
+      "ZM",
+      "ZW",
     ]) {
-      expect(DEFAULT_COUNTRIES.some((x) => x.code === c), `missing ${c}`).toBe(true);
+      expect(
+        DEFAULT_COUNTRIES.some((x) => x.code === c),
+        `missing ${c}`,
+      ).toBe(true);
     }
   });
 
   it("lists all 36 Nigerian states + FCT", () => {
     expect(DEFAULT_REGIONS.NG).toHaveLength(37);
-    for (const s of ["lagos", "kano", "rivers", "oyo", "anambra", "enugu", "delta", "fct"]) {
-      expect(DEFAULT_REGIONS.NG!.some((r) => r.id === s), `missing ${s}`).toBe(true);
+    for (const s of [
+      "lagos",
+      "kano",
+      "rivers",
+      "oyo",
+      "anambra",
+      "enugu",
+      "delta",
+      "fct",
+    ]) {
+      expect(
+        DEFAULT_REGIONS.NG!.some((r) => r.id === s),
+        `missing ${s}`,
+      ).toBe(true);
     }
   });
 
@@ -131,14 +217,19 @@ describe("LocationPicker", () => {
   it("ships regions for the full country list", () => {
     // Every country in DEFAULT_COUNTRIES has a DEFAULT_REGIONS entry.
     for (const c of DEFAULT_COUNTRIES) {
-      expect(DEFAULT_REGIONS[c.code], `missing regions for ${c.code}`).toBeDefined();
+      expect(
+        DEFAULT_REGIONS[c.code],
+        `missing regions for ${c.code}`,
+      ).toBeDefined();
     }
   });
 
   it("has full LGA depth for all Nigerian states", () => {
     // The full official dataset: 36 states + FCT, ~774 LGAs.
     expect(DEFAULT_LOCALITIES.NG!.lagos!.length).toBeGreaterThan(10);
-    expect(DEFAULT_LOCALITIES.NG!.fct!.some((l) => l.id === "fct-bwari")).toBe(true);
+    expect(DEFAULT_LOCALITIES.NG!.fct!.some((l) => l.id === "fct-bwari")).toBe(
+      true,
+    );
     // Spot-check a few states have LGA lists now.
     expect(DEFAULT_LOCALITIES.NG!.kaduna!.length).toBeGreaterThan(5);
     expect(DEFAULT_LOCALITIES.NG!.kano!.length).toBeGreaterThan(10);
@@ -238,7 +329,9 @@ describe("CountryInput / StateInput / LGAInput", () => {
     trigger.focus();
     fireEvent.keyDown(trigger, { key: "ArrowDown" });
     // The search input appears inside the select content.
-    expect(await screen.findByPlaceholderText("Search states...")).toBeInTheDocument();
+    expect(
+      await screen.findByPlaceholderText("Search states..."),
+    ).toBeInTheDocument();
   });
 
   it("CountryInput shows a search box and filters by text", async () => {

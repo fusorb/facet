@@ -4,7 +4,16 @@
 
 import * as React from "react";
 
-import { Button, ShineButton, buttonVariants, cn, Input, DialogHeader, DialogTitle, DialogDescription } from "@fusorb/facet-components";
+import {
+  Button,
+  ShineButton,
+  buttonVariants,
+  cn,
+  Input,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@fusorb/facet-components";
 
 /* ── Props ─────────────────────────────────────────────────── */
 
@@ -29,13 +38,17 @@ export function MfaRecoveryForm({
     <>
       <DialogHeader>
         <DialogTitle>Recovery Code</DialogTitle>
-        <DialogDescription>Enter one of your recovery codes to sign in.</DialogDescription>
+        <DialogDescription>
+          Enter one of your recovery codes to sign in.
+        </DialogDescription>
       </DialogHeader>
       <div className="flex flex-col gap-4 py-4">
         <Input
           placeholder="XXXXX-XXXXX"
           value={recoveryCode}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRecoveryCode(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setRecoveryCode(e.target.value)
+          }
           disabled={isSubmitting}
         />
         {error && <p className="text-sm text-destructive">{error}</p>}

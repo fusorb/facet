@@ -80,7 +80,15 @@ function getInitials(name: string): string {
 
 /* ── Component ─────────────────────────────────────────────── */
 
-export function UserButton({ appearance, slots, onSignOut, onProfile, onSettings, className, copy }: UserButtonProps) {
+export function UserButton({
+  appearance,
+  slots,
+  onSignOut,
+  onProfile,
+  onSettings,
+  className,
+  copy,
+}: UserButtonProps) {
   const { user, logout } = useAuth();
   const c = { ...defaultUserButtonCopy, ...copy };
 
@@ -100,7 +108,9 @@ export function UserButton({ appearance, slots, onSignOut, onProfile, onSettings
         {slots?.trigger ?? (
           <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full">
             <Avatar className="h-8 w-8 cursor-pointer">
-              <AvatarFallback className={appearance?.className}>{initials}</AvatarFallback>
+              <AvatarFallback className={appearance?.className}>
+                {initials}
+              </AvatarFallback>
             </Avatar>
           </Button>
         )}
@@ -110,8 +120,12 @@ export function UserButton({ appearance, slots, onSignOut, onProfile, onSettings
           <div className="flex flex-col gap-1">
             {slots?.label ?? (
               <>
-                <p className="text-sm font-medium leading-none">{displayName}</p>
-                <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+                <p className="text-sm font-medium leading-none">
+                  {displayName}
+                </p>
+                <p className="text-xs leading-none text-muted-foreground">
+                  {user.email}
+                </p>
               </>
             )}
           </div>
@@ -135,16 +149,16 @@ export function UserButton({ appearance, slots, onSignOut, onProfile, onSettings
               <DropdownMenuItem key={i} disabled>
                 {m.name ?? ""}
                 {m.role &&
-                  (slots?.roleBadge
-                    ? slots.roleBadge(m.role)
-                    : (
-                      <Badge
-                        variant="secondary"
-                        className="ml-1.5 text-[9px] font-medium"
-                      >
-                        {m.role}
-                      </Badge>
-                    ))}
+                  (slots?.roleBadge ? (
+                    slots.roleBadge(m.role)
+                  ) : (
+                    <Badge
+                      variant="secondary"
+                      className="ml-1.5 text-[9px] font-medium"
+                    >
+                      {m.role}
+                    </Badge>
+                  ))}
               </DropdownMenuItem>
             ))}
           </>

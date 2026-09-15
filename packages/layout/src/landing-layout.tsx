@@ -3,7 +3,7 @@
  *
  * Full-bleed marketing/landing page shell.
  * Glassmorphic hero section, glow CTAs, text-gradient headings.
- * Uses tokens.css utility classes (glass-card, glow-indigo, text-gradient).
+ * Uses tokens.css utility classes (glass-card, glow-primary, text-gradient).
  */
 
 import type { ReactNode } from "react";
@@ -19,7 +19,12 @@ export interface LandingLayoutProps {
   footer?: ReactNode;
 }
 
-export function LandingLayout({ hero, children, nav, footer }: LandingLayoutProps) {
+export function LandingLayout({
+  hero,
+  children,
+  nav,
+  footer,
+}: LandingLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       {/* Top nav. Rendered as-is so the consumer owns positioning:
@@ -34,10 +39,12 @@ export function LandingLayout({ hero, children, nav, footer }: LandingLayoutProp
           className="pointer-events-none absolute -inset-40 opacity-30"
           style={{
             background:
-              "radial-gradient(ellipse at 50% 0%, oklch(0.58 0.23 273 / 30%), transparent 70%)",
+              "radial-gradient(ellipse at 50% 0%, var(--hero-glow), transparent 70%)",
           }}
         />
-        <div className="relative mx-auto max-w-7xl px-8 py-24 lg:py-32">{hero}</div>
+        <div className="relative mx-auto max-w-7xl px-8 py-24 lg:py-32">
+          {hero}
+        </div>
       </section>
 
       {/* Content sections */}

@@ -15,7 +15,10 @@ function ext(language: "typescript" | "javascript"): string {
  * src/pages (content), and the styling entry. The consumer's content lives
  * in their own pages file: never facet's docs.
  */
-export function generateReactVite(answers: DocsAnswers, cwd: string): GeneratedFile[] {
+export function generateReactVite(
+  answers: DocsAnswers,
+  cwd: string,
+): GeneratedFile[] {
   const e = ext(answers.language);
   const base = path.join(cwd, answers.location === "." ? "" : answers.location);
   const tsx = answers.language === "typescript" ? "tsx" : "jsx";
@@ -47,7 +50,7 @@ createRoot(document.getElementById("root")!).render(
 export const docsConfig: DocsSiteConfig = {
   brand: { name: "${answers.name}", tagline: "Docs for ${answers.name}" },
   navigation: [],
-  // Point these at your other products' docs, e.g. arc-id.
+  // Point these at your other products' docs, e.g. SovGrant.
   ecosystem: [],
 };
 `;
@@ -62,17 +65,15 @@ export const docsConfig: DocsSiteConfig = {
 export const docsPages: DocsPage[] = ${JSON.stringify(starterPages(answers.template, answers.name), null, 2).replace(/"([a-z]+)":/g, "$1:")};
 `;
 
-  const packageJson = mergePackageJson(
-    readExistingPackageJson(base),
-    {
-      facetDocs: answers.facetVersions["@fusorb/facet-docs"] ?? "^1.0.0",
-      facetTokens: answers.facetVersions["@fusorb/facet-tokens"] ?? "^1.0.0",
-      facetComponents: answers.facetVersions["@fusorb/facet-components"] ?? "^1.0.0",
-      facetLayout: answers.facetVersions["@fusorb/facet-layout"] ?? "^1.0.0",
-      framework: answers.framework,
-      language: answers.language,
-    },
-  );
+  const packageJson = mergePackageJson(readExistingPackageJson(base), {
+    facetDocs: answers.facetVersions["@fusorb/facet-docs"] ?? "^1.0.0",
+    facetTokens: answers.facetVersions["@fusorb/facet-tokens"] ?? "^1.0.0",
+    facetComponents:
+      answers.facetVersions["@fusorb/facet-components"] ?? "^1.0.0",
+    facetLayout: answers.facetVersions["@fusorb/facet-layout"] ?? "^1.0.0",
+    framework: answers.framework,
+    language: answers.language,
+  });
   // The merged package.json is only written if a file didn't already exist.
   // If it existed, we patch it in place (mergePackageJson handles that); the
   // GeneratedFile list below writes the merged content to disk.
@@ -133,7 +134,8 @@ export default defineConfig({
   // fresh scaffold; true always; false never.
   const wantsBarrel =
     answers.barrel === true ||
-    (answers.barrel !== false && !existsSync(path.join(base, "src", `index.${e}`)));
+    (answers.barrel !== false &&
+      !existsSync(path.join(base, "src", `index.${e}`)));
   if (wantsBarrel) {
     files.push({
       path: path.join(base, "src", `index.${e}`),

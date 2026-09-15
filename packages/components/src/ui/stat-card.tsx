@@ -43,7 +43,8 @@ export function StatCard({
   ...props
 }: StatCardProps) {
   const dir: StatDeltaDirection =
-    deltaDirection ?? (delta == null || delta === 0 ? "neutral" : delta > 0 ? "up" : "down");
+    deltaDirection ??
+    (delta == null || delta === 0 ? "neutral" : delta > 0 ? "up" : "down");
   const deltaText =
     delta == null
       ? null
@@ -54,26 +55,34 @@ export function StatCard({
       <CardContent className="space-y-2 p-5">
         <div className="flex items-center justify-between gap-2">
           <p className="text-sm font-medium text-muted-foreground">{label}</p>
-          {icon && <Icon name={icon} className="size-4 text-muted-foreground" />}
+          {icon && (
+            <Icon name={icon} className="size-4 text-muted-foreground" />
+          )}
         </div>
-        <p className="font-heading text-2xl font-bold text-foreground sm:text-3xl">{value}</p>
+        <p className="font-heading text-2xl font-bold text-foreground sm:text-3xl">
+          {value}
+        </p>
         <div className="flex items-center gap-2">
           {deltaText && (
             <span
               className={cn(
                 "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold",
-                dir === "up" && "bg-emerald-500/10 text-emerald-600",
+                dir === "up" && "bg-success/10 text-success",
                 dir === "down" && "bg-destructive/10 text-destructive",
                 dir === "neutral" && "bg-muted text-muted-foreground",
               )}
             >
               {dir === "up" && <Icon name="trending-up" className="size-3.5" />}
-              {dir === "down" && <Icon name="trending-down" className="size-3.5" />}
+              {dir === "down" && (
+                <Icon name="trending-down" className="size-3.5" />
+              )}
               {dir === "neutral" && <Icon name="minus" className="size-3.5" />}
               {deltaText}
             </span>
           )}
-          {hint && <span className="text-xs text-muted-foreground">{hint}</span>}
+          {hint && (
+            <span className="text-xs text-muted-foreground">{hint}</span>
+          )}
         </div>
       </CardContent>
     </Card>

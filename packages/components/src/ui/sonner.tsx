@@ -11,12 +11,17 @@
  *   toast.success("Saved!");
  */
 
-import { Toaster as Sonner, type ToasterProps } from "sonner";
+import * as React from "react";
+import { Toaster as Sonner } from "sonner";
+import type { ToasterProps as SonnerToasterProps } from "sonner";
+import { cn } from "../utils.js";
 
-const Toaster = ({ ...props }: ToasterProps) => {
+export type ToasterProps = SonnerToasterProps;
+
+const Toaster = ({ className, ...props }: ToasterProps) => {
   return (
     <Sonner
-      className="toaster group"
+      className={cn("toaster group", className)}
       style={
         {
           "--normal-bg": "var(--popover)",

@@ -18,8 +18,16 @@ export interface DocsAppValue {
 
 const DocsAppContext = React.createContext<DocsAppValue | null>(null);
 
-export function DocsAppProvider({ value, children }: { value: DocsAppValue; children: React.ReactNode }) {
-  return <DocsAppContext.Provider value={value}>{children}</DocsAppContext.Provider>;
+export function DocsAppProvider({
+  value,
+  children,
+}: {
+  value: DocsAppValue;
+  children: React.ReactNode;
+}) {
+  return (
+    <DocsAppContext.Provider value={value}>{children}</DocsAppContext.Provider>
+  );
 }
 
 /** Access the active DocsApp config from any engine component. */
@@ -42,9 +50,13 @@ const PACKAGE_MANAGER_KEY = "facet:docs:package-manager";
  * Shares the selected package manager (pnpm/npm/yarn/bun) across every
  * InstallTabs block on the entire docs site. The choice is persisted to
  * localStorage so the user's preference survives reloads and page
-  * navigation - they only pick once.
+ * navigation - they only pick once.
  */
-export function PackageManagerProvider({ children }: { children: React.ReactNode }) {
+export function PackageManagerProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [active, setActive] = React.useState<string>(() => {
     if (typeof window === "undefined") return "pnpm";
     return window.localStorage.getItem(PACKAGE_MANAGER_KEY) ?? "pnpm";
@@ -58,7 +70,9 @@ export function PackageManagerProvider({ children }: { children: React.ReactNode
   }, []);
 
   return (
-    <PackageManagerContext.Provider value={{ activeManager: active, setActiveManager }}>
+    <PackageManagerContext.Provider
+      value={{ activeManager: active, setActiveManager }}
+    >
       {children}
     </PackageManagerContext.Provider>
   );
@@ -66,6 +80,9 @@ export function PackageManagerProvider({ children }: { children: React.ReactNode
 
 export function usePackageManager() {
   const ctx = React.useContext(PackageManagerContext);
-  if (!ctx) throw new Error("usePackageManager must be used within <PackageManagerProvider>");
+  if (!ctx)
+    throw new Error(
+      "usePackageManager must be used within <PackageManagerProvider>",
+    );
   return ctx;
 }

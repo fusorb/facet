@@ -48,7 +48,8 @@ export function useDocsNavigation(): {
     entries,
     index,
     prev: index > 0 ? entries[index - 1] : undefined,
-    next: index >= 0 && index < entries.length - 1 ? entries[index + 1] : undefined,
+    next:
+      index >= 0 && index < entries.length - 1 ? entries[index + 1] : undefined,
   };
 }
 

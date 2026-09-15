@@ -1,7 +1,7 @@
 /**
  * @fusorb/facet-sdk: Base HTTP client
  *
- * Pure fetch. No framework dependencies. Matches arc-id's ApiResponse shape.
+ * Pure fetch. No framework dependencies. Matches SovGrant's ApiResponse shape.
  *
  * Envelope handling:
  *   - Domain routes (most /auth, /identity, /tenants, ...) respond with
@@ -21,9 +21,10 @@ export type ApiError = {
   requiredPlan?: string;
 };
 
-export type ApiResponse<T> = { data: T; error: null } | { data: null; error: ApiError };
+export type ApiResponse<T> =
+  { data: T; error: null } | { data: null; error: ApiError };
 
-/** Standard arc-id success envelope for domain routes. */
+/** Standard SovGrant success envelope for domain routes. */
 export interface ApiEnvelope<T> {
   success: boolean;
   data: T;
@@ -42,9 +43,9 @@ export interface ArcIdClientConfig {
   apiKey?: string;
   /**
    * OAuth client id for this application. Required for third-party /
-   * external integrations that talk to a shared arc-id instance via
+   * external integrations that talk to a shared SovGrant instance via
    * `/oauth/token` (authorization_code or refresh_token grants). For a
-   * first-party app wired to its own arc-id backend this can be omitted -
+   * first-party app wired to its own SovGrant backend this can be omitted -
    * the backend defaults to its direct client.
    */
   clientId?: string;
@@ -191,7 +192,8 @@ export class ArcIdClient {
           error: {
             statusCode: 0,
             error: "NETWORK_ERROR",
-            message: err instanceof Error ? err.message : "Unknown network error",
+            message:
+              err instanceof Error ? err.message : "Unknown network error",
           },
         };
       }
@@ -201,7 +203,11 @@ export class ArcIdClient {
     const result = await attempt(this.accessToken);
 
     // Auto-refresh on 401 if a tokenRefresher is configured.
-    if (result.error?.statusCode === 401 && this.config.onTokenRefresh && this.accessToken) {
+    if (
+      result.error?.statusCode === 401 &&
+      this.config.onTokenRefresh &&
+      this.accessToken
+    ) {
       const newToken = await this.config.onTokenRefresh(this.accessToken);
       if (newToken) {
         this.setAccessToken(newToken);

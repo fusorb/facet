@@ -38,10 +38,11 @@ export interface SubBrand {
   readonly accent: string;
 }
 
-export type SubBrandKey = "fellowship" | "labs" | "academy" | "ventures" | "community" | "research";
+export type SubBrandKey =
+  "fellowship" | "labs" | "academy" | "ventures" | "community" | "research";
 export type SubBrands = Record<SubBrandKey, SubBrand>;
 
-export interface ArcevoTokens {
+export interface FacetTokens {
   alpha: AlphaPalette;
   typography: TypographyScale;
   spacing: SpacingScale;

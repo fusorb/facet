@@ -6,9 +6,13 @@ function mockIntersectionObserver() {
   const observe = vi.fn();
   const disconnect = vi.fn();
   let callback: IntersectionObserverCallback = () => {};
-  const captured: { root?: Element | Document | null; rootMargin?: string } = {};
+  const captured: { root?: Element | Document | null; rootMargin?: string } =
+    {};
   class MockIO {
-    constructor(cb: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+    constructor(
+      cb: IntersectionObserverCallback,
+      options?: IntersectionObserverInit,
+    ) {
       callback = cb;
       captured.root = options?.root ?? null;
       captured.rootMargin = options?.rootMargin ?? "";

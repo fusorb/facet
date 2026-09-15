@@ -16,7 +16,12 @@ import { cn } from "../utils.js";
  *   <InputGroupAddon side="append"><kbd>⌘K</kbd></InputGroupAddon>
  * </InputGroup>
  */
-const InputGroup = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+export type InputGroupProps = React.HTMLAttributes<HTMLDivElement>;
+export type InputGroupAddonProps = React.HTMLAttributes<HTMLDivElement> & {
+  side?: "prepend" | "append";
+};
+
+const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
@@ -36,25 +41,24 @@ InputGroup.displayName = "InputGroup";
  * automatically adjusts border-radius so the composite looks like a single
  * control.
  */
-const InputGroupAddon = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { side?: "prepend" | "append" }
->(({ className, side = "prepend", ...props }, ref) => {
-  const isPrepend = side === "prepend";
-  return (
-    <div
-      ref={ref}
-      data-side={side}
-      className={cn(
-        "flex items-center px-2.5 text-sm text-muted-foreground",
-        isPrepend && "rounded-r-none border-r",
-        !isPrepend && "rounded-l-none border-l",
-        className,
-      )}
-      {...props}
-    />
-  );
-});
+const InputGroupAddon = React.forwardRef<HTMLDivElement, InputGroupAddonProps>(
+  ({ className, side = "prepend", ...props }, ref) => {
+    const isPrepend = side === "prepend";
+    return (
+      <div
+        ref={ref}
+        data-side={side}
+        className={cn(
+          "flex items-center px-2.5 text-sm text-muted-foreground",
+          isPrepend && "rounded-r-none border-r",
+          !isPrepend && "rounded-l-none border-l",
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
+);
 InputGroupAddon.displayName = "InputGroupAddon";
 
 export { InputGroup, InputGroupAddon };

@@ -11,7 +11,9 @@ function makeFiles(): File[] {
 describe("Dropzone", () => {
   it("renders label and hint", () => {
     render(<Dropzone label="Upload invoice" hint="PDF up to 5MB" />);
-    expect(screen.getByRole("button", { name: /upload invoice/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /upload invoice/i }),
+    ).toBeInTheDocument();
     expect(screen.getByText("PDF up to 5MB")).toBeInTheDocument();
   });
 

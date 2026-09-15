@@ -5,7 +5,8 @@ import * as React from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { cn } from "../utils.js";
 
-export type QRLogoPosition = "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
+export type QRLogoPosition =
+  "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
 export interface QRCodeProps {
   /** The value to encode. */
@@ -34,16 +35,35 @@ export interface QRCodeProps {
 }
 
 /** Map a position to absolute CSS placement over the QR area (percent + translate). */
-function positionStyle(position: QRLogoPosition, insetPct: number): React.CSSProperties {
+function positionStyle(
+  position: QRLogoPosition,
+  insetPct: number,
+): React.CSSProperties {
   switch (position) {
     case "top-left":
-      return { top: `${insetPct}%`, left: `${insetPct}%`, transform: "translate(0, 0)" };
+      return {
+        top: `${insetPct}%`,
+        left: `${insetPct}%`,
+        transform: "translate(0, 0)",
+      };
     case "top-right":
-      return { top: `${insetPct}%`, right: `${insetPct}%`, transform: "translate(0, 0)" };
+      return {
+        top: `${insetPct}%`,
+        right: `${insetPct}%`,
+        transform: "translate(0, 0)",
+      };
     case "bottom-left":
-      return { bottom: `${insetPct}%`, left: `${insetPct}%`, transform: "translate(0, 0)" };
+      return {
+        bottom: `${insetPct}%`,
+        left: `${insetPct}%`,
+        transform: "translate(0, 0)",
+      };
     case "bottom-right":
-      return { bottom: `${insetPct}%`, right: `${insetPct}%`, transform: "translate(0, 0)" };
+      return {
+        bottom: `${insetPct}%`,
+        right: `${insetPct}%`,
+        transform: "translate(0, 0)",
+      };
     case "center":
     default:
       return { top: "50%", left: "50%", transform: "translate(-50%, -50%)" };
@@ -85,7 +105,10 @@ const QRCode = React.forwardRef<HTMLDivElement, QRCodeProps>(
     return (
       <div
         ref={ref}
-        className={cn("inline-block rounded-md border border-border bg-background text-foreground p-2", className)}
+        className={cn(
+          "inline-block rounded-md border border-border bg-background text-foreground p-2",
+          className,
+        )}
       >
         <div className="relative" style={{ width: size, height: size }}>
           <QRCodeSVG
@@ -113,7 +136,7 @@ const QRCode = React.forwardRef<HTMLDivElement, QRCodeProps>(
                   keeping the code scannable. */}
               <div
                 className="flex h-full w-full items-center justify-center rounded-full bg-background"
-                style={{ boxShadow: "0 0 0 3px var(--background, #fff)" }}
+                style={{ boxShadow: "0 0 0 3px var(--background)" }}
               >
                 <img
                   src={logo}
@@ -121,7 +144,11 @@ const QRCode = React.forwardRef<HTMLDivElement, QRCodeProps>(
                   width={logoSize}
                   height={logoSize}
                   className="dark:brightness-0 dark:invert"
-                  style={{ width: logoSize, height: logoSize, objectFit: "contain" }}
+                  style={{
+                    width: logoSize,
+                    height: logoSize,
+                    objectFit: "contain",
+                  }}
                 />
               </div>
             </div>

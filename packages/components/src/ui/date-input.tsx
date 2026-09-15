@@ -9,8 +9,10 @@
 import * as React from "react";
 import { cn } from "../utils.js";
 
-export interface DateInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type"> {
+export interface DateInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "value" | "onChange" | "type"
+> {
   /** ISO date string (YYYY-MM-DD). */
   value?: string | null;
   /** Called with a validated ISO date string (or null when cleared/invalid). */
@@ -75,7 +77,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     return (
       <div className={cn("w-full", className)}>
         {label && (
-          <label htmlFor={inputId} className="mb-1.5 block text-sm font-medium text-foreground">
+          <label
+            htmlFor={inputId}
+            className="mb-1.5 block text-sm font-medium text-foreground"
+          >
             {label}
           </label>
         )}

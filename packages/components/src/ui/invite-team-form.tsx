@@ -18,7 +18,13 @@ import {
 import { Button } from "./button.js";
 import { Input } from "./input.js";
 import { Label } from "./label.js";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./select.js";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "./select.js";
 import { Icon } from "../icon/index.js";
 import { Spinner } from "./spinner.js";
 
@@ -102,7 +108,10 @@ export function InviteTeamForm({
       setSent(true);
       setInvitees([]);
     } catch (err) {
-      setError(copy.error ?? (err instanceof Error ? err.message : "Failed to send invites."));
+      setError(
+        copy.error ??
+          (err instanceof Error ? err.message : "Failed to send invites."),
+      );
     } finally {
       setSending(false);
     }
@@ -116,7 +125,8 @@ export function InviteTeamForm({
           {copy.title ?? "Invite your team"}
         </CardTitle>
         <CardDescription>
-          {copy.description ?? "Send email invites. Each person picks their own password on first sign-in."}
+          {copy.description ??
+            "Send email invites. Each person picks their own password on first sign-in."}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -162,7 +172,10 @@ export function InviteTeamForm({
             {copy.add ?? "Add email"}
           </Button>
           {error && (
-            <p role="alert" className="flex items-center gap-1.5 text-sm text-destructive">
+            <p
+              role="alert"
+              className="flex items-center gap-1.5 text-sm text-destructive"
+            >
               <Icon name="circle-alert" className="size-3.5" />
               {error}
             </p>
@@ -172,7 +185,9 @@ export function InviteTeamForm({
         {invitees.length === 0 ? (
           <div className="flex flex-col items-center gap-2 rounded-md border border-dashed border-border py-8 text-center">
             <Icon name="mail-plus" className="size-6 text-muted-foreground" />
-            <p className="text-sm text-muted-foreground">No invites added yet.</p>
+            <p className="text-sm text-muted-foreground">
+              No invites added yet.
+            </p>
           </div>
         ) : (
           <ul className="space-y-2">
@@ -183,13 +198,19 @@ export function InviteTeamForm({
               >
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium">{inv.email}</p>
-                  <p className="text-xs text-muted-foreground">Role: {inv.role}</p>
+                  <p className="text-xs text-muted-foreground">
+                    Role: {inv.role}
+                  </p>
                 </div>
                 <Button
                   size="sm"
                   variant="ghost"
                   className="shrink-0 text-muted-foreground hover:text-destructive"
-                  onClick={() => setInvitees((prev) => prev.filter((i) => i.email !== inv.email))}
+                  onClick={() =>
+                    setInvitees((prev) =>
+                      prev.filter((i) => i.email !== inv.email),
+                    )
+                  }
                 >
                   <Icon name="trash-2" className="mr-1.5 size-3.5" />
                   {copy.remove ?? "Remove"}
@@ -200,13 +221,17 @@ export function InviteTeamForm({
         )}
 
         {sent && (
-          <p className="flex items-center gap-1.5 text-sm text-emerald-600">
+          <p className="flex items-center gap-1.5 text-sm text-success">
             <Icon name="circle-check" className="size-3.5" />
             {copy.added ?? "Invites sent."}
           </p>
         )}
 
-        <Button className="w-full" onClick={handleSubmit} disabled={sending || invitees.length === 0}>
+        <Button
+          className="w-full"
+          onClick={handleSubmit}
+          disabled={sending || invitees.length === 0}
+        >
           {sending ? (
             <span className="inline-flex items-center gap-2">
               <Spinner className="size-4" />

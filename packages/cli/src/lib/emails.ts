@@ -66,7 +66,8 @@ export interface MailDetection {
 
 /** Map a recognized package name to its role. */
 export function mailPackageRole(name: string): MailRenderer {
-  if (name === "@react-email/components" || name === "react-email") return "react-email";
+  if (name === "@react-email/components" || name === "react-email")
+    return "react-email";
   if (name === "mjml") return "mjml";
   if (name === "nodemailer") return "nodemailer";
   if (name === "resend") return "resend";
@@ -88,7 +89,11 @@ export function readAllDeps(cwd: string): Record<string, string> {
   };
   const pkg = read(path.join(cwd, "package.json"));
   if (pkg) {
-    for (const section of ["dependencies", "devDependencies", "peerDependencies"]) {
+    for (const section of [
+      "dependencies",
+      "devDependencies",
+      "peerDependencies",
+    ]) {
       const deps = (pkg[section] ?? {}) as Record<string, string>;
       for (const [name, range] of Object.entries(deps)) {
         merged[name] = range;
@@ -111,7 +116,11 @@ export function readAllDeps(cwd: string): Record<string, string> {
   for (const member of memberDirs) {
     const mpkg = read(path.join(member, "package.json"));
     if (!mpkg) continue;
-    for (const section of ["dependencies", "devDependencies", "peerDependencies"]) {
+    for (const section of [
+      "dependencies",
+      "devDependencies",
+      "peerDependencies",
+    ]) {
       const deps = (mpkg[section] ?? {}) as Record<string, string>;
       for (const [name, range] of Object.entries(deps)) {
         merged[name] = range;
@@ -197,7 +206,8 @@ export function planEmailsInit(
   let provider: "resend" | "nodemailer" | "none" = opts.provider ?? "resend";
   if (!opts.provider) {
     if (detection.mailPackages.includes("resend")) provider = "resend";
-    else if (detection.mailPackages.includes("nodemailer")) provider = "nodemailer";
+    else if (detection.mailPackages.includes("nodemailer"))
+      provider = "nodemailer";
   }
 
   return {
@@ -304,7 +314,10 @@ export function suggestNextSteps(
   detection: MailDetection,
   answers: EmailsInitAnswers,
 ): string[] {
-  return emailSuggestionProvider(detection, answers)(buildRepoContext(process.cwd()));
+  return emailSuggestionProvider(
+    detection,
+    answers,
+  )(buildRepoContext(process.cwd()));
 }
 
 function readdirSafe(p: string): string[] {

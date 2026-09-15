@@ -20,10 +20,6 @@
 @import "./tokens.css";
 @import "./tailwind.css";
 
-/* ── Scanner hints for facet packages (relative to dist/index.css) ── */
-/* dist/index.css sits at node_modules/@fusorb/facet-tokens/dist/
-   so ../../ reaches node_modules/@fusorb/ where sibling packages live. */
-@source "../../facet-components/dist/**/*.js";
-@source "../../facet-layout/dist/**/*.js";
-@source "../../facet-auth/dist/**/*.js";
-@source "../../facet-sdk/dist/**/*.js";
+/* NOTE: Tailwind v4 does not scan node_modules by default. Consumers must
+ * add `@source` hints for the facet packages they use (point at their dist
+ * directories) in their own globals.css. See the docs "Getting Started" guide. */

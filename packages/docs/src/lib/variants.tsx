@@ -207,8 +207,8 @@ import {
   GradientBorderCard,
   RevealCard,
   HoverScaleCard,
-   MagneticCard,
-   DissolveCard,
+  MagneticCard,
+  DissolveCard,
   OtpVerificationCard,
   TwoFactorSetupPanel,
   PasswordStrengthMeter,
@@ -272,8 +272,18 @@ const AVATARS = [
 
 const DEMO_ROWS: Record<string, unknown>[] = [
   { id: "1", name: "Ada Lovelace", email: "ada@example.com", role: "Admin" },
-  { id: "2", name: "Grace Hopper", email: "grace@example.com", role: "Engineer" },
-  { id: "3", name: "Alan Turing", email: "alan@example.com", role: "Researcher" },
+  {
+    id: "2",
+    name: "Grace Hopper",
+    email: "grace@example.com",
+    role: "Engineer",
+  },
+  {
+    id: "3",
+    name: "Alan Turing",
+    email: "alan@example.com",
+    role: "Researcher",
+  },
 ];
 
 const DEMO_COLUMNS: DataTableColumn<Record<string, unknown>>[] = [
@@ -327,9 +337,22 @@ const BILLING_PLANS: BillingPlan[] = [
 ];
 
 const ROADMAP_ITEMS: RoadmapItem[] = [
-  { title: "Auth presets", description: "Fintech, med, edu", status: "done", date: "v1.0" },
-  { title: "Passkey support", description: "WebAuthn across presets", status: "in-progress" },
-  { title: "SAML/OIDC SSO", description: "Enterprise identity providers", status: "planned" },
+  {
+    title: "Auth presets",
+    description: "Fintech, med, edu",
+    status: "done",
+    date: "v1.0",
+  },
+  {
+    title: "Passkey support",
+    description: "WebAuthn across presets",
+    status: "in-progress",
+  },
+  {
+    title: "SAML/OIDC SSO",
+    description: "Enterprise identity providers",
+    status: "planned",
+  },
 ];
 
 const OTP = (
@@ -574,17 +597,44 @@ function TooltipDemo() {
 
 function NotificationDrawerToolbarDemo() {
   const [items, setItems] = React.useState([
-    { id: "1", title: "New message", description: "Ada sent you a message", time: "2m", read: false, type: "info" as const },
-    { id: "2", title: "Build passed", description: "CI pipeline succeeded", time: "1h", read: false, type: "success" as const },
-    { id: "3", title: "Password changed", description: "Your password was updated", time: "1d", read: true, type: "warning" as const },
+    {
+      id: "1",
+      title: "New message",
+      description: "Ada sent you a message",
+      time: "2m",
+      read: false,
+      type: "info" as const,
+    },
+    {
+      id: "2",
+      title: "Build passed",
+      description: "CI pipeline succeeded",
+      time: "1h",
+      read: false,
+      type: "success" as const,
+    },
+    {
+      id: "3",
+      title: "Password changed",
+      description: "Your password was updated",
+      time: "1d",
+      read: true,
+      type: "warning" as const,
+    },
   ]);
   return (
     <NotificationDrawer
       notifications={items}
       onSearchChange={() => {}}
       onFilterChange={() => {}}
-      onMarkAllRead={() => setItems((prev) => prev.map((n) => ({ ...n, read: true })))}
-      onMarkRead={(n) => setItems((prev) => prev.map((x) => (x.id === n.id ? { ...x, read: true } : x)))}
+      onMarkAllRead={() =>
+        setItems((prev) => prev.map((n) => ({ ...n, read: true })))
+      }
+      onMarkRead={(n) =>
+        setItems((prev) =>
+          prev.map((x) => (x.id === n.id ? { ...x, read: true } : x)),
+        )
+      }
       onDelete={(n) => setItems((prev) => prev.filter((x) => x.id !== n.id))}
       onDismiss={(n) => setItems((prev) => prev.filter((x) => x.id !== n.id))}
     />
@@ -698,7 +748,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
   switch (slug) {
     /* ── Aspect ratio variants ───────────────────────────────── */
     case "aspect-ratio":
-      return (["16:9", "1:1", "4:3", "21:9", "3:4" as const]).map((ratio) => ({
+      return ["16:9", "1:1", "4:3", "21:9", "3:4" as const].map((ratio) => ({
         label: ratio,
         node: (
           <div className="w-full max-w-md">
@@ -766,7 +816,16 @@ export function variantCells(slug: string): VariantCell[] | undefined {
     /* ── Buttons / actions ───────────────────────────────────── */
     case "button":
       return (
-        ["default", "secondary", "destructive", "outline", "ghost", "link", "glass", "glow"] as const
+        [
+          "default",
+          "secondary",
+          "destructive",
+          "outline",
+          "ghost",
+          "link",
+          "glass",
+          "glow",
+        ] as const
       ).map((variant) => ({
         label: variant,
         node: <Button variant={variant}>Button</Button>,
@@ -798,17 +857,36 @@ export function variantCells(slug: string): VariantCell[] | undefined {
     /* ── Badges / display ────────────────────────────────────── */
     case "badge":
       return [
-        ...(["default", "secondary", "outline", "success", "warning", "destructive"] as const).map(
-          (variant) => ({
-            label: variant,
-            node: <Badge variant={variant}>{variant}</Badge>,
-          }),
-        ),
-        { label: "with icon", node: <Badge icon={<LightIcon name="sparkles" className="size-3" />}>New</Badge> },
+        ...(
+          [
+            "default",
+            "secondary",
+            "outline",
+            "success",
+            "warning",
+            "destructive",
+          ] as const
+        ).map((variant) => ({
+          label: variant,
+          node: <Badge variant={variant}>{variant}</Badge>,
+        })),
+        {
+          label: "with icon",
+          node: (
+            <Badge icon={<LightIcon name="sparkles" className="size-3" />}>
+              New
+            </Badge>
+          ),
+        },
         {
           label: "icon only",
           node: (
-            <Badge variant="success" iconOnly icon={<LightIcon name="check" className="size-3.5" />} aria-label="Verified" />
+            <Badge
+              variant="success"
+              iconOnly
+              icon={<LightIcon name="check" className="size-3.5" />}
+              aria-label="Verified"
+            />
           ),
         },
       ];
@@ -818,12 +896,21 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: variant,
           node: <Pill variant={variant}>{variant}</Pill>,
         })),
-        ...(["primary", "success", "warning", "destructive"] as const).map((color) => ({
-          label: color,
-          node: <Pill color={color}>{color}</Pill>,
-        })),
+        ...(["primary", "success", "warning", "destructive"] as const).map(
+          (color) => ({
+            label: color,
+            node: <Pill color={color}>{color}</Pill>,
+          }),
+        ),
         { label: "selected", node: <Pill selected>Selected</Pill> },
-        { label: "removable", node: <Pill removable onRemove={() => {}}>Tag</Pill> },
+        {
+          label: "removable",
+          node: (
+            <Pill removable onRemove={() => {}}>
+              Tag
+            </Pill>
+          ),
+        },
       ];
     case "kbd":
       return [
@@ -836,10 +923,30 @@ export function variantCells(slug: string): VariantCell[] | undefined {
     case "alert":
       return (
         [
-          { label: "Default", variant: "default", title: "Heads up", desc: "Default alert" },
-          { label: "Destructive", variant: "destructive", title: "Error", desc: "Destructive alert" },
-          { label: "Success", variant: "success", title: "Success", desc: "Success alert" },
-          { label: "Warning", variant: "warning", title: "Warning", desc: "Warning alert" },
+          {
+            label: "Default",
+            variant: "default",
+            title: "Heads up",
+            desc: "Default alert",
+          },
+          {
+            label: "Destructive",
+            variant: "destructive",
+            title: "Error",
+            desc: "Destructive alert",
+          },
+          {
+            label: "Success",
+            variant: "success",
+            title: "Success",
+            desc: "Success alert",
+          },
+          {
+            label: "Warning",
+            variant: "warning",
+            title: "Warning",
+            desc: "Warning alert",
+          },
         ] as const
       ).map(({ label, variant, title, desc }) => ({
         label,
@@ -854,7 +961,12 @@ export function variantCells(slug: string): VariantCell[] | undefined {
       return [
         {
           label: "Default",
-          node: <EmptyState title="No results" description="Try a different filter." />,
+          node: (
+            <EmptyState
+              title="No results"
+              description="Try a different filter."
+            />
+          ),
         },
         {
           label: "With icon",
@@ -934,7 +1046,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                 <span className="text-foreground">Saved successfully</span>
               </div>
               <div className="flex items-center gap-2">
-                <LightIcon name="triangle-alert" className="size-4 text-warning" />
+                <LightIcon
+                  name="triangle-alert"
+                  className="size-4 text-warning"
+                />
                 <span className="text-foreground">Check your connection</span>
               </div>
             </div>
@@ -1096,100 +1211,130 @@ export function variantCells(slug: string): VariantCell[] | undefined {
         { label: "Composed", node: <MenubarComposedDemo /> },
       ];
     case "navbar":
-      return (
-        [
-          ...(["default", "sticky", "glass", "bordered", "transparent", "pill"] as const).map(
-            (variant) => ({
-              label: variant,
-              node: (
-                <div className="w-full max-w-md">
-                  <Navbar
-                    variant={variant}
-                    brand={<span className="font-semibold">facet</span>}
-                    links={[
-                      { href: "#", label: "Features" },
-                      { href: "#", label: "Docs" },
-                    ]}
-                  />
-                </div>
-              ),
-            }),
+      return [
+        ...(
+          [
+            "default",
+            "sticky",
+            "glass",
+            "bordered",
+            "transparent",
+            "pill",
+          ] as const
+        ).map((variant) => ({
+          label: variant,
+          node: (
+            <div className="w-full max-w-md">
+              <Navbar
+                variant={variant}
+                brand={<span className="font-semibold">facet</span>}
+                links={[
+                  { href: "#", label: "Features" },
+                  { href: "#", label: "Docs" },
+                ]}
+              />
+            </div>
           ),
-          {
-            label: "With dropdown",
-            node: (
-              <div className="w-full max-w-md">
+        })),
+        {
+          label: "With dropdown",
+          node: (
+            <div className="w-full max-w-md">
+              <Navbar
+                variant="default"
+                brand={<span className="font-semibold">facet</span>}
+                links={[
+                  { href: "#", label: "Features" },
+                  {
+                    href: "#",
+                    label: "Resources",
+                    columns: 2,
+                    panelWidth: "w-[30rem]",
+                    children: [
+                      {
+                        href: "#",
+                        label: "Docs",
+                        description: "Guides and API reference",
+                        icon: <LightIcon name="book-open" className="size-4" />,
+                      },
+                      {
+                        href: "#",
+                        label: "Blog",
+                        description: "Product updates",
+                        icon: <LightIcon name="sparkles" className="size-4" />,
+                      },
+                      {
+                        href: "#",
+                        label: "Changelog",
+                        description: "Version history",
+                        badge: "New",
+                        icon: <LightIcon name="list" className="size-4" />,
+                      },
+                      {
+                        href: "#",
+                        label: "Community",
+                        description: "Discussions and support",
+                        icon: <LightIcon name="users" className="size-4" />,
+                      },
+                    ],
+                  },
+                  { href: "#", label: "Pricing" },
+                ]}
+              />
+            </div>
+          ),
+        },
+        {
+          label: "Nested links",
+          node: (
+            <div className="w-full max-w-md">
+              <Navbar
+                variant="default"
+                brand={<span className="font-semibold">facet</span>}
+                links={[
+                  {
+                    href: "#",
+                    label: "Product",
+                    children: [
+                      {
+                        href: "#",
+                        label: "Overview",
+                        description: "What facet is",
+                      },
+                      {
+                        href: "#",
+                        label: "Components",
+                        children: [
+                          { href: "#", label: "Buttons" },
+                          { href: "#", label: "Cards" },
+                          { href: "#", label: "Forms" },
+                        ],
+                      },
+                      { href: "#", label: "Pricing", badge: "New" },
+                    ],
+                  },
+                  { href: "#", label: "Docs" },
+                ]}
+              />
+            </div>
+          ),
+        },
+        {
+          label: "Theme toggle",
+          node: (
+            <div className="w-full max-w-md">
+              <ThemeProvider defaultTheme="system">
                 <Navbar
-                  variant="default"
+                  variant="sticky"
                   brand={<span className="font-semibold">facet</span>}
-                  links={[
-                    { href: "#", label: "Features" },
-                    {
-                      href: "#",
-                      label: "Resources",
-                      columns: 2,
-                      panelWidth: "w-[30rem]",
-                      children: [
-                        { href: "#", label: "Docs", description: "Guides and API reference", icon: <LightIcon name="book-open" className="size-4" /> },
-                        { href: "#", label: "Blog", description: "Product updates", icon: <LightIcon name="sparkles" className="size-4" /> },
-                        { href: "#", label: "Changelog", description: "Version history", badge: "New", icon: <LightIcon name="list" className="size-4" /> },
-                        { href: "#", label: "Community", description: "Discussions and support", icon: <LightIcon name="users" className="size-4" /> },
-                      ],
-                    },
-                    { href: "#", label: "Pricing" },
-                  ]}
+                  links={[{ href: "#", label: "Docs" }]}
+                  showThemeToggle
                 />
-              </div>
-            ),
-          },
-          {
-            label: "Nested links",
-            node: (
-              <div className="w-full max-w-md">
-                <Navbar
-                  variant="default"
-                  brand={<span className="font-semibold">facet</span>}
-                  links={[
-                    {
-                      href: "#",
-                      label: "Product",
-                      children: [
-                        { href: "#", label: "Overview", description: "What facet is" },
-                        {
-                          href: "#",
-                          label: "Components",
-                          children: [
-                            { href: "#", label: "Buttons" },
-                            { href: "#", label: "Cards" },
-                            { href: "#", label: "Forms" },
-                          ],
-                        },
-                        { href: "#", label: "Pricing", badge: "New" },
-                      ],
-                    },
-                    { href: "#", label: "Docs" },
-                  ]}
-                />
-              </div>
-            ),
-          },
-          {
-            label: "Theme toggle",
-            node: (
-              <div className="w-full max-w-md">
-                <ThemeProvider defaultTheme="system">
-                  <Navbar
-                    variant="sticky"
-                    brand={<span className="font-semibold">facet</span>}
-                    links={[{ href: "#", label: "Docs" }]}
-                    showThemeToggle
-                  />
-                </ThemeProvider>
-              </div>
-            ),
-          },
-        ] as { label: string; node: React.ReactNode }[]
-      );
+              </ThemeProvider>
+            </div>
+          ),
+        },
+      ] as { label: string; node: React.ReactNode }[];
     case "navigation-menu":
       return [
         { label: "Default", node: <NavigationMenuDemo /> },
@@ -1201,13 +1346,17 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <NavigationMenuLink href="#">Getting Started</NavigationMenuLink>
+                    <NavigationMenuLink href="#">
+                      Getting Started
+                    </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <NavigationMenuLink href="#">API Reference</NavigationMenuLink>
+                    <NavigationMenuLink href="#">
+                      API Reference
+                    </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -1425,8 +1574,16 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <UserAvatar
               user={{ name: "Ada Lovelace", email: "ada@fusorb.dev" }}
               items={[
-                { label: "Profile", shortcut: `⇧${getModSymbol()}P`, icon: "users" },
-                { label: "Settings", shortcut: `${getModSymbol()},`, icon: "settings" },
+                {
+                  label: "Profile",
+                  shortcut: `⇧${getModSymbol()}P`,
+                  icon: "users",
+                },
+                {
+                  label: "Settings",
+                  shortcut: `${getModSymbol()},`,
+                  icon: "settings",
+                },
               ]}
             />
           ),
@@ -1452,58 +1609,75 @@ export function variantCells(slug: string): VariantCell[] | undefined {
         },
       ];
     case "card":
-      return (
-        [
-          ...(["default", "glass", "frost", "glow", "ghost", "outline", "elevated", "interactive",
-            "tilt", "gradient-border", "zoom"] as const).map((variant) => ({
-              label: variant,
-              node: (
-                <Card variant={variant} className="w-full">
-                  <CardHeader>
-                    <CardTitle className="capitalize">{variant}</CardTitle>
-                    <CardDescription>The {variant} card variant.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {variant === "zoom" ? (
-                      <div className="-mx-6 -mt-6 mb-4 overflow-hidden">
-                        <img
-                          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=300&fit=crop"
-                          alt=""
-                          className="h-40 w-full object-cover"
-                        />
-                      </div>
-                    ) : (
-                      <p className="text-sm text-muted-foreground">Card content area.</p>
-                    )}
-                  </CardContent>
-                  <CardFooter className="justify-end">
-                    <Button size="sm" variant="outline">
-                      Action
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ),
-            })),
-          {
-            label: "Flip",
-            node: (
-              <Card variant="flip" className="h-56 w-full" flipDirection="horizontal">
-                <div className="flex h-full items-center justify-center rounded-[inherit] bg-card p-6">
-                  <CardTitle>Hover (or tap) to flip</CardTitle>
-                </div>
-                <CardFlipBack>
-                  <div className="text-center">
-                    <CardTitle>Surprise!</CardTitle>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      The back face reveals on hover, and returns on mouse-out.
-                    </p>
+      return [
+        ...(
+          [
+            "default",
+            "glass",
+            "frost",
+            "glow",
+            "ghost",
+            "outline",
+            "elevated",
+            "interactive",
+            "tilt",
+            "gradient-border",
+            "zoom",
+          ] as const
+        ).map((variant) => ({
+          label: variant,
+          node: (
+            <Card variant={variant} className="w-full">
+              <CardHeader>
+                <CardTitle className="capitalize">{variant}</CardTitle>
+                <CardDescription>The {variant} card variant.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {variant === "zoom" ? (
+                  <div className="-mx-6 -mt-6 mb-4 overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=300&fit=crop"
+                      alt=""
+                      className="h-40 w-full object-cover"
+                    />
                   </div>
-                </CardFlipBack>
-              </Card>
-            ),
-          },
-        ] as { label: string; node: React.ReactNode }[]
-      );
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Card content area.
+                  </p>
+                )}
+              </CardContent>
+              <CardFooter className="justify-end">
+                <Button size="sm" variant="outline">
+                  Action
+                </Button>
+              </CardFooter>
+            </Card>
+          ),
+        })),
+        {
+          label: "Flip",
+          node: (
+            <Card
+              variant="flip"
+              className="h-56 w-full"
+              flipDirection="horizontal"
+            >
+              <div className="flex h-full items-center justify-center rounded-[inherit] bg-card p-6">
+                <CardTitle>Hover (or tap) to flip</CardTitle>
+              </div>
+              <CardFlipBack>
+                <div className="text-center">
+                  <CardTitle>Surprise!</CardTitle>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    The back face reveals on hover, and returns on mouse-out.
+                  </p>
+                </div>
+              </CardFlipBack>
+            </Card>
+          ),
+        },
+      ] as { label: string; node: React.ReactNode }[];
     case "table":
       return [
         {
@@ -1612,7 +1786,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
       ];
     case "input":
       return [
-        { label: "Default", node: <Input className="w-56" placeholder="Type here..." /> },
+        {
+          label: "Default",
+          node: <Input className="w-56" placeholder="Type here..." />,
+        },
         {
           label: "With label",
           node: (
@@ -1622,7 +1799,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             </div>
           ),
         },
-        { label: "Disabled", node: <Input className="w-56" placeholder="Disabled" disabled /> },
+        {
+          label: "Disabled",
+          node: <Input className="w-56" placeholder="Disabled" disabled />,
+        },
       ];
     case "input-otp":
       return [
@@ -1731,9 +1911,35 @@ export function variantCells(slug: string): VariantCell[] | undefined {
       ];
     case "slider":
       return [
-        { label: "Default", node: <Slider defaultValue={[50]} max={100} step={1} className="w-56" /> },
-        { label: "Range", node: <Slider defaultValue={[25, 75]} max={100} step={1} className="w-56" /> },
-        { label: "Disabled", node: <Slider defaultValue={[50]} max={100} step={1} disabled className="w-56" /> },
+        {
+          label: "Default",
+          node: (
+            <Slider defaultValue={[50]} max={100} step={1} className="w-56" />
+          ),
+        },
+        {
+          label: "Range",
+          node: (
+            <Slider
+              defaultValue={[25, 75]}
+              max={100}
+              step={1}
+              className="w-56"
+            />
+          ),
+        },
+        {
+          label: "Disabled",
+          node: (
+            <Slider
+              defaultValue={[50]}
+              max={100}
+              step={1}
+              disabled
+              className="w-56"
+            />
+          ),
+        },
       ];
     case "switch":
       return (
@@ -1748,7 +1954,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
       }));
     case "textarea":
       return [
-        { label: "Default", node: <Textarea className="w-56" placeholder="Write something..." /> },
+        {
+          label: "Default",
+          node: <Textarea className="w-56" placeholder="Write something..." />,
+        },
         {
           label: "With label",
           node: (
@@ -1823,7 +2032,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                  <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+                  <AlertDialogDescription>
+                    This action cannot be undone.
+                  </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -1854,7 +2065,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Keep access</AlertDialogCancel>
-                  <AlertDialogAction variant="destructive">Revoke</AlertDialogAction>
+                  <AlertDialogAction variant="destructive">
+                    Revoke
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
@@ -1935,7 +2148,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Create project</DialogTitle>
-                  <DialogDescription>Fill in the details below.</DialogDescription>
+                  <DialogDescription>
+                    Fill in the details below.
+                  </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
                   <Button variant="outline">Cancel</Button>
@@ -1983,7 +2198,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
               <HoverCardContent className="w-64">
                 <div className="space-y-1">
                   <h4 className="text-sm font-semibold">Ada Lovelace</h4>
-                  <p className="text-sm text-muted-foreground">Mathematician and writer.</p>
+                  <p className="text-sm text-muted-foreground">
+                    Mathematician and writer.
+                  </p>
                 </div>
               </HoverCardContent>
             </HoverCard>
@@ -2003,7 +2220,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
               <PopoverContent className="w-64">
                 <div className="space-y-1">
                   <h4 className="text-sm font-semibold">Dimensions</h4>
-                  <p className="text-sm text-muted-foreground">Set the width and height.</p>
+                  <p className="text-sm text-muted-foreground">
+                    Set the width and height.
+                  </p>
                 </div>
               </PopoverContent>
             </Popover>
@@ -2074,7 +2293,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Default",
           node: (
             <div className="w-full max-w-sm">
-              <Dropzone label="Drag files here or click to browse" hint="PDF, images, anything" />
+              <Dropzone
+                label="Drag files here or click to browse"
+                hint="PDF, images, anything"
+              />
             </div>
           ),
         },
@@ -2089,7 +2311,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
       ];
     case "color-picker":
       return [
-        { label: "Default", node: <ColorPicker value="#6366f1" label="Brand accent" /> },
+        {
+          label: "Default",
+          node: <ColorPicker value="#6366f1" label="Brand accent" />,
+        },
         {
           label: "Compact",
           node: (
@@ -2104,15 +2329,30 @@ export function variantCells(slug: string): VariantCell[] | undefined {
       return [
         {
           label: "Default",
-          node: <QRCode value="https://facet.arcevocirqle.com.ng" size={120} label="facet docs" />,
+          node: (
+            <QRCode value="https://example.com" size={120} label="facet docs" />
+          ),
         },
         {
           label: "Large",
-          node: <QRCode value="https://github.com/fusorb/facet" size={160} label="facet GitHub" />,
+          node: (
+            <QRCode
+              value="https://github.com/fusorb/facet"
+              size={160}
+              label="facet GitHub"
+            />
+          ),
         },
         {
           label: "Colored",
-          node: <QRCode value="https://facet.arcevocirqle.com.ng" size={120} fgColor="#6366f1" label="branded" />,
+          node: (
+            <QRCode
+              value="https://example.com"
+              size={120}
+              fgColor="#4ad3f5"
+              label="branded"
+            />
+          ),
         },
         {
           label: "Logo",
@@ -2138,7 +2378,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                 duration={16}
                 items={["facet", "auth", "tokens", "React 19", "Radix"].map(
                   (word) => (
-                    <span key={word} className="whitespace-nowrap text-sm font-medium">
+                    <span
+                      key={word}
+                      className="whitespace-nowrap text-sm font-medium"
+                    >
                       {word}
                     </span>
                   ),
@@ -2202,14 +2445,16 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <div className="w-full">
               <Marquee
                 duration={18}
-                items={["Hover", "to", "pause", "the", "scroll", "motion"].map((word) => (
-                  <span
-                    key={word}
-                    className="rounded-lg bg-primary/10 px-4 py-2 text-sm font-semibold text-primary"
-                  >
-                    {word}
-                  </span>
-                ))}
+                items={["Hover", "to", "pause", "the", "scroll", "motion"].map(
+                  (word) => (
+                    <span
+                      key={word}
+                      className="rounded-lg bg-primary/10 px-4 py-2 text-sm font-semibold text-primary"
+                    >
+                      {word}
+                    </span>
+                  ),
+                )}
               />
             </div>
           ),
@@ -2222,9 +2467,15 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="relative flex h-64 w-full items-center justify-center overflow-hidden rounded-lg border border-border bg-background">
               <Aurora className="absolute inset-0" opacity={0.75} />
-              <Beams count={4} className="absolute inset-0" color="rgba(129,140,248,0.35)" />
+              <Beams
+                count={4}
+                className="absolute inset-0"
+                color="rgba(129,140,248,0.35)"
+              />
               <GridPattern className="absolute inset-0" />
-              <p className="relative z-10 text-lg font-bold">Aurora + Beams + Grid</p>
+              <p className="relative z-10 text-lg font-bold">
+                Aurora + Beams + Grid
+              </p>
             </div>
           ),
         },
@@ -2249,7 +2500,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Blur",
           node: (
             <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-              <BlurText text="Blur in, word by word" className="font-heading text-2xl font-bold text-foreground" />
+              <BlurText
+                text="Blur in, word by word"
+                className="font-heading text-2xl font-bold text-foreground"
+              />
             </div>
           ),
         },
@@ -2257,7 +2511,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Wave",
           node: (
             <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-              <WaveText text="Wave hello" className="font-heading text-2xl font-bold text-foreground" />
+              <WaveText
+                text="Wave hello"
+                className="font-heading text-2xl font-bold text-foreground"
+              />
             </div>
           ),
         },
@@ -2265,7 +2522,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Flip",
           node: (
             <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-              <FlipText text="Flip it" className="font-heading text-2xl font-bold text-foreground" />
+              <FlipText
+                text="Flip it"
+                className="font-heading text-2xl font-bold text-foreground"
+              />
             </div>
           ),
         },
@@ -2273,7 +2533,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Split / rise",
           node: (
             <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-              <SplitText text="Words rise into place" className="font-heading text-2xl font-bold text-foreground" />
+              <SplitText
+                text="Words rise into place"
+                className="font-heading text-2xl font-bold text-foreground"
+              />
             </div>
           ),
         },
@@ -2281,7 +2544,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Fade up",
           node: (
             <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-              <FadeUpText text="Fade and slide up" className="font-heading text-2xl font-bold text-foreground" />
+              <FadeUpText
+                text="Fade and slide up"
+                className="font-heading text-2xl font-bold text-foreground"
+              />
             </div>
           ),
         },
@@ -2289,7 +2555,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Shimmer",
           node: (
             <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-              <ShimmerText text="Shimmering headline" className="font-heading text-2xl font-extrabold text-foreground" />
+              <ShimmerText
+                text="Shimmering headline"
+                className="font-heading text-2xl font-extrabold text-foreground"
+              />
             </div>
           ),
         },
@@ -2297,7 +2566,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Gradient",
           node: (
             <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-              <GradientText text="Animated gradient" className="font-heading text-2xl font-extrabold" />
+              <GradientText
+                text="Animated gradient"
+                className="font-heading text-2xl font-extrabold"
+              />
             </div>
           ),
         },
@@ -2305,7 +2577,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Letter spacing",
           node: (
             <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-              <LetterSpacingText text="Hover to expand" className="font-heading text-2xl font-bold text-foreground" />
+              <LetterSpacingText
+                text="Hover to expand"
+                className="font-heading text-2xl font-bold text-foreground"
+              />
             </div>
           ),
         },
@@ -2313,8 +2588,16 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Count up",
           node: (
             <div className="flex min-h-24 w-full items-center justify-center gap-6 rounded-lg border border-border bg-background">
-              <CountUpText to={64000} separator className="font-heading text-2xl font-bold text-foreground" />
-              <CountUpText to={99.5} decimals={1} className="font-heading text-2xl font-bold text-foreground" />
+              <CountUpText
+                to={64000}
+                separator
+                className="font-heading text-2xl font-bold text-foreground"
+              />
+              <CountUpText
+                to={99.5}
+                decimals={1}
+                className="font-heading text-2xl font-bold text-foreground"
+              />
             </div>
           ),
         },
@@ -2347,7 +2630,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Dissolve",
           node: (
             <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-              <DissolveText text="Dissolve in, char by char" className="font-heading text-2xl font-bold text-foreground" />
+              <DissolveText
+                text="Dissolve in, char by char"
+                className="font-heading text-2xl font-bold text-foreground"
+              />
             </div>
           ),
         },
@@ -2359,7 +2645,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
               <TiltCard className="w-64 rounded-xl border border-border bg-background p-6 shadow-sm">
-                <p className="text-sm font-semibold text-foreground">Move your cursor over me</p>
+                <p className="text-sm font-semibold text-foreground">
+                  Move your cursor over me
+                </p>
               </TiltCard>
             </div>
           ),
@@ -2369,7 +2657,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
               <GlowCard className="w-64 rounded-xl border border-border bg-background p-6 shadow-sm">
-                <p className="text-sm font-semibold text-foreground">A glow follows your cursor</p>
+                <p className="text-sm font-semibold text-foreground">
+                  A glow follows your cursor
+                </p>
               </GlowCard>
             </div>
           ),
@@ -2409,7 +2699,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background">
               <ScrollReveal>
-                <p className="text-sm font-semibold text-foreground">Reveals as you scroll</p>
+                <p className="text-sm font-semibold text-foreground">
+                  Reveals as you scroll
+                </p>
               </ScrollReveal>
             </div>
           ),
@@ -2483,7 +2775,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="w-full rounded-lg border border-border bg-background p-4">
               <Footer
-                brand={{ name: "facet", tagline: "The Arcevo UI system" }}
+                brand={{ name: "facet", tagline: "A config-driven UI system" }}
                 columns={[
                   {
                     title: "Product",
@@ -2513,7 +2805,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <div className="w-full rounded-lg border border-border bg-background p-4">
               <Footer
                 variant="minimal"
-                brand={{ name: "facet", tagline: "The Arcevo UI system" }}
+                brand={{ name: "facet", tagline: "A config-driven UI system" }}
                 socials={[{ label: "GitHub", href: "#", icon: "github" }]}
                 legal="© 2026 facet. MIT License."
               />
@@ -2526,11 +2818,29 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <div className="w-full rounded-lg border border-border bg-background p-4">
               <Footer
                 variant="columns"
-                brand={{ name: "facet", tagline: "The Arcevo UI system" }}
+                brand={{ name: "facet", tagline: "A config-driven UI system" }}
                 columns={[
-                  { title: "Product", links: [{ label: "Components", href: "#" }, { label: "Tokens", href: "#" }] },
-                  { title: "Resources", links: [{ label: "Docs", href: "#" }, { label: "CLI", href: "#" }] },
-                  { title: "Company", links: [{ label: "About", href: "#" }, { label: "Blog", href: "#" }] },
+                  {
+                    title: "Product",
+                    links: [
+                      { label: "Components", href: "#" },
+                      { label: "Tokens", href: "#" },
+                    ],
+                  },
+                  {
+                    title: "Resources",
+                    links: [
+                      { label: "Docs", href: "#" },
+                      { label: "CLI", href: "#" },
+                    ],
+                  },
+                  {
+                    title: "Company",
+                    links: [
+                      { label: "About", href: "#" },
+                      { label: "Blog", href: "#" },
+                    ],
+                  },
                 ]}
                 socials={[{ label: "GitHub", href: "#", icon: "github" }]}
                 bottomLinks={[{ label: "Privacy", href: "#" }]}
@@ -2545,9 +2855,12 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <div className="w-full rounded-lg border border-border bg-background p-4">
               <Footer
                 variant="newsletter"
-                brand={{ name: "facet", tagline: "The Arcevo UI system" }}
+                brand={{ name: "facet", tagline: "A config-driven UI system" }}
                 columns={[
-                  { title: "Product", links: [{ label: "Components", href: "#" }] },
+                  {
+                    title: "Product",
+                    links: [{ label: "Components", href: "#" }],
+                  },
                   { title: "Resources", links: [{ label: "Docs", href: "#" }] },
                 ]}
                 newsletter={{
@@ -2567,12 +2880,36 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <div className="w-full rounded-lg border border-border bg-background p-4">
               <Footer
                 variant="split"
-                brand={{ name: "facet", tagline: "The Arcevo UI system" }}
+                brand={{ name: "facet", tagline: "A config-driven UI system" }}
                 columns={[
-                  { title: "Product", links: [{ label: "Components", href: "#" }, { label: "Tokens", href: "#" }] },
-                  { title: "Resources", links: [{ label: "Docs", href: "#" }, { label: "CLI", href: "#" }] },
-                  { title: "Company", links: [{ label: "About", href: "#" }, { label: "Blog", href: "#" }] },
-                  { title: "Legal", links: [{ label: "Privacy", href: "#" }, { label: "Terms", href: "#" }] },
+                  {
+                    title: "Product",
+                    links: [
+                      { label: "Components", href: "#" },
+                      { label: "Tokens", href: "#" },
+                    ],
+                  },
+                  {
+                    title: "Resources",
+                    links: [
+                      { label: "Docs", href: "#" },
+                      { label: "CLI", href: "#" },
+                    ],
+                  },
+                  {
+                    title: "Company",
+                    links: [
+                      { label: "About", href: "#" },
+                      { label: "Blog", href: "#" },
+                    ],
+                  },
+                  {
+                    title: "Legal",
+                    links: [
+                      { label: "Privacy", href: "#" },
+                      { label: "Terms", href: "#" },
+                    ],
+                  },
                 ]}
                 socials={[{ label: "GitHub", href: "#", icon: "github" }]}
                 legal="© 2026 facet. MIT License."
@@ -2586,16 +2923,40 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <div className="w-full rounded-lg border border-border bg-background p-4">
               <Footer
                 variant="streamline"
-                brand={{ name: "facet", tagline: "The Arcevo UI system" }}
+                brand={{ name: "facet", tagline: "A config-driven UI system" }}
                 columns={[
-                  { title: "Product", links: [{ label: "Components", href: "#" }, { label: "Tokens", href: "#" }] },
-                  { title: "Resources", links: [{ label: "Docs", href: "#" }, { label: "CLI", href: "#" }] },
+                  {
+                    title: "Product",
+                    links: [
+                      { label: "Components", href: "#" },
+                      { label: "Tokens", href: "#" },
+                    ],
+                  },
+                  {
+                    title: "Resources",
+                    links: [
+                      { label: "Docs", href: "#" },
+                      { label: "CLI", href: "#" },
+                    ],
+                  },
                 ]}
                 socials={[{ label: "GitHub", href: "#", icon: "github" }]}
-                notices={[<span key="research">Research notice: We log anonymous usage to improve docs.</span>]}
+                notices={[
+                  <span key="research">
+                    Research notice: We log anonymous usage to improve docs.
+                  </span>,
+                ]}
                 steps={[
-                  { number: "1", label: "Sign up", description: "Create a free account" },
-                  { number: "2", label: "Build", description: "Start composing" },
+                  {
+                    number: "1",
+                    label: "Sign up",
+                    description: "Create a free account",
+                  },
+                  {
+                    number: "2",
+                    label: "Build",
+                    description: "Start composing",
+                  },
                   { number: "3", label: "Ship", description: "Go live" },
                 ]}
                 legal="© 2026 facet. MIT License."
@@ -2704,11 +3065,15 @@ export function variantCells(slug: string): VariantCell[] | undefined {
         },
         {
           label: "Searchable",
-          node: <DataTable columns={DEMO_COLUMNS} data={DEMO_ROWS} searchable />,
+          node: (
+            <DataTable columns={DEMO_COLUMNS} data={DEMO_ROWS} searchable />
+          ),
         },
         {
           label: "Selectable",
-          node: <DataTable columns={DEMO_COLUMNS} data={DEMO_ROWS} selectable />,
+          node: (
+            <DataTable columns={DEMO_COLUMNS} data={DEMO_ROWS} selectable />
+          ),
         },
         {
           label: "Toolbar",
@@ -2720,7 +3085,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
               selectable
               exportable
               exporters={[{ key: "json", label: "JSON", export: () => {} }]}
-              actions={[{ key: "mark", label: "Mark all as read", action: () => {} }]}
+              actions={[
+                { key: "mark", label: "Mark all as read", action: () => {} },
+              ]}
             />
           ),
         },
@@ -2751,7 +3118,11 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Horizontal strip",
           node: (
             <div className="max-w-sm">
-              <DatePicker label="Pick a day" scrollMode="horizontal" horizontalDays={14} />
+              <DatePicker
+                label="Pick a day"
+                scrollMode="horizontal"
+                horizontalDays={14}
+              />
             </div>
           ),
         },
@@ -2793,7 +3164,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             </div>
           ),
         },
-       ];
+      ];
     case "mail-input":
       return [
         {
@@ -2810,7 +3181,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <div className="max-w-xs">
               <MailInput
                 placeholder="you@example.com"
-                domains={["arcevocirqle.com.ng", "gmail.com", "yahoo.com"]}
+                domains={["example.com", "gmail.com", "yahoo.com"]}
                 required
               />
             </div>
@@ -2872,7 +3243,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Full ISO list",
           node: (
             <div className="max-w-xs">
-              <CountryCodeInput label="Mobile number" countries={ISO_COUNTRY_CODES} />
+              <CountryCodeInput
+                label="Mobile number"
+                countries={ISO_COUNTRY_CODES}
+              />
             </div>
           ),
         },
@@ -2949,7 +3323,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="w-full max-w-md">
               <ArcProvider client={DEMO_CLIENT}>
-                <SignIn config={{ allowMagicLink: true }} step="magic_link_form" />
+                <SignIn
+                  config={{ allowMagicLink: true }}
+                  step="magic_link_form"
+                />
               </ArcProvider>
             </div>
           ),
@@ -2969,7 +3346,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="w-full max-w-md">
               <ArcProvider client={DEMO_CLIENT}>
-                <SignIn config={{ oauthProviders: ["google", "github"] }} step="login_form" />
+                <SignIn
+                  config={{ oauthProviders: ["google", "github"] }}
+                  step="login_form"
+                />
               </ArcProvider>
             </div>
           ),
@@ -2993,7 +3373,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="h-96 w-full">
               <ConsoleLayout config={defaultLayoutPreset} mode="full">
-                <div className="p-6 text-sm text-muted-foreground">Content area</div>
+                <div className="p-6 text-sm text-muted-foreground">
+                  Content area
+                </div>
               </ConsoleLayout>
             </div>
           ),
@@ -3003,7 +3385,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="h-96 w-full">
               <ConsoleLayout config={defaultLayoutPreset} mode="rail">
-                <div className="p-6 text-sm text-muted-foreground">Content area</div>
+                <div className="p-6 text-sm text-muted-foreground">
+                  Content area
+                </div>
               </ConsoleLayout>
             </div>
           ),
@@ -3098,9 +3482,13 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                 }
                 hero={
                   <div className="flex flex-col items-center gap-4 text-center">
-                    <h1 className="font-heading text-4xl font-bold text-foreground">Build faster</h1>
-                    <p className="max-w-md text-muted-foreground">A glassmorphic hero.</p>
-                    <Button className="glow-indigo">Get started</Button>
+                    <h1 className="font-heading text-4xl font-bold text-foreground">
+                      Build faster
+                    </h1>
+                    <p className="max-w-md text-muted-foreground">
+                      A glassmorphic hero.
+                    </p>
+                    <Button className="glow-primary">Get started</Button>
                   </div>
                 }
               >
@@ -3144,7 +3532,14 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="w-full overflow-x-auto rounded-lg border border-border p-4">
               <div className="min-w-0 lg:min-w-[1152px]">
-                <BillingPage config={{ plans: BILLING_PLANS, title: "Pricing", annualDiscountNote: "Save up to 30% with quarterly · ~16% with yearly" }} />
+                <BillingPage
+                  config={{
+                    plans: BILLING_PLANS,
+                    title: "Pricing",
+                    annualDiscountNote:
+                      "Save up to 30% with quarterly · ~16% with yearly",
+                  }}
+                />
               </div>
             </div>
           ),
@@ -3157,12 +3552,49 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="w-full overflow-x-auto rounded-lg border border-border p-4">
               <BillingPageTable
-                config={{ plans: BILLING_PLANS, title: "Compare plans", annualDiscountNote: "Save up to 30% with quarterly · ~16% with yearly" }}
+                config={{
+                  plans: BILLING_PLANS,
+                  title: "Compare plans",
+                  annualDiscountNote:
+                    "Save up to 30% with quarterly · ~16% with yearly",
+                }}
                 rows={[
-                  { label: "Projects", supports: { free: true, pro: true, team: true, enterprise: true } },
-                  { label: "SSO", supports: { free: false, pro: true, team: true, enterprise: true } },
-                  { label: "Audit log", supports: { free: false, pro: "7 days", team: true, enterprise: true } },
-                  { label: "On-prem", supports: { free: false, pro: false, team: false, enterprise: true } },
+                  {
+                    label: "Projects",
+                    supports: {
+                      free: true,
+                      pro: true,
+                      team: true,
+                      enterprise: true,
+                    },
+                  },
+                  {
+                    label: "SSO",
+                    supports: {
+                      free: false,
+                      pro: true,
+                      team: true,
+                      enterprise: true,
+                    },
+                  },
+                  {
+                    label: "Audit log",
+                    supports: {
+                      free: false,
+                      pro: "7 days",
+                      team: true,
+                      enterprise: true,
+                    },
+                  },
+                  {
+                    label: "On-prem",
+                    supports: {
+                      free: false,
+                      pro: false,
+                      team: false,
+                      enterprise: true,
+                    },
+                  },
                 ]}
               />
             </div>
@@ -3176,7 +3608,12 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="w-full overflow-x-auto rounded-lg border border-border p-4">
               <BillingPageFreemium
-                config={{ plans: BILLING_PLANS, title: "Start free, scale when you're ready", annualDiscountNote: "Save up to 30% with quarterly · ~16% with yearly" }}
+                config={{
+                  plans: BILLING_PLANS,
+                  title: "Start free, scale when you're ready",
+                  annualDiscountNote:
+                    "Save up to 30% with quarterly · ~16% with yearly",
+                }}
                 heroPlanId="pro"
               />
             </div>
@@ -3211,7 +3648,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
               <ShineCard className="w-64 rounded-xl border border-border bg-background p-6">
-                <p className="text-sm font-semibold text-foreground">Hover for a sheen</p>
+                <p className="text-sm font-semibold text-foreground">
+                  Hover for a sheen
+                </p>
               </ShineCard>
             </div>
           ),
@@ -3222,7 +3661,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
               <GradientBorderCard className="w-64">
                 <div className="rounded-xl p-6">
-                  <p className="text-sm font-semibold text-foreground">Gradient border</p>
+                  <p className="text-sm font-semibold text-foreground">
+                    Gradient border
+                  </p>
                 </div>
               </GradientBorderCard>
             </div>
@@ -3233,7 +3674,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
               <RevealCard className="w-64 rounded-xl border border-border bg-background p-6">
-                <p className="text-sm font-semibold text-foreground">Scroll to reveal</p>
+                <p className="text-sm font-semibold text-foreground">
+                  Scroll to reveal
+                </p>
               </RevealCard>
             </div>
           ),
@@ -3243,7 +3686,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
               <HoverScaleCard className="w-64 rounded-xl border border-border bg-background p-6">
-                <p className="text-sm font-semibold text-foreground">Hover to scale</p>
+                <p className="text-sm font-semibold text-foreground">
+                  Hover to scale
+                </p>
               </HoverScaleCard>
             </div>
           ),
@@ -3253,7 +3698,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
               <MagneticCard className="w-64 rounded-xl border border-border bg-background p-6">
-                <p className="text-sm font-semibold text-foreground">It pulls toward your cursor</p>
+                <p className="text-sm font-semibold text-foreground">
+                  It pulls toward your cursor
+                </p>
               </MagneticCard>
             </div>
           ),
@@ -3263,7 +3710,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           node: (
             <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
               <DissolveCard className="w-64 rounded-xl border border-border bg-background p-6">
-                <p className="text-sm font-semibold text-foreground">Dissolves in on mount</p>
+                <p className="text-sm font-semibold text-foreground">
+                  Dissolves in on mount
+                </p>
               </DissolveCard>
             </div>
           ),
@@ -3284,7 +3733,11 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "With resend",
           node: (
             <div className="flex min-h-64 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
-              <OtpVerificationCard onVerify={() => {}} onResend={() => {}} length={4} />
+              <OtpVerificationCard
+                onVerify={() => {}}
+                onResend={() => {}}
+                length={4}
+              />
             </div>
           ),
         },
@@ -3300,7 +3753,12 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                 otpauthUri="otpauth://totp/Example:ada@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example"
                 secret="JBSWY3DPEHPK3PXP"
                 onConfirm={async () => {}}
-                recoveryCodes={["1111 2222", "3333 4444", "5555 6666", "7777 8888"]}
+                recoveryCodes={[
+                  "1111 2222",
+                  "3333 4444",
+                  "5555 6666",
+                  "7777 8888",
+                ]}
               />
             </div>
           ),
@@ -3343,8 +3801,23 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <div className="flex w-full items-start justify-center rounded-lg border border-border bg-background p-6">
               <ApiKeyManager
                 keys={[
-                  { id: "1", name: "Staging server", last4: "3f2a", prefix: "facet_live", scopes: ["read"], createdAt: "2026-08-01T00:00:00Z" },
-                  { id: "2", name: "CI", last4: "8b1c", prefix: "facet_live", scopes: ["read", "write"], createdAt: "2026-07-20T00:00:00Z", expiresAt: "2026-10-20T00:00:00Z" },
+                  {
+                    id: "1",
+                    name: "Staging server",
+                    last4: "3f2a",
+                    prefix: "facet_live",
+                    scopes: ["read"],
+                    createdAt: "2026-08-01T00:00:00Z",
+                  },
+                  {
+                    id: "2",
+                    name: "CI",
+                    last4: "8b1c",
+                    prefix: "facet_live",
+                    scopes: ["read", "write"],
+                    createdAt: "2026-07-20T00:00:00Z",
+                    expiresAt: "2026-10-20T00:00:00Z",
+                  },
                 ]}
                 onCreate={async () => ({ secret: "facet_live_abc123" })}
                 onRevoke={() => {}}
@@ -3380,14 +3853,20 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                 content={{
                   profile: (
                     <div className="space-y-2">
-                      <p className="text-sm font-semibold text-foreground">Display name</p>
-                      <p className="text-sm text-muted-foreground">Ada Lovelace</p>
+                      <p className="text-sm font-semibold text-foreground">
+                        Display name
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Ada Lovelace
+                      </p>
                       <Button size="sm">Edit profile</Button>
                     </div>
                   ),
                   security: (
                     <div className="space-y-2">
-                      <p className="text-sm font-semibold text-foreground">Two-factor authentication</p>
+                      <p className="text-sm font-semibold text-foreground">
+                        Two-factor authentication
+                      </p>
                       <p className="text-sm text-muted-foreground">Enabled</p>
                     </div>
                   ),
@@ -3406,9 +3885,25 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <div className="flex w-full items-start justify-center rounded-lg border border-border bg-background p-6">
               <SecuritySectionCard
                 features={[
-                  { id: "mfa", title: "Two-factor authentication", description: "Protect your account with an authenticator app", icon: "lock" },
-                  { id: "passkeys", title: "Passkeys", description: "Passwordless sign-in with WebAuthn", icon: "key" },
-                  { id: "sessions", title: "Sessions", description: "View and revoke active sessions", icon: "monitor" },
+                  {
+                    id: "mfa",
+                    title: "Two-factor authentication",
+                    description:
+                      "Protect your account with an authenticator app",
+                    icon: "lock",
+                  },
+                  {
+                    id: "passkeys",
+                    title: "Passkeys",
+                    description: "Passwordless sign-in with WebAuthn",
+                    icon: "key",
+                  },
+                  {
+                    id: "sessions",
+                    title: "Sessions",
+                    description: "View and revoke active sessions",
+                    icon: "monitor",
+                  },
                 ]}
               />
             </div>
@@ -3422,7 +3917,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Primary",
           node: (
             <div className="w-full rounded-lg border border-border bg-background">
-              <AnnouncementBar storageKey="facet-docs-announcement">New: facet 1.7 is here</AnnouncementBar>
+              <AnnouncementBar storageKey="facet-docs-announcement">
+                New: facet 1.7 is here
+              </AnnouncementBar>
             </div>
           ),
         },
@@ -3453,9 +3950,24 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             <div className="flex w-full items-start justify-center rounded-lg border border-border bg-background p-6">
               <TestimonialShowcase
                 testimonials={[
-                  { quote: "The auth forms alone saved us weeks.", author: "Ada", role: "CTO, Finly", initials: "A" },
-                  { quote: "Every surface is composable and themeable.", author: "Grace", role: "Engineer, Nimbus", initials: "G" },
-                  { quote: "The docs are a joy to explore.", author: "Alan", role: "Founder, Turing Labs", initials: "T" },
+                  {
+                    quote: "The auth forms alone saved us weeks.",
+                    author: "Ada",
+                    role: "CTO, Finly",
+                    initials: "A",
+                  },
+                  {
+                    quote: "Every surface is composable and themeable.",
+                    author: "Grace",
+                    role: "Engineer, Nimbus",
+                    initials: "G",
+                  },
+                  {
+                    quote: "The docs are a joy to explore.",
+                    author: "Alan",
+                    role: "Founder, Turing Labs",
+                    initials: "T",
+                  },
                 ]}
               />
             </div>
@@ -3468,9 +3980,24 @@ export function variantCells(slug: string): VariantCell[] | undefined {
               <TestimonialShowcase
                 mode="carousel"
                 testimonials={[
-                  { quote: "The auth forms alone saved us weeks.", author: "Ada", role: "CTO, Finly", initials: "A" },
-                  { quote: "Every surface is composable and themeable.", author: "Grace", role: "Engineer, Nimbus", initials: "G" },
-                  { quote: "The docs are a joy to explore.", author: "Alan", role: "Founder, Turing Labs", initials: "T" },
+                  {
+                    quote: "The auth forms alone saved us weeks.",
+                    author: "Ada",
+                    role: "CTO, Finly",
+                    initials: "A",
+                  },
+                  {
+                    quote: "Every surface is composable and themeable.",
+                    author: "Grace",
+                    role: "Engineer, Nimbus",
+                    initials: "G",
+                  },
+                  {
+                    quote: "The docs are a joy to explore.",
+                    author: "Alan",
+                    role: "Founder, Turing Labs",
+                    initials: "T",
+                  },
                 ]}
               />
             </div>
@@ -3488,9 +4015,18 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                 className="w-full max-w-lg"
                 title="Frequently asked"
                 items={[
-                  { q: "Is it framework agnostic?", a: "Yes. The core is dependency-free React." },
-                  { q: "Can I theme it?", a: "Everything reads from your Tailwind theme tokens." },
-                  { q: "Is it accessible?", a: "Yes. All primitives ship with ARIA wiring." },
+                  {
+                    q: "Is it framework agnostic?",
+                    a: "Yes. The core is dependency-free React.",
+                  },
+                  {
+                    q: "Can I theme it?",
+                    a: "Everything reads from your Tailwind theme tokens.",
+                  },
+                  {
+                    q: "Is it accessible?",
+                    a: "Yes. All primitives ship with ARIA wiring.",
+                  },
                 ]}
               />
             </div>
@@ -3507,7 +4043,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
               <PageHeader
                 title="Profile settings"
                 description="Manage your account details and preferences."
-                crumbs={[{ label: "Dashboard", href: "#" }, { label: "Settings" }]}
+                crumbs={[
+                  { label: "Dashboard", href: "#" },
+                  { label: "Settings" },
+                ]}
                 actions={<Button size="sm">Save changes</Button>}
               />
             </div>
@@ -3521,7 +4060,13 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Positive delta",
           node: (
             <div className="flex min-h-32 w-full items-center justify-center gap-4 rounded-lg border border-border bg-background p-6">
-              <StatCard label="Monthly revenue" value="$48,290" delta={12.4} hint="vs last month" className="w-56" />
+              <StatCard
+                label="Monthly revenue"
+                value="$48,290"
+                delta={12.4}
+                hint="vs last month"
+                className="w-56"
+              />
             </div>
           ),
         },
@@ -3529,7 +4074,13 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Negative delta",
           node: (
             <div className="flex min-h-32 w-full items-center justify-center gap-4 rounded-lg border border-border bg-background p-6">
-              <StatCard label="Churn rate" value="2.1%" delta={-0.4} hint="vs last month" className="w-56" />
+              <StatCard
+                label="Churn rate"
+                value="2.1%"
+                delta={-0.4}
+                hint="vs last month"
+                className="w-56"
+              />
             </div>
           ),
         },
@@ -3544,9 +4095,28 @@ export function variantCells(slug: string): VariantCell[] | undefined {
               <ActivityFeed
                 className="w-full max-w-md"
                 items={[
-                  { id: "1", title: "Ada signed in", description: "From a new device", timestamp: new Date().toISOString(), icon: "log-in" },
-                  { id: "2", title: "API key created", description: "Staging server", timestamp: new Date(Date.now() - 2 * 3600000).toISOString(), icon: "key" },
-                  { id: "3", title: "Password changed", timestamp: new Date(Date.now() - 30 * 86400000).toISOString(), icon: "shield" },
+                  {
+                    id: "1",
+                    title: "Ada signed in",
+                    description: "From a new device",
+                    timestamp: new Date().toISOString(),
+                    icon: "log-in",
+                  },
+                  {
+                    id: "2",
+                    title: "API key created",
+                    description: "Staging server",
+                    timestamp: new Date(Date.now() - 2 * 3600000).toISOString(),
+                    icon: "key",
+                  },
+                  {
+                    id: "3",
+                    title: "Password changed",
+                    timestamp: new Date(
+                      Date.now() - 30 * 86400000,
+                    ).toISOString(),
+                    icon: "shield",
+                  },
                 ]}
               />
             </div>
@@ -3560,7 +4130,12 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Line",
           node: (
             <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
-              <Chart x={CHART_X} series={CHART_SERIES} type="line" width={560} />
+              <Chart
+                x={CHART_X}
+                series={CHART_SERIES}
+                type="line"
+                width={560}
+              />
             </div>
           ),
         },
@@ -3576,7 +4151,12 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Area",
           node: (
             <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
-              <Chart x={CHART_X} series={CHART_SERIES} type="area" width={560} />
+              <Chart
+                x={CHART_X}
+                series={CHART_SERIES}
+                type="area"
+                width={560}
+              />
             </div>
           ),
         },
@@ -3592,7 +4172,12 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Donut",
           node: (
             <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
-              <Chart x={CHART_X} series={CHART_SERIES} type="donut" width={560} />
+              <Chart
+                x={CHART_X}
+                series={CHART_SERIES}
+                type="donut"
+                width={560}
+              />
             </div>
           ),
         },
@@ -3603,8 +4188,18 @@ export function variantCells(slug: string): VariantCell[] | undefined {
               <Chart
                 x={CHART_X}
                 series={[
-                  { id: "line", label: "L", data: [30, 80, 50, 60, 90], type: "line" },
-                  { id: "bar", label: "B", data: [40, 60, 70, 30, 50], type: "bar" },
+                  {
+                    id: "line",
+                    label: "L",
+                    data: [30, 80, 50, 60, 90],
+                    type: "line",
+                  },
+                  {
+                    id: "bar",
+                    label: "B",
+                    data: [40, 60, 70, 30, 50],
+                    type: "bar",
+                  },
                 ]}
                 type="composed"
                 width={560}
@@ -3616,7 +4211,13 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Horizontal",
           node: (
             <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
-              <Chart x={CHART_X} series={CHART_SERIES} type="bar" layout="horizontal" width={560} />
+              <Chart
+                x={CHART_X}
+                series={CHART_SERIES}
+                type="bar"
+                layout="horizontal"
+                width={560}
+              />
             </div>
           ),
         },
@@ -3624,7 +4225,13 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Stacked",
           node: (
             <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
-              <Chart x={CHART_X} series={CHART_SERIES} type="bar" stacked width={560} />
+              <Chart
+                x={CHART_X}
+                series={CHART_SERIES}
+                type="bar"
+                stacked
+                width={560}
+              />
             </div>
           ),
         },
@@ -3632,7 +4239,13 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Smooth",
           node: (
             <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
-              <Chart x={CHART_X} series={CHART_SERIES} type="line" curve="smooth" width={560} />
+              <Chart
+                x={CHART_X}
+                series={CHART_SERIES}
+                type="line"
+                curve="smooth"
+                width={560}
+              />
             </div>
           ),
         },
@@ -3640,7 +4253,13 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Step",
           node: (
             <div className="w-full max-w-xl rounded-lg border border-border bg-background p-6">
-              <Chart x={CHART_X} series={CHART_SERIES} type="line" curve="step" width={560} />
+              <Chart
+                x={CHART_X}
+                series={CHART_SERIES}
+                type="line"
+                curve="step"
+                width={560}
+              />
             </div>
           ),
         },

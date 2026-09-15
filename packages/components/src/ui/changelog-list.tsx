@@ -28,12 +28,7 @@ import { Icon, type IconName } from "../icon/index.js";
 /* ── Types ─────────────────────────────────────────────────── */
 
 export type ChangelogChangeKind =
-  | "added"
-  | "changed"
-  | "fixed"
-  | "removed"
-  | "deprecated"
-  | "security";
+  "added" | "changed" | "fixed" | "removed" | "deprecated" | "security";
 
 export interface ChangelogChange {
   /** Change category. Determines the tag chip color + icon. */
@@ -90,36 +85,39 @@ const defaultChangelogCopy: ChangelogListCopy = {
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
-const KIND_META: Record<ChangelogChangeKind, { label: string; icon: IconName; pill: string }> = {
+const KIND_META: Record<
+  ChangelogChangeKind,
+  { label: string; icon: IconName; pill: string }
+> = {
   added: {
     label: "Added",
     icon: "plus",
-    pill: "bg-emerald-500/10 text-emerald-700",
+    pill: "bg-success/10 text-success",
   },
   changed: {
     label: "Changed",
     icon: "settings",
-    pill: "bg-sky-500/10 text-sky-700",
+    pill: "bg-chart-3/10 text-chart-3",
   },
   fixed: {
     label: "Fixed",
     icon: "wrench",
-    pill: "bg-violet-500/10 text-violet-700",
+    pill: "bg-chart-2/10 text-chart-2",
   },
   removed: {
     label: "Removed",
     icon: "trash",
-    pill: "bg-rose-500/10 text-rose-700",
+    pill: "bg-destructive/10 text-destructive",
   },
   deprecated: {
     label: "Deprecated",
     icon: "triangle-alert",
-    pill: "bg-amber-500/10 text-amber-700",
+    pill: "bg-warning/10 text-warning",
   },
   security: {
     label: "Security",
     icon: "shield-alert",
-    pill: "bg-red-500/10 text-red-700",
+    pill: "bg-destructive/10 text-destructive",
   },
 };
 
@@ -196,7 +194,9 @@ export function ChangelogList({
 }: ChangelogListProps) {
   const c = { ...defaultChangelogCopy, ...copy };
   const fmt = formatDateProp ?? defaultFormatDate;
-  const [enabled, setEnabled] = React.useState<Record<ChangelogChangeKind, boolean>>({
+  const [enabled, setEnabled] = React.useState<
+    Record<ChangelogChangeKind, boolean>
+  >({
     added: true,
     changed: true,
     fixed: true,
@@ -260,7 +260,9 @@ export function ChangelogList({
           const visibleGroups = KIND_ORDER.filter((k) => {
             const list = groups.get(k);
             return list && list.length > 0;
-          }).filter((k) => !(hideEmptyKinds && (groups.get(k)?.length ?? 0) === 0));
+          }).filter(
+            (k) => !(hideEmptyKinds && (groups.get(k)?.length ?? 0) === 0),
+          );
 
           if (visibleGroups.length === 0) return null;
 
@@ -270,7 +272,7 @@ export function ChangelogList({
                 aria-hidden="true"
                 className={cn(
                   "absolute -left-[24px] top-1 inline-flex size-3.5 items-center justify-center rounded-full ring-2 ring-background",
-                  release.pre ? "bg-amber-500" : "bg-primary",
+                  release.pre ? "bg-warning" : "bg-primary",
                 )}
               />
               <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -288,7 +290,7 @@ export function ChangelogList({
                   </span>
                 )}
                 {release.pre && (
-                  <span className="rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium text-amber-700">
+                  <span className="rounded-full bg-warning/10 px-2 py-0.5 text-[10px] font-medium text-warning">
                     {c.preRelease}
                   </span>
                 )}

@@ -55,7 +55,9 @@ function loadHistory(): string[] {
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) {
-      return parsed.filter((item): item is string => typeof item === "string").slice(0, HISTORY_MAX);
+      return parsed
+        .filter((item): item is string => typeof item === "string")
+        .slice(0, HISTORY_MAX);
     }
   } catch {
     // Ignore corrupt history and start fresh.
@@ -158,7 +160,9 @@ export function CommandPalette({
   );
   const [query, setQuery] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-  const [asyncResults, setAsyncResults] = React.useState<CommandResult[] | null>(null);
+  const [asyncResults, setAsyncResults] = React.useState<
+    CommandResult[] | null
+  >(null);
   const [history, setHistory] = React.useState<string[]>(() =>
     typeof window !== "undefined" ? loadHistory() : [],
   );
@@ -169,13 +173,21 @@ export function CommandPalette({
     if (typeof window !== "undefined") saveHistory(history);
   }, [history]);
 
-  const commands = React.useMemo(() => flattenNav(config.navigation), [config.navigation]);
+  const commands = React.useMemo(
+    () => flattenNav(config.navigation),
+    [config.navigation],
+  );
 
   // Add a query to the recent-searches list (deduped, most recent first).
   const addToHistory = React.useCallback((term: string) => {
     const cleaned = term.trim();
     if (!cleaned) return;
-    setHistory((prev) => [cleaned, ...prev.filter((item) => item !== cleaned)].slice(0, HISTORY_MAX));
+    setHistory((prev) =>
+      [cleaned, ...prev.filter((item) => item !== cleaned)].slice(
+        0,
+        HISTORY_MAX,
+      ),
+    );
   }, []);
 
   const removeFromHistory = React.useCallback((term: string) => {
@@ -214,14 +226,17 @@ export function CommandPalette({
     const q = query.trim().toLowerCase();
     if (!q) return grouped;
     return grouped
-      .map(([group, items]) => [
-        group,
-        items.filter(
-          (c) =>
-            c.label.toLowerCase().includes(q) ||
-            c.keywords?.some((k) => k.includes(q)),
-        ),
-      ] as const)
+      .map(
+        ([group, items]) =>
+          [
+            group,
+            items.filter(
+              (c) =>
+                c.label.toLowerCase().includes(q) ||
+                c.keywords?.some((k) => k.includes(q)),
+            ),
+          ] as const,
+      )
       .filter(([, items]) => items.length > 0);
   }, [grouped, query]);
 
@@ -378,7 +393,10 @@ export function CommandPalette({
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="top-[20%] max-w-[640px] translate-y-0 gap-0 overflow-hidden p-0 sm:rounded-xl">
-          <Command shouldFilter={false} className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:size-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:size-5">
+          <Command
+            shouldFilter={false}
+            className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:size-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:size-5"
+          >
             <CommandInput
               placeholder={placeholder}
               value={query}
@@ -398,8 +416,9 @@ export function CommandPalette({
           <AlertDialogHeader>
             <AlertDialogTitle>Clear search history?</AlertDialogTitle>
             <AlertDialogDescription>
-              This removes all {history.length} recent {history.length === 1 ? "search" : "searches"}.
-              This action cannot be undone.
+              This removes all {history.length} recent{" "}
+              {history.length === 1 ? "search" : "searches"}. This action cannot
+              be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

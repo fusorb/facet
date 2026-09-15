@@ -90,7 +90,8 @@ export function MentionInput({
   renderUser,
   className,
 }: MentionInputProps) {
-  const [activeMention, setActiveMention] = React.useState<ActiveMention | null>(null);
+  const [activeMention, setActiveMention] =
+    React.useState<ActiveMention | null>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -114,7 +115,10 @@ export function MentionInput({
   // Close popover on outside click.
   React.useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setActiveMention(null);
       }
     };

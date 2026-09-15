@@ -147,7 +147,8 @@ export function OtpVerificationCard({
           {copy.title ?? "Check your email"}
         </CardTitle>
         <CardDescription>
-          {copy.description ?? `We sent a ${length}-digit code. Enter it below to continue.`}
+          {copy.description ??
+            `We sent a ${length}-digit code. Enter it below to continue.`}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -173,14 +174,23 @@ export function OtpVerificationCard({
               </InputOTP>
             </div>
             {error && (
-              <p role="alert" className="flex items-center justify-center gap-1.5 text-center text-sm text-destructive">
-                <Icon name={icons.error ?? "circle-alert"} className="size-3.5" />
+              <p
+                role="alert"
+                className="flex items-center justify-center gap-1.5 text-center text-sm text-destructive"
+              >
+                <Icon
+                  name={icons.error ?? "circle-alert"}
+                  className="size-3.5"
+                />
                 {error}
               </p>
             )}
             {success && (
-              <p className="flex items-center justify-center gap-1.5 text-center text-sm text-emerald-600">
-                <Icon name={icons.success ?? "circle-check"} className="size-3.5" />
+              <p className="flex items-center justify-center gap-1.5 text-center text-sm text-success">
+                <Icon
+                  name={icons.success ?? "circle-check"}
+                  className="size-3.5"
+                />
                 {copy.success ?? "Code verified."}
               </p>
             )}
@@ -196,8 +206,16 @@ export function OtpVerificationCard({
               {copy.resendActive ?? `Resend code in ${cooldown}s`}
             </p>
           ) : (
-            <Button type="button" variant="ghost" size="sm" onClick={handleResend}>
-              <Icon name={icons.resend ?? "rotate-ccw"} className="mr-1.5 size-3.5" />
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={handleResend}
+            >
+              <Icon
+                name={icons.resend ?? "rotate-ccw"}
+                className="mr-1.5 size-3.5"
+              />
               {copy.resend ?? "Resend code"}
             </Button>
           )}

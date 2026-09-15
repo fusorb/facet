@@ -1,5 +1,12 @@
 import type { IconName } from "@fusorb/facet-components";
-import { getDocsUrl } from "../lib/docs-url.js";
+import { getDocsUrl } from "../site.config.js";
+import { SITE_PACKAGES } from "./site-data.generated.js";
+
+/** Resolves a package version from the generated site data so the
+ *  ecosystem entries can never drift from the workspace packages. */
+function versionOf(name: string): string {
+  return SITE_PACKAGES.find((p) => p.name === name)?.version ?? "";
+}
 
 export interface EcosystemEntry {
   slug: string;
@@ -21,14 +28,14 @@ export function getEcosystemDocsUrl(entry: EcosystemEntry): string {
 
 /**
  * Detailed analysis of each facet ecosystem package.
- * Versions are verified against npm at the same cadence as PACKAGES.
+ * Versions resolve from the generated site data (never hand-edited).
  */
 export const ECOSYSTEM: EcosystemEntry[] = [
   {
     slug: "docs-package",
-  name: "@fusorb/facet-docs",
-  title: "Docs Engine",
-  version: "1.4.7",
+    name: "@fusorb/facet-docs",
+    title: "Docs Engine",
+    version: versionOf("@fusorb/facet-docs"),
     icon: "book-open",
     short: "Config-driven docs engine",
     description:
@@ -44,7 +51,7 @@ export const ECOSYSTEM: EcosystemEntry[] = [
       "Typed page blocks: p, h2, ul, code, install, table",
       "Zero-config - install and render, no convention files",
       "SSR-safe with no-flash theme init",
-      "CI gate: check:docs verifies barrel ↔ manifest (113 components)",
+      "CI gate: check:docs verifies barrel ↔ manifest coverage",
     ],
     example: [
       {
@@ -60,7 +67,7 @@ export const ECOSYSTEM: EcosystemEntry[] = [
     slug: "layout",
     name: "@fusorb/facet-layout",
     title: "Layout",
-    version: "1.4.2",
+    version: versionOf("@fusorb/facet-layout"),
     icon: "building",
     short: "Domain-configurable app shells",
     description:
@@ -129,7 +136,7 @@ const { data } = await auth.me();`,
     slug: "cli",
     name: "@fusorb/facet-cli",
     title: "CLI",
-    version: "2.0.0",
+    version: versionOf("@fusorb/facet-cli"),
     icon: "terminal",
     short: "Scaffold, audit, and maintain facet projects",
     description:
@@ -165,7 +172,7 @@ facet docs init   # scaffold docs site`,
     slug: "emails",
     name: "@fusorb/facet-emails",
     title: "Emails",
-    version: "1.1.1",
+    version: versionOf("@fusorb/facet-emails"),
     icon: "mail",
     short: "Framework-agnostic email templates",
     description:
@@ -201,17 +208,16 @@ const html = renderEmail(
   },
   {
     slug: "sdk",
-  name: "@fusorb/facet-sdk",
-  title: "arc-id SDK",
-  version: "1.2.0",
+    name: "@fusorb/facet-sdk",
+    title: "SovGrant SDK",
+    version: versionOf("@fusorb/facet-sdk"),
     icon: "zap",
-    short: "Typed arc-id API client",
-    description:
-      "Typed fetch client for arc-id: 10 domain SDKs, zero React.",
+    short: "Typed SovGrant API client",
+    description: "Typed fetch client for SovGrant: 10 domain SDKs, zero React.",
     analysis: [
-      "The SDK is a pure-fetch, framework-agnostic TypeScript client for the arc-id identity API. It mirrors all 62 routes across 10 domain-specific modules (Auth, Identity, OAuth, Passkey, Tenant, VC, Webhooks, Billing, Audit, Idp) and normalizes the { success, data } envelope so methods return the inner payload directly.",
-      "Two integration modes: first-party (own arc-id backend) uses session-based flows with no client credentials; external integration (OAuth2/OIDC) uses the authorize → exchange → refresh pattern with PKCE support. The SDK handles both flows natively.",
-      "Auto-refresh is wired through callbacks (onTokenRefresh, onAuthCleared), not built-in. This makes the SDK agnostic to your state management - pair it with @fusorb/facet-store via createZustandTokenStorage, or wire it to your own store. Every endpoint is audited against arc-id's ROUTES index via scripts/audit-sdk-coverage.cjs (62/62 covered).",
+      "The SDK is a pure-fetch, framework-agnostic TypeScript client for the SovGrant identity API. It mirrors every route across 10 domain-specific modules (Auth, Identity, OAuth, Passkey, Tenant, VC, Webhooks, Billing, Audit, Idp) and normalizes the { success, data } envelope so methods return the inner payload directly.",
+      "Two integration modes: first-party (own SovGrant backend) uses session-based flows with no client credentials; external integration (OAuth2/OIDC) uses the authorize → exchange → refresh pattern with PKCE support. The SDK handles both flows natively.",
+      "Auto-refresh is wired through callbacks (onTokenRefresh, onAuthCleared), not built-in. This makes the SDK agnostic to your state management - pair it with @fusorb/facet-store via createZustandTokenStorage, or wire it to your own store. Every endpoint is audited against SovGrant's ROUTES index via scripts/audit-sdk-coverage.cjs (full coverage).",
     ],
     features: [
       "Pure fetch, zero React, framework-agnostic",
@@ -219,7 +225,7 @@ const html = renderEmail(
       "Session-based + OAuth2/OIDC flows with PKCE",
       "Auto-refresh on 401 via onTokenRefresh callback (re-entrancy guarded)",
       "Service-to-service: client_credentials grant for background jobs",
-      "All 62 endpoints audited against arc-id's ROUTES index",
+      "Every endpoint audited against SovGrant's ROUTES index",
     ],
     example: [
       {
@@ -237,13 +243,13 @@ const { data, error } = await auth.login("user@example.com", "pw");
   },
   {
     slug: "store",
-  name: "@fusorb/facet-store",
-  title: "State Stores",
-  version: "2.0.0",
+    name: "@fusorb/facet-store",
+    title: "State Stores",
+    version: versionOf("@fusorb/facet-store"),
     icon: "store",
-    short: "Zustand state stores for arc-id sessions",
+    short: "Zustand state stores for SovGrant sessions",
     description:
-      "Framework-agnostic Zustand state stores for arc-id sessions + tenant state, with a token-refresh bridge for 401 auto-recovery.",
+      "Framework-agnostic Zustand state stores for SovGrant sessions + tenant state, with a token-refresh bridge for 401 auto-recovery.",
     analysis: [
       "The store package provides two Zustand stores on top of the SDK: useAuthStore (user, accessToken, refreshToken, isAuthenticated, isAuthenticated, isLoading) and useTenantStore (activeTenant, tenants, isLoading). The store logic itself has zero React - React hooks are a consumer layer. Non-React code calls store.getState() imperatively.",
       "The createZustandTokenStorage bridge is the key integration point. It wires the auth store and an AuthSdk into the ArcIdClient callbacks: on 401, it reads the current refresh token from the store, calls sdk.refresh(), updates the store with the new token bundle, and clears auth on permanent failure. A re-entrancy guard prevents infinite refresh loops.",
@@ -282,20 +288,20 @@ const client = new ArcIdClient({
     slug: "components",
     name: "@fusorb/facet-components",
     title: "Components",
-    version: "1.11.0",
+    version: versionOf("@fusorb/facet-components"),
     icon: "boxes",
-    short: "111 styled, accessible React components",
+    short: "Styled, accessible React components",
     description:
       "Radix-quality primitives, themed with the Alpha Palette, ready to copy or import.",
     analysis: [
-      "The components package is the visual layer: 111 polished, accessible React components built on Radix primitives and themed with the Alpha Palette tokens. Every component ships typed, focus-managed, dark-mode-aware, and SSR-safe - so consumers get shadcn quality without inheriting shadcn's drift problem.",
+      "The components package is the visual layer: accessible, styled React components built on Radix primitives and themed with the Alpha Palette tokens. Every component ships typed, focus-managed, dark-mode-aware, and SSR-safe - so consumers get shadcn quality without inheriting shadcn's drift problem.",
       "Three layers of composition: Layer 1 are headless primitives (Button, Input, Card); Layer 2 are styled surfaces built on those primitives (Marquee, Tabs, DataTable, NumberInput); Layer 3 are ready-to-use pages wired from the layers below (BillingPage, FeedbackPage, AccountSettingsPanel, StatCard, ActivityFeed, PageHeader, ApiKeyManager, TestimonialShowcase, OtpVerificationCard, TwoFactorSetupPanel, InviteTeamForm, PasswordStrengthMeter, SecuritySectionCard, CookieConsent, AnnouncementBar, NotFound, FaqSection).",
       "The card-animation family (FlipCard, ShineCard, GradientBorderCard, RevealCard, HoverScaleCard, MagneticCard, DissolveCard, GlowCard, TiltCard) covers the 'shadcn-ish aesthetic' without forcing consumers to wire it up - drop one in and you get a motion story that respects the design system.",
-      "Iconography is pluggable: <Icon> resolves any lucide-style kebab name out of the box via the IconRegistry (registered in @fusorb/facet-components (1.11.0)). To use react-icons, heroicons, or your own SVG components, pass overrides via <IconProvider overrides={{ settings: MyIcon }}> per app/domain, or `registerIcon(\"name\", MyIcon)` globally.",
+      'Iconography is pluggable: <Icon> resolves any lucide-style kebab name out of the box via the IconRegistry. To use react-icons, heroicons, or your own SVG components, pass overrides via <IconProvider overrides={{ settings: MyIcon }}> per app/domain, or `registerIcon("name", MyIcon)` globally.',
       "Theming happens through CSS variables emitted by @fusorb/facet-tokens. Override any token at runtime via <ThemeProvider overrideVars={{ '--primary': '...' }}> without recompiling. Dark mode is built in and respects the system preference until the user overrides it.",
     ],
     features: [
-      "113 typed Radix-powered components, named-export only",
+      "Typed Radix-powered components, named-export only",
       "Layered architecture: primitives → styled surfaces → ready-to-use pages",
       "Alpha Palette tokens via @fusorb/facet-tokens (CSS variables, no recompile)",
       "Icon registry: lucide out of the box, swap in any icon set per app/domain",
@@ -324,7 +330,7 @@ const client = new ArcIdClient({
     slug: "auth",
     name: "@fusorb/facet-auth",
     title: "Auth",
-    version: "1.2.3",
+    version: versionOf("@fusorb/facet-auth"),
     icon: "shield-check",
     short: "Sign-in state machine with domain presets",
     description:
@@ -363,7 +369,7 @@ const client = new ArcIdClient({
     slug: "tokens",
     name: "@fusorb/facet-tokens",
     title: "Tokens",
-    version: "1.1.4",
+    version: versionOf("@fusorb/facet-tokens"),
     icon: "palette",
     short: "Alpha Palette design tokens as CSS variables",
     description:

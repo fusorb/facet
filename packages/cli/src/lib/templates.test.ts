@@ -2,7 +2,11 @@ import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { discoverTemplates, readTemplateManifest, resolveTemplate } from "./templates.js";
+import {
+  discoverTemplates,
+  readTemplateManifest,
+  resolveTemplate,
+} from "./templates.js";
 import { mergeTemplateFiles } from "./template-merge.js";
 import { starterPages } from "./starter-pages.js";
 
@@ -19,7 +23,11 @@ function write(dir: string, rel: string, content: string) {
 describe("readTemplateManifest", () => {
   it("parses a valid manifest", () => {
     const dir = tmpdir();
-    write(dir, "template.json", JSON.stringify({ name: "saas", kind: "docs", description: "x" }));
+    write(
+      dir,
+      "template.json",
+      JSON.stringify({ name: "saas", kind: "docs", description: "x" }),
+    );
     const m = readTemplateManifest(dir);
     expect(m?.name).toBe("saas");
     expect(m?.kind).toBe("docs");
@@ -36,8 +44,16 @@ describe("readTemplateManifest", () => {
 describe("discoverTemplates", () => {
   it("finds templates under ./templates (with and without manifests)", () => {
     const root = tmpdir();
-    write(root, "templates/saas/template.json", JSON.stringify({ name: "saas", kind: "docs" }));
-    write(root, "templates/api/template.json", JSON.stringify({ name: "api", kind: "docs" }));
+    write(
+      root,
+      "templates/saas/template.json",
+      JSON.stringify({ name: "saas", kind: "docs" }),
+    );
+    write(
+      root,
+      "templates/api/template.json",
+      JSON.stringify({ name: "api", kind: "docs" }),
+    );
     write(root, "templates/plain/readme.md", "# plain");
     const found = discoverTemplates(root);
     const names = found.map((t) => t.name).sort();
@@ -46,8 +62,16 @@ describe("discoverTemplates", () => {
 
   it("scans docs/templates and emails/templates roots", () => {
     const root = tmpdir();
-    write(root, "docs/templates/product/template.json", JSON.stringify({ name: "product", kind: "docs" }));
-    write(root, "emails/templates/welcome/template.json", JSON.stringify({ name: "welcome", kind: "emails" }));
+    write(
+      root,
+      "docs/templates/product/template.json",
+      JSON.stringify({ name: "product", kind: "docs" }),
+    );
+    write(
+      root,
+      "emails/templates/welcome/template.json",
+      JSON.stringify({ name: "welcome", kind: "emails" }),
+    );
     const found = discoverTemplates(root);
     expect(found.map((t) => t.name).sort()).toEqual(["product", "welcome"]);
     const welcome = found.find((t) => t.name === "welcome");
@@ -58,7 +82,11 @@ describe("discoverTemplates", () => {
 describe("resolveTemplate", () => {
   it("resolves by exact and case-insensitive name", () => {
     const root = tmpdir();
-    write(root, "templates/saas/template.json", JSON.stringify({ name: "saas" }));
+    write(
+      root,
+      "templates/saas/template.json",
+      JSON.stringify({ name: "saas" }),
+    );
     expect(resolveTemplate(root, "saas")?.name).toBe("saas");
     expect(resolveTemplate(root, "SAAS")?.name).toBe("saas");
     expect(resolveTemplate(root, "missing")).toBeNull();
@@ -93,30 +121,44 @@ describe("mergeTemplateFiles", () => {
     write(target, "style.css", "body { color: blue; }");
     const r = mergeTemplateFiles(root, tpl, target);
     expect(r.conflicts).toEqual(["style.css"]);
-    expect(fs.readFileSync(path.join(target, "style.css"), "utf8")).toBe("body { color: blue; }");
+    expect(fs.readFileSync(path.join(target, "style.css"), "utf8")).toBe(
+      "body { color: blue; }",
+    );
 
     const r2 = mergeTemplateFiles(root, tpl, target, { force: true });
     expect(r2.written).toEqual(["style.css"]);
-    expect(fs.readFileSync(path.join(target, "style.css"), "utf8")).toBe("body { color: red; }");
+    expect(fs.readFileSync(path.join(target, "style.css"), "utf8")).toBe(
+      "body { color: red; }",
+    );
   });
 
   it("merges package.json with consumer fields winning", () => {
     const root = tmpdir();
     const tpl = path.join(root, "tpl");
-    write(tpl, "package.json", JSON.stringify({
-      name: "tpl",
-      scripts: { "tpl:dev": "vite" },
-      dependencies: { "tpl-dep": "^1.0.0" },
-    }));
+    write(
+      tpl,
+      "package.json",
+      JSON.stringify({
+        name: "tpl",
+        scripts: { "tpl:dev": "vite" },
+        dependencies: { "tpl-dep": "^1.0.0" },
+      }),
+    );
     const target = root;
-    write(target, "package.json", JSON.stringify({
-      name: "consumer",
-      scripts: { dev: "next dev", "tpl:dev": "keep-me" },
-      dependencies: { app: "^1.0.0", "tpl-dep": "^2.0.0" },
-    }));
+    write(
+      target,
+      "package.json",
+      JSON.stringify({
+        name: "consumer",
+        scripts: { dev: "next dev", "tpl:dev": "keep-me" },
+        dependencies: { app: "^1.0.0", "tpl-dep": "^2.0.0" },
+      }),
+    );
     const r = mergeTemplateFiles(root, tpl, target);
     expect(r.merged).toEqual(["package.json"]);
-    const pkg = JSON.parse(fs.readFileSync(path.join(target, "package.json"), "utf8"));
+    const pkg = JSON.parse(
+      fs.readFileSync(path.join(target, "package.json"), "utf8"),
+    );
     expect(pkg.name).toBe("consumer");
     expect(pkg.scripts["tpl:dev"]).toBe("keep-me"); // consumer wins
     expect(pkg.scripts.dev).toBe("next dev");
@@ -172,7 +214,12 @@ describe("starterPages", () => {
 
   it("returns product-docs pages", () => {
     const pages = starterPages("product-docs", "demo");
-    expect(pages.map((p) => p.path)).toEqual(["/", "/guides", "/faq", "/changelog"]);
+    expect(pages.map((p) => p.path)).toEqual([
+      "/",
+      "/guides",
+      "/faq",
+      "/changelog",
+    ]);
     const changelog = pages.find((p) => p.path === "/changelog");
     expect(changelog).toBeDefined();
     expect(changelog?.blocks.some((b) => b.type === "changelog")).toBe(true);

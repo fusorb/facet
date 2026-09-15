@@ -14,10 +14,12 @@ jobs:
   ci:
     name: Typecheck & Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: pnpm/action-setup@f520eceda224fe1a4aed5a2a27a194379a409996 # v6
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 22
           cache: pnpm
@@ -25,6 +27,7 @@ jobs:
       - run: pnpm build
       - run: pnpm check:docs
       - run: pnpm check:icons
+      - run: pnpm check:components
       - run: pnpm check:sdk-drift
       - run: pnpm -r typecheck
       - run: pnpm test
@@ -41,6 +44,9 @@ jobs:
   # in the GitHub GraphQL API). All three were needed — the old job lacked
   # `issues: write`, causing "Resource not accessible by integration" on PR
   # comment creation.
+  #
+  # changesets/action v2 requires the `github-token` input explicitly and uses
+  # the GitHub API to push the release branch, so it needs `contents: write`.
   changeset:
     name: Version Packages
     runs-on: ubuntu-latest
@@ -50,21 +56,23 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
+      - uses: pnpm/action-setup@f520eceda224fe1a4aed5a2a27a194379a409996 # v6
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - uses: changesets/action@v1
+      - uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
-          title: "chore(release): version packages"
-          commit: "chore(release): version packages"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-title: "chore(release): version packages"
+          commit-message: "chore(release): version packages"
           # Version only: bumps package.json + CHANGELOG and opens a PR.
           # npm publish happens in the `publish` job after that PR merges.
+          version-script: pnpm changeset version
 
   # After the "Version Packages" PR merges to main, this job publishes the
   # versioned packages to npm. It gates on the `ci` job (typecheck + build must
@@ -76,7 +84,12 @@ jobs:
   # already match what's on npm it is a no-op; if the merged version PR bumped
   # versions beyond npm, it runs `pnpm changeset publish`.
   #
-  # Requires a repo secret named `NPM_TOKEN` (publish-only, 2FA-exempt).
+  # npm auth: changesets/action v2 no longer reads NPM_TOKEN. Auth is wired by
+  # `actions/setup-node` (registry-url + auth-token), which writes the token
+  # into the temp .npmrc as ${NODE_AUTH_TOKEN}; pnpm resolves it from the
+  # NODE_AUTH_TOKEN env var below. `id-token: write` is granted so the publish
+  # can move to npm Trusted Publishing (OIDC) without a workflow change once
+  # the package is configured for it.
   publish:
     name: Publish to npm
     needs: [ci]
@@ -84,21 +97,15 @@ jobs:
     if: github.ref == 'refs/heads/main'
     permissions:
       contents: write
-    # NPM_TOKEN must be present as an env var for two reasons:
-    # 1. changesets/action checks process.env.NPM_TOKEN; without it it prints
-    #    "No NPM_TOKEN or OIDC available" and skips npm auth setup.
-    # 2. actions/setup-node writes the registry token into the temp .npmrc as
-    #    ${NODE_AUTH_TOKEN}, which pnpm resolves from this env var at publish
-    #    time; without it the token stays unresolved and publishes 404.
+      id-token: write
     env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
+      - uses: pnpm/action-setup@f520eceda224fe1a4aed5a2a27a194379a409996 # v6
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 22
           cache: pnpm
@@ -107,7 +114,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       # Rebuild fresh dist so we never publish a stale build.
       - run: pnpm -r build
-      - uses: changesets/action@v1
+      - uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
-          publish: pnpm changeset publish
-
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish-script: pnpm changeset publish
+          create-github-releases: false
+          push-git-tags: false

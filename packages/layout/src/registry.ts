@@ -36,7 +36,10 @@ const registry = new Map<string, LayoutConfig>([
 ]);
 
 /** Register a custom layout preset (or override a built-in one). */
-export function registerLayoutPreset(name: LayoutPresetName, config: LayoutConfig): void {
+export function registerLayoutPreset(
+  name: LayoutPresetName,
+  config: LayoutConfig,
+): void {
   registry.set(name, config);
 }
 

@@ -22,7 +22,12 @@ import { AuthSdk, PasskeySdk } from "@fusorb/facet-sdk";
 import type { LoginResult, TokenPair } from "@fusorb/facet-sdk";
 import { useAuth } from "./provider.js";
 import { defaultConfig } from "./types.js";
-import type { AuthConfig, Appearance, ComponentSlots, SignInStep } from "./types.js";
+import type {
+  AuthConfig,
+  Appearance,
+  ComponentSlots,
+  SignInStep,
+} from "./types.js";
 import { LoginForm } from "./forms/auth/login-form.js";
 import { MagicLinkForm } from "./forms/auth/magic-link-form.js";
 import { ForgotPasswordForm } from "./forms/auth/forgot-password-form.js";
@@ -230,7 +235,10 @@ export function SignIn({
 
   /* ── Handlers ────────────────────────────────────────────── */
 
-  const handleEmailPasswordLogin = async (emailVal: string, password: string) => {
+  const handleEmailPasswordLogin = async (
+    emailVal: string,
+    password: string,
+  ) => {
     setError(null);
     setEmail(emailVal);
 
@@ -293,7 +301,8 @@ export function SignIn({
       }
 
       const challengeId = optsRes.data.challengeId;
-      const publicKey = optsRes.data.options as unknown as PublicKeyCredentialRequestOptions;
+      const publicKey = optsRes.data
+        .options as unknown as PublicKeyCredentialRequestOptions;
 
       // WebAuthn API: browser creates the assertion
       const credential = (await navigator.credentials.get({
@@ -313,21 +322,28 @@ export function SignIn({
           response: {
             authenticatorData: Array.from(
               new Uint8Array(
-                (credential.response as AuthenticatorAssertionResponse).authenticatorData,
+                (credential.response as AuthenticatorAssertionResponse)
+                  .authenticatorData,
               ),
             ),
             clientDataJSON: Array.from(
               new Uint8Array(
-                (credential.response as AuthenticatorAssertionResponse).clientDataJSON,
+                (credential.response as AuthenticatorAssertionResponse)
+                  .clientDataJSON,
               ),
             ),
             signature: Array.from(
-              new Uint8Array((credential.response as AuthenticatorAssertionResponse).signature),
+              new Uint8Array(
+                (credential.response as AuthenticatorAssertionResponse)
+                  .signature,
+              ),
             ),
-            userHandle: (credential.response as AuthenticatorAssertionResponse).userHandle
+            userHandle: (credential.response as AuthenticatorAssertionResponse)
+              .userHandle
               ? Array.from(
                   new Uint8Array(
-                    (credential.response as AuthenticatorAssertionResponse).userHandle!,
+                    (credential.response as AuthenticatorAssertionResponse)
+                      .userHandle!,
                   ),
                 )
               : null,
@@ -343,7 +359,9 @@ export function SignIn({
         setError(res.error?.message ?? "Passkey authentication failed");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Passkey authentication failed");
+      setError(
+        err instanceof Error ? err.message : "Passkey authentication failed",
+      );
     }
   };
 
@@ -371,15 +389,24 @@ export function SignIn({
           <LoginForm
             appearance={appearance}
             onSubmit={handleEmailPasswordLogin}
-            onBack={initialStep === "select_method" ? () => go("select_method") : undefined}
+            onBack={
+              initialStep === "select_method"
+                ? () => go("select_method")
+                : undefined
+            }
             onForgotPassword={handleForgotPassword}
             validate={validate}
           />
-          {(cfg.allowMagicLink || cfg.allowPasskey || cfg.oauthProviders.length > 0) && (
+          {(cfg.allowMagicLink ||
+            cfg.allowPasskey ||
+            cfg.oauthProviders.length > 0) && (
             <div className="space-y-3">
               {cfg.allowMagicLink && (
                 <ShineButton
-                  className={cn(buttonVariants({ variant: "outline" }), "w-full")}
+                  className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "w-full",
+                  )}
                   onClick={() => go("magic_link_form")}
                 >
                   {c.magicLinkLabel}
@@ -387,7 +414,10 @@ export function SignIn({
               )}
               {cfg.allowPasskey && (
                 <ShineButton
-                  className={cn(buttonVariants({ variant: "outline" }), "w-full")}
+                  className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "w-full",
+                  )}
                   onClick={handlePasskeyAuth}
                 >
                   {c.passkeyLabel}
@@ -399,7 +429,10 @@ export function SignIn({
                   {cfg.oauthProviders.map((provider) => (
                     <ShineButton
                       key={provider}
-                      className={cn(buttonVariants({ variant: "outline" }), "w-full")}
+                      className={cn(
+                        buttonVariants({ variant: "outline" }),
+                        "w-full",
+                      )}
                       onClick={() => onOAuth?.(provider)}
                     >
                       {c.oauthButtonLabel.replace("{provider}", provider)}

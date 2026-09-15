@@ -14,14 +14,16 @@ import {
   OtpVerificationCard,
   Input,
   Label,
+  Pill,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 
 /**
- * Live auth surfaces from @fusorb/facet-auth and the ready-to-use
- * auth components from @fusorb/facet-components. Switches between the
- * PasswordStrengthMeter (signup moment) and the OtpVerificationCard
- * (MFA moment) so the landing shows the two halves of every auth flow.
+ * Live auth surfaces from the ready-to-use auth components. Switches
+ * between the PasswordStrengthMeter (signup moment) and the
+ * OtpVerificationCard (MFA moment) so the landing shows the two halves
+ * of every auth flow. Both are the same components the facet-auth
+ * package composes in real apps.
  */
 export function AuthShowcaseSection() {
   const [tab, setTab] = React.useState("password");
@@ -30,12 +32,22 @@ export function AuthShowcaseSection() {
   return (
     <section id="auth" className="mx-auto max-w-5xl px-8 py-24">
       <div className="mb-12 text-center">
-        <h2 className="text-3xl font-bold text-foreground font-heading sm:text-4xl">
+        <Pill
+          color="primary"
+          indicator="icon"
+          icon={<LightIcon name="shield-check" size={12} />}
+        >
+          Auth
+        </Pill>
+        <h2 className="mt-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
           Auth flows you can show, not describe
         </h2>
-        <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-          Live surfaces from <code className="rounded bg-secondary/50 px-2 py-1 text-xs">@fusorb/facet-auth</code>:
-          password strength, MFA verification, and the rest of the state
+        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+          Live surfaces from{" "}
+          <code className="rounded bg-secondary/50 px-2 py-1 text-xs">
+            @fusorb/facet-components
+          </code>
+          : password strength, MFA verification, and the rest of the state
           machine.
         </p>
       </div>
@@ -47,8 +59,8 @@ export function AuthShowcaseSection() {
             Sign-up moment
           </CardTitle>
           <CardDescription>
-            Switch between tabs to preview the password and OTP moments.
-            Both wired through the facet-auth state machine in real apps.
+            Switch between tabs to preview the password and OTP moments. Both
+            wired through the facet-auth state machine in real apps.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -66,7 +78,11 @@ export function AuthShowcaseSection() {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="auth-email">Email</Label>
-                  <Input id="auth-email" type="email" placeholder="you@company.com" />
+                  <Input
+                    id="auth-email"
+                    type="email"
+                    placeholder="you@company.com"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="auth-password">Password</Label>
@@ -84,11 +100,12 @@ export function AuthShowcaseSection() {
             <TabsContent value="otp" className="flex justify-center">
               <OtpVerificationCard
                 onVerify={async () => {
-                  // demo: always reject so the error state is observable
-                  throw new Error("demo");
+                  // Working demo: any code verifies after a short simulated
+                  // round trip, so the success state is observable.
+                  await new Promise((resolve) => setTimeout(resolve, 600));
                 }}
                 onResend={async () => {
-                  /* demo */
+                  await new Promise((resolve) => setTimeout(resolve, 400));
                 }}
               />
             </TabsContent>

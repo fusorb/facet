@@ -1,7 +1,7 @@
 /**
  * Billing SDK: Subscription only
  *
- * arc-id: GET /subscription - returns the calling user's active tenant
+ * SovGrant: GET /subscription - returns the calling user's active tenant
  * subscription. Self-service plan changes intentionally removed
  * (POST /subscription/upgrade returns 410 Gone).
  */

@@ -1,7 +1,7 @@
 /**
  * Passkey SDK: WebAuthn registration and authentication
  *
- * arc-id paths: /auth/passkey/*
+ * SovGrant paths: /auth/passkey/*
  * Verified: options endpoints return { options, challengeId }; verify
  * endpoints take { response, challengeId }.
  */
@@ -64,7 +64,7 @@ export class PasskeySdk {
     return this.client.get<Passkey[]>("/auth/passkey");
   }
 
-  /** POST /auth/passkey/options/register. No body required by arc-id. */
+  /** POST /auth/passkey/options/register. No body required by SovGrant. */
   registrationOptions(): Promise<ApiResponse<PasskeyRegistrationOptions>> {
     return this.client.post<PasskeyRegistrationOptions>(
       "/auth/passkey/options/register",
@@ -76,10 +76,15 @@ export class PasskeySdk {
     response: unknown;
     challengeId: string;
   }): Promise<ApiResponse<PasskeyRegisterResult>> {
-    return this.client.post<PasskeyRegisterResult>("/auth/passkey/register", data);
+    return this.client.post<PasskeyRegisterResult>(
+      "/auth/passkey/register",
+      data,
+    );
   }
 
-  authenticationOptions(identityId?: string): Promise<ApiResponse<PasskeyAuthenticationOptions>> {
+  authenticationOptions(
+    identityId?: string,
+  ): Promise<ApiResponse<PasskeyAuthenticationOptions>> {
     return this.client.post<PasskeyAuthenticationOptions>(
       "/auth/passkey/options/authenticate",
       identityId ? { identityId } : undefined,
@@ -90,7 +95,10 @@ export class PasskeySdk {
     response: unknown;
     challengeId: string;
   }): Promise<ApiResponse<PasskeyAuthenticateResult>> {
-    return this.client.post<PasskeyAuthenticateResult>("/auth/passkey/authenticate", data);
+    return this.client.post<PasskeyAuthenticateResult>(
+      "/auth/passkey/authenticate",
+      data,
+    );
   }
 
   deregister(passkeyId: string): Promise<ApiResponse<void>> {

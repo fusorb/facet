@@ -1,79 +1,5 @@
 import type { IconName } from "@fusorb/facet-components";
 
-/** Live library stats, verified against the packages on every release. */
-export const STATS = [
-  { value: "113", label: "components" },
-  { value: "10", label: "API SDKs" },
-  { value: "3", label: "layout shells" },
-  { value: "5", label: "auth presets" },
-] as const;
-
-export interface Package {
-  name: string;
-  desc: string;
-  version: string;
-  /** Semantic icon name resolved through @fusorb/facet-components' Icon registry. */
-  icon: IconName;
-}
-
-/** The nine published packages (versions verified 2026-09-07 against npm). */
-export const PACKAGES: Package[] = [
-  {
-    name: "@fusorb/facet-components",
-    desc: "113 styled, accessible React components built on Radix primitives.",
-    version: "1.11.0",
-    icon: "boxes",
-  },
-  {
-    name: "@fusorb/facet-docs",
-    desc: "Installable docs engine: mount <DocsApp> with your own brand, nav, and pages.",
-    version: "1.4.7",
-    icon: "book-open",
-  },
-  {
-    name: "@fusorb/facet-auth",
-    desc: "SignIn, SignUp, Guard, MFA and forms with per-domain presets.",
-    version: "1.2.3",
-    icon: "shield-check",
-  },
-  {
-    name: "@fusorb/facet-layout",
-    desc: "Console, auth and landing shells with a collapsible icon rail.",
-    version: "1.4.2",
-    icon: "building",
-  },
-  {
-    name: "@fusorb/facet-sdk",
-    desc: "Typed fetch client for arc-id: 10 domain SDKs, zero React.",
-    version: "1.2.0",
-    icon: "zap",
-  },
-  {
-    name: "@fusorb/facet-tokens",
-    desc: "Alpha Palette design tokens: color, type, spacing, surfaces.",
-    version: "1.1.4",
-    icon: "palette",
-  },
-  {
-    name: "@fusorb/facet-emails",
-    desc: "Framework-agnostic email templates: render HTML/text from React or plain trees, with a dev preview server.",
-    version: "1.1.1",
-    icon: "mail",
-  },
-  {
-    name: "@fusorb/facet-cli",
-    desc: "Scaffold docs + emails, audit/update your facet setup, and generate a tree-shaken icon registry from the terminal.",
-     version: "2.0.0",
-    icon: "terminal",
-  },
-  {
-    name: "@fusorb/facet-store",
-    desc: "Framework-agnostic Zustand state stores for arc-id (session, tenant, token-refresh wiring) with pluggable client + storage.",
-     version: "2.0.0",
-    icon: "store",
-  },
-];
-
 export interface Feature {
   title: string;
   desc: string;
@@ -179,7 +105,7 @@ export const ROADMAP: RoadmapItem[] = [
   {
     phase: "Phase 2",
     title: "Auth + SDK",
-    desc: "SignIn/SignUp/Guard/MFA with domain presets, and the typed arc-id SDK.",
+    desc: "SignIn/SignUp/Guard/MFA with domain presets, and the typed SovGrant SDK.",
     status: "done",
   },
   {
@@ -203,7 +129,7 @@ export const ROADMAP: RoadmapItem[] = [
   {
     phase: "Phase 6",
     title: "Ecosystem tools",
-    desc: "arc-id CLI basis, tree-shakeable icon imports, stack-agnosticism assessment for non-React consumers.",
+    desc: "SovGrant CLI basis, tree-shakeable icon imports, stack-agnosticism assessment for non-React consumers.",
     status: "done",
   },
   {
@@ -215,7 +141,7 @@ export const ROADMAP: RoadmapItem[] = [
   {
     phase: "Phase 8",
     title: "Polish & consistency",
-    desc: "Default button animation switched to sparkle, global scrollbar hiding across all apps, em-dash purge, FAQ/version sync, facet-store package, and the NotFound component, bringing the total to 111 components.",
+    desc: "Default button animation switched to sparkle, global scrollbar hiding across all apps, em-dash purge, FAQ/version sync, facet-store package, and the NotFound component.",
     status: "done",
   },
 ];
@@ -225,7 +151,8 @@ export interface FaqItem {
   a: string;
 }
 
-/** Public FAQ for the landing page. Versions are kept in sync with the published package surface (components 1.11.0, auth 1.2.3, layout 1.4.2, docs 1.4.7, tokens 1.1.4, sdk 1.2.0, emails 1.1.1, cli 2.0.0, store 2.0.0). */
+/** Public FAQ for the landing page. Counts and versions are never
+ *  hardcoded here; they come from the generated site data. */
 export const FAQ: FaqItem[] = [
   {
     q: "Is facet free and open source?",
@@ -241,10 +168,10 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Can I use the packages with a non-React stack?",
-    a: "Components, auth, layout and docs are React-only. The arc-id SDK is framework-agnostic pure fetch (usable from any TS/JS host), and the tokens are plain CSS variables any stack can consume.",
+    a: "Components, auth, layout and docs are React-only. The SovGrant SDK is framework-agnostic pure fetch (usable from any TS/JS host), and the tokens are plain CSS variables any stack can consume.",
   },
   {
-    q: "Can I use facet without the arc-id backend?",
+    q: "Can I use facet without the SovGrant backend?",
     a: "Yes. Components, layout and tokens are backend-agnostic. The auth flow and SDK are optional and plug into any API via an injectable client adapter.",
   },
   {
@@ -269,7 +196,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "How do I use the icon registry, and can I override it?",
-    a: "The <Icon> component resolves any lucide-style kebab name out of the box. To use your own icons (react-icons, heroicons, or your own SVG components), pass overrides via <IconProvider overrides={{ settings: MyIcon }}> per app/domain, or `registerIcon(\"name\", MyIcon)` globally.",
+    a: 'The <Icon> component resolves any lucide-style kebab name out of the box. To use your own icons (react-icons, heroicons, or your own SVG components), pass overrides via <IconProvider overrides={{ settings: MyIcon }}> per app/domain, or `registerIcon("name", MyIcon)` globally.',
   },
   {
     q: "Where can I see a live example of each component?",
@@ -286,5 +213,9 @@ export const FAQ: FaqItem[] = [
   {
     q: "How do I reach the facet team?",
     a: "Use the Feedback page (linked in the nav) to drop a line, or join the Discord linked from the docs - the maintainers read everything.",
+  },
+  {
+    q: "Is the auth flow customizable per domain?",
+    a: "Yes. The same AuthConfig shape drives fintech, med, edu and enterprise deployments; swap a preset and the built-in auth forms, MFA steps, and copy adapt to that sector without touching the component sources.",
   },
 ];

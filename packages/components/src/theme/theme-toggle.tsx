@@ -18,7 +18,10 @@ export interface ThemeToggleProps {
   label?: string;
 }
 
-export function ThemeToggle({ className, label = "Toggle theme" }: ThemeToggleProps) {
+export function ThemeToggle({
+  className,
+  label = "Toggle theme",
+}: ThemeToggleProps) {
   const { setTheme, resolvedTheme } = useTheme();
   // SSR-safe: the resolved theme is unknown until the client mounts, so
   // render the icon only after mount to avoid a server/client mismatch.
@@ -45,7 +48,9 @@ export function ThemeToggle({ className, label = "Toggle theme" }: ThemeTogglePr
             size={16}
             className={cn(
               "absolute transition-all duration-300 ease-in-out",
-              isDark ? "opacity-0 scale-50 rotate-90" : "opacity-100 scale-100 rotate-0",
+              isDark
+                ? "opacity-0 scale-50 rotate-90"
+                : "opacity-100 scale-100 rotate-0",
             )}
           />
           <LightIcon
@@ -53,7 +58,9 @@ export function ThemeToggle({ className, label = "Toggle theme" }: ThemeTogglePr
             size={16}
             className={cn(
               "absolute transition-all duration-300 ease-in-out",
-              isDark ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-50 -rotate-90",
+              isDark
+                ? "opacity-100 scale-100 rotate-0"
+                : "opacity-0 scale-50 -rotate-90",
             )}
           />
         </span>

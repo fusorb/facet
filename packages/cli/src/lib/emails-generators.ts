@@ -34,7 +34,7 @@ export function generateEmailsScaffold(
 import type { EmailBrand } from "@fusorb/facet-emails";
 
 export const emailBrand: EmailBrand = {
-  primary: "#6366f1",
+  primary: "#334155",
   background: "#f6f6f6",
   surface: "#ffffff",
   text: "#1f2937",

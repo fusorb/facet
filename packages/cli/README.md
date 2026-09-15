@@ -21,7 +21,7 @@ The scaffold never pins hardcoded versions. At `docs init` time the CLI:
 
 1. **Detects your frontend stack** (Next.js, Remix, Vite, plain JS, Python).
    Backend frameworks (Fastify, Express, Nest, ...) are ignored: docs are a
-   frontend concern, so a fullstack repo like arc-id (Next.js + Fastify)
+   frontend concern, so a fullstack repo like SovGrant (Next.js + Fastify)
    scaffolds for the frontend.
 2. **Detects your package manager** from the lockfile (`pnpm` / `yarn` /
    `bun` / `npm`) and recommends the matching install command.
@@ -39,7 +39,8 @@ The scaffold never pins hardcoded versions. At `docs init` time the CLI:
 
 Run `facet --help` (or `facet -h`) to list the available commands and flags
 from the terminal. For deeper guides, examples, and the full reference, visit
-the CLI documentation at <https://docs.facet.arcevocirqle.com.ng/cli>.
+the CLI documentation in the repository at
+<https://github.com/fusorb/facet/tree/main/packages/cli>.
 
 ### `facet pkg`
 

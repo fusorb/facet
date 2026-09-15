@@ -76,7 +76,7 @@ describe("React bridge", () => {
   });
 
   it("regression: EmailLayout renders EmailText/EmailButton children (wrap round-trip)", () => {
-    // arc-id reported body children vanishing: heading + footer rendered but
+    // SovGrant reported body children vanishing: heading + footer rendered but
     // EmailText and EmailButton children were missing. Root cause: toReactNode
     // dropped React-element children (no `tag`). This pins the fix.
     const html = renderEmailFromReact(

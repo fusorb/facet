@@ -36,7 +36,7 @@
   "bugs": {
     "url": "https://github.com/fusorb/facet/issues"
   },
-  "homepage": "https://facet.arcevocirqle.com.ng",
+  "homepage": "https://github.com/fusorb/facet",
   "license": "MIT",
   "keywords": [
     "zustand",
@@ -46,8 +46,7 @@
     "session",
     "react-native",
     "react",
-    "arcevocirqle",
-    "arc-id",
+    "SovGrant",
     "identity"
   ],
   "dependencies": {

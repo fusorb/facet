@@ -14,7 +14,9 @@ afterEach(() => {
 
 describe("SignIn OAuth providers", () => {
   it("renders provider buttons from config and calls onOAuth", async () => {
-    const client = new ArcIdClient({ baseUrl: "https://auth.arcevo.dev/api/v1" });
+    const client = new ArcIdClient({
+      baseUrl: "https://auth.example.dev/api/v1",
+    });
     const onOAuth = vi.fn();
 
     // Config with OAuth providers: google + saml
@@ -34,7 +36,9 @@ describe("SignIn OAuth providers", () => {
       name: /sign in with google/i,
     });
     expect(google).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /sign in with saml/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /sign in with saml/i }),
+    ).toBeInTheDocument();
 
     await userEvent.click(google);
     expect(onOAuth).toHaveBeenCalledWith("google");
@@ -43,7 +47,9 @@ describe("SignIn OAuth providers", () => {
 
 describe("SignIn initialStep", () => {
   it("defaults to the login form with embedded methods", async () => {
-    const client = new ArcIdClient({ baseUrl: "https://auth.arcevo.dev/api/v1" });
+    const client = new ArcIdClient({
+      baseUrl: "https://auth.example.dev/api/v1",
+    });
     render(
       <ArcProvider client={client} storage={createMemoryStorage()}>
         <SignIn />
@@ -56,12 +62,18 @@ describe("SignIn initialStep", () => {
     expect(
       screen.queryByRole("button", { name: /continue with email & password/i }),
     ).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /continue with magic link/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /continue with passkey/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /continue with magic link/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /continue with passkey/i }),
+    ).toBeInTheDocument();
   });
 
-  it("renders the method picker when initialStep=\"select_method\"", async () => {
-    const client = new ArcIdClient({ baseUrl: "https://auth.arcevo.dev/api/v1" });
+  it('renders the method picker when initialStep="select_method"', async () => {
+    const client = new ArcIdClient({
+      baseUrl: "https://auth.example.dev/api/v1",
+    });
     render(
       <ArcProvider client={client} storage={createMemoryStorage()}>
         <SignIn initialStep="select_method" />
@@ -69,12 +81,16 @@ describe("SignIn initialStep", () => {
     );
 
     expect(
-      await screen.findByRole("button", { name: /continue with email & password/i }),
+      await screen.findByRole("button", {
+        name: /continue with email & password/i,
+      }),
     ).toBeInTheDocument();
   });
 
-  it("renders the login form when initialStep=\"login_form\"", async () => {
-    const client = new ArcIdClient({ baseUrl: "https://auth.arcevo.dev/api/v1" });
+  it('renders the login form when initialStep="login_form"', async () => {
+    const client = new ArcIdClient({
+      baseUrl: "https://auth.example.dev/api/v1",
+    });
     render(
       <ArcProvider client={client} storage={createMemoryStorage()}>
         <SignIn initialStep="login_form" />
@@ -88,7 +104,9 @@ describe("SignIn initialStep", () => {
 
 describe("SignIn controlled step", () => {
   it("renders the given step and reports internal transitions via onStepChange", async () => {
-    const client = new ArcIdClient({ baseUrl: "https://auth.arcevo.dev/api/v1" });
+    const client = new ArcIdClient({
+      baseUrl: "https://auth.example.dev/api/v1",
+    });
     const onStepChange = vi.fn();
 
     const { rerender } = render(
@@ -102,7 +120,9 @@ describe("SignIn controlled step", () => {
 
     // Clicking an embedded alternate reports the transition without
     // self-navigating (the parent owns the step).
-    await userEvent.click(screen.getByRole("button", { name: /continue with magic link/i }));
+    await userEvent.click(
+      screen.getByRole("button", { name: /continue with magic link/i }),
+    );
     expect(onStepChange).toHaveBeenCalledWith("magic_link_form");
 
     // The parent re-renders with the new step -> SignIn follows it.

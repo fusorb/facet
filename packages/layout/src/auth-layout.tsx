@@ -27,7 +27,12 @@ export interface AuthLayoutProps {
   brandPanelClassName?: string;
 }
 
-export function AuthLayout({ config, children, brandPanel, brandPanelClassName }: AuthLayoutProps) {
+export function AuthLayout({
+  config,
+  children,
+  brandPanel,
+  brandPanelClassName,
+}: AuthLayoutProps) {
   const { brand } = config;
 
   return (
@@ -75,7 +80,9 @@ export function AuthLayout({ config, children, brandPanel, brandPanelClassName }
 
               {/* Tagline */}
               {brand.tagline && (
-                <p className="text-lg text-primary-foreground/80">{brand.tagline}</p>
+                <p className="text-lg text-primary-foreground/80">
+                  {brand.tagline}
+                </p>
               )}
 
               {/* Benefits */}
@@ -96,7 +103,9 @@ export function AuthLayout({ config, children, brandPanel, brandPanelClassName }
                       >
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
-                      <span className="text-sm text-primary-foreground/70">{benefit}</span>
+                      <span className="text-sm text-primary-foreground/70">
+                        {benefit}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -104,7 +113,9 @@ export function AuthLayout({ config, children, brandPanel, brandPanelClassName }
             </div>
 
             {brand.footerText && (
-              <p className="text-xs text-primary-foreground/60">{brand.footerText}</p>
+              <p className="text-xs text-primary-foreground/60">
+                {brand.footerText}
+              </p>
             )}
           </>
         )}
@@ -116,7 +127,13 @@ export function AuthLayout({ config, children, brandPanel, brandPanelClassName }
             replaces the left panel - the consumer owns the brand story then. */}
         {!brandPanel && (
           <div className="mb-8 flex flex-col items-center gap-2 lg:hidden">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="text-primary">
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="text-primary"
+            >
               <path
                 d="M12 2L4 6V12C4 17.52 7.58 22.48 12 24C16.42 22.48 20 17.52 20 12V6L12 2Z"
                 fill="currentColor"
@@ -129,11 +146,15 @@ export function AuthLayout({ config, children, brandPanel, brandPanelClassName }
               />
             </svg>
             <h1 className="text-xl font-bold text-foreground">{brand.name}</h1>
-            {brand.tagline && <p className="text-sm text-muted-foreground">{brand.tagline}</p>}
+            {brand.tagline && (
+              <p className="text-sm text-muted-foreground">{brand.tagline}</p>
+            )}
           </div>
         )}
 
-        <div className="w-full max-w-md rounded-xl border bg-card p-6 shadow-lg">{children}</div>
+        <div className="w-full max-w-md rounded-xl border bg-card p-6 shadow-lg">
+          {children}
+        </div>
       </div>
     </div>
   );

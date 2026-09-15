@@ -74,22 +74,33 @@ describe("ThemeProvider", () => {
         <Probe />
       </ThemeProvider>,
     );
-    await waitFor(() => expect(screen.getAllByTestId("probe")[0]).toHaveTextContent("light:light"));
+    await waitFor(() =>
+      expect(screen.getAllByTestId("probe")[0]).toHaveTextContent(
+        "light:light",
+      ),
+    );
     unmount();
   });
 
   it("applies overrideVars to the root element", () => {
     render(
-      <ThemeProvider defaultTheme="dark" overrideVars={{ "--primary": "oklch(0.5 0.2 30)" }}>
+      <ThemeProvider
+        defaultTheme="dark"
+        overrideVars={{ "--primary": "oklch(0.5 0.2 30)" }}
+      >
         <Probe />
       </ThemeProvider>,
     );
-    expect(document.documentElement.style.getPropertyValue("--primary")).toBe("oklch(0.5 0.2 30)");
+    expect(document.documentElement.style.getPropertyValue("--primary")).toBe(
+      "oklch(0.5 0.2 30)",
+    );
   });
 
   it("useTheme throws outside a provider", () => {
     const spy = vi.spyOn(console, "error").mockImplementation(() => {});
-    expect(() => render(<Probe />)).toThrow("useTheme must be used within a <ThemeProvider>");
+    expect(() => render(<Probe />)).toThrow(
+      "useTheme must be used within a <ThemeProvider>",
+    );
     spy.mockRestore();
   });
 });

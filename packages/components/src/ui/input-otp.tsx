@@ -3,9 +3,16 @@ import { OTPInput, OTPInputContext } from "input-otp";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 
+export type InputOTPProps = React.ComponentPropsWithoutRef<typeof OTPInput>;
+export type InputOTPGroupProps = React.ComponentPropsWithoutRef<"div">;
+export type InputOTPSlotProps = React.ComponentPropsWithoutRef<"div"> & {
+  index: number;
+};
+export type InputOTPSeparatorProps = React.ComponentPropsWithoutRef<"div">;
+
 const InputOTP = React.forwardRef<
   React.ComponentRef<typeof OTPInput>,
-  React.ComponentPropsWithoutRef<typeof OTPInput>
+  InputOTPProps
 >(({ className, containerClassName, ...props }, ref) => (
   <OTPInput
     ref={ref}
@@ -21,15 +28,19 @@ InputOTP.displayName = "InputOTP";
 
 const InputOTPGroup = React.forwardRef<
   React.ComponentRef<"div">,
-  React.ComponentPropsWithoutRef<"div">
+  InputOTPGroupProps
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("flex items-center gap-2", className)} {...props} />
+  <div
+    ref={ref}
+    className={cn("flex items-center gap-2", className)}
+    {...props}
+  />
 ));
 InputOTPGroup.displayName = "InputOTPGroup";
 
 const InputOTPSlot = React.forwardRef<
   React.ComponentRef<"div">,
-  React.ComponentPropsWithoutRef<"div"> & { index: number }
+  InputOTPSlotProps
 >(({ index, className, ...props }, ref) => {
   const inputOTPContext = React.useContext(OTPInputContext);
   const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index] ?? {};
@@ -57,7 +68,7 @@ InputOTPSlot.displayName = "InputOTPSlot";
 
 const InputOTPSeparator = React.forwardRef<
   React.ComponentRef<"div">,
-  React.ComponentPropsWithoutRef<"div">
+  InputOTPSeparatorProps
 >(({ ...props }, ref) => (
   <div ref={ref} role="separator" {...props}>
     <Icon name="more-horizontal" className="h-4 w-4" />

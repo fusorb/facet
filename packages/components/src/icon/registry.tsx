@@ -81,7 +81,10 @@ function getCatalog(): typeof import("./icon-map.js") | null {
 
 /* ── Types ────────────────────────────────────────────────── */
 
-export type IconComponent = React.ComponentType<{ className?: string; size?: number | string }>;
+export type IconComponent = React.ComponentType<{
+  className?: string;
+  size?: number | string;
+}>;
 
 /**
  * Icon names accepted by the registry: the built-in semantic names (shown
@@ -179,7 +182,9 @@ const defaultIcons: Partial<Record<IconName, IconComponent>> = {
 
 /* ── Global registry ──────────────────────────────────────── */
 
-const globalRegistry: Partial<Record<IconName, IconComponent>> = { ...defaultIcons };
+const globalRegistry: Partial<Record<IconName, IconComponent>> = {
+  ...defaultIcons,
+};
 
 /** Normalize camelCase (or mixed) names to the lucide kebab form: "chevronDown" -> "chevron-down". */
 export function toKebab(name: string): string {
@@ -242,7 +247,8 @@ export function IconProvider({ overrides, children }: IconProviderProps) {
   const normalized = React.useMemo(() => {
     if (!overrides) return null;
     const out: IconOverrides = {};
-    for (const [key, icon] of Object.entries(overrides)) out[toKebab(key)] = icon;
+    for (const [key, icon] of Object.entries(overrides))
+      out[toKebab(key)] = icon;
     return out;
   }, [overrides]);
   const merged = React.useMemo(
@@ -266,7 +272,11 @@ export function Icon({ name, className, size, ...props }: IconProps) {
   // Re-render when the lazy catalog lands so arbitrary lucide icons appear
   // after their deferred chunk loads. Semantic / registered / brand icons
   // resolve synchronously via globalRegistry and never depend on the catalog.
-  const catalogNow = React.useSyncExternalStore(subscribeCatalog, getCatalog, getCatalog);
+  const catalogNow = React.useSyncExternalStore(
+    subscribeCatalog,
+    getCatalog,
+    getCatalog,
+  );
   const kebab = toKebab(name);
   const Component =
     overrides?.[kebab] ?? overrides?.[name] ?? resolveIcon(name, catalogNow);

@@ -30,8 +30,17 @@ export function CodeBlock({ title, code }: CodeBlockProps) {
         ) : (
           <span />
         )}
-        <Button size="sm" variant="outline" onClick={handleCopy} className="h-7 gap-1.5 text-xs">
-          {copied ? <LightIcon name="check" className="size-3.5" /> : <LightIcon name="copy" className="size-3.5" />}
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={handleCopy}
+          className="h-7 gap-1.5 text-xs"
+        >
+          {copied ? (
+            <LightIcon name="check" className="size-3.5" />
+          ) : (
+            <LightIcon name="copy" className="size-3.5" />
+          )}
           {copied ? "Copied" : "Copy"}
         </Button>
       </div>

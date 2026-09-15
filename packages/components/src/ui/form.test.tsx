@@ -38,7 +38,10 @@ describe("Form", () => {
   it("submits the current values", async () => {
     const onSubmit = vi.fn();
     render(<TestForm onSubmit={onSubmit} />);
-    await userEvent.type(screen.getByPlaceholderText("you@example.com"), "a@b.com");
+    await userEvent.type(
+      screen.getByPlaceholderText("you@example.com"),
+      "a@b.com",
+    );
     await userEvent.click(screen.getByRole("button", { name: /submit/i }));
     expect(onSubmit).toHaveBeenCalledWith({ email: "a@b.com", note: "" });
   });

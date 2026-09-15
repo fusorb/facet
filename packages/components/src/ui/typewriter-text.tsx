@@ -73,7 +73,10 @@ export function TypewriterText({
       {showCaret && (
         <span
           aria-hidden="true"
-          className={caretClassName ?? "ml-0.5 inline-block w-0.5 animate-pulse text-primary"}
+          className={
+            caretClassName ??
+            "ml-0.5 inline-block w-0.5 animate-pulse text-primary"
+          }
         >
           |
         </span>

@@ -22,8 +22,10 @@ export interface SecurityFeature {
   badge?: string;
 }
 
-export interface SecuritySectionCardProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onSelect"> {
+export interface SecuritySectionCardProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onSelect"
+> {
   features: SecurityFeature[];
   /** Called when a feature card is clicked. */
   onSelect?: (feature: SecurityFeature) => void;

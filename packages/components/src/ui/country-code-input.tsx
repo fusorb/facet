@@ -71,12 +71,18 @@ export const COMMON_COUNTRY_CODES: CountryCode[] = [
 export const ISO_COUNTRY_CODES: CountryCode[] = ALL_COUNTRY_CODES;
 
 /** Resolve the display code for a given country code (defaults to its entry). */
-export function getCountryCode(country: string, list = COMMON_COUNTRY_CODES): string {
+export function getCountryCode(
+  country: string,
+  list = COMMON_COUNTRY_CODES,
+): string {
   return list.find((c) => c.country === country)?.code ?? "+1";
 }
 
 /** Resolve the display name for a given country code. */
-export function getCountryName(country: string, list = COMMON_COUNTRY_CODES): string {
+export function getCountryName(
+  country: string,
+  list = COMMON_COUNTRY_CODES,
+): string {
   const entry = list.find((c) => c.country === country);
   return entry?.label?.split(" (")[0] ?? entry?.name ?? country;
 }
@@ -94,8 +100,10 @@ export function filterCountryCodes(
   return list.filter((c) => {
     // Region filter: keep entries whose region is in the include list.
     // Entries WITHOUT a region (e.g. generic dial codes) are always kept.
-    if (regions?.length && c.region && !regions.includes(c.region)) return false;
-    if (excludeRegions?.length && c.region && excludeRegions.includes(c.region)) return false;
+    if (regions?.length && c.region && !regions.includes(c.region))
+      return false;
+    if (excludeRegions?.length && c.region && excludeRegions.includes(c.region))
+      return false;
     return true;
   });
 }
@@ -228,7 +236,10 @@ export function CountryCodeInput({
   return (
     <div className={cn("w-full", className)}>
       {label && (
-        <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-foreground">
+        <label
+          htmlFor={id}
+          className="mb-1.5 block text-sm font-medium text-foreground"
+        >
           {label}
         </label>
       )}
@@ -254,7 +265,9 @@ export function CountryCodeInput({
               />
             )}
             {filtered.length === 0 ? (
-              <div className="px-2 py-1.5 text-sm text-muted-foreground">No matches</div>
+              <div className="px-2 py-1.5 text-sm text-muted-foreground">
+                No matches
+              </div>
             ) : grouped && !q ? (
               grouped.map(([region, entries]) => (
                 <SelectGroup key={region}>

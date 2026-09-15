@@ -31,13 +31,15 @@ export const extendedEntries: DocsManifestEntry[] = [
   {
     name: "Console Layout",
     slug: "console-layout",
-    description: "Dashboard shell: sidebar + topbar + content area, full or rail mode.",
+    description:
+      "Dashboard shell: sidebar + topbar + content area, full or rail mode.",
     category: "layout",
   },
   {
     name: "Auth Layout",
     slug: "auth-layout",
-    description: "Branded split-panel auth page frame: logo + tagline + benefits on the left.",
+    description:
+      "Branded split-panel auth page frame: logo + tagline + benefits on the left.",
     category: "layout",
   },
   {
@@ -49,7 +51,8 @@ export const extendedEntries: DocsManifestEntry[] = [
   {
     name: "Sidebar",
     slug: "sidebar",
-    description: "Collapsible, resizable navigation rail driven by a LayoutConfig.",
+    description:
+      "Collapsible, resizable navigation rail driven by a LayoutConfig.",
     category: "layout",
   },
   {
@@ -61,4 +64,7 @@ export const extendedEntries: DocsManifestEntry[] = [
 ];
 
 /** All previewable gallery entries: components + auth + layout. */
-export const extendedManifest: DocsManifestEntry[] = [...docsManifest, ...extendedEntries];
+export const extendedManifest: DocsManifestEntry[] = [
+  ...docsManifest,
+  ...extendedEntries,
+];

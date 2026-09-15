@@ -139,7 +139,9 @@ export interface DataTableCopy {
   rowCountPlural: string;
 }
 
-export interface DataTableProps<T extends object> extends React.HTMLAttributes<HTMLDivElement> {
+export interface DataTableProps<
+  T extends object,
+> extends React.HTMLAttributes<HTMLDivElement> {
   /** Column definitions. */
   columns: DataTableColumn<T>[];
   /** Row data. Each row should carry a stable `id` for selection keys. */
@@ -213,7 +215,10 @@ const defaultDataTableCopy: DataTableCopy = {
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
-function cellValue<T extends object>(row: T, column: DataTableColumn<T>): string {
+function cellValue<T extends object>(
+  row: T,
+  column: DataTableColumn<T>,
+): string {
   if (column.accessor) {
     const v = column.accessor(row);
     return v == null ? "" : String(v);
@@ -235,7 +240,9 @@ function toCsv<T extends object>(
     return value;
   };
   const header = columns.map((c) => escape(c.header)).join(",");
-  const body = rows.map((row) => columns.map((c) => escape(cellValue(row, c))).join(","));
+  const body = rows.map((row) =>
+    columns.map((c) => escape(cellValue(row, c))).join(","),
+  );
   return [header, ...body].join("\n");
 }
 
@@ -350,17 +357,25 @@ export function DataTable<T extends object>({
   }, [filtered, columns, sortKey, sortDir]);
 
   // Paginate.
-  const totalPages = pagination ? Math.max(1, Math.ceil(sorted.length / rowsPerPage)) : 1;
+  const totalPages = pagination
+    ? Math.max(1, Math.ceil(sorted.length / rowsPerPage))
+    : 1;
   React.useEffect(() => {
     setPage((p) => Math.min(p, totalPages));
   }, [totalPages]);
-  const pageRows = pagination ? sorted.slice((page - 1) * rowsPerPage, page * rowsPerPage) : sorted;
+  const pageRows = pagination
+    ? sorted.slice((page - 1) * rowsPerPage, page * rowsPerPage)
+    : sorted;
 
   const shownColumns = columns.filter((c) => visibleColumns.includes(c.key));
 
   const allSelected =
-    selectable && pageRows.length > 0 && pageRows.every((row) => selected.has(String(rowKeyValue(row, rowKey))));
-  const someSelected = selectable && pageRows.some((row) => selected.has(String(rowKeyValue(row, rowKey))));
+    selectable &&
+    pageRows.length > 0 &&
+    pageRows.every((row) => selected.has(String(rowKeyValue(row, rowKey))));
+  const someSelected =
+    selectable &&
+    pageRows.some((row) => selected.has(String(rowKeyValue(row, rowKey))));
 
   const toggleAll = () => {
     const keys = pageRows.map((row) => String(rowKeyValue(row, rowKey)));
@@ -403,7 +418,12 @@ export function DataTable<T extends object>({
   return (
     <div {...props} className={cn("space-y-3", className)}>
       {/* Toolbar */}
-      {(searchable || exportable || exporters.length > 0 || actions.length > 0 || columns.some((c) => c.hidden) || selectable) && (
+      {(searchable ||
+        exportable ||
+        exporters.length > 0 ||
+        actions.length > 0 ||
+        columns.some((c) => c.hidden) ||
+        selectable) && (
         <div className="flex flex-wrap items-center gap-2">
           {searchable && (
             <div className="relative min-w-0 flex-1">
@@ -423,7 +443,12 @@ export function DataTable<T extends object>({
             {(exportable || exporters.length > 0) && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button type="button" variant="outline" size="sm" aria-label={c.exportDataAriaLabel}>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    aria-label={c.exportDataAriaLabel}
+                  >
                     <Icon name="upload" className="mr-1.5 size-4" />
                     Export
                     <Icon name="chevron-down" className="ml-1 size-4" />
@@ -469,9 +494,15 @@ export function DataTable<T extends object>({
                       {index > 0 && <DropdownMenuSeparator />}
                       <DropdownMenuItem
                         onSelect={() => action.action(sorted, selectedRows)}
-                        className={action.destructive ? "text-destructive focus:text-destructive" : undefined}
+                        className={
+                          action.destructive
+                            ? "text-destructive focus:text-destructive"
+                            : undefined
+                        }
                       >
-                        {action.icon && <Icon name={action.icon} className="size-4" />}
+                        {action.icon && (
+                          <Icon name={action.icon} className="size-4" />
+                        )}
                         {action.label}
                         {action.destructive && selectedRows.length > 0 && (
                           <span className="ml-auto text-xs text-muted-foreground">
@@ -521,12 +552,19 @@ export function DataTable<T extends object>({
                     aria-label={c.selectAllAriaLabel}
                     checked={allSelected}
                     onCheckedChange={toggleAll}
-                    data-state={someSelected && !allSelected ? "indeterminate" : undefined}
+                    data-state={
+                      someSelected && !allSelected ? "indeterminate" : undefined
+                    }
                   />
                 </TableHead>
               )}
               {shownColumns.map((column) => (
-                <TableHead key={column.key} className={cn(column.sortable === false && "whitespace-nowrap")}>
+                <TableHead
+                  key={column.key}
+                  className={cn(
+                    column.sortable === false && "whitespace-nowrap",
+                  )}
+                >
                   {column.sortable === false ? (
                     column.header
                   ) : (
@@ -560,7 +598,10 @@ export function DataTable<T extends object>({
                     </TableCell>
                   )}
                   {shownColumns.map((column) => (
-                    <TableCell key={`loading-${i}-${column.key}`} className={rowDensity}>
+                    <TableCell
+                      key={`loading-${i}-${column.key}`}
+                      className={rowDensity}
+                    >
                       <Skeleton className="h-4 w-full" />
                     </TableCell>
                   ))}
@@ -576,11 +617,16 @@ export function DataTable<T extends object>({
                 </TableCell>
               </TableRow>
             ) : (
-              pageRows.map((row) => {
+              pageRows.map((row, i) => {
                 const key = String(rowKeyValue(row, rowKey));
                 const isSelected = selected.has(key);
                 return (
-                  <TableRow key={key} data-state={isSelected ? "selected" : undefined}>
+                  <TableRow
+                    key={key}
+                    data-state={isSelected ? "selected" : undefined}
+                    className="animate-[facet-fade-up_300ms_ease-out_both]"
+                    style={{ animationDelay: `${i * 40}ms` }}
+                  >
                     {selectable && (
                       <TableCell className={rowDensity}>
                         <Checkbox
@@ -592,7 +638,9 @@ export function DataTable<T extends object>({
                     )}
                     {shownColumns.map((column) => (
                       <TableCell key={column.key} className={rowDensity}>
-                        {column.cell ? column.cell(row) : cellValue(row, column)}
+                        {column.cell
+                          ? column.cell(row)
+                          : cellValue(row, column)}
                       </TableCell>
                     ))}
                   </TableRow>
@@ -629,7 +677,9 @@ export function DataTable<T extends object>({
         {pagination && (
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground">{c.rowsPerPageLabel}</span>
+              <span className="text-xs text-muted-foreground">
+                {c.rowsPerPageLabel}
+              </span>
               <Select
                 value={String(rowsPerPage)}
                 onValueChange={(value) => {
@@ -637,7 +687,10 @@ export function DataTable<T extends object>({
                   setPage(1);
                 }}
               >
-                <SelectTrigger aria-label={c.rowsPerPageAriaLabel} className="h-8 w-[4.5rem] text-xs">
+                <SelectTrigger
+                  aria-label={c.rowsPerPageAriaLabel}
+                  className="h-8 w-[4.5rem] text-xs"
+                >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -660,7 +713,9 @@ export function DataTable<T extends object>({
                         event.preventDefault();
                         if (page > 1) setPage((p) => Math.max(1, p - 1));
                       }}
-                      className={page <= 1 ? "pointer-events-none opacity-40" : ""}
+                      className={
+                        page <= 1 ? "pointer-events-none opacity-40" : ""
+                      }
                     />
                   </PaginationItem>
                   {pageNumbers(page, totalPages).map((n, index) =>
@@ -689,9 +744,14 @@ export function DataTable<T extends object>({
                       aria-disabled={page >= totalPages}
                       onClick={(event) => {
                         event.preventDefault();
-                        if (page < totalPages) setPage((p) => Math.min(totalPages, p + 1));
+                        if (page < totalPages)
+                          setPage((p) => Math.min(totalPages, p + 1));
                       }}
-                      className={page >= totalPages ? "pointer-events-none opacity-40" : ""}
+                      className={
+                        page >= totalPages
+                          ? "pointer-events-none opacity-40"
+                          : ""
+                      }
                     />
                   </PaginationItem>
                 </PaginationContent>

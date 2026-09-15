@@ -32,7 +32,9 @@ describe("isValidHex", () => {
 describe("ColorPicker", () => {
   it("renders a color input with the current value", () => {
     render(<ColorPicker value="#6366f1" />);
-    const colorInput = screen.getByRole("group").querySelector('input[type="color"]');
+    const colorInput = screen
+      .getByRole("group")
+      .querySelector('input[type="color"]');
     expect(colorInput).toHaveValue("#6366f1");
   });
 
@@ -64,9 +66,12 @@ describe("ColorPicker", () => {
   it("fires onValueChange from the native color swatch", () => {
     const onValueChange = vi.fn();
     render(<ColorPicker value="#000000" onValueChange={onValueChange} />);
-    fireEvent.change(screen.getByRole("group").querySelector('input[type="color"]')!, {
-      target: { value: "#ff0000" },
-    });
+    fireEvent.change(
+      screen.getByRole("group").querySelector('input[type="color"]')!,
+      {
+        target: { value: "#ff0000" },
+      },
+    );
     expect(onValueChange).toHaveBeenCalledWith("#ff0000");
   });
 });

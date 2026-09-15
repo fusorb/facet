@@ -13,7 +13,14 @@ export function starterPages(template: TemplateKind, name: string) {
           blocks: [
             { type: "p", text: `Welcome to the ${name} API reference.` },
             { type: "h2", text: "Endpoints" },
-            { type: "ul", items: ["`GET /v1/resource` - list resources", "`POST /v1/resource` - create a resource", "`GET /v1/resource/:id` - fetch one"] },
+            {
+              type: "ul",
+              items: [
+                "`GET /v1/resource` - list resources",
+                "`POST /v1/resource` - create a resource",
+                "`GET /v1/resource/:id` - fetch one",
+              ],
+            },
             { type: "h2", text: "Types" },
             { type: "p", text: "See the types page for the shared schemas." },
           ],
@@ -25,7 +32,10 @@ export function starterPages(template: TemplateKind, name: string) {
           description: "Endpoint reference.",
           blocks: [
             { type: "h2", text: "Endpoints" },
-            { type: "p", text: "Document each endpoint here: method, path, params, body, response." },
+            {
+              type: "p",
+              text: "Document each endpoint here: method, path, params, body, response.",
+            },
           ],
         },
         {
@@ -35,7 +45,10 @@ export function starterPages(template: TemplateKind, name: string) {
           description: "Shared types and schemas.",
           blocks: [
             { type: "h2", text: "Types" },
-            { type: "p", text: "Document the shared request/response schemas here." },
+            {
+              type: "p",
+              text: "Document the shared request/response schemas here.",
+            },
           ],
         },
       ];
@@ -79,7 +92,10 @@ export function starterPages(template: TemplateKind, name: string) {
           description: "What shipped in each release.",
           blocks: [
             { type: "h2", text: "Release log" },
-            { type: "p", text: `Recent releases of ${name}. Edit the releases array below to keep this in sync with your published versions.` },
+            {
+              type: "p",
+              text: `Recent releases of ${name}. Edit the releases array below to keep this in sync with your published versions.`,
+            },
             {
               type: "changelog",
               showFilter: true,

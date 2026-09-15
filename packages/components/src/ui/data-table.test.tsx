@@ -1,7 +1,11 @@
 import { describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { DataTable, type DataTableColumn, type DataTableExporter } from "./data-table.js";
+import {
+  DataTable,
+  type DataTableColumn,
+  type DataTableExporter,
+} from "./data-table.js";
 
 interface Row extends Record<string, unknown> {
   id: string;
@@ -13,7 +17,11 @@ interface Row extends Record<string, unknown> {
 const COLUMNS: DataTableColumn<Row>[] = [
   { key: "name", header: "Name" },
   { key: "role", header: "Role" },
-  { key: "active", header: "Status", cell: (r) => (r.active ? "Active" : "Inactive") },
+  {
+    key: "active",
+    header: "Status",
+    cell: (r) => (r.active ? "Active" : "Inactive"),
+  },
 ];
 
 const ROWS: Row[] = [
@@ -40,10 +48,16 @@ describe("DataTable", () => {
   it("sorts rows when a header is clicked", async () => {
     render(<DataTable columns={COLUMNS} data={ROWS} />);
     await userEvent.click(screen.getByRole("button", { name: "Sort by Name" }));
-    const nameCells = screen.getAllByRole("row").slice(1).map((r) => within(r).getByText(/Ada|Grace|Linus/).textContent);
+    const nameCells = screen
+      .getAllByRole("row")
+      .slice(1)
+      .map((r) => within(r).getByText(/Ada|Grace|Linus/).textContent);
     expect(nameCells).toEqual(["Ada", "Grace", "Linus"]);
     await userEvent.click(screen.getByRole("button", { name: "Sort by Name" }));
-    const descCells = screen.getAllByRole("row").slice(1).map((r) => within(r).getByText(/Ada|Grace|Linus/).textContent);
+    const descCells = screen
+      .getAllByRole("row")
+      .slice(1)
+      .map((r) => within(r).getByText(/Ada|Grace|Linus/).textContent);
     expect(descCells).toEqual(["Linus", "Grace", "Ada"]);
   });
 
@@ -52,7 +66,9 @@ describe("DataTable", () => {
     expect(screen.getByText("Ada")).toBeInTheDocument();
     expect(screen.getByText("Grace")).toBeInTheDocument();
     expect(screen.queryByText("Linus")).not.toBeInTheDocument();
-    await userEvent.click(screen.getByRole("link", { name: "Go to next page" }));
+    await userEvent.click(
+      screen.getByRole("link", { name: "Go to next page" }),
+    );
     expect(screen.getByText("Linus")).toBeInTheDocument();
   });
 
@@ -67,7 +83,9 @@ describe("DataTable", () => {
     await userEvent.click(screen.getByRole("option", { name: "50" }));
     expect(screen.getByText("Linus")).toBeInTheDocument();
     // Selector reflects the new value.
-    expect(screen.getByRole("combobox", { name: "Rows per page" })).toHaveTextContent("50");
+    expect(
+      screen.getByRole("combobox", { name: "Rows per page" }),
+    ).toHaveTextContent("50");
   });
 
   it("selects and clears rows", async () => {
@@ -89,7 +107,11 @@ describe("DataTable", () => {
     const revoke = vi.fn();
     const create = vi.fn(() => "blob:url");
     const click = vi.fn();
-    vi.stubGlobal("URL", { ...URL, createObjectURL: create, revokeObjectURL: revoke });
+    vi.stubGlobal("URL", {
+      ...URL,
+      createObjectURL: create,
+      revokeObjectURL: revoke,
+    });
     // The real Blob works in jsdom; only the anchor click needs spying.
     const clickSpy = vi
       .spyOn(HTMLAnchorElement.prototype, "click")
@@ -120,9 +142,14 @@ describe("DataTable", () => {
     };
     render(<DataTable columns={COLUMNS} data={ROWS} exporters={[exporter]} />);
     await userEvent.click(screen.getByRole("button", { name: /Export/ }));
-    await userEvent.click(screen.getByRole("menuitem", { name: /Export XLSX/ }));
+    await userEvent.click(
+      screen.getByRole("menuitem", { name: /Export XLSX/ }),
+    );
     expect(exportFn).toHaveBeenCalledTimes(1);
-    const [cols, rows] = exportFn.mock.calls[0] as [DataTableColumn<Row>[], Row[]];
+    const [cols, rows] = exportFn.mock.calls[0] as [
+      DataTableColumn<Row>[],
+      Row[],
+    ];
     expect(cols.map((c) => c.key)).toEqual(["name", "role", "active"]);
     expect(rows).toHaveLength(3);
   });
@@ -134,12 +161,23 @@ describe("DataTable", () => {
         columns={COLUMNS}
         data={ROWS}
         selectable
-        actions={[{ key: "delete", label: "Delete selected", destructive: true, action: onAction }]}
+        actions={[
+          {
+            key: "delete",
+            label: "Delete selected",
+            destructive: true,
+            action: onAction,
+          },
+        ]}
       />,
     );
     await userEvent.click(screen.getByLabelText("Select all rows"));
-    await userEvent.click(screen.getByRole("button", { name: "Table actions" }));
-    await userEvent.click(screen.getByRole("menuitem", { name: /Delete selected/ }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Table actions" }),
+    );
+    await userEvent.click(
+      screen.getByRole("menuitem", { name: /Delete selected/ }),
+    );
     expect(onAction).toHaveBeenCalledTimes(1);
     const [allRows, selectedRows] = onAction.mock.calls[0] as [Row[], Row[]];
     expect(allRows).toHaveLength(3);
@@ -152,11 +190,17 @@ describe("DataTable", () => {
       <DataTable
         columns={COLUMNS}
         data={ROWS}
-        actions={[{ key: "mark-read", label: "Mark all as read", action: onAction }]}
+        actions={[
+          { key: "mark-read", label: "Mark all as read", action: onAction },
+        ]}
       />,
     );
-    await userEvent.click(screen.getByRole("button", { name: "Table actions" }));
-    await userEvent.click(screen.getByRole("menuitem", { name: /Mark all as read/ }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Table actions" }),
+    );
+    await userEvent.click(
+      screen.getByRole("menuitem", { name: /Mark all as read/ }),
+    );
     expect(onAction).toHaveBeenCalledTimes(1);
     const [allRows, selectedRows] = onAction.mock.calls[0] as [Row[], Row[]];
     expect(allRows).toHaveLength(3);
@@ -188,9 +232,7 @@ describe("DataTable", () => {
   });
 
   it("renders loading skeleton when loading=true", () => {
-    const columns: DataTableColumn<Row>[] = [
-      { key: "name", header: "Name" },
-    ];
+    const columns: DataTableColumn<Row>[] = [{ key: "name", header: "Name" }];
     const { container } = render(
       <DataTable columns={columns} data={ROWS} loading />,
     );
@@ -199,9 +241,7 @@ describe("DataTable", () => {
   });
 
   it("renders custom emptyState when data is empty", () => {
-    const columns: DataTableColumn<Row>[] = [
-      { key: "name", header: "Name" },
-    ];
+    const columns: DataTableColumn<Row>[] = [{ key: "name", header: "Name" }];
     render(
       <DataTable
         columns={columns}
@@ -213,9 +253,7 @@ describe("DataTable", () => {
   });
 
   it("renders compact density with py-2 padding", () => {
-    const columns: DataTableColumn<Row>[] = [
-      { key: "name", header: "Name" },
-    ];
+    const columns: DataTableColumn<Row>[] = [{ key: "name", header: "Name" }];
     const { container } = render(
       <DataTable columns={columns} data={ROWS} density="compact" />,
     );
@@ -223,9 +261,7 @@ describe("DataTable", () => {
   });
 
   it("shows total count when total prop is provided", () => {
-    const columns: DataTableColumn<Row>[] = [
-      { key: "name", header: "Name" },
-    ];
+    const columns: DataTableColumn<Row>[] = [{ key: "name", header: "Name" }];
     render(<DataTable columns={columns} data={ROWS} total={100} />);
     expect(screen.getByText("100 total")).toBeInTheDocument();
   });

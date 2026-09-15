@@ -16,7 +16,13 @@ import {
 describe("layout preset registry", () => {
   it("exposes the five built-in layout presets", () => {
     expect(listLayoutPresets()).toEqual(
-      expect.arrayContaining(["fintech", "med", "edu", "enterprise", "default"]),
+      expect.arrayContaining([
+        "fintech",
+        "med",
+        "edu",
+        "enterprise",
+        "default",
+      ]),
     );
     expect(hasLayoutPreset("enterprise")).toBe(true);
     expect(getLayoutPreset("enterprise")).toEqual(enterpriseLayoutPreset);
@@ -49,6 +55,8 @@ describe("layout preset registry", () => {
   });
 
   it("throws on unknown layout preset", () => {
-    expect(() => getLayoutPreset("nope")).toThrow(/Unknown layout preset "nope"/);
+    expect(() => getLayoutPreset("nope")).toThrow(
+      /Unknown layout preset "nope"/,
+    );
   });
 });

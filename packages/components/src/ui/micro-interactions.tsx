@@ -51,8 +51,17 @@ export function TiltCard({
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className={cn("relative transition-transform duration-200 will-change-transform", className)}
-      style={{ ...style, transform, transformStyle: "preserve-3d" } as React.CSSProperties}
+      className={cn(
+        "relative transition-transform duration-200 will-change-transform",
+        className,
+      )}
+      style={
+        {
+          ...style,
+          transform,
+          transformStyle: "preserve-3d",
+        } as React.CSSProperties
+      }
       {...props}
     >
       {children}
@@ -64,8 +73,14 @@ export function TiltCard({
             const el = ref.current;
             if (!el) return;
             const r = el.getBoundingClientRect();
-            e.currentTarget.style.setProperty("--gx", `${((e.clientX - r.left) / r.width) * 100}%`);
-            e.currentTarget.style.setProperty("--gy", `${((e.clientY - r.top) / r.height) * 100}%`);
+            e.currentTarget.style.setProperty(
+              "--gx",
+              `${((e.clientX - r.left) / r.width) * 100}%`,
+            );
+            e.currentTarget.style.setProperty(
+              "--gy",
+              `${((e.clientY - r.top) / r.height) * 100}%`,
+            );
             e.currentTarget.style.opacity = "1";
           }}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = "0")}
@@ -86,7 +101,7 @@ export interface GlowCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /** A card with a cursor-following radial glow on its surface. */
 export function GlowCard({
-  color = "var(--primary, #6366f1)",
+  color = "var(--primary)",
   blur = 80,
   className,
   children,
@@ -94,7 +109,11 @@ export function GlowCard({
   ...props
 }: GlowCardProps) {
   const ref = React.useRef<HTMLDivElement>(null);
-  const [glow, setGlow] = React.useState<{ x: number; y: number; o: number }>({ x: 0, y: 0, o: 0 });
+  const [glow, setGlow] = React.useState<{ x: number; y: number; o: number }>({
+    x: 0,
+    y: 0,
+    o: 0,
+  });
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = ref.current;
@@ -127,8 +146,7 @@ export function GlowCard({
 
 /* ── RippleButton ──────────────────────────────────────────── */
 
-export interface RippleButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface RippleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Ripple color. Default: rgba(255,255,255,0.35). */
   rippleColor?: string;
 }
@@ -175,8 +193,7 @@ export function RippleButton({
 
 /* ── MagneticButton ────────────────────────────────────────── */
 
-export interface MagneticButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Max pull distance in px. Default: 12. */
   strength?: number;
 }
@@ -209,7 +226,10 @@ export function MagneticButton({
       ref={inner}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className={cn("transition-transform duration-200 will-change-transform", className)}
+      className={cn(
+        "transition-transform duration-200 will-change-transform",
+        className,
+      )}
       style={style}
       {...props}
     >
@@ -220,8 +240,7 @@ export function MagneticButton({
 
 /* ── ShineButton ───────────────────────────────────────────── */
 
-export interface ShineButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ShineButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Shine color. Default: rgba(255,255,255,0.4). */
   shineColor?: string;
 }
@@ -241,7 +260,7 @@ export function ShineButton({
       {...props}
     >
       <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-      <span className="relative">{children}</span>
+      <span className="relative inline-flex items-center gap-2">{children}</span>
     </button>
   );
 }
@@ -313,8 +332,7 @@ export function ScrollReveal({
 
 /* ── DissolveButton ────────────────────────────────────────── */
 
-export interface DissolveButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface DissolveButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Button label. Default: "Get started". */
   label?: string;
 }
@@ -322,50 +340,51 @@ export interface DissolveButtonProps
 /** A button that emits a particle-dissolve burst on click.
  *  Rectangular particles radiate from the click point and fade out.
  *  SSR-safe: button renders statically; bursts happen on interaction. */
-export const DissolveButton = React.forwardRef<HTMLButtonElement, DissolveButtonProps>(
-  ({ className, label = "Get started", children, onClick, ...props }, ref) => {
-    const hostRef = React.useRef<HTMLButtonElement | null>(null);
+export const DissolveButton = React.forwardRef<
+  HTMLButtonElement,
+  DissolveButtonProps
+>(({ className, label = "Get started", children, onClick, ...props }, ref) => {
+  const hostRef = React.useRef<HTMLButtonElement | null>(null);
 
-    const burst = (e: React.MouseEvent<HTMLButtonElement>) => {
-      const el = hostRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
-      for (let i = 0; i < 16; i++) {
-        const span = document.createElement("span");
-        span.className =
-          "pointer-events-none absolute h-1 w-2 rounded bg-white/50 opacity-70 blur-[1px] animate-[facet-dissolve_0.7s_ease-out_reverse]";
-        const angle = (Math.PI * 2 * i) / 16;
-        const dist = 25 + Math.random() * 25;
-        span.style.left = `${x}px`;
-        span.style.top = `${y}px`;
-        span.style.setProperty("--dx", `${Math.cos(angle) * dist}px`);
-        span.style.setProperty("--dy", `${Math.sin(angle) * dist}px`);
-        span.style.transform = `translate(var(--dx), var(--dy))`;
-        el.appendChild(span);
-        setTimeout(() => span.remove(), 750);
-      }
-      onClick?.(e);
-    };
+  const burst = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const el = hostRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    for (let i = 0; i < 16; i++) {
+      const span = document.createElement("span");
+      span.className =
+        "pointer-events-none absolute h-1 w-2 rounded bg-white/50 opacity-70 blur-[1px] animate-[facet-dissolve_0.7s_ease-out_reverse]";
+      const angle = (Math.PI * 2 * i) / 16;
+      const dist = 25 + Math.random() * 25;
+      span.style.left = `${x}px`;
+      span.style.top = `${y}px`;
+      span.style.setProperty("--dx", `${Math.cos(angle) * dist}px`);
+      span.style.setProperty("--dy", `${Math.sin(angle) * dist}px`);
+      span.style.transform = `translate(var(--dx), var(--dy))`;
+      el.appendChild(span);
+      setTimeout(() => span.remove(), 750);
+    }
+    onClick?.(e);
+  };
 
-    return (
-      <button
-        ref={(node) => {
-          hostRef.current = node;
-          if (typeof ref === "function") ref(node);
-          else if (ref) ref.current = node;
-        }}
-        onClick={burst}
-        className={cn(
-          "relative inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90",
-          className,
-        )}
-        {...props}
-      >
-        {children ?? label}
-      </button>
-    );
-  },
-);
+  return (
+    <button
+      ref={(node) => {
+        hostRef.current = node;
+        if (typeof ref === "function") ref(node);
+        else if (ref) ref.current = node;
+      }}
+      onClick={burst}
+      className={cn(
+        "relative inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90",
+        className,
+      )}
+      {...props}
+    >
+      {children ?? label}
+    </button>
+  );
+});
 DissolveButton.displayName = "DissolveButton";

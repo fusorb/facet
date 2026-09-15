@@ -20,7 +20,10 @@ import { Button } from "./button.js";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
-export interface RichTextEditorProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface RichTextEditorProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onChange"
+> {
   /** HTML value. */
   value: string;
   /** Called with the new HTML on every change. */
@@ -70,14 +73,59 @@ interface ToolDef {
 const TOOLS: ToolDef[] = [
   { id: "bold", label: "Bold", icon: "bold", command: "bold" },
   { id: "italic", label: "Italic", icon: "italic", command: "italic" },
-  { id: "underline", label: "Underline", icon: "underline", command: "underline" },
-  { id: "h2", label: "Heading", icon: "heading-2", command: "formatBlock", value: "h2" },
-  { id: "h3", label: "Subheading", icon: "heading-3", command: "formatBlock", value: "h3" },
-  { id: "p", label: "Paragraph", icon: "pilcrow", command: "formatBlock", value: "p" },
-  { id: "ul", label: "Bulleted list", icon: "list", command: "insertUnorderedList" },
-  { id: "ol", label: "Numbered list", icon: "list-ordered", command: "insertOrderedList" },
-  { id: "quote", label: "Quote", icon: "quote", command: "formatBlock", value: "blockquote" },
-  { id: "code", label: "Inline code", icon: "code", command: "formatBlock", value: "pre" },
+  {
+    id: "underline",
+    label: "Underline",
+    icon: "underline",
+    command: "underline",
+  },
+  {
+    id: "h2",
+    label: "Heading",
+    icon: "heading-2",
+    command: "formatBlock",
+    value: "h2",
+  },
+  {
+    id: "h3",
+    label: "Subheading",
+    icon: "heading-3",
+    command: "formatBlock",
+    value: "h3",
+  },
+  {
+    id: "p",
+    label: "Paragraph",
+    icon: "pilcrow",
+    command: "formatBlock",
+    value: "p",
+  },
+  {
+    id: "ul",
+    label: "Bulleted list",
+    icon: "list",
+    command: "insertUnorderedList",
+  },
+  {
+    id: "ol",
+    label: "Numbered list",
+    icon: "list-ordered",
+    command: "insertOrderedList",
+  },
+  {
+    id: "quote",
+    label: "Quote",
+    icon: "quote",
+    command: "formatBlock",
+    value: "blockquote",
+  },
+  {
+    id: "code",
+    label: "Inline code",
+    icon: "code",
+    command: "formatBlock",
+    value: "pre",
+  },
   { id: "link", label: "Link", icon: "link", command: "createLink" },
 ];
 
@@ -96,7 +144,12 @@ function isSafeUrl(url: string): boolean {
   const trimmed = url.trim();
   if (!trimmed) return true; // empty is fine (createLink with empty = no-op)
   // Relative URLs, anchors, query strings - no colon-based scheme
-  if (!trimmed.includes(":") || trimmed.startsWith("/") || trimmed.startsWith("#") || trimmed.startsWith("?")) {
+  if (
+    !trimmed.includes(":") ||
+    trimmed.startsWith("/") ||
+    trimmed.startsWith("#") ||
+    trimmed.startsWith("?")
+  ) {
     return true;
   }
   try {
@@ -116,20 +169,53 @@ function sanitizeHtml(html: string): string {
   if (typeof window === "undefined") return html;
   return DOMPurify.sanitize(html, {
     ALLOWED_TAGS: [
-      "b", "i", "em", "strong", "u", "s", "strike",
-      "span", "p", "br", "div",
-      "h1", "h2", "h3", "h4", "h5", "h6",
-      "ul", "ol", "li",
-      "blockquote", "pre", "code",
+      "b",
+      "i",
+      "em",
+      "strong",
+      "u",
+      "s",
+      "strike",
+      "span",
+      "p",
+      "br",
+      "div",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "ul",
+      "ol",
+      "li",
+      "blockquote",
+      "pre",
+      "code",
       "a",
-      "img", "table", "thead", "tbody", "tr", "th", "td",
-      "hr", "sub", "sup",
+      "img",
+      "table",
+      "thead",
+      "tbody",
+      "tr",
+      "th",
+      "td",
+      "hr",
+      "sub",
+      "sup",
     ],
     ALLOWED_ATTR: [
-      "href", "src", "alt", "title",
-      "width", "height",
+      "href",
+      "src",
+      "alt",
+      "title",
+      "width",
+      "height",
       "start",
-      "cellpadding", "cellspacing", "colspan", "rowspan",
+      "cellpadding",
+      "cellspacing",
+      "colspan",
+      "rowspan",
     ],
     FORBID_ATTR: ["on*", "style", "class"],
   });

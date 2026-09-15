@@ -174,8 +174,12 @@ export function DatePicker({
 }: DatePickerProps) {
   const [open, setOpen] = React.useState(false);
   const today = new Date();
-  const [viewMonth, setViewMonth] = React.useState<Date>(startOfMonth(value ?? today));
-  const [viewYear, setViewYear] = React.useState<number>(value?.getFullYear() ?? today.getFullYear());
+  const [viewMonth, setViewMonth] = React.useState<Date>(
+    startOfMonth(value ?? today),
+  );
+  const [viewYear, setViewYear] = React.useState<number>(
+    value?.getFullYear() ?? today.getFullYear(),
+  );
 
   // When the picker opens, jump the view to the selected month if any.
   React.useEffect(() => {
@@ -190,7 +194,8 @@ export function DatePicker({
     setOpen(false);
   };
 
-  const isDisabled = (date: Date) => (disabledAll ? true : disabled?.(date) ?? false);
+  const isDisabled = (date: Date) =>
+    disabledAll ? true : (disabled?.(date) ?? false);
 
   const yearMin = minYear ?? today.getFullYear() - 10;
   const yearMax = maxYear ?? today.getFullYear() + 10;
@@ -201,7 +206,10 @@ export function DatePicker({
     setViewMonth(new Date(clamped, viewMonth.getMonth(), 1));
   };
 
-  const years = Array.from({ length: yearMax - yearMin + 1 }, (_, i) => yearMin + i);
+  const years = Array.from(
+    { length: yearMax - yearMin + 1 },
+    (_, i) => yearMin + i,
+  );
 
   const renderVertical = () => {
     const cells = buildMonthGrid(viewMonth);
@@ -218,7 +226,10 @@ export function DatePicker({
             ←
           </Button>
           <span className="text-sm font-semibold text-foreground">
-            {viewMonth.toLocaleDateString(undefined, { month: "long", year: "numeric" })}
+            {viewMonth.toLocaleDateString(undefined, {
+              month: "long",
+              year: "numeric",
+            })}
           </span>
           <Button
             type="button"
@@ -268,7 +279,10 @@ export function DatePicker({
         )}
         <div className="grid grid-cols-7 gap-1">
           {WEEKDAYS.map((d) => (
-            <span key={d} className="text-center text-xs font-medium text-muted-foreground">
+            <span
+              key={d}
+              className="text-center text-xs font-medium text-muted-foreground"
+            >
               {d}
             </span>
           ))}
@@ -292,11 +306,16 @@ export function DatePicker({
   };
 
   const renderHorizontal = () => {
-    const days = Array.from({ length: horizontalDays }, (_, i) => addDays(today, i));
+    const days = Array.from({ length: horizontalDays }, (_, i) =>
+      addDays(today, i),
+    );
     return (
       <div className="flex gap-1 overflow-x-auto pb-1">
         {days.map((day) => (
-          <div key={toIsoDate(day)} className="flex flex-col items-center gap-1">
+          <div
+            key={toIsoDate(day)}
+            className="flex flex-col items-center gap-1"
+          >
             <span className="text-[10px] uppercase text-muted-foreground">
               {day.toLocaleDateString(undefined, { weekday: "short" })}
             </span>
@@ -324,10 +343,16 @@ export function DatePicker({
           aria-label={label}
           className={cn("h-9 w-full justify-between font-normal", className)}
         >
-          <span className={cn(value ? "text-foreground" : "text-muted-foreground")}>
+          <span
+            className={cn(value ? "text-foreground" : "text-muted-foreground")}
+          >
             {value ? formatDate(value) : placeholder}
           </span>
-          <Icon name="calendar" className="shrink-0 text-muted-foreground" aria-hidden="true" />
+          <Icon
+            name="calendar"
+            className="shrink-0 text-muted-foreground"
+            aria-hidden="true"
+          />
         </Button>
       </PopoverTrigger>
       <PopoverContent align={align} className="w-auto p-3">

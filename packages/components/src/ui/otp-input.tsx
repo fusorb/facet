@@ -72,14 +72,20 @@ export function OtpInput({
     }
   };
 
-  const handleChange = (idx: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    idx: number,
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const raw = e.target.value;
     if (digitsOnly && /[^0-9]/.test(raw)) return;
     const char = raw.slice(-1) || "";
     setCharAt(idx, char);
   };
 
-  const handleKeyDown = (idx: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (
+    idx: number,
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
     if (e.key === "Backspace" && !chars[idx]?.trim() && idx > 0) {
       refs.current[idx - 1]?.focus();
       e.preventDefault();

@@ -15,7 +15,9 @@ import { useDocsKeyboardNav, useDocsNavigation } from "../lib/keyboard-nav.js";
  * you can drop straight into a page.
  */
 export function ReadyToUsePage() {
-  const entries = extendedManifest.filter((entry) => entry.category === "ready-to-use");
+  const entries = extendedManifest.filter(
+    (entry) => entry.category === "ready-to-use",
+  );
 
   const { prev, next } = useDocsNavigation();
   useDocsKeyboardNav();
@@ -23,7 +25,10 @@ export function ReadyToUsePage() {
   return (
     <article>
       <p className="mb-2 text-sm text-muted-foreground">
-        <Link to="/components" className="inline-flex items-center gap-1.5 hover:text-foreground">
+        <Link
+          to="/components"
+          className="inline-flex items-center gap-1.5 hover:text-foreground"
+        >
           <svg
             width="16"
             height="16"
@@ -44,11 +49,13 @@ export function ReadyToUsePage() {
         </Link>{" "}
         / Ready to Use
       </p>
-      <h1 className="font-heading text-3xl font-bold text-foreground">Ready to Use</h1>
+      <h1 className="font-heading text-3xl font-bold text-foreground">
+        Ready to Use
+      </h1>
       <p className="mt-2 text-muted-foreground">
-        Drop-in, higher-order components built on the facet primitives. Each one solves a
-        complete job (file upload, color picking, QR codes, timelines) with a copyable
-        snippet to drop straight into your app.
+        Drop-in, higher-order components built on the facet primitives. Each one
+        solves a complete job (file upload, color picking, QR codes, timelines)
+        with a copyable snippet to drop straight into your app.
       </p>
 
       <div className="mt-8 space-y-8">
@@ -64,7 +71,9 @@ export function ReadyToUsePage() {
                   {entry.name}
                 </h2>
                 {entry.description && (
-                  <p className="mt-2 text-sm text-muted-foreground">{entry.description}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {entry.description}
+                  </p>
                 )}
               </div>
               <Link

@@ -25,7 +25,10 @@ function tmp(): string {
 }
 
 function writePkg(dir: string, pkg: Record<string, unknown>) {
-  fs.writeFileSync(path.join(dir, "package.json"), JSON.stringify(pkg, null, 2));
+  fs.writeFileSync(
+    path.join(dir, "package.json"),
+    JSON.stringify(pkg, null, 2),
+  );
 }
 
 function write(dir: string, rel: string, content: string) {
@@ -44,7 +47,7 @@ describe("scanUnnecessaryDeps", () => {
           "@fusorb/facet-components": "^1.2.0",
           "@radix-ui/react-dialog": "^1.1.6",
           "lucide-react": "^1.30.0",
-          "react": "^19",
+          react: "^19",
         },
       });
       const entries = scanUnnecessaryDeps(dir);
@@ -63,10 +66,14 @@ describe("scanUnnecessaryDeps", () => {
     try {
       writePkg(dir, { name: "root" });
       write(dir, "pnpm-workspace.yaml", "packages:\n  - client\n");
-      write(dir, "client/package.json", JSON.stringify({
-        name: "client",
-        dependencies: { "cmdk": "^1.0.4", "react": "^19" },
-      }));
+      write(
+        dir,
+        "client/package.json",
+        JSON.stringify({
+          name: "client",
+          dependencies: { cmdk: "^1.0.4", react: "^19" },
+        }),
+      );
       const entries = scanUnnecessaryDeps(dir);
       expect(entries).toHaveLength(1);
       expect(entries[0]!.deps.map((d) => d.name)).toContain("cmdk");
@@ -107,8 +114,16 @@ describe("scanImports + rewriteImports", () => {
     const dir = tmp();
     try {
       writePkg(dir, { name: "app" });
-      write(dir, "src/page.tsx", `import { Dialog } from "@radix-ui/react-dialog";\nimport { Button } from "@/components/ui/button";\nimport { Card } from "@/components/card";\n`);
-      write(dir, "src/other.ts", `import { useForm } from "react-hook-form";\n`);
+      write(
+        dir,
+        "src/page.tsx",
+        `import { Dialog } from "@radix-ui/react-dialog";\nimport { Button } from "@/components/ui/button";\nimport { Card } from "@/components/card";\n`,
+      );
+      write(
+        dir,
+        "src/other.ts",
+        `import { useForm } from "react-hook-form";\n`,
+      );
       const matches = scanImports(dir);
       const froms = matches.map((m) => m.from);
       expect(froms).toContain("@radix-ui/react-dialog");
@@ -126,7 +141,11 @@ describe("scanImports + rewriteImports", () => {
     try {
       writePkg(dir, { name: "app" });
       const file = path.join(dir, "src", "page.tsx");
-      write(dir, "src/page.tsx", `import { Dialog } from "@radix-ui/react-dialog";\nimport { Button } from "@/components/ui/button";\n`);
+      write(
+        dir,
+        "src/page.tsx",
+        `import { Dialog } from "@radix-ui/react-dialog";\nimport { Button } from "@/components/ui/button";\n`,
+      );
       const matches = scanImports(dir);
       const changed = rewriteImports(matches);
       expect(changed).toContain(file);
@@ -147,11 +166,19 @@ describe("removeBundledDeps + removeCommand", () => {
       const pkgPath = path.join(dir, "package.json");
       writePkg(dir, {
         name: "app",
-        dependencies: { "@fusorb/facet-components": "^1.2.0", "@radix-ui/react-dialog": "^1.1.6" },
+        dependencies: {
+          "@fusorb/facet-components": "^1.2.0",
+          "@radix-ui/react-dialog": "^1.1.6",
+        },
         devDependencies: { "lucide-react": "^1.30.0" },
       });
-      const { content, removed } = removeBundledDeps(pkgPath, ["@radix-ui/react-dialog", "lucide-react"]);
-      expect(removed).toEqual(expect.arrayContaining(["@radix-ui/react-dialog", "lucide-react"]));
+      const { content, removed } = removeBundledDeps(pkgPath, [
+        "@radix-ui/react-dialog",
+        "lucide-react",
+      ]);
+      expect(removed).toEqual(
+        expect.arrayContaining(["@radix-ui/react-dialog", "lucide-react"]),
+      );
       expect(content).toBeTruthy();
       const parsed = JSON.parse(content!) as Record<string, any>;
       expect(parsed.dependencies["@radix-ui/react-dialog"]).toBeUndefined();
@@ -163,20 +190,30 @@ describe("removeBundledDeps + removeCommand", () => {
   });
 
   it("builds the correct remove command per package manager", () => {
-    expect(removeCommand("pnpm", ["@radix-ui/react-dialog", "lucide-react"])).toBe(
-      "pnpm remove @radix-ui/react-dialog lucide-react",
+    expect(
+      removeCommand("pnpm", ["@radix-ui/react-dialog", "lucide-react"]),
+    ).toBe("pnpm remove @radix-ui/react-dialog lucide-react");
+    expect(removeCommand("npm", ["lucide-react"])).toBe(
+      "npm uninstall lucide-react",
     );
-    expect(removeCommand("npm", ["lucide-react"])).toBe("npm uninstall lucide-react");
-    expect(removeCommand("pnpm", ["lucide-react"], true)).toBe("pnpm -w remove lucide-react");
+    expect(removeCommand("pnpm", ["lucide-react"], true)).toBe(
+      "pnpm -w remove lucide-react",
+    );
   });
 
   it("builds the correct global remove command per package manager", () => {
-    expect(globalRemoveCommand("pnpm", ["@radix-ui/react-dialog", "lucide-react"])).toBe(
-      "pnpm remove -g @radix-ui/react-dialog lucide-react",
+    expect(
+      globalRemoveCommand("pnpm", ["@radix-ui/react-dialog", "lucide-react"]),
+    ).toBe("pnpm remove -g @radix-ui/react-dialog lucide-react");
+    expect(globalRemoveCommand("npm", ["@fusorb/facet-cli"])).toBe(
+      "npm uninstall -g @fusorb/facet-cli",
     );
-    expect(globalRemoveCommand("npm", ["@fusorb/facet-cli"])).toBe("npm uninstall -g @fusorb/facet-cli");
-    expect(globalRemoveCommand("yarn", ["@fusorb/facet-cli"])).toBe("yarn global remove @fusorb/facet-cli");
-    expect(globalRemoveCommand("bun", ["@fusorb/facet-cli"])).toBe("bun remove -g @fusorb/facet-cli");
+    expect(globalRemoveCommand("yarn", ["@fusorb/facet-cli"])).toBe(
+      "yarn global remove @fusorb/facet-cli",
+    );
+    expect(globalRemoveCommand("bun", ["@fusorb/facet-cli"])).toBe(
+      "bun remove -g @fusorb/facet-cli",
+    );
   });
 });
 
@@ -185,7 +222,10 @@ describe("mergeScripts", () => {
     const dir = tmp();
     try {
       const pkgPath = path.join(dir, "package.json");
-      writePkg(dir, { name: "app", scripts: { build: "vite build", "docs:dev": "vite" } });
+      writePkg(dir, {
+        name: "app",
+        scripts: { build: "vite build", "docs:dev": "vite" },
+      });
       const { content, added } = mergeScripts(pkgPath, ["docs", "quality"]);
       // docs:dev already exists -> not re-added; docs:build/docs:preview + quality added.
       expect(added).toContain("docs:build");
@@ -205,7 +245,14 @@ describe("mergeScripts", () => {
     const dir = tmp();
     try {
       const pkgPath = path.join(dir, "package.json");
-      writePkg(dir, { name: "app", scripts: { "docs:dev": "vite", "docs:build": "vite build", "docs:preview": "vite preview" } });
+      writePkg(dir, {
+        name: "app",
+        scripts: {
+          "docs:dev": "vite",
+          "docs:build": "vite build",
+          "docs:preview": "vite preview",
+        },
+      });
       const { content, added } = mergeScripts(pkgPath, ["docs"]);
       expect(added).toEqual([]);
       expect(content).toBeNull();
@@ -217,7 +264,9 @@ describe("mergeScripts", () => {
   it("exposes preset scripts for the CLI prompt", () => {
     expect(PRESET_SCRIPTS.docs!.scripts).toMatchObject({ "docs:dev": "vite" });
     expect(PRESET_SCRIPTS.quality!.scripts.typecheck).toBe("tsc --noEmit");
-    expect(PRESET_SCRIPTS.facet!.scripts["facet:clean"]).toBe("facet clean --yes");
+    expect(PRESET_SCRIPTS.facet!.scripts["facet:clean"]).toBe(
+      "facet clean --yes",
+    );
   });
 });
 
@@ -229,13 +278,21 @@ describe("buildCleanPlan", () => {
         name: "app",
         dependencies: { "@radix-ui/react-dialog": "^1.1.6", react: "^19" },
       });
-      write(dir, "src/page.tsx", `import { Button } from "@/components/ui/button";\n`);
+      write(
+        dir,
+        "src/page.tsx",
+        `import { Button } from "@/components/ui/button";\n`,
+      );
       const plan = buildCleanPlan(dir);
       expect(plan.manifests).toHaveLength(1);
-      expect(plan.manifests[0]!.deps.map((d) => d.name)).toContain("@radix-ui/react-dialog");
+      expect(plan.manifests[0]!.deps.map((d) => d.name)).toContain(
+        "@radix-ui/react-dialog",
+      );
       expect(plan.imports.length).toBeGreaterThan(0);
       // Nothing written:
-      const pkg = JSON.parse(fs.readFileSync(path.join(dir, "package.json"), "utf8"));
+      const pkg = JSON.parse(
+        fs.readFileSync(path.join(dir, "package.json"), "utf8"),
+      );
       expect(pkg.dependencies["@radix-ui/react-dialog"]).toBe("^1.1.6");
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
@@ -296,7 +353,11 @@ describe("detectPathAliases + importSpecifier", () => {
         }),
       );
       // Route at src/app/docs/page.tsx importing from src/lib/docs.
-      const spec = importSpecifier(dir, path.join(dir, "src/app/docs/page.tsx"), path.join(dir, "src/lib/docs"));
+      const spec = importSpecifier(
+        dir,
+        path.join(dir, "src/app/docs/page.tsx"),
+        path.join(dir, "src/lib/docs"),
+      );
       expect(spec).toBe("@/lib/docs");
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
@@ -308,7 +369,11 @@ describe("detectPathAliases + importSpecifier", () => {
     try {
       writePkg(dir, { name: "app" });
       // Route at src/app/docs/page.tsx importing from src/lib/docs, no aliases.
-      const spec = importSpecifier(dir, path.join(dir, "src/app/docs/page.tsx"), path.join(dir, "src/lib/docs"));
+      const spec = importSpecifier(
+        dir,
+        path.join(dir, "src/app/docs/page.tsx"),
+        path.join(dir, "src/lib/docs"),
+      );
       // From src/app/docs -> ../../lib/docs (src is the common parent).
       expect(spec).toBe("../../lib/docs");
     } finally {
@@ -334,7 +399,11 @@ describe("deleteIfUnused", () => {
     const dir = tmp();
     try {
       const file = path.join(dir, "src/components/modal.tsx");
-      write(dir, "src/components/modal.tsx", "export const Modal = () => null;");
+      write(
+        dir,
+        "src/components/modal.tsx",
+        "export const Modal = () => null;",
+      );
       const result = deleteIfUnused(file, dir);
       expect(result).toBe(false);
       expect(fs.existsSync(file)).toBe(true);
@@ -347,8 +416,16 @@ describe("deleteIfUnused", () => {
     const dir = tmp();
     try {
       const file = path.join(dir, "src/components/ui/dialog.tsx");
-      write(dir, "src/components/ui/dialog.tsx", "export const Dialog = () => null;");
-      write(dir, "src/app.tsx", `import { Dialog } from "@/components/ui/dialog";\n`);
+      write(
+        dir,
+        "src/components/ui/dialog.tsx",
+        "export const Dialog = () => null;",
+      );
+      write(
+        dir,
+        "src/app.tsx",
+        `import { Dialog } from "@/components/ui/dialog";\n`,
+      );
       const result = deleteIfUnused(file, dir);
       expect(result).toBe(false);
       expect(fs.existsSync(file)).toBe(true);
@@ -361,8 +438,16 @@ describe("deleteIfUnused", () => {
     const dir = tmp();
     try {
       const file = path.join(dir, "src/components/ui/dialog.tsx");
-      write(dir, "src/components/ui/button.tsx", "export const Button = () => null;");
-      write(dir, "src/components/ui/dialog.tsx", "export const Dialog = () => null;");
+      write(
+        dir,
+        "src/components/ui/button.tsx",
+        "export const Button = () => null;",
+      );
+      write(
+        dir,
+        "src/components/ui/dialog.tsx",
+        "export const Dialog = () => null;",
+      );
       const result = deleteIfUnused(file, dir);
       expect(result).toBe(true);
       expect(fs.existsSync(file)).toBe(false);

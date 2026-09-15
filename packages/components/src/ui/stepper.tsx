@@ -166,14 +166,12 @@ export function useStepper(options: UseStepperOptions): StepperApi {
     [controlled, currentId, navigable, onActiveChange, onStepChange],
   );
 
-  const go = React.useCallback(
-    (id: string) => setId(id),
-    [setId],
-  );
+  const go = React.useCallback((id: string) => setId(id), [setId]);
 
   const back = React.useCallback(() => {
     if (isFirst) {
-      if (loop && navigable.length > 1) setId(navigable[navigable.length - 1]!.id);
+      if (loop && navigable.length > 1)
+        setId(navigable[navigable.length - 1]!.id);
       return;
     }
     const prev = navigable[currentIndex - 1]!;
@@ -250,7 +248,9 @@ export function StepperProvider({
   value: StepperApi;
   children: React.ReactNode;
 }) {
-  return <StepperContext.Provider value={value}>{children}</StepperContext.Provider>;
+  return (
+    <StepperContext.Provider value={value}>{children}</StepperContext.Provider>
+  );
 }
 
 /* ── StepperNav: numbered / dots / labeled indicator ───────── */
@@ -266,8 +266,7 @@ export interface StepperNavProps extends React.HTMLAttributes<HTMLOListElement> 
   clickable?: boolean;
 }
 
-const navBase =
-  "flex w-full items-center gap-2 text-sm";
+const navBase = "flex w-full items-center gap-2 text-sm";
 const itemBase =
   "group flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md";
 
@@ -286,10 +285,7 @@ function StepDot({ status }: { status: "past" | "current" | "future" }) {
         color,
       )}
     >
-      <Icon
-        name={status === "past" ? "check" : "dot"}
-        className="size-3.5"
-      />
+      <Icon name={status === "past" ? "check" : "dot"} className="size-3.5" />
     </span>
   );
 }
@@ -315,7 +311,11 @@ function StepNumber({
         color,
       )}
     >
-      {status === "past" ? <Icon name="check" className="size-3.5" /> : index + 1}
+      {status === "past" ? (
+        <Icon name="check" className="size-3.5" />
+      ) : (
+        index + 1
+      )}
     </span>
   );
 }
@@ -359,9 +359,11 @@ export function StepperNav({
         if (!showAll && status === "future") return null;
 
         const Indicator =
-          variant === "dots"
-            ? <StepDot status={status} />
-            : <StepNumber index={i} status={status} />;
+          variant === "dots" ? (
+            <StepDot status={status} />
+          ) : (
+            <StepNumber index={i} status={status} />
+          );
 
         const Inner = (
           <span className="flex min-w-0 items-center gap-2">
@@ -435,8 +437,10 @@ export function StepperNav({
 
 /* ── StepperPanel: content slot for the active step ────────── */
 
-export interface StepperPanelProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
+export interface StepperPanelProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "children"
+> {
   /**
    * Render-prop receives the active step. Lets the host pick its own
    * content shape per step (no children-by-id magic).
@@ -448,11 +452,21 @@ export interface StepperPanelProps
  * The content slot. Renders `children(activeStep)`, so the host picks
  * how to map step id -> React tree (a switch, a record, a hook - whatever).
  */
-export function StepperPanel({ children, className, ...props }: StepperPanelProps) {
+export function StepperPanel({
+  children,
+  className,
+  ...props
+}: StepperPanelProps) {
   const api = useStepperContext("StepperPanel");
+  const active = api.current;
   return (
     <div className={cn("min-h-0", className)} {...props}>
-      {children(api.current)}
+      <div
+        key={active.id}
+        className="w-full animate-[facet-fade-up_250ms_ease-out_both]"
+      >
+        {children(active)}
+      </div>
     </div>
   );
 }
@@ -524,7 +538,11 @@ export function StepperFooter({
     >
       {reverse ? (
         <>
-          <Button type="button" onClick={handleNext} disabled={busy || !api.canNext}>
+          <Button
+            type="button"
+            onClick={handleNext}
+            disabled={busy || !api.canNext}
+          >
             {api.isLast ? finishLabel : nextLabel}
           </Button>
           <Button
@@ -546,7 +564,11 @@ export function StepperFooter({
           >
             {backLabel}
           </Button>
-          <Button type="button" onClick={handleNext} disabled={busy || !api.canNext}>
+          <Button
+            type="button"
+            onClick={handleNext}
+            disabled={busy || !api.canNext}
+          >
             {api.isLast ? finishLabel : nextLabel}
           </Button>
         </>

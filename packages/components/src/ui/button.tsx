@@ -7,15 +7,18 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+        default:
+          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
           "border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+        secondary:
+          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         glass: "glass text-foreground hover:bg-accent/50",
-        glow: "bg-primary text-primary-foreground glow-indigo hover:bg-primary/90",
+        glow: "bg-primary text-primary-foreground glow-primary hover:bg-primary/90",
         /** Light sweeps across the button on hover (pure CSS). */
         shine:
           "group relative overflow-hidden bg-primary text-primary-foreground shadow hover:bg-primary/90",
@@ -38,14 +41,19 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   /** Magnetic: button gravitates toward the cursor (shine/ripple/glow). */
   magnetic?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, magnetic = false, ...props }, ref) => {
+  (
+    { className, variant, size, asChild = false, magnetic = false, ...props },
+    ref,
+  ) => {
     const Comp = asChild ? "span" : "button";
     const innerRef = React.useRef<HTMLButtonElement | null>(null);
 
@@ -57,7 +65,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         if (typeof ref === "function") {
           ref(node);
         } else if (ref) {
-          (ref as React.MutableRefObject<HTMLButtonElement | null>).current = node;
+          (ref as React.MutableRefObject<HTMLButtonElement | null>).current =
+            node;
         }
       },
       [ref],

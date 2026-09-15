@@ -109,7 +109,9 @@ export function Topbar({
           <button
             onClick={toggleSidebarCollapsed}
             className="hidden rounded-md p-1 text-foreground/60 hover:bg-accent lg:inline-flex"
-            aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            aria-label={
+              sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"
+            }
             aria-pressed={sidebarCollapsed}
           >
             <svg
@@ -122,7 +124,11 @@ export function Topbar({
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              {sidebarCollapsed ? <path d="m9 18 6-6-6-6" /> : <path d="m15 18-6-6 6-6" />}
+              {sidebarCollapsed ? (
+                <path d="m9 18 6-6-6-6" />
+              ) : (
+                <path d="m15 18-6-6 6-6" />
+              )}
             </svg>
           </button>
         )}

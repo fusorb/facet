@@ -138,7 +138,7 @@ export function CookieBanner({
     >
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 rounded-xl border border-border bg-popover p-4 shadow-lg sm:flex-row sm:items-center sm:gap-6">
         <div className="flex items-start gap-3">
-          <Icon name="cookie" className="mt-0.5 size-5 text-amber-500" />
+          <Icon name="cookie" className="mt-0.5 size-5 text-warning" />
           <div className="text-sm text-foreground">
             {message ?? (
               <>
@@ -246,7 +246,9 @@ function Toggle({
     >
       <span className="flex flex-col">
         <span className="font-medium">{label}</span>
-        {hint && <span className="text-[10px] text-muted-foreground">{hint}</span>}
+        {hint && (
+          <span className="text-[10px] text-muted-foreground">{hint}</span>
+        )}
       </span>
       <input
         type="checkbox"

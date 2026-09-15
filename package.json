@@ -2,7 +2,7 @@
   "name": "@fusorb/facet",
   "version": "0.1.0",
   "private": true,
-  "description": "Domain-customizable auth-first component system for the Arcevo ecosystem",
+  "description": "Domain-customizable auth-first component system",
   "type": "module",
   "scripts": {
     "build": "pnpm build:tokens && pnpm -r build && pnpm build:docs",
@@ -33,7 +33,7 @@
     "nuke": "pnpm clean --lockfile"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.31.1",
+    "@changesets/cli": "^3.0.2",
     "@eslint/js": "^9.39.5",
     "@testing-library/jest-dom": "^7.0.0",
     "@types/node": "^20",

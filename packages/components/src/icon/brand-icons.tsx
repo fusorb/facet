@@ -22,7 +22,13 @@ interface BrandIconProps {
   children: React.ReactNode;
 }
 
-function BrandIcon({ className, size, label, "aria-label": ariaLabel, children }: BrandIconProps) {
+function BrandIcon({
+  className,
+  size,
+  label,
+  "aria-label": ariaLabel,
+  children,
+}: BrandIconProps) {
   return (
     <svg
       width={size}

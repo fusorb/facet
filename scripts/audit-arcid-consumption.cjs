@@ -1,11 +1,19 @@
 const fs = require("fs");
 const path = require("path");
 
-// 1. Every arc-id endpoint (from the ROUTES index + actual route files).
-const routesSrc = fs.readFileSync(
-  "C:/Users/HP/Desktop/fusorb/arc-id/src/lib/api/routes/index.ts",
-  "utf8",
-);
+// Configurable via ARC_ID_DIR; defaults to a sibling ../SovGrant relative to
+// this script so it works on any machine without a hardcoded absolute path.
+// Skips gracefully when the SovGrant repo is not present.
+const ARC_ID_DIR = process.env.ARC_ID_DIR || path.resolve(__dirname, "../../SovGrant");
+const ARC_ID_ROUTES = path.join(ARC_ID_DIR, "src/lib/api/routes/index.ts");
+
+if (!fs.existsSync(ARC_ID_ROUTES)) {
+  console.log("SovGrant not found at", ARC_ID_DIR, "- skipping cross-repo consumption audit.");
+  process.exit(0);
+}
+
+// 1. Every SovGrant endpoint (from the ROUTES index + actual route files).
+const routesSrc = fs.readFileSync(ARC_ID_ROUTES, "utf8");
 const paths = new Set();
 for (const m of routesSrc.matchAll(/"(\/[a-z0-9/-]+)"/g)) paths.add(m[1]);
 for (const m of routesSrc.matchAll(/`(\/[a-z0-9/${}.-]+)`/g)) {
@@ -24,7 +32,7 @@ for (const m of sdkSource.matchAll(/`([^`]*)`/g)) {
   if (pathMatch) sdkPaths.add(pathMatch[1]);
 }
 
-// 3. Arc-id app source: which SDK methods does the app actually call?
+// 3. SovGrant app source: which SDK methods does the app actually call?
 //    Scan the app's src for sdk usage patterns.
 function walk(d, acc = []) {
   for (const f of fs.readdirSync(d)) {
@@ -38,25 +46,25 @@ function walk(d, acc = []) {
 }
 // Only the client-facing dirs (not the server modules).
 const appFiles = [
-  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/app"),
-  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/components"),
-  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/store"),
-  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/hooks"),
-  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/providers"),
-  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/lib"),
-  ...walk("C:/Users/HP/Desktop/fusorb/arc-id/src/sdk"),
+  ...walk(path.join(ARC_ID_DIR, "src/app")),
+  ...walk(path.join(ARC_ID_DIR, "src/components")),
+  ...walk(path.join(ARC_ID_DIR, "src/store")),
+  ...walk(path.join(ARC_ID_DIR, "src/hooks")),
+  ...walk(path.join(ARC_ID_DIR, "src/providers")),
+  ...walk(path.join(ARC_ID_DIR, "src/lib")),
+  ...walk(path.join(ARC_ID_DIR, "src/sdk")),
 ];
 const appSource = appFiles.map((f) => fs.readFileSync(f, "utf8")).join("\n");
 
 // SDK module singletons used + the methods called on them.
 const moduleNames = ["auth", "tenants", "billing", "credentials", "audit", "identity", "oauth", "webhooks", "passkeys", "idp"];
-console.log("=== SDK modules referenced in arc-id app ===");
+console.log("=== SDK modules referenced in SovGrant app ===");
 for (const m of moduleNames) {
   const uses = (appSource.match(new RegExp(`\\b${m}\\.(\\w+)\\(`, "g")) || []).map((x) => x.split(".")[1]);
   if (uses.length) console.log(`  ${m}: ${[...new Set(uses)].join(", ")}`);
 }
 
-console.log("\n=== arc-id endpoints NOT called by any SDK module in the app ===");
+console.log("\n=== SovGrant endpoints NOT called by any SDK module in the app ===");
 const sdkMethodsUsed = new Set(
   [...appSource.matchAll(/\b(auth|tenants|billing|credentials|audit|identity|oauth|webhooks|passkeys|idp)\.(\w+)\(/g)]
     .map((m) => m[2]),
@@ -73,7 +81,7 @@ for (const f of sdkFiles) {
   }
 }
 
-console.log("\n=== SDK methods NOT used anywhere in arc-id app ===");
+console.log("\n=== SDK methods NOT used anywhere in SovGrant app ===");
 for (const [cls, methods] of Object.entries(methodNames)) {
   const unused = methods.filter((m) => !sdkMethodsUsed.has(m));
   if (unused.length) console.log(`  ${cls}: ${unused.join(", ")}`);

@@ -17,16 +17,22 @@ describe("Alert", () => {
   it("applies the success text color", () => {
     const { container } = render(<Alert variant="success">Saved</Alert>);
     expect(container.firstChild?.textContent).toBe("Saved");
-    expect((container.firstChild as HTMLElement).className).toContain("text-success");
+    expect((container.firstChild as HTMLElement).className).toContain(
+      "text-success",
+    );
   });
 
   it("applies the warning text color", () => {
     const { container } = render(<Alert variant="warning">Careful</Alert>);
-    expect((container.firstChild as HTMLElement).className).toContain("text-warning");
+    expect((container.firstChild as HTMLElement).className).toContain(
+      "text-warning",
+    );
   });
 
   it("applies the destructive text color", () => {
     const { container } = render(<Alert variant="destructive">Error</Alert>);
-    expect((container.firstChild as HTMLElement).className).toContain("text-destructive");
+    expect((container.firstChild as HTMLElement).className).toContain(
+      "text-destructive",
+    );
   });
 });

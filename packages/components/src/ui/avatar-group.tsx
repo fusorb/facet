@@ -24,7 +24,17 @@ const sizeClasses: Record<NonNullable<AvatarGroupProps["size"]>, string> = {
 };
 
 const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
-  ({ className, avatars, max = 4, size = "default", disableHover = false, ...props }, ref) => {
+  (
+    {
+      className,
+      avatars,
+      max = 4,
+      size = "default",
+      disableHover = false,
+      ...props
+    },
+    ref,
+  ) => {
     const shown = avatars.slice(0, max);
     const overflow = avatars.length - shown.length;
     const hoverClass = disableHover
@@ -32,7 +42,11 @@ const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
       : "transition-transform duration-200 hover:-translate-y-0.5 hover:ring-2 hover:ring-ring hover:z-10";
 
     return (
-      <div ref={ref} className={cn("flex items-center -space-x-2", className)} {...props}>
+      <div
+        ref={ref}
+        className={cn("flex items-center -space-x-2", className)}
+        {...props}
+      >
         {shown.map((avatar, i) => (
           <Avatar
             key={`${avatar.src ?? avatar.fallback}-${i}`}
@@ -43,13 +57,22 @@ const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
             )}
           >
             {avatar.src ? (
-              <AvatarImage src={avatar.src} alt={avatar.alt ?? avatar.fallback} />
+              <AvatarImage
+                src={avatar.src}
+                alt={avatar.alt ?? avatar.fallback}
+              />
             ) : null}
             <AvatarFallback>{avatar.fallback}</AvatarFallback>
           </Avatar>
         ))}
         {overflow > 0 && (
-          <Avatar className={cn("ring-2 ring-background bg-muted", sizeClasses[size], hoverClass)}>
+          <Avatar
+            className={cn(
+              "ring-2 ring-background bg-muted",
+              sizeClasses[size],
+              hoverClass,
+            )}
+          >
             <AvatarFallback className="bg-muted text-muted-foreground">
               +{overflow}
             </AvatarFallback>

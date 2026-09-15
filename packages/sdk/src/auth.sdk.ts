@@ -1,8 +1,8 @@
 /**
  * Auth SDK: Login, register, MFA, sessions, magic link, password management
  *
- * Matches arc-id's actual /auth/* endpoints (verified against
- * arc-id src/modules/auth/routes/* + src/lib/api/routes/index.ts).
+ * Matches SovGrant's actual /auth/* endpoints (verified against
+ * SovGrant src/modules/auth/routes/* + src/lib/api/routes/index.ts).
  */
 
 import { ArcIdClient } from "./client.js";
@@ -46,7 +46,7 @@ export type UserProfile = User;
 
 /**
  * Result of POST /auth/switch-context: a new token bundle scoped to the
- * selected tenant (verified against arc-id's switch-context.route.ts).
+ * selected tenant (verified against SovGrant's switch-context.route.ts).
  */
 export type SwitchContextResult = {
   accessToken: string;
@@ -98,7 +98,7 @@ export type SwitchContextParams = {
 };
 
 /**
- * Result of GET /oauth/authorize (arc-id's JSON authorize API):
+ * Result of GET /oauth/authorize (SovGrant's JSON authorize API):
  * an authorization code plus echo of state and consent outcome.
  */
 export type AuthorizeResult = {
@@ -121,8 +121,12 @@ export class AuthSdk {
     return this.client.post<LoginResult>("/auth/login", { email, password });
   }
 
-  /** POST /auth/register. arc-id returns only the identity (no tokens). */
-  register(name: string, email: string, password: string): Promise<ApiResponse<RegisterResult>> {
+  /** POST /auth/register. SovGrant returns only the identity (no tokens). */
+  register(
+    name: string,
+    email: string,
+    password: string,
+  ): Promise<ApiResponse<RegisterResult>> {
     return this.client.post<RegisterResult>("/auth/register", {
       name,
       email,
@@ -151,7 +155,10 @@ export class AuthSdk {
     return this.client.post<void>("/auth/password/reset", { email });
   }
 
-  resetPassword(token: string, newPassword: string): Promise<ApiResponse<void>> {
+  resetPassword(
+    token: string,
+    newPassword: string,
+  ): Promise<ApiResponse<void>> {
     return this.client.post<void>("/auth/password/reset/confirm", {
       token,
       newPassword,
@@ -162,7 +169,10 @@ export class AuthSdk {
     return this.client.post<void>("/auth/email/verify", { token });
   }
 
-  verifyMfa(code: string, sessionId: string): Promise<ApiResponse<TokenBundle>> {
+  verifyMfa(
+    code: string,
+    sessionId: string,
+  ): Promise<ApiResponse<TokenBundle>> {
     return this.client.post<TokenBundle>("/auth/mfa/verify", {
       code,
       sessionId,
@@ -202,14 +212,20 @@ export class AuthSdk {
     });
   }
 
-  mfaRecovery(code: string, sessionId: string): Promise<ApiResponse<TokenBundle>> {
+  mfaRecovery(
+    code: string,
+    sessionId: string,
+  ): Promise<ApiResponse<TokenBundle>> {
     return this.client.post<TokenBundle>("/auth/mfa/recovery", {
       code,
       sessionId,
     });
   }
 
-  changePassword(currentPassword: string, newPassword: string): Promise<ApiResponse<void>> {
+  changePassword(
+    currentPassword: string,
+    newPassword: string,
+  ): Promise<ApiResponse<void>> {
     return this.client.post<void>("/auth/password/change", {
       currentPassword,
       newPassword,
@@ -229,7 +245,7 @@ export class AuthSdk {
    * Normalizes snake_case access_token/refresh_token to camelCase.
    *
    * Sends `client_id` when the client was configured with one (required by
-   * arc-id for all third-party clients per TokenExchangeSchema).
+   * SovGrant for all third-party clients per TokenExchangeSchema).
    */
   async refresh(refreshToken: string): Promise<ApiResponse<RefreshResult>> {
     const clientId = this.client.getClientId();
@@ -262,7 +278,9 @@ export class AuthSdk {
    * Exchanges an authorization code for tokens. For PKCE clients pass the
    * same `codeVerifier` used to build the authorize URL.
    */
-  async exchangeCode(params: ExchangeCodeParams): Promise<ApiResponse<RefreshResult>> {
+  async exchangeCode(
+    params: ExchangeCodeParams,
+  ): Promise<ApiResponse<RefreshResult>> {
     const clientId = params.clientId ?? this.client.getClientId();
     const res = await this.client.post<OAuthTokenResponse>(
       "/oauth/token",
@@ -295,7 +313,9 @@ export class AuthSdk {
    * Service-to-service tokens. Requires client_id (+ secret for
    * confidential clients).
    */
-  async clientCredentials(params?: ClientCredentialsParams): Promise<ApiResponse<RefreshResult>> {
+  async clientCredentials(
+    params?: ClientCredentialsParams,
+  ): Promise<ApiResponse<RefreshResult>> {
     const clientId = params?.clientId ?? this.client.getClientId();
     const res = await this.client.post<OAuthTokenResponse>(
       "/oauth/token",
@@ -322,13 +342,15 @@ export class AuthSdk {
   }
 
   /**
-   * GET /oauth/authorize - arc-id's authorize endpoint is a JSON API
+   * GET /oauth/authorize - SovGrant's authorize endpoint is a JSON API
    * (not a browser redirect): pass the caller's bearer token and it
    * returns `{ code, state, consentRequired }`. Exchange the code with
    * `exchangeCode()`. For PKCE, generate a code_verifier/code_challenge
    * (S256) and pass `codeChallenge`.
    */
-  async authorize(params: AuthorizeUrlParams): Promise<ApiResponse<AuthorizeResult>> {
+  async authorize(
+    params: AuthorizeUrlParams,
+  ): Promise<ApiResponse<AuthorizeResult>> {
     const qs = new URLSearchParams({
       client_id: params.clientId ?? this.client.getClientId() ?? "",
       response_type: "code",
@@ -343,12 +365,14 @@ export class AuthSdk {
     }
     if (params.prompt) qs.set("prompt", params.prompt);
     if (params.maxAge != null) qs.set("max_age", String(params.maxAge));
-    return this.client.get<AuthorizeResult>(`/oauth/authorize?${qs.toString()}`);
+    return this.client.get<AuthorizeResult>(
+      `/oauth/authorize?${qs.toString()}`,
+    );
   }
 
   /**
    * Build the OAuth2 / OIDC authorize URL for the redirect-flow model.
-   * arc-id's own /oauth/authorize is a JSON API (see `authorize()`), but
+   * SovGrant's own /oauth/authorize is a JSON API (see `authorize()`), but
    * this helper is kept for frontends that proxy the OIDC redirect or for
    * documentation. For PKCE, pass the S256 `codeChallenge`.
    */
@@ -375,8 +399,13 @@ export class AuthSdk {
    * POST /auth/switch-context: swap the active tenant context and receive a
    * new token bundle scoped to that tenant (tid claim).
    */
-  switchContext(params: SwitchContextParams): Promise<ApiResponse<SwitchContextResult>> {
-    return this.client.post<SwitchContextResult>("/auth/switch-context", params);
+  switchContext(
+    params: SwitchContextParams,
+  ): Promise<ApiResponse<SwitchContextResult>> {
+    return this.client.post<SwitchContextResult>(
+      "/auth/switch-context",
+      params,
+    );
   }
 
   setUsername(name: string): Promise<ApiResponse<void>> {

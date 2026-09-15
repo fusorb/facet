@@ -31,7 +31,9 @@ describe("facet add <component> end-to-end", () => {
       expect(written).toContain(file);
       expect(fs.existsSync(file)).toBe(true);
       const content = fs.readFileSync(file, "utf8");
-      expect(content).toContain('import { Button } from "@fusorb/facet-components"');
+      expect(content).toContain(
+        'import { Button } from "@fusorb/facet-components"',
+      );
       expect(content).toContain("export default Button");
 
       // The facet barrel re-exports the component by name.
@@ -39,7 +41,9 @@ describe("facet add <component> end-to-end", () => {
         path.join(cwd, "src", "components", "facet", "index.ts"),
         "utf8",
       );
-      expect(barrel).toContain('export { default as Button } from "./Button.tsx"');
+      expect(barrel).toContain(
+        'export { default as Button } from "./Button.tsx"',
+      );
     } finally {
       fs.rmSync(cwd, { recursive: true, force: true });
     }
@@ -62,8 +66,12 @@ describe("facet add <component> end-to-end", () => {
         path.join(cwd, "src", "components", "facet", "index.ts"),
         "utf8",
       );
-      expect(barrel).toContain('export { default as Button } from "./Button.tsx"');
-      expect(barrel).toContain('export { default as Badge } from "./Badge.tsx"');
+      expect(barrel).toContain(
+        'export { default as Button } from "./Button.tsx"',
+      );
+      expect(barrel).toContain(
+        'export { default as Badge } from "./Badge.tsx"',
+      );
     } finally {
       fs.rmSync(cwd, { recursive: true, force: true });
     }
@@ -77,7 +85,7 @@ describe("facet add <component> end-to-end", () => {
       fs.mkdirSync(root, { recursive: true });
       fs.writeFileSync(
         path.join(root, "index.ts"),
-        "export { default as TheirThing } from \"./TheirThing\";\n",
+        'export { default as TheirThing } from "./TheirThing";\n',
       );
 
       const { written } = runAdd("Button", cwd, {
@@ -91,7 +99,9 @@ describe("facet add <component> end-to-end", () => {
       // Consumer's own export preserved.
       expect(barrel).toContain("TheirThing");
       // Flat component exposed by name.
-      expect(barrel).toContain('export { default as Button } from "./Button.tsx"');
+      expect(barrel).toContain(
+        'export { default as Button } from "./Button.tsx"',
+      );
     } finally {
       fs.rmSync(cwd, { recursive: true, force: true });
     }
@@ -125,7 +135,13 @@ describe("facet add <component> end-to-end", () => {
         placement: "decide",
         barrel: false,
       });
-      const facetBarrel = path.join(cwd, "src", "components", "facet", "index.ts");
+      const facetBarrel = path.join(
+        cwd,
+        "src",
+        "components",
+        "facet",
+        "index.ts",
+      );
       expect(fs.existsSync(facetBarrel)).toBe(false);
       expect(written.some((f) => f.endsWith("/index.ts"))).toBe(false);
     } finally {
@@ -159,8 +175,12 @@ describe("facet add <component> end-to-end", () => {
         placement: "subdir",
         dir: "ui",
       });
-      expect(written).toContain(path.join(cwd, "src", "components", "ui", "Button.tsx"));
-      expect(written).toContain(path.join(cwd, "src", "components", "ui", "index.ts"));
+      expect(written).toContain(
+        path.join(cwd, "src", "components", "ui", "Button.tsx"),
+      );
+      expect(written).toContain(
+        path.join(cwd, "src", "components", "ui", "index.ts"),
+      );
     } finally {
       fs.rmSync(cwd, { recursive: true, force: true });
     }
@@ -173,7 +193,11 @@ describe("facet add <component> end-to-end", () => {
       fs.mkdirSync(root, { recursive: true });
       fs.writeFileSync(path.join(root, "index.ts"), "export {};\n");
       const layout = resolveAddLayout(
-        { language: "typescript", target: "src/components", placement: "decide" },
+        {
+          language: "typescript",
+          target: "src/components",
+          placement: "decide",
+        },
         cwd,
       );
       expect(layout.mode).toBe("flat");

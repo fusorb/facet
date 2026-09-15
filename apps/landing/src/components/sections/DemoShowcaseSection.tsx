@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
   Marquee,
+  Pill,
   Progress,
   QRCode,
   Slider,
@@ -21,7 +22,8 @@ import {
   ColorPicker,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { BUTTON_VARIANTS, BADGE_VARIANTS } from "../data/features.js";
+import { site } from "../../site.config.js";
+import { BUTTON_VARIANTS, BADGE_VARIANTS } from "../../data/features.js";
 
 /**
  * Live demo section. Each tab is a working slice of the library: real
@@ -50,14 +52,14 @@ function DemoCard({
   );
 }
 
-/** 1. Button + badge variants, all clickable. */
+/** 1. Button + badge variants (visual only — no action). */
 function ButtonsDemo() {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <DemoCard title="Button variants" icon="grid">
         <div className="flex flex-wrap gap-3">
           {BUTTON_VARIANTS.map((v) => (
-            <Button key={v} variant={v} size="sm" onClick={() => alert(`Clicked ${v}`)}>
+            <Button key={v} variant={v} size="sm">
               {v}
             </Button>
           ))}
@@ -88,7 +90,7 @@ function ControlsDemo() {
           <div>
             <p className="text-sm font-medium text-foreground">Notifications</p>
             <p className="text-xs text-muted-foreground">
-              {enabled ? "On - you'll hear about it" : "Off - quiet mode"}
+              {enabled ? "On, you'll hear about it" : "Off, quiet mode"}
             </p>
           </div>
           <Switch checked={enabled} onCheckedChange={setEnabled} />
@@ -104,7 +106,9 @@ function ControlsDemo() {
           />
           <div className="flex items-center gap-3">
             <Progress value={level} className="flex-1" />
-            <span className="w-10 text-right font-mono text-sm text-foreground">{level}%</span>
+            <span className="w-10 text-right font-mono text-sm text-foreground">
+              {level}%
+            </span>
           </div>
         </div>
       </DemoCard>
@@ -120,7 +124,9 @@ function ThemeDemo() {
       <DemoCard title="Theme" icon="sun">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-sm font-medium text-foreground">Light / dark / system</p>
+            <p className="text-sm font-medium text-foreground">
+              Light / dark / system
+            </p>
             <p className="text-xs text-muted-foreground">
               Current: <span className="font-mono">{theme}</span> (resolved:{" "}
               <span className="font-mono">{resolvedTheme}</span>)
@@ -138,10 +144,10 @@ function ThemeDemo() {
   );
 }
 
-/** 4. QR code: type a URL, see it encoded live with the facet logo centered. */
+/** 4. QR code: type a URL, see it encoded live. */
 function QrDemo() {
-  const [url, setUrl] = useState("https://facet.arcevocirqle.com.ng");
-  const safeUrl = url || "https://facet.arcevocirqle.com.ng";
+  const [url, setUrl] = useState<string>(site.links.github);
+  const safeUrl = url || site.links.github;
   return (
     <div className="mx-auto max-w-md">
       <DemoCard title="QR Code" icon="qr-code">
@@ -158,12 +164,12 @@ function QrDemo() {
               value={safeUrl}
               fgColor="currentColor"
               size={140}
-              logo="/facet-b&w.png"
-              logoSize={56}
               level="H"
             />
           </div>
-          <p className="text-xs text-muted-foreground">The facet mark is centered in the code. Scan it with your phone.</p>
+          <p className="text-xs text-muted-foreground">
+            A live QR code. Scan it with your phone.
+          </p>
         </div>
       </DemoCard>
     </div>
@@ -172,12 +178,16 @@ function QrDemo() {
 
 /** 5. Color picker: pick a hex, see it applied to a live swatch. */
 function ColorDemo() {
-  const [color, setColor] = useState("#6366f1");
+  const [color, setColor] = useState("#4ad3f5");
   return (
     <div className="mx-auto max-w-md">
       <DemoCard title="Color Picker" icon="palette">
         <div className="flex items-center gap-4">
-          <ColorPicker value={color} onValueChange={setColor} label="Accent color" />
+          <ColorPicker
+            value={color}
+            onValueChange={setColor}
+            label="Accent color"
+          />
           <div
             className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg border border-border text-xs font-medium"
             style={{ backgroundColor: color }}
@@ -188,7 +198,8 @@ function ColorDemo() {
           </div>
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          Components read tokens via CSS variables; override any of them per brand with
+          Components read tokens via CSS variables; override any of them per
+          brand with
           <span className="font-mono"> overrideVars</span>.
         </p>
       </DemoCard>
@@ -220,7 +231,9 @@ function MarqueeDemo() {
           </span>
         ))}
       />
-      <p className="mt-3 text-xs text-muted-foreground">Hover the strip to pause the scroll.</p>
+      <p className="mt-3 text-xs text-muted-foreground">
+        Hover the strip to pause the scroll.
+      </p>
     </DemoCard>
   );
 }
@@ -233,7 +246,8 @@ function SparkleDemo() {
         <div className="flex flex-col items-center gap-4">
           <SparkleButton label="Try me" className="h-11 px-10" />
           <p className="text-xs text-muted-foreground">
-            Click anywhere on the button. Every click bursts sparkles from the click point.
+            Click anywhere on the button. Every click bursts sparkles from the
+            click point.
           </p>
         </div>
       </DemoCard>
@@ -251,18 +265,25 @@ const DEMOS = [
   { id: "sparkle", label: "Sparkle", node: <SparkleDemo /> },
 ];
 
-export function DemoSection() {
+export function DemoShowcaseSection() {
   const [tab, setTab] = useState("buttons");
 
   return (
     <section id="demo" className="mx-auto max-w-5xl px-8 py-24">
       <div className="mb-12 text-center">
-        <h2 className="text-3xl font-bold text-foreground font-heading sm:text-4xl">
+        <Pill
+          color="primary"
+          indicator="icon"
+          icon={<LightIcon name="zap" size={12} />}
+        >
+          Live demos
+        </Pill>
+        <h2 className="mt-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
           See it in action
         </h2>
-        <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-          Not screenshots - live components running on the real tokens. Flip the theme, drag the
-          slider, scan the QR code, burst some sparkles.
+        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+          Not screenshots. Live components running on the real tokens. Flip the
+          theme, drag the slider, scan the QR code, burst some sparkles.
         </p>
       </div>
 

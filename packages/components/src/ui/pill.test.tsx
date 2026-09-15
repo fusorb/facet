@@ -91,7 +91,7 @@ describe("Pill", () => {
   it("applies success color classes", () => {
     const { container } = render(<Pill color="success">Label</Pill>);
     const dot = container.querySelector('[aria-hidden="true"]');
-    expect(dot?.className).toContain("bg-green-600");
+    expect(dot?.className).toContain("bg-success");
   });
 
   it("applies selected ring classes", () => {
@@ -120,7 +120,11 @@ describe("Pill", () => {
 
   it("renders a remove button when removable is true", () => {
     const onRemove = vi.fn();
-    render(<Pill removable onRemove={onRemove}>Tag</Pill>);
+    render(
+      <Pill removable onRemove={onRemove}>
+        Tag
+      </Pill>,
+    );
     const removeBtn = screen.getByLabelText("Remove");
     expect(removeBtn).toBeInTheDocument();
     fireEvent.click(removeBtn);
@@ -209,6 +213,8 @@ describe("PillGroup", () => {
     const a = screen.getByText("A").closest('[role="tab"]') as HTMLElement;
     a.focus();
     fireEvent.keyDown(a, { key: "ArrowRight" });
-    expect(document.activeElement).toBe(screen.getByText("B").closest('[role="tab"]'));
+    expect(document.activeElement).toBe(
+      screen.getByText("B").closest('[role="tab"]'),
+    );
   });
 });

@@ -8,7 +8,7 @@ import { LoginForm } from "./forms/auth/login-form.js";
 
 afterEach(() => cleanup());
 
-const client = new ArcIdClient({ baseUrl: "https://auth.arcevo.dev/api/v1" });
+const client = new ArcIdClient({ baseUrl: "https://auth.example.dev/api/v1" });
 
 describe("auth form copy overrides", () => {
   it("SignUp renders custom copy when provided", () => {
@@ -33,7 +33,9 @@ describe("auth form copy overrides", () => {
     expect(screen.getByText("Work email")).toBeInTheDocument();
     expect(screen.getByText("Secret")).toBeInTheDocument();
     expect(screen.getByText("Repeat secret")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /sign up now/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /sign up now/i }),
+    ).toBeInTheDocument();
     expect(screen.getByText("Have an account?")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /log in/i })).toBeInTheDocument();
   });
@@ -46,7 +48,9 @@ describe("auth form copy overrides", () => {
     );
     expect(screen.getByText("Create an Account")).toBeInTheDocument();
     expect(screen.getByText("Full Name")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /create account/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /create account/i }),
+    ).toBeInTheDocument();
   });
 
   it("LoginForm renders custom copy when provided", () => {
@@ -72,6 +76,8 @@ describe("auth form copy overrides", () => {
     // Default title and submit label are both "Sign In" - both render.
     expect(screen.getAllByText("Sign In")).toHaveLength(2);
     expect(screen.getByText("Email")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /sign in/i }),
+    ).toBeInTheDocument();
   });
 });

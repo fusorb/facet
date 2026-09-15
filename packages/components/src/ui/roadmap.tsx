@@ -56,17 +56,36 @@ const STATUS_LABEL: Record<RoadmapStatus, string> = {
  * dot + mono-label look in landing sections.
  */
 const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
-  ({ items, showLine = true, variant = "card", maxHeight, className, ...props }, ref) => (
+  (
+    {
+      items,
+      showLine = true,
+      variant = "card",
+      maxHeight,
+      className,
+      ...props
+    },
+    ref,
+  ) => (
     <div
       ref={ref}
-      className={cn("space-y-0", maxHeight, maxHeight ? "overflow-y-auto" : "", className)}
+      className={cn(
+        "space-y-0",
+        maxHeight,
+        maxHeight ? "overflow-y-auto" : "",
+        className,
+      )}
       {...props}
     >
       {items.map((item, i) => {
         const isLast = i === items.length - 1;
         if (variant === "timeline") {
           return (
-            <div key={`${item.title}-${i}`} className="relative flex gap-5 pb-8 last:pb-0">
+            <div
+              key={`${item.title}-${i}`}
+              className="relative flex gap-5 pb-8 last:pb-0 animate-[facet-fade-up_400ms_ease-out_both]"
+            style={{ animationDelay: `${i * 70}ms` }}
+            >
               {showLine && (
                 <span
                   aria-hidden="true"
@@ -99,16 +118,24 @@ const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
                     {STATUS_LABEL[item.status]}
                   </span>
                 </div>
-                <h3 className="mt-1 font-semibold text-foreground">{item.title}</h3>
+                <h3 className="mt-1 font-semibold text-foreground">
+                  {item.title}
+                </h3>
                 {item.description && (
-                  <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {item.description}
+                  </p>
                 )}
               </div>
             </div>
           );
         }
         return (
-          <div key={`${item.title}-${i}`} className="relative flex gap-4 pb-6 last:pb-0">
+          <div
+            key={`${item.title}-${i}`}
+            className="relative flex gap-4 pb-6 last:pb-0 animate-[facet-fade-up_400ms_ease-out_both]"
+          style={{ animationDelay: `${i * 70}ms` }}
+          >
             {showLine && (
               <span
                 aria-hidden="true"
@@ -127,18 +154,24 @@ const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
             />
             <div className="min-w-0 flex-1 rounded-lg border border-border bg-card p-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="font-semibold text-foreground">{item.title}</span>
+                <span className="font-semibold text-foreground">
+                  {item.title}
+                </span>
                 <span
                   className={cn(
                     "rounded-full border px-2 py-0.5 text-[11px] font-medium",
                     STATUS_STYLES[item.status],
                   )}
                 >
-                  {item.date ? `${STATUS_LABEL[item.status]} · ${item.date}` : STATUS_LABEL[item.status]}
+                  {item.date
+                    ? `${STATUS_LABEL[item.status]} · ${item.date}`
+                    : STATUS_LABEL[item.status]}
                 </span>
               </div>
               {item.description && (
-                <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {item.description}
+                </p>
               )}
             </div>
           </div>

@@ -102,7 +102,10 @@ export function TagInput({
   }, [suggestions, draft, value]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (separators.includes(e.key) || (e.key === "," && separators.includes(","))) {
+    if (
+      separators.includes(e.key) ||
+      (e.key === "," && separators.includes(","))
+    ) {
       e.preventDefault();
       commitDraft();
       return;
@@ -115,7 +118,10 @@ export function TagInput({
   // Close dropdown on outside click.
   React.useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };

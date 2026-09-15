@@ -1,7 +1,6 @@
 ---
 "@fusorb/facet-components": minor
 "@fusorb/facet-docs": patch
-"@fusorb/facet-landing": patch
 ---
 
 Chart polish + ThemeToggle icon sizing:
@@ -12,4 +11,5 @@ Chart polish + ThemeToggle icon sizing:
 - Pie + Donut hover focus tightened — the hovered slice stays at full opacity, non-hovered slices dim to 0.4, and `onMouseLeave` clears the hover state
 - Cartesian bar opacity made consistent with pie/donut — full opacity by default, dim to 0.85 for non-hovered bars on hover
 - ThemeToggle icon sized to 16px (`size={16}`) to match Navbar's other icon buttons (sun/moon icons were defaulting to 24px and overflowing the 16px container)
+- Crosshair tracking circles now carry `data-crosshair-point="true"` (targeting + styling hook)
 - Docs changelog surface list cleaned up — removed stale `DataTablePage` and `BorderBeamCard` (both ejected/removed), updated count to 19

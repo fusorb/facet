@@ -58,7 +58,16 @@ export function buildDocsLayoutConfig(
   // The Components, Ready-to-Use and Pages sections are inserted after the
   // Auth section so the gallery follows auth in the sidebar. They render
   // before the remaining page-driven sections (foundations, ecosystem).
-  const ORDER = ["guides", "auth", "components", "ready-to-use", "pages", "animation", "foundations", "ecosystem"];
+  const ORDER = [
+    "guides",
+    "auth",
+    "components",
+    "ready-to-use",
+    "pages",
+    "animation",
+    "foundations",
+    "ecosystem",
+  ];
   const seen = new Set(ORDER);
   const ordered = [...ORDER];
   for (const page of pages) {
@@ -70,8 +79,12 @@ export function buildDocsLayoutConfig(
 
   // Build the components + ready-to-use + pages sections first so we can
   // insert them at the right positions in the ordered sections below.
-  const componentsSection = showComponents ? buildComponentsSection() : undefined;
-  const readyToUseSection = showComponents ? buildReadyToUseSection() : undefined;
+  const componentsSection = showComponents
+    ? buildComponentsSection()
+    : undefined;
+  const readyToUseSection = showComponents
+    ? buildReadyToUseSection()
+    : undefined;
   const pagesSection = showComponents ? buildPagesSection() : undefined;
   const animationSection = showComponents ? buildAnimationSection() : undefined;
 
@@ -210,7 +223,9 @@ export function isExtendedLayoutSlug(slug: string): boolean {
  * Form) rendered as top-level items with their gallery pages.
  */
 export function buildReadyToUseSection(): NavSection {
-  const readyToUse = extendedManifest.filter((entry) => entry.category === "ready-to-use");
+  const readyToUse = extendedManifest.filter(
+    (entry) => entry.category === "ready-to-use",
+  );
   return {
     title: "Ready to Use",
     id: "ready-to-use",
@@ -244,9 +259,17 @@ export function buildPagesSection(): NavSection {
  * text-animations page, so it has no standalone entry here.
  */
 export function buildAnimationSection(): NavSection {
-  const animations = extendedManifest.filter((entry) => entry.category === "animation");
+  const animations = extendedManifest.filter(
+    (entry) => entry.category === "animation",
+  );
   // Stable, readable order rather than alphabetical.
-  const ORDER = ["text-animations", "card-animations", "animated-button", "micro-interactions", "animated"];
+  const ORDER = [
+    "text-animations",
+    "card-animations",
+    "animated-button",
+    "micro-interactions",
+    "animated",
+  ];
   const bySlug = new Map(animations.map((a) => [a.slug, a]));
   const items: NavItem[] = [];
   for (const slug of ORDER) {

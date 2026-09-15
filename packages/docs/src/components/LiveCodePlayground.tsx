@@ -56,7 +56,8 @@ class PlaygroundErrorBoundary extends React.Component<
               {this.state.message}
             </code>
             <p className="mt-2 text-muted-foreground">
-              This component's demo snippet isn't supported in the live playground.
+              This component's demo snippet isn't supported in the live
+              playground.
             </p>
           </div>
         </div>
@@ -76,8 +77,16 @@ class PlaygroundErrorBoundary extends React.Component<
  * <iframe src=…>, <img src=…>, etc.
  */
 const URL_ATTRS = new Set([
-  "href", "src", "action", "formaction",
-  "background", "poster", "cite", "data", "codebase", "manifest",
+  "href",
+  "src",
+  "action",
+  "formaction",
+  "background",
+  "poster",
+  "cite",
+  "data",
+  "codebase",
+  "manifest",
 ]);
 
 /** Whitelisted URL protocols for sandbox-rendered HTML. */
@@ -93,7 +102,12 @@ function isSafeUrl(url: unknown): boolean {
   const trimmed = url.trim();
   if (!trimmed) return true;
   // Relative URLs, anchors, query strings - no colon-based scheme
-  if (!trimmed.includes(":") || trimmed.startsWith("/") || trimmed.startsWith("#") || trimmed.startsWith("?")) {
+  if (
+    !trimmed.includes(":") ||
+    trimmed.startsWith("/") ||
+    trimmed.startsWith("#") ||
+    trimmed.startsWith("?")
+  ) {
     return true;
   }
   try {
@@ -126,7 +140,10 @@ function sanitizeUrlProps(
 function stripImports(code: string): string {
   return code
     .split("\n")
-    .filter((line) => !line.trim().startsWith("import") && !line.trim().startsWith("//"))
+    .filter(
+      (line) =>
+        !line.trim().startsWith("import") && !line.trim().startsWith("//"),
+    )
     .join("\n");
 }
 
@@ -410,14 +427,20 @@ function parseElement(
   }
 
   if (selfClosing) {
-    return [{ type: "element", tag: tagName, props, children: [], selfClosing: true }, i];
+    return [
+      { type: "element", tag: tagName, props, children: [], selfClosing: true },
+      i,
+    ];
   }
 
   // Find matching closing tag </tagName>
   const closeIdx = findMatchingClose(code, i, tagName);
   if (closeIdx === -1) {
     // Malformed JSX - treat as self-closing
-    return [{ type: "element", tag: tagName, props, children: [], selfClosing: true }, i];
+    return [
+      { type: "element", tag: tagName, props, children: [], selfClosing: true },
+      i,
+    ];
   }
 
   // Parse children
@@ -437,7 +460,11 @@ function parseElement(
  * - String literals (which may contain < or >)
  * - Brace expressions (which may contain JSX)
  */
-function findMatchingClose(code: string, start: number, tagName: string): number {
+function findMatchingClose(
+  code: string,
+  start: number,
+  tagName: string,
+): number {
   let depth = 1;
   let i = start;
 
@@ -501,8 +528,15 @@ function parseChildren(
     if (code.startsWith("<>", i)) {
       const closeIdx = code.indexOf("</>", i + 2);
       if (closeIdx === -1) break;
-      const fragmentChildren = parseChildren(code.slice(i + 2, closeIdx), components);
-      children.push({ type: "element", tag: "fragment", children: fragmentChildren });
+      const fragmentChildren = parseChildren(
+        code.slice(i + 2, closeIdx),
+        components,
+      );
+      children.push({
+        type: "element",
+        tag: "fragment",
+        children: fragmentChildren,
+      });
       i = closeIdx + 3;
       continue;
     }
@@ -571,13 +605,15 @@ function toReactNode(
   if (!isFragment && !isHtml && !C) {
     return (
       <span className="text-sm text-muted-foreground">
-        Unknown component: <code className="font-mono">{tagName}</code>. Add it to the{" "}
-        <code>components</code> prop.
+        Unknown component: <code className="font-mono">{tagName}</code>. Add it
+        to the <code>components</code> prop.
       </span>
     );
   }
 
-  const childNodes = (node.children || []).map((c) => toReactNode(c, components));
+  const childNodes = (node.children || []).map((c) =>
+    toReactNode(c, components),
+  );
   const props = isHtml ? sanitizeUrlProps(node.props || {}) : node.props || {};
 
   if (isFragment) {
@@ -604,12 +640,16 @@ function renderFromCode(
   // Find the return expression: return [<expr>] [;] [}] [EOF].
   // When there is no `return` (e.g. the user pasted bare JSX), fall back to the
   // full cleaned snippet so the preview renders instead of going blank.
-  const returnMatch = cleaned.match(/return\s*\(?\s*([\s\S]*?)\s*\)?\s*;?\s*}?\s*$/);
+  const returnMatch = cleaned.match(
+    /return\s*\(?\s*([\s\S]*?)\s*\)?\s*;?\s*}?\s*$/,
+  );
   const raw = (returnMatch?.[1] ?? cleaned).trim();
 
   if (!raw) {
     return (
-      <span className="text-sm text-muted-foreground">Type JSX code to see a live preview.</span>
+      <span className="text-sm text-muted-foreground">
+        Type JSX code to see a live preview.
+      </span>
     );
   }
 
@@ -624,12 +664,18 @@ function renderFromCode(
   const children = parseChildren(raw, components);
   if (children.length === 0) {
     return (
-      <span className="text-sm text-muted-foreground">Type JSX code to see a live preview.</span>
+      <span className="text-sm text-muted-foreground">
+        Type JSX code to see a live preview.
+      </span>
     );
   }
-  return children.length === 1
-    ? toReactNode(children[0]!, components)
-    : <React.Fragment>{children.map((c) => toReactNode(c, components))}</React.Fragment>;
+  return children.length === 1 ? (
+    toReactNode(children[0]!, components)
+  ) : (
+    <React.Fragment>
+      {children.map((c) => toReactNode(c, components))}
+    </React.Fragment>
+  );
 }
 
 /*  ────────────────────────────────────────────────────────── */
@@ -679,7 +725,9 @@ export function LiveCodePlayground({
     try {
       return renderFromCode(code, components);
     } catch (e) {
-      return <span className="text-sm text-destructive">{(e as Error).message}</span>;
+      return (
+        <span className="text-sm text-destructive">{(e as Error).message}</span>
+      );
     }
   }, [code, components]);
 
@@ -744,12 +792,18 @@ export function LiveCodePlayground({
           className="absolute top-2 right-2 inline-flex items-center gap-1 rounded-md border border-transparent bg-muted px-2 py-1 text-xs text-muted-foreground hover:bg-muted/50"
           aria-label="Copy code"
         >
-          {copied ? <Icon name="check" className="h-3.5 w-3.5" /> : <Icon name="copy" className="h-3.5 w-3.5" />}
+          {copied ? (
+            <Icon name="check" className="h-3.5 w-3.5" />
+          ) : (
+            <Icon name="copy" className="h-3.5 w-3.5" />
+          )}
         </button>
       </div>
       <div className="overflow-auto rounded-md border bg-background p-4 max-h-[600px]">
         <PlaygroundErrorBoundary>
-          <div className="flex min-h-[160px] items-center justify-center">{preview}</div>
+          <div className="flex min-h-[160px] items-center justify-center">
+            {preview}
+          </div>
         </PlaygroundErrorBoundary>
       </div>
     </div>

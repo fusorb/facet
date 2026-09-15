@@ -17,7 +17,10 @@ export interface ComboboxOption {
   label: string;
 }
 
-export interface ComboboxProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface ComboboxProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onChange"
+> {
   /** Options to choose from. */
   options: ComboboxOption[];
   /** Currently selected value (controlled). */
@@ -35,7 +38,11 @@ export interface ComboboxProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   /** Accessible label for the combobox trigger. */
   label?: string;
   /** Render a fully custom trigger element instead of the default Button. */
-  renderTrigger?: (state: { open: boolean; selectedLabel?: string; placeholder: string }) => React.ReactNode;
+  renderTrigger?: (state: {
+    open: boolean;
+    selectedLabel?: string;
+    placeholder: string;
+  }) => React.ReactNode;
   /** Additional className for the popover content container. */
   popoverContentClassName?: string;
   /** Placeholder for the internal search input. Default: "Search…". */
@@ -76,26 +83,35 @@ const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
       <div ref={ref} className={cn("w-full", className)} {...props}>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            {renderTrigger
-              ? renderTrigger({
-                  open,
-                  selectedLabel: selected?.label ?? placeholder,
-                  placeholder,
-                })
-              : (
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={open}
-                  aria-label={label}
-                  className="w-full justify-between font-normal"
-                >
-                  {triggerLabel ?? selected?.label ?? placeholder}
-                  <Icon name={triggerIconName} className="ml-2 size-4 shrink-0 opacity-50" />
-                </Button>
-              )}
+            {renderTrigger ? (
+              renderTrigger({
+                open,
+                selectedLabel: selected?.label ?? placeholder,
+                placeholder,
+              })
+            ) : (
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open}
+                aria-label={label}
+                className="w-full justify-between font-normal"
+              >
+                {triggerLabel ?? selected?.label ?? placeholder}
+                <Icon
+                  name={triggerIconName}
+                  className="ml-2 size-4 shrink-0 opacity-50"
+                />
+              </Button>
+            )}
           </PopoverTrigger>
-          <PopoverContent className={cn("w-[var(--radix-popover-trigger-width)] p-0", popoverContentClassName)} align="start">
+          <PopoverContent
+            className={cn(
+              "w-[var(--radix-popover-trigger-width)] p-0",
+              popoverContentClassName,
+            )}
+            align="start"
+          >
             <Command>
               <CommandInput
                 placeholder={searchPlaceholder}

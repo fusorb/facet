@@ -1,7 +1,7 @@
 /**
  * Webhooks SDK: Endpoint management, delivery events, test pings, retries
  *
- * arc-id paths: /webhooks/endpoints/*, /webhooks/events/*
+ * SovGrant paths: /webhooks/endpoints/*, /webhooks/events/*
  */
 
 import { ArcIdClient } from "./client.js";
@@ -42,8 +42,14 @@ export class WebhooksSdk {
     return this.client.post<WebhookEndpoint>("/webhooks/endpoints", data);
   }
 
-  update(id: string, data: UpdateWebhookParams): Promise<ApiResponse<WebhookEndpoint>> {
-    return this.client.patch<WebhookEndpoint>(`/webhooks/endpoints/${id}`, data);
+  update(
+    id: string,
+    data: UpdateWebhookParams,
+  ): Promise<ApiResponse<WebhookEndpoint>> {
+    return this.client.patch<WebhookEndpoint>(
+      `/webhooks/endpoints/${id}`,
+      data,
+    );
   }
 
   delete(id: string): Promise<ApiResponse<void>> {
@@ -60,7 +66,9 @@ export class WebhooksSdk {
     if (params?.cursor) qs.set("cursor", params.cursor);
     if (params?.limit) qs.set("limit", String(params.limit));
     const q = qs.toString();
-    return this.client.get<WebhookEvent[]>(`/webhooks/events${q ? `?${q}` : ""}`);
+    return this.client.get<WebhookEvent[]>(
+      `/webhooks/events${q ? `?${q}` : ""}`,
+    );
   }
 
   retryEvent(id: string): Promise<ApiResponse<void>> {

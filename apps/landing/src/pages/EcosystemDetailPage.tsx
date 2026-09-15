@@ -1,85 +1,80 @@
-import { useParams } from "react-router-dom";
-import { LandingLayout } from "@fusorb/facet-layout";
+import { useParams, useNavigate } from "react-router-dom";
 import { ShineButton, buttonVariants, cn } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
+import { PageShell } from "../components/PageShell.js";
 import { ECOSYSTEM, getEcosystemDocsUrl } from "../data/ecosystem.js";
-import { Nav } from "../components/Nav.js";
-import { Footer } from "../components/Footer.js";
 
 export function EcosystemDetailPage() {
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
   const entry = ECOSYSTEM.find((e) => e.slug === slug);
 
   if (!entry) {
     return (
-      <LandingLayout
-        nav={<Nav />}
-        footer={<Footer />}
-        hero={
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-secondary/50 ring-1 ring-border">
-              <LightIcon name="alert-circle" className="size-5 text-primary" />
-            </span>
-            <h1 className="mt-3 font-heading text-3xl font-bold text-foreground">
-              Package not found
-            </h1>
-            <p className="mt-3 text-muted-foreground">
-              We couldn't find an ecosystem package matching that URL.
-            </p>
-            <ShineButton
-              type="button"
-              onClick={() => window.open("/ecosystem", "_self")}
-              className={cn(buttonVariants({ variant: "default", size: "default" }), "mt-6")}
-            >
-              <LightIcon name="arrow-left" className="mr-2 size-4" />
-              Back to ecosystem
-            </ShineButton>
-          </div>
+      <PageShell
+        kicker={
+          <span className="mx-auto inline-flex h-10 w-10 items-center justify-center rounded-xl bg-secondary/50 ring-1 ring-border">
+            <LightIcon name="alert-circle" className="size-5 text-primary" />
+          </span>
         }
+        title="Package not found"
+        description="We couldn't find an ecosystem package matching that URL."
       >
-        <></>
-      </LandingLayout>
+        <section className="mx-auto max-w-3xl px-8 py-12 text-center">
+          <ShineButton
+            type="button"
+            onClick={() => navigate("/ecosystem")}
+            className={cn(
+              buttonVariants({ variant: "default", size: "default" }),
+              "mt-2",
+            )}
+          >
+            <LightIcon name="arrow-left" className="size-4" />
+            Back to ecosystem
+          </ShineButton>
+        </section>
+      </PageShell>
     );
   }
 
   return (
-    <LandingLayout
-      nav={<Nav />}
-      footer={<Footer />}
-      hero={
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-secondary/50 ring-1 ring-border">
-            <LightIcon name={entry.icon} className="size-6 text-primary" />
-          </span>
-          <div className="mt-3 flex items-center justify-center gap-2">
-            <p className="text-sm font-medium text-muted-foreground">{entry.short}</p>
-            <span className="text-xs text-muted-foreground/50">•</span>
-            <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-foreground/70">
-              v{entry.version}
-            </span>
-          </div>
-          <h1 className="mt-3 font-heading text-4xl font-bold text-foreground sm:text-5xl">
-            {entry.title}
-          </h1>
-          <p className="mt-4 text-lg text-muted-foreground">{entry.description}</p>
-        </div>
+    <PageShell
+      kicker={
+        <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-xl bg-secondary/50 ring-1 ring-border">
+          <LightIcon name={entry.icon} className="size-6 text-primary" />
+        </span>
       }
+      title={entry.title}
+      description={entry.description}
     >
       {/* Package at a glance */}
       <section className="mx-auto max-w-3xl px-8 py-8">
+        <div className="mb-4 flex items-center justify-center gap-2">
+          <p className="text-sm font-medium text-muted-foreground">
+            {entry.short}
+          </p>
+          <span className="text-xs text-muted-foreground/50">•</span>
+          <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-foreground/70">
+            v{entry.version}
+          </span>
+        </div>
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="flex items-center gap-3 rounded-lg border border-border bg-card p-4">
             <LightIcon name="terminal" className="size-5 text-primary" />
             <div>
               <div className="text-xs text-muted-foreground/70">Package</div>
-              <code className="text-sm font-medium text-foreground/90">{entry.name}</code>
+              <code className="text-sm font-medium text-foreground/90">
+                {entry.name}
+              </code>
             </div>
           </div>
           <div className="flex items-center gap-3 rounded-lg border border-border bg-card p-4">
             <LightIcon name="tag" className="size-5 text-primary" />
             <div>
               <div className="text-xs text-muted-foreground/70">Version</div>
-              <div className="text-sm font-medium text-foreground/90">{entry.version}</div>
+              <div className="text-sm font-medium text-foreground/90">
+                {entry.version}
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-3 rounded-lg border border-border bg-card p-4">
@@ -88,11 +83,11 @@ export function EcosystemDetailPage() {
               <div className="text-xs text-muted-foreground/70">Docs</div>
               <a
                 href={getEcosystemDocsUrl(entry)}
-                className="text-sm font-medium text-primary hover:underline"
+                className="cursor-pointer text-sm font-medium text-primary hover:underline"
                 target="_blank"
                 rel="noreferrer"
               >
-                Open {entry.title} docs
+                Open docs
               </a>
             </div>
           </div>
@@ -102,7 +97,9 @@ export function EcosystemDetailPage() {
       {/* Architecture highlights (first analysis paragraph as a callout) */}
       {entry.analysis[0] && (
         <section className="mx-auto max-w-3xl px-8 py-8">
-          <h2 className="text-2xl font-bold text-foreground">Architecture highlights</h2>
+          <h2 className="font-heading text-2xl font-bold text-foreground">
+            Architecture highlights
+          </h2>
           <blockquote className="mt-4 border-l-4 border-primary/30 pl-6 italic text-muted-foreground">
             {entry.analysis[0]}
           </blockquote>
@@ -111,10 +108,12 @@ export function EcosystemDetailPage() {
 
       {/* Full analysis */}
       <section className="mx-auto max-w-3xl px-8 py-12">
-        <h2 className="text-2xl font-bold text-foreground">Overview</h2>
+        <h2 className="font-heading text-2xl font-bold text-foreground">
+          Overview
+        </h2>
         <div className="mt-4 space-y-4">
           {entry.analysis.slice(1).map((para, i) => (
-            <p key={i} className="text-muted-foreground leading-relaxed">
+            <p key={i} className="leading-relaxed text-muted-foreground">
               {para}
             </p>
           ))}
@@ -122,12 +121,14 @@ export function EcosystemDetailPage() {
       </section>
 
       {/* Key features */}
-      <section className="bg-secondary/30 mx-auto max-w-3xl px-8 py-12">
-        <h2 className="text-2xl font-bold text-foreground">Key features</h2>
+      <section className="mx-auto max-w-3xl px-8 py-12">
+        <h2 className="font-heading text-2xl font-bold text-foreground">
+          Key features
+        </h2>
         <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
           {entry.features.map((f) => (
             <li key={f} className="flex items-start gap-2">
-              <LightIcon name="check" className="mt-1 size-4 text-green-500" />
+              <LightIcon name="check" className="mt-1 size-4 text-success" />
               <span>{f}</span>
             </li>
           ))}
@@ -136,10 +137,15 @@ export function EcosystemDetailPage() {
 
       {/* All examples */}
       <section className="mx-auto max-w-4xl px-8 py-12">
-        <h2 className="text-2xl font-bold text-foreground">Example usage</h2>
+        <h2 className="font-heading text-2xl font-bold text-foreground">
+          Example usage
+        </h2>
         <div className="mt-4 space-y-6">
           {entry.example.map((ex, i) => (
-            <div key={i} className="rounded-lg border border-border bg-secondary/30 p-4">
+            <div
+              key={i}
+              className="rounded-lg border border-border bg-secondary/30 p-4"
+            >
               <div className="mb-2 flex items-center gap-2 text-xs text-muted-foreground/70">
                 <LightIcon name="code" className="size-3" />
                 <span>{ex.lang}</span>
@@ -150,7 +156,7 @@ export function EcosystemDetailPage() {
               <div className="mt-3 flex gap-3">
                 <a
                   href={getEcosystemDocsUrl(entry)}
-                  className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                  className="inline-flex cursor-pointer items-center gap-1 text-xs font-medium text-primary hover:underline"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -159,7 +165,7 @@ export function EcosystemDetailPage() {
                 </a>
                 <a
                   href={`https://www.npmjs.com/package/${entry.name}`}
-                  className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                  className="inline-flex cursor-pointer items-center gap-1 text-xs font-medium text-primary hover:underline"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -179,19 +185,22 @@ export function EcosystemDetailPage() {
             Ready to use {entry.title}?
           </h3>
           <p className="mt-3 text-sm text-muted-foreground">
-            Read the full documentation for {entry.name} - live component previews,
-            API reference, and installation guides.
+            Read the full documentation for {entry.name}. Live component
+            previews, API reference, and installation guides.
           </p>
           <ShineButton
             type="button"
             onClick={() => window.open(getEcosystemDocsUrl(entry), "_blank")}
-            className={cn(buttonVariants({ variant: "default", size: "default" }), "mt-6")}
+            className={cn(
+              buttonVariants({ variant: "default", size: "default" }),
+              "mt-6",
+            )}
           >
-            <LightIcon name="external-link" className="mr-2 size-4" />
-            Open {entry.name} docs
+            <LightIcon name="external-link" className="size-4" />
+            Open docs
           </ShineButton>
         </div>
       </section>
-    </LandingLayout>
+    </PageShell>
   );
 }

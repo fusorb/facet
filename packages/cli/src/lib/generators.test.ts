@@ -3,8 +3,18 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { generateReactVite } from "./generators.js";
-import { generateComponentAdd, generatePlainJs, generateNext, generatePython, generateRemix } from "./generators-plain.js";
-import { detectFramework, detectPackageManager, installCommand } from "./types.js";
+import {
+  generateComponentAdd,
+  generatePlainJs,
+  generateNext,
+  generatePython,
+  generateRemix,
+} from "./generators-plain.js";
+import {
+  detectFramework,
+  detectPackageManager,
+  installCommand,
+} from "./types.js";
 import { facetInstallCommand } from "./registry.js";
 import { mergePackageJson } from "./writer.js";
 
@@ -64,7 +74,9 @@ describe("generatePlainJs", () => {
   it("emits a valid pages registry + content pipeline", () => {
     for (const language of ["typescript", "javascript"] as const) {
       const files = generatePlainJs({ ...answers, language }, "/repo");
-      const names = files.map((f) => f.path.replace(/\\/g, "/").split("/").pop());
+      const names = files.map((f) =>
+        f.path.replace(/\\/g, "/").split("/").pop(),
+      );
       expect(names).toEqual([
         `pages.${language === "typescript" ? "ts" : "js"}`,
         `content-pipeline.${language === "typescript" ? "ts" : "js"}`,
@@ -74,9 +86,10 @@ describe("generatePlainJs", () => {
   });
 
   it("strips type annotations for the JS pipeline", () => {
-    const js = generatePlainJs({ ...answers, language: "javascript" }, "/repo").find(
-      (f) => f.path.endsWith("content-pipeline.js"),
-    )!.content;
+    const js = generatePlainJs(
+      { ...answers, language: "javascript" },
+      "/repo",
+    ).find((f) => f.path.endsWith("content-pipeline.js"))!.content;
     expect(js).not.toContain("interface MarkdownDoc");
     expect(js).toContain("function markdownToBlocks(body) {");
   });
@@ -86,12 +99,7 @@ describe("generateNext", () => {
   it("emits a Next app route + config + pages registry", () => {
     const files = generateNext(answers, "/repo");
     const names = files.map((f) => f.path.replace(/\\/g, "/").split("/").pop());
-    expect(names).toEqual([
-      "page.tsx",
-      "config.ts",
-      "pages.ts",
-      "index.ts",
-    ]);
+    expect(names).toEqual(["page.tsx", "config.ts", "pages.ts", "index.ts"]);
     const route = files.find((f) => f.path.endsWith("page.tsx"))!.content;
     expect(route).toContain('"use client"');
     expect(route).toContain("DocsApp");
@@ -100,12 +108,20 @@ describe("generateNext", () => {
 
   it("routes land under src/app/docs/", () => {
     const files = generateNext(answers, "/repo");
-    expect(files.some((f) => f.path.replace(/\\/g, "/").includes("src/app/docs/page.tsx"))).toBe(true);
+    expect(
+      files.some((f) =>
+        f.path.replace(/\\/g, "/").includes("src/app/docs/page.tsx"),
+      ),
+    ).toBe(true);
   });
 
   it("creates the barrel by default (auto)", () => {
     const files = generateNext({ ...answers, barrel: "auto" }, "/repo");
-    expect(files.some((f) => f.path.replace(/\\/g, "/").endsWith("src/lib/docs/index.ts"))).toBe(true);
+    expect(
+      files.some((f) =>
+        f.path.replace(/\\/g, "/").endsWith("src/lib/docs/index.ts"),
+      ),
+    ).toBe(true);
   });
 
   it("barrel: false suppresses the barrel", () => {
@@ -119,12 +135,17 @@ describe("generatePython", () => {
     const files = generatePython(answers, "/repo");
     const names = files.map((f) => f.path.replace(/\\/g, "/").split("/").pop());
     expect(names).toEqual(["docs_pipeline.py", "pages.json"]);
-    const pipeline = files.find((f) => f.path.endsWith("docs_pipeline.py"))!.content;
+    const pipeline = files.find((f) =>
+      f.path.endsWith("docs_pipeline.py"),
+    )!.content;
     expect(pipeline).toContain("python docs_pipeline.py > pages.json");
     expect(pipeline).toContain("markdown_to_blocks");
     expect(pipeline).toContain("parse_front_matter");
     const pages = files.find((f) => f.path.endsWith("pages.json"))!.content;
-    expect(JSON.parse(pages)[0]).toMatchObject({ path: "/", title: "Overview" });
+    expect(JSON.parse(pages)[0]).toMatchObject({
+      path: "/",
+      title: "Overview",
+    });
   });
 
   it("emits no TS barrel", () => {
@@ -146,19 +167,29 @@ describe("generateRemix", () => {
 
   it("routes land under app/routes/", () => {
     const files = generateRemix(answers, "/repo");
-    expect(files.some((f) => f.path.replace(/\\/g, "/").includes("app/routes/docs.tsx"))).toBe(true);
+    expect(
+      files.some((f) =>
+        f.path.replace(/\\/g, "/").includes("app/routes/docs.tsx"),
+      ),
+    ).toBe(true);
   });
 
   it("creates the barrel by default", () => {
     const files = generateRemix({ ...answers, barrel: "auto" }, "/repo");
-    expect(files.some((f) => f.path.replace(/\\/g, "/").endsWith("src/lib/docs/index.ts"))).toBe(true);
+    expect(
+      files.some((f) =>
+        f.path.replace(/\\/g, "/").endsWith("src/lib/docs/index.ts"),
+      ),
+    ).toBe(true);
   });
 });
 
 describe("generateReactVite barrel", () => {
   it("creates the src/index barrel by default", () => {
     const files = generateReactVite({ ...answers, barrel: "auto" }, "/repo");
-    expect(files.some((f) => f.path.replace(/\\/g, "/").endsWith("src/index.ts"))).toBe(true);
+    expect(
+      files.some((f) => f.path.replace(/\\/g, "/").endsWith("src/index.ts")),
+    ).toBe(true);
   });
 
   it("barrel: false suppresses the src/index barrel", () => {
@@ -175,13 +206,25 @@ describe("generateComponentAdd", () => {
       placement: "decide",
     });
     expect(files).toHaveLength(2);
-    const file = files.find((f) => f.path.replace(/\\/g, "/").endsWith("facet/Button.tsx"))!;
-    expect(file.path.replace(/\\/g, "/")).toContain("src/components/facet/Button.tsx");
-    expect(file.content).toContain('import { Button } from "@fusorb/facet-components"');
-    expect(file.content).toContain("Recommended: import from the package instead of copying source");
+    const file = files.find((f) =>
+      f.path.replace(/\\/g, "/").endsWith("facet/Button.tsx"),
+    )!;
+    expect(file.path.replace(/\\/g, "/")).toContain(
+      "src/components/facet/Button.tsx",
+    );
+    expect(file.content).toContain(
+      'import { Button } from "@fusorb/facet-components"',
+    );
+    expect(file.content).toContain(
+      "Recommended: import from the package instead of copying source",
+    );
 
-    const barrel = files.find((f) => f.path.replace(/\\/g, "/").endsWith("src/components/facet/index.ts"))!;
-    expect(barrel.content).toContain('export { default as Button } from "./Button.tsx"');
+    const barrel = files.find((f) =>
+      f.path.replace(/\\/g, "/").endsWith("src/components/facet/index.ts"),
+    )!;
+    expect(barrel.content).toContain(
+      'export { default as Button } from "./Button.tsx"',
+    );
   });
 
   it("flat placement writes the component to the root", () => {
@@ -190,8 +233,12 @@ describe("generateComponentAdd", () => {
       target: "src/components",
       placement: "flat",
     });
-    const file = files.find((f) => f.path.replace(/\\/g, "/").endsWith("src/components/Button.tsx"))!;
-    expect(file.path.replace(/\\/g, "/")).toContain("src/components/Button.tsx");
+    const file = files.find((f) =>
+      f.path.replace(/\\/g, "/").endsWith("src/components/Button.tsx"),
+    )!;
+    expect(file.path.replace(/\\/g, "/")).toContain(
+      "src/components/Button.tsx",
+    );
   });
 });
 

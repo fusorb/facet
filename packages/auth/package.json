@@ -1,7 +1,7 @@
 {
   "name": "@fusorb/facet-auth",
   "version": "1.2.3",
-  "description": "Domain-customizable auth components for the ArcevoCirqle ecosystem: ArcProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
+  "description": "Domain-customizable auth components: ArcProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
   "type": "module",
   "exports": {
     ".": {
@@ -36,12 +36,11 @@
   "bugs": {
     "url": "https://github.com/fusorb/facet/issues"
   },
-  "homepage": "https://facet.arcevocirqle.com.ng",
+  "homepage": "https://github.com/fusorb/facet",
   "license": "MIT",
   "keywords": [
     "authentication",
     "react",
-    "arcevocirqle",
     "mfa",
     "passkeys",
     "oauth",

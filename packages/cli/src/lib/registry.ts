@@ -30,17 +30,22 @@ export async function discoverFacetPackages(): Promise<string[]> {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 3000);
     try {
-      const res = await fetch("https://registry.npmjs.org/-/v1/search?text=scope:arcevo&size=100", {
-        headers: { "User-Agent": "facet-cli" },
-        signal: controller.signal,
-      });
+      const res = await fetch(
+        "https://registry.npmjs.org/-/v1/search?text=scope:fusorb&size=100",
+        {
+          headers: { "User-Agent": "facet-cli" },
+          signal: controller.signal,
+        },
+      );
       if (!res.ok) return baseline;
       const data = (await res.json()) as {
         objects?: { package?: { name?: string } }[];
       };
       const scoped = (data.objects ?? [])
         .map((o) => o.package?.name ?? "")
-        .filter((n): n is string => Boolean(n) && n.startsWith("@fusorb/facet-"));
+        .filter(
+          (n): n is string => Boolean(n) && n.startsWith("@fusorb/facet-"),
+        );
       return Array.from(new Set([...baseline, ...scoped]));
     } finally {
       clearTimeout(timer);
@@ -82,7 +87,9 @@ const FALLBACK_RANGES: Record<FacetPackage, string> = {
  * only consulted for the facet scope (and the doc site's non-facet deps
  * use caret ranges), so we never claim a version we didn't verify.
  */
-export async function resolveFacetVersions(): Promise<Record<FacetPackage, string>> {
+export async function resolveFacetVersions(): Promise<
+  Record<FacetPackage, string>
+> {
   const result = { ...FALLBACK_RANGES } as Record<FacetPackage, string>;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 3000);
@@ -116,7 +123,9 @@ export async function resolveFacetVersions(): Promise<Record<FacetPackage, strin
  * connections under rate limiting). This matters for `facet up`/`facet
  * update` - a missed latest must never be reported as "up to date".
  */
-export async function resolveLatestVersion(name: string): Promise<string | undefined> {
+export async function resolveLatestVersion(
+  name: string,
+): Promise<string | undefined> {
   // Try the lightweight /latest endpoint first (2 attempts).
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
@@ -162,9 +171,13 @@ export function facetInstallCommand(
     .map(([name, range]) => `${name}@${range}`)
     .join(" ");
   switch (pm) {
-    case "pnpm": return `pnpm add ${pkgs}`;
-    case "yarn": return `yarn add ${pkgs}`;
-    case "bun": return `bun add ${pkgs}`;
-    default: return `npm install ${pkgs}`;
+    case "pnpm":
+      return `pnpm add ${pkgs}`;
+    case "yarn":
+      return `yarn add ${pkgs}`;
+    case "bun":
+      return `bun add ${pkgs}`;
+    default:
+      return `npm install ${pkgs}`;
   }
 }

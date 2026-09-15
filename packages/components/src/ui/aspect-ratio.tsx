@@ -18,9 +18,13 @@ import { cn } from "../utils.js";
  *   <iframe src="…" className="h-full w-full" />
  * </AspectRatio>
  */
+export type AspectRatioProps = React.ComponentPropsWithoutRef<
+  typeof AspectRatioPrimitive
+>;
+
 const AspectRatio = React.forwardRef<
   React.ComponentRef<typeof AspectRatioPrimitive>,
-  React.ComponentPropsWithoutRef<typeof AspectRatioPrimitive>
+  AspectRatioProps
 >(({ className, ...props }, ref) => (
   <AspectRatioPrimitive
     ref={ref}

@@ -15,12 +15,13 @@ const AlertDialogPortal = AlertDialogPrimitive.Portal;
  * dialog when the overlay (outside) is clicked: Radix's AlertDialog
  * intentionally does not dismiss on outside interaction.
  */
-const AlertDialogCloseContext = React.createContext<((open: boolean) => void) | undefined>(
-  undefined,
-);
+const AlertDialogCloseContext = React.createContext<
+  ((open: boolean) => void) | undefined
+>(undefined);
 
-export interface AlertDialogProps
-  extends React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Root> {}
+export interface AlertDialogProps extends React.ComponentPropsWithoutRef<
+  typeof AlertDialogPrimitive.Root
+> {}
 
 function AlertDialog({ onOpenChange, ...props }: AlertDialogProps) {
   return (
@@ -46,8 +47,9 @@ const AlertDialogOverlay = React.forwardRef<
 ));
 AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;
 
-export interface AlertDialogContentProps
-  extends React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content> {
+export interface AlertDialogContentProps extends React.ComponentPropsWithoutRef<
+  typeof AlertDialogPrimitive.Content
+> {
   /** Visual emphasis. Default: "default". */
   variant?: "default" | "destructive";
 }
@@ -79,14 +81,29 @@ const AlertDialogContent = React.forwardRef<
 });
 AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;
 
-const AlertDialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("flex flex-col space-y-2 text-center sm:text-left", className)} {...props} />
+const AlertDialogHeader = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn(
+      "flex flex-col space-y-2 text-center sm:text-left",
+      className,
+    )}
+    {...props}
+  />
 );
 AlertDialogHeader.displayName = "AlertDialogHeader";
 
-const AlertDialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+const AlertDialogFooter = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:space-x-2", className)}
+    className={cn(
+      "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:space-x-2",
+      className,
+    )}
     {...props}
   />
 );
@@ -114,10 +131,12 @@ const AlertDialogDescription = React.forwardRef<
     {...props}
   />
 ));
-AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayName;
+AlertDialogDescription.displayName =
+  AlertDialogPrimitive.Description.displayName;
 
-export interface AlertDialogActionProps
-  extends React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action> {
+export interface AlertDialogActionProps extends React.ComponentPropsWithoutRef<
+  typeof AlertDialogPrimitive.Action
+> {
   /** Button style. Default: "default". */
   variant?: "default" | "destructive";
 }
@@ -129,7 +148,9 @@ const AlertDialogAction = React.forwardRef<
   <AlertDialogPrimitive.Action
     ref={ref}
     className={cn(
-      buttonVariants({ variant: variant === "destructive" ? "destructive" : "default" }),
+      buttonVariants({
+        variant: variant === "destructive" ? "destructive" : "default",
+      }),
       className,
     )}
     {...props}
@@ -151,7 +172,12 @@ AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
 
 /** Renders a warning icon sized for an alert dialog. */
 export function AlertDialogIcon({ className }: { className?: string }) {
-  return <Icon name="triangle-alert" className={cn("size-5 text-destructive", className)} />;
+  return (
+    <Icon
+      name="triangle-alert"
+      className={cn("size-5 text-destructive", className)}
+    />
+  );
 }
 
 /**
@@ -237,8 +263,10 @@ export function ConfirmAlertDialog({
     }
   }, [open]);
 
-  const nameMatch = nameInput.trim().toLowerCase() === entityName.trim().toLowerCase();
-  const phraseMatch = phraseInput.trim().toLowerCase() === confirmPhrase.trim().toLowerCase();
+  const nameMatch =
+    nameInput.trim().toLowerCase() === entityName.trim().toLowerCase();
+  const phraseMatch =
+    phraseInput.trim().toLowerCase() === confirmPhrase.trim().toLowerCase();
   const confirmed = nameMatch && phraseMatch;
 
   return (
@@ -247,13 +275,18 @@ export function ConfirmAlertDialog({
       <AlertDialogContent variant={destructive ? "destructive" : "default"}>
         <AlertDialogHeader>
           <div className="flex items-start gap-3 sm:items-center">
-            {destructive && <AlertDialogIcon className="mt-0.5 shrink-0 sm:mt-0" />}
+            {destructive && (
+              <AlertDialogIcon className="mt-0.5 shrink-0 sm:mt-0" />
+            )}
             <div className="flex flex-col gap-1.5">
-              <AlertDialogTitle>{actionLabel} this {entityLabel}?</AlertDialogTitle>
+              <AlertDialogTitle>
+                {actionLabel} this {entityLabel}?
+              </AlertDialogTitle>
               <AlertDialogDescription>
                 {description ?? (
                   <>
-                    This action cannot be undone. Type <strong>{entityName}</strong> and{" "}
+                    This action cannot be undone. Type{" "}
+                    <strong>{entityName}</strong> and{" "}
                     <strong>{confirmPhrase}</strong> to continue.
                   </>
                 )}

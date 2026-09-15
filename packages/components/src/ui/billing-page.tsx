@@ -47,8 +47,7 @@ function IntervalToggle({
     onChange(i);
     onIntervalChange?.(i);
   };
-  const base =
-    "rounded-full px-4 py-1.5 text-sm font-medium transition-colors";
+  const base = "rounded-full px-4 py-1.5 text-sm font-medium transition-colors";
   const active = "bg-background text-foreground shadow-sm";
   const inactive = "text-muted-foreground hover:text-foreground";
   return (
@@ -97,8 +96,12 @@ function PlanHeader({
     <div>
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          {plan.icon && <Icon name={plan.icon} className="size-4 text-primary" />}
-          <h3 className="font-heading text-base font-semibold text-foreground">{plan.name}</h3>
+          {plan.icon && (
+            <Icon name={plan.icon} className="size-4 text-primary" />
+          )}
+          <h3 className="font-heading text-base font-semibold text-foreground">
+            {plan.name}
+          </h3>
         </div>
         {plan.legacy && (
           <Badge variant="outline" className="text-[10px]">
@@ -114,7 +117,9 @@ function PlanHeader({
           {planPriceLabel(plan, currency, interval)}
         </span>
         {plan.price > 0 && (
-          <span className="text-sm text-muted-foreground">/{intervalLabel(activeInterval)}</span>
+          <span className="text-sm text-muted-foreground">
+            /{intervalLabel(activeInterval)}
+          </span>
         )}
       </div>
     </div>
@@ -129,7 +134,8 @@ function PlanCta({
   ctaButton?: BillingPageConfig["ctaButton"];
 }) {
   const href = plan.cta?.href ?? "#";
-  const label = plan.cta?.label ?? (plan.price === 0 ? "Get started" : "Contact us");
+  const label =
+    plan.cta?.label ?? (plan.price === 0 ? "Get started" : "Contact us");
 
   // Consumers can fully replace the CTA via renderButton (e.g. for
   // animated anchors or tracking wrappers). When provided, defer to
@@ -160,7 +166,10 @@ function FeatureList({ features }: { features: string[] }) {
   return (
     <ul className="space-y-2.5">
       {features.map((f) => (
-        <li key={f} className="flex items-start gap-2 text-sm text-foreground/80">
+        <li
+          key={f}
+          className="flex items-start gap-2 text-sm text-foreground/80"
+        >
           <Icon name="check" className="mt-0.5 size-4 shrink-0 text-primary" />
           <span className="leading-relaxed">{f}</span>
         </li>
@@ -178,18 +187,28 @@ export interface BillingPageProps {
 
 export function BillingPage({ config, className }: BillingPageProps) {
   const { plans, title = "Pricing", description } = config;
-  const [interval, setInterval] = React.useState<BillingInterval>(config.interval ?? "monthly");
+  const [interval, setInterval] = React.useState<BillingInterval>(
+    config.interval ?? "monthly",
+  );
 
   return (
     <section className={cn("mx-auto w-full max-w-6xl px-6 py-16", className)}>
       {config.header ?? (
         <div className="mb-12 text-center">
-          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">{title}</h2>
+          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
+            {title}
+          </h2>
           {description && (
-            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">{description}</p>
+            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+              {description}
+            </p>
           )}
           <div className="mt-8">
-            <IntervalToggle config={config} interval={interval} onChange={setInterval} />
+            <IntervalToggle
+              config={config}
+              interval={interval}
+              onChange={setInterval}
+            />
           </div>
         </div>
       )}
@@ -212,7 +231,11 @@ export function BillingPage({ config, className }: BillingPageProps) {
               </div>
             )}
             <CardHeader>
-              <PlanHeader plan={plan} interval={interval} currency={config.currency ?? "$"} />
+              <PlanHeader
+                plan={plan}
+                interval={interval}
+                currency={config.currency ?? "$"}
+              />
             </CardHeader>
             <CardContent className="flex flex-1 flex-col justify-between gap-6">
               {config.badge?.(plan) ?? (plan.badge ? plan.badge(plan) : null)}
@@ -237,20 +260,34 @@ export interface BillingPageTableProps {
   className?: string;
 }
 
-export function BillingPageTable({ config, rows, className }: BillingPageTableProps) {
+export function BillingPageTable({
+  config,
+  rows,
+  className,
+}: BillingPageTableProps) {
   const { plans, title = "Compare plans", description } = config;
-  const [interval, setInterval] = React.useState<BillingInterval>(config.interval ?? "monthly");
+  const [interval, setInterval] = React.useState<BillingInterval>(
+    config.interval ?? "monthly",
+  );
 
   return (
     <section className={cn("mx-auto w-full max-w-6xl px-6 py-16", className)}>
       {config.header ?? (
         <div className="mb-12 text-center">
-          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">{title}</h2>
+          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
+            {title}
+          </h2>
           {description && (
-            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">{description}</p>
+            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+              {description}
+            </p>
           )}
           <div className="mt-8">
-            <IntervalToggle config={config} interval={interval} onChange={setInterval} />
+            <IntervalToggle
+              config={config}
+              interval={interval}
+              onChange={setInterval}
+            />
           </div>
         </div>
       )}
@@ -297,7 +334,10 @@ export function BillingPageTable({ config, rows, className }: BillingPageTablePr
           </thead>
           <tbody>
             {rows.map((row) => (
-              <tr key={row.label} className="border-b border-border last:border-0">
+              <tr
+                key={row.label}
+                className="border-b border-border last:border-0"
+              >
                 <td className="sticky left-0 bg-background p-3 text-sm font-medium text-foreground sm:p-4">
                   {row.label}
                 </td>
@@ -305,10 +345,22 @@ export function BillingPageTable({ config, rows, className }: BillingPageTablePr
                   const v = row.supports[plan.id];
                   return (
                     <td key={plan.id} className="p-3 text-center sm:p-4">
-                      {v === true && <Icon name="check" className="mx-auto size-4 text-primary" />}
-                      {v === false && <Icon name="close" className="mx-auto size-4 text-muted-foreground/40" />}
+                      {v === true && (
+                        <Icon
+                          name="check"
+                          className="mx-auto size-4 text-primary"
+                        />
+                      )}
+                      {v === false && (
+                        <Icon
+                          name="close"
+                          className="mx-auto size-4 text-muted-foreground/40"
+                        />
+                      )}
                       {typeof v === "string" && (
-                        <span className="text-xs text-muted-foreground">{v}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {v}
+                        </span>
                       )}
                     </td>
                   );
@@ -333,20 +385,37 @@ export interface BillingPageFreemiumProps {
   className?: string;
 }
 
-export function BillingPageFreemium({ config, heroPlanId, className }: BillingPageFreemiumProps) {
-  const { plans, title = "Start free, scale when you're ready", description } = config;
-  const [interval, setInterval] = React.useState<BillingInterval>(config.interval ?? "monthly");
+export function BillingPageFreemium({
+  config,
+  heroPlanId,
+  className,
+}: BillingPageFreemiumProps) {
+  const {
+    plans,
+    title = "Start free, scale when you're ready",
+    description,
+  } = config;
+  const [interval, setInterval] = React.useState<BillingInterval>(
+    config.interval ?? "monthly",
+  );
 
-  const hero = plans.find((p) => p.id === heroPlanId) ?? plans.find((p) => p.highlight) ?? plans[0];
+  const hero =
+    plans.find((p) => p.id === heroPlanId) ??
+    plans.find((p) => p.highlight) ??
+    plans[0];
   const rest = plans.filter((p) => p.id !== hero?.id);
 
   return (
     <section className={cn("mx-auto w-full max-w-6xl px-6 py-16", className)}>
       {config.header ?? (
         <div className="mb-12 text-center">
-          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">{title}</h2>
+          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
+            {title}
+          </h2>
           {description && (
-            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">{description}</p>
+            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+              {description}
+            </p>
           )}
         </div>
       )}
@@ -365,22 +434,34 @@ export function BillingPageFreemium({ config, heroPlanId, className }: BillingPa
               </p>
             </CardHeader>
             <CardContent className="flex flex-1 flex-col justify-between gap-6">
-              <FeatureList features={plans.find((p) => p.price === 0)!.features} />
-              <PlanCta plan={plans.find((p) => p.price === 0)!} ctaButton={config.ctaButton} />
+              <FeatureList
+                features={plans.find((p) => p.price === 0)!.features}
+              />
+              <PlanCta
+                plan={plans.find((p) => p.price === 0)!}
+                ctaButton={config.ctaButton}
+              />
             </CardContent>
           </Card>
         )}
 
         {/* Featured paid plan */}
         {hero && hero.price > 0 && (
-          <Card variant="glow" className="relative flex flex-col border-primary/40 shadow-lg">
+          <Card
+            variant="glow"
+            className="relative flex flex-col border-primary/40 shadow-lg"
+          >
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <Badge className="bg-primary text-primary-foreground">
                 {hero.badgeLabel ?? "Most popular"}
               </Badge>
             </div>
             <CardHeader>
-              <PlanHeader plan={hero} interval={interval} currency={config.currency ?? "$"} />
+              <PlanHeader
+                plan={hero}
+                interval={interval}
+                currency={config.currency ?? "$"}
+              />
             </CardHeader>
             <CardContent className="flex flex-1 flex-col justify-between gap-6">
               <FeatureList features={hero.features} />
@@ -396,7 +477,11 @@ export function BillingPageFreemium({ config, heroPlanId, className }: BillingPa
           {rest.map((plan) => (
             <Card key={plan.id} className="flex flex-col">
               <CardHeader>
-                <PlanHeader plan={plan} interval={interval} currency={config.currency ?? "$"} />
+                <PlanHeader
+                  plan={plan}
+                  interval={interval}
+                  currency={config.currency ?? "$"}
+                />
               </CardHeader>
               <CardContent className="flex flex-1 flex-col justify-between gap-6">
                 <FeatureList features={plan.features} />
@@ -408,7 +493,11 @@ export function BillingPageFreemium({ config, heroPlanId, className }: BillingPa
       )}
 
       <div className="mt-8 flex justify-center">
-        <IntervalToggle config={config} interval={interval} onChange={setInterval} />
+        <IntervalToggle
+          config={config}
+          interval={interval}
+          onChange={setInterval}
+        />
       </div>
 
       {config.footer}

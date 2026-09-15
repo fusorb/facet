@@ -18,7 +18,10 @@ const Avatar = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AvatarPrimitive.Root
     ref={ref}
-    className={cn("relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full", className)}
+    className={cn(
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      className,
+    )}
     {...props}
   />
 ));
@@ -123,7 +126,10 @@ export interface UserAvatarProps {
 }
 
 /** Derive initials from a name (or email prefix), max 2 chars. */
-export function getInitials(name?: string | null, email?: string | null): string {
+export function getInitials(
+  name?: string | null,
+  email?: string | null,
+): string {
   const source = name?.trim() || email?.trim() || "?";
   return source
     .split(/\s+|@/)
@@ -177,7 +183,11 @@ export function UserAvatar({
   const avatar = (
     <Avatar className={cn("h-8 w-8", className)}>
       {user.picture ? (
-        <AvatarImage src={user.picture} alt={user.name ?? "User"} className={imageClassName} />
+        <AvatarImage
+          src={user.picture}
+          alt={user.name ?? "User"}
+          className={imageClassName}
+        />
       ) : null}
       <AvatarFallback className="bg-primary/10 text-xs font-medium text-primary">
         {initials}
@@ -203,28 +213,39 @@ export function UserAvatar({
           {avatar}
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className={cn("z-70 w-56", dropdownClassName)}>
+      <DropdownMenuContent
+        align="end"
+        className={cn("z-70 w-56", dropdownClassName)}
+      >
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col gap-1">
-            <p className="text-sm font-medium leading-none">{user.name ?? "Signed in"}</p>
+            <p className="text-sm font-medium leading-none">
+              {user.name ?? "Signed in"}
+            </p>
             {user.email && (
-              <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+              <p className="text-xs leading-none text-muted-foreground">
+                {user.email}
+              </p>
             )}
           </div>
-          {roleBadge && (
-            <div className="mt-1">{roleBadge}</div>
-          )}
+          {roleBadge && <div className="mt-1">{roleBadge}</div>}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {items?.map((item) => (
           <DropdownMenuItem
             key={item.label}
             onClick={item.onSelect}
-            className={item.destructive ? "text-destructive focus:text-destructive" : undefined}
+            className={
+              item.destructive
+                ? "text-destructive focus:text-destructive"
+                : undefined
+            }
           >
             {item.icon ? <Icon name={item.icon} className="size-4" /> : null}
             {item.label}
-            {item.shortcut ? <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut> : null}
+            {item.shortcut ? (
+              <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut>
+            ) : null}
           </DropdownMenuItem>
         ))}
         {settingsHref ? (

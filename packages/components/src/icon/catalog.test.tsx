@@ -12,7 +12,17 @@
 import { describe, expect, it } from "vitest";
 import { getIcon } from "./registry.js";
 import { SEMANTIC_ICONS } from "./semantic-icons.js";
-import { Settings, LogOut, Copy, Compass, User, ChevronDown, ChevronsUpDown, TriangleAlert, BookOpen } from "lucide-react";
+import {
+  Settings,
+  LogOut,
+  Copy,
+  Compass,
+  User,
+  ChevronDown,
+  ChevronsUpDown,
+  TriangleAlert,
+  BookOpen,
+} from "lucide-react";
 
 describe("semantic icon sync path (Q7)", () => {
   it("resolves built-in semantic icons synchronously via direct imports", () => {

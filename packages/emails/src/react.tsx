@@ -18,7 +18,8 @@ type ReactChild = React.ReactNode;
 
 function toNode(child: ReactChild, key: string): TemplateNode | string | null {
   // Strings / numbers become text.
-  if (typeof child === "string" || typeof child === "number") return String(child);
+  if (typeof child === "string" || typeof child === "number")
+    return String(child);
   if (child == null || typeof child === "boolean") return null;
 
   if (Array.isArray(child)) {

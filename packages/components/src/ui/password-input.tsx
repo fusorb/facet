@@ -9,8 +9,10 @@ import * as React from "react";
 import { cn } from "../utils.js";
 import { Icon, type IconName } from "../icon/index.js";
 
-export interface PasswordInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+export interface PasswordInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "type"
+> {
   /** Show a label above the input. */
   label?: string;
   /** Show the reveal toggle. Default: true. */
@@ -27,7 +29,10 @@ export interface PasswordInputProps
   visibleIconName?: IconName;
 }
 
-export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
+export const PasswordInput = React.forwardRef<
+  HTMLInputElement,
+  PasswordInputProps
+>(
   (
     {
       label,
@@ -42,7 +47,8 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
     },
     ref,
   ) => {
-    const [internalVisible, setInternalVisible] = React.useState(defaultVisible);
+    const [internalVisible, setInternalVisible] =
+      React.useState(defaultVisible);
     const visible = visibleProp ?? internalVisible;
 
     const toggle = () => {
@@ -59,7 +65,10 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
     return (
       <div className={cn("w-full", className)}>
         {label && (
-          <label htmlFor={inputId} className="mb-1.5 block text-sm font-medium text-foreground">
+          <label
+            htmlFor={inputId}
+            className="mb-1.5 block text-sm font-medium text-foreground"
+          >
             {label}
           </label>
         )}
@@ -81,9 +90,17 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
               className="absolute right-1 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
               {visible ? (
-                <Icon name={hiddenIconName} className="h-4 w-4" aria-hidden="true" />
+                <Icon
+                  name={hiddenIconName}
+                  className="h-4 w-4"
+                  aria-hidden="true"
+                />
               ) : (
-                <Icon name={visibleIconName} className="h-4 w-4" aria-hidden="true" />
+                <Icon
+                  name={visibleIconName}
+                  className="h-4 w-4"
+                  aria-hidden="true"
+                />
               )}
             </button>
           )}

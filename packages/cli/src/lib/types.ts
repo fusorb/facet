@@ -13,12 +13,7 @@ export type Language = "typescript" | "javascript";
 
 /** Frontend frameworks only. Backend stacks (Fastify, Express, Nest, ...)
  * don't affect the docs scaffold: docs are a frontend concern. */
-export type Framework =
-  | "react-vite"
-  | "next"
-  | "remix"
-  | "plain-js"
-  | "python";
+export type Framework = "react-vite" | "next" | "remix" | "plain-js" | "python";
 
 /**
  * Where the generated docs live. Root (`.`) is recommended; consumers who
@@ -36,14 +31,11 @@ export type DocsLocation = "." | "src/docs" | "docs";
 export type AddTarget = string;
 
 /** What kind of documentation the consumer is publishing. */
-export type TemplateKind = "component-library" | "api-reference" | "product-docs";
+export type TemplateKind =
+  "component-library" | "api-reference" | "product-docs";
 
 /** Styling setup detected in the consumer's repo. */
-export type Styling =
-  | "facet-tokens"
-  | "tailwind"
-  | "plain-css"
-  | "none";
+export type Styling = "facet-tokens" | "tailwind" | "plain-css" | "none";
 
 export interface DocsAnswers {
   /** Docs site name (defaults to "docs"). */
@@ -100,17 +92,27 @@ export function detectStyling(cwd: string): Styling {
 
   // Facet tokens: tokens.css imported or @fusorb/facet-tokens in deps.
   const pkg = has("package.json") ? readJson("package.json") : {};
-  const deps = { ...(pkg.dependencies ?? {}), ...(pkg.devDependencies ?? {}) } as Record<
-    string,
-    string
-  >;
-  if (deps["@fusorb/facet-tokens"] || read("src/app.css").includes("facet-tokens")) {
+  const deps = {
+    ...(pkg.dependencies ?? {}),
+    ...(pkg.devDependencies ?? {}),
+  } as Record<string, string>;
+  if (
+    deps["@fusorb/facet-tokens"] ||
+    read("src/app.css").includes("facet-tokens")
+  ) {
     return "facet-tokens";
   }
-  if (deps.tailwindcss || has("tailwind.config.js") || has("tailwind.config.ts")) {
+  if (
+    deps.tailwindcss ||
+    has("tailwind.config.js") ||
+    has("tailwind.config.ts")
+  ) {
     return "tailwind";
   }
-  if (has("src") && readdirSafe(path.join(cwd, "src")).some((f) => f.endsWith(".css"))) {
+  if (
+    has("src") &&
+    readdirSafe(path.join(cwd, "src")).some((f) => f.endsWith(".css"))
+  ) {
     return "plain-css";
   }
   return "none";
@@ -127,7 +129,11 @@ export type PackageManager = "npm" | "pnpm" | "yarn" | "bun";
  */
 export function detectPackageManager(cwd: string): PackageManager {
   if (existsSync(path.join(cwd, "pnpm-lock.yaml"))) return "pnpm";
-  if (existsSync(path.join(cwd, "bun.lockb")) || existsSync(path.join(cwd, "bun.lock"))) return "bun";
+  if (
+    existsSync(path.join(cwd, "bun.lockb")) ||
+    existsSync(path.join(cwd, "bun.lock"))
+  )
+    return "bun";
   if (existsSync(path.join(cwd, "yarn.lock"))) return "yarn";
   return "npm";
 }
@@ -135,10 +141,14 @@ export function detectPackageManager(cwd: string): PackageManager {
 /** Human-readable install command for the detected package manager. */
 export function installCommand(pm: PackageManager): string {
   switch (pm) {
-    case "pnpm": return "pnpm install";
-    case "yarn": return "yarn install";
-    case "bun": return "bun install";
-    default: return "npm install";
+    case "pnpm":
+      return "pnpm install";
+    case "yarn":
+      return "yarn install";
+    case "bun":
+      return "bun install";
+    default:
+      return "npm install";
   }
 }
 
@@ -199,7 +209,11 @@ export function collectFacetDeps(cwd: string): Record<string, string> {
   const merged: Record<string, string> = {};
   const pkg = read(path.join(cwd, "package.json"));
   if (pkg) {
-    for (const section of ["dependencies", "devDependencies", "peerDependencies"]) {
+    for (const section of [
+      "dependencies",
+      "devDependencies",
+      "peerDependencies",
+    ]) {
       const deps = (pkg[section] ?? {}) as Record<string, string>;
       for (const [name, range] of Object.entries(deps)) {
         if (name.startsWith("@fusorb/facet-")) merged[name] = range;
@@ -223,7 +237,11 @@ export function collectFacetDeps(cwd: string): Record<string, string> {
   for (const member of memberDirs) {
     const mpkg = read(path.join(member, "package.json"));
     if (!mpkg) continue;
-    for (const section of ["dependencies", "devDependencies", "peerDependencies"]) {
+    for (const section of [
+      "dependencies",
+      "devDependencies",
+      "peerDependencies",
+    ]) {
       const deps = (mpkg[section] ?? {}) as Record<string, string>;
       for (const [name, range] of Object.entries(deps)) {
         if (name.startsWith("@fusorb/facet-")) merged[name] = range;
@@ -253,7 +271,7 @@ export function compareVersions(a: string, b: string): number {
 /**
  * Detect the consumer's FRONTEND framework from cwd. Backend-only markers
  * (fastify, express, nest, etc.) are deliberately ignored: a fullstack
- * repo like arc-id (Next.js + Fastify) should be detected as Next.js, and
+ * repo like SovGrant (Next.js + Fastify) should be detected as Next.js, and
  * the docs scaffold is a frontend concern.
  */
 export function detectFramework(cwd: string): Framework {
@@ -279,13 +297,28 @@ export function detectFramework(cwd: string): Framework {
   } as Record<string, string>;
 
   // Frontend-only signals, checked in priority order.
-  if (deps.next || has("next.config.js") || has("next.config.mjs") || has("next.config.ts")) {
+  if (
+    deps.next ||
+    has("next.config.js") ||
+    has("next.config.mjs") ||
+    has("next.config.ts")
+  ) {
     return "next";
   }
-  if (deps.remix || has("remix.config.js") || has("remix.config.mjs") || has("app/root.tsx")) {
+  if (
+    deps.remix ||
+    has("remix.config.js") ||
+    has("remix.config.mjs") ||
+    has("app/root.tsx")
+  ) {
     return "remix";
   }
-  if (deps.vite || has("vite.config.ts") || has("vite.config.js") || has("vite.config.mjs")) {
+  if (
+    deps.vite ||
+    has("vite.config.ts") ||
+    has("vite.config.js") ||
+    has("vite.config.mjs")
+  ) {
     return "react-vite";
   }
   // If a package.json exists but no frontend framework is detected, the
@@ -302,11 +335,16 @@ export function detectFramework(cwd: string): Framework {
 /** Dev-server script for the detected frontend framework. */
 export function devCommand(framework: Framework): string {
   switch (framework) {
-    case "next": return "pnpm dev";
-    case "remix": return "pnpm dev";
-    case "react-vite": return "pnpm dev";
-    case "python": return "python docs_pipeline.py";
-    default: return "Run the content pipeline";
+    case "next":
+      return "pnpm dev";
+    case "remix":
+      return "pnpm dev";
+    case "react-vite":
+      return "pnpm dev";
+    case "python":
+      return "python docs_pipeline.py";
+    default:
+      return "Run the content pipeline";
   }
 }
 

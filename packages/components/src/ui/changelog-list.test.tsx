@@ -38,7 +38,9 @@ describe("ChangelogList", () => {
   it("shows the filter row when showFilter is true", () => {
     render(<ChangelogList releases={releases} showFilter />);
     // The filter chips include a count badge per kind.
-    expect(screen.getByRole("button", { pressed: true, name: /added/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { pressed: true, name: /added/i }),
+    ).toBeInTheDocument();
   });
 
   it("hides a kind's group when its filter is toggled off", () => {

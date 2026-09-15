@@ -2,7 +2,7 @@
 
 ## Overview
 
-facet is the shared UI layer for the Arcevo ecosystem (arc-id, arcbase, arc-wallet).
+facet is the shared UI layer for the identity ecosystem (SovGrant, Relnex, SovPort).
 It replaces ~100 duplicated shadcn components between projects with a single,
 domain-customizable auth-first component system.
 
@@ -23,7 +23,7 @@ Three customization axes: `appearance` (style), `config` (behavior flags), `slot
 
 ```
 packages/tokens/       ← Design tokens (finished)
-packages/sdk/          ← arc-id SDK (finished)
+packages/sdk/          ← SovGrant SDK (finished)
 packages/components/   ← 114 styled Radix components (shadcn-style, Radix + tailwind-merge)
 packages/auth/         ← Auth components + domain presets (fintech, med, edu)
 packages/layout/       ← Domain-configurable app shell (ConsoleLayout, AuthLayout, LandingLayout)
@@ -102,8 +102,8 @@ COMPLETE → (onSuccess callback) → redirect
 5. ✅ `packages/layout/`: ConsoleLayout (full + rail modes), AuthLayout (renamed from AppLayout, alias kept), LandingLayout, 5 presets
 6. ✅ `packages/docs/`: installable config-driven docs engine (`@fusorb/facet-docs`) + thin demo consumer at `apps/docs/` (`@fusorb/facet-docs-site`)
 7. ✅ Changesets + npm publish pipeline
-8. ✅ `apps/landing/`: rebuilt public-facing site (vite + tailwind v4) + feedback page (`/feedback`) with mail/WhatsApp/socials
-9. ✅ Tests: vitest workspace, 745 tests across 56 files (7 projects: sdk, store, components, auth, layout, cli, docs); 1 pre-existing flake: theme.test.tsx Radix/jsdom
+8. ✅ `apps/landing/`: rebuilt public-facing site (vite + tailwind v4) + feedback page (`/feedback`) with mail + GitHub links
+9. ✅ Tests: vitest workspace, 749 tests across 56 files (7 projects: sdk, store, components, auth, layout, cli, docs); 1 pre-existing flake: theme.test.tsx Radix/jsdom
 10. ✅ SignIn mfa_challenge wired to MfaVerifyForm
 11. ✅ SignIn controlled `step`/`onStepChange` + `<SignInFlowDemo>` live-linked state machine + `<AuthDemo>` config block
 12. ✅ Docs restructure landed (568497d): old `apps/docs-site` removed, `packages/docs` engine + `apps/docs` thin consumer. Docs site includes an interactive SignIn demo with a method switcher (config toggles + preview + synced copyable code), a reusable `demo` content block for any manifest slug (auth/layout/forms guide pages), and a keyboard-shortcuts table on Overview + Getting Started.
@@ -111,17 +111,18 @@ COMPLETE → (onSuccess callback) → redirect
 14. ✅ Docs-site gallery split (committed in b1da261): base UI components, the auth/layout surfaces, and the "Ready to Use" extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form) are now separated. The base `/components` gallery shows UI primitives only, auth/layout have their own guide pages with interactive demos, and ready-to-use extras get a dedicated `/ready-to-use` section with live previews + copyable snippets. Component pages use the reusable `<InteractiveDemo>` (variant tabs with live preview + matching code side-by-side).
 15. ⚠️ `pnpm lint` hangs on this machine (environment issue). CLI `tsc` is pathologically slow; use editor LSP diagnostics on changed files as the typecheck signal.
 16. ✅ Architectural debt sprint - 10 items resolved and committed: `@fusorb/facet-store` stabilized at 1.0.0 (was 0.1.0-alpha), `@fusorb/facet-cli` stabilized at 1.0.0 (was 0.8.0); CLI deps resolved dynamically from the installed components package.json (no hardcoded BUNDLED_DEPS); CLI self-update is CI-aware (skips update check in CI, suggests npx fallback); docs engine has 6 test files (manifest, nav, pages, docs-app integration); scan.ts detects Fastify/OpenAPI backend routes + generates API reference pages; `facet clean` is opt-in destructive (`--delete-local` flag; `--yes` preset never deletes files); icon catalog is lazy-loaded (1,500-icon map deferred, ~30 semantic icons resolved synchronously); SDK table↔barrel + icon-map drift gates wired into CI; `facet install` (`.alias("add")`) + `facet copy` (component source) split clarifies the commands; template-merge.ts marker bug fixed. See `.changeset/stabilize-cli-store.md`.
-17. ✅ CI gates: `build → check:docs → check:icons → check:sdk-drift → typecheck → test (workspace) → sandbox:e2e`. Version job has `permissions: contents: write` (fixes 403 on changesets version PR push).
+17. ✅ CI gates: `build → check:docs → check:icons → check:components → check:sdk-drift → typecheck → test (workspace) → sandbox:e2e`. Version job has `permissions: contents: write` (fixes 403 on changesets version PR push).
+18. ✅ Production-grade pass (2026-09-13, working tree): full audit written to `.agent/production-audit.txt` (sections A-G); packages de-branded (no "Arcevo"/"SovGrant" strings in src, neutral emails default, semantic tokens over hardcoded palette); tokens build now minifies dist CSS via esbuild; all 22 components missing typed props now export `XxxProps` types (check:components gate 114/114 + 114/114); CI actions pinned to commit SHAs; changesets/action v2.1.2 + @changesets/cli 3.0.2 (renamed inputs, explicit github-token, releases/tags disabled); publish job grants `id-token: write` for the future npm Trusted Publishing swap; `.agent/` untracked + gitignored; landing rebuilt config-driven (`site.config.ts` + `scripts/gen-site-data.mjs` codegen + pages registry + sections) with the "f" monogram placeholder (no logo assets); landing/docs-site build, typecheck, tests (749), and all drift gates green. Remaining: browser visual QA and the E-cluster cosmetic docs/CLI gaps (tracked in `.agent/todo.txt`).
 
-## Known Gaps for arc-id Consumption
+## Known Gaps for SovGrant Consumption
 
-When arc-id adopts facet as its frontend, these need resolution:
+When SovGrant adopts facet as its frontend, these need resolution:
 
 **Resolved blockers (were blockers, now fixed):**
 
 1. ✅ **SDK 401 auto-refresh**: Added `onTokenRefresh` callback to `ArcIdClient` (`client.ts:113-124`). Automatic retry on 401.
 2. ✅ **Placeholder handlers**: `handlePasskeyAuth` now calls `passkeySdk.authenticationOptions()` → `navigator.credentials.get()` → `passkeySdk.authenticate()`. `handleForgotPasswordSubmit` calls `authSdk.forgotPassword()`. No longer stubs.
-3. ✅ **Test infrastructure**: Vitest workspace, 745 tests across 56 files (7 projects: sdk, store, components, auth, layout, cli, docs).
+3. ✅ **Test infrastructure**: Vitest workspace, 749 tests across 56 files (7 projects: sdk, store, components, auth, layout, cli, docs).
 4. ✅ **SignIn MFA challenge**: Wired to `MfaVerifyForm` (2026-07-31).
 5. ✅ **Duplicate dropdowns**: `layout/UserMenu` now uses `@fusorb/facet-components` `DropdownMenu`.
 6. ✅ **Type strictness**: SDK now has strict domain interfaces in `sdk/src/types.ts`; `Record<string, unknown>` eliminated.
@@ -133,18 +134,18 @@ When arc-id adopts facet as its frontend, these need resolution:
 12. ✅ **Docs inventory gate**: `node scripts/check-docs-inventory.mjs` verifies every `ui/` component is barrel-exported and present in the docs manifest (Storybook fixtures removed).
 13. ✅ **Icon library registry**: `IconRegistry` shipped in 1.0.2 (`icon/registry.tsx`): `IconProvider`/`Icon`/`registerIcon`/`getIcon` with lucide-react as the default set and domain overrides supported.
 
-**Still open (not blockers):** 1. **No Tailwind config**: No `tailwind.config.*`. Relies on CSS variables. Consumers need `tailwindcss-animate` plugin. 2. **Bundle optimization**: tsup uses CLI flags, not config files; no code-splitting or tree-shake analysis. 3. **CSS build pipeline**: Tokens CSS is copied via inline `fs.cpSync` instead of a proper build step (PostCSS + autoprefixer + minification). 4. **Turbo validation**: `turbo.json` exists but hasn't been validated with a real run. 5. **Component a11y audit**: Radix primitives provide baseline accessibility, but compounded components (SignIn state machine, MfaDialog phases) need keyboard navigation and screen reader testing before third-party use. 6. **Storybook fully removed**: the repo no longer runs Storybook and has zero `@storybook/*` deps; the docs inventory drift gate (`node scripts/check-docs-inventory.mjs`) verifies barrel exports + manifest coverage instead. 7. **check-docs-inventory.mjs rewritten**: the three P0 breakages from `.agent/analysis-current-state.md` are fixed (see item 13 above).
+**Still open (not blockers):** 1. **No Tailwind config**: No `tailwind.config.*`. Relies on CSS variables. Consumers need `tailwindcss-animate` plugin. 2. **Bundle optimization**: tsup uses CLI flags, not config files; no code-splitting or tree-shake analysis. 3. ~~**CSS build pipeline**~~: fixed 2026-09-13, tokens dist CSS is minified at build time (esbuild). 4. **Turbo validation**: `turbo.json` exists but hasn't been validated with a real run. 5. **Component a11y audit**: Radix primitives provide baseline accessibility, but compounded components (SignIn state machine, MfaDialog phases) need keyboard navigation and screen reader testing before third-party use. 6. **Storybook fully removed**: the repo no longer runs Storybook and has zero `@storybook/*` deps; the docs inventory drift gate (`node scripts/check-docs-inventory.mjs`) verifies barrel exports + manifest coverage instead. 7. **check-docs-inventory.mjs rewritten**: the three P0 breakages from `.agent/analysis-current-state.md` are fixed (see item 13 above). 8. **Slot gaps**: 4 data-driven composites (api-key-manager, invite-team-form, testimonial-showcase, two-factor-setup-panel) have no render/children slots yet (check:components warns, doesn't fail). 9. **npm Trusted Publishing**: publish job is OIDC-ready (`id-token: write`) but still falls back to NPM_TOKEN until npm provenance is configured on the package.
 
 ## Consumption Target
 
-arc-id will consume facet as npm-published packages:
+SovGrant will consume facet as npm-published packages:
 
 - `src/components/ui/*` → replace with `@fusorb/facet-components`
 - `src/components/auth/*` → replace with `@fusorb/facet-auth`
 - `src/sdk/*` → replace with `@fusorb/facet-sdk`
 - `globals.css :root` → replace with `@fusorb/facet-tokens/tokens.css`
 
-arc-id keeps: Zustand stores, hooks, providers (tenant hydration), pages, layout components (until replacing with `@fusorb/facet-layout`).
+SovGrant keeps: Zustand stores, hooks, providers (tenant hydration), pages, layout components (until replacing with `@fusorb/facet-layout`).
 
 ## Commands
 

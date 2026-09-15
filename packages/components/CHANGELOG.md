@@ -336,7 +336,11 @@ all` toolbar buttons; active section scrolls into view.
   stay out of the initial bundle.
 
   ```ts
-  import { Icon, ThemeProvider, DropdownMenu } from "@fusorb/facet-components/light";
+  import {
+    Icon,
+    ThemeProvider,
+    DropdownMenu,
+  } from "@fusorb/facet-components/light";
   ```
 
 - 6bb55a2: feat(components): add `timeline` variant to Roadmap
@@ -375,7 +379,7 @@ all` toolbar buttons; active section scrolls into view.
 - b878bfd: fix(docs): layout page no longer takes over the shell; back button; marquee
 
   - docs: the /layout page had live layout demo blocks whose fixed-position
-    sidebars escaped and covered the docs shell (the arc-id demo sidebar).
+    sidebars escaped and covered the docs shell (the SovGrant demo sidebar).
     Removed every live demo block from the page; it is now text + copyable
     code only. Verified in the browser: the facet sidebar renders normally.
   - docs: add a Back button at the top of every content page body (goes back

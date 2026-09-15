@@ -2,7 +2,7 @@
   "name": "@fusorb/facet-docs-site",
   "version": "1.0.12",
   "private": true,
-  "description": "facet's own docs site: a thin consumer of @fusorb/facet-docs, deployed to docs.facet.arcevocirqle.com.ng.",
+  "description": "facet's own docs site: a thin consumer of @fusorb/facet-docs.",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,7 +1,6 @@
 ---
 "@fusorb/facet-components": minor
 "@fusorb/facet-layout": patch
-"@fusorb/facet-docs-site": patch
 ---
 
 KanbanCard gains a full action menu (Edit, Duplicate, Export,

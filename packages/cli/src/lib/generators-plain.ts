@@ -19,12 +19,16 @@ function ext(language: "typescript" | "javascript"): string {
  * single entry: "auto" creates it when nothing exists yet, true always,
  * false never.
  */
-export function generatePlainJs(answers: DocsAnswers, cwd: string): GeneratedFile[] {
+export function generatePlainJs(
+  answers: DocsAnswers,
+  cwd: string,
+): GeneratedFile[] {
   const e = ext(answers.language);
   const base = path.join(cwd, answers.location === "." ? "" : answers.location);
 
-  const pagesFile = answers.language === "typescript"
-    ? `import type { DocsPage } from "@fusorb/facet-docs";
+  const pagesFile =
+    answers.language === "typescript"
+      ? `import type { DocsPage } from "@fusorb/facet-docs";
 
 /**
  * Your docs pages registry (framework-agnostic). A page is data:
@@ -34,7 +38,7 @@ export function generatePlainJs(answers: DocsAnswers, cwd: string): GeneratedFil
  */
 export const docsPages: DocsPage[] = ${JSON.stringify(starterPages(answers.template, answers.name), null, 2).replace(/"([a-z]+)":/g, "$1:")};
 `
-    : `/**
+      : `/**
  * Your docs pages registry (framework-agnostic). A page is data:
  * path + title + section + content blocks. The docs engine renders these
  * from any React host, but the registry itself is plain data, so it works
@@ -142,7 +146,10 @@ export function markdownToBlocks(body: string): import("@fusorb/facet-docs").Doc
     { path: path.join(base, `pages.${e}`), content: pagesFile },
     {
       path: path.join(base, `content-pipeline.${e}`),
-      content: answers.language === "typescript" ? contentPipeline : stripTypes(contentPipeline),
+      content:
+        answers.language === "typescript"
+          ? contentPipeline
+          : stripTypes(contentPipeline),
     },
   ];
 
@@ -178,7 +185,10 @@ export { docsPages } from "./pages.${e}";
  * Barrel: an optional `index.ts` re-exports the config + pages. "auto"
  * creates it when nothing exists yet, true always, false never.
  */
-export function generateNext(answers: DocsAnswers, cwd: string): GeneratedFile[] {
+export function generateNext(
+  answers: DocsAnswers,
+  cwd: string,
+): GeneratedFile[] {
   const e = ext(answers.language);
   const tsx = answers.language === "typescript" ? "tsx" : "jsx";
   const base = path.join(cwd, answers.location === "." ? "" : answers.location);
@@ -188,7 +198,11 @@ export function generateNext(answers: DocsAnswers, cwd: string): GeneratedFile[]
   // exists (e.g. "@/lib/docs/config"), else use the correct relative path.
   const routeDir = path.posix.join(base.replace(/\\/g, "/"), "src/app/docs");
   const docsDir = path.posix.join(base.replace(/\\/g, "/"), "src/lib/docs");
-  const configImport = importSpecifier(cwd, path.join(routeDir, `page.${tsx}`), docsDir);
+  const configImport = importSpecifier(
+    cwd,
+    path.join(routeDir, `page.${tsx}`),
+    docsDir,
+  );
   const routeFile = `"use client";
 
 import { DocsApp } from "@fusorb/facet-docs";
@@ -207,7 +221,7 @@ export default function DocsPage() {
 export const docsConfig: DocsSiteConfig = {
   brand: { name: "${answers.name}", tagline: "Docs for ${answers.name}" },
   navigation: [],
-  // Point these at your other products' docs, e.g. arc-id.
+  // Point these at your other products' docs, e.g. SovGrant.
   ecosystem: [],
 };
 `;
@@ -223,16 +237,26 @@ export const docsPages: DocsPage[] = ${JSON.stringify(starterPages(answers.templ
 `;
 
   const files: GeneratedFile[] = [
-    { path: path.join(base, "src", "app", "docs", `page.${tsx}`), content: routeFile },
-    { path: path.join(base, "src", "lib", "docs", `config.${e}`), content: configFile },
-    { path: path.join(base, "src", "lib", "docs", `pages.${e}`), content: pagesFile },
+    {
+      path: path.join(base, "src", "app", "docs", `page.${tsx}`),
+      content: routeFile,
+    },
+    {
+      path: path.join(base, "src", "lib", "docs", `config.${e}`),
+      content: configFile,
+    },
+    {
+      path: path.join(base, "src", "lib", "docs", `pages.${e}`),
+      content: pagesFile,
+    },
   ];
 
   // Barrel: re-export the config + pages from a single entry. "auto"
   // creates it for a fresh scaffold; true always; false never.
   const wantsBarrel =
     answers.barrel === true ||
-    (answers.barrel !== false && !existsSync(path.join(base, "src", "lib", "docs", `index.${e}`)));
+    (answers.barrel !== false &&
+      !existsSync(path.join(base, "src", "lib", "docs", `index.${e}`)));
   if (wantsBarrel) {
     files.push({
       path: path.join(base, "src", "lib", "docs", `index.${e}`),
@@ -262,7 +286,10 @@ export { docsPages } from "./pages.${e}";
  * option only governs the JS/TS generators. Python consumers get the
  * pipeline + JSON output.
  */
-export function generatePython(answers: DocsAnswers, cwd: string): GeneratedFile[] {
+export function generatePython(
+  answers: DocsAnswers,
+  cwd: string,
+): GeneratedFile[] {
   const base = path.join(cwd, answers.location === "." ? "" : answers.location);
 
   const pipeline = `#!/usr/bin/env python3
@@ -386,23 +413,24 @@ if __name__ == "__main__":
     main()
 `;
 
-  const starterPages = JSON.stringify(
-    [
-      {
-        path: "/",
-        title: "Overview",
-        section: "guides",
-        description: `Welcome to ${answers.name}.`,
-        blocks: [
-          { type: "p", text: `Welcome to ${answers.name} docs.` },
-          { type: "h2", text: "Quick start" },
-          { type: "code", text: `pip install ${answers.name}` },
-        ],
-      },
-    ],
-    null,
-    2,
-  ) + "\n";
+  const starterPages =
+    JSON.stringify(
+      [
+        {
+          path: "/",
+          title: "Overview",
+          section: "guides",
+          description: `Welcome to ${answers.name}.`,
+          blocks: [
+            { type: "p", text: `Welcome to ${answers.name} docs.` },
+            { type: "h2", text: "Quick start" },
+            { type: "code", text: `pip install ${answers.name}` },
+          ],
+        },
+      ],
+      null,
+      2,
+    ) + "\n";
 
   return [
     { path: path.join(base, "docs_pipeline.py"), content: pipeline },
@@ -424,7 +452,10 @@ if __name__ == "__main__":
  * Barrel: an optional `index.ts` re-exports the config + pages. "auto"
  * creates it when nothing exists yet, true always, false never.
  */
-export function generateRemix(answers: DocsAnswers, cwd: string): GeneratedFile[] {
+export function generateRemix(
+  answers: DocsAnswers,
+  cwd: string,
+): GeneratedFile[] {
   const e = ext(answers.language);
   const tsx = answers.language === "typescript" ? "tsx" : "jsx";
   const base = path.join(cwd, answers.location === "." ? "" : answers.location);
@@ -433,7 +464,11 @@ export function generateRemix(answers: DocsAnswers, cwd: string): GeneratedFile[
   // Prefer a configured path alias when one exists, else a correct relative.
   const routeDir = path.posix.join(base.replace(/\\/g, "/"), "app/routes");
   const docsDir = path.posix.join(base.replace(/\\/g, "/"), "src/lib/docs");
-  const configImport = importSpecifier(cwd, path.join(routeDir, `docs.${tsx}`), docsDir);
+  const configImport = importSpecifier(
+    cwd,
+    path.join(routeDir, `docs.${tsx}`),
+    docsDir,
+  );
   const routeFile = `"use client";
 
 import { DocsApp } from "@fusorb/facet-docs";
@@ -452,7 +487,7 @@ export default function DocsRoute() {
 export const docsConfig: DocsSiteConfig = {
   brand: { name: "${answers.name}", tagline: "Docs for ${answers.name}" },
   navigation: [],
-  // Point these at your other products' docs, e.g. arc-id.
+  // Point these at your other products' docs, e.g. SovGrant.
   ecosystem: [],
 };
 `;
@@ -468,16 +503,26 @@ export const docsPages: DocsPage[] = ${JSON.stringify(starterPages(answers.templ
 `;
 
   const files: GeneratedFile[] = [
-    { path: path.join(base, "app", "routes", `docs.${tsx}`), content: routeFile },
-    { path: path.join(base, "src", "lib", "docs", `config.${e}`), content: configFile },
-    { path: path.join(base, "src", "lib", "docs", `pages.${e}`), content: pagesFile },
+    {
+      path: path.join(base, "app", "routes", `docs.${tsx}`),
+      content: routeFile,
+    },
+    {
+      path: path.join(base, "src", "lib", "docs", `config.${e}`),
+      content: configFile,
+    },
+    {
+      path: path.join(base, "src", "lib", "docs", `pages.${e}`),
+      content: pagesFile,
+    },
   ];
 
   // Barrel: re-export the config + pages from a single entry. "auto"
   // creates it for a fresh scaffold; true always; false never.
   const wantsBarrel =
     answers.barrel === true ||
-    (answers.barrel !== false && !existsSync(path.join(base, "src", "lib", "docs", `index.${e}`)));
+    (answers.barrel !== false &&
+      !existsSync(path.join(base, "src", "lib", "docs", `index.${e}`)));
   if (wantsBarrel) {
     files.push({
       path: path.join(base, "src", "lib", "docs", `index.${e}`),
@@ -497,19 +542,30 @@ export { docsPages } from "./pages.${e}";
  * TS-only). The template is controlled, so a targeted strip is safe.
  */
 function stripTypes(source: string): string {
-  return source
-    // Remove the interface block entirely.
-    .replace(/export interface MarkdownDoc \{[\s\S]*?\n\}/, "")
-    // Drop function parameter and return type annotations.
-    .replace(/\((source: string)\): \{ front: Record<string, string>; body: string \}/, "(source)")
-    .replace(/\(body: string\): import\("@fusorb\/facet-docs"\)\.DocsBlock\[\]/, "(body)")
-    // Drop variable type annotations.
-    .replace(/const (front|blocks|lines|fence|items|para): [^=]+=/, "const $1 =")
-    // Drop remaining inline type annotations (fence/lang/undefined casts).
-    .replace(/:\s*string\[\]/g, "")
-    .replace(/:\s*Record<string, string>/g, "")
-    .replace(/:\s*import\("@fusorb\/facet-docs"\)\.DocsBlock\[\]/g, "")
-    .replace(/lang: lang \|\| undefined/, "lang: lang || undefined");
+  return (
+    source
+      // Remove the interface block entirely.
+      .replace(/export interface MarkdownDoc \{[\s\S]*?\n\}/, "")
+      // Drop function parameter and return type annotations.
+      .replace(
+        /\((source: string)\): \{ front: Record<string, string>; body: string \}/,
+        "(source)",
+      )
+      .replace(
+        /\(body: string\): import\("@fusorb\/facet-docs"\)\.DocsBlock\[\]/,
+        "(body)",
+      )
+      // Drop variable type annotations.
+      .replace(
+        /const (front|blocks|lines|fence|items|para): [^=]+=/,
+        "const $1 =",
+      )
+      // Drop remaining inline type annotations (fence/lang/undefined casts).
+      .replace(/:\s*string\[\]/g, "")
+      .replace(/:\s*Record<string, string>/g, "")
+      .replace(/:\s*import\("@fusorb\/facet-docs"\)\.DocsBlock\[\]/g, "")
+      .replace(/lang: lang \|\| undefined/, "lang: lang || undefined")
+  );
 }
 
 /**
@@ -602,7 +658,7 @@ export function generateComponentAdd(
     for (const entry of readdirSync(componentDir, { withFileTypes: true })) {
       if (!entry.isFile()) continue;
       if (!entry.name.endsWith(`.${extname}`)) continue;
-      const name = entry.name.slice(0, -(`.${extname}`.length));
+      const name = entry.name.slice(0, -`.${extname}`.length);
       if (name === "index") continue; // the barrel itself
       added.push(name);
     }
@@ -613,7 +669,9 @@ export function generateComponentAdd(
 
   const barrel =
     "// Generated by @fusorb/facet-cli (facet add). Re-run `facet add` to refresh.\n" +
-    names.map((n) => `export { default as ${n} } from "./${n}.${extname}";`).join("\n") +
+    names
+      .map((n) => `export { default as ${n} } from "./${n}.${extname}";`)
+      .join("\n") +
     "\n";
 
   const componentFile = `// Generated by @fusorb/facet-cli (facet add ${component}).
@@ -640,18 +698,33 @@ export default ${component};
   }
 
   if (wantsBarrel === true) {
-    files.push({ path: path.join(componentDir, `index.${isTs ? "ts" : "js"}`), content: barrel });
+    files.push({
+      path: path.join(componentDir, `index.${isTs ? "ts" : "js"}`),
+      content: barrel,
+    });
     if (rootExists) {
       const ref = mode === "subdir" ? dir : ".";
-      files.push({ path: rootBarrel, content: mergeRootBarrel(rootBarrel, ref, component, isTs) });
+      files.push({
+        path: rootBarrel,
+        content: mergeRootBarrel(rootBarrel, ref, component, isTs),
+      });
     }
   } else if (mode === "subdir") {
-    files.push({ path: path.join(componentDir, `index.${isTs ? "ts" : "js"}`), content: barrel });
+    files.push({
+      path: path.join(componentDir, `index.${isTs ? "ts" : "js"}`),
+      content: barrel,
+    });
     if (rootExists) {
-      files.push({ path: rootBarrel, content: mergeRootBarrel(rootBarrel, dir, component, isTs) });
+      files.push({
+        path: rootBarrel,
+        content: mergeRootBarrel(rootBarrel, dir, component, isTs),
+      });
     }
   } else if (rootExists) {
-    files.push({ path: rootBarrel, content: mergeRootBarrel(rootBarrel, ".", component, isTs) });
+    files.push({
+      path: rootBarrel,
+      content: mergeRootBarrel(rootBarrel, ".", component, isTs),
+    });
   }
 
   return files;

@@ -11,9 +11,7 @@ const SAMPLE_SERIES = [
 
 describe("Chart", () => {
   it("renders an SVG with a chart aria-label", () => {
-    const { container } = render(
-      <Chart x={SAMPLE_X} series={SAMPLE_SERIES} />,
-    );
+    const { container } = render(<Chart x={SAMPLE_X} series={SAMPLE_SERIES} />);
     const svg = container.querySelector("svg");
     expect(svg).toBeInTheDocument();
     expect(svg).toHaveAttribute("aria-label", "Chart");
@@ -30,7 +28,12 @@ describe("Chart", () => {
 
   it("renders bar paths for type=bar", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="bar" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="bar"
+        showLegend={false}
+      />,
     );
     // Bars are rendered as <path> elements with selective border-radius (rounded
     // only at the extending end, sharp at the zero baseline).
@@ -44,17 +47,29 @@ describe("Chart", () => {
 
   it("renders area fill path for type=area", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="area" showTooltip={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="area"
+        showTooltip={false}
+      />,
     );
     const paths = container.querySelectorAll("path");
     // At least one path with a fill (area fill)
-    const areaFill = Array.from(paths).some((p) => p.getAttribute("fill") !== "none");
+    const areaFill = Array.from(paths).some(
+      (p) => p.getAttribute("fill") !== "none",
+    );
     expect(areaFill).toBe(true);
   });
 
   it("renders pie slices for type=pie", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="pie" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="pie"
+        showLegend={false}
+      />,
     );
     const paths = container.querySelectorAll("path");
     expect(paths.length).toBe(5);
@@ -62,7 +77,12 @@ describe("Chart", () => {
 
   it("renders donut slices + center total for type=donut", () => {
     const { container, getByText } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="donut" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="donut"
+        showLegend={false}
+      />,
     );
     const paths = container.querySelectorAll("path");
     expect(paths.length).toBe(5);
@@ -192,12 +212,16 @@ describe("Chart", () => {
     );
     expect(barPaths.length).toBe(5);
     // Horizontal bars have y positions varying across the chart height
-    const ys = barPaths.map((p) => parseFloat((p.getAttribute("d")?.split(" ")[1]) ?? "0"));
+    const ys = barPaths.map((p) =>
+      parseFloat(p.getAttribute("d")?.split(" ")[1] ?? "0"),
+    );
     expect(new Set(ys).size).toBeGreaterThan(1);
     // Horizontal bars must use xOfVal (value → horizontal position), not yOf.
     // The first bar (value 30) should start at xOfVal(0) = padding.left.
     const firstBar = barPaths[0]!;
-    const firstBarX = parseFloat(firstBar.getAttribute("d")!.match(/M([\d.-]+)/)?.[1] ?? "NaN");
+    const firstBarX = parseFloat(
+      firstBar.getAttribute("d")!.match(/M([\d.-]+)/)?.[1] ?? "NaN",
+    );
     expect(firstBarX).toBe(56); // padding.left default
   });
 
@@ -254,27 +278,48 @@ describe("Chart", () => {
 
   it("applies smooth curve to line paths", () => {
     const { container: linear } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} curve="linear" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        curve="linear"
+        showLegend={false}
+      />,
     );
     const { container: smooth } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} curve="smooth" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        curve="smooth"
+        showLegend={false}
+      />,
     );
     const linearPaths = linear.querySelectorAll("path");
     const smoothPaths = smooth.querySelectorAll("path");
     // Smooth paths should use cubic Bezier (C) commands
-    const smoothHasC = Array.from(smoothPaths).some((p) => p.getAttribute("d")?.includes(" C "));
+    const smoothHasC = Array.from(smoothPaths).some((p) =>
+      p.getAttribute("d")?.includes(" C "),
+    );
     expect(smoothHasC).toBe(true);
     // Linear paths should not use C commands
-    const linearHasC = Array.from(linearPaths).some((p) => p.getAttribute("d")?.includes(" C "));
+    const linearHasC = Array.from(linearPaths).some((p) =>
+      p.getAttribute("d")?.includes(" C "),
+    );
     expect(linearHasC).toBe(false);
   });
 
   it("applies step curve to line paths", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} curve="step" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        curve="step"
+        showLegend={false}
+      />,
     );
     const paths = container.querySelectorAll("path");
-    const hasStep = Array.from(paths).some((p) => p.getAttribute("d")?.includes(" H "));
+    const hasStep = Array.from(paths).some((p) =>
+      p.getAttribute("d")?.includes(" H "),
+    );
     expect(hasStep).toBe(true);
   });
 
@@ -284,13 +329,20 @@ describe("Chart", () => {
         x={SAMPLE_X}
         series={[
           { id: "shown", label: "Shown", data: [30, 80, 50, 60, 90] },
-          { id: "hidden", label: "Hidden", data: [40, 60, 70, 30, 50], hidden: true },
+          {
+            id: "hidden",
+            label: "Hidden",
+            data: [40, 60, 70, 30, 50],
+            hidden: true,
+          },
         ]}
       />,
     );
     // Only one series rendered → one path for the line
     const paths = container.querySelectorAll("path");
-    const linePaths = Array.from(paths).filter((p) => p.getAttribute("fill") === "none");
+    const linePaths = Array.from(paths).filter(
+      (p) => p.getAttribute("fill") === "none",
+    );
     expect(linePaths.length).toBe(1);
   });
 
@@ -309,7 +361,12 @@ describe("Chart", () => {
   it("calls onHover on pointer move", async () => {
     const onHover = vi.fn();
     const { container } = render(
-      <Chart x={SAMPLE_X} series={SAMPLE_SERIES} onHover={onHover} showCrosshair />,
+      <Chart
+        x={SAMPLE_X}
+        series={SAMPLE_SERIES}
+        onHover={onHover}
+        showCrosshair
+      />,
     );
     const svg = container.querySelector("svg")!;
     await fireEvent.mouseMove(svg, { clientX: 200, clientY: 100 });
@@ -325,14 +382,20 @@ describe("Chart", () => {
     const { container } = render(
       <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="pie" />,
     );
-    expect(container.querySelector("svg")).toHaveAttribute("aria-label", "Pie chart");
+    expect(container.querySelector("svg")).toHaveAttribute(
+      "aria-label",
+      "Pie chart",
+    );
   });
 
   it("sets aria-label to Donut chart for type=donut", () => {
     const { container } = render(
       <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="donut" />,
     );
-    expect(container.querySelector("svg")).toHaveAttribute("aria-label", "Donut chart");
+    expect(container.querySelector("svg")).toHaveAttribute(
+      "aria-label",
+      "Donut chart",
+    );
   });
 
   it("does not render crosshair when showTooltip is false", () => {
@@ -356,7 +419,9 @@ describe("Chart", () => {
     await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
     // The colored circles that "chase" the cursor are opt-in. By default only
     // the crosshair line + fixed data-point markers render.
-    expect(container.querySelectorAll('circle[stroke="var(--background)"]')).toHaveLength(0);
+    expect(
+      container.querySelectorAll('circle[data-crosshair-point="true"]'),
+    ).toHaveLength(0);
   });
 
   it("renders cursor-tracking point circles only when crosshairPoints=true", async () => {
@@ -366,18 +431,27 @@ describe("Chart", () => {
     const svg = container.querySelector("svg")!;
     await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
     // One tracking circle per visible series (2 in SAMPLE_SERIES).
-    expect(container.querySelectorAll('circle[stroke="var(--background)"]').length).toBe(2);
+    expect(
+      container.querySelectorAll('circle[data-crosshair-point="true"]').length,
+    ).toBe(2);
   });
 
   it("pie slices use opacity dimming, no scale transform (consistent hover)", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="pie" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="pie"
+        showLegend={false}
+      />,
     );
     const paths = container.querySelectorAll("path");
     expect(paths.length).toBe(5);
     // Slices now carry a scale transform for visible hover feedback.
     expect(container.querySelectorAll('path[style*="scale"]')).toHaveLength(5);
-    expect(container.querySelectorAll('path[style*="transform"]')).toHaveLength(5);
+    expect(container.querySelectorAll('path[style*="transform"]')).toHaveLength(
+      5,
+    );
   });
 
   it("wraps in a scrollable container when maxHeight is set", () => {
@@ -398,16 +472,29 @@ describe("Chart", () => {
 
   it("includes zero on the cartesian y-axis (starts from zero)", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="bar" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="bar"
+        showLegend={false}
+      />,
     );
-    const ticks = Array.from(container.querySelectorAll("text")).map((t) => t.textContent);
+    const ticks = Array.from(container.querySelectorAll("text")).map(
+      (t) => t.textContent,
+    );
     // minY = Math.min(0, ...data) => 0 is always an axis tick
     expect(ticks).toContain("0");
   });
 
   it("limits value-axis ticks to tickCount", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="bar" tickCount={2} showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="bar"
+        tickCount={2}
+        showLegend={false}
+      />,
     );
     const yTicks = Array.from(container.querySelectorAll("text")).filter(
       (t) => t.getAttribute("text-anchor") === "end",
@@ -418,7 +505,13 @@ describe("Chart", () => {
 
   it("extends the value-axis range to yMax when provided", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="bar" yMax={100} showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="bar"
+        yMax={100}
+        showLegend={false}
+      />,
     );
     const yTicks = Array.from(container.querySelectorAll("text")).filter(
       (t) => t.getAttribute("text-anchor") === "end",
@@ -428,7 +521,12 @@ describe("Chart", () => {
 
   it("insets the first x-axis category label inside the plot (no overlap with the 0 tick)", () => {
     const { getByText } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="line" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="line"
+        showLegend={false}
+      />,
     );
     // Band-centering used to place the first label on the y-axis spine (x=56),
     // colliding with the "0" tick. It must now sit well inside the plot.
@@ -438,7 +536,12 @@ describe("Chart", () => {
 
   it("does not cartesian-snap hover for radial charts", async () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="pie" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="pie"
+        showLegend={false}
+      />,
     );
     const svg = container.querySelector("svg")!;
     await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
@@ -450,13 +553,21 @@ describe("Chart", () => {
 
   it("keeps the hovered pie slice's data in the tooltip across mouse moves", async () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="pie" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="pie"
+        showLegend={false}
+      />,
     );
     const paths = container.querySelectorAll("path");
     // Enter the 3rd slice (Wed, sales value 50) ...
     await fireEvent.mouseEnter(paths[2]!);
     // ... then move. A cartesian snap would jump to slice 0 (Mon = 30).
-    await fireEvent.mouseMove(container.querySelector("svg")!, { clientX: 100, clientY: 50 });
+    await fireEvent.mouseMove(container.querySelector("svg")!, {
+      clientX: 100,
+      clientY: 50,
+    });
     const tooltip = container.querySelector(".absolute.z-10");
     expect(tooltip).toBeInTheDocument();
     expect(tooltip?.textContent).toContain("50");
@@ -464,7 +575,12 @@ describe("Chart", () => {
 
   it("offsets the tooltip from the cursor by the default amount", async () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={SAMPLE_SERIES} type="line" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={SAMPLE_SERIES}
+        type="line"
+        showLegend={false}
+      />,
     );
     const svg = container.querySelector("svg")!;
     await fireEvent.mouseMove(svg, { clientX: 0, clientY: 0 });
@@ -506,28 +622,50 @@ describe("Chart", () => {
 
   it("applies a custom barRadius", () => {
     const { container: rounded } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="bar" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="bar"
+        showLegend={false}
+      />,
     );
     // Default barRadius=4 should produce arc (Q) commands in bar paths
     const roundedPaths = Array.from(rounded.querySelectorAll("path")).filter(
       (p) => p.getAttribute("fill") !== "none",
     );
-    expect(roundedPaths.some((p) => p.getAttribute("d")?.includes(" Q"))).toBe(true);
+    expect(roundedPaths.some((p) => p.getAttribute("d")?.includes(" Q"))).toBe(
+      true,
+    );
     const { container: sharp } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="bar" showLegend={false} barRadius={0} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="bar"
+        showLegend={false}
+        barRadius={0}
+      />,
     );
     // barRadius=0 should produce plain rectangle paths (no arc commands)
     const sharpPaths = Array.from(sharp.querySelectorAll("path")).filter(
       (p) => p.getAttribute("fill") !== "none",
     );
-    expect(sharpPaths.some((p) => p.getAttribute("d")?.includes(" Q"))).toBe(false);
+    expect(sharpPaths.some((p) => p.getAttribute("d")?.includes(" Q"))).toBe(
+      false,
+    );
   });
 
   it("hides radial slice labels below sliceLabelThreshold", () => {
     const pct = (c: HTMLElement) =>
-      Array.from(c.querySelectorAll("text")).filter((t) => t.textContent?.includes("%")).length;
+      Array.from(c.querySelectorAll("text")).filter((t) =>
+        t.textContent?.includes("%"),
+      ).length;
     const { container: all } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="pie" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="pie"
+        showLegend={false}
+      />,
     );
     // sales total 310: Mon 9.7%, Tue 25.8%, Wed 16.1%, Thu 19.4%, Fri 29%
     expect(pct(all)).toBe(5);
@@ -554,29 +692,47 @@ describe("Chart", () => {
 
   it("renders a draw-animation clip-path when animate is enabled", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="line" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="line"
+        showLegend={false}
+      />,
     );
     expect(container.querySelector("clipPath")).toBeInTheDocument();
   });
 
   it("omits draw-animation clip-path when animate is false", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="line" showLegend={false} animate={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="line"
+        showLegend={false}
+        animate={false}
+      />,
     );
     expect(container.querySelector("clipPath")).toBeNull();
   });
 
   it("prepends an origin point so lines draw from the y=0 baseline", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="line" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="line"
+        showLegend={false}
+      />,
     );
     // The line path (fill=none, stroke set) should start from the baseline
     const path = Array.from(container.querySelectorAll("path")).find(
-        (p) => p.getAttribute("fill") === "none" && p.getAttribute("stroke") !== null,
+        (p) =>
+          p.getAttribute("fill") === "none" &&
+          p.getAttribute("stroke") !== null,
       ),
       d = path?.getAttribute("d") ?? "";
     // Starts with M <originX>,<baselineY> then steps toward first data point
-    const match = d.match(/M ([\d.]+),([\d.]+)/)!
+    const match = d.match(/M ([\d.]+),([\d.]+)/)!;
     // originX should be padding.left (56) — the left edge of the plot area
     expect(parseFloat(match[1]!)).toBe(56);
     // baselineY should be padding.top + plotH = 20 + (240-20-40) = 200
@@ -587,7 +743,12 @@ describe("Chart", () => {
 
   it("animates pie slices with openProgress (spin from 0 deg)", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="pie" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="pie"
+        showLegend={false}
+      />,
     );
     const slices = container.querySelectorAll("path");
     expect(slices.length).toBe(5);
@@ -601,10 +762,17 @@ describe("Chart", () => {
 
   it("extends the step chart's last step to the right edge of the plot", () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} curve="step" type="line" showLegend={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        curve="step"
+        type="line"
+        showLegend={false}
+      />,
     );
     const linePath = Array.from(container.querySelectorAll("path")).find(
-      (p) => p.getAttribute("fill") === "none" && p.getAttribute("stroke") !== null,
+      (p) =>
+        p.getAttribute("fill") === "none" && p.getAttribute("stroke") !== null,
     );
     expect(linePath).toBeInTheDocument();
     const d = linePath!.getAttribute("d") ?? "";
@@ -616,12 +784,18 @@ describe("Chart", () => {
 
   it("applies custom barInactiveOpacity to non-hovered bars on hover", async () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={[SAMPLE_SERIES[0]!]} type="bar" barInactiveOpacity={0.3} />,
+      <Chart
+        x={SAMPLE_X}
+        series={[SAMPLE_SERIES[0]!]}
+        type="bar"
+        barInactiveOpacity={0.3}
+      />,
     );
     const svg = container.querySelector("svg")!;
     await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
     const barPaths = Array.from(container.querySelectorAll("path")).filter(
-      (p) => p.getAttribute("fill") !== "none" && p.getAttribute("fill") !== null,
+      (p) =>
+        p.getAttribute("fill") !== "none" && p.getAttribute("fill") !== null,
     );
     // 4 inactive bars should have opacity 0.3 (5 bars, 1 at index 0 is active)
     const inactive = barPaths.filter(
@@ -660,7 +834,12 @@ describe("Chart", () => {
 
   it("crosshair follows the cursor when crosshairSnap is false", async () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={SAMPLE_SERIES} type="line" crosshairSnap={false} />,
+      <Chart
+        x={SAMPLE_X}
+        series={SAMPLE_SERIES}
+        type="line"
+        crosshairSnap={false}
+      />,
     );
     const svg = container.querySelector("svg")!;
     await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
@@ -685,7 +864,12 @@ describe("Chart", () => {
 
   it("crosshair follows the cursor (horizontal line) for horizontal bar charts", async () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={SAMPLE_SERIES} type="bar" layout="horizontal" />,
+      <Chart
+        x={SAMPLE_X}
+        series={SAMPLE_SERIES}
+        type="bar"
+        layout="horizontal"
+      />,
     );
     const svg = container.querySelector("svg")!;
     await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
@@ -694,10 +878,10 @@ describe("Chart", () => {
     );
     expect(crosshair).toBeInTheDocument();
     // Horizontal bar: crosshair is a HORIZONTAL line at cursor Y (50 in jsdom)
-    expect(parseFloat(crosshair!.getAttribute("x1")!)).toBe(56);  // padding.left
+    expect(parseFloat(crosshair!.getAttribute("x1")!)).toBe(56); // padding.left
     expect(parseFloat(crosshair!.getAttribute("x2")!)).toBe(776); // padding.left + plotW
-    expect(parseFloat(crosshair!.getAttribute("y1")!)).toBe(50);  // cursor Y
-    expect(parseFloat(crosshair!.getAttribute("y2")!)).toBe(50);   // cursor Y
+    expect(parseFloat(crosshair!.getAttribute("y1")!)).toBe(50); // cursor Y
+    expect(parseFloat(crosshair!.getAttribute("y2")!)).toBe(50); // cursor Y
     // Dot at raw cursor position (follows cursor, not snap)
     const dot = Array.from(container.querySelectorAll("circle")).find(
       (c) =>
@@ -711,7 +895,13 @@ describe("Chart", () => {
 
   it("crosshair line follows cursor (horizontal) even when crosshairSnap is true", async () => {
     const { container } = render(
-      <Chart x={SAMPLE_X} series={SAMPLE_SERIES} type="bar" layout="horizontal" crosshairSnap={true} />,
+      <Chart
+        x={SAMPLE_X}
+        series={SAMPLE_SERIES}
+        type="bar"
+        layout="horizontal"
+        crosshairSnap={true}
+      />,
     );
     const svg = container.querySelector("svg")!;
     await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
@@ -720,10 +910,10 @@ describe("Chart", () => {
     );
     expect(crosshair).toBeInTheDocument();
     // Line snaps to catY(0) = 38 when crosshairSnap is true
-    expect(parseFloat(crosshair!.getAttribute("x1")!)).toBe(56);   // padding.left
-    expect(parseFloat(crosshair!.getAttribute("x2")!)).toBe(776);  // padding.left + plotW
-    expect(parseFloat(crosshair!.getAttribute("y1")!)).toBe(38);  // snapped to catY(0)
-    expect(parseFloat(crosshair!.getAttribute("y2")!)).toBe(38);   // snapped to catY(0)
+    expect(parseFloat(crosshair!.getAttribute("x1")!)).toBe(56); // padding.left
+    expect(parseFloat(crosshair!.getAttribute("x2")!)).toBe(776); // padding.left + plotW
+    expect(parseFloat(crosshair!.getAttribute("y1")!)).toBe(38); // snapped to catY(0)
+    expect(parseFloat(crosshair!.getAttribute("y2")!)).toBe(38); // snapped to catY(0)
     // Crosshair dot is hidden when crosshairSnap=true
     const dot = Array.from(container.querySelectorAll("circle")).find(
       (c) =>
@@ -807,9 +997,13 @@ describe("Chart", () => {
         showLegend={false}
       />,
     );
-    const path = container.querySelector("path[fill='none']")! as SVGPathElement;
+    const path = container.querySelector(
+      "path[fill='none']",
+    )! as SVGPathElement;
     expect(parseFloat(path.getAttribute("stroke-width")!)).toBe(4);
-    const dot = container.querySelector("circle[fill='var(--chart-1)']")! as SVGCircleElement;
+    const dot = container.querySelector(
+      "circle[fill='var(--chart-1)']",
+    )! as SVGCircleElement;
     expect(parseFloat(dot.getAttribute("r")!)).toBe(6);
   });
 

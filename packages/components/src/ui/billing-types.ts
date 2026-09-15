@@ -1,6 +1,9 @@
 import type * as React from "react";
 import type { IconName } from "../icon/index.js";
-import type { AnimatedButtonVariant, AnimatedButtonRenderProps } from "./animated-button.js";
+import type {
+  AnimatedButtonVariant,
+  AnimatedButtonRenderProps,
+} from "./animated-button.js";
 
 /**
  * Shared plan model for the billing page components.
@@ -124,7 +127,10 @@ export function intervalMonths(interval: BillingInterval): number {
 }
 
 /** The interval a plan's price is expressed in (falls back to the page interval). */
-export function planInterval(plan: BillingPlan, pageInterval: BillingInterval): BillingInterval {
+export function planInterval(
+  plan: BillingPlan,
+  pageInterval: BillingInterval,
+): BillingInterval {
   return plan.interval ?? pageInterval;
 }
 
@@ -154,7 +160,10 @@ function formatPrice(n: number): string {
  * - Otherwise the yearly default applies a 2-months-free discount
  *   (e.g. $19/month -> $190/year, $49/month -> $490/year).
  */
-export function planPriceForInterval(plan: BillingPlan, interval: BillingInterval): number | null {
+export function planPriceForInterval(
+  plan: BillingPlan,
+  interval: BillingInterval,
+): number | null {
   if (plan.customPriceLabel) return null;
   if (plan.price === 0) return 0;
   if (plan.prices?.[interval] != null) return plan.prices[interval]!;
@@ -174,7 +183,11 @@ export function planPriceForInterval(plan: BillingPlan, interval: BillingInterva
  * When `interval` is given, the price is computed dynamically for that
  * interval (honouring `prices` overrides and `discounts`).
  */
-export function planPriceLabel(plan: BillingPlan, currency: string, interval?: BillingInterval): string {
+export function planPriceLabel(
+  plan: BillingPlan,
+  currency: string,
+  interval?: BillingInterval,
+): string {
   if (plan.customPriceLabel) return plan.customPriceLabel;
   const price = interval ? planPriceForInterval(plan, interval) : plan.price;
   if (price === null || price === 0) return "Free";

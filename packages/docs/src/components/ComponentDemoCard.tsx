@@ -1,5 +1,9 @@
 import * as React from "react";
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@fusorb/facet-components";
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "@fusorb/facet-components";
 import { Playground, type Control } from "./Playground.js";
 import { ThemePreviewFrame } from "./ThemePreviewFrame.js";
 
@@ -45,7 +49,9 @@ export function ComponentDemoCard({
           <span>
             <span className="block font-semibold text-foreground">{name}</span>
             {description && (
-              <span className="block text-sm text-muted-foreground">{description}</span>
+              <span className="block text-sm text-muted-foreground">
+                {description}
+              </span>
             )}
           </span>
           <svg
@@ -68,13 +74,18 @@ export function ComponentDemoCard({
       {/* Collapsed: static preview */}
       {!open && (
         <ThemePreviewFrame>
-          <div className="flex w-full items-start justify-start gap-4">{collapsed}</div>
+          <div className="flex w-full items-start justify-start gap-4">
+            {collapsed}
+          </div>
         </ThemePreviewFrame>
       )}
 
       {/* Expanded: interactive playground with controls */}
       <CollapsibleContent>
-        <Playground controls={controls} note="Live preview. Interactive variants ship with the component.">
+        <Playground
+          controls={controls}
+          note="Live preview. Interactive variants ship with the component."
+        >
           <ThemePreviewFrame>{expanded}</ThemePreviewFrame>
         </Playground>
       </CollapsibleContent>

@@ -29,9 +29,20 @@
  */
 
 import * as React from "react";
-import { useForm, type FieldValues, type Resolver, type UseFormReturn } from "react-hook-form";
+import {
+  useForm,
+  type FieldValues,
+  type Resolver,
+  type UseFormReturn,
+} from "react-hook-form";
 import { cn } from "../utils.js";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./card.js";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "./card.js";
 import { Button } from "./button.js";
 import {
   StepperProvider,
@@ -73,7 +84,10 @@ export interface WizardFormPageProps<T extends FieldValues = FieldValues> {
   /** Default values for every field (recommended for controlled inputs). */
   defaultValues: T;
   /** Render one field by name. Receives the form instance + field name. */
-  renderField: (name: string, form: UseFormReturn<FieldValues>) => React.ReactNode;
+  renderField: (
+    name: string,
+    form: UseFormReturn<FieldValues>,
+  ) => React.ReactNode;
   /**
    * Called with the validated form data on the final step's submit.
    * Receives the typed `data` after `resolver` validation passes.
@@ -188,7 +202,14 @@ export function WizardFormPage<T extends FieldValues = FieldValues>({
                           {renderField(f, form as UseFormReturn<FieldValues>)}
                           {form.formState.errors[f] && (
                             <p className="text-xs text-destructive">
-                              {String((form.formState.errors as Record<string, { message?: string }>)[f]?.message ?? errorFallback)}
+                              {String(
+                                (
+                                  form.formState.errors as Record<
+                                    string,
+                                    { message?: string }
+                                  >
+                                )[f]?.message ?? errorFallback,
+                              )}
                             </p>
                           )}
                         </div>
@@ -214,7 +235,11 @@ export function WizardFormPage<T extends FieldValues = FieldValues>({
                 <Button
                   type="button"
                   variant="ghost"
-                  onClick={() => stepper.go(steps[stepper.currentIndex + 1]?.id ?? stepper.currentId)}
+                  onClick={() =>
+                    stepper.go(
+                      steps[stepper.currentIndex + 1]?.id ?? stepper.currentId,
+                    )
+                  }
                 >
                   {skip}
                 </Button>

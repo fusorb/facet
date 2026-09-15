@@ -99,7 +99,8 @@ export function ForgotPasswordForm({
     ? register("email")
     : {
         value: email,
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value),
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+          setEmail(e.target.value),
       };
 
   if (sent) {
@@ -108,7 +109,8 @@ export function ForgotPasswordForm({
         <CardHeader>
           <CardTitle>Check Your Email</CardTitle>
           <CardDescription>
-            If an account exists for <strong>{email}</strong>, we've sent a password reset link.
+            If an account exists for <strong>{email}</strong>, we've sent a
+            password reset link.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -134,10 +136,16 @@ export function ForgotPasswordForm({
     <Card className={appearance?.className}>
       <CardHeader>
         <CardTitle>Reset Password</CardTitle>
-        <CardDescription>Enter your email and we'll send you a reset link.</CardDescription>
+        <CardDescription>
+          Enter your email and we'll send you a reset link.
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleFormSubmit} className="flex flex-col gap-4" noValidate={validate}>
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex flex-col gap-4"
+          noValidate={validate}
+        >
           <div className="flex flex-col gap-2">
             <Label htmlFor="forgot-email">Email</Label>
             <Input
@@ -149,7 +157,9 @@ export function ForgotPasswordForm({
               {...emailFieldProps}
               aria-invalid={emailError ? true : undefined}
             />
-            {emailError && <p className="text-sm text-destructive">{emailError}</p>}
+            {emailError && (
+              <p className="text-sm text-destructive">{emailError}</p>
+            )}
           </div>
           {error && <p className="text-sm text-destructive">{error}</p>}
           <AnimatedButton

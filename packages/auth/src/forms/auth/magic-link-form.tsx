@@ -98,7 +98,8 @@ export function MagicLinkForm({
     ? register("email")
     : {
         value: email,
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value),
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+          setEmail(e.target.value),
       };
 
   if (sent) {
@@ -106,7 +107,9 @@ export function MagicLinkForm({
       <Card className={appearance?.className}>
         <CardHeader>
           <CardTitle>Magic Link</CardTitle>
-          <CardDescription>Check your inbox for the sign-in link</CardDescription>
+          <CardDescription>
+            Check your inbox for the sign-in link
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-3 text-center">
           <p className="text-sm text-muted-foreground">
@@ -134,10 +137,16 @@ export function MagicLinkForm({
     <Card className={appearance?.className}>
       <CardHeader>
         <CardTitle>Magic Link</CardTitle>
-        <CardDescription>Enter your email to receive a sign-in link</CardDescription>
+        <CardDescription>
+          Enter your email to receive a sign-in link
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleFormSubmit} className="flex flex-col gap-4" noValidate={validate}>
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex flex-col gap-4"
+          noValidate={validate}
+        >
           <div className="flex flex-col gap-2">
             <Label htmlFor="signin-ml-email">Email</Label>
             <Input
@@ -149,7 +158,9 @@ export function MagicLinkForm({
               {...emailFieldProps}
               aria-invalid={emailError ? true : undefined}
             />
-            {emailError && <p className="text-sm text-destructive">{emailError}</p>}
+            {emailError && (
+              <p className="text-sm text-destructive">{emailError}</p>
+            )}
           </div>
           {error && <p className="text-sm text-destructive">{error}</p>}
           <AnimatedButton

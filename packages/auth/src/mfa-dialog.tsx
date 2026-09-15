@@ -10,7 +10,11 @@
 
 import * as React from "react";
 import { AuthSdk } from "@fusorb/facet-sdk";
-import type { ArcIdClient, MfaVerifyResult, MfaSetupResult } from "@fusorb/facet-sdk";
+import type {
+  ArcIdClient,
+  MfaVerifyResult,
+  MfaSetupResult,
+} from "@fusorb/facet-sdk";
 import { MfaVerifyForm } from "./forms/mfa/verify-form.js";
 import { MfaSetupForm, MfaRecoveryCodesForm } from "./forms/mfa/setup-form.js";
 import { MfaRecoveryForm } from "./forms/mfa/recovery-form.js";
@@ -82,7 +86,10 @@ export function MfaDialog({
     if (res.data) {
       setPhase({ step: "recovery_codes", codes: res.data.recoveryCodes });
     } else {
-      const current = phase as { step: "setup" | "confirm_setup"; data: MfaSetupResult };
+      const current = phase as {
+        step: "setup" | "confirm_setup";
+        data: MfaSetupResult;
+      };
       setPhase({
         step: "confirm_setup",
         data: current.data,
@@ -137,7 +144,12 @@ export function MfaDialog({
         );
       }
       case "recovery_codes":
-        return <MfaRecoveryCodesForm codes={phase.codes} onSaved={() => onOpenChange?.(false)} />;
+        return (
+          <MfaRecoveryCodesForm
+            codes={phase.codes}
+            onSaved={() => onOpenChange?.(false)}
+          />
+        );
       case "recovery":
         return (
           <MfaRecoveryForm
@@ -152,7 +164,9 @@ export function MfaDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={appearance?.className}>{renderPhase()}</DialogContent>
+      <DialogContent className={appearance?.className}>
+        {renderPhase()}
+      </DialogContent>
     </Dialog>
   );
 }

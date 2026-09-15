@@ -44,8 +44,10 @@ export const CURRENCIES: Currency[] = [
   { code: "AUD", symbol: "A$", name: "Australian Dollar" },
 ];
 
-export interface NumberInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type"> {
+export interface NumberInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "value" | "onChange" | "type"
+> {
   /** Numeric value (number, not string). */
   value?: number | null;
   /** Called with the clamped numeric value. */
@@ -146,7 +148,9 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
         onValueChange?.(null);
         return;
       }
-      const rounded = Number.isInteger(step) ? Math.round(next / step) * step : next;
+      const rounded = Number.isInteger(step)
+        ? Math.round(next / step) * step
+        : next;
       onValueChange?.(clampNumber(rounded, effectiveMin, max));
     };
 
@@ -170,7 +174,9 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     return (
       <div className={cn("w-full", className)}>
         {label && (
-          <label className="mb-1.5 block text-sm font-medium text-foreground">{label}</label>
+          <label className="mb-1.5 block text-sm font-medium text-foreground">
+            {label}
+          </label>
         )}
         <div className="relative">
           {currencyPicker ? (
@@ -179,14 +185,25 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                 <button
                   type="button"
                   tabIndex={-1}
-                  aria-label={activeCurrency ? `Currency: ${activeCurrency.name}` : "Select currency"}
+                  aria-label={
+                    activeCurrency
+                      ? `Currency: ${activeCurrency.name}`
+                      : "Select currency"
+                  }
                   className="absolute left-1 top-1/2 z-10 flex h-7 -translate-y-1/2 items-center gap-0.5 rounded-md px-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus:outline-none"
                 >
                   {activeCurrency ? activeCurrency.symbol : (currency ?? "¤")}
-                  <Icon name="chevron-down" className="size-3" aria-hidden="true" />
+                  <Icon
+                    name="chevron-down"
+                    className="size-3"
+                    aria-hidden="true"
+                  />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="max-h-72 w-56 overflow-hidden">
+              <DropdownMenuContent
+                align="start"
+                className="max-h-72 w-56 overflow-hidden"
+              >
                 <DropdownMenuLabel>Currency</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <div className="border-b border-border px-2 pb-2 pt-1">
@@ -208,13 +225,21 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                       }}
                       className="flex items-center gap-2"
                     >
-                      <span className="min-w-0 shrink-0 text-sm font-medium">{option.symbol}</span>
-                      <span className="min-w-0 flex-1 truncate">{option.name}</span>
-                      <span className="text-xs text-muted-foreground">{option.code}</span>
+                      <span className="min-w-0 shrink-0 text-sm font-medium">
+                        {option.symbol}
+                      </span>
+                      <span className="min-w-0 flex-1 truncate">
+                        {option.name}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {option.code}
+                      </span>
                     </DropdownMenuItem>
                   ))}
                   {filteredCurrencies.length === 0 && (
-                    <div className="px-2 py-1.5 text-sm text-muted-foreground">No matches</div>
+                    <div className="px-2 py-1.5 text-sm text-muted-foreground">
+                      No matches
+                    </div>
                   )}
                 </div>
               </DropdownMenuContent>
@@ -245,11 +270,17 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
               type="button"
               tabIndex={-1}
               aria-label="Decrease value"
-              disabled={props.disabled || (value != null && value <= effectiveMin)}
+              disabled={
+                props.disabled || (value != null && value <= effectiveMin)
+              }
               onClick={() => stepBy(-1)}
               className="flex h-6 w-6 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
             >
-              <Icon name={decreaseIconName} className="h-3 w-3" aria-hidden="true" />
+              <Icon
+                name={decreaseIconName}
+                className="h-3 w-3"
+                aria-hidden="true"
+              />
             </button>
             <button
               type="button"
@@ -259,7 +290,11 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
               onClick={() => stepBy(1)}
               className="flex h-6 w-6 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
             >
-              <Icon name={increaseIconName} className="h-3 w-3" aria-hidden="true" />
+              <Icon
+                name={increaseIconName}
+                className="h-3 w-3"
+                aria-hidden="true"
+              />
             </button>
           </div>
         </div>

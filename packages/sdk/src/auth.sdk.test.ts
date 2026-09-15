@@ -10,7 +10,7 @@ describe("AuthSdk", () => {
   beforeEach(() => {
     fetchMock = vi.fn();
     globalThis.fetch = fetchMock as unknown as typeof fetch;
-    client = new ArcIdClient({ baseUrl: "https://auth.arcevo.dev/api/v1" });
+    client = new ArcIdClient({ baseUrl: "https://auth.example.dev/api/v1" });
     auth = new AuthSdk(client);
   });
 
@@ -63,7 +63,10 @@ describe("AuthSdk", () => {
     expect(res.data).toEqual(loginNoMfa);
     const [url, init] = lastCall();
     expect(url).toContain("/auth/login");
-    expect(JSON.parse(init.body as string)).toEqual({ email: "a@b.c", password: "pw" });
+    expect(JSON.parse(init.body as string)).toEqual({
+      email: "a@b.c",
+      password: "pw",
+    });
   });
 
   it("login surfaces MFA challenge without tokens", async () => {
@@ -151,7 +154,7 @@ describe("AuthSdk", () => {
       token_type: "Bearer",
     });
     const configured = new ArcIdClient({
-      baseUrl: "https://auth.arcevo.dev/api/v1",
+      baseUrl: "https://auth.example.dev/api/v1",
       clientId: "my-app",
       clientSecret: "s3cret",
     });
@@ -176,7 +179,7 @@ describe("AuthSdk", () => {
       token_type: "Bearer",
     });
     const configured = new ArcIdClient({
-      baseUrl: "https://auth.arcevo.dev/api/v1",
+      baseUrl: "https://auth.example.dev/api/v1",
       clientId: "my-app",
     });
     const authSdk = new AuthSdk(configured);
@@ -206,7 +209,7 @@ describe("AuthSdk", () => {
       token_type: "Bearer",
     });
     const configured = new ArcIdClient({
-      baseUrl: "https://auth.arcevo.dev/api/v1",
+      baseUrl: "https://auth.example.dev/api/v1",
       clientId: "svc-client",
       clientSecret: "svc-secret",
     });
@@ -224,9 +227,12 @@ describe("AuthSdk", () => {
   });
 
   it("authorize GETs the JSON authorize API and returns the code", async () => {
-    mockJson({ success: true, data: { code: "auth-code-123", state: "xyz", consentRequired: false } });
+    mockJson({
+      success: true,
+      data: { code: "auth-code-123", state: "xyz", consentRequired: false },
+    });
     const configured = new ArcIdClient({
-      baseUrl: "https://auth.arcevo.dev/api/v1",
+      baseUrl: "https://auth.example.dev/api/v1",
       clientId: "my-app",
     });
     const authSdk = new AuthSdk(configured);
@@ -243,7 +249,11 @@ describe("AuthSdk", () => {
     expect(url).toContain("client_id=my-app");
     expect(url).toContain("code_challenge=challenge");
     expect(init.method).toBe("GET");
-    expect(res.data).toEqual({ code: "auth-code-123", state: "xyz", consentRequired: false });
+    expect(res.data).toEqual({
+      code: "auth-code-123",
+      state: "xyz",
+      consentRequired: false,
+    });
   });
 
   it("authorizeUrl builds the OIDC authorize redirect with PKCE + prompt", () => {
@@ -257,7 +267,7 @@ describe("AuthSdk", () => {
     });
 
     expect(url).toBe(
-      "https://auth.arcevo.dev/api/v1/oauth/authorize?client_id=my-app&response_type=code&redirect_uri=https%3A%2F%2Fapp.dev%2Fcallback&scope=openid+profile+email&state=xyz&code_challenge=challenge&code_challenge_method=S256&prompt=consent",
+      "https://auth.example.dev/api/v1/oauth/authorize?client_id=my-app&response_type=code&redirect_uri=https%3A%2F%2Fapp.dev%2Fcallback&scope=openid+profile+email&state=xyz&code_challenge=challenge&code_challenge_method=S256&prompt=consent",
     );
   });
 
@@ -291,7 +301,10 @@ describe("AuthSdk", () => {
   });
 
   it("surfaces API errors without throwing", async () => {
-    mockJson({ success: false, error: "RATE_LIMITED", message: "Slow down" }, 429);
+    mockJson(
+      { success: false, error: "RATE_LIMITED", message: "Slow down" },
+      429,
+    );
 
     const res = await auth.login("a@b.c", "pw");
 

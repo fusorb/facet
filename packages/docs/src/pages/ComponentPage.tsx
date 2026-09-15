@@ -15,7 +15,16 @@ export function demoControls(slug: string): Control[] | undefined {
       return [
         {
           label: "Variant",
-          options: ["default", "secondary", "outline", "ghost", "destructive", "link", "glass", "glow"],
+          options: [
+            "default",
+            "secondary",
+            "outline",
+            "ghost",
+            "destructive",
+            "link",
+            "glass",
+            "glow",
+          ],
           value: "default",
           onChange: () => {},
         },
@@ -30,7 +39,14 @@ export function demoControls(slug: string): Control[] | undefined {
       return [
         {
           label: "Variant",
-          options: ["default", "secondary", "outline", "success", "warning", "destructive"],
+          options: [
+            "default",
+            "secondary",
+            "outline",
+            "success",
+            "warning",
+            "destructive",
+          ],
           value: "default",
           onChange: () => {},
         },
@@ -48,7 +64,12 @@ export function demoControls(slug: string): Control[] | undefined {
       return [
         {
           label: "Variant",
-          options: ["horizontal", "vertical", "collapsible", "vertical-collapsible"],
+          options: [
+            "horizontal",
+            "vertical",
+            "collapsible",
+            "vertical-collapsible",
+          ],
           value: "horizontal",
           onChange: () => {},
         },
@@ -82,7 +103,10 @@ export function ComponentPage() {
   return (
     <article>
       <p className="mb-2 text-sm text-muted-foreground">
-        <Link to="/components" className="inline-flex items-center gap-1.5 hover:text-foreground">
+        <Link
+          to="/components"
+          className="inline-flex items-center gap-1.5 hover:text-foreground"
+        >
           <svg
             width="16"
             height="16"
@@ -103,7 +127,9 @@ export function ComponentPage() {
         </Link>{" "}
         / {entry.name}
       </p>
-      <h1 className="font-heading text-3xl font-bold text-foreground">{entry.name}</h1>
+      <h1 className="font-heading text-3xl font-bold text-foreground">
+        {entry.name}
+      </h1>
       {entry.description && (
         <p className="mt-2 text-muted-foreground">{entry.description}</p>
       )}
@@ -114,7 +140,9 @@ export function ComponentPage() {
           description={entry.description}
           collapsed={<ComponentPreview slug={slug} />}
           controls={liveControls}
-          expanded={<ComponentPreview slug={slug} variant={variant} size={size} />}
+          expanded={
+            <ComponentPreview slug={slug} variant={variant} size={size} />
+          }
         />
       </div>
 

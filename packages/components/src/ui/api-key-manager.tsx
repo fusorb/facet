@@ -18,7 +18,13 @@ import {
 import { Button } from "./button.js";
 import { Input } from "./input.js";
 import { Label } from "./label.js";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./select.js";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "./select.js";
 import { Icon } from "../icon/index.js";
 
 export interface ApiKey {
@@ -38,7 +44,11 @@ export interface ApiKey {
 export interface ApiKeyManagerProps extends React.HTMLAttributes<HTMLDivElement> {
   keys: ApiKey[];
   /** Called to create a key; return the full secret so it can be shown once. */
-  onCreate: (opts: { name: string; scope: string; expiresAt: string | null }) => Promise<{ secret: string } | void>;
+  onCreate: (opts: {
+    name: string;
+    scope: string;
+    expiresAt: string | null;
+  }) => Promise<{ secret: string } | void>;
   /** Called to revoke a key. */
   onRevoke: (id: string) => Promise<void> | void;
   /** Available scopes for the create form. Default: ["read", "write", "admin"]. */
@@ -127,7 +137,8 @@ export function ApiKeyManager({
           {copy.title ?? "API keys"}
         </CardTitle>
         <CardDescription>
-          {copy.description ?? "Create keys to access the API programmatically. You'll only see the secret once."}
+          {copy.description ??
+            "Create keys to access the API programmatically. You'll only see the secret once."}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -145,7 +156,9 @@ export function ApiKeyManager({
               />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="api-key-scope">{copy.scopeLabel ?? "Scope"}</Label>
+              <Label htmlFor="api-key-scope">
+                {copy.scopeLabel ?? "Scope"}
+              </Label>
               <Select value={scope} onValueChange={setScope}>
                 <SelectTrigger id="api-key-scope" className="w-full">
                   <SelectValue />
@@ -161,7 +174,9 @@ export function ApiKeyManager({
             </div>
           </div>
           <div className="space-y-1">
-            <Label htmlFor="api-key-expiry">{copy.expiryLabel ?? "Expires"}</Label>
+            <Label htmlFor="api-key-expiry">
+              {copy.expiryLabel ?? "Expires"}
+            </Label>
             <Select value={expiry} onValueChange={setExpiry}>
               <SelectTrigger id="api-key-expiry" className="w-full">
                 <SelectValue placeholder={copy.never ?? "Never"} />
@@ -174,7 +189,11 @@ export function ApiKeyManager({
               </SelectContent>
             </Select>
           </div>
-          <Button type="submit" className="w-full" disabled={creating || !name.trim()}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={creating || !name.trim()}
+          >
             {creating ? (
               <span className="inline-flex items-center gap-2">
                 <Icon name="loader-circle" className="size-4 animate-spin" />
@@ -191,14 +210,22 @@ export function ApiKeyManager({
 
         {/* Just-created secret (shown once) */}
         {justCreated && (
-          <div className="space-y-2 rounded-md border border-emerald-500/30 bg-emerald-500/5 p-3">
-            <p className="flex items-center gap-1.5 text-sm font-medium text-emerald-700">
+          <div className="space-y-2 rounded-md border border-success/30 bg-success/5 p-3">
+            <p className="flex items-center gap-1.5 text-sm font-medium text-success">
               <Icon name="circle-check" className="size-4" />
-              {copy.secretHint ?? "Copy your secret now. You won't see it again."}
+              {copy.secretHint ??
+                "Copy your secret now. You won't see it again."}
             </p>
             <div className="flex items-center gap-2">
-              <code className="flex-1 truncate rounded border border-border bg-background px-2 py-1 text-xs">{justCreated}</code>
-              <Button type="button" size="sm" variant="outline" onClick={copySecret}>
+              <code className="flex-1 truncate rounded border border-border bg-background px-2 py-1 text-xs">
+                {justCreated}
+              </code>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                onClick={copySecret}
+              >
                 {copied ? (
                   <span className="inline-flex items-center gap-1.5">
                     <Icon name="check" className="size-3.5" />
@@ -219,7 +246,9 @@ export function ApiKeyManager({
         {keys.length === 0 ? (
           <div className="flex flex-col items-center gap-2 rounded-md border border-dashed border-border py-8 text-center">
             <Icon name="key-round" className="size-6 text-muted-foreground" />
-            <p className="text-sm text-muted-foreground">{copy.noKeys ?? "No keys yet. Create one above."}</p>
+            <p className="text-sm text-muted-foreground">
+              {copy.noKeys ?? "No keys yet. Create one above."}
+            </p>
           </div>
         ) : (
           <ul className="space-y-2">
@@ -234,18 +263,30 @@ export function ApiKeyManager({
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium">{k.name}</p>
                   <p className="truncate text-xs text-muted-foreground">
-                    {k.prefix ? `${k.prefix}_...${k.last4}` : `...${k.last4}`} · {k.scopes.join(", ")}
-                    {k.expiresAt && ` · ${copy.expiresIn ?? "expires"} ${new Date(k.expiresAt).toLocaleDateString()}`}
+                    {k.prefix ? `${k.prefix}_...${k.last4}` : `...${k.last4}`} ·{" "}
+                    {k.scopes.join(", ")}
+                    {k.expiresAt &&
+                      ` · ${copy.expiresIn ?? "expires"} ${new Date(k.expiresAt).toLocaleDateString()}`}
                     {k.revoked && ` · ${copy.revoked ?? "revoked"}`}
                   </p>
                 </div>
                 {confirmRevoke === k.id ? (
                   <div className="flex shrink-0 items-center gap-2">
-                    <span className="text-xs text-destructive">{copy.revokeConfirm ?? "Revoke?"}</span>
-                    <Button size="sm" variant="destructive" onClick={() => handleRevoke(k.id)}>
+                    <span className="text-xs text-destructive">
+                      {copy.revokeConfirm ?? "Revoke?"}
+                    </span>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => handleRevoke(k.id)}
+                    >
                       Yes
                     </Button>
-                    <Button size="sm" variant="ghost" onClick={() => setConfirmRevoke(null)}>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => setConfirmRevoke(null)}
+                    >
                       No
                     </Button>
                   </div>

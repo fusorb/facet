@@ -6,7 +6,14 @@
 import { beforeAll, describe, expect, it, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Settings, LogOut, Copy, Compass, User, Heart } from "lucide-react";
-import { Icon, IconProvider, getIcon, registerIcon, resetIconRegistry, iconCatalogReady } from "./index.js";
+import {
+  Icon,
+  IconProvider,
+  getIcon,
+  registerIcon,
+  resetIconRegistry,
+  iconCatalogReady,
+} from "./index.js";
 import { lucideIconMap, type LucideIconName } from "./icon-map.js";
 import { brandIcons } from "./brand-icons.js";
 

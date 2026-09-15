@@ -27,7 +27,9 @@ const ACCESS_KEY = "arcid_access_token";
 const REFRESH_KEY = "arcid_refresh_token";
 
 function hasWindow(): boolean {
-  return typeof window !== "undefined" && typeof window.localStorage !== "undefined";
+  return (
+    typeof window !== "undefined" && typeof window.localStorage !== "undefined"
+  );
 }
 
 let warnedAboutDefaultStorage = false;
@@ -44,10 +46,15 @@ function warnDefaultStorage(): void {
 }
 
 export const defaultStorage: TokenStorage = {
-  getAccessToken: () => (hasWindow() ? window.localStorage.getItem(ACCESS_KEY) : null),
-  getRefreshToken: () => (hasWindow() ? window.localStorage.getItem(REFRESH_KEY) : null),
+  getAccessToken: () =>
+    hasWindow() ? window.localStorage.getItem(ACCESS_KEY) : null,
+  getRefreshToken: () =>
+    hasWindow() ? window.localStorage.getItem(REFRESH_KEY) : null,
   setTokens: (accessToken, refreshToken) => {
-    if (typeof process !== "undefined" && process.env?.NODE_ENV !== "production") {
+    if (
+      typeof process !== "undefined" &&
+      process.env?.NODE_ENV !== "production"
+    ) {
       warnDefaultStorage();
     }
     if (!hasWindow()) return;

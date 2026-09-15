@@ -33,12 +33,36 @@ import { cn } from "../utils.js";
 
 import { Drawer as DrawerPrimitive } from "vaul";
 
+export type DrawerProps = React.ComponentPropsWithoutRef<
+  typeof DrawerPrimitive.Root
+>;
+export type DrawerTriggerProps = React.ComponentPropsWithoutRef<
+  typeof DrawerPrimitive.Trigger
+>;
+export type DrawerOverlayProps = React.ComponentPropsWithoutRef<
+  typeof DrawerPrimitive.Overlay
+>;
+export type DrawerContentProps = React.ComponentPropsWithoutRef<
+  typeof DrawerPrimitive.Content
+>;
+export type DrawerHeaderProps = React.HTMLAttributes<HTMLDivElement>;
+export type DrawerFooterProps = React.HTMLAttributes<HTMLDivElement>;
+export type DrawerCloseProps = React.ComponentPropsWithoutRef<
+  typeof DrawerPrimitive.Close
+>;
+export type DrawerTitleProps = React.ComponentPropsWithoutRef<
+  typeof DrawerPrimitive.Title
+>;
+export type DrawerDescriptionProps = React.ComponentPropsWithoutRef<
+  typeof DrawerPrimitive.Description
+>;
+
 const Drawer = DrawerPrimitive.Root;
 const DrawerTrigger = DrawerPrimitive.Trigger;
 
 const DrawerOverlay = React.forwardRef<
   React.ComponentRef<typeof DrawerPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
+  DrawerOverlayProps
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Overlay
     ref={ref}
@@ -53,7 +77,7 @@ DrawerOverlay.displayName = "DrawerOverlay";
 
 const DrawerContent = React.forwardRef<
   React.ComponentRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
+  DrawerContentProps
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Portal>
     <DrawerOverlay />
@@ -73,22 +97,28 @@ const DrawerContent = React.forwardRef<
 ));
 DrawerContent.displayName = "Drawer.Content";
 
-const DrawerHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const DrawerHeader = React.forwardRef<HTMLDivElement, DrawerHeaderProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)}
+      className={cn(
+        "flex flex-col space-y-1.5 text-center sm:text-left",
+        className,
+      )}
       {...props}
     />
   ),
 );
 DrawerHeader.displayName = "Drawer.Header";
 
-const DrawerFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const DrawerFooter = React.forwardRef<HTMLDivElement, DrawerFooterProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("mt-auto flex flex-col gap-2 sm:flex-row sm:justify-end sm:space-x-2", className)}
+      className={cn(
+        "mt-auto flex flex-col gap-2 sm:flex-row sm:justify-end sm:space-x-2",
+        className,
+      )}
       {...props}
     />
   ),

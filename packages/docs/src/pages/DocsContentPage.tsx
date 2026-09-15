@@ -1,13 +1,6 @@
 import * as React from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
-import {
-  GuidePage,
-  H2,
-  P,
-  Ul,
-  Li,
-  PageNav,
-} from "../components/Guide.js";
+import { GuidePage, H2, P, Ul, Li, PageNav } from "../components/Guide.js";
 import { DocsTable } from "../components/DocsTable.js";
 import { CodeBlock } from "../components/CodeBlock.js";
 import { InstallTabs } from "../components/InstallTabs.js";
@@ -25,13 +18,19 @@ const AuthDemo = React.lazy(() =>
   import("../components/AuthDemo.js").then((m) => ({ default: m.AuthDemo })),
 );
 const AuthPreviews = React.lazy(() =>
-  import("../components/AuthPreviews.js").then((m) => ({ default: m.AuthPreviews })),
+  import("../components/AuthPreviews.js").then((m) => ({
+    default: m.AuthPreviews,
+  })),
 );
 const LayoutPreviews = React.lazy(() =>
-  import("../components/LayoutPreviews.js").then((m) => ({ default: m.LayoutPreviews })),
+  import("../components/LayoutPreviews.js").then((m) => ({
+    default: m.LayoutPreviews,
+  })),
 );
 const PlaygroundPage = React.lazy(() =>
-  import("../components/PlaygroundPage.js").then((m) => ({ default: m.PlaygroundPage })),
+  import("../components/PlaygroundPage.js").then((m) => ({
+    default: m.PlaygroundPage,
+  })),
 );
 
 /** Render a single structured content block. */
@@ -41,13 +40,17 @@ function Block({ block }: { block: DocsBlock }) {
       return <H2>{block.text}</H2>;
     case "p":
       return <P>{block.text}</P>;
+    case "pre":
+      return (
+        <pre className="overflow-x-auto rounded-lg border border-border bg-muted/50 p-4 font-mono text-sm text-foreground">
+          {block.text}
+        </pre>
+      );
     case "code":
       return <CodeBlock code={block.text} />;
     case "install":
       return (
-        <InstallTabs
-          commands={[{ pkg: block.pkg, extras: block.extras }]}
-        />
+        <InstallTabs commands={[{ pkg: block.pkg, extras: block.extras }]} />
       );
     case "ul":
       return (
@@ -61,13 +64,20 @@ function Block({ block }: { block: DocsBlock }) {
       return <DocsTable headers={block.headers} rows={block.rows} />;
     case "link":
       return (
-        <Link to={block.href} className="text-primary underline-offset-4 hover:underline">
+        <Link
+          to={block.href}
+          className="text-primary underline-offset-4 hover:underline"
+        >
           {block.label}
         </Link>
       );
     case "authDemo":
       return (
-        <React.Suspense fallback={<p className="text-sm text-muted-foreground">Loading demo...</p>}>
+        <React.Suspense
+          fallback={
+            <p className="text-sm text-muted-foreground">Loading demo...</p>
+          }
+        >
           <AuthDemo />
         </React.Suspense>
       );
@@ -82,13 +92,21 @@ function Block({ block }: { block: DocsBlock }) {
       );
     case "authPreviews":
       return (
-        <React.Suspense fallback={<p className="text-sm text-muted-foreground">Loading previews...</p>}>
+        <React.Suspense
+          fallback={
+            <p className="text-sm text-muted-foreground">Loading previews...</p>
+          }
+        >
           <AuthPreviews />
         </React.Suspense>
       );
     case "layoutPreviews":
       return (
-        <React.Suspense fallback={<p className="text-sm text-muted-foreground">Loading previews...</p>}>
+        <React.Suspense
+          fallback={
+            <p className="text-sm text-muted-foreground">Loading previews...</p>
+          }
+        >
           <LayoutPreviews />
         </React.Suspense>
       );
@@ -98,28 +116,28 @@ function Block({ block }: { block: DocsBlock }) {
           shortcuts={[
             { label: "Open search / command palette", keys: ["mod", "K"] },
             { label: "Collapse / expand sidebar", keys: ["mod", "B"] },
-            { label: "Previous page", keys: ["Alt", "←"] },
-            { label: "Next page", keys: ["Alt", "→"] },
-            { label: "Previous", keys: ["Alt", "↑"] },
-            { label: "Next", keys: ["Alt", "↓"] },
+            { label: "Previous page", keys: ["Alt", "↑"] },
+            { label: "Next page", keys: ["Alt", "↓"] },
           ]}
         />
       );
-  case "changelog":
-    return (
-      <ChangelogList
-        releases={block.releases as ChangelogRelease[]}
-        showFilter={block.showFilter ?? true}
-      />
-    );
-  case "playground":
-    return (
-      <React.Suspense
-        fallback={<p className="text-sm text-muted-foreground">Loading playground…</p>}
-      >
-        <PlaygroundPage defaultSlug={block.defaultSlug} />
-      </React.Suspense>
-    );
+    case "changelog":
+      return (
+        <ChangelogList
+          releases={block.releases as ChangelogRelease[]}
+          showFilter={block.showFilter ?? true}
+        />
+      );
+    case "playground":
+      return (
+        <React.Suspense
+          fallback={
+            <p className="text-sm text-muted-foreground">Loading playground…</p>
+          }
+        >
+          <PlaygroundPage defaultSlug={block.defaultSlug} />
+        </React.Suspense>
+      );
   }
 }
 

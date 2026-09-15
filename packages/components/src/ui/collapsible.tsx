@@ -8,10 +8,48 @@
  *   </Collapsible>
  */
 
+import * as React from "react";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
+import { cn } from "../utils.js";
 
-const Collapsible = CollapsiblePrimitive.Root;
-const CollapsibleTrigger = CollapsiblePrimitive.CollapsibleTrigger;
-const CollapsibleContent = CollapsiblePrimitive.CollapsibleContent;
+export type CollapsibleProps = React.ComponentPropsWithoutRef<
+  typeof CollapsiblePrimitive.Root
+>;
+export type CollapsibleTriggerProps = React.ComponentPropsWithoutRef<
+  typeof CollapsiblePrimitive.CollapsibleTrigger
+>;
+export type CollapsibleContentProps = React.ComponentPropsWithoutRef<
+  typeof CollapsiblePrimitive.CollapsibleContent
+>;
+
+const Collapsible = ({ className, ...props }: CollapsibleProps) => (
+  <CollapsiblePrimitive.Root
+    className={cn("group/collapsible", className)}
+    {...props}
+  />
+);
+
+const CollapsibleTrigger = ({
+  className,
+  ...props
+}: CollapsibleTriggerProps) => (
+  <CollapsiblePrimitive.CollapsibleTrigger
+    className={cn(
+      "cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+      className,
+    )}
+    {...props}
+  />
+);
+
+const CollapsibleContent = ({
+  className,
+  ...props
+}: CollapsibleContentProps) => (
+  <CollapsiblePrimitive.CollapsibleContent
+    className={cn("overflow-hidden", className)}
+    {...props}
+  />
+);
 
 export { Collapsible, CollapsibleTrigger, CollapsibleContent };

@@ -6,7 +6,7 @@
  * consent checkbox. Optional signature capture (canvas drawing).
  *
  * Why: every ToS / privacy policy / EULA / KYC disclosure needs this.
- * Phase 1 roadmap item #3; arc-id's `TenantPolicy.requireLegalConsent`
+ * Phase 1 roadmap item #3; SovGrant's `TenantPolicy.requireLegalConsent`
  * uses it directly.
  */
 
@@ -15,7 +15,14 @@ import { cn } from "../utils.js";
 import { Button } from "./button.js";
 import { Checkbox } from "./checkbox.js";
 import { Label } from "./label.js";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./card.js";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "./card.js";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
@@ -224,9 +231,7 @@ export function ConsentCapture({
         </div>
 
         {requireScroll && !scrolledToEnd && (
-          <p className="text-xs text-muted-foreground">
-            {scrollHint}
-          </p>
+          <p className="text-xs text-muted-foreground">{scrollHint}</p>
         )}
 
         {requireSignature && (

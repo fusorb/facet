@@ -3,7 +3,7 @@
  *
  * Q10 gap: "No integration test - docs engine + real consumer. The
  * sandbox-e2e tests the CLI, and unit tests cover packages, but there's no
- * CI gate that renders the docs engine against a real consumer like arc-id."
+ * CI gate that renders the docs engine against a real consumer like SovGrant."
  *
  * This test mounts <DocsApp> with a representative consumer config +
  * pages (brand, navigation, ecosystem, content pages with various
@@ -25,7 +25,8 @@ import "@testing-library/jest-dom/vitest";
 vi.mock("@fusorb/facet-layout", () => {
   const Stub = ({ children }: any) =>
     React.createElement("div", { "data-testid": "console-layout" }, children);
-  const VoidStub = () => React.createElement("div", { "data-testid": "command-palette" });
+  const VoidStub = () =>
+    React.createElement("div", { "data-testid": "command-palette" });
   return {
     ConsoleLayout: Stub,
     CommandPalette: VoidStub,
@@ -35,7 +36,8 @@ vi.mock("@fusorb/facet-layout", () => {
 // NotFound comes from the full @fusorb/facet-components package (lazy
 // route).  Stub it; /light subpath is mocked separately below.
 vi.mock("@fusorb/facet-components", () => ({
-  NotFound: () => React.createElement("div", { "data-testid": "not-found" }, "404"),
+  NotFound: () =>
+    React.createElement("div", { "data-testid": "not-found" }, "404"),
 }));
 
 // facet-components/light is imported by ThemeProvider (eager in docs-app)
@@ -46,7 +48,11 @@ vi.mock("@fusorb/facet-components/light", () => {
   const stub =
     (tag: string) =>
     ({ children, ...rest }: any) =>
-      React.createElement(tag === "svg" ? "svg" : "div", { "data-testid": tag, ...rest }, children);
+      React.createElement(
+        tag === "svg" ? "svg" : "div",
+        { "data-testid": tag, ...rest },
+        children,
+      );
   return {
     ThemeProvider: ({ children }: { children?: React.ReactNode }) => children,
     LightIcon: ({ name }: { name?: string }) =>
@@ -76,7 +82,14 @@ vi.mock("@fusorb/facet-components/light", () => {
 // in-memory router that resolves routes against window.location.pathname.
 vi.mock("react-router-dom", () => {
   const React = require("react") as typeof import("react");
-  const { createContext, useContext, useEffect, useState, isValidElement, Children } = React;
+  const {
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+    isValidElement,
+    Children,
+  } = React;
 
   const LocationContext = createContext({
     pathname: "/",
@@ -108,7 +121,9 @@ vi.mock("react-router-dom", () => {
     return true;
   }
 
-  function collectRoutes(nodes: React.ReactNode): Array<Record<string, unknown>> {
+  function collectRoutes(
+    nodes: React.ReactNode,
+  ): Array<Record<string, unknown>> {
     const routes: Array<Record<string, unknown>> = [];
     Children.forEach(nodes, (child) => {
       if (!isValidElement(child)) return;
@@ -116,12 +131,15 @@ vi.mock("react-router-dom", () => {
       if ((child as { type?: unknown }).type === Route) {
         if (props.path !== undefined) routes.push(props);
       }
-      if (props.children) routes.push(...collectRoutes(props.children as React.ReactNode));
+      if (props.children)
+        routes.push(...collectRoutes(props.children as React.ReactNode));
     });
     return routes;
   }
 
-  const BrowserRouter: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const BrowserRouter: React.FC<{ children: React.ReactNode }> = ({
+    children,
+  }) => {
     const [loc, setLoc] = useState({
       pathname: window.location.pathname,
       search: window.location.search,
@@ -141,22 +159,30 @@ vi.mock("react-router-dom", () => {
       window.addEventListener("popstate", handler);
       return () => window.removeEventListener("popstate", handler);
     }, []);
-    return React.createElement(LocationContext.Provider, { value: loc }, children);
+    return React.createElement(
+      LocationContext.Provider,
+      { value: loc },
+      children,
+    );
   };
 
   const useLocation = () => useContext(LocationContext);
 
-  const useNavigate = () =>
-    (to: unknown, options?: { replace?: boolean }) => {
-      const path = typeof to === "string" ? to : (to as { pathname?: string })?.pathname ?? "/";
-      const search =
-        typeof to === "object" && (to as { search?: string })?.search ? (to as { search: string }).search : "";
-      if (options?.replace) {
-        window.history.replaceState({}, "", path + search);
-      } else {
-        window.history.pushState({}, "", path + search);
-      }
-    };
+  const useNavigate = () => (to: unknown, options?: { replace?: boolean }) => {
+    const path =
+      typeof to === "string"
+        ? to
+        : ((to as { pathname?: string })?.pathname ?? "/");
+    const search =
+      typeof to === "object" && (to as { search?: string })?.search
+        ? (to as { search: string }).search
+        : "";
+    if (options?.replace) {
+      window.history.replaceState({}, "", path + search);
+    } else {
+      window.history.pushState({}, "", path + search);
+    }
+  };
 
   const useParams = () => ({});
 
@@ -164,11 +190,16 @@ vi.mock("react-router-dom", () => {
     React.createElement(
       "a",
       {
-        href: typeof to === "string" ? to : (to as { pathname?: string })?.pathname ?? "/",
+        href:
+          typeof to === "string"
+            ? to
+            : ((to as { pathname?: string })?.pathname ?? "/"),
         onClick: (e: Event) => {
           e.preventDefault();
           const path =
-            typeof to === "string" ? to : (to as { pathname?: string })?.pathname ?? "/";
+            typeof to === "string"
+              ? to
+              : ((to as { pathname?: string })?.pathname ?? "/");
           const search =
             typeof to === "object" && (to as { search?: string })?.search
               ? (to as { search: string }).search
@@ -183,7 +214,10 @@ vi.mock("react-router-dom", () => {
   const Navigate: React.FC<any> = ({ to, replace = false }) => {
     useEffect(() => {
       if (!to) return;
-      const path = typeof to === "string" ? to : (to as { pathname?: string })?.pathname ?? "/";
+      const path =
+        typeof to === "string"
+          ? to
+          : ((to as { pathname?: string })?.pathname ?? "/");
       const search =
         typeof to === "object" && (to as { search?: string })?.search
           ? (to as { search: string }).search
@@ -210,7 +244,11 @@ vi.mock("react-router-dom", () => {
     let childRoutes: Array<Record<string, unknown>> = [];
 
     Children.forEach(children, (child) => {
-      if (!isValidElement(child) || (child as { type?: unknown }).type !== Route) return;
+      if (
+        !isValidElement(child) ||
+        (child as { type?: unknown }).type !== Route
+      )
+        return;
       const props = (child as { props?: Record<string, unknown> }).props ?? {};
       if (props.element && props.path === undefined) {
         layoutElement = props.element as React.ReactNode;
@@ -245,7 +283,11 @@ vi.mock("react-router-dom", () => {
     }
 
     if (layoutElement) {
-      return React.createElement(OutletContext.Provider, { value: matched }, layoutElement);
+      return React.createElement(
+        OutletContext.Provider,
+        { value: matched },
+        layoutElement,
+      );
     }
     return matched || null;
   };
@@ -266,7 +308,7 @@ vi.mock("react-router-dom", () => {
 import { DocsApp } from "./docs-app.js";
 import type { DocsSiteConfig, DocsPage } from "./index.js";
 
-// ── Consumer-style fixtures (mirrors what an arc-id docs site passes) ──
+// ── Consumer-style fixtures (mirrors what an SovGrant docs site passes) ──
 
 const consumerConfig: DocsSiteConfig = {
   brand: { name: "ArcID" },
@@ -279,9 +321,12 @@ const consumerPages: DocsPage[] = [
     path: "/",
     title: "Overview",
     section: "guides",
-    description: "Domain-customizable, auth-first component system for Arcevo.",
+    description: "Domain-customizable, auth-first component system for facet.",
     blocks: [
-      { type: "p", text: "facet is what you get when you own the identity backend." },
+      {
+        type: "p",
+        text: "facet is what you get when you own the identity backend.",
+      },
       { type: "h2", text: "Packages" },
       {
         type: "ul",
@@ -292,7 +337,11 @@ const consumerPages: DocsPage[] = [
         ],
       },
       { type: "code", text: "pnpm install\npnpm build" },
-      { type: "link", label: "GitHub repo", href: "https://github.com/fusorb/facet" },
+      {
+        type: "link",
+        label: "GitHub repo",
+        href: "https://github.com/fusorb/facet",
+      },
     ],
   },
   {
@@ -301,7 +350,10 @@ const consumerPages: DocsPage[] = [
     section: "auth",
     description: "Auth flows and domain presets.",
     blocks: [
-      { type: "p", text: "Arcevo ships domain presets for fintech, med, and edu." },
+      {
+        type: "p",
+        text: "facet ships domain presets for fintech, med, and edu.",
+      },
       { type: "h2", text: "Sign-in flow" },
       {
         type: "table",
@@ -328,62 +380,117 @@ describe("DocsApp integration - consumer-style config + pages", () => {
   });
 
   it("mounts with a consumer config without crashing", async () => {
-    render(<DocsApp config={consumerConfig} pages={consumerPages} showComponents={false} />);
-    expect(await screen.findByTestId("console-layout", {}, { timeout: 5000 })).toBeInTheDocument();
+    render(
+      <DocsApp
+        config={consumerConfig}
+        pages={consumerPages}
+        showComponents={false}
+      />,
+    );
+    expect(
+      await screen.findByTestId("console-layout", {}, { timeout: 5000 }),
+    ).toBeInTheDocument();
   });
 
   it("renders the home page at / with title and description", async () => {
     window.history.pushState({}, "", "/");
-    render(<DocsApp config={consumerConfig} pages={consumerPages} showComponents={false} />);
+    render(
+      <DocsApp
+        config={consumerConfig}
+        pages={consumerPages}
+        showComponents={false}
+      />,
+    );
 
     await screen.findByTestId("console-layout", {}, { timeout: 5000 });
-    expect(screen.getByRole("heading", { name: "Overview" })).toBeInTheDocument();
     expect(
-      screen.getByText("Domain-customizable, auth-first component system for Arcevo."),
+      screen.getByRole("heading", { name: "Overview" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Domain-customizable, auth-first component system for facet.",
+      ),
     ).toBeInTheDocument();
   });
 
   it("renders content blocks (paragraph, heading, list, code)", async () => {
     window.history.pushState({}, "", "/");
-    render(<DocsApp config={consumerConfig} pages={consumerPages} showComponents={false} />);
+    render(
+      <DocsApp
+        config={consumerConfig}
+        pages={consumerPages}
+        showComponents={false}
+      />,
+    );
 
     await screen.findByTestId("console-layout", {}, { timeout: 5000 });
     expect(screen.getByText(/facet is what you get/)).toBeInTheDocument();
     expect(screen.getByText("Packages")).toBeInTheDocument();
     // Code blocks render as <pre><code>
-    const codeBlock = screen.getByText((content) => content.includes("pnpm install"));
+    const codeBlock = screen.getByText((content) =>
+      content.includes("pnpm install"),
+    );
     expect(codeBlock).toBeInTheDocument();
   });
 
   it("renders a guide page at /guides/auth with table blocks", async () => {
     window.history.pushState({}, "", "/guides/auth");
-    render(<DocsApp config={consumerConfig} pages={consumerPages} showComponents={false} />);
+    render(
+      <DocsApp
+        config={consumerConfig}
+        pages={consumerPages}
+        showComponents={false}
+      />,
+    );
 
     await screen.findByTestId("console-layout", {}, { timeout: 5000 });
-    expect(screen.getByRole("heading", { name: "Authentication" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Authentication" }),
+    ).toBeInTheDocument();
     expect(screen.getByText("Password")).toBeInTheDocument();
     expect(screen.getAllByText("@fusorb/facet-auth")).toHaveLength(2);
   });
 
   it("renders link blocks as anchor tags", async () => {
     window.history.pushState({}, "", "/");
-    render(<DocsApp config={consumerConfig} pages={consumerPages} showComponents={false} />);
+    render(
+      <DocsApp
+        config={consumerConfig}
+        pages={consumerPages}
+        showComponents={false}
+      />,
+    );
 
     await screen.findByTestId("console-layout", {}, { timeout: 5000 });
     const link = screen.getByText("GitHub repo");
-    expect(link.closest("a")).toHaveAttribute("href", "https://github.com/fusorb/facet");
+    expect(link.closest("a")).toHaveAttribute(
+      "href",
+      "https://github.com/fusorb/facet",
+    );
   });
 
   it("renders 404 for unknown routes", async () => {
     window.history.pushState({}, "", "/totally-unknown-page");
-    render(<DocsApp config={consumerConfig} pages={consumerPages} showComponents={false} />);
+    render(
+      <DocsApp
+        config={consumerConfig}
+        pages={consumerPages}
+        showComponents={false}
+      />,
+    );
 
     expect(await screen.findByTestId("not-found")).toBeInTheDocument();
   });
 
   it("respects showComponents=false - component gallery routes are absent", async () => {
     window.history.pushState({}, "", "/components");
-    render(<DocsApp config={consumerConfig} pages={consumerPages} showComponents={false} />);
+    render(
+      <DocsApp
+        config={consumerConfig}
+        pages={consumerPages}
+        showComponents={false}
+      />,
+    );
 
     // Without showComponents, /components is not a route - hits the 404 fallback.
     expect(await screen.findByTestId("not-found")).toBeInTheDocument();
@@ -395,10 +502,20 @@ describe("DocsApp integration - consumer-style config + pages", () => {
     // is sourced from the `pages` prop, and the sidebar nav is sourced from
     // `config.navigation`.
     window.history.pushState({}, "", "/guides/auth");
-    render(<DocsApp config={consumerConfig} pages={consumerPages} showComponents={false} />);
+    render(
+      <DocsApp
+        config={consumerConfig}
+        pages={consumerPages}
+        showComponents={false}
+      />,
+    );
 
     await screen.findByTestId("console-layout", {}, { timeout: 5000 });
-    expect(screen.getByRole("heading", { name: "Authentication" })).toBeInTheDocument();
-    expect(screen.getByText("Auth flows and domain presets.")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Authentication" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Auth flows and domain presets."),
+    ).toBeInTheDocument();
   });
 });

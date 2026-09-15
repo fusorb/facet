@@ -81,7 +81,7 @@ export function getLocalityLabel(country?: string): string {
  * non-African markets.
  */
 export const DEFAULT_COUNTRIES: Country[] = [
-{ code: "AE", name: "United Arab Emirates" },
+  { code: "AE", name: "United Arab Emirates" },
   { code: "AG", name: "Antigua and Barbuda" },
   { code: "AI", name: "Anguilla" },
   { code: "AL", name: "Albania" },
@@ -260,7 +260,7 @@ export const DEFAULT_COUNTRIES: Country[] = [
  * FCT; other countries list major regions.
  */
 export const DEFAULT_REGIONS: Record<string, Region[]> = {
-AD: [
+  AD: [
     { id: "andorra-la-vella", name: "Andorra la Vella" },
     { id: "canillo", name: "Canillo" },
     { id: "encamp", name: "Encamp" },
@@ -359,7 +359,10 @@ AD: [
     { id: "western", name: "Western" },
   ],
   AU: [
-    { id: "australian-capital-territory", name: "Australian Capital Territory" },
+    {
+      id: "australian-capital-territory",
+      name: "Australian Capital Territory",
+    },
     { id: "new-south-wales", name: "New South Wales" },
     { id: "northern-territory", name: "Northern Territory" },
     { id: "queensland", name: "Queensland" },
@@ -479,7 +482,10 @@ AD: [
   ],
   BA: [
     { id: "br-ko", name: "Brčko" },
-    { id: "federation-of-bosnia-and-herzegovina", name: "Federation of Bosnia and Herzegovina" },
+    {
+      id: "federation-of-bosnia-and-herzegovina",
+      name: "Federation of Bosnia and Herzegovina",
+    },
     { id: "republika-srpska", name: "Republika Srpska" },
   ],
   BB: [
@@ -797,20 +803,32 @@ AD: [
     { id: "zanzan", name: "Zanzan" },
   ],
   CL: [
-    { id: "ais-n-del-general-carlos-iba-ez-del-campo", name: "Aisén del General Carlos Ibañez del Campo" },
+    {
+      id: "ais-n-del-general-carlos-iba-ez-del-campo",
+      name: "Aisén del General Carlos Ibañez del Campo",
+    },
     { id: "antofagasta", name: "Antofagasta" },
     { id: "arica-y-parinacota", name: "Arica y Parinacota" },
     { id: "atacama", name: "Atacama" },
     { id: "biob-o", name: "Biobío" },
     { id: "coquimbo", name: "Coquimbo" },
     { id: "la-araucan-a", name: "La Araucanía" },
-    { id: "libertador-general-bernardo-o-higgins", name: "Libertador General Bernardo O'Higgins" },
+    {
+      id: "libertador-general-bernardo-o-higgins",
+      name: "Libertador General Bernardo O'Higgins",
+    },
     { id: "los-lagos", name: "Los Lagos" },
     { id: "los-r-os", name: "Los Ríos" },
-    { id: "magallanes-y-de-la-ant-rtica-chilena", name: "Magallanes y de la Antártica Chilena" },
+    {
+      id: "magallanes-y-de-la-ant-rtica-chilena",
+      name: "Magallanes y de la Antártica Chilena",
+    },
     { id: "maule", name: "Maule" },
     { id: "uble", name: "Ñuble" },
-    { id: "regi-n-metropolitana-de-santiago", name: "Región Metropolitana de Santiago" },
+    {
+      id: "regi-n-metropolitana-de-santiago",
+      name: "Región Metropolitana de Santiago",
+    },
     { id: "tarapac", name: "Tarapacá" },
     { id: "valpara-so", name: "Valparaíso" },
   ],
@@ -889,7 +907,10 @@ AD: [
     { id: "putumayo", name: "Putumayo" },
     { id: "quind-o", name: "Quindío" },
     { id: "risaralda", name: "Risaralda" },
-    { id: "san-andr-s-providencia-y-santa-catalina", name: "San Andrés, Providencia y Santa Catalina" },
+    {
+      id: "san-andr-s-providencia-y-santa-catalina",
+      name: "San Andrés, Providencia y Santa Catalina",
+    },
     { id: "santander", name: "Santander" },
     { id: "sucre", name: "Sucre" },
     { id: "tolima", name: "Tolima" },
@@ -1119,7 +1140,10 @@ AD: [
     { id: "pastaza", name: "Pastaza" },
     { id: "pichincha", name: "Pichincha" },
     { id: "santa-elena", name: "Santa Elena" },
-    { id: "santo-domingo-de-los-ts-chilas", name: "Santo Domingo de los Tsáchilas" },
+    {
+      id: "santo-domingo-de-los-ts-chilas",
+      name: "Santo Domingo de los Tsáchilas",
+    },
     { id: "sucumb-os", name: "Sucumbíos" },
     { id: "tungurahua", name: "Tungurahua" },
     { id: "zamora-chinchipe", name: "Zamora Chinchipe" },
@@ -1172,7 +1196,10 @@ AD: [
     { id: "oromia", name: "Oromia" },
     { id: "sidama", name: "Sidama" },
     { id: "somali", name: "Somali" },
-    { id: "southern-nations-nationalities-and-peoples", name: "Southern Nations, Nationalities, and Peoples" },
+    {
+      id: "southern-nations-nationalities-and-peoples",
+      name: "Southern Nations, Nationalities, and Peoples",
+    },
     { id: "southwest-ethiopia-peoples", name: "Southwest Ethiopia Peoples" },
     { id: "tigray", name: "Tigray" },
   ],
@@ -1252,7 +1279,10 @@ AD: [
     { id: "finist-re", name: "Finistère" },
     { id: "french-guiana", name: "French Guiana" },
     { id: "french-polynesia", name: "French Polynesia" },
-    { id: "french-southern-and-antarctic-lands", name: "French Southern and Antarctic Lands" },
+    {
+      id: "french-southern-and-antarctic-lands",
+      name: "French Southern and Antarctic Lands",
+    },
     { id: "gard", name: "Gard" },
     { id: "gers", name: "Gers" },
     { id: "gironde", name: "Gironde" },
@@ -1355,11 +1385,17 @@ AD: [
     { id: "antrim-and-newtownabbey", name: "Antrim and Newtownabbey" },
     { id: "ards-and-north-down", name: "Ards and North Down" },
     { id: "argyll-and-bute", name: "Argyll and Bute" },
-    { id: "armagh-banbridge-and-craigavon", name: "Armagh, Banbridge and Craigavon" },
+    {
+      id: "armagh-banbridge-and-craigavon",
+      name: "Armagh, Banbridge and Craigavon",
+    },
     { id: "barking-and-dagenham", name: "Barking and Dagenham" },
     { id: "barnet", name: "Barnet" },
     { id: "barnsley", name: "Barnsley" },
-    { id: "bath-and-north-east-somerset", name: "Bath and North East Somerset" },
+    {
+      id: "bath-and-north-east-somerset",
+      name: "Bath and North East Somerset",
+    },
     { id: "bedford", name: "Bedford" },
     { id: "belfast", name: "Belfast" },
     { id: "bexley", name: "Bexley" },
@@ -1368,7 +1404,10 @@ AD: [
     { id: "blackpool", name: "Blackpool" },
     { id: "blaenau-gwent", name: "Blaenau Gwent" },
     { id: "bolton", name: "Bolton" },
-    { id: "bournemouth-christchurch-and-poole", name: "Bournemouth, Christchurch and Poole" },
+    {
+      id: "bournemouth-christchurch-and-poole",
+      name: "Bournemouth, Christchurch and Poole",
+    },
     { id: "bracknell-forest", name: "Bracknell Forest" },
     { id: "bradford", name: "Bradford" },
     { id: "brent", name: "Brent" },
@@ -1588,15 +1627,16 @@ AD: [
     { id: "kakheti", name: "Kakheti" },
     { id: "kvemo-kartli", name: "Kvemo Kartli" },
     { id: "mtskheta-mtianeti", name: "Mtskheta-Mtianeti" },
-    { id: "racha-lechkhumi-and-kvemo-svaneti", name: "Racha-Lechkhumi and Kvemo Svaneti" },
+    {
+      id: "racha-lechkhumi-and-kvemo-svaneti",
+      name: "Racha-Lechkhumi and Kvemo Svaneti",
+    },
     { id: "samegrelo-zemo-svaneti", name: "Samegrelo-Zemo Svaneti" },
     { id: "samtskhe-javakheti", name: "Samtskhe-Javakheti" },
     { id: "shida-kartli", name: "Shida Kartli" },
     { id: "tbilisi", name: "Tbilisi" },
   ],
-  GF: [
-    { id: "guyane", name: "Guyane" },
-  ],
+  GF: [{ id: "guyane", name: "Guyane" }],
   GG: [
     { id: "alderney", name: "Alderney" },
     { id: "castel", name: "Castel" },
@@ -1741,7 +1781,10 @@ AD: [
     { id: "merizo-malesso", name: "Merizo (Malesso)" },
     { id: "mongmong-toto-maite", name: "Mongmong-Toto-Maite" },
     { id: "piti", name: "Piti" },
-    { id: "santa-rita-s-nta-rita-sumai", name: "Santa Rita (Sånta Rita-Sumai)" },
+    {
+      id: "santa-rita-s-nta-rita-sumai",
+      name: "Santa Rita (Sånta Rita-Sumai)",
+    },
     { id: "sinajana", name: "Sinajana" },
     { id: "talofofo-talo-fo-fo", name: "Talofofo (Talo'fo'fo)" },
     { id: "tamuning", name: "Tamuning" },
@@ -1768,12 +1811,18 @@ AD: [
     { id: "cuyuni-mazaruni", name: "Cuyuni-Mazaruni" },
     { id: "demerara-mahaica", name: "Demerara-Mahaica" },
     { id: "east-berbice-corentyne", name: "East Berbice-Corentyne" },
-    { id: "essequibo-islands-west-demerara", name: "Essequibo Islands-West Demerara" },
+    {
+      id: "essequibo-islands-west-demerara",
+      name: "Essequibo Islands-West Demerara",
+    },
     { id: "mahaica-berbice", name: "Mahaica-Berbice" },
     { id: "pomeroon-supenaam", name: "Pomeroon-Supenaam" },
     { id: "potaro-siparuni", name: "Potaro-Siparuni" },
     { id: "upper-demerara-berbice", name: "Upper Demerara-Berbice" },
-    { id: "upper-takutu-upper-essequibo", name: "Upper Takutu-Upper Essequibo" },
+    {
+      id: "upper-takutu-upper-essequibo",
+      name: "Upper Takutu-Upper Essequibo",
+    },
   ],
   HK: [
     { id: "central-and-western", name: "Central and Western" },
@@ -1865,7 +1914,10 @@ AD: [
     { id: "bihar", name: "Bihar" },
     { id: "chandigarh", name: "Chandigarh" },
     { id: "chhattisgarh", name: "Chhattisgarh" },
-    { id: "dadra-and-nagar-haveli-and-daman-and-diu", name: "Dadra and Nagar Haveli and Daman and Diu" },
+    {
+      id: "dadra-and-nagar-haveli-and-daman-and-diu",
+      name: "Dadra and Nagar Haveli and Daman and Diu",
+    },
     { id: "delhi", name: "Delhi" },
     { id: "goa", name: "Goa" },
     { id: "gujarat", name: "Gujarat" },
@@ -1915,7 +1967,10 @@ AD: [
     { id: "flj-tsdalshreppur", name: "Fljótsdalshreppur" },
     { id: "fl-ahreppur", name: "Flóahreppur" },
     { id: "gar-ab-r", name: "Garðabær" },
-    { id: "gr-msnes-og-grafningshreppur", name: "Grímsnes- og Grafningshreppur" },
+    {
+      id: "gr-msnes-og-grafningshreppur",
+      name: "Grímsnes- og Grafningshreppur",
+    },
     { id: "grindav-k", name: "Grindavík" },
     { id: "grundarfj-r-ur", name: "Grundarfjörður" },
     { id: "gr-tubakkahreppur", name: "Grýtubakkahreppur" },
@@ -2406,7 +2461,10 @@ AD: [
     { id: "figuig", name: "Figuig" },
     { id: "fquih-ben-salah", name: "Fquih Ben Salah" },
     { id: "guelmim", name: "Guelmim" },
-    { id: "guelmim-oued-noun-eh-partial", name: "Guelmim-Oued Noun (EH-partial)" },
+    {
+      id: "guelmim-oued-noun-eh-partial",
+      name: "Guelmim-Oued Noun (EH-partial)",
+    },
     { id: "guercif", name: "Guercif" },
     { id: "ifrane", name: "Ifrane" },
     { id: "inezgane-ait-melloul", name: "Inezgane-Ait Melloul" },
@@ -2417,7 +2475,10 @@ AD: [
     { id: "khouribga", name: "Khouribga" },
     { id: "l-oriental", name: "L'Oriental" },
     { id: "la-youne-eh", name: "Laâyoune (EH)" },
-    { id: "la-youne-sakia-el-hamra-eh-partial", name: "Laâyoune-Sakia El Hamra (EH-partial)" },
+    {
+      id: "la-youne-sakia-el-hamra-eh-partial",
+      name: "Laâyoune-Sakia El Hamra (EH-partial)",
+    },
     { id: "larache", name: "Larache" },
     { id: "m-diq-fnideq", name: "M’diq-Fnideq" },
     { id: "marrakech", name: "Marrakech" },
@@ -3064,7 +3125,10 @@ AD: [
     { id: "loreto", name: "Loreto" },
     { id: "madre-de-dios", name: "Madre de Dios" },
     { id: "moquegua", name: "Moquegua" },
-    { id: "municipalidad-metropolitana-de-lima", name: "Municipalidad Metropolitana de Lima" },
+    {
+      id: "municipalidad-metropolitana-de-lima",
+      name: "Municipalidad Metropolitana de Lima",
+    },
     { id: "pasco", name: "Pasco" },
     { id: "piura", name: "Piura" },
     { id: "puno", name: "Puno" },
@@ -3535,10 +3599,19 @@ AD: [
     { id: "tore", name: "Štore" },
     { id: "stra-a", name: "Straža" },
     { id: "sveta-ana", name: "Sveta Ana" },
-    { id: "sveta-trojica-v-slovenskih-goricah", name: "Sveta Trojica v Slovenskih Goricah" },
-    { id: "sveti-andra-v-slovenskih-goricah", name: "Sveti Andraž v Slovenskih Goricah" },
+    {
+      id: "sveta-trojica-v-slovenskih-goricah",
+      name: "Sveta Trojica v Slovenskih Goricah",
+    },
+    {
+      id: "sveti-andra-v-slovenskih-goricah",
+      name: "Sveti Andraž v Slovenskih Goricah",
+    },
     { id: "sveti-jurij-ob-avnici", name: "Sveti Jurij ob Ščavnici" },
-    { id: "sveti-jurij-v-slovenskih-goricah", name: "Sveti Jurij v Slovenskih Goricah" },
+    {
+      id: "sveti-jurij-v-slovenskih-goricah",
+      name: "Sveti Jurij v Slovenskih Goricah",
+    },
     { id: "sveti-toma", name: "Sveti Tomaž" },
     { id: "tabor", name: "Tabor" },
     { id: "ti-ina", name: "Tišina" },
@@ -3866,7 +3939,10 @@ AD: [
     { id: "zanzibar-west", name: "Zanzibar West" },
   ],
   UA: [
-    { id: "autonomous-republic-of-crimea", name: "Autonomous Republic of Crimea" },
+    {
+      id: "autonomous-republic-of-crimea",
+      name: "Autonomous Republic of Crimea",
+    },
     { id: "cherkaska", name: "Cherkaska" },
     { id: "chernihivska", name: "Chernihivska" },
     { id: "chernivetska", name: "Chernivetska" },
@@ -4042,7 +4118,10 @@ AD: [
     { id: "arizona", name: "Arizona" },
     { id: "arkansas", name: "Arkansas" },
     { id: "armed-forces-europe", name: "Armed Forces Europe" },
-    { id: "armed-forces-of-the-americas", name: "Armed Forces of the Americas" },
+    {
+      id: "armed-forces-of-the-americas",
+      name: "Armed Forces of the Americas",
+    },
     { id: "armed-forces-pacific", name: "Armed Forces Pacific" },
     { id: "california", name: "California" },
     { id: "colorado", name: "Colorado" },
@@ -4087,8 +4166,14 @@ AD: [
     { id: "south-dakota", name: "South Dakota" },
     { id: "tennessee", name: "Tennessee" },
     { id: "texas", name: "Texas" },
-    { id: "united-states-minor-outlying-islands", name: "United States Minor Outlying Islands" },
-    { id: "united-states-virgin-islands", name: "United States Virgin Islands" },
+    {
+      id: "united-states-minor-outlying-islands",
+      name: "United States Minor Outlying Islands",
+    },
+    {
+      id: "united-states-virgin-islands",
+      name: "United States Virgin Islands",
+    },
     { id: "utah", name: "Utah" },
     { id: "vermont", name: "Vermont" },
     { id: "virginia", name: "Virginia" },
@@ -4297,8 +4382,8 @@ AD: [
  * Ids are state-scoped so they are unique across the dataset.
  */
 export const DEFAULT_LOCALITIES: Record<string, Record<string, Locality[]>> = {
-NG: {
-    "abia": [
+  NG: {
+    abia: [
       { id: "abia-aba-north", name: "Aba North" },
       { id: "abia-aba-south", name: "Aba South" },
       { id: "abia-arochukwu", name: "Arochukwu" },
@@ -4317,7 +4402,7 @@ NG: {
       { id: "abia-umuahia-south", name: "Umuahia South" },
       { id: "abia-umu-nneochi", name: "Umu Nneochi" },
     ],
-    "adamawa": [
+    adamawa: [
       { id: "adamawa-demsa", name: "Demsa" },
       { id: "adamawa-fufure", name: "Fufure" },
       { id: "adamawa-ganye", name: "Ganye" },
@@ -4373,7 +4458,7 @@ NG: {
       { id: "akwa-ibom-urue-offong-oruko", name: "Urue-Offong/Oruko" },
       { id: "akwa-ibom-uyo", name: "Uyo" },
     ],
-    "anambra": [
+    anambra: [
       { id: "anambra-aguata", name: "Aguata" },
       { id: "anambra-anambra-east", name: "Anambra East" },
       { id: "anambra-anambra-west", name: "Anambra West" },
@@ -4396,7 +4481,7 @@ NG: {
       { id: "anambra-orumba-south", name: "Orumba South" },
       { id: "anambra-oyi", name: "Oyi" },
     ],
-    "bauchi": [
+    bauchi: [
       { id: "bauchi-alkaleri", name: "Alkaleri" },
       { id: "bauchi-bauchi", name: "Bauchi" },
       { id: "bauchi-bogoro", name: "Bogoro" },
@@ -4418,7 +4503,7 @@ NG: {
       { id: "bauchi-warji", name: "Warji" },
       { id: "bauchi-zaki", name: "Zaki" },
     ],
-    "bayelsa": [
+    bayelsa: [
       { id: "bayelsa-brass", name: "Brass" },
       { id: "bayelsa-ekeremor", name: "Ekeremor" },
       { id: "bayelsa-kolokuma-opokuma", name: "Kolokuma/Opokuma" },
@@ -4428,7 +4513,7 @@ NG: {
       { id: "bayelsa-southern-ijaw", name: "Southern Ijaw" },
       { id: "bayelsa-yenagoa", name: "Yenagoa" },
     ],
-    "benue": [
+    benue: [
       { id: "benue-agatu", name: "Agatu" },
       { id: "benue-apa", name: "Apa" },
       { id: "benue-ado", name: "Ado" },
@@ -4453,7 +4538,7 @@ NG: {
       { id: "benue-ushongo", name: "Ushongo" },
       { id: "benue-vandeikya", name: "Vandeikya" },
     ],
-    "borno": [
+    borno: [
       { id: "borno-abadam", name: "Abadam" },
       { id: "borno-askira-uba", name: "Askira/Uba" },
       { id: "borno-bama", name: "Bama" },
@@ -4502,7 +4587,7 @@ NG: {
       { id: "cross-river-yakurr", name: "Yakurr" },
       { id: "cross-river-yala", name: "Yala" },
     ],
-    "delta": [
+    delta: [
       { id: "delta-aniocha-north", name: "Aniocha North" },
       { id: "delta-aniocha-south", name: "Aniocha South" },
       { id: "delta-bomadi", name: "Bomadi" },
@@ -4529,7 +4614,7 @@ NG: {
       { id: "delta-warri-south", name: "Warri South" },
       { id: "delta-warri-south-west", name: "Warri South West" },
     ],
-    "ebonyi": [
+    ebonyi: [
       { id: "ebonyi-abakaliki", name: "Abakaliki" },
       { id: "ebonyi-afikpo-north", name: "Afikpo North" },
       { id: "ebonyi-afikpo-south", name: "Afikpo South" },
@@ -4544,7 +4629,7 @@ NG: {
       { id: "ebonyi-ohaukwu", name: "Ohaukwu" },
       { id: "ebonyi-onicha", name: "Onicha" },
     ],
-    "edo": [
+    edo: [
       { id: "edo-akoko-edo", name: "Akoko-Edo" },
       { id: "edo-egor", name: "Egor" },
       { id: "edo-esan-central", name: "Esan Central" },
@@ -4564,7 +4649,7 @@ NG: {
       { id: "edo-owan-west", name: "Owan West" },
       { id: "edo-uhunmwonde", name: "Uhunmwonde" },
     ],
-    "ekiti": [
+    ekiti: [
       { id: "ekiti-ado-ekiti", name: "Ado Ekiti" },
       { id: "ekiti-efon", name: "Efon" },
       { id: "ekiti-ekiti-east", name: "Ekiti East" },
@@ -4582,7 +4667,7 @@ NG: {
       { id: "ekiti-moba", name: "Moba" },
       { id: "ekiti-oye", name: "Oye" },
     ],
-    "enugu": [
+    enugu: [
       { id: "enugu-aninri", name: "Aninri" },
       { id: "enugu-awgu", name: "Awgu" },
       { id: "enugu-enugu-east", name: "Enugu East" },
@@ -4601,7 +4686,7 @@ NG: {
       { id: "enugu-udi", name: "Udi" },
       { id: "enugu-uzo-uwani", name: "Uzo-Uwani" },
     ],
-    "gombe": [
+    gombe: [
       { id: "gombe-akko", name: "Akko" },
       { id: "gombe-balanga", name: "Balanga" },
       { id: "gombe-billiri", name: "Billiri" },
@@ -4614,7 +4699,7 @@ NG: {
       { id: "gombe-shongom", name: "Shongom" },
       { id: "gombe-yamaltu-deba", name: "Yamaltu/Deba" },
     ],
-    "imo": [
+    imo: [
       { id: "imo-aboh-mbaise", name: "Aboh Mbaise" },
       { id: "imo-ahiazu-mbaise", name: "Ahiazu Mbaise" },
       { id: "imo-ehime-mbano", name: "Ehime Mbano" },
@@ -4644,7 +4729,7 @@ NG: {
       { id: "imo-owerri-west", name: "Owerri West" },
       { id: "imo-unuimo", name: "Unuimo" },
     ],
-    "jigawa": [
+    jigawa: [
       { id: "jigawa-auyo", name: "Auyo" },
       { id: "jigawa-babura", name: "Babura" },
       { id: "jigawa-biriniwa", name: "Biriniwa" },
@@ -4673,7 +4758,7 @@ NG: {
       { id: "jigawa-taura", name: "Taura" },
       { id: "jigawa-yankwashi", name: "Yankwashi" },
     ],
-    "kaduna": [
+    kaduna: [
       { id: "kaduna-birnin-gwari", name: "Birnin Gwari" },
       { id: "kaduna-chikun", name: "Chikun" },
       { id: "kaduna-giwa", name: "Giwa" },
@@ -4698,7 +4783,7 @@ NG: {
       { id: "kaduna-zangon-kataf", name: "Zangon Kataf" },
       { id: "kaduna-zaria", name: "Zaria" },
     ],
-    "kano": [
+    kano: [
       { id: "kano-ajingi", name: "Ajingi" },
       { id: "kano-albasu", name: "Albasu" },
       { id: "kano-bagwai", name: "Bagwai" },
@@ -4744,7 +4829,7 @@ NG: {
       { id: "kano-warawa", name: "Warawa" },
       { id: "kano-wudil", name: "Wudil" },
     ],
-    "katsina": [
+    katsina: [
       { id: "katsina-bakori", name: "Bakori" },
       { id: "katsina-batagarawa", name: "Batagarawa" },
       { id: "katsina-batsari", name: "Batsari" },
@@ -4780,7 +4865,7 @@ NG: {
       { id: "katsina-sandamu", name: "Sandamu" },
       { id: "katsina-zango", name: "Zango" },
     ],
-    "kebbi": [
+    kebbi: [
       { id: "kebbi-aleiro", name: "Aleiro" },
       { id: "kebbi-arewa-dandi", name: "Arewa Dandi" },
       { id: "kebbi-argungu", name: "Argungu" },
@@ -4803,7 +4888,7 @@ NG: {
       { id: "kebbi-yauri", name: "Yauri" },
       { id: "kebbi-zuru", name: "Zuru" },
     ],
-    "kogi": [
+    kogi: [
       { id: "kogi-adavi", name: "Adavi" },
       { id: "kogi-ajaokuta", name: "Ajaokuta" },
       { id: "kogi-ankpa", name: "Ankpa" },
@@ -4826,7 +4911,7 @@ NG: {
       { id: "kogi-yagba-east", name: "Yagba East" },
       { id: "kogi-yagba-west", name: "Yagba West" },
     ],
-    "kwara": [
+    kwara: [
       { id: "kwara-asa", name: "Asa" },
       { id: "kwara-baruten", name: "Baruten" },
       { id: "kwara-edu", name: "Edu" },
@@ -4844,7 +4929,7 @@ NG: {
       { id: "kwara-oyun", name: "Oyun" },
       { id: "kwara-pategi", name: "Pategi" },
     ],
-    "lagos": [
+    lagos: [
       { id: "lagos-agege", name: "Agege" },
       { id: "lagos-ajeromi-ifelodun", name: "Ajeromi-Ifelodun" },
       { id: "lagos-alimosho", name: "Alimosho" },
@@ -4866,7 +4951,7 @@ NG: {
       { id: "lagos-shomolu", name: "Shomolu" },
       { id: "lagos-surulere", name: "Surulere" },
     ],
-    "nasarawa": [
+    nasarawa: [
       { id: "nasarawa-akwanga", name: "Akwanga" },
       { id: "nasarawa-awe", name: "Awe" },
       { id: "nasarawa-doma", name: "Doma" },
@@ -4881,7 +4966,7 @@ NG: {
       { id: "nasarawa-toto", name: "Toto" },
       { id: "nasarawa-wamba", name: "Wamba" },
     ],
-    "niger": [
+    niger: [
       { id: "niger-agaie", name: "Agaie" },
       { id: "niger-agwara", name: "Agwara" },
       { id: "niger-bida", name: "Bida" },
@@ -4908,7 +4993,7 @@ NG: {
       { id: "niger-tafa", name: "Tafa" },
       { id: "niger-wushishi", name: "Wushishi" },
     ],
-    "ogun": [
+    ogun: [
       { id: "ogun-abeokuta-north", name: "Abeokuta North" },
       { id: "ogun-abeokuta-south", name: "Abeokuta South" },
       { id: "ogun-ado-odo-ota", name: "Ado-Odo/Ota" },
@@ -4930,7 +5015,7 @@ NG: {
       { id: "ogun-yewa-north", name: "Yewa North" },
       { id: "ogun-yewa-south", name: "Yewa South" },
     ],
-    "ondo": [
+    ondo: [
       { id: "ondo-akoko-north-east", name: "Akoko North-East" },
       { id: "ondo-akoko-north-west", name: "Akoko North-West" },
       { id: "ondo-akoko-south-east", name: "Akoko South-East" },
@@ -4950,7 +5035,7 @@ NG: {
       { id: "ondo-ose", name: "Ose" },
       { id: "ondo-owo", name: "Owo" },
     ],
-    "osun": [
+    osun: [
       { id: "osun-aiyedade", name: "Aiyedade" },
       { id: "osun-aiyedire", name: "Aiyedire" },
       { id: "osun-atakumosa-east", name: "Atakumosa East" },
@@ -4982,7 +5067,7 @@ NG: {
       { id: "osun-orolu", name: "Orolu" },
       { id: "osun-osogbo", name: "Osogbo" },
     ],
-    "oyo": [
+    oyo: [
       { id: "oyo-afijio", name: "Afijio" },
       { id: "oyo-akinyele", name: "Akinyele" },
       { id: "oyo-atiba", name: "Atiba" },
@@ -5017,7 +5102,7 @@ NG: {
       { id: "oyo-saki-west", name: "Saki West" },
       { id: "oyo-surulere", name: "Surulere" },
     ],
-    "plateau": [
+    plateau: [
       { id: "plateau-barkin-ladi", name: "Barkin Ladi" },
       { id: "plateau-bassa", name: "Bassa" },
       { id: "plateau-bokkos", name: "Bokkos" },
@@ -5036,7 +5121,7 @@ NG: {
       { id: "plateau-shendam", name: "Shendam" },
       { id: "plateau-wase", name: "Wase" },
     ],
-    "rivers": [
+    rivers: [
       { id: "rivers-abua-odual", name: "Abua/Odual" },
       { id: "rivers-ahoada-east", name: "Ahoada East" },
       { id: "rivers-ahoada-west", name: "Ahoada West" },
@@ -5061,7 +5146,7 @@ NG: {
       { id: "rivers-port-harcourt", name: "Port Harcourt" },
       { id: "rivers-tai", name: "Tai" },
     ],
-    "sokoto": [
+    sokoto: [
       { id: "sokoto-binji", name: "Binji" },
       { id: "sokoto-bodinga", name: "Bodinga" },
       { id: "sokoto-dange-shuni", name: "Dange Shuni" },
@@ -5086,7 +5171,7 @@ NG: {
       { id: "sokoto-wurno", name: "Wurno" },
       { id: "sokoto-yabo", name: "Yabo" },
     ],
-    "taraba": [
+    taraba: [
       { id: "taraba-ardo-kola", name: "Ardo Kola" },
       { id: "taraba-bali", name: "Bali" },
       { id: "taraba-donga", name: "Donga" },
@@ -5104,7 +5189,7 @@ NG: {
       { id: "taraba-yorro", name: "Yorro" },
       { id: "taraba-zing", name: "Zing" },
     ],
-    "yobe": [
+    yobe: [
       { id: "yobe-bade", name: "Bade" },
       { id: "yobe-bursari", name: "Bursari" },
       { id: "yobe-damaturu", name: "Damaturu" },
@@ -5123,7 +5208,7 @@ NG: {
       { id: "yobe-yunusari", name: "Yunusari" },
       { id: "yobe-yusufari", name: "Yusufari" },
     ],
-    "zamfara": [
+    zamfara: [
       { id: "zamfara-anka", name: "Anka" },
       { id: "zamfara-bakura", name: "Bakura" },
       { id: "zamfara-birnin-magaji-kiyaw", name: "Birnin Magaji/Kiyaw" },
@@ -5139,7 +5224,7 @@ NG: {
       { id: "zamfara-tsafe", name: "Tsafe" },
       { id: "zamfara-zurmi", name: "Zurmi" },
     ],
-    "fct": [
+    fct: [
       { id: "fct-abaji", name: "Abaji" },
       { id: "fct-bwari", name: "Bwari" },
       { id: "fct-gwagwalada", name: "Gwagwalada" },

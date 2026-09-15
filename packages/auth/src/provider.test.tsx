@@ -1,4 +1,10 @@
-import { act, render, renderHook, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ArcIdClient } from "@fusorb/facet-sdk";
 import { ArcProvider, useAuth } from "./provider.js";
@@ -14,7 +20,7 @@ const USER: AuthUser = {
   tenantId: "tenant_arc_001",
 };
 
-/** Real arc-id envelope for domain routes. */
+/** Real SovGrant envelope for domain routes. */
 function envelope(data: unknown): unknown {
   return { success: true, data };
 }
@@ -68,7 +74,7 @@ describe("ArcProvider", () => {
   });
 
   function makeClient() {
-    return new ArcIdClient({ baseUrl: "https://auth.arcevo.dev/api/v1" });
+    return new ArcIdClient({ baseUrl: "https://auth.example.dev/api/v1" });
   }
 
   it("boots unauthenticated when no token is stored", async () => {
@@ -96,7 +102,11 @@ describe("ArcProvider", () => {
     const client = makeClient();
     const { result } = renderHook(() => useAuth(), {
       wrapper: ({ children }) => (
-        <ArcProvider client={client} storage={storage} onSessionRestore={onSessionRestore}>
+        <ArcProvider
+          client={client}
+          storage={storage}
+          onSessionRestore={onSessionRestore}
+        >
           {children}
         </ArcProvider>
       ),
@@ -116,7 +126,10 @@ describe("ArcProvider", () => {
     storage.refresh = "expired-rt";
     // me() fails AND refresh fails
     fetchMock.mockResolvedValue(
-      mockJson({ success: false, error: "UNAUTHORIZED", message: "expired" }, 401),
+      mockJson(
+        { success: false, error: "UNAUTHORIZED", message: "expired" },
+        401,
+      ),
     );
 
     const { result } = renderHook(() => useAuth(), {
@@ -140,10 +153,17 @@ describe("ArcProvider", () => {
 
     fetchMock
       .mockResolvedValueOnce(
-        mockJson({ success: false, error: "UNAUTHORIZED", message: "expired" }, 401),
+        mockJson(
+          { success: false, error: "UNAUTHORIZED", message: "expired" },
+          401,
+        ),
       ) // me()
       .mockResolvedValueOnce(
-        mockJson({ access_token: "new-at", refresh_token: "new-rt", expires_in: 900 }), // bare refresh
+        mockJson({
+          access_token: "new-at",
+          refresh_token: "new-rt",
+          expires_in: 900,
+        }), // bare refresh
       )
       .mockResolvedValueOnce(mockJson(envelope(USER))); // me() again
 
@@ -205,7 +225,10 @@ describe("ArcProvider", () => {
 
     let loginRes: Awaited<ReturnType<typeof result.current.login>>;
     await act(async () => {
-      loginRes = await result.current.login({ email: "ada@fusorb.dev", password: "pw" });
+      loginRes = await result.current.login({
+        email: "ada@fusorb.dev",
+        password: "pw",
+      });
     });
 
     // MFA gate: sessionId + requiresMfa, no tokens yet.
@@ -227,7 +250,11 @@ describe("ArcProvider", () => {
     const storage = createMemoryStorage();
     fetchMock.mockResolvedValue(
       mockJson(
-        { success: false, error: "INVALID_CREDENTIALS", message: "Bad email or password" },
+        {
+          success: false,
+          error: "INVALID_CREDENTIALS",
+          message: "Bad email or password",
+        },
         401,
       ),
     );
@@ -283,7 +310,11 @@ describe("ArcProvider", () => {
     fetchMock.mockResolvedValue(mockJson(envelope(loginNoMfa)));
 
     render(
-      <ArcProvider client={makeClient()} storage={storage} onAuthChange={onAuthChange}>
+      <ArcProvider
+        client={makeClient()}
+        storage={storage}
+        onAuthChange={onAuthChange}
+      >
         <ConsumerProbe />
       </ArcProvider>,
     );
@@ -294,7 +325,9 @@ describe("ArcProvider", () => {
     });
 
     await waitFor(() => {
-      expect(onAuthChange.mock.calls.some((c) => c[0].isAuthenticated === true)).toBe(true);
+      expect(
+        onAuthChange.mock.calls.some((c) => c[0].isAuthenticated === true),
+      ).toBe(true);
     });
   });
 });
@@ -303,5 +336,9 @@ describe("ArcProvider", () => {
 
 function ConsumerProbe() {
   const { login } = useAuth();
-  return <button onClick={() => login({ email: "ada@fusorb.dev", password: "pw" })}>Login</button>;
+  return (
+    <button onClick={() => login({ email: "ada@fusorb.dev", password: "pw" })}>
+      Login
+    </button>
+  );
 }

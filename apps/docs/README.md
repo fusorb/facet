@@ -2,18 +2,18 @@
 
 facet's own docs site: a **thin consumer** of the `@fusorb/facet-docs`
 package. It proves the install-and-configure model works exactly as an
-external consumer (arc-id, arcbase, arc-wallet) would use it, with no forking
+external consumer (SovGrant, Relnex, SovPort) would use it, with no forking
 and no copied source. Everything renders from the config + pages passed to
 `<DocsApp>`.
 
-Deployed to https://docs.facet.arcevocirqle.com.ng.
+Run locally with `pnpm dev:docs-site` (port 5173).
 
 ## What it is
 
-- **`src/demo-config.ts`**: the `DocsSiteConfig` (brand "facet", ecosystem
-  link to arc-id) and the pages registry (facet's canonical pages).
+- **`src/demo-config.tsx`**: the `DocsSiteConfig` (brand "facet", ecosystem
+  link to SovGrant) and the pages registry (facet's canonical pages).
 - **`src/pages.ts`**: facet's own authored guide pages: the documentation
-  *content*. This lives in the consumer, not in the `@fusorb/facet-docs`
+  _content_. This lives in the consumer, not in the `@fusorb/facet-docs`
   package, so installing the package never ships facet's docs.
 - **`src/app.tsx`**: mounts `<DocsApp config={demoConfig} pages={demoPages} />`.
 

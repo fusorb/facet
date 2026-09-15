@@ -10,7 +10,8 @@ import * as React from "react";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 
-export type PasswordStrengthLevel = "empty" | "weak" | "fair" | "good" | "strong";
+export type PasswordStrengthLevel =
+  "empty" | "weak" | "fair" | "good" | "strong";
 
 export interface PasswordStrengthMeterProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The password to score. */
@@ -47,9 +48,9 @@ export function levelFromScore(score: number): PasswordStrengthLevel {
 const DEFAULT_COLORS: Record<PasswordStrengthLevel, string> = {
   empty: "bg-muted",
   weak: "bg-destructive",
-  fair: "bg-amber-500",
-  good: "bg-lime-500",
-  strong: "bg-emerald-500",
+  fair: "bg-warning",
+  good: "bg-chart-4",
+  strong: "bg-success",
 };
 
 const DEFAULT_LABELS: Record<PasswordStrengthLevel, string> = {
@@ -63,7 +64,10 @@ const DEFAULT_LABELS: Record<PasswordStrengthLevel, string> = {
 /** The rules the checklist shows and evaluates. */
 export const PASSWORD_RULES = [
   { label: "At least 8 characters", test: (p: string) => p.length >= 8 },
-  { label: "A mix of uppercase and lowercase", test: (p: string) => /[a-z]/.test(p) && /[A-Z]/.test(p) },
+  {
+    label: "A mix of uppercase and lowercase",
+    test: (p: string) => /[a-z]/.test(p) && /[A-Z]/.test(p),
+  },
   { label: "At least one number", test: (p: string) => /\d/.test(p) },
   { label: "At least one symbol", test: (p: string) => /[^A-Za-z0-9]/.test(p) },
 ] as const;
@@ -94,13 +98,18 @@ export function PasswordStrengthMeter({
               key={i}
               className={cn(
                 "h-1.5 flex-1 rounded-full transition-colors",
-                i < filled ? (colors[level] ?? DEFAULT_COLORS[level]) : "bg-muted",
+                i < filled
+                  ? (colors[level] ?? DEFAULT_COLORS[level])
+                  : "bg-muted",
               )}
             />
           ))}
         </div>
         {level !== "empty" && (
-          <span className="text-xs font-medium text-muted-foreground" aria-live="polite">
+          <span
+            className="text-xs font-medium text-muted-foreground"
+            aria-live="polite"
+          >
             {labels[level] ?? DEFAULT_LABELS[level]}
           </span>
         )}
@@ -120,7 +129,7 @@ export function PasswordStrengthMeter({
                 <span
                   className={cn(
                     "flex h-4 w-4 shrink-0 items-center justify-center rounded-full",
-                    ok ? "bg-emerald-500/15 text-emerald-600" : "bg-muted/60",
+                    ok ? "bg-success/15 text-success" : "bg-muted/60",
                   )}
                   aria-hidden="true"
                 >

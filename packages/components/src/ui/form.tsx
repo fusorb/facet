@@ -32,12 +32,17 @@ export interface FormFieldContextValue<
   required?: boolean;
 }
 
-const FormFieldContext = React.createContext<FormFieldContextValue | null>(null);
+const FormFieldContext = React.createContext<FormFieldContextValue | null>(
+  null,
+);
 
 function useFormField() {
   const field = React.useContext(FormFieldContext);
   const form = useFormContext();
-  if (!field) throw new Error("FormField must be used inside <Form> or <FormField> with a form context.");
+  if (!field)
+    throw new Error(
+      "FormField must be used inside <Form> or <FormField> with a form context.",
+    );
   const error = form.getFieldState(field.name).error;
   return {
     ...field,
@@ -48,8 +53,10 @@ function useFormField() {
 
 /* ── Form ──────────────────────────────────────────────────── */
 
-export interface FormProps<TFieldValues extends FieldValues>
-  extends Omit<React.FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+export interface FormProps<TFieldValues extends FieldValues> extends Omit<
+  React.FormHTMLAttributes<HTMLFormElement>,
+  "onSubmit"
+> {
   /** useForm() return value; wires context so FormField resolves controls. */
   form: ReturnType<typeof useForm<TFieldValues>>;
   /** Called with the validated values on submit. */
@@ -99,7 +106,12 @@ export interface FormFieldProps<
   /** Description shown under the label. */
   description?: string;
   /** The control (Input, Textarea, Select, ...) or a render prop. */
-  children: React.ReactNode | ((field: { value: unknown; onChange: (value: unknown) => void }) => React.ReactNode);
+  children:
+    | React.ReactNode
+    | ((field: {
+        value: unknown;
+        onChange: (value: unknown) => void;
+      }) => React.ReactNode);
   className?: string;
 }
 
@@ -107,7 +119,10 @@ export interface FormFieldProps<
  * Binds a named field to the form via Controller and renders label,
  * description, and error state around the given control.
  */
-export function FormField<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>({
+export function FormField<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+>({
   name,
   control,
   label,
@@ -118,7 +133,11 @@ export function FormField<TFieldValues extends FieldValues, TName extends FieldP
 }: FormFieldProps<TFieldValues, TName>) {
   return (
     <FormFieldContext.Provider
-      value={{ name, control: control as Control<FieldValues> | undefined, required }}
+      value={{
+        name,
+        control: control as Control<FieldValues> | undefined,
+        required,
+      }}
     >
       <div className={cn("space-y-1.5", className)}>
         {label && (
@@ -127,7 +146,9 @@ export function FormField<TFieldValues extends FieldValues, TName extends FieldP
             {required && <span className="text-destructive"> *</span>}
           </Label>
         )}
-        {description && <p className="text-xs text-muted-foreground">{description}</p>}
+        {description && (
+          <p className="text-xs text-muted-foreground">{description}</p>
+        )}
         <Controller
           control={control}
           name={name}
@@ -136,7 +157,12 @@ export function FormField<TFieldValues extends FieldValues, TName extends FieldP
               {typeof children === "function"
                 ? children({ value: field.value, onChange: field.onChange })
                 : React.cloneElement(
-                    children as React.ReactElement<{ id?: string; name?: string; value?: unknown; onChange?: (value: unknown) => void }>,
+                    children as React.ReactElement<{
+                      id?: string;
+                      name?: string;
+                      value?: unknown;
+                      onChange?: (value: unknown) => void;
+                    }>,
                     {
                       id: name,
                       name,
@@ -179,14 +205,20 @@ export function FormMessage({ className, force, ...props }: FormMessageProps) {
   const invalid = !!error;
   if (!invalid && !force) return null;
   return (
-    <p role="alert" className={cn("text-xs font-medium text-destructive", className)} {...props}>
+    <p
+      role="alert"
+      className={cn("text-xs font-medium text-destructive", className)}
+      {...props}
+    >
       {error?.message ?? props.children}
     </p>
   );
 }
 
 /** Hook exposing the nearest field's state for custom controls. */
-export function useFormFieldState<TFieldValues extends FieldValues = FieldValues>() {
+export function useFormFieldState<
+  TFieldValues extends FieldValues = FieldValues,
+>() {
   const { error, invalid, name, control, required } = useFormField();
   return { name, control, required, error, invalid } as {
     name: Path<TFieldValues>;

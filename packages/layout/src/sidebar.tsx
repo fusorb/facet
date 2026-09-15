@@ -41,7 +41,13 @@ export interface SidebarProps {
 
 /* ── Component ────────────────────────────────────────────── */
 
-export function Sidebar({ config, isLoading, collapsed = false, width = DEFAULT_SIDEBAR_WIDTH, singleOpen = false }: SidebarProps) {
+export function Sidebar({
+  config,
+  isLoading,
+  collapsed = false,
+  width = DEFAULT_SIDEBAR_WIDTH,
+  singleOpen = false,
+}: SidebarProps) {
   const {
     setSidebarOpen,
     router,
@@ -135,7 +141,9 @@ export function Sidebar({ config, isLoading, collapsed = false, width = DEFAULT_
           </svg>
         )}
         {!collapsed && (
-          <span className="truncate font-semibold text-sidebar-foreground">{config.brand.name}</span>
+          <span className="truncate font-semibold text-sidebar-foreground">
+            {config.brand.name}
+          </span>
         )}
       </div>
 
@@ -145,7 +153,9 @@ export function Sidebar({ config, isLoading, collapsed = false, width = DEFAULT_
           <SidebarSkeleton collapsed={collapsed} />
         ) : config.navigation.length === 0 ? (
           <div className="flex flex-col items-center gap-4 py-8">
-            <p className="px-2 text-center text-sm text-sidebar-foreground/40">No navigation items</p>
+            <p className="px-2 text-center text-sm text-sidebar-foreground/40">
+              No navigation items
+            </p>
             {!collapsed && (
               <SidebarToolbar
                 sectionIds={config.navigation.map((s) => s.id ?? s.title)}
@@ -155,7 +165,11 @@ export function Sidebar({ config, isLoading, collapsed = false, width = DEFAULT_
             )}
           </div>
         ) : (
-          <nav className={collapsed ? "flex flex-col items-center gap-1" : "space-y-6"}>
+          <nav
+            className={
+              collapsed ? "flex flex-col items-center gap-1" : "space-y-6"
+            }
+          >
             {!collapsed && (
               <SidebarToolbar
                 sectionIds={config.navigation.map((s) => s.id ?? s.title)}
@@ -234,7 +248,9 @@ function NavSectionRenderer({
   // Open by default; collapse state is persisted via layout context.
   const { collapsedSections, toggleSection, openSection } = useLayout();
   const sectionKey = section.id ?? section.title;
-  const isActive = router ? router.isActive : (href: string) => href === window.location.pathname;
+  const isActive = router
+    ? router.isActive
+    : (href: string) => href === window.location.pathname;
   const hasActive = sectionHasActiveItem(section, isActive);
   // Section open state is driven solely by the persisted collapse map.
   // An active section auto-expands via the route-change effect above
@@ -248,7 +264,8 @@ function NavSectionRenderer({
   // side effect - it only triggers when the URL actually changes, so it
   // never interferes with accordion (singleOpen) logic or explicit
   // collapses from chevron clicks / collapse-all.
-  const routeKey = router?.asPath ?? window.location.pathname + window.location.hash;
+  const routeKey =
+    router?.asPath ?? window.location.pathname + window.location.hash;
   React.useEffect(() => {
     // Auto-expand the section that contains the active route.
     // Only runs on mount / route change - never on state writes from
@@ -263,7 +280,11 @@ function NavSectionRenderer({
   const sectionRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     if (open && hasActive && sectionRef.current) {
-      sectionRef.current.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+      sectionRef.current.scrollIntoView({
+        block: "nearest",
+        inline: "nearest",
+        behavior: "smooth",
+      });
     }
   }, [open, hasActive]);
 
@@ -398,7 +419,9 @@ function NavItemRenderer({
   const [localOpenItem, setLocalOpenItem] = React.useState<string | null>(null);
   const children = item.children;
   const hasChildren = children?.length;
-  const getActive = router ? router.isActive : (href: string) => href === window.location.pathname;
+  const getActive = router
+    ? router.isActive
+    : (href: string) => href === window.location.pathname;
   // Auto-expand a collapsible group when one of its children is the
   // active page, so the current location is always visible.
   const childActive = hasChildren
@@ -410,15 +433,23 @@ function NavItemRenderer({
   // change (below), not a forced-open state.
   const hasExternalOpenState = singleOpen && setOpenItem;
   const effectiveOpenItem = hasExternalOpenState ? openItem : localOpenItem;
-  const effectiveSetOpenItem = hasExternalOpenState ? setOpenItem : setLocalOpenItem;
+  const effectiveSetOpenItem = hasExternalOpenState
+    ? setOpenItem
+    : setLocalOpenItem;
   const open = singleOpen
     ? effectiveOpenItem === item.href
-    : (childActive ? true : internalOpen);
+    : childActive
+      ? true
+      : internalOpen;
 
   // On route change, auto-expand the group that now contains the active
   // child (mirrors the section-level behaviour). One-shot via [routeKey]
   // so it never fights an explicit user collapse.
-  const routeKey = router?.asPath ?? (typeof window !== "undefined" ? window.location.pathname + window.location.hash : "");
+  const routeKey =
+    router?.asPath ??
+    (typeof window !== "undefined"
+      ? window.location.pathname + window.location.hash
+      : "");
   React.useEffect(() => {
     if (childActive && singleOpen && effectiveOpenItem !== item.href) {
       effectiveSetOpenItem(item.href);
@@ -434,16 +465,32 @@ function NavItemRenderer({
             <TooltipTrigger asChild>
               <button
                 type="button"
-                onClick={() => collapsed ? onExpand() : (singleOpen ? (effectiveOpenItem === item.href ? effectiveSetOpenItem(null) : effectiveSetOpenItem(item.href)) : setInternalOpen((v) => !v))}
+                onClick={() =>
+                  collapsed
+                    ? onExpand()
+                    : singleOpen
+                      ? effectiveOpenItem === item.href
+                        ? effectiveSetOpenItem(null)
+                        : effectiveSetOpenItem(item.href)
+                      : setInternalOpen((v) => !v)
+                }
                 aria-expanded={collapsed ? undefined : open}
                 aria-label={collapsed ? item.label : undefined}
                 className={`flex w-full items-center gap-3 rounded-md px-2.5 py-2 text-sm font-medium transition-colors text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground ${
                   collapsed ? "justify-center px-0" : ""
                 }`}
-                style={collapsed ? undefined : { paddingLeft: `${8 + depth * 12}px` }}
+                style={
+                  collapsed ? undefined : { paddingLeft: `${8 + depth * 12}px` }
+                }
               >
-                {item.icon && collapsed && <span className="size-4 shrink-0 text-primary">{item.icon}</span>}
-                {!collapsed && <span className="flex-1 text-left">{item.label}</span>}
+                {item.icon && collapsed && (
+                  <span className="size-4 shrink-0 text-primary">
+                    {item.icon}
+                  </span>
+                )}
+                {!collapsed && (
+                  <span className="flex-1 text-left">{item.label}</span>
+                )}
                 {!collapsed && item.badge != null && (
                   <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-medium text-primary-foreground">
                     {item.badge}
@@ -467,7 +514,9 @@ function NavItemRenderer({
                 )}
               </button>
             </TooltipTrigger>
-            {collapsed && <TooltipContent side="right">{item.label}</TooltipContent>}
+            {collapsed && (
+              <TooltipContent side="right">{item.label}</TooltipContent>
+            )}
           </Tooltip>
         </TooltipProvider>
         {!collapsed && open && (
@@ -491,7 +540,9 @@ function NavItemRenderer({
   }
 
   // Leaf item: framework-aware link when an adapter is provided.
-  const isActive = router ? router.isActive(item.href) : defaultIsActive(item.href);
+  const isActive = router
+    ? router.isActive(item.href)
+    : defaultIsActive(item.href);
   const Link = router?.Link ?? DefaultAnchor;
   return (
     <li key={item.href}>
@@ -518,7 +569,11 @@ function NavItemRenderer({
                   : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               }`}
             >
-              {item.icon && collapsed && <span className="size-4 shrink-0 text-primary">{item.icon}</span>}
+              {item.icon && collapsed && (
+                <span className="size-4 shrink-0 text-primary">
+                  {item.icon}
+                </span>
+              )}
               {!collapsed && <span className="flex-1">{item.label}</span>}
               {!collapsed && item.badge != null && (
                 <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-medium text-primary-foreground">
@@ -527,7 +582,9 @@ function NavItemRenderer({
               )}
             </Link>
           </TooltipTrigger>
-          {collapsed && <TooltipContent side="right">{item.label}</TooltipContent>}
+          {collapsed && (
+            <TooltipContent side="right">{item.label}</TooltipContent>
+          )}
         </Tooltip>
       </TooltipProvider>
     </li>
@@ -542,7 +599,11 @@ interface SidebarToolbarProps {
   onExpandAll: (ids: string[]) => void;
 }
 
-function SidebarToolbar({ sectionIds, onCollapseAll, onExpandAll }: SidebarToolbarProps) {
+function SidebarToolbar({
+  sectionIds,
+  onCollapseAll,
+  onExpandAll,
+}: SidebarToolbarProps) {
   return (
     <div className="sticky top-0 z-20 mb-4 flex items-center gap-2 border-b border-border bg-sidebar">
       <TooltipProvider delayDuration={200}>

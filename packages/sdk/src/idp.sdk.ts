@@ -1,7 +1,7 @@
 /**
  * IdP SDK: SAML2 / OIDC / OAUTH2 enterprise identity provider connections
  *
- * arc-id paths: /idp/connections/*
+ * SovGrant paths: /idp/connections/*
  */
 
 import { ArcIdClient } from "./client.js";
@@ -35,7 +35,9 @@ export class IdpSdk {
     return this.client.get<IdpConnection>(`/idp/connections/${id}`);
   }
 
-  createConnection(data: CreateConnectionParams): Promise<ApiResponse<IdpConnection>> {
+  createConnection(
+    data: CreateConnectionParams,
+  ): Promise<ApiResponse<IdpConnection>> {
     return this.client.post<IdpConnection>("/idp/connections", data);
   }
 

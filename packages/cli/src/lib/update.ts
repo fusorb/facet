@@ -81,7 +81,9 @@ export function printUpdateNotification(state: CliVersionState): void {
   const line = "=".repeat(55);
   console.log("");
   console.log(line);
-  console.log(`  facet-cli update available: ${state.current} -> ${state.latest}`);
+  console.log(
+    `  facet-cli update available: ${state.current} -> ${state.latest}`,
+  );
   console.log(`  Run: ${updateCmd}`);
   console.log(line);
   console.log("");

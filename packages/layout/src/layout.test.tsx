@@ -1,5 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { render, screen, waitFor, fireEvent, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+  act,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { LayoutProvider, useLayout } from "./layout-context.js";
 import { Sidebar } from "./sidebar.js";
@@ -40,7 +46,9 @@ describe("domain presets", () => {
 
   it("every nav item has unique hrefs within a preset", () => {
     for (const preset of [fintechLayoutPreset, enterpriseLayoutPreset]) {
-      const hrefs = preset.navigation.flatMap((s) => s.items.map((i) => i.href));
+      const hrefs = preset.navigation.flatMap((s) =>
+        s.items.map((i) => i.href),
+      );
       expect(new Set(hrefs).size).toBe(hrefs.length);
     }
   });
@@ -74,7 +82,10 @@ describe("Sidebar", () => {
     renderSidebar(defaultLayoutPreset);
     expect(screen.getByText("Overview")).toBeInTheDocument();
     expect(screen.getByText("Account")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /dashboard/i })).toHaveAttribute("href", "/dashboard");
+    expect(screen.getByRole("link", { name: /dashboard/i })).toHaveAttribute(
+      "href",
+      "/dashboard",
+    );
     expect(screen.getByRole("link", { name: /profile/i })).toHaveAttribute(
       "href",
       "/settings/profile",
@@ -84,7 +95,9 @@ describe("Sidebar", () => {
   it("shows skeleton when loading", () => {
     renderSidebar(defaultLayoutPreset, true);
     expect(screen.queryByText("Overview")).toBeNull();
-    expect(document.querySelectorAll(".animate-pulse").length).toBeGreaterThan(0);
+    expect(document.querySelectorAll(".animate-pulse").length).toBeGreaterThan(
+      0,
+    );
   });
 
   it("shows empty state when no navigation", () => {
@@ -96,7 +109,12 @@ describe("Sidebar", () => {
   it("renders badges on nav items", () => {
     const config: LayoutConfig = {
       brand: { name: "App" },
-      navigation: [{ title: "Alerts", items: [{ href: "/alerts", label: "Alerts", badge: 3 }] }],
+      navigation: [
+        {
+          title: "Alerts",
+          items: [{ href: "/alerts", label: "Alerts", badge: 3 }],
+        },
+      ],
     };
     renderSidebar(config);
     expect(screen.getByText("3")).toBeInTheDocument();
@@ -142,8 +160,16 @@ describe("Sidebar", () => {
     const config: LayoutConfig = {
       brand: { name: "App" },
       navigation: [
-        { title: "Overview", id: "overview", items: [{ href: "/dashboard", label: "Dashboard" }] },
-        { title: "Account", id: "account", items: [{ href: "/settings/profile", label: "Profile" }] },
+        {
+          title: "Overview",
+          id: "overview",
+          items: [{ href: "/dashboard", label: "Dashboard" }],
+        },
+        {
+          title: "Account",
+          id: "account",
+          items: [{ href: "/settings/profile", label: "Profile" }],
+        },
       ],
     };
     renderSidebar(config);
@@ -151,20 +177,26 @@ describe("Sidebar", () => {
     const overview = screen.getByRole("button", { name: /overview/i });
     // Open by default (absent key => open), so aria-expanded is true.
     expect(overview).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByRole("link", { name: /dashboard/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /dashboard/i }),
+    ).toBeInTheDocument();
 
     // Click collapses the section and persists the choice.
     await userEvent.click(overview);
     expect(overview).toHaveAttribute("aria-expanded", "false");
     expect(screen.queryByRole("link", { name: /dashboard/i })).toBeNull();
 
-    const stored = JSON.parse(localStorage.getItem("facet:sidebar-sections") ?? "{}");
+    const stored = JSON.parse(
+      localStorage.getItem("facet:sidebar-sections") ?? "{}",
+    );
     expect(stored).toMatchObject({ overview: true });
 
     // Re-open restores the links.
     await userEvent.click(overview);
     expect(overview).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByRole("link", { name: /dashboard/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /dashboard/i }),
+    ).toBeInTheDocument();
   });
 
   it("a section containing the active route auto-opens regardless of persisted collapse", async () => {
@@ -180,7 +212,10 @@ describe("Sidebar", () => {
       ],
     };
     // Pre-collapse it, as if the user had closed it earlier.
-    localStorage.setItem("facet:sidebar-sections", JSON.stringify({ account: true }));
+    localStorage.setItem(
+      "facet:sidebar-sections",
+      JSON.stringify({ account: true }),
+    );
     renderSidebar(config);
 
     const account = screen.getByRole("button", { name: /account/i });
@@ -197,8 +232,16 @@ describe("Sidebar", () => {
     const config: LayoutConfig = {
       brand: { name: "App" },
       navigation: [
-        { title: "Overview", id: "overview", items: [{ href: "/dashboard", label: "Dashboard" }] },
-        { title: "Account", id: "account", items: [{ href: "/profile", label: "Profile" }] },
+        {
+          title: "Overview",
+          id: "overview",
+          items: [{ href: "/dashboard", label: "Dashboard" }],
+        },
+        {
+          title: "Account",
+          id: "account",
+          items: [{ href: "/profile", label: "Profile" }],
+        },
       ],
     };
     render(
@@ -225,12 +268,23 @@ describe("Sidebar", () => {
 
   it("singleOpen: the active section can still be explicitly collapsed", async () => {
     window.history.pushState({}, "", "/dashboard");
-    localStorage.setItem("facet:sidebar-sections", JSON.stringify({ overview: true }));
+    localStorage.setItem(
+      "facet:sidebar-sections",
+      JSON.stringify({ overview: true }),
+    );
     const config: LayoutConfig = {
       brand: { name: "App" },
       navigation: [
-        { title: "Overview", id: "overview", items: [{ href: "/dashboard", label: "Dashboard" }] },
-        { title: "Account", id: "account", items: [{ href: "/profile", label: "Profile" }] },
+        {
+          title: "Overview",
+          id: "overview",
+          items: [{ href: "/dashboard", label: "Dashboard" }],
+        },
+        {
+          title: "Account",
+          id: "account",
+          items: [{ href: "/profile", label: "Profile" }],
+        },
       ],
     };
     render(
@@ -452,7 +506,10 @@ describe("Hamburger hover-toggle + click-to-pin", () => {
     }
 
     // Pre-collapse Account so we can verify expanding it.
-    localStorage.setItem("facet:sidebar-sections", JSON.stringify({ account: true }));
+    localStorage.setItem(
+      "facet:sidebar-sections",
+      JSON.stringify({ account: true }),
+    );
 
     render(
       <LayoutProvider>
@@ -552,7 +609,11 @@ describe("LayoutProvider collapsed state", () => {
   function CollapseProbe() {
     const { sidebarCollapsed, toggleSidebarCollapsed } = useLayout();
     return (
-      <button type="button" onClick={toggleSidebarCollapsed} aria-pressed={sidebarCollapsed}>
+      <button
+        type="button"
+        onClick={toggleSidebarCollapsed}
+        aria-pressed={sidebarCollapsed}
+      >
         toggle
       </button>
     );
@@ -580,7 +641,9 @@ describe("AuthLayout", () => {
     );
     expect(screen.getByText("Sign in form")).toBeInTheDocument();
     // Brand name appears in the desktop panel and the mobile header.
-    expect(screen.getAllByText(fintechLayoutPreset.brand.name).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(fintechLayoutPreset.brand.name).length,
+    ).toBeGreaterThan(0);
   });
 
   it("replaces the left panel with a custom brandPanel", () => {
@@ -598,7 +661,9 @@ describe("AuthLayout", () => {
     );
     // The custom panel (video) replaces the default logo/name block.
     expect(screen.getByTestId("hero-video")).toBeInTheDocument();
-    expect(screen.queryByText(fintechLayoutPreset.brand.name)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(fintechLayoutPreset.brand.name),
+    ).not.toBeInTheDocument();
     // The form still renders on the right.
     expect(screen.getByText("Sign in form")).toBeInTheDocument();
   });

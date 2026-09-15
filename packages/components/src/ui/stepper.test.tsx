@@ -1,6 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
 import { render, screen, act } from "@testing-library/react";
-import { useStepper, StepperProvider, StepperNav, StepperPanel, StepperFooter } from "./stepper.js";
+import {
+  useStepper,
+  StepperProvider,
+  StepperNav,
+  StepperPanel,
+  StepperFooter,
+} from "./stepper.js";
 
 const STEPS = [
   { id: "one", title: "Account" },
@@ -141,7 +147,9 @@ describe("Stepper", () => {
       return (
         <StepperProvider value={api}>
           <StepperNav />
-          <StepperPanel>{(step) => <span data-testid="active">{step.title}</span>}</StepperPanel>
+          <StepperPanel>
+            {(step) => <span data-testid="active">{step.title}</span>}
+          </StepperPanel>
           <StepperFooter />
         </StepperProvider>
       );

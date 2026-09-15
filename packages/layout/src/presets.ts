@@ -13,7 +13,7 @@ import type { LayoutConfig } from "./types.js";
  */
 export const fintechLayoutPreset: LayoutConfig = {
   brand: {
-    name: "facet",
+    name: "App",
     tagline: "Sovereign Identity Engine",
     benefits: [
       "Passkey-native authentication",
@@ -52,7 +52,7 @@ export const fintechLayoutPreset: LayoutConfig = {
  */
 export const medLayoutPreset: LayoutConfig = {
   brand: {
-    name: "facet",
+    name: "App",
     tagline: "Secure Healthcare Identity",
     benefits: [
       "HIPAA-compliant authentication",
@@ -87,7 +87,7 @@ export const medLayoutPreset: LayoutConfig = {
  */
 export const eduLayoutPreset: LayoutConfig = {
   brand: {
-    name: "facet",
+    name: "App",
     tagline: "Learning Identity Platform",
     benefits: [
       "Social login (Google, Microsoft, Clever)",
@@ -118,7 +118,7 @@ export const eduLayoutPreset: LayoutConfig = {
  */
 export const enterpriseLayoutPreset: LayoutConfig = {
   brand: {
-    name: "facet",
+    name: "App",
     tagline: "Enterprise Identity Platform",
     benefits: [
       "Enterprise SSO (SAML/OIDC)",

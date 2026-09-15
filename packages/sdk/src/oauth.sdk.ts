@@ -1,7 +1,7 @@
 /**
  * OAuth SDK: Full OIDC provider (clients, tokens, consent, introspection, revocation)
  *
- * arc-id paths: /oauth/*
+ * SovGrant paths: /oauth/*
  */
 
 import { ArcIdClient } from "./client.js";
@@ -20,7 +20,9 @@ import type {
 export type CreateClientParams = {
   name: string;
   redirectUris: string[];
-  grantTypes?: ("authorization_code" | "refresh_token" | "client_credentials")[];
+  grantTypes?: (
+    "authorization_code" | "refresh_token" | "client_credentials"
+  )[];
   scopes?: string[];
   public?: boolean;
   requirePkce?: boolean;
@@ -58,10 +60,7 @@ export class OAuthSdk {
     clientId: string,
     data: UpdateClientParams,
   ): Promise<ApiResponse<OAuthClient>> {
-    return this.client.patch<OAuthClient>(
-      `/oauth/clients/${clientId}`,
-      data,
-    );
+    return this.client.patch<OAuthClient>(`/oauth/clients/${clientId}`, data);
   }
 
   deleteClient(clientId: string): Promise<ApiResponse<void>> {
@@ -98,7 +97,10 @@ export class OAuthSdk {
     return this.client.post<TokenIntrospection>("/oauth/introspect", { token });
   }
 
-  revokeTokenRFC7009(token: string, tokenTypeHint?: string): Promise<ApiResponse<void>> {
+  revokeTokenRFC7009(
+    token: string,
+    tokenTypeHint?: string,
+  ): Promise<ApiResponse<void>> {
     return this.client.post<void>("/oauth/revoke", {
       token,
       token_type_hint: tokenTypeHint,

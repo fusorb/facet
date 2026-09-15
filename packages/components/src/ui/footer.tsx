@@ -7,7 +7,7 @@
  *
  * Usage:
  *   <Footer
- *     brand={{ name: "facet", tagline: "The Arcevo UI system" }}
+ *     brand={{ name: "facet", tagline: "A config-driven UI system" }}
  *     columns={[
  *       { title: "Product", links: [{ label: "Components", href: "#" }] },
  *     ]}
@@ -73,7 +73,8 @@ export interface FooterNewsletter {
 
 export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
   /** Layout variant. Default: "default" (unchanged behavior). */
-  variant?: "default" | "minimal" | "columns" | "newsletter" | "split" | "streamline";
+  variant?:
+    "default" | "minimal" | "columns" | "newsletter" | "split" | "streamline";
   /** Brand block: name, optional logo element, tagline. */
   brand?: {
     name?: string;
@@ -124,11 +125,15 @@ function FooterBrand({ brand }: { brand: FooterProps["brand"] }) {
       <div className="flex items-center gap-2">
         {brand?.logo}
         {brand?.name && (
-          <span className="font-heading text-lg font-bold text-foreground">{brand.name}</span>
+          <span className="font-heading text-lg font-bold text-foreground">
+            {brand.name}
+          </span>
         )}
       </div>
       {brand?.tagline && (
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{brand.tagline}</p>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          {brand.tagline}
+        </p>
       )}
     </div>
   );
@@ -138,7 +143,10 @@ function FooterBrand({ brand }: { brand: FooterProps["brand"] }) {
 function FooterColumns({
   columns,
   renderLink,
-}: { columns: FooterColumn[]; renderLink?: (link: FooterLink) => React.ReactNode }) {
+}: {
+  columns: FooterColumn[];
+  renderLink?: (link: FooterLink) => React.ReactNode;
+}) {
   if (!columns.length) return null;
   return columns.map((col) => (
     <div key={col.title}>
@@ -174,7 +182,15 @@ function FooterBottomBar({
   socialArea,
   renderLink,
   className,
-}: Pick<FooterProps, "legal" | "bottomLinks" | "socials" | "bottomBar" | "socialArea" | "renderLink"> & {
+}: Pick<
+  FooterProps,
+  | "legal"
+  | "bottomLinks"
+  | "socials"
+  | "bottomBar"
+  | "socialArea"
+  | "renderLink"
+> & {
   className?: string;
 }) {
   if (bottomBar) return bottomBar;
@@ -187,40 +203,40 @@ function FooterBottomBar({
     >
       {legal && <p className="text-sm text-muted-foreground">{legal}</p>}
       {socialArea ?? (
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-        {bottomLinks.map((link) => (
-          <span key={link.label + link.href}>
-            {renderLink ? (
-              renderLink(link)
-            ) : (
-              <a
-                href={link.href}
-                target={isExternal(link) ? "_blank" : undefined}
-                rel={isExternal(link) ? "noreferrer" : undefined}
-                className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </a>
-            )}
-          </span>
-        ))}
-        {socials.length > 0 && (
-          <span className="flex items-center gap-3">
-            {socials.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={social.label}
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <Icon name={social.icon} className="size-4" />
-              </a>
-            ))}
-          </span>
-        )}
-      </div>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          {bottomLinks.map((link) => (
+            <span key={link.label + link.href}>
+              {renderLink ? (
+                renderLink(link)
+              ) : (
+                <a
+                  href={link.href}
+                  target={isExternal(link) ? "_blank" : undefined}
+                  rel={isExternal(link) ? "noreferrer" : undefined}
+                  className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </a>
+              )}
+            </span>
+          ))}
+          {socials.length > 0 && (
+            <span className="flex items-center gap-3">
+              {socials.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={social.label}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <Icon name={social.icon} className="size-4" />
+                </a>
+              ))}
+            </span>
+          )}
+        </div>
       )}
     </div>
   );
@@ -232,16 +248,22 @@ function FooterNewsletter({ newsletter }: { newsletter: FooterNewsletter }) {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletter.onSubmit) newsletter.onSubmit(email);
-    else window.location.href = `mailto:?subject=${encodeURIComponent(newsletter.title ?? "Newsletter")}&body=${encodeURIComponent(email)}`;
+    else
+      window.location.href = `mailto:?subject=${encodeURIComponent(newsletter.title ?? "Newsletter")}&body=${encodeURIComponent(email)}`;
   };
   return (
-    <form onSubmit={submit} className="mt-10 flex flex-col gap-3 rounded-xl border border-border bg-muted/30 p-6 sm:flex-row sm:items-end sm:justify-between">
+    <form
+      onSubmit={submit}
+      className="mt-10 flex flex-col gap-3 rounded-xl border border-border bg-muted/30 p-6 sm:flex-row sm:items-end sm:justify-between"
+    >
       <div>
         <h3 className="font-heading text-base font-semibold text-foreground">
           {newsletter.title ?? "Stay in the loop"}
         </h3>
         {newsletter.description && (
-          <p className="mt-1 text-sm text-muted-foreground">{newsletter.description}</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {newsletter.description}
+          </p>
         )}
       </div>
       <div className="flex w-full max-w-sm gap-2">
@@ -270,9 +292,13 @@ function FooterSteps({ steps }: { steps: FooterStep[] }) {
           <div className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-sm font-bold">
             {step.number}
           </div>
-          <h4 className="mt-3 text-sm font-semibold text-foreground">{step.label}</h4>
+          <h4 className="mt-3 text-sm font-semibold text-foreground">
+            {step.label}
+          </h4>
           {step.description && (
-            <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {step.description}
+            </p>
           )}
         </div>
       ))}
@@ -285,10 +311,7 @@ function FooterNotices({ notices }: { notices: React.ReactNode[] }) {
   return (
     <div className="flex flex-col gap-3">
       {notices.map((notice, i) => (
-        <div
-          key={i}
-          className="text-xs text-muted-foreground"
-        >
+        <div key={i} className="text-xs text-muted-foreground">
           {notice}
         </div>
       ))}
@@ -316,7 +339,9 @@ export function Footer({
 }: FooterProps) {
   return (
     <footer className={cn("w-full", className)} {...props}>
-      <div className={cn("mx-auto w-full px-6 py-12 md:px-8", containerClassName)}>
+      <div
+        className={cn("mx-auto w-full px-6 py-12 md:px-8", containerClassName)}
+      >
         <Separator className="mb-10" />
 
         {variant === "minimal" && (
@@ -348,7 +373,9 @@ export function Footer({
           </div>
         )}
 
-        {(variant === "default" || variant === "columns" || variant === "newsletter") && (
+        {(variant === "default" ||
+          variant === "columns" ||
+          variant === "newsletter") && (
           <div
             className={
               variant === "default"
@@ -361,7 +388,9 @@ export function Footer({
           </div>
         )}
 
-        {variant === "newsletter" && newsletter && <FooterNewsletter newsletter={newsletter} />}
+        {variant === "newsletter" && newsletter && (
+          <FooterNewsletter newsletter={newsletter} />
+        )}
 
         {variant === "streamline" && (
           <div className="mt-10 grid gap-10 sm:grid-cols-2 md:grid-cols-4">

@@ -61,7 +61,10 @@ const Dropzone = React.forwardRef<HTMLDivElement, DropzoneProps>(
     const matchesAccept = React.useCallback(
       (file: File): boolean => {
         if (!accept) return true;
-        const rules = accept.split(",").map((r) => r.trim()).filter(Boolean);
+        const rules = accept
+          .split(",")
+          .map((r) => r.trim())
+          .filter(Boolean);
         return rules.some((rule) => {
           if (rule.startsWith(".")) {
             return file.name.toLowerCase().endsWith(rule.toLowerCase());
@@ -94,7 +97,9 @@ const Dropzone = React.forwardRef<HTMLDivElement, DropzoneProps>(
       const text = event.clipboardData?.getData("text/plain");
       if (text) {
         event.preventDefault();
-        onFiles?.([new File([text], `paste-${Date.now()}.txt`, { type: "text/plain" })]);
+        onFiles?.([
+          new File([text], `paste-${Date.now()}.txt`, { type: "text/plain" }),
+        ]);
       }
     };
 

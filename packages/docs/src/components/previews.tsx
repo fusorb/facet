@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LightIcon } from "@fusorb/facet-components/light";
 import {
-   Button,
+  Button,
   Badge,
   Card,
   CardHeader,
@@ -229,7 +229,14 @@ import {
   PasswordInputDemo,
   InfiniteScrollDemo,
 } from "./ReadyToUseDemos.js";
-import { ArcProvider, SignIn, SignUp, Guard, LoginForm, MfaVerifyForm } from "@fusorb/facet-auth";
+import {
+  ArcProvider,
+  SignIn,
+  SignUp,
+  Guard,
+  LoginForm,
+  MfaVerifyForm,
+} from "@fusorb/facet-auth";
 import { ArcIdClient } from "@fusorb/facet-sdk";
 import {
   ConsoleLayout,
@@ -255,7 +262,9 @@ export interface PreviewOptions {
 
 /** Interactive Sheet preview: pick a side, then open. */
 function SheetPreview() {
-  const [side, setSide] = useState<"left" | "right" | "top" | "bottom">("right");
+  const [side, setSide] = useState<"left" | "right" | "top" | "bottom">(
+    "right",
+  );
   return (
     <div className="w-full">
       <div className="mb-3 flex flex-wrap items-center gap-1.5">
@@ -291,16 +300,31 @@ function SheetPreview() {
 }
 
 /** Compact static demo for a component slug (shared by sidebar + pages). */
-export function ComponentPreview({ slug, variant = "default", size = "default" }: { slug: string } & PreviewOptions) {
+export function ComponentPreview({
+  slug,
+  variant = "default",
+  size = "default",
+}: { slug: string } & PreviewOptions) {
   switch (slug) {
     case "button":
-      return <Button variant={variant as never} size={size as never}>Button</Button>;
+      return (
+        <Button variant={variant as never} size={size as never}>
+          Button
+        </Button>
+      );
     case "badge":
       return (
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant={variant as never}>Default</Badge>
-          <Badge icon={<LightIcon name="sparkles" className="size-3" />}>New</Badge>
-          <Badge variant="success" iconOnly icon={<LightIcon name="check" className="size-3.5" />} aria-label="Verified" />
+          <Badge icon={<LightIcon name="sparkles" className="size-3" />}>
+            New
+          </Badge>
+          <Badge
+            variant="success"
+            iconOnly
+            icon={<LightIcon name="check" className="size-3.5" />}
+            aria-label="Verified"
+          />
         </div>
       );
     case "pill":
@@ -369,11 +393,19 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
             user={{
               name: "Ada Lovelace",
               email: "ada@fusorb.dev",
-              memberships: [{ tenantId: "1", name: "Arcevo" }],
+              memberships: [{ tenantId: "1", name: "Acme" }],
             }}
             items={[
-              { label: "Profile", shortcut: `⇧${getModSymbol()}P`, icon: "users" },
-              { label: "Settings", shortcut: `${getModSymbol()},`, icon: "settings" },
+              {
+                label: "Profile",
+                shortcut: `⇧${getModSymbol()}P`,
+                icon: "users",
+              },
+              {
+                label: "Settings",
+                shortcut: `${getModSymbol()},`,
+                icon: "settings",
+              },
             ]}
           />
         </div>
@@ -457,11 +489,7 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
         </InputOTP>
       );
     case "kbd":
-      return (
-        <Kbd>
-          {getModSymbol()}K
-        </Kbd>
-      );
+      return <Kbd>{getModSymbol()}K</Kbd>;
     case "label":
       return <Label htmlFor="x">Email</Label>;
     case "progress":
@@ -578,7 +606,9 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
         </Pagination>
       );
     case "empty-state":
-      return <EmptyState title="No results" description="Try a different filter." />;
+      return (
+        <EmptyState title="No results" description="Try a different filter." />
+      );
     case "tooltip":
       return (
         <TooltipProvider>
@@ -646,15 +676,17 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
                   <div className="flex flex-col gap-1.5">
                     <AlertDialogTitle>Delete account?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      This cannot be undone. Your account, data, and memberships will be
-                      permanently removed.
+                      This cannot be undone. Your account, data, and memberships
+                      will be permanently removed.
                     </AlertDialogDescription>
                   </div>
                 </div>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction variant="destructive">Delete</AlertDialogAction>
+                <AlertDialogAction variant="destructive">
+                  Delete
+                </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -742,7 +774,9 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
             <NavigationMenuItem>
               <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <NavigationMenuLink href="#">Getting Started</NavigationMenuLink>
+                <NavigationMenuLink href="#">
+                  Getting Started
+                </NavigationMenuLink>
               </NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -821,7 +855,11 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
     case "mfa-dialog":
       return (
         <ArcProvider client={DEMO_CLIENT}>
-          <MfaVerifyForm onVerify={async () => {}} onRecovery={() => {}} onCancel={() => {}} />
+          <MfaVerifyForm
+            onVerify={async () => {}}
+            onRecovery={() => {}}
+            onCancel={() => {}}
+          />
         </ArcProvider>
       );
     case "guard":
@@ -900,12 +938,15 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
             }
             hero={
               <div className="flex flex-col items-center gap-4 text-center">
-                <h1 className="font-heading text-4xl font-bold text-foreground">Build faster</h1>
+                <h1 className="font-heading text-4xl font-bold text-foreground">
+                  Build faster
+                </h1>
                 <p className="max-w-md text-muted-foreground">
-                  A glassmorphic hero with a glow CTA, ready for your marketing site.
+                  A glassmorphic hero with a glow CTA, ready for your marketing
+                  site.
                 </p>
                 <div className="flex gap-3">
-                  <Button className="glow-indigo">Get started</Button>
+                  <Button className="glow-primary">Get started</Button>
                   <Button variant="outline">Learn more</Button>
                 </div>
               </div>
@@ -920,7 +961,9 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
               <Card>
                 <CardHeader>
                   <CardTitle>Feature section</CardTitle>
-                  <CardDescription>Your marketing content goes here.</CardDescription>
+                  <CardDescription>
+                    Your marketing content goes here.
+                  </CardDescription>
                 </CardHeader>
               </Card>
             </div>
@@ -946,14 +989,19 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
     case "text-animations":
       return (
         <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-          <BlurText text="Blur in, word by word" className="font-heading text-2xl font-bold text-foreground" />
+          <BlurText
+            text="Blur in, word by word"
+            className="font-heading text-2xl font-bold text-foreground"
+          />
         </div>
       );
     case "micro-interactions":
       return (
         <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
           <TiltCard className="w-64 rounded-xl border border-border bg-background p-6 shadow-sm">
-            <p className="text-sm font-semibold text-foreground">Move your cursor over me</p>
+            <p className="text-sm font-semibold text-foreground">
+              Move your cursor over me
+            </p>
           </TiltCard>
         </div>
       );
@@ -961,9 +1009,15 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
       return (
         <div className="relative flex h-64 w-full items-center justify-center overflow-hidden rounded-lg border border-border bg-background">
           <Aurora className="absolute inset-0" opacity={0.75} />
-          <Beams count={4} className="absolute inset-0" color="rgba(129,140,248,0.35)" />
+          <Beams
+            count={4}
+            className="absolute inset-0"
+            color="rgba(129,140,248,0.35)"
+          />
           <GridPattern className="absolute inset-0" />
-          <p className="relative z-10 text-lg font-bold">Aurora + Beams + Grid</p>
+          <p className="relative z-10 text-lg font-bold">
+            Aurora + Beams + Grid
+          </p>
         </div>
       );
     case "animated-button":
@@ -1018,7 +1072,14 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
         <div className="flex w-full items-start justify-center rounded-lg border border-border bg-background p-6">
           <ApiKeyManager
             keys={[
-              { id: "1", name: "Staging server", last4: "3f2a", prefix: "facet_live", scopes: ["read"], createdAt: "2026-08-01T00:00:00Z" },
+              {
+                id: "1",
+                name: "Staging server",
+                last4: "3f2a",
+                prefix: "facet_live",
+                scopes: ["read"],
+                createdAt: "2026-08-01T00:00:00Z",
+              },
             ]}
             onCreate={async () => ({ secret: "facet_live_abc123" })}
             onRevoke={() => {}}
@@ -1040,8 +1101,14 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
               { id: "security", label: "Security", icon: "shield" },
             ]}
             content={{
-              profile: <p className="text-sm text-muted-foreground">Ada Lovelace</p>,
-              security: <p className="text-sm text-muted-foreground">Two-factor enabled</p>,
+              profile: (
+                <p className="text-sm text-muted-foreground">Ada Lovelace</p>
+              ),
+              security: (
+                <p className="text-sm text-muted-foreground">
+                  Two-factor enabled
+                </p>
+              ),
             }}
           />
         </div>
@@ -1051,9 +1118,24 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
         <div className="flex w-full items-start justify-center rounded-lg border border-border bg-background p-6">
           <SecuritySectionCard
             features={[
-              { id: "mfa", title: "Two-factor authentication", description: "Protect your account with an authenticator app", icon: "lock" },
-              { id: "passkeys", title: "Passkeys", description: "Passwordless sign-in with WebAuthn", icon: "key" },
-              { id: "sessions", title: "Sessions", description: "View and revoke active sessions", icon: "monitor" },
+              {
+                id: "mfa",
+                title: "Two-factor authentication",
+                description: "Protect your account with an authenticator app",
+                icon: "lock",
+              },
+              {
+                id: "passkeys",
+                title: "Passkeys",
+                description: "Passwordless sign-in with WebAuthn",
+                icon: "key",
+              },
+              {
+                id: "sessions",
+                title: "Sessions",
+                description: "View and revoke active sessions",
+                icon: "monitor",
+              },
             ]}
           />
         </div>
@@ -1061,13 +1143,20 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
     case "announcement-bar":
       return (
         <div className="w-full rounded-lg border border-border bg-background">
-          <AnnouncementBar storageKey="facet-docs-announcement">New: facet 1.7 is here</AnnouncementBar>
+          <AnnouncementBar storageKey="facet-docs-announcement">
+            New: facet 1.7 is here
+          </AnnouncementBar>
         </div>
       );
     case "cookie-consent":
       return (
         <div className="relative flex min-h-48 w-full items-end justify-center rounded-lg border border-border bg-background p-6">
-          <CookieConsent storageKey="facet-docs-cookie-consent" position="bottom" alwaysShow className="static inset-auto p-0" />
+          <CookieConsent
+            storageKey="facet-docs-cookie-consent"
+            position="bottom"
+            alwaysShow
+            className="static inset-auto p-0"
+          />
         </div>
       );
     case "testimonial-showcase":
@@ -1075,9 +1164,24 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
         <div className="flex w-full items-start justify-center rounded-lg border border-border bg-background p-6">
           <TestimonialShowcase
             testimonials={[
-              { quote: "The auth forms alone saved us weeks.", author: "Ada", role: "CTO, Finly", initials: "A" },
-              { quote: "Every surface is composable and themeable.", author: "Grace", role: "Engineer, Nimbus", initials: "G" },
-              { quote: "The docs are a joy to explore.", author: "Alan", role: "Founder, Turing Labs", initials: "T" },
+              {
+                quote: "The auth forms alone saved us weeks.",
+                author: "Ada",
+                role: "CTO, Finly",
+                initials: "A",
+              },
+              {
+                quote: "Every surface is composable and themeable.",
+                author: "Grace",
+                role: "Engineer, Nimbus",
+                initials: "G",
+              },
+              {
+                quote: "The docs are a joy to explore.",
+                author: "Alan",
+                role: "Founder, Turing Labs",
+                initials: "T",
+              },
             ]}
           />
         </div>
@@ -1089,9 +1193,18 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
             className="w-full max-w-lg"
             title="Frequently asked"
             items={[
-              { q: "Is it framework agnostic?", a: "Yes. The core is dependency-free React." },
-              { q: "Can I theme it?", a: "Everything reads from your Tailwind theme tokens." },
-              { q: "Is it accessible?", a: "Yes. All primitives ship with ARIA wiring." },
+              {
+                q: "Is it framework agnostic?",
+                a: "Yes. The core is dependency-free React.",
+              },
+              {
+                q: "Can I theme it?",
+                a: "Everything reads from your Tailwind theme tokens.",
+              },
+              {
+                q: "Is it accessible?",
+                a: "Yes. All primitives ship with ARIA wiring.",
+              },
             ]}
           />
         </div>
@@ -1110,7 +1223,13 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
     case "stat-card":
       return (
         <div className="flex min-h-32 w-full items-center justify-center gap-4 rounded-lg border border-border bg-background p-6">
-          <StatCard label="Monthly revenue" value="$48,290" delta={12.4} hint="vs last month" className="w-56" />
+          <StatCard
+            label="Monthly revenue"
+            value="$48,290"
+            delta={12.4}
+            hint="vs last month"
+            className="w-56"
+          />
         </div>
       );
     case "activity-feed":
@@ -1119,8 +1238,20 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
           <ActivityFeed
             className="w-full max-w-md"
             items={[
-              { id: "1", title: "Ada signed in", description: "From a new device", timestamp: new Date().toISOString(), icon: "log-in" },
-              { id: "2", title: "API key created", description: "Staging server", timestamp: new Date(Date.now() - 2 * 3600000).toISOString(), icon: "key" },
+              {
+                id: "1",
+                title: "Ada signed in",
+                description: "From a new device",
+                timestamp: new Date().toISOString(),
+                icon: "log-in",
+              },
+              {
+                id: "2",
+                title: "API key created",
+                description: "Staging server",
+                timestamp: new Date(Date.now() - 2 * 3600000).toISOString(),
+                icon: "key",
+              },
             ]}
           />
         </div>
@@ -1208,7 +1339,9 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
             </ResizablePanel>
             <ResizableHandle withHandle />
             <ResizablePanel defaultSize={50}>
-              <div className={`flex h-full w-full items-center justify-center border ${isVertical ? "border-t-0" : "border-l-0"} bg-muted text-sm`}>
+              <div
+                className={`flex h-full w-full items-center justify-center border ${isVertical ? "border-t-0" : "border-l-0"} bg-muted text-sm`}
+              >
                 Panel 2
               </div>
             </ResizablePanel>
@@ -1219,8 +1352,16 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
     case "stepper": {
       const stepper = useStepper({
         steps: [
-          { id: "account", title: "Account", description: "Pick your workspace" },
-          { id: "profile", title: "Profile", description: "Name, email, locale" },
+          {
+            id: "account",
+            title: "Account",
+            description: "Pick your workspace",
+          },
+          {
+            id: "profile",
+            title: "Profile",
+            description: "Name, email, locale",
+          },
           { id: "verify", title: "Verify", description: "Email + 2FA" },
           { id: "finish", title: "Finish", description: "Review and ship" },
         ],
@@ -1232,7 +1373,9 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
               <StepperNav />
               <div className="mt-6 min-h-24 rounded-md border border-dashed border-border bg-muted/20 p-6 text-center text-sm text-muted-foreground">
                 Step content for{" "}
-                <span className="font-medium text-foreground">{stepper.current.title}</span>
+                <span className="font-medium text-foreground">
+                  {stepper.current.title}
+                </span>
               </div>
               <StepperFooter />
             </StepperProvider>
@@ -1249,9 +1392,23 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
             icon: "inbox",
             accent: "#06b6d4",
             cards: [
-              { id: "1", title: "Audit SDK coverage", description: "Re-run scripts/audit-sdk-coverage.cjs", tags: ["sdk"], assignee: "Ada" },
-              { id: "2", title: "Wire docs engine for changelog", tags: ["docs"] },
-              { id: "3", title: "Migrate tokens to electric cyan", tags: ["tokens", "design"] },
+              {
+                id: "1",
+                title: "Audit SDK coverage",
+                description: "Re-run scripts/audit-sdk-coverage.cjs",
+                tags: ["sdk"],
+                assignee: "Ada",
+              },
+              {
+                id: "2",
+                title: "Wire docs engine for changelog",
+                tags: ["docs"],
+              },
+              {
+                id: "3",
+                title: "Migrate tokens to electric cyan",
+                tags: ["tokens", "design"],
+              },
             ],
           },
           {
@@ -1260,7 +1417,13 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
             icon: "loader-circle",
             accent: "#a855f7",
             cards: [
-              { id: "4", title: "Stepper primitive", description: "Headless useStepper hook + renderers", tags: ["components"], assignee: "Ada" },
+              {
+                id: "4",
+                title: "Stepper primitive",
+                description: "Headless useStepper hook + renderers",
+                tags: ["components"],
+                assignee: "Ada",
+              },
               { id: "5", title: "ChangelogList", tags: ["components"] },
             ],
             limit: 5,
@@ -1271,7 +1434,12 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
             icon: "circle-check",
             accent: "#10b981",
             cards: [
-              { id: "6", title: "BillingPage quarterly interval", tags: ["components"], assignee: "Kenny" },
+              {
+                id: "6",
+                title: "BillingPage quarterly interval",
+                tags: ["components"],
+                assignee: "Kenny",
+              },
             ],
           },
         ],
@@ -1289,10 +1457,19 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
           date: "2026-08-26",
           tag: "release",
           changes: [
-            { kind: "added" as const, text: "Stepper primitive (Phase 1 roadmap item)" },
-            { kind: "added" as const, text: "KanbanBoard with native HTML5 drag-and-drop" },
+            {
+              kind: "added" as const,
+              text: "Stepper primitive (Phase 1 roadmap item)",
+            },
+            {
+              kind: "added" as const,
+              text: "KanbanBoard with native HTML5 drag-and-drop",
+            },
             { kind: "added" as const, text: "ChangelogList with filter chips" },
-            { kind: "fixed" as const, text: "MFA verify form on the SignIn state machine" },
+            {
+              kind: "fixed" as const,
+              text: "MFA verify form on the SignIn state machine",
+            },
           ],
         },
         {
@@ -1300,9 +1477,15 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
           date: "2026-08-18",
           tag: "release",
           changes: [
-            { kind: "added" as const, text: "AccountSettingsPanel nav component" },
+            {
+              kind: "added" as const,
+              text: "AccountSettingsPanel nav component",
+            },
             { kind: "added" as const, text: "SecuritySectionCard grid" },
-            { kind: "changed" as const, text: "NotFound component animation API" },
+            {
+              kind: "changed" as const,
+              text: "NotFound component animation API",
+            },
           ],
         },
         {
@@ -1311,8 +1494,14 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
           tag: "release",
           pre: true,
           changes: [
-            { kind: "deprecated" as const, text: "Storybook fixtures removed; docs inventory drift gate replaces" },
-            { kind: "security" as const, text: "ArcProvider dev-time warning on defaultStorage" },
+            {
+              kind: "deprecated" as const,
+              text: "Storybook fixtures removed; docs inventory drift gate replaces",
+            },
+            {
+              kind: "security" as const,
+              text: "ArcProvider dev-time warning on defaultStorage",
+            },
           ],
         },
       ];
@@ -1364,7 +1553,10 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
     case "cookie-banner":
       return (
         <div className="w-full max-w-3xl">
-          <CookieBanner onChoose={() => {}} storageKey="facet.cookie-banner-preview" />
+          <CookieBanner
+            onChoose={() => {}}
+            storageKey="facet.cookie-banner-preview"
+          />
         </div>
       );
     case "data-table-page": {
@@ -1375,14 +1567,34 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
         { key: "role", header: "Role" },
       ];
       const rows: Row[] = [
-        { id: "1", name: "Ada Lovelace", email: "ada@fusorb.com", role: "Engineer" },
-        { id: "2", name: "Alan Turing", email: "alan@fusorb.com", role: "Designer" },
-        { id: "3", name: "Grace Hopper", email: "grace@fusorb.com", role: "Lead" },
+        {
+          id: "1",
+          name: "Ada Lovelace",
+          email: "ada@fusorb.com",
+          role: "Engineer",
+        },
+        {
+          id: "2",
+          name: "Alan Turing",
+          email: "alan@fusorb.com",
+          role: "Designer",
+        },
+        {
+          id: "3",
+          name: "Grace Hopper",
+          email: "grace@fusorb.com",
+          role: "Lead",
+        },
       ];
       return (
         <div className="w-full max-w-4xl rounded-lg border border-border bg-background p-6">
           <h3 className="mb-4 text-lg font-semibold">Team members</h3>
-          <DataTable columns={columns} data={rows} rowKey="id" density="comfortable" />
+          <DataTable
+            columns={columns}
+            data={rows}
+            rowKey="id"
+            density="comfortable"
+          />
         </div>
       );
     }
@@ -1400,7 +1612,10 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
             title="No projects yet"
             description="Create your first project to get started."
             primaryAction={{ label: "New project", onClick: () => {} }}
-            secondaryAction={{ label: "Read the docs", href: "https://arcevo.com" }}
+            secondaryAction={{
+              label: "Read the docs",
+              href: "https://example.com/docs",
+            }}
           />
         </div>
       );
@@ -1437,7 +1652,11 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
         <div className="w-full max-w-md rounded-lg border border-border bg-background p-6">
           <MultiCombobox
             options={[
-              { id: "eng", label: "Engineering", description: "Backend & infra" },
+              {
+                id: "eng",
+                label: "Engineering",
+                description: "Backend & infra",
+              },
               { id: "design", label: "Design", description: "UI/UX" },
               { id: "pm", label: "Product", description: "Roadmap & research" },
             ]}
@@ -1465,7 +1684,12 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
           <PricingComparison
             title="Simple, honest pricing"
             tiers={[
-              { id: "free", name: "Free", price: 0, features: ["Up to 3 projects", "5GB storage"] },
+              {
+                id: "free",
+                name: "Free",
+                price: 0,
+                features: ["Up to 3 projects", "5GB storage"],
+              },
               {
                 id: "pro",
                 name: "Pro",
@@ -1482,9 +1706,18 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
               },
             ]}
             features={[
-              { name: "Projects", values: { free: "3", pro: true, team: true } },
-              { name: "Storage", values: { free: "5GB", pro: "100GB", team: "Unlimited" } },
-              { name: "Roles", values: { free: false, pro: false, team: true } },
+              {
+                name: "Projects",
+                values: { free: "3", pro: true, team: true },
+              },
+              {
+                name: "Storage",
+                values: { free: "5GB", pro: "100GB", team: "Unlimited" },
+              },
+              {
+                name: "Roles",
+                values: { free: false, pro: false, team: true },
+              },
             ]}
           />
         </div>
@@ -1504,7 +1737,11 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
     case "rating-input":
       return (
         <div className="w-full max-w-xs rounded-lg border border-border bg-background p-6">
-          <RatingInput value={4} onChange={() => {}} label="Rate this component" />
+          <RatingInput
+            value={4}
+            onChange={() => {}}
+            label="Rate this component"
+          />
         </div>
       );
     case "rich-text-editor":
@@ -1565,11 +1802,17 @@ export function ComponentPreview({ slug, variant = "default", size = "default" }
         <div className="w-full max-w-2xl rounded-lg border border-border bg-background p-6">
           <WizardFormPage
             steps={[
-              { id: "account", title: "Account", fields: ["email", "password"] },
+              {
+                id: "account",
+                title: "Account",
+                fields: ["email", "password"],
+              },
               { id: "profile", title: "Profile", fields: ["name"] },
             ]}
             defaultValues={{ email: "", password: "", name: "" }}
-            renderField={(name, form) => <Input className="w-full" {...form.register(name)} />}
+            renderField={(name, form) => (
+              <Input className="w-full" {...form.register(name)} />
+            )}
             onSubmit={() => {}}
           />
         </div>

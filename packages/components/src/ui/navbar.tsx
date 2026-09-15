@@ -44,10 +44,8 @@ export const navbarVariants = cva(
         transparent: "border-b border-transparent bg-transparent",
         pill: [
           "sticky top-0 z-60 w-full",
-          "border-b border-border/60 bg-background/80 px-3 py-2 shadow-sm shadow-black/5",
-          "backdrop-blur-xl supports-[backdrop-filter]:bg-background/60",
-          "transition-colors",
-          "md:top-3 md:mx-auto md:w-[calc(100%-2rem)] md:max-w-7xl md:rounded-full md:border md:border-border/60 md:bg-background/70 md:px-3 md:shadow-lg md:shadow-black/5 lg:px-4",
+          "border-b border-border/40 bg-background/60 px-3 py-2 backdrop-blur-xl transition-all duration-300",
+          "sm:px-6 lg:px-8",
         ].join(" "),
       },
       size: {
@@ -101,7 +99,9 @@ export interface NavLink {
 }
 
 export interface NavbarProps
-  extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof navbarVariants> {
+  extends
+    React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof navbarVariants> {
   /** Brand element: logo, name, or both */
   brand?: React.ReactNode;
   /** Nav links rendered in desktop view */
@@ -115,14 +115,14 @@ export interface NavbarProps
   /** Authenticated user avatar (auth dropdown with sign-out/settings/items)
    *  rendered above the mobile breakpoint, where the hamburger is hidden.
    *  Omit on small/medium screens in favor of the hamburger. Wire this to your
-   *  auth (arc-id SDK `useAuth()` / `me()` exposes the `UserAvatarUser` shape). */
+   *  auth (SovGrant SDK `useAuth()` / `me()` exposes the `UserAvatarUser` shape). */
   user?: UserAvatarUser;
   /** Render the built-in theme toggle in the actions area.
    *  Requires a <ThemeProvider> ancestor (from @fusorb/facet-components). */
   showThemeToggle?: boolean;
-   /** Mobile menu content: defaults to a stacked list of links.
-    *  When provided, the element receives `onNavigate` (which closes the menu
-    *  on navigation) via prop injection. */
+  /** Mobile menu content: defaults to a stacked list of links.
+   *  When provided, the element receives `onNavigate` (which closes the menu
+   *  on navigation) via prop injection. */
   mobileMenu?: React.ReactElement;
   /** Show mobile hamburger. Default: true when links/mobileMenu provided */
   showMobileMenu?: boolean;
@@ -179,21 +179,42 @@ export function Navbar({
   // Hover-dropdown coordination: only one dropdown open at a time; the
   // shared closeTimerRef bridges the gap between trigger and portaled content.
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null);
-  const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
   const isPill = variant === "pill";
   // Variants that define their own sticky positioning must not be overridden
   // by the trailing "relative" (tailwind-merge keeps the last position class).
-  const hasOwnPosition = variant === "pill" || variant === "sticky" || variant === "glass";
+  const hasOwnPosition =
+    variant === "pill" || variant === "sticky" || variant === "glass";
 
   const hasMobileMenu = mobileMenu !== undefined || links.length > 0;
   const showHamburger = showMobileMenu ?? hasMobileMenu;
+
+  // Scroll-aware surface: glass-translucent at rest, intensifying on scroll
+  // so the header reads as part of the body while never letting page content
+  // bleed through. Exposed as `data-stuck` so consumers can style the two
+  // states themselves.
+  const [stuck, setStuck] = React.useState(false);
+  React.useEffect(() => {
+    if (variant !== "pill") return;
+    const onScroll = () => setStuck(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [variant]);
 
   const bpHide = BREAKPOINT_DISPLAY[mobileBreakpoint].hide;
   const bpFlex = BREAKPOINT_DISPLAY[mobileBreakpoint].flex;
   const bpBlock = BREAKPOINT_DISPLAY[mobileBreakpoint].block;
 
   // Clear any pending close timer when the navbar unmounts.
-  React.useEffect(() => () => { if (closeTimerRef.current) clearTimeout(closeTimerRef.current); }, []);
+  React.useEffect(
+    () => () => {
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    },
+    [],
+  );
 
   const handleNav = (href: string) => {
     setMobileOpen(false);
@@ -207,7 +228,10 @@ export function Navbar({
   React.useEffect(() => {
     if (!showHamburger || !mobileOpen) return;
     const handleOutsideClick = (event: MouseEvent) => {
-      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
+      if (
+        navbarRef.current &&
+        !navbarRef.current.contains(event.target as Node)
+      ) {
         setMobileOpen(false);
       }
     };
@@ -235,7 +259,15 @@ export function Navbar({
   return (
     <nav
       ref={navbarRef}
-      className={cn(navbarVariants({ variant, size }), hasOwnPosition ? "" : "relative", className)}
+      data-stuck={stuck || undefined}
+      className={cn(
+        navbarVariants({ variant, size }),
+        hasOwnPosition ? "" : "relative",
+        stuck &&
+          variant === "pill" &&
+          "border-b border-border/60 bg-background/95 shadow-md backdrop-blur-xl",
+        className,
+      )}
       {...props}
     >
       {/* Brand */}
@@ -243,24 +275,19 @@ export function Navbar({
 
       {/* Desktop links */}
       {children ?? (
-        <div
-          className={cn(
-            `hidden items-center ${bpFlex}`,
-            isPill ? "gap-0.5 rounded-full bg-muted/40 p-1" : "gap-1",
-          )}
-        >
+        <div className={`hidden items-center gap-1 ${bpFlex}`}>
           {links.map((link) => (
             <NavLinkItem
-               key={link.href}
-               link={link}
-               router={router}
-               onNavigate={handleNav}
-               isPill={isPill}
-               hoverDropdowns={hoverDropdowns}
-               openDropdown={openDropdown}
-               setOpenDropdown={setOpenDropdown}
-               closeTimerRef={closeTimerRef}
-             />
+              key={link.href}
+              link={link}
+              router={router}
+              onNavigate={handleNav}
+              isPill={isPill}
+              hoverDropdowns={hoverDropdowns}
+              openDropdown={openDropdown}
+              setOpenDropdown={setOpenDropdown}
+              closeTimerRef={closeTimerRef}
+            />
           ))}
         </div>
       )}
@@ -296,22 +323,31 @@ export function Navbar({
         <div
           className={cn(
             `absolute inset-x-0 top-full z-60 border-b border-border bg-background p-4 ${bpHide}`,
-            isPill && "mt-1 rounded-2xl shadow-lg",
           )}
         >
-          {mobileMenu
+          {mobileMenu ? (
             // mobileMenu is typed as React.ReactElement, whose props don't
             // include our injected `onNavigate`. Cast the element to a generic
             // shape so the inject overrides pass React's cloneElement check;
             // the consumer-side mobile menu contract still requires it.
-            ? React.cloneElement(mobileMenu as React.ReactElement<{ onNavigate?: (href: string) => void }>, { onNavigate: handleNav })
-            : (
-              <div className="flex flex-col gap-1">
-                {links.map((link) => (
-                  <MobileNavLink key={link.href} link={link} router={router} onNavigate={handleNav} />
-                ))}
-              </div>
-            )}
+            React.cloneElement(
+              mobileMenu as React.ReactElement<{
+                onNavigate?: (href: string) => void;
+              }>,
+              { onNavigate: handleNav },
+            )
+          ) : (
+            <div className="flex flex-col gap-1">
+              {links.map((link) => (
+                <MobileNavLink
+                  key={link.href}
+                  link={link}
+                  router={router}
+                  onNavigate={handleNav}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </nav>
@@ -345,14 +381,12 @@ function NavLinkItem({
       ? router.isActive(link.href)
       : typeof window !== "undefined" && isHrefActive(link.href));
 
-  // In pill mode the active item gets a solid rounded chip on the tray.
+  // Active item gets a subtle chip (rounded-full in pill mode, square otherwise).
   const itemClass = cn(
     "flex items-center gap-2 text-sm font-medium transition-colors",
     isPill ? "rounded-full px-3 py-1.5" : "rounded-md px-3 py-2",
     isActive
-      ? isPill
-        ? "bg-background text-foreground shadow-sm"
-        : "bg-accent text-accent-foreground"
+      ? "bg-accent text-accent-foreground"
       : "text-foreground/70 hover:bg-accent/60 hover:text-foreground",
   );
 
@@ -376,7 +410,9 @@ function NavLinkItem({
       }
     }, [closeTimerRef, clearCloseTimer, setOpenDropdown]);
 
-    const dropdownOpen = hoverDropdowns ? openDropdown === link.href : undefined;
+    const dropdownOpen = hoverDropdowns
+      ? openDropdown === link.href
+      : undefined;
     const dropdownOnOpenChange = hoverDropdowns
       ? (open: boolean) => {
           // In hover mode we own the open/close lifecycle via the mouse
@@ -418,17 +454,34 @@ function NavLinkItem({
       : {};
 
     return (
-      <DropdownMenu open={dropdownOpen} onOpenChange={dropdownOnOpenChange} modal={!hoverDropdowns}>
+      <DropdownMenu
+        open={dropdownOpen}
+        onOpenChange={dropdownOnOpenChange}
+        modal={!hoverDropdowns}
+      >
         <DropdownMenuTrigger asChild>
-          <button type="button" className={cn(itemClass, "data-[state=open]:bg-accent/60")} {...triggerHoverProps} onClick={triggerClick}>
-            {link.icon && <span className="size-4 shrink-0 text-primary/70">{link.icon}</span>}
+          <button
+            type="button"
+            className={cn(itemClass, "data-[state=open]:bg-accent/60")}
+            {...triggerHoverProps}
+            onClick={triggerClick}
+          >
+            {link.icon && (
+              <span className="size-4 shrink-0 text-primary/70">
+                {link.icon}
+              </span>
+            )}
             <span>{link.label}</span>
             {link.badge != null && (
               <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-medium text-primary-foreground">
                 {link.badge}
               </span>
             )}
-            <Icon name="chevron-down" className="text-muted-foreground/60" aria-hidden="true" />
+            <Icon
+              name="chevron-down"
+              className="text-muted-foreground/60"
+              aria-hidden="true"
+            />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
@@ -442,7 +495,9 @@ function NavLinkItem({
             /* Wide multi-column megamenu (OpenAI-style) */
             <div
               className="grid gap-2"
-              style={{ gridTemplateColumns: `repeat(${Math.min(link.columns ?? 2, 4)}, minmax(0,1fr))` }}
+              style={{
+                gridTemplateColumns: `repeat(${Math.min(link.columns ?? 2, 4)}, minmax(0,1fr))`,
+              }}
             >
               {link.children.map((child) => (
                 <DropdownMenuItem
@@ -452,7 +507,9 @@ function NavLinkItem({
                 >
                   <span className="flex items-center gap-2 text-sm font-medium">
                     {child.icon && (
-                      <span className="size-4 shrink-0 text-primary/70">{child.icon}</span>
+                      <span className="size-4 shrink-0 text-primary/70">
+                        {child.icon}
+                      </span>
                     )}
                     {child.label}
                     {child.badge != null && (
@@ -462,7 +519,12 @@ function NavLinkItem({
                     )}
                   </span>
                   {child.description && (
-                    <span className="text-xs leading-snug text-muted-foreground">
+                    <span
+                      className={cn(
+                        "text-xs leading-snug text-muted-foreground",
+                        child.icon && "pl-6",
+                      )}
+                    >
                       {child.description}
                     </span>
                   )}
@@ -480,9 +542,13 @@ function NavLinkItem({
                     <DropdownMenuSub>
                       <DropdownMenuSubTrigger className="flex cursor-pointer items-center gap-2 py-2">
                         {child.icon && (
-                          <span className="size-4 shrink-0 text-primary/70">{child.icon}</span>
+                          <span className="size-4 shrink-0 text-primary/70">
+                            {child.icon}
+                          </span>
                         )}
-                        <span className="flex-1 font-medium">{child.label}</span>
+                        <span className="flex-1 font-medium">
+                          {child.label}
+                        </span>
                         {child.badge != null && (
                           <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-medium text-primary-foreground">
                             {child.badge}
@@ -518,7 +584,9 @@ function NavLinkItem({
                     >
                       <span className="flex items-center gap-2 font-medium">
                         {child.icon && (
-                          <span className="size-4 shrink-0 text-primary/70">{child.icon}</span>
+                          <span className="size-4 shrink-0 text-primary/70">
+                            {child.icon}
+                          </span>
                         )}
                         {child.label}
                         {child.badge != null && (
@@ -528,7 +596,14 @@ function NavLinkItem({
                         )}
                       </span>
                       {child.description && (
-                        <span className="pl-6 text-xs text-muted-foreground">{child.description}</span>
+                        <span
+                          className={cn(
+                            "text-xs text-muted-foreground",
+                            child.icon && "pl-6",
+                          )}
+                        >
+                          {child.description}
+                        </span>
                       )}
                     </DropdownMenuItem>
                   )}
@@ -554,7 +629,9 @@ function NavLinkItem({
       className={itemClass}
       aria-current={isActive ? "page" : undefined}
     >
-      {link.icon && <span className="size-4 shrink-0 text-primary/70">{link.icon}</span>}
+      {link.icon && (
+        <span className="size-4 shrink-0 text-primary/70">{link.icon}</span>
+      )}
       <span>{link.label}</span>
       {link.badge != null && (
         <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-medium text-primary-foreground">
@@ -589,12 +666,19 @@ function MobileNavLink({
           className="flex items-center justify-between rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-foreground"
         >
           <span className="flex items-center gap-2">
-            {link.icon && <span className="size-4 shrink-0 text-primary/70">{link.icon}</span>}
+            {link.icon && (
+              <span className="size-4 shrink-0 text-primary/70">
+                {link.icon}
+              </span>
+            )}
             {link.label}
           </span>
           <Icon
             name="chevron-down"
-            className={cn("text-muted-foreground/60 transition-transform", open && "rotate-180")}
+            className={cn(
+              "text-muted-foreground/60 transition-transform",
+              open && "rotate-180",
+            )}
             aria-hidden="true"
           />
         </button>
@@ -610,7 +694,9 @@ function MobileNavLink({
                 }}
                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-foreground/70 transition-colors hover:bg-accent hover:text-foreground"
               >
-                {child.icon && <span className="size-4 shrink-0">{child.icon}</span>}
+                {child.icon && (
+                  <span className="size-4 shrink-0">{child.icon}</span>
+                )}
                 <span>{child.label}</span>
                 {child.badge != null && (
                   <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-medium text-primary-foreground">
@@ -634,7 +720,9 @@ function MobileNavLink({
       }}
       className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-foreground"
     >
-      {link.icon && <span className="size-4 shrink-0 text-primary/70">{link.icon}</span>}
+      {link.icon && (
+        <span className="size-4 shrink-0 text-primary/70">{link.icon}</span>
+      )}
       <span>{link.label}</span>
       {link.badge != null && (
         <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-medium text-primary-foreground">

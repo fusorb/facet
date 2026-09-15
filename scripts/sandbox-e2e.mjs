@@ -11,7 +11,7 @@
  *   - facet doctor                 (analyzes the sandbox for issues)
  *   - facet --log <cmd>            (verbose output on read-only commands)
  *
- * The sandbox is fully isolated -- nothing touches arc-id or the real repo.
+ * The sandbox is fully isolated -- nothing touches SovGrant or the real repo.
  */
 import { mkdirSync, rmSync, writeFileSync, readFileSync } from "node:fs";
 import { join } from "node:path";

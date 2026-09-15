@@ -51,7 +51,9 @@ export function MfaVerifyForm({
     <>
       <DialogHeader>
         <DialogTitle>Two-Factor Authentication</DialogTitle>
-        <DialogDescription>Enter the code from your authenticator app.</DialogDescription>
+        <DialogDescription>
+          Enter the code from your authenticator app.
+        </DialogDescription>
       </DialogHeader>
       <div className="flex flex-col items-center gap-4 py-4">
         <InputOTP
@@ -78,14 +80,22 @@ export function MfaVerifyForm({
       <div className="flex flex-col gap-2">
         {onRecovery && (
           <ShineButton
-            className={cn(buttonVariants({ variant: "outline", size: "sm" }), "w-full")}
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "w-full",
+            )}
             onClick={onRecovery}
           >
             Use a recovery code
           </ShineButton>
         )}
         {onCancel && (
-          <Button variant="ghost" size="sm" className="w-full" onClick={onCancel}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full"
+            onClick={onCancel}
+          >
             Cancel
           </Button>
         )}

@@ -3,8 +3,17 @@ import { render, screen } from "@testing-library/react";
 import { Roadmap } from "./roadmap.js";
 
 const items = [
-  { title: "Ship v1", description: "Core auth flows", status: "done" as const, date: "Q1" },
-  { title: "Passkeys", description: "WebAuthn sign-in", status: "in-progress" as const },
+  {
+    title: "Ship v1",
+    description: "Core auth flows",
+    status: "done" as const,
+    date: "Q1",
+  },
+  {
+    title: "Passkeys",
+    description: "WebAuthn sign-in",
+    status: "in-progress" as const,
+  },
   { title: "SSO", status: "planned" as const },
 ];
 

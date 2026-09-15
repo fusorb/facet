@@ -26,8 +26,11 @@ export interface SpotlightProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /** A radial glow that follows the cursor inside its container. */
 export const Spotlight = React.forwardRef<HTMLDivElement, SpotlightProps>(
-  ({ className, color = "rgba(99,102,241,0.35)", blur = 80, ...props }, ref) => {
-    const [pos, setPos] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  ({ className, color = "var(--primary)", blur = 80, ...props }, ref) => {
+    const [pos, setPos] = React.useState<{ x: number; y: number }>({
+      x: 0,
+      y: 0,
+    });
     const [visible, setVisible] = React.useState(false);
 
     const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -70,13 +73,21 @@ export interface AuroraProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /** Slow-moving conic gradient blobs (pure CSS animation). */
 export const Aurora = React.forwardRef<HTMLDivElement, AuroraProps>(
-  ({
-    className,
-    colors = ["var(--primary, #6366f1)", "#d946ef", "var(--alpha-electric-cyan, #06b6d4)"],
-    opacity = 0.5,
-    ...props
-  }, ref) => (
-    <div ref={ref} className={cn("relative overflow-hidden", className)} aria-hidden="true" {...props}>
+  (
+    {
+      className,
+      colors = ["var(--primary)", "#d946ef", "var(--alpha-electric-cyan)"],
+      opacity = 0.5,
+      ...props
+    },
+    ref,
+  ) => (
+    <div
+      ref={ref}
+      className={cn("relative overflow-hidden", className)}
+      aria-hidden="true"
+      {...props}
+    >
       <div
         className="absolute -inset-1/2 animate-[facet-aurora_18s_ease-in-out_infinite_alternate]"
         style={{
@@ -102,8 +113,13 @@ export interface BeamsProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /** Diagonal light beams sweeping across a container. */
 export const Beams = React.forwardRef<HTMLDivElement, BeamsProps>(
-  ({ className, count = 3, color = "var(--primary, rgba(99,102,241,0.25))", ...props }, ref) => (
-    <div ref={ref} className={cn("relative overflow-hidden", className)} aria-hidden="true" {...props}>
+  ({ className, count = 3, color = "var(--primary)", ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn("relative overflow-hidden", className)}
+      aria-hidden="true"
+      {...props}
+    >
       {Array.from({ length: count }, (_, i) => (
         <div
           key={i}
@@ -153,55 +169,55 @@ GridPattern.displayName = "GridPattern";
 
 /* ── SparkleButton ─────────────────────────────────────────── */
 
-export interface SparkleButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface SparkleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Label. Default: "Get started". */
   label?: string;
 }
 
 /** A primary CTA that bursts sparkles from the click point. */
-export const SparkleButton = React.forwardRef<HTMLButtonElement, SparkleButtonProps>(
-  ({ className, label = "Get started", children, ...props }, ref) => {
-    const hostRef = React.useRef<HTMLButtonElement | null>(null);
+export const SparkleButton = React.forwardRef<
+  HTMLButtonElement,
+  SparkleButtonProps
+>(({ className, label = "Get started", children, ...props }, ref) => {
+  const hostRef = React.useRef<HTMLButtonElement | null>(null);
 
-    const burst = (e: React.MouseEvent<HTMLButtonElement>) => {
-      const el = hostRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
-      for (let i = 0; i < 10; i++) {
-        const span = document.createElement("span");
-        span.className =
-          "pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-white animate-[facet-sparkle_0.7s_ease-out]";
-        const angle = (Math.PI * 2 * i) / 10;
-        const dist = 40 + Math.random() * 30;
-        span.style.left = `${x}px`;
-        span.style.top = `${y}px`;
-        span.style.setProperty("--dx", `${Math.cos(angle) * dist}px`);
-        span.style.setProperty("--dy", `${Math.sin(angle) * dist}px`);
-        el.appendChild(span);
-        setTimeout(() => span.remove(), 750);
-      }
-    };
+  const burst = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const el = hostRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    for (let i = 0; i < 10; i++) {
+      const span = document.createElement("span");
+      span.className =
+        "pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-white animate-[facet-sparkle_0.7s_ease-out]";
+      const angle = (Math.PI * 2 * i) / 10;
+      const dist = 40 + Math.random() * 30;
+      span.style.left = `${x}px`;
+      span.style.top = `${y}px`;
+      span.style.setProperty("--dx", `${Math.cos(angle) * dist}px`);
+      span.style.setProperty("--dy", `${Math.sin(angle) * dist}px`);
+      el.appendChild(span);
+      setTimeout(() => span.remove(), 750);
+    }
+  };
 
-    return (
-      <button
-        ref={(node) => {
-          hostRef.current = node;
-          if (typeof ref === "function") ref(node);
-          else if (ref) ref.current = node;
-        }}
-        onClick={burst}
-        className={cn(
-          "relative inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90",
-          className,
-        )}
-        {...props}
-      >
-        {children ?? label}
-      </button>
-    );
-  },
-);
+  return (
+    <button
+      ref={(node) => {
+        hostRef.current = node;
+        if (typeof ref === "function") ref(node);
+        else if (ref) ref.current = node;
+      }}
+      onClick={burst}
+      className={cn(
+        "relative inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90",
+        className,
+      )}
+      {...props}
+    >
+      {children ?? label}
+    </button>
+  );
+});
 SparkleButton.displayName = "SparkleButton";

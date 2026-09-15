@@ -2,12 +2,19 @@ import * as React from "react";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 import { Button } from "./button.js";
-import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from "./sheet.js";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "./sheet.js";
 import { ScrollArea } from "./scroll-area.js";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
-export type NotificationType = "default" | "success" | "warning" | "error" | "info";
+export type NotificationType =
+  "default" | "success" | "warning" | "error" | "info";
 
 export interface Notification {
   id: string;
@@ -164,14 +171,17 @@ export function NotificationDrawer({
 }: NotificationDrawerProps) {
   const c = { ...defaultCopy, ...copy };
   const [internalSearch, setInternalSearch] = React.useState("");
-  const [internalFilter, setInternalFilter] = React.useState<"all" | "unread">("all");
+  const [internalFilter, setInternalFilter] = React.useState<"all" | "unread">(
+    "all",
+  );
   const [selectedIds, setSelectedIds] = React.useState<Set<string>>(new Set());
   const search = searchProp ?? internalSearch;
   const setSearch = onSearchChange ?? setInternalSearch;
   const filter = filterProp ?? internalFilter;
   const setFilter = onFilterChange ?? setInternalFilter;
 
-  const count = unreadCount ?? notifications.filter((n) => n.read !== true).length;
+  const count =
+    unreadCount ?? notifications.filter((n) => n.read !== true).length;
 
   // Toolbar is shown when explicitly requested OR any action/search/filter
   // handler is wired (so a bare drawer stays clean).
@@ -179,11 +189,11 @@ export function NotificationDrawer({
     showToolbar ??
     Boolean(
       onSearchChange ||
-        onFilterChange ||
-        onMarkAllRead ||
-        onMarkReadMany ||
-        onDelete ||
-        onDeleteMany,
+      onFilterChange ||
+      onMarkAllRead ||
+      onMarkReadMany ||
+      onDelete ||
+      onDeleteMany,
     );
 
   const handleClick = (n: Notification) => {
@@ -209,7 +219,10 @@ export function NotificationDrawer({
     const ids = [...selectedIds];
     if (ids.length === 0) return;
     if (onMarkReadMany) onMarkReadMany(ids);
-    else notifications.filter((n) => ids.includes(n.id)).forEach((n) => onMarkRead?.(n));
+    else
+      notifications
+        .filter((n) => ids.includes(n.id))
+        .forEach((n) => onMarkRead?.(n));
     clearSelection();
   };
 
@@ -217,7 +230,10 @@ export function NotificationDrawer({
     const ids = [...selectedIds];
     if (ids.length === 0) return;
     if (onDeleteMany) onDeleteMany(ids);
-    else notifications.filter((n) => ids.includes(n.id)).forEach((n) => onDelete?.(n));
+    else
+      notifications
+        .filter((n) => ids.includes(n.id))
+        .forEach((n) => onDelete?.(n));
     clearSelection();
   };
 
@@ -227,7 +243,8 @@ export function NotificationDrawer({
     if (filter === "unread" && n.read !== false) return false;
     if (!q) return true;
     return (
-      n.title.toLowerCase().includes(q) || (n.description ?? "").toLowerCase().includes(q)
+      n.title.toLowerCase().includes(q) ||
+      (n.description ?? "").toLowerCase().includes(q)
     );
   });
   const hasUnread = notifications.some((n) => n.read !== true);
@@ -253,7 +270,10 @@ export function NotificationDrawer({
         )}
       </SheetTrigger>
 
-      <SheetContent side={side} className={cn("flex w-full flex-col p-0 sm:max-w-sm", className)}>
+      <SheetContent
+        side={side}
+        className={cn("flex w-full flex-col p-0 sm:max-w-sm", className)}
+      >
         {header ?? (
           <SheetHeader className="flex flex-row items-center justify-between gap-4 border-b px-4 py-3">
             <SheetTitle>{c.title}</SheetTitle>
@@ -349,12 +369,16 @@ export function NotificationDrawer({
           (emptyState ?? (
             <div className="flex flex-1 flex-col items-center justify-center gap-2 p-8 text-center">
               <Icon name="bell" className="size-8 text-muted-foreground/40" />
-              <p className="text-sm text-muted-foreground">{c.noNotifications}</p>
+              <p className="text-sm text-muted-foreground">
+                {c.noNotifications}
+              </p>
             </div>
           ))
         ) : visible.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-2 p-8 text-center">
-            <p className="text-sm text-muted-foreground">{c.noNotificationsMatch}</p>
+            <p className="text-sm text-muted-foreground">
+              {c.noNotificationsMatch}
+            </p>
           </div>
         ) : (
           <ScrollArea className="flex-1">
@@ -378,7 +402,9 @@ export function NotificationDrawer({
                     <span
                       className={cn(
                         "flex shrink-0 items-center pt-px transition-opacity",
-                        isSelected ? "opacity-100" : "opacity-50 group-hover:opacity-100",
+                        isSelected
+                          ? "opacity-100"
+                          : "opacity-50 group-hover:opacity-100",
                       )}
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -393,13 +419,20 @@ export function NotificationDrawer({
 
                     {/* Icon slot (aligned with the title line) */}
                     {n.icon ? (
-                      <span className={cn("mt-px size-4 shrink-0", iconColor)}>{n.icon}</span>
+                      <span className={cn("mt-px size-4 shrink-0", iconColor)}>
+                        {n.icon}
+                      </span>
                     ) : null}
 
                     {/* Content */}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-start justify-between gap-3">
-                        <p className={cn("font-medium text-foreground", n.read === false && "pr-1")}>
+                        <p
+                          className={cn(
+                            "font-medium text-foreground",
+                            n.read === false && "pr-1",
+                          )}
+                        >
                           {n.title}
                         </p>
                         {n.time && (
@@ -451,7 +484,12 @@ export function NotificationDrawer({
 
         {showFooter && notifications.length > 0 && (
           <div className="border-t p-3">
-            <Button variant="ghost" size="sm" className="w-full" onClick={onViewAll}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full"
+              onClick={onViewAll}
+            >
               {c.viewAll}
             </Button>
           </div>

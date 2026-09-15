@@ -111,7 +111,11 @@ describe("scanIcons", () => {
     const dir = tmp();
     try {
       writeFile(dir, "package.json", JSON.stringify({ name: "app" }));
-      writeFile(dir, "src/components/App.tsx", `import { Icon } from "facet"; <Icon name="Heart" />`);
+      writeFile(
+        dir,
+        "src/components/App.tsx",
+        `import { Icon } from "facet"; <Icon name="Heart" />`,
+      );
       writeFile(
         dir,
         "src/lib/use-thing.ts",
@@ -122,7 +126,9 @@ describe("scanIcons", () => {
       expect(scan.kebabNames).toContain("settings");
       // Detection: src/lib exists -> target lib/ui? No: detectIconTargetDir
       // checks lib/ui, src/components/ui, src/lib in order. src/lib wins.
-      expect(scan.targetDir.split(path.sep).slice(-2).join("/")).toBe("src/lib");
+      expect(scan.targetDir.split(path.sep).slice(-2).join("/")).toBe(
+        "src/lib",
+      );
       expect(scan.hasExisting).toBe(false);
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
@@ -158,7 +164,11 @@ describe("scanIcons", () => {
     const dir = tmp();
     try {
       writeFile(dir, "package.json", JSON.stringify({ name: "app" }));
-      writeFile(dir, "client/package.json", JSON.stringify({ name: "app-client" }));
+      writeFile(
+        dir,
+        "client/package.json",
+        JSON.stringify({ name: "app-client" }),
+      );
       writeFile(
         dir,
         "client/src/pages/Home.tsx",
@@ -166,8 +176,12 @@ describe("scanIcons", () => {
       );
       const scan = scanIcons(dir);
       expect(scan.kebabNames).toContain("heart");
-      expect(scan.files.some((f) => f.includes("client") && f.includes("Home"))).toBe(true);
-      expect(scan.targetDir.split(path.sep).slice(-2).join("/")).toBe("client/src");
+      expect(
+        scan.files.some((f) => f.includes("client") && f.includes("Home")),
+      ).toBe(true);
+      expect(scan.targetDir.split(path.sep).slice(-2).join("/")).toBe(
+        "client/src",
+      );
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
@@ -178,11 +192,19 @@ describe("scanIcons", () => {
     try {
       writeFile(dir, "package.json", JSON.stringify({ name: "app" }));
       writeFile(dir, "apps/web/package.json", JSON.stringify({ name: "web" }));
-      writeFile(dir, "apps/web/src/lib/thing.ts", `registerIcon("settings", S);`);
+      writeFile(
+        dir,
+        "apps/web/src/lib/thing.ts",
+        `registerIcon("settings", S);`,
+      );
       const scan = scanIcons(dir);
       expect(scan.kebabNames).toContain("settings");
-      expect(scan.files.some((f) => f.includes("apps") && f.includes("web"))).toBe(true);
-      expect(path.relative(dir, scan.targetDir).split(path.sep).join("/")).toBe("apps/web/src/lib");
+      expect(
+        scan.files.some((f) => f.includes("apps") && f.includes("web")),
+      ).toBe(true);
+      expect(path.relative(dir, scan.targetDir).split(path.sep).join("/")).toBe(
+        "apps/web/src/lib",
+      );
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
@@ -194,11 +216,17 @@ describe("scanIcons", () => {
       writeFile(dir, "package.json", JSON.stringify({ name: "app" }));
       // Stale/empty root src dir that lingers (e.g. only an old generated file).
       writeFile(dir, "src/icons.generated.tsx", `export {};\n`);
-      writeFile(dir, "client/package.json", JSON.stringify({ name: "app-client" }));
+      writeFile(
+        dir,
+        "client/package.json",
+        JSON.stringify({ name: "app-client" }),
+      );
       writeFile(dir, "client/src/App.tsx", `<Icon name="heart" />`);
       const scan = scanIcons(dir);
       expect(scan.kebabNames).toContain("heart");
-      expect(path.relative(dir, scan.targetDir).split(path.sep).join("/")).toBe("client/src");
+      expect(path.relative(dir, scan.targetDir).split(path.sep).join("/")).toBe(
+        "client/src",
+      );
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
@@ -211,7 +239,9 @@ describe("detectIconTargetDir", () => {
     try {
       expect(detectIconTargetDir(dir)).toContain("src");
       writeFile(dir, "lib/ui/x.ts", "");
-      expect(detectIconTargetDir(dir).split(path.sep).slice(-2).join("/")).toBe("lib/ui");
+      expect(detectIconTargetDir(dir).split(path.sep).slice(-2).join("/")).toBe(
+        "lib/ui",
+      );
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
@@ -245,8 +275,10 @@ describe("resolveUsedIcons + generateIconRegistry", () => {
     expect(resolved.unresolved.length).toBeGreaterThan(0);
 
     const file = generateIconRegistry(scan, resolved);
-    expect(file.path.split(path.sep).slice(-2).join("/")).toBe("lib/icons.generated.tsx");
-    expect(file.content).toContain('import {');
+    expect(file.path.split(path.sep).slice(-2).join("/")).toBe(
+      "lib/icons.generated.tsx",
+    );
+    expect(file.content).toContain("import {");
     expect(file.content).toContain("Settings,");
     expect(file.content).toContain("Heart,");
     expect(file.content).toContain('"heart": Heart,');
@@ -280,7 +312,8 @@ describe("resolveUsedIcons + generateIconRegistry", () => {
     // Only inspect the import block (entries legitimately repeat exports).
     const importBlock = file.content.slice(
       file.content.indexOf("import {"),
-      file.content.indexOf("} from \"@fusorb/facet-components/icons\"") + "} from \"@fusorb/facet-components/icons\"".length,
+      file.content.indexOf('} from "@fusorb/facet-components/icons"') +
+        '} from "@fusorb/facet-components/icons"'.length,
     );
     const count = (needle: string) => importBlock.split(needle).length - 1;
     // Each export appears exactly once in the import block.
@@ -300,7 +333,9 @@ describe("resolveUsedIcons + generateIconRegistry", () => {
     // logout, dashboard were old aliases; current names are x, layout-grid,
     // file-text, log-out, layout-dashboard).
     const catalog = buildLucideCatalog(process.cwd());
-    const unresolved = DEFAULT_SEMANTIC_NAMES.filter((n) => !catalog.byName.has(n));
+    const unresolved = DEFAULT_SEMANTIC_NAMES.filter(
+      (n) => !catalog.byName.has(n),
+    );
     expect(unresolved).toEqual([]);
   });
 
@@ -314,7 +349,10 @@ describe("resolveUsedIcons + generateIconRegistry", () => {
       ]),
       version: "1.30.0",
     };
-    const resolved = resolveUsedIcons(["close", "document", "building-2"], catalog);
+    const resolved = resolveUsedIcons(
+      ["close", "document", "building-2"],
+      catalog,
+    );
     // close -> x, document -> file-text, building-2 -> building2 via the alias map.
     expect(resolved.used.get("close")).toBe("X");
     expect(resolved.used.get("document")).toBe("FileText");

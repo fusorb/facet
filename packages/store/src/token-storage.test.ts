@@ -9,7 +9,10 @@ function makeFakeStore() {
     refreshToken: "old-refresh",
   };
   return {
-    getState: () => ({ accessToken: state.accessToken, refreshToken: state.refreshToken }),
+    getState: () => ({
+      accessToken: state.accessToken,
+      refreshToken: state.refreshToken,
+    }),
     setTokens: (accessToken: string, refreshToken?: string) => {
       state.accessToken = accessToken;
       if (refreshToken !== undefined) state.refreshToken = refreshToken;
@@ -36,7 +39,10 @@ function makeFakeSdk(result: ApiResponse<RefreshResult>) {
 describe("createZustandTokenStorage", () => {
   it("getAccessToken / getRefreshToken read from the store", () => {
     const store = makeFakeStore();
-    const sdk = makeFakeSdk({ data: { accessToken: "x", refreshToken: "y" }, error: null });
+    const sdk = makeFakeSdk({
+      data: { accessToken: "x", refreshToken: "y" },
+      error: null,
+    });
     const storage = createZustandTokenStorage({ authStore: store, sdk });
 
     expect(storage.getAccessToken()).toBe("old-access");
@@ -91,7 +97,11 @@ describe("createZustandTokenStorage", () => {
 
   it("onTokenRefresh clears auth when sdk returns an error", async () => {
     const store = makeFakeStore();
-    const error: ApiError = { statusCode: 401, error: "Unauthorized", message: "bad token" };
+    const error: ApiError = {
+      statusCode: 401,
+      error: "Unauthorized",
+      message: "bad token",
+    };
     const sdk = makeFakeSdk({ data: null, error });
     const storage = createZustandTokenStorage({ authStore: store, sdk });
 

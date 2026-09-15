@@ -1,5 +1,11 @@
 import * as React from "react";
-import { render, screen, fireEvent, cleanup, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  cleanup,
+  act,
+} from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
 import { LiveCodePlayground } from "./LiveCodePlayground.js";
@@ -27,13 +33,17 @@ function Example() {
 
 describe("LiveCodePlayground", () => {
   it("shows the full usage code in the editor", () => {
-    render(<LiveCodePlayground defaultCode={FULL_CODE} components={components} />);
+    render(
+      <LiveCodePlayground defaultCode={FULL_CODE} components={components} />,
+    );
     const textarea = screen.getByRole("textbox") as HTMLTextAreaElement;
     expect(textarea.value).toBe(FULL_CODE);
   });
 
   it("renders the preview from a full usage snippet", () => {
-    render(<LiveCodePlayground defaultCode={FULL_CODE} components={components} />);
+    render(
+      <LiveCodePlayground defaultCode={FULL_CODE} components={components} />,
+    );
     expect(screen.getByTestId("preview-btn")).toHaveTextContent("Get started");
   });
 
@@ -88,7 +98,12 @@ describe("LiveCodePlayground", () => {
   });
 
   it("renders a Format button", () => {
-    render(<LiveCodePlayground defaultCode="<Button>x</Button>" components={components} />);
+    render(
+      <LiveCodePlayground
+        defaultCode="<Button>x</Button>"
+        components={components}
+      />,
+    );
     expect(screen.getByRole("button", { name: /format/i })).toBeInTheDocument();
   });
 
@@ -172,9 +187,7 @@ describe("LiveCodePlayground", () => {
     const Boom: React.ComponentType<any> = () => {
       throw new Error("demo component exploded");
     };
-    render(
-      <LiveCodePlayground defaultCode="<Boom />" components={{ Boom }} />,
-    );
+    render(<LiveCodePlayground defaultCode="<Boom />" components={{ Boom }} />);
     // The error boundary surfaces the message - no white screen.
     expect(screen.getByText(/demo component exploded/)).toBeInTheDocument();
     expect(
@@ -184,9 +197,12 @@ describe("LiveCodePlayground", () => {
 
   it("renders PasswordStrengthMeter even when value parses to undefined", () => {
     const code =
-"import { PasswordStrengthMeter } from \"@fusorb/facet-components\";\n\nfunction Example() {\n  return <PasswordStrengthMeter value={password} />;\n}";
+      'import { PasswordStrengthMeter } from "@fusorb/facet-components";\n\nfunction Example() {\n  return <PasswordStrengthMeter value={password} />;\n}';
     render(
-      <LiveCodePlayground defaultCode={code} components={playgroundComponents} />,
+      <LiveCodePlayground
+        defaultCode={code}
+        components={playgroundComponents}
+      />,
     );
     // The wrapper supplies a fallback so the bar renders instead of crashing.
     expect(screen.getByText(/At least 8 characters/i)).toBeInTheDocument();
@@ -195,9 +211,12 @@ describe("LiveCodePlayground", () => {
   it("renders AnnouncementBar despite a prior dismissal in localStorage", () => {
     localStorage.setItem("facet-announcement-dismissed", "1");
     const code =
-"import { AnnouncementBar } from \"@fusorb/facet-components\";\n\nfunction Example() {\n  return <AnnouncementBar>Deal of the day</AnnouncementBar>;\n}";
+      'import { AnnouncementBar } from "@fusorb/facet-components";\n\nfunction Example() {\n  return <AnnouncementBar>Deal of the day</AnnouncementBar>;\n}';
     render(
-      <LiveCodePlayground defaultCode={code} components={playgroundComponents} />,
+      <LiveCodePlayground
+        defaultCode={code}
+        components={playgroundComponents}
+      />,
     );
     // The wrapper uses a unique storageKey, so the default-key dismissal
     // does not hide the preview.

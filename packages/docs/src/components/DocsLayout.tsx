@@ -59,8 +59,13 @@ function SettingsMenu({
       <DropdownMenuContent align="end" className="w-60">
         <DropdownMenuLabel>{label}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => onModeChange(mode === "rail" ? "full" : "rail")}>
-          <LightIcon name={mode === "rail" ? "panel-left" : "layout-panel-left"} className="size-4" />
+        <DropdownMenuItem
+          onClick={() => onModeChange(mode === "rail" ? "full" : "rail")}
+        >
+          <LightIcon
+            name={mode === "rail" ? "panel-left" : "layout-panel-left"}
+            className="size-4"
+          />
           Sidebar: {mode === "rail" ? "Rail" : "Full"}
         </DropdownMenuItem>
         {links.length > 0 && (
@@ -74,7 +79,9 @@ function SettingsMenu({
                   rel="noreferrer"
                   className="flex items-center gap-2"
                 >
-                  {link.icon && <LightIcon name={link.icon} className="size-4" />}
+                  {link.icon && (
+                    <LightIcon name={link.icon} className="size-4" />
+                  )}
                   {link.label}
                 </a>
               </DropdownMenuItem>

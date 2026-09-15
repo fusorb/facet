@@ -95,7 +95,9 @@ describe("Drawer", () => {
       </Drawer>,
     );
     await userEvent.click(screen.getByRole("button", { name: /open/i }));
-    expect(await screen.findByText("Drawer title", {}, { timeout: 2000 })).toBeInTheDocument();
+    expect(
+      await screen.findByText("Drawer title", {}, { timeout: 2000 }),
+    ).toBeInTheDocument();
   });
 });
 

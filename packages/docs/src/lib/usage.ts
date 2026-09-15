@@ -663,7 +663,7 @@ function Example() {
   qrcode: `import { QRCode } from "@fusorb/facet-components";
 
 function Example() {
-  return <QRCode value="https://facet.arcevocirqle.com.ng" size={140} label="facet docs" />;
+  return <QRCode value="https://example.com" size={140} label="facet docs" />;
 }
 
 function Branded() {
@@ -942,7 +942,7 @@ import { Navbar } from "@fusorb/facet-components";
 //   <BillingPage config={{ plans, ctaButton: { animation: "sparkle" } }} />
 //   <FeedbackPage email="hi@x.com" submitButton={{ animation: "shine" }} />
 //   <SignUp submitButton={{ animation: "sparkle" }} />`,
-   "text-animations": `import { TypewriterText, BlurText, WaveText, FlipText, SplitText, FadeUpText, ShimmerText, GradientText, LetterSpacingText, CountUpText, DissolveText } from "@fusorb/facet-components";
+  "text-animations": `import { TypewriterText, BlurText, WaveText, FlipText, SplitText, FadeUpText, ShimmerText, GradientText, LetterSpacingText, CountUpText, DissolveText } from "@fusorb/facet-components";
 
 // Cycle through phrases with a type/erase loop and a blinking caret.
 <TypewriterText phrases={["one identity", "every door", "your key"]} />
@@ -1015,7 +1015,7 @@ import { Navbar } from "@fusorb/facet-components";
   footer: `import { Footer } from "@fusorb/facet-components";
 
 <Footer
-  brand={{ name: "facet", tagline: "The Arcevo UI system" }}
+  brand={{ name: "facet", tagline: "A config-driven UI system" }}
   columns={[
     { title: "Product", links: [{ label: "Components", href: "/components" }] },
     { title: "Resources", links: [{ label: "Docs", href: "/docs" }] },
@@ -1037,7 +1037,7 @@ import { Navbar } from "@fusorb/facet-components";
   back={{ onClick: () => history.back() }}
   channels={[
     { label: "WhatsApp", href: "https://wa.me/123456", icon: "message-circle", description: "Chat with us" },
-    { label: "LinkedIn", href: "https://linkedin.com/company/arcevo", icon: "linkedin", description: "Company page" },
+    { label: "LinkedIn", href: "https://linkedin.com/company/example", icon: "linkedin", description: "Company page" },
   ]}
 />`,
   "not-found": `import { NotFound } from "@fusorb/facet-components";
@@ -1229,7 +1229,9 @@ const items = [
 ];
 
 function Example() {
-  return <FaqSection items={items} title="FAQ" />;
+  // Omit limit to render every item; pass a number to cap the list and
+  // reveal the rest with a "Show more" button (showMoreLabel / showLessLabel).
+  return <FaqSection items={items} title="FAQ" limit={6} />;
 }`,
   "page-header": `import { PageHeader } from "@fusorb/facet-components";
 
@@ -1266,7 +1268,7 @@ function Example() {
     </AspectRatio>
   );
 }`,
-  "resizable": `import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@fusorb/facet-components";
+  resizable: `import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@fusorb/facet-components";
 
 function Example() {
   return (
@@ -1696,23 +1698,29 @@ export function variantUsage(slug: string): { label: string; code: string }[] {
     const parts: string[] = [];
     // Components that belong to a non-components package (auth/layout).
     const knownPkgIds = new Set<string>(packageImports ?? []);
-    for (const names of Object.values(extraPackages ?? {})) names.forEach((n) => knownPkgIds.add(n));
+    for (const names of Object.values(extraPackages ?? {}))
+      names.forEach((n) => knownPkgIds.add(n));
     if (pkg && packageImports) {
       const used = packageImports.filter((c) => usesName(code, c));
-      if (used.length > 0) parts.push(`import { ${used.join(", ")} } from "${pkg}";`);
+      if (used.length > 0)
+        parts.push(`import { ${used.join(", ")} } from "${pkg}";`);
     }
     // Extra cross-package imports (e.g. SignIn from facet-auth).
     if (extraPackages) {
       for (const [extraPkg, names] of Object.entries(extraPackages)) {
         const used = names.filter((c) => usesName(code, c));
-        if (used.length > 0) parts.push(`import { ${used.join(", ")} } from "${extraPkg}";`);
+        if (used.length > 0)
+          parts.push(`import { ${used.join(", ")} } from "${extraPkg}";`);
       }
     }
     // Anything else capitalized is a facet component (Button, Label, Icon, ...).
     const facet = ids.filter(
       (id) => !knownPkgIds.has(id) && !PLACEHOLDER_COMPONENTS.has(id),
     );
-    if (facet.length > 0) parts.push(`import { ${facet.join(", ")} } from "@fusorb/facet-components";`);
+    if (facet.length > 0)
+      parts.push(
+        `import { ${facet.join(", ")} } from "@fusorb/facet-components";`,
+      );
     return parts.join("\n");
   };
   return Object.entries(variants).map(([label, code]) => ({
@@ -2052,7 +2060,7 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     </BreadcrumbItem>
   </BreadcrumbList>
 </Breadcrumb>`,
-    "Ellipsis": `<Breadcrumb>
+    Ellipsis: `<Breadcrumb>
   <BreadcrumbList>
     <BreadcrumbItem>
       <BreadcrumbLink href="/">Home</BreadcrumbLink>
@@ -2778,12 +2786,12 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     Compact: `<ColorPicker value="#10b981" compact label="Compact" />`,
   },
   qrcode: {
-    Default: `<QRCode value="https://facet.arcevocirqle.com.ng" size={120} label="facet docs" />`,
+    Default: `<QRCode value="https://example.com" size={120} label="facet docs" />`,
     Large: `<QRCode value="https://github.com/fusorb/facet" size={160} label="facet GitHub" />`,
     Colored: `<QRCode
-  value="https://facet.arcevocirqle.com.ng"
+  value="https://example.com"
   size={120}
-  fgColor="#6366f1"
+  fgColor="#4ad3f5"
   label="branded"
 />`,
     Logo: `<QRCode
@@ -2797,7 +2805,7 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
   marquee: {
     Default: `<Marquee
   duration={16}
-  items={["facet", "arc-id", "auth", "tokens", "React 19", "Radix"]}
+  items={["facet", "SovGrant", "auth", "tokens", "React 19", "Radix"]}
 />`,
     Cards: `<Marquee
   duration={20}
@@ -2913,7 +2921,7 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
   },
   "mail-input": {
     Default: `<MailInput placeholder="you@example.com" required />`,
-    "Custom domains": `<MailInput domains={["arcevocirqle.com.ng", "gmail.com", "yahoo.com"]} />`,
+    "Custom domains": `<MailInput domains={["example.com", "gmail.com", "yahoo.com"]} />`,
   },
   "infinite-scroll": {
     Vertical: `<InfiniteScroll
@@ -3118,7 +3126,7 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     "Positive delta": `<StatCard label="Monthly revenue" value="$48,290" delta={12.4} hint="vs last month" />`,
     "Negative delta": `<StatCard label="Churn rate" value="2.1%" delta={-0.4} hint="vs last month" />`,
   },
-  "chart": {
+  chart: {
     Line: `<Chart x={["Mon","Tue","Wed","Thu","Fri"]} series={[
   { id: "sales", label: "Sales", data: [30, 80, 50, 60, 90] },
   { id: "orders", label: "Orders", data: [40, 60, 70, 30, 50] },

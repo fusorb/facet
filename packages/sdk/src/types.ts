@@ -1,11 +1,11 @@
 /**
  * @fusorb/facet-sdk: Strict domain types
  *
- * Concrete response shapes for every arc-id endpoint. Replace the
+ * Concrete response shapes for every SovGrant endpoint. Replace the
  * previous `Record<string, unknown>` blobs so consumers get typed
  * access to API responses without casting.
  *
- * Optionality mirrors arc-id's actual responses: ids/keys are always
+ * Optionality mirrors SovGrant's actual responses: ids/keys are always
  * present on created resources; nested objects are populated or null
  * depending on the endpoint.
  */

@@ -17,7 +17,9 @@ import { useDocsKeyboardNav, useDocsNavigation } from "../lib/keyboard-nav.js";
  * New page components added to the library land here automatically.
  */
 export function PagesPage() {
-  const entries = extendedManifest.filter((entry) => entry.category === "pages");
+  const entries = extendedManifest.filter(
+    (entry) => entry.category === "pages",
+  );
 
   const { prev, next } = useDocsNavigation();
   useDocsKeyboardNav();
@@ -25,7 +27,10 @@ export function PagesPage() {
   return (
     <article>
       <p className="mb-2 text-sm text-muted-foreground">
-        <Link to="/components" className="inline-flex items-center gap-1.5 hover:text-foreground">
+        <Link
+          to="/components"
+          className="inline-flex items-center gap-1.5 hover:text-foreground"
+        >
           <svg
             width="16"
             height="16"
@@ -49,9 +54,9 @@ export function PagesPage() {
       <h1 className="font-heading text-3xl font-bold text-foreground">Pages</h1>
       <p className="mt-2 text-muted-foreground">
         Full-page components you can mount at a route and customize through
-        props: feedback/contact pages, site footers, and more to come. Each
-        page ships with a live preview, a copyable usage snippet, and a
-        config-driven API for reusing it across products.
+        props: feedback/contact pages, site footers, and more to come. Each page
+        ships with a live preview, a copyable usage snippet, and a config-driven
+        API for reusing it across products.
       </p>
 
       <div className="mt-8 space-y-8">
@@ -67,7 +72,9 @@ export function PagesPage() {
                   {entry.name}
                 </h2>
                 {entry.description && (
-                  <p className="mt-2 text-sm text-muted-foreground">{entry.description}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {entry.description}
+                  </p>
                 )}
               </div>
               <Link

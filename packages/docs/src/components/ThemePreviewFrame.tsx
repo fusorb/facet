@@ -15,7 +15,11 @@ export interface ThemePreviewFrameProps {
  * applies `data-theme` from the app-level ThemeProvider, so the docs
  * theme toggle restyles every preview block with no per-frame toggle.
  */
-export function ThemePreviewFrame({ children, className, label }: ThemePreviewFrameProps) {
+export function ThemePreviewFrame({
+  children,
+  className,
+  label,
+}: ThemePreviewFrameProps) {
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme ?? "light";
 

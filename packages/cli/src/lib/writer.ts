@@ -94,7 +94,7 @@ export function mergePackageJson(
         ? {
             "@remix-run/react": "^2",
             "@remix-run/node": "^2",
-            "react": "^19",
+            react: "^19",
             "react-dom": "^19",
           }
         : {};
@@ -103,7 +103,11 @@ export function mergePackageJson(
     const merged: PackageJsonShape = {
       ...existing,
       scripts: { ...(existing.scripts ?? {}), ...docsScripts },
-      dependencies: { ...(existing.dependencies ?? {}), ...facetDeps, ...frameworkDeps },
+      dependencies: {
+        ...(existing.dependencies ?? {}),
+        ...facetDeps,
+        ...frameworkDeps,
+      },
     };
     return { content: JSON.stringify(merged, null, 2) + "\n", existed };
   }
@@ -117,15 +121,24 @@ export function mergePackageJson(
     type: "module",
     scripts: {
       ...docsScripts,
-      dev: resolved.framework === "next" || resolved.framework === "remix"
-        ? (resolved.framework === "next" ? "next dev" : "remix dev")
-        : "vite",
-      build: resolved.framework === "next" || resolved.framework === "remix"
-        ? (resolved.framework === "next" ? "next build" : "remix build")
-        : "vite build",
-      preview: resolved.framework === "next" || resolved.framework === "remix"
-        ? (resolved.framework === "next" ? "next start" : "remix-serve build")
-        : "vite preview",
+      dev:
+        resolved.framework === "next" || resolved.framework === "remix"
+          ? resolved.framework === "next"
+            ? "next dev"
+            : "remix dev"
+          : "vite",
+      build:
+        resolved.framework === "next" || resolved.framework === "remix"
+          ? resolved.framework === "next"
+            ? "next build"
+            : "remix build"
+          : "vite build",
+      preview:
+        resolved.framework === "next" || resolved.framework === "remix"
+          ? resolved.framework === "next"
+            ? "next start"
+            : "remix-serve build"
+          : "vite preview",
     },
     dependencies: { ...facetDeps, ...frameworkDeps },
   };
@@ -133,7 +146,9 @@ export function mergePackageJson(
 }
 
 /** Read an existing package.json from a dir, or null if absent/invalid. */
-export function readExistingPackageJson(targetDir: string): PackageJsonShape | null {
+export function readExistingPackageJson(
+  targetDir: string,
+): PackageJsonShape | null {
   const p = path.join(targetDir, "package.json");
   if (!existsSync(p)) return null;
   try {

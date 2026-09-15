@@ -18,13 +18,20 @@ const PaginationContent = React.forwardRef<
   HTMLUListElement,
   React.HTMLAttributes<HTMLUListElement>
 >(({ className, ...props }, ref) => (
-  <ul ref={ref} className={cn("flex flex-row items-center gap-1.5", className)} {...props} />
+  <ul
+    ref={ref}
+    className={cn("flex flex-row items-center gap-1.5", className)}
+    {...props}
+  />
 ));
 PaginationContent.displayName = "PaginationContent";
 
-const PaginationItem = React.forwardRef<HTMLLIElement, React.LiHTMLAttributes<HTMLLIElement>>(
-  ({ className, ...props }, ref) => <li ref={ref} className={cn("", className)} {...props} />,
-);
+const PaginationItem = React.forwardRef<
+  HTMLLIElement,
+  React.LiHTMLAttributes<HTMLLIElement>
+>(({ className, ...props }, ref) => (
+  <li ref={ref} className={cn("", className)} {...props} />
+));
 PaginationItem.displayName = "PaginationItem";
 
 type PaginationLinkProps = {
@@ -32,7 +39,12 @@ type PaginationLinkProps = {
   size?: VariantProps<typeof buttonVariants>["size"];
 } & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
-const PaginationLink = ({ className, isActive, size = "icon", ...props }: PaginationLinkProps) => (
+const PaginationLink = ({
+  className,
+  isActive,
+  size = "icon",
+  ...props
+}: PaginationLinkProps) => (
   <a
     aria-current={isActive ? "page" : undefined}
     className={cn(
@@ -63,7 +75,10 @@ const PaginationPrevious = ({
 );
 PaginationPrevious.displayName = "PaginationPrevious";
 
-const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
+const PaginationNext = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to next page"
     size="default"
@@ -71,12 +86,19 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
     {...props}
   >
     <span>Next</span>
-    <Icon name="chevron-right" className="h-4 w-4 shrink-0" aria-hidden="true" />
+    <Icon
+      name="chevron-right"
+      className="h-4 w-4 shrink-0"
+      aria-hidden="true"
+    />
   </PaginationLink>
 );
 PaginationNext.displayName = "PaginationNext";
 
-const PaginationEllipsis = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => (
+const PaginationEllipsis = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) => (
   <span
     aria-hidden
     className={cn("flex h-9 w-9 items-center justify-center", className)}

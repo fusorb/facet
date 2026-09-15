@@ -36,7 +36,12 @@ export interface GuardProps {
 
 /* ── Component ─────────────────────────────────────────────── */
 
-export function Guard({ role, fallback = null, children, appearance }: GuardProps) {
+export function Guard({
+  role,
+  fallback = null,
+  children,
+  appearance,
+}: GuardProps) {
   const { user, isAuthenticated, isLoading } = useAuth();
 
   // Still loading auth state: render nothing or a skeleton
@@ -51,7 +56,9 @@ export function Guard({ role, fallback = null, children, appearance }: GuardProp
 
   // Role check: look through memberships for the required role
   if (role && user.memberships) {
-    const hasRole = user.memberships.some((m) => m.role === role || m.name === role);
+    const hasRole = user.memberships.some(
+      (m) => m.role === role || m.name === role,
+    );
     if (!hasRole) {
       return <>{fallback}</>;
     }

@@ -53,5 +53,5 @@ Three new ready-to-use surfaces in `@fusorb/facet-components`:
 - Three new dedicated pages that demo ready-to-use surfaces end-to-end:
   `/pricing` (BillingPage + BillingPageTable + BillingPageFreemium),
   `/security` (AccountSettingsPanel + SecuritySectionCard + ApiKeyManager
-  + TwoFactorSetupPanel + PasswordStrengthMeter), `/dashboard-demo`
-  (PageHeader + StatCard + ActivityFeed + BorderBeamCard + SpotlightCard).
+  - TwoFactorSetupPanel + PasswordStrengthMeter), `/dashboard-demo`
+    (PageHeader + StatCard + ActivityFeed + BorderBeamCard + SpotlightCard).

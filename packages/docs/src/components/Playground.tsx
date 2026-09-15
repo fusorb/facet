@@ -57,7 +57,9 @@ export function Playground({ controls, children, note }: PlaygroundProps) {
       )}
       <ThemePreviewFrame>{children}</ThemePreviewFrame>
       {note && (
-        <p className="border-t border-border px-4 py-2 text-xs text-muted-foreground">{note}</p>
+        <p className="border-t border-border px-4 py-2 text-xs text-muted-foreground">
+          {note}
+        </p>
       )}
     </div>
   );

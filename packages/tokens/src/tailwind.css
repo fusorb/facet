@@ -32,7 +32,7 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
 
-  /* ── Primary (indigo brand) ──────────────────────────────── */
+  /* ── Primary (Electric Cyan brand) ─────────────────────────── */
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
 
@@ -102,10 +102,10 @@
   --font-heading: var(--font-heading); /* Montserrat */
   --font-technical: var(--font-technical); /* Rajdhani */
 
-  /* ── Extra brand palette (arc-id compatibility) ──────────── */
+  /* ── Extra brand palette (SovGrant compatibility) ──────────── */
   --color-navy-900: oklch(0.18 0.03 234);
   --color-navy-950: oklch(0.12 0.03 234);
-  --color-indigo-glow: oklch(0.61 0.22 277);
+  --color-brand-glow: oklch(0.82 0.13 220);
 
   /* ── Animations (for Radix accordion etc.) ───────────────── */
   --animate-accordion-down: accordion-down 0.2s ease-out;
@@ -119,6 +119,8 @@
   --animate-facet-sparkle: facet-sparkle 0.7s ease-out;
   --animate-facet-dissolve: facet-dissolve 500ms ease-out both;
   --animate-facet-glow-pulse: facet-glow-pulse 2s ease-in-out infinite;
+  --animate-facet-overlay-in: facet-overlay-in 120ms ease-out both;
+  --animate-facet-overlay-out: facet-overlay-out 100ms ease-in both;
 }
 
 @keyframes accordion-down {
@@ -235,6 +237,24 @@
   }
 }
 
+@keyframes facet-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes facet-overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 /* ── Text + micro-interaction animations ─────────────────────── */
 @keyframes facet-text-blur {
   from {
@@ -312,9 +332,9 @@
   }
 }
 
-/* ── Custom utilities (arc-id compatibility) ──────────────────── */
+/* ── Custom utilities (SovGrant compatibility) ──────────────────── */
 @utility border-glow {
-  border-color: oklch(0.58 0.23 273 / 25%);
+  border-color: color-mix(in oklab, var(--primary) 25%, transparent);
 }
 
 /* ── Dark mode: [data-theme="dark"] and system default ────────── */

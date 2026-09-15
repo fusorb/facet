@@ -26,7 +26,9 @@ import type {
  * <ResizablePanelGroup>, so consumers never have to pass `orientation` on
  * both the group and the handle. The handle's prop still wins if supplied.
  */
-const OrientationContext = React.createContext<"horizontal" | "vertical">("horizontal");
+const OrientationContext = React.createContext<"horizontal" | "vertical">(
+  "horizontal",
+);
 
 /* ── helpers ─────────────────────────────────────────────── */
 
@@ -50,16 +52,17 @@ function normalizeSize(value: number | string | undefined): string | undefined {
 
 /* ── public types ─────────────────────────────────────────── */
 
-export interface ResizablePanelGroupProps
-  extends Omit<RrpGroupProps, "elementRef" | "orientation"> {
+export interface ResizablePanelGroupProps extends Omit<
+  RrpGroupProps,
+  "elementRef" | "orientation"
+> {
   orientation?: "horizontal" | "vertical";
 }
 
-export interface ResizablePanelProps
-  extends Omit<
-    RrpPanelProps,
-    "elementRef" | "defaultSize" | "minSize" | "maxSize" | "collapsedSize"
-  > {
+export interface ResizablePanelProps extends Omit<
+  RrpPanelProps,
+  "elementRef" | "defaultSize" | "minSize" | "maxSize" | "collapsedSize"
+> {
   /**
    * Preferred size of the panel.
    *
@@ -82,8 +85,10 @@ export interface ResizablePanelProps
   collapsedSize?: number | string;
 }
 
-export interface ResizableHandleProps
-  extends Omit<RrpSeparatorProps, "elementRef"> {
+export interface ResizableHandleProps extends Omit<
+  RrpSeparatorProps,
+  "elementRef"
+> {
   /** Render a visible grip icon on the separator. */
   withHandle?: boolean;
   /**
@@ -232,10 +237,7 @@ ResizablePanelGroup.displayName = "ResizablePanelGroup";
  * `orientation` to pick the correct grip icon and cursor.
  */
 const ResizableHandle = React.forwardRef<HTMLDivElement, ResizableHandleProps>(
-  (
-    { className, withHandle, orientation: orientationProp, ...props },
-    ref,
-  ) => {
+  ({ className, withHandle, orientation: orientationProp, ...props }, ref) => {
     const contextOrientation = React.useContext(OrientationContext);
     const orientation = orientationProp ?? contextOrientation;
     return (
@@ -252,9 +254,15 @@ const ResizableHandle = React.forwardRef<HTMLDivElement, ResizableHandleProps>(
       >
         {withHandle &&
           (orientation === "vertical" ? (
-            <Icon name="grip-horizontal" className="h-4 w-4 text-muted-foreground" />
+            <Icon
+              name="grip-horizontal"
+              className="h-4 w-4 text-muted-foreground"
+            />
           ) : (
-            <Icon name="grip-vertical" className="h-4 w-4 text-muted-foreground" />
+            <Icon
+              name="grip-vertical"
+              className="h-4 w-4 text-muted-foreground"
+            />
           ))}
       </RrpSeparator>
     );

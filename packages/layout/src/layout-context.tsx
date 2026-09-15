@@ -38,7 +38,9 @@ export function LayoutProvider({
   // Ref-tracked hover state so the sidebar doesn't flicker closed when the
   // mouse moves between the hamburger button and the sidebar content.
   const hoverRef = React.useRef(false);
-  const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
 
   const clearCloseTimer = React.useCallback(() => {
     if (closeTimerRef.current) {
@@ -136,17 +138,17 @@ export function LayoutProvider({
 
   // Per-section collapse state (sidebar group headers). Persisted so the
   // user's open/closed sections survive reloads. Absent key => open.
-  const [collapsedSections, setCollapsedSections] = React.useState<Record<string, boolean>>(
-    () => {
-      if (typeof window === "undefined") return {};
-      try {
-        const raw = window.localStorage.getItem(STORAGE_KEY_SECTIONS);
-        return raw ? (JSON.parse(raw) as Record<string, boolean>) : {};
-      } catch {
-        return {};
-      }
-    },
-  );
+  const [collapsedSections, setCollapsedSections] = React.useState<
+    Record<string, boolean>
+  >(() => {
+    if (typeof window === "undefined") return {};
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY_SECTIONS);
+      return raw ? (JSON.parse(raw) as Record<string, boolean>) : {};
+    } catch {
+      return {};
+    }
+  });
 
   const persistSections = React.useCallback((next: Record<string, boolean>) => {
     try {
@@ -167,21 +169,24 @@ export function LayoutProvider({
   // Accordion mode: open exactly one section, closing the rest.
   // The caller passes all known section ids so sections that haven't been
   // toggled yet (absent from prev) are still collapsed.
-  const openSection = React.useCallback((sectionId: string, sectionIds: string[] = []) => {
-    setCollapsedSections((prev) => {
-      const next: Record<string, boolean> = {};
-      // Preserve any sections not in the known list.
-      for (const key of Object.keys(prev)) {
-        next[key] = prev[key] ?? false;
-      }
-      // Collapse all known sections except the target.
-      for (const id of sectionIds) {
-        next[id] = id !== sectionId;
-      }
-      persistSections(next);
-      return next;
-    });
-  }, []);
+  const openSection = React.useCallback(
+    (sectionId: string, sectionIds: string[] = []) => {
+      setCollapsedSections((prev) => {
+        const next: Record<string, boolean> = {};
+        // Preserve any sections not in the known list.
+        for (const key of Object.keys(prev)) {
+          next[key] = prev[key] ?? false;
+        }
+        // Collapse all known sections except the target.
+        for (const id of sectionIds) {
+          next[id] = id !== sectionId;
+        }
+        persistSections(next);
+        return next;
+      });
+    },
+    [],
+  );
 
   // Collapse / expand every section at once. The caller passes the section
   // ids it knows about (the Sidebar owns config.navigation, so it has them).
@@ -267,7 +272,9 @@ export function LayoutProvider({
     ],
   );
 
-  return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>;
+  return (
+    <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>
+  );
 }
 
 export function useLayout(): LayoutContextValue {

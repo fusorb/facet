@@ -62,8 +62,13 @@ function ConsoleLayoutInner({
   singleOpen = false,
   children,
 }: ConsoleLayoutProps) {
-  const { sidebarOpen, setSidebarOpen, sidebarCollapsed, sidebarWidth, toggleSidebarCollapsed } =
-    useLayout();
+  const {
+    sidebarOpen,
+    setSidebarOpen,
+    sidebarCollapsed,
+    sidebarWidth,
+    toggleSidebarCollapsed,
+  } = useLayout();
   const isDesktop = useIsDesktop();
 
   // Ctrl/Cmd+B toggles the rail sidebar collapse (VS Code style). Ignored
@@ -111,7 +116,8 @@ function ConsoleLayoutInner({
     return <>{children}</>;
   }
 
-  const sidebarWidthPx = mode === "rail" && sidebarCollapsed ? 68 : sidebarWidth;
+  const sidebarWidthPx =
+    mode === "rail" && sidebarCollapsed ? 68 : sidebarWidth;
 
   // Click-outside (and Escape) closes the mobile sidebar.
   // The hamburger button is excluded via [data-mobile-trigger] so that
@@ -123,7 +129,11 @@ function ConsoleLayoutInner({
     const close = () => setSidebarOpenRef.current(false);
     const onPointerDown = (event: PointerEvent) => {
       const target = event.target as HTMLElement | null;
-      if (target?.closest("[data-sidebar]") || target?.closest("[data-mobile-trigger]")) return;
+      if (
+        target?.closest("[data-sidebar]") ||
+        target?.closest("[data-mobile-trigger]")
+      )
+        return;
       close();
     };
     const onKeyDown = (event: KeyboardEvent) => {
@@ -167,7 +177,8 @@ function ConsoleLayoutInner({
       )}
 
       {/* Main area */}
-      <div className="flex min-w-0 flex-1 flex-col transition-[padding] duration-200"
+      <div
+        className="flex min-w-0 flex-1 flex-col transition-[padding] duration-200"
         style={padLeft > 0 ? { paddingLeft: `${padLeft}px` } : undefined}
       >
         <Topbar

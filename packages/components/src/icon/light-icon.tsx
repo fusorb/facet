@@ -124,8 +124,8 @@ const SEMANTIC_LUCIDE: Record<string, LucideIcon> = {
   "fingerprint-pattern": FingerprintPattern,
   "alert-circle": AlertCircle,
   "external-link": ExternalLink,
-  "globe": Globe,
-  "store": Store,
+  globe: Globe,
+  store: Store,
 };
 
 const DIRECT: Record<string, IconComponent> = {

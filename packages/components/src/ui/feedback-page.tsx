@@ -20,8 +20,18 @@
 
 import * as React from "react";
 import { cn } from "../utils.js";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./card.js";
-import { AnimatedButton, type AnimatedButtonRenderProps, type AnimatedButtonVariant } from "./animated-button.js";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "./card.js";
+import {
+  AnimatedButton,
+  type AnimatedButtonRenderProps,
+  type AnimatedButtonVariant,
+} from "./animated-button.js";
 import { Label } from "./label.js";
 import { Input } from "./input.js";
 import { Textarea } from "./textarea.js";
@@ -90,7 +100,8 @@ export interface FeedbackPageProps extends React.HTMLAttributes<HTMLDivElement> 
 
 const defaultFeedbackCopy: FeedbackPageCopy = {
   formTitle: "Send feedback by email",
-  formDescription: "Opens your mail client addressed to {email}. We reply to every message.",
+  formDescription:
+    "Opens your mail client addressed to {email}. We reply to every message.",
   emailLabel: "Your email",
   emailPlaceholder: "you@company.com",
   subjectLabel: "Subject",
@@ -123,13 +134,18 @@ export function FeedbackPage({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const body = encodeURIComponent(`${message}\n\n(from ${emailValue || c.anonymous})`);
+    const body = encodeURIComponent(
+      `${message}\n\n(from ${emailValue || c.anonymous})`,
+    );
     const mailto = `mailto:${email}?subject=${encodeURIComponent(subject || `${subjectPrefix} ${title.toLowerCase()}`)}&body=${body}`;
     window.location.href = mailto;
   };
 
   return (
-    <div className={cn("mx-auto w-full max-w-3xl px-6 py-16", className)} {...props}>
+    <div
+      className={cn("mx-auto w-full max-w-3xl px-6 py-16", className)}
+      {...props}
+    >
       <div className="mb-8">
         {back && (
           <button
@@ -141,8 +157,12 @@ export function FeedbackPage({
             {back.label ?? "Back"}
           </button>
         )}
-        <h1 className="mt-4 font-heading text-4xl font-bold text-foreground">{title}</h1>
-        {description && <p className="mt-3 text-muted-foreground">{description}</p>}
+        <h1 className="mt-4 font-heading text-4xl font-bold text-foreground">
+          {title}
+        </h1>
+        {description && (
+          <p className="mt-3 text-muted-foreground">{description}</p>
+        )}
       </div>
 
       {/* Email form */}
@@ -215,7 +235,9 @@ export function FeedbackPage({
             >
               <Icon name="mail" className="size-5 text-primary" />
               <div>
-                <div className="text-sm font-medium text-foreground">{c.emailChannelLabel}</div>
+                <div className="text-sm font-medium text-foreground">
+                  {c.emailChannelLabel}
+                </div>
                 <div className="text-xs text-muted-foreground">{email}</div>
               </div>
             </a>
@@ -230,9 +252,13 @@ export function FeedbackPage({
             >
               <Icon name={channel.icon} className="size-5 text-primary" />
               <div>
-                <div className="text-sm font-medium text-foreground">{channel.label}</div>
+                <div className="text-sm font-medium text-foreground">
+                  {channel.label}
+                </div>
                 {channel.description && (
-                  <div className="text-xs text-muted-foreground">{channel.description}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {channel.description}
+                  </div>
                 )}
               </div>
             </a>

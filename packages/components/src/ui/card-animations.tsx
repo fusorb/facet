@@ -62,7 +62,8 @@ export function FlipCard({
   ...props
 }: FlipCardProps) {
   const [flipped, setFlipped] = React.useState(false);
-  const rotate = direction === "vertical" ? "rotateX(180deg)" : "rotateY(180deg)";
+  const rotate =
+    direction === "vertical" ? "rotateX(180deg)" : "rotateY(180deg)";
 
   return (
     <div
@@ -89,7 +90,11 @@ export function FlipCard({
       <div className={cn("relative h-full w-full", aspect)}>
         <div
           className="absolute inset-0 transition-transform"
-          style={{ transformStyle: "preserve-3d", transform: flipped ? rotate : "none", transitionDuration: `${duration}ms` }}
+          style={{
+            transformStyle: "preserve-3d",
+            transform: flipped ? rotate : "none",
+            transitionDuration: `${duration}ms`,
+          }}
         >
           {/* Front face: renders the `front` content prop (or fallback label). */}
           <div
@@ -98,9 +103,17 @@ export function FlipCard({
           >
             <Card className="flex h-full w-full flex-col items-center justify-center gap-3 overflow-hidden border-border bg-background p-6 text-center">
               {front ??
-                (icon && <Icon name={icon} className="size-10 text-primary" aria-label={iconLabel} />)}
+                (icon && (
+                  <Icon
+                    name={icon}
+                    className="size-10 text-primary"
+                    aria-label={iconLabel}
+                  />
+                ))}
               {front == null && frontLabel && (
-                <p className="text-sm font-medium text-muted-foreground">{frontLabel}</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  {frontLabel}
+                </p>
               )}
             </Card>
           </div>
@@ -110,7 +123,12 @@ export function FlipCard({
             style={{ WebkitBackfaceVisibility: "hidden", transform: rotate }}
           >
             <Card className="flex h-full w-full items-center justify-center overflow-hidden border-border bg-muted/30 p-6 text-center">
-              {back ?? (backLabel && <p className="text-sm font-medium text-muted-foreground">{backLabel}</p>)}
+              {back ??
+                (backLabel && (
+                  <p className="text-sm font-medium text-muted-foreground">
+                    {backLabel}
+                  </p>
+                ))}
             </Card>
           </div>
         </div>
@@ -196,7 +214,7 @@ export interface GradientBorderCardProps extends React.HTMLAttributes<HTMLDivEle
 
 /** A card with a static gradient border and a solid content surface. */
 export function GradientBorderCard({
-  colors = ["var(--primary, #6366f1)", "#d946ef", "#06b6d4"],
+  colors = ["var(--primary)", "#d946ef", "var(--alpha-electric-cyan)"],
   thickness = 1.5,
   className,
   children,
@@ -313,7 +331,8 @@ export function HoverScaleCard({
       style={{
         ...style,
         transform: hovered ? `scale(${scale})` : "none",
-        boxShadow: hovered && lift ? "0 12px 32px -12px rgb(0 0 0 / 0.25)" : undefined,
+        boxShadow:
+          hovered && lift ? "0 12px 32px -12px rgb(0 0 0 / 0.25)" : undefined,
         transitionDuration: `${duration}ms`,
       }}
       onMouseEnter={() => setHovered(true)}
@@ -355,7 +374,10 @@ export function MagneticCard({
     const dy = e.clientY - (r.top + r.height / 2);
     const dist = Math.hypot(dx, dy) || 1;
     const pull = Math.min(1, 200 / dist);
-    setOffset({ x: (dx / dist) * strength * pull, y: (dy / dist) * strength * pull });
+    setOffset({
+      x: (dx / dist) * strength * pull,
+      y: (dy / dist) * strength * pull,
+    });
   };
   const onLeave = () => setOffset({ x: 0, y: 0 });
   return (
@@ -363,7 +385,10 @@ export function MagneticCard({
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className={cn("w-full transition-transform duration-200 will-change-transform", className)}
+      className={cn(
+        "w-full transition-transform duration-200 will-change-transform",
+        className,
+      )}
       style={{ ...style, transform: `translate(${offset.x}px, ${offset.y}px)` }}
       {...props}
     >

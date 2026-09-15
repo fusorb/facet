@@ -21,8 +21,11 @@ export default function App() {
         </a>
       }
       links={[
-        { label: "About facet", href: "https://facet.arcevocirqle.com.ng", icon: "sparkles" },
-        { label: "GitHub", href: "https://github.com/fusorb/facet", icon: "github" },
+        {
+          label: "GitHub",
+          href: "https://github.com/fusorb/facet",
+          icon: "github",
+        },
       ]}
     />
   );

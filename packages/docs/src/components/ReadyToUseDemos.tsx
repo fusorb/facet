@@ -55,7 +55,11 @@ export function ColorPickerDemo() {
   const [color, setColor] = React.useState("#6366f1");
   return (
     <div className="not-prose space-y-3">
-      <ColorPicker value={color} onValueChange={setColor} label="Brand accent" />
+      <ColorPicker
+        value={color}
+        onValueChange={setColor}
+        label="Brand accent"
+      />
       <p className="text-sm text-muted-foreground">Selected: {color}</p>
     </div>
   );
@@ -65,14 +69,22 @@ const QR_BRAND_MARK =
   "https://raw.githubusercontent.com/github/explore/main/topics/github/github.png";
 
 export function QRCodeDemo() {
-  const [position, setPosition] = React.useState<"center" | "top-left" | "top-right" | "bottom-left" | "bottom-right">(
-    "center",
-  );
+  const [position, setPosition] = React.useState<
+    "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right"
+  >("center");
   return (
     <div className="not-prose space-y-6">
       <div className="flex flex-wrap items-end gap-6">
-        <QRCode value="https://facet.arcevocirqle.com.ng" size={140} label="facet docs QR code" />
-        <QRCode value="https://github.com/fusorb/facet" size={140} label="facet GitHub QR code" />
+        <QRCode
+          value="https://example.com"
+          size={140}
+          label="facet docs QR code"
+        />
+        <QRCode
+          value="https://github.com/fusorb/facet"
+          size={140}
+          label="facet GitHub QR code"
+        />
         <QRCode
           value="https://github.com/fusorb/facet"
           size={160}
@@ -83,8 +95,18 @@ export function QRCodeDemo() {
         />
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-sm font-medium text-foreground">Logo position:</span>
-        {(["center", "top-left", "top-right", "bottom-left", "bottom-right"] as const).map((pos) => (
+        <span className="text-sm font-medium text-foreground">
+          Logo position:
+        </span>
+        {(
+          [
+            "center",
+            "top-left",
+            "top-right",
+            "bottom-left",
+            "bottom-right",
+          ] as const
+        ).map((pos) => (
           <button
             key={pos}
             type="button"
@@ -101,15 +123,27 @@ export function QRCodeDemo() {
         ))}
       </div>
       <p className="text-sm text-muted-foreground">
-        Pass <code>logo</code> (any icon or brand image URL), <code>logoSize</code>, and{" "}
-        <code>logoPosition</code> to embed a brand mark in the QR code.
+        Pass <code>logo</code> (any icon or brand image URL),{" "}
+        <code>logoSize</code>, and <code>logoPosition</code> to embed a brand
+        mark in the QR code.
       </p>
     </div>
   );
 }
 
-export function MarqueeDemo({ variant = "loop" }: { variant?: "loop" | "strip" }) {
-  const items = ["facet", "auth", "design tokens", "React 19", "Radix", "TypeScript"];
+export function MarqueeDemo({
+  variant = "loop",
+}: {
+  variant?: "loop" | "strip";
+}) {
+  const items = [
+    "facet",
+    "auth",
+    "design tokens",
+    "React 19",
+    "Radix",
+    "TypeScript",
+  ];
   const content = items.map((label) => (
     <span
       key={label}
@@ -122,8 +156,10 @@ export function MarqueeDemo({ variant = "loop" }: { variant?: "loop" | "strip" }
     <div className="not-prose space-y-4">
       {variant === "strip" && (
         <p className="text-xs text-muted-foreground">
-          <code className="rounded bg-muted px-1.5 py-0.5">variant="strip"</code> -- continuous motion,
-          no pause-on-hover by default.
+          <code className="rounded bg-muted px-1.5 py-0.5">
+            variant="strip"
+          </code>{" "}
+          -- continuous motion, no pause-on-hover by default.
         </p>
       )}
       <Marquee
@@ -136,10 +172,28 @@ export function MarqueeDemo({ variant = "loop" }: { variant?: "loop" | "strip" }
 }
 
 const ROADMAP_ITEMS: RoadmapItem[] = [
-  { title: "Auth presets", description: "Fintech, med, edu, enterprise", status: "done", date: "v1.0" },
-  { title: "Passkey support", description: "WebAuthn across presets", status: "in-progress" },
-  { title: "SAML/OIDC SSO", description: "Enterprise identity providers", status: "planned" },
-  { title: "Collaborative canvas", description: "Multiplayer docs canvas", status: "planned", date: "later" },
+  {
+    title: "Auth presets",
+    description: "Fintech, med, edu, enterprise",
+    status: "done",
+    date: "v1.0",
+  },
+  {
+    title: "Passkey support",
+    description: "WebAuthn across presets",
+    status: "in-progress",
+  },
+  {
+    title: "SAML/OIDC SSO",
+    description: "Enterprise identity providers",
+    status: "planned",
+  },
+  {
+    title: "Collaborative canvas",
+    description: "Multiplayer docs canvas",
+    status: "planned",
+    date: "later",
+  },
 ];
 
 export function RoadmapDemo() {
@@ -167,7 +221,12 @@ export function FormDemo() {
         <FormField name="name" label="Name" required>
           <Input placeholder="Ada Lovelace" />
         </FormField>
-        <FormField name="email" label="Email" required description="We never share it.">
+        <FormField
+          name="email"
+          label="Email"
+          required
+          description="We never share it."
+        >
           <Input placeholder="ada@example.com" type="email" />
         </FormField>
         <Button type="submit">Submit</Button>
@@ -186,11 +245,36 @@ interface DemoRow extends Record<string, unknown> {
 
 const DEMO_ROWS: DemoRow[] = [
   { id: "1", name: "Ada Lovelace", email: "ada@example.com", role: "Admin" },
-  { id: "2", name: "Grace Hopper", email: "grace@example.com", role: "Engineer" },
-  { id: "3", name: "Linus Torvalds", email: "linus@example.com", role: "Maintainer" },
-  { id: "4", name: "Katherine Johnson", email: "katherine@example.com", role: "Scientist" },
-  { id: "5", name: "Alan Turing", email: "alan@example.com", role: "Researcher" },
-  { id: "6", name: "Margaret Hamilton", email: "margaret@example.com", role: "Engineer" },
+  {
+    id: "2",
+    name: "Grace Hopper",
+    email: "grace@example.com",
+    role: "Engineer",
+  },
+  {
+    id: "3",
+    name: "Linus Torvalds",
+    email: "linus@example.com",
+    role: "Maintainer",
+  },
+  {
+    id: "4",
+    name: "Katherine Johnson",
+    email: "katherine@example.com",
+    role: "Scientist",
+  },
+  {
+    id: "5",
+    name: "Alan Turing",
+    email: "alan@example.com",
+    role: "Researcher",
+  },
+  {
+    id: "6",
+    name: "Margaret Hamilton",
+    email: "margaret@example.com",
+    role: "Engineer",
+  },
 ];
 
 const DEMO_COLUMNS: DataTableColumn<DemoRow>[] = [
@@ -236,8 +320,14 @@ export function DatePickerDemo() {
         <DatePicker label="Due date" value={date} onValueChange={setDate} />
       </div>
       <div className="max-w-md">
-        <p className="mb-2 text-sm font-medium text-foreground">Horizontal scroll strip</p>
-        <DatePicker label="Pick a day" scrollMode="horizontal" horizontalDays={14} />
+        <p className="mb-2 text-sm font-medium text-foreground">
+          Horizontal scroll strip
+        </p>
+        <DatePicker
+          label="Pick a day"
+          scrollMode="horizontal"
+          horizontalDays={14}
+        />
       </div>
     </div>
   );
@@ -248,7 +338,13 @@ export function NumberInputDemo() {
   const [currency, setCurrency] = React.useState("$");
   return (
     <div className="not-prose max-w-md space-y-6">
-      <NumberInput label="Quantity" value={count} onValueChange={setCount} min={0} max={10} />
+      <NumberInput
+        label="Quantity"
+        value={count}
+        onValueChange={setCount}
+        min={0}
+        max={10}
+      />
       <NumberInput
         label="Price"
         value={count}
@@ -306,16 +402,20 @@ export function LocationPickerDemo() {
         value={location}
         onValueChange={setLocation}
         showLocality
-        placeholders={{ region: "Select state / region", locality: "Select LGA (optional)" }}
+        placeholders={{
+          region: "Select state / region",
+          locality: "Select LGA (optional)",
+        }}
       />
       <p className="text-sm text-muted-foreground">
         Location:{" "}
-        {[location.country, location.region, location.locality].filter(Boolean).join(" / ") ||
-          "not set"}
+        {[location.country, location.region, location.locality]
+          .filter(Boolean)
+          .join(" / ") || "not set"}
       </p>
       <p className="text-xs text-muted-foreground">
-        The region label adapts to the country (state, county, province, emirate...), and every
-        level has a search box to filter long lists.
+        The region label adapts to the country (state, county, province,
+        emirate...), and every level has a search box to filter long lists.
       </p>
     </div>
   );
@@ -337,7 +437,11 @@ export function PasswordInputDemo() {
   const [password, setPassword] = React.useState("hunter2");
   return (
     <div className="not-prose max-w-md space-y-6">
-      <PasswordInput label="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <PasswordInput
+        label="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <p className="text-sm text-muted-foreground">Value: {password}</p>
     </div>
   );

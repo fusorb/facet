@@ -3,19 +3,40 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Button } from "./ui/button.js";
 import { Badge } from "./ui/badge.js";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card.js";
-import { Navbar, type NavLink } from "./ui/navbar.js";
-import { NotificationDrawer, type Notification } from "./ui/notification-drawer.js";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion.js";
-import { Dialog, DialogContent } from "./ui/dialog.js";
-import { BlurText, GradientText, SplitText, CountUpText, WaveText } from "./ui/text-animations.js";
-import { RippleButton, MagneticButton, ScrollReveal, TiltCard } from "./ui/micro-interactions.js";
-import { AnimatedButton } from "./ui/animated-button.js";
 import {
-  Alert,
-  AlertTitle,
-  AlertDescription,
-} from "./ui/alert.js";
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card.js";
+import { Navbar, type NavLink } from "./ui/navbar.js";
+import {
+  NotificationDrawer,
+  type Notification,
+} from "./ui/notification-drawer.js";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion.js";
+import { Dialog, DialogContent } from "./ui/dialog.js";
+import {
+  BlurText,
+  GradientText,
+  SplitText,
+  CountUpText,
+  WaveText,
+} from "./ui/text-animations.js";
+import {
+  RippleButton,
+  MagneticButton,
+  ScrollReveal,
+  TiltCard,
+} from "./ui/micro-interactions.js";
+import { AnimatedButton } from "./ui/animated-button.js";
+import { Alert, AlertTitle, AlertDescription } from "./ui/alert.js";
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -35,26 +56,56 @@ import {
   MenubarContent,
   MenubarItem,
 } from "./ui/menubar.js";
-import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } from "./ui/context-menu.js";
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "./ui/hover-card.js";
+import {
+  ContextMenu,
+  ContextMenuTrigger,
+  ContextMenuContent,
+  ContextMenuItem,
+} from "./ui/context-menu.js";
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "./ui/hover-card.js";
 import { Kbd } from "./ui/kbd.js";
 import { Spinner } from "./ui/spinner.js";
 import { EmptyState } from "./ui/empty-state.js";
 import { ButtonGroup } from "./ui/button-group.js";
 import { AvatarGroup } from "./ui/avatar-group.js";
 import { Combobox } from "./ui/combobox.js";
-import { scorePassword, levelFromScore, type PasswordStrengthLevel } from "./ui/password-strength-meter.js";
+import {
+  scorePassword,
+  levelFromScore,
+  type PasswordStrengthLevel,
+} from "./ui/password-strength-meter.js";
 import { PasswordStrengthMeter } from "./ui/password-strength-meter.js";
 import { relativeTime, dayLabel } from "./ui/activity-feed.js";
 import { FlipCard } from "./ui/card-animations.js";
 import { AnnouncementBar } from "./ui/announcement-bar.js";
 import { StatCard } from "./ui/stat-card.js";
 import { AspectRatio } from "./ui/aspect-ratio.js";
-import { Carousel, CarouselContent, CarouselDots, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel.js";
-import { Drawer, DrawerTrigger, DrawerContent, DrawerTitle, DrawerDescription } from "./ui/drawer.js";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselDots,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./ui/carousel.js";
+import {
+  Drawer,
+  DrawerTrigger,
+  DrawerContent,
+  DrawerTitle,
+  DrawerDescription,
+} from "./ui/drawer.js";
 import { InputGroup, InputGroupAddon } from "./ui/input-group.js";
 import { Input } from "./ui/input.js";
-import { ResizablePanelGroup, ResizableHandle, ResizablePanel } from "./ui/resizable.js";
+import {
+  ResizablePanelGroup,
+  ResizableHandle,
+  ResizablePanel,
+} from "./ui/resizable.js";
 
 describe("Button", () => {
   it("renders children", () => {
@@ -99,13 +150,17 @@ describe("Badge", () => {
   });
 
   it("renders an optional leading icon", () => {
-    const { container } = render(<Badge icon={<span data-testid="icon">*</span>}>New</Badge>);
+    const { container } = render(
+      <Badge icon={<span data-testid="icon">*</span>}>New</Badge>,
+    );
     expect(screen.getByText("New")).toBeInTheDocument();
     expect(container.querySelector("[data-testid=icon]")).toBeInTheDocument();
   });
 
   it("renders icon-only when iconOnly is set", () => {
-    const { container } = render(<Badge iconOnly icon={<span data-testid="icon">*</span>} />);
+    const { container } = render(
+      <Badge iconOnly icon={<span data-testid="icon">*</span>} />,
+    );
     expect(container.querySelector("[data-testid=icon]")).toBeInTheDocument();
     expect(container.querySelector("div")).toHaveClass("size-6");
   });
@@ -243,7 +298,10 @@ describe("Navbar", () => {
   it("renders brand and desktop links", () => {
     render(<Navbar brand={<span>Acme</span>} links={links} />);
     expect(screen.getByText("Acme")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /dashboard/i })).toHaveAttribute("href", "/dashboard");
+    expect(screen.getByRole("link", { name: /dashboard/i })).toHaveAttribute(
+      "href",
+      "/dashboard",
+    );
     expect(screen.getByText("Settings")).toBeInTheDocument();
   });
 
@@ -264,15 +322,15 @@ describe("Navbar", () => {
 
   it("toggles the mobile menu", async () => {
     render(<Navbar brand="Acme" links={links} />);
-  
+
     const toggle = screen.getByRole("button", { name: /toggle menu/i });
     // Desktop links are rendered but hidden; mobile menu starts closed
     expect(screen.getAllByText("Settings").length).toBe(1);
-  
+
     await userEvent.click(toggle);
     // Mobile menu adds a duplicate of the links
     expect(screen.getAllByText("Settings").length).toBe(2);
-  
+
     await userEvent.click(toggle);
     expect(screen.getAllByText("Settings").length).toBe(1);
   });
@@ -301,7 +359,9 @@ describe("Navbar", () => {
 
     // Click outside the navbar (on document.body)
     await userEvent.click(document.body);
-    expect(screen.queryByRole("button", { name: /close menu/i })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /close menu/i }),
+    ).not.toBeInTheDocument();
     expect(screen.getAllByText("Settings").length).toBe(1);
   });
 
@@ -333,13 +393,17 @@ describe("Navbar", () => {
     expect(onNavigate).toHaveBeenCalledWith("/product/pricing");
   });
 
-  it("applies frosted-glass pill classes when variant is pill", () => {
-    const { container } = render(<Navbar variant="pill" brand="Acme" links={links} />);
+  it("applies a flush glass header when variant is pill", () => {
+    const { container } = render(
+      <Navbar variant="pill" brand="Acme" links={links} />,
+    );
     const nav = container.querySelector("nav");
-    // Pill is mobile-first: floating rounded bar applies from md up
-    expect(nav).toHaveClass("md:rounded-full");
-    expect(nav).toHaveClass("backdrop-blur-xl");
+    // Full-width glass header at rest; the surface only intensifies once
+    // stuck (data-stuck), keeping the bar part of the body.
     expect(nav).toHaveClass("sticky");
+    expect(nav).toHaveClass("border-border/40");
+    expect(nav).toHaveClass("bg-background/60");
+    expect(nav).toHaveClass("backdrop-blur-xl");
   });
 
   it("supports a custom mobileBreakpoint", () => {
@@ -348,7 +412,9 @@ describe("Navbar", () => {
     );
     const nav = container.querySelector("nav");
     const tray = container.querySelector("nav > div:nth-of-type(2)");
-    const hamburger = container.querySelector("nav > div:nth-of-type(3) > button");
+    const hamburger = container.querySelector(
+      "nav > div:nth-of-type(3) > button",
+    );
     // Desktop links wait for lg; hamburger hides at lg
     expect(tray).toHaveClass("lg:flex");
     expect(hamburger).toHaveClass("lg:hidden");
@@ -356,11 +422,14 @@ describe("Navbar", () => {
     expect(nav).not.toHaveClass("md:flex");
   });
 
-  it("renders a segmented tray for pill links", () => {
-    const { container } = render(<Navbar variant="pill" brand="Acme" links={links} />);
+  it("renders a flat link tray for pill links", () => {
+    const { container } = render(
+      <Navbar variant="pill" brand="Acme" links={links} />,
+    );
     const tray = container.querySelector("nav > div:nth-of-type(2)");
-    expect(tray).toHaveClass("rounded-full");
-    expect(tray).toHaveClass("bg-muted/40");
+    expect(tray).toHaveClass("gap-1");
+    expect(tray).not.toHaveClass("rounded-full");
+    expect(tray).not.toHaveClass("bg-muted/40");
   });
 
   it("marks a hash link active when the hash matches", () => {
@@ -401,7 +470,9 @@ describe("Navbar", () => {
     );
 
     // Actions render in the pill bar
-    expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /sign in/i }),
+    ).toBeInTheDocument();
 
     // Badge renders next to the label
     expect(screen.getByText("5")).toBeInTheDocument();
@@ -416,7 +487,13 @@ describe("Navbar", () => {
 
 describe("NotificationDrawer", () => {
   const notifications: Notification[] = [
-    { id: "1", title: "New sign-in", description: "From Lagos", read: false, type: "warning" },
+    {
+      id: "1",
+      title: "New sign-in",
+      description: "From Lagos",
+      read: false,
+      type: "warning",
+    },
     { id: "2", title: "Payment received", read: true, type: "success" },
   ];
 
@@ -435,7 +512,12 @@ describe("NotificationDrawer", () => {
 
   it("marks all read via callback", async () => {
     const onMarkAllRead = vi.fn();
-    render(<NotificationDrawer notifications={notifications} onMarkAllRead={onMarkAllRead} />);
+    render(
+      <NotificationDrawer
+        notifications={notifications}
+        onMarkAllRead={onMarkAllRead}
+      />,
+    );
 
     await userEvent.click(screen.getByRole("button"));
     await userEvent.click(await screen.findByText(/mark all/i));
@@ -445,10 +527,17 @@ describe("NotificationDrawer", () => {
 
   it("reveals a selection checkbox on hover and bulk-acts via onMarkReadMany", async () => {
     const onMarkReadMany = vi.fn();
-    render(<NotificationDrawer notifications={notifications} onMarkReadMany={onMarkReadMany} />);
+    render(
+      <NotificationDrawer
+        notifications={notifications}
+        onMarkReadMany={onMarkReadMany}
+      />,
+    );
 
     await userEvent.click(screen.getByRole("button"));
-    const checkbox = await screen.findByRole("checkbox", { name: /select new sign-in/i });
+    const checkbox = await screen.findByRole("checkbox", {
+      name: /select new sign-in/i,
+    });
     await userEvent.click(checkbox);
 
     // Bulk bar appears with the count.
@@ -459,10 +548,14 @@ describe("NotificationDrawer", () => {
 
   it("falls back to per-item onDelete when no bulk callback is wired", async () => {
     const onDelete = vi.fn();
-    render(<NotificationDrawer notifications={notifications} onDelete={onDelete} />);
+    render(
+      <NotificationDrawer notifications={notifications} onDelete={onDelete} />,
+    );
 
     await userEvent.click(screen.getByRole("button"));
-    const checkbox = await screen.findByRole("checkbox", { name: /select new sign-in/i });
+    const checkbox = await screen.findByRole("checkbox", {
+      name: /select new sign-in/i,
+    });
     await userEvent.click(checkbox);
 
     await userEvent.click(screen.getByRole("button", { name: /^delete$/i }));
@@ -470,10 +563,17 @@ describe("NotificationDrawer", () => {
   });
 
   it("clears selection when the drawer closes", async () => {
-    render(<NotificationDrawer notifications={notifications} onMarkReadMany={vi.fn()} />);
+    render(
+      <NotificationDrawer
+        notifications={notifications}
+        onMarkReadMany={vi.fn()}
+      />,
+    );
 
     await userEvent.click(screen.getByRole("button"));
-    const checkbox = await screen.findByRole("checkbox", { name: /select new sign-in/i });
+    const checkbox = await screen.findByRole("checkbox", {
+      name: /select new sign-in/i,
+    });
     await userEvent.click(checkbox);
     expect(screen.getByText("1 selected")).toBeInTheDocument();
 
@@ -516,7 +616,9 @@ describe("AlertDialog", () => {
         <AlertDialogTrigger>Delete</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogTitle>Confirm delete</AlertDialogTitle>
-          <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
+          <AlertDialogDescription>
+            This cannot be undone.
+          </AlertDialogDescription>
         </AlertDialogContent>
       </AlertDialog>,
     );
@@ -537,7 +639,9 @@ describe("AlertDialog", () => {
       </AlertDialog>,
     );
     await userEvent.click(screen.getByRole("button", { name: /open/i }));
-    await userEvent.click(await screen.findByRole("button", { name: /confirm/i }));
+    await userEvent.click(
+      await screen.findByRole("button", { name: /confirm/i }),
+    );
     expect(onAction).toHaveBeenCalledTimes(1);
   });
 
@@ -552,7 +656,9 @@ describe("AlertDialog", () => {
       </AlertDialog>,
     );
     await userEvent.click(screen.getByRole("button", { name: /open/i }));
-    await userEvent.click(await screen.findByRole("button", { name: /cancel/i }));
+    await userEvent.click(
+      await screen.findByRole("button", { name: /cancel/i }),
+    );
     expect(screen.queryByText("Title")).not.toBeInTheDocument();
   });
 });
@@ -698,7 +804,9 @@ describe("EmptyState", () => {
     expect(screen.getByText("No results")).toBeInTheDocument();
     expect(screen.getByText("Try adjusting your search.")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /reset/i })).toBeInTheDocument();
-    expect(container.querySelector("[data-testid=empty-icon]")).toBeInTheDocument();
+    expect(
+      container.querySelector("[data-testid=empty-icon]"),
+    ).toBeInTheDocument();
   });
 });
 
@@ -751,7 +859,13 @@ describe("Combobox", () => {
 
   it("opens and shows options, then selects one", async () => {
     const onValueChange = vi.fn();
-    render(<Combobox options={options} onValueChange={onValueChange} placeholder="Select country" />);
+    render(
+      <Combobox
+        options={options}
+        onValueChange={onValueChange}
+        placeholder="Select country"
+      />,
+    );
     await userEvent.click(screen.getByRole("combobox"));
     expect(await screen.findByText("Nigeria")).toBeInTheDocument();
     await userEvent.click(screen.getByText("Nigeria"));
@@ -838,14 +952,20 @@ describe("AnimatedButton", () => {
   });
 
   it("forwards type=submit", () => {
-    const { container } = render(<AnimatedButton type="submit">Submit</AnimatedButton>);
+    const { container } = render(
+      <AnimatedButton type="submit">Submit</AnimatedButton>,
+    );
     expect(container.querySelector("button")).toHaveAttribute("type", "submit");
   });
 
   it("renders a custom button via renderButton", () => {
     const { container } = render(
       <AnimatedButton
-        renderButton={(props) => <button data-custom="1" {...props}>Custom</button>}
+        renderButton={(props) => (
+          <button data-custom="1" {...props}>
+            Custom
+          </button>
+        )}
       >
         Custom
       </AnimatedButton>,
@@ -918,7 +1038,9 @@ describe("dayLabel", () => {
 
 describe("FlipCard", () => {
   it("renders front and back content", () => {
-    const { container } = render(<FlipCard front={<p>Front</p>} back={<p>Back</p>} />);
+    const { container } = render(
+      <FlipCard front={<p>Front</p>} back={<p>Back</p>} />,
+    );
     expect(container.textContent).toContain("Front");
     expect(container.textContent).toContain("Back");
   });
@@ -929,7 +1051,9 @@ describe("FlipCard", () => {
 describe("AnnouncementBar", () => {
   it("renders children and a dismiss button", () => {
     const { container } = render(
-      <AnnouncementBar storageKey="facet-test-announcement-1">Hello</AnnouncementBar>,
+      <AnnouncementBar storageKey="facet-test-announcement-1">
+        Hello
+      </AnnouncementBar>,
     );
     expect(container.textContent).toContain("Hello");
     expect(screen.getByLabelText("Dismiss announcement")).toBeInTheDocument();
@@ -937,7 +1061,9 @@ describe("AnnouncementBar", () => {
 
   it("dismisses on close click", () => {
     const { container } = render(
-      <AnnouncementBar storageKey="facet-test-announcement-2">Hello</AnnouncementBar>,
+      <AnnouncementBar storageKey="facet-test-announcement-2">
+        Hello
+      </AnnouncementBar>,
     );
     fireEvent.click(screen.getByLabelText("Dismiss announcement"));
     expect(container.textContent).not.toContain("Hello");
@@ -956,7 +1082,9 @@ describe("StatCard", () => {
   it("formats positive and negative deltas", () => {
     const { container } = render(<StatCard label="R" value="1" delta={12.4} />);
     expect(container.textContent).toContain("+12.4%");
-    const { container: c2 } = render(<StatCard label="C" value="1" delta={-0.4} />);
+    const { container: c2 } = render(
+      <StatCard label="C" value="1" delta={-0.4} />,
+    );
     expect(c2.textContent).toContain("-0.4%");
   });
 });

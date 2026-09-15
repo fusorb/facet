@@ -14,9 +14,24 @@ export default defineConfig({
       // Resolve facet packages to source during dev so the landing app
       // always reflects the latest component refinements - no stale
       // dist rebuild needed.
-      { find: /^@fusorb\/facet-components\/light$/, replacement: resolve(__dirname, "../../packages/components/src/light.ts") },
-      { find: /^@fusorb\/facet-components$/, replacement: resolve(__dirname, "../../packages/components/src/index.ts") },
-      { find: /^@fusorb\/facet-layout$/, replacement: resolve(__dirname, "../../packages/layout/src/index.ts") },
+      {
+        find: /^@fusorb\/facet-components\/light$/,
+        replacement: resolve(
+          __dirname,
+          "../../packages/components/src/light.ts",
+        ),
+      },
+      {
+        find: /^@fusorb\/facet-components$/,
+        replacement: resolve(
+          __dirname,
+          "../../packages/components/src/index.ts",
+        ),
+      },
+      {
+        find: /^@fusorb\/facet-layout$/,
+        replacement: resolve(__dirname, "../../packages/layout/src/index.ts"),
+      },
     ],
   },
 });

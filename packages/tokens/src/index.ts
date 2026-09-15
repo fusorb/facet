@@ -1,5 +1,5 @@
 /**
- * @fusorb/facet-tokens: Design tokens for the Arcevo ecosystem
+ * @fusorb/facet-tokens: Design tokens
  *
  * Single source of truth for the Alpha Palette, typography scale,
  * spacing system, and sub-brand accent colors.
@@ -23,5 +23,5 @@ export type {
   SubBrand,
   SubBrandKey,
   SubBrands,
-  ArcevoTokens,
+  FacetTokens,
 } from "./types";

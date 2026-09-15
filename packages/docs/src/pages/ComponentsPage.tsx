@@ -139,7 +139,9 @@ export function ComponentsPage() {
     <article>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="font-heading text-3xl font-bold text-foreground">Components</h1>
+          <h1 className="font-heading text-3xl font-bold text-foreground">
+            Components
+          </h1>
           <p className="mt-2 text-muted-foreground">
             {query.trim()
               ? `${components.length} of ${allComponents.length} components match your search.`
@@ -271,10 +273,16 @@ export function ComponentsPage() {
 
       {components.length === 0 && (
         <div className="mt-10 flex flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border px-6 py-16 text-center">
-          <LightIcon name="search" className="size-8 text-muted-foreground/40" />
-          <h3 className="text-base font-semibold text-foreground">No components found</h3>
+          <LightIcon
+            name="search"
+            className="size-8 text-muted-foreground/40"
+          />
+          <h3 className="text-base font-semibold text-foreground">
+            No components found
+          </h3>
           <p className="max-w-sm text-sm text-muted-foreground">
-            Nothing matches "{query.trim()}". Try a different name, slug, or category.
+            Nothing matches "{query.trim()}". Try a different name, slug, or
+            category.
           </p>
           <button
             type="button"
@@ -328,7 +336,9 @@ export function ComponentsPage() {
                   event.preventDefault();
                   if (page < totalPages) setPage(page + 1);
                 }}
-                className={page === totalPages ? "pointer-events-none opacity-40" : ""}
+                className={
+                  page === totalPages ? "pointer-events-none opacity-40" : ""
+                }
               />
             </PaginationItem>
           </PaginationContent>
@@ -367,9 +377,13 @@ function ComponentCard({
           className="flex w-full items-center justify-between gap-3 border-b border-border bg-muted/30 px-4 py-3 text-left transition-colors hover:bg-muted/60"
         >
           <span className="min-w-0">
-            <span className="block truncate font-semibold text-foreground">{name}</span>
+            <span className="block truncate font-semibold text-foreground">
+              {name}
+            </span>
             {description && (
-              <span className="block truncate text-sm text-muted-foreground">{description}</span>
+              <span className="block truncate text-sm text-muted-foreground">
+                {description}
+              </span>
             )}
           </span>
           <LightIcon
@@ -416,7 +430,9 @@ function ComponentListRow({
       <span className="min-w-0">
         <span className="block font-semibold text-foreground">{name}</span>
         {description && (
-          <span className="block truncate text-sm text-muted-foreground">{description}</span>
+          <span className="block truncate text-sm text-muted-foreground">
+            {description}
+          </span>
         )}
       </span>
       <span className="shrink-0 text-sm font-medium text-primary">View →</span>

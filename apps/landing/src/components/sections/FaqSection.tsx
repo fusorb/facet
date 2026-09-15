@@ -1,16 +1,30 @@
 import { Link } from "react-router-dom";
-import { FaqSection as FacetFaqSection } from "@fusorb/facet-components";
+import {
+  FaqSection as FacetFaqSection,
+  Pill,
+} from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { FAQ } from "../data/features.js";
-import { getDocsUrl } from "../lib/docs-url.js";
+import { FAQ } from "../../data/features.js";
+import { getDocsUrl } from "../../site.config.js";
 
 export function FaqSection() {
   return (
     <FacetFaqSection
       items={FAQ}
-      title="FAQ"
+      tag={
+        <Pill
+          color="primary"
+          indicator="icon"
+          icon={<LightIcon name="circle-question-mark" size={12} />}
+        >
+          FAQ
+        </Pill>
+      }
+      title="Frequently Asked Questions"
       description="Quick answers to the questions consumers ask most."
+      align="center"
       type="single"
+      limit={6}
       id="faq"
       className="mx-auto max-w-3xl px-8 py-24"
     >
@@ -20,7 +34,7 @@ export function FaqSection() {
           href={getDocsUrl()}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+          className="inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-primary hover:underline"
         >
           <LightIcon name="book-open" className="size-4" />
           Explore the docs for a deeper view
@@ -28,7 +42,7 @@ export function FaqSection() {
         <span className="hidden h-4 w-px bg-border sm:block" />
         <Link
           to="/feedback"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-foreground/80 hover:text-foreground"
+          className="inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-foreground/80 hover:text-foreground"
         >
           <LightIcon name="message-square" className="size-4" />
           Drop feedback or contact the maintainers

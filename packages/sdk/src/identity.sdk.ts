@@ -2,7 +2,7 @@
  * Identity SDK: Profile, admin, devices, linked accounts, external IDs,
  * delegations, onboarding, wallet DID
  *
- * arc-id paths: /identity/*
+ * SovGrant paths: /identity/*
  */
 
 import { ArcIdClient } from "./client.js";
@@ -37,7 +37,9 @@ export class IdentitySdk {
     if (params?.page) qs.set("page", String(params.page));
     if (params?.limit) qs.set("limit", String(params.limit));
     const q = qs.toString();
-    return this.client.get<Paginated<User>>(`/identity/admin${q ? `?${q}` : ""}`);
+    return this.client.get<Paginated<User>>(
+      `/identity/admin${q ? `?${q}` : ""}`,
+    );
   }
 
   suspend(id: string, reason?: string): Promise<ApiResponse<void>> {
@@ -93,7 +95,10 @@ export class IdentitySdk {
     return this.client.get<ExternalId[]>("/identity/external-ids");
   }
 
-  linkExternalId(data: { provider: string; externalId: string }): Promise<ApiResponse<void>> {
+  linkExternalId(data: {
+    provider: string;
+    externalId: string;
+  }): Promise<ApiResponse<void>> {
     return this.client.post<void>("/identity/external-ids", data);
   }
 
@@ -122,11 +127,17 @@ export class IdentitySdk {
   /* ── Onboarding ────────────────────────────────────────── */
 
   startOnboarding(flowId: string): Promise<ApiResponse<OnboardingSession>> {
-    return this.client.post<OnboardingSession>("/identity/onboarding/start", { flowId });
+    return this.client.post<OnboardingSession>("/identity/onboarding/start", {
+      flowId,
+    });
   }
 
-  getOnboardingProgress(progressId: string): Promise<ApiResponse<OnboardingSession>> {
-    return this.client.get<OnboardingSession>(`/identity/onboarding/${progressId}`);
+  getOnboardingProgress(
+    progressId: string,
+  ): Promise<ApiResponse<OnboardingSession>> {
+    return this.client.get<OnboardingSession>(
+      `/identity/onboarding/${progressId}`,
+    );
   }
 
   advanceOnboarding(
@@ -134,10 +145,13 @@ export class IdentitySdk {
     stepId: string,
     data?: JsonObject,
   ): Promise<ApiResponse<OnboardingSession>> {
-    return this.client.post<OnboardingSession>(`/identity/onboarding/${progressId}/advance`, {
-      stepId,
-      ...data,
-    });
+    return this.client.post<OnboardingSession>(
+      `/identity/onboarding/${progressId}/advance`,
+      {
+        stepId,
+        ...data,
+      },
+    );
   }
 
   /* ── Wallet DID ────────────────────────────────────────── */

@@ -20,7 +20,14 @@ import { toTemplateTree } from "./react.js";
 import { renderEmail } from "./render.js";
 import type { RenderOptions } from "./render.js";
 
-export { renderEmail, renderEmailText, createElement, type TemplateNode, type RenderOptions, type EmailBrand } from "./render.js";
+export {
+  renderEmail,
+  renderEmailText,
+  createElement,
+  type TemplateNode,
+  type RenderOptions,
+  type EmailBrand,
+} from "./render.js";
 
 export { toTemplateTree } from "./react.js";
 

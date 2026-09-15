@@ -11,17 +11,49 @@ import {
 import { resolveFacetVersions } from "./registry.js";
 
 const FRAMEWORKS: { value: Framework; label: string; hint?: string }[] = [
-  { value: "react-vite", label: "React + Vite", hint: "full docs app (recommended)" },
-  { value: "next", label: "Next.js", hint: "app route at /docs (real Next scaffold)" },
-  { value: "remix", label: "Remix", hint: "route at /docs (real Remix scaffold)" },
-  { value: "plain-js", label: "Plain JS / Markdown", hint: "pages registry + content pipeline, no React shell" },
-  { value: "python", label: "Python", hint: "markdown content pipeline -> pages.json" },
+  {
+    value: "react-vite",
+    label: "React + Vite",
+    hint: "full docs app (recommended)",
+  },
+  {
+    value: "next",
+    label: "Next.js",
+    hint: "app route at /docs (real Next scaffold)",
+  },
+  {
+    value: "remix",
+    label: "Remix",
+    hint: "route at /docs (real Remix scaffold)",
+  },
+  {
+    value: "plain-js",
+    label: "Plain JS / Markdown",
+    hint: "pages registry + content pipeline, no React shell",
+  },
+  {
+    value: "python",
+    label: "Python",
+    hint: "markdown content pipeline -> pages.json",
+  },
 ];
 
 const TEMPLATES = [
-  { value: "component-library", label: "Component library", hint: "pages per component (like facet's own docs)" },
-  { value: "api-reference", label: "API reference", hint: "endpoints, types, and examples" },
-  { value: "product-docs", label: "Product docs", hint: "getting started, guides, and FAQs" },
+  {
+    value: "component-library",
+    label: "Component library",
+    hint: "pages per component (like facet's own docs)",
+  },
+  {
+    value: "api-reference",
+    label: "API reference",
+    hint: "endpoints, types, and examples",
+  },
+  {
+    value: "product-docs",
+    label: "Product docs",
+    hint: "getting started, guides, and FAQs",
+  },
 ] as const;
 
 /** Explicit choices a consumer can pass to `facet docs init` via flags.
@@ -101,7 +133,8 @@ export async function runInitWizard(
       },
       {
         title: "Walk me through it",
-        description: "Answer a few questions to tailor the scaffold to your needs",
+        description:
+          "Answer a few questions to tailor the scaffold to your needs",
         value: "walk",
       },
     ],
@@ -133,7 +166,8 @@ export async function runInitWizard(
     {
       type: "text",
       name: "name",
-      message: "What should your docs site be called? (leave empty for the default)",
+      message:
+        "What should your docs site be called? (leave empty for the default)",
       initial: initial.name,
     },
     {
@@ -141,9 +175,22 @@ export async function runInitWizard(
       name: "location",
       message: "Where should the docs scaffold live?",
       choices: [
-        { title: "Root (.)", description: "Recommended: docs at the repo root, like Docusaurus/Mintlify: all content in one place", value: "." },
-        { title: "docs/", description: "A dedicated folder at the repo root", value: "docs" },
-        { title: "src/docs/", description: "Docs under the source tree, next to your app code", value: "src/docs" },
+        {
+          title: "Root (.)",
+          description:
+            "Recommended: docs at the repo root, like Docusaurus/Mintlify: all content in one place",
+          value: ".",
+        },
+        {
+          title: "docs/",
+          description: "A dedicated folder at the repo root",
+          value: "docs",
+        },
+        {
+          title: "src/docs/",
+          description: "Docs under the source tree, next to your app code",
+          value: "src/docs",
+        },
       ],
     },
     {
@@ -158,7 +205,11 @@ export async function runInitWizard(
       type: "select",
       name: "framework",
       message: `What frontend framework are you on? (detected: ${detectedFramework})`,
-      choices: FRAMEWORKS.map((f) => ({ title: f.label, description: f.hint, value: f.value })),
+      choices: FRAMEWORKS.map((f) => ({
+        title: f.label,
+        description: f.hint,
+        value: f.value,
+      })),
       initial: FRAMEWORKS.findIndex((f) => f.value === detectedFramework),
     },
     {
@@ -166,17 +217,41 @@ export async function runInitWizard(
       name: "styling",
       message: "How is your app styled today?",
       choices: [
-        { title: "facet tokens (recommended)", description: "Already using @fusorb/facet-tokens", value: "facet-tokens" },
-        { title: "Tailwind CSS", description: "Utility-first CSS with Tailwind", value: "tailwind" },
-        { title: "Plain CSS", description: "Hand-written CSS files", value: "plain-css" },
-        { title: "None / custom", description: "Bring your own styling setup", value: "none" },
+        {
+          title: "facet tokens (recommended)",
+          description: "Already using @fusorb/facet-tokens",
+          value: "facet-tokens",
+        },
+        {
+          title: "Tailwind CSS",
+          description: "Utility-first CSS with Tailwind",
+          value: "tailwind",
+        },
+        {
+          title: "Plain CSS",
+          description: "Hand-written CSS files",
+          value: "plain-css",
+        },
+        {
+          title: "None / custom",
+          description: "Bring your own styling setup",
+          value: "none",
+        },
       ],
-      initial: initial.styling === "facet-tokens" ? 0 : initial.styling === "tailwind" ? 1 : initial.styling === "plain-css" ? 2 : 3,
+      initial:
+        initial.styling === "facet-tokens"
+          ? 0
+          : initial.styling === "tailwind"
+            ? 1
+            : initial.styling === "plain-css"
+              ? 2
+              : 3,
     },
     {
       type: "toggle",
       name: "useFacetTokens",
-      message: "Wire up @fusorb/facet-tokens for theming? (recommended: saves restyling every component)",
+      message:
+        "Wire up @fusorb/facet-tokens for theming? (recommended: saves restyling every component)",
       initial: true,
       active: "Yes, use facet tokens",
       inactive: "No, keep my styling",
@@ -185,7 +260,11 @@ export async function runInitWizard(
       type: "select",
       name: "template",
       message: "What kind of docs are you publishing?",
-      choices: TEMPLATES.map((t) => ({ title: t.label, description: t.hint, value: t.value })),
+      choices: TEMPLATES.map((t) => ({
+        title: t.label,
+        description: t.hint,
+        value: t.value,
+      })),
       initial: 0,
     },
     {
@@ -193,9 +272,22 @@ export async function runInitWizard(
       name: "barrel",
       message: "Create a barrel export (index.ts) for the generated site?",
       choices: [
-        { title: "Let facet decide (recommended)", description: "Create one when it fits the layout, skip when it doesn't", value: "auto" },
-        { title: "Always create", description: "Generate a barrel that re-exports the docs site", value: "always" },
-        { title: "Never", description: "Do not create or touch any barrel", value: "never" },
+        {
+          title: "Let facet decide (recommended)",
+          description:
+            "Create one when it fits the layout, skip when it doesn't",
+          value: "auto",
+        },
+        {
+          title: "Always create",
+          description: "Generate a barrel that re-exports the docs site",
+          value: "always",
+        },
+        {
+          title: "Never",
+          description: "Do not create or touch any barrel",
+          value: "never",
+        },
       ],
       initial: 0,
     },
@@ -208,8 +300,13 @@ export async function runInitWizard(
 
   return {
     answers: {
-      name: ((res.name as string) || "").trim() || options.name?.trim() || initial.name,
-      location: (options.location ?? res.location ?? initial.location) as DocsLocation,
+      name:
+        ((res.name as string) || "").trim() ||
+        options.name?.trim() ||
+        initial.name,
+      location: (options.location ??
+        res.location ??
+        initial.location) as DocsLocation,
       language,
       framework,
       styling,
@@ -217,7 +314,11 @@ export async function runInitWizard(
       template: res.template ?? initial.template,
       useTemplate: options.useTemplate,
       barrel: (options.barrel ??
-        (res.barrel === "never" ? false : res.barrel === "always" ? true : "auto")) as boolean | "auto",
+        (res.barrel === "never"
+          ? false
+          : res.barrel === "always"
+            ? true
+            : "auto")) as boolean | "auto",
       facetVersions,
     },
     decided: false,

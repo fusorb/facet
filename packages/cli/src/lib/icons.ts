@@ -55,14 +55,7 @@ const IGNORED_FILES = /\.(?:map|d\.ts)$/;
 
 /** Walk the consumer's source tree and collect icon call sites. */
 function collectIconFiles(cwd: string): string[] {
-  const roots = [
-    "src",
-    "app",
-    "lib",
-    "pages",
-    "components",
-    "ui",
-  ]
+  const roots = ["src", "app", "lib", "pages", "components", "ui"]
     .map((r) => path.join(cwd, r))
     .filter((r) => existsSync(r));
 
@@ -167,7 +160,8 @@ export function scanFileNames(src: string): string[] {
   // icons either. Property assignments (`this.name = "..."`,
   // `obj.name = "..."`) are not icons. Match only when the tag is NOT one
   // of those and the key is not a property access.
-  const propRe = /\b(?:name|icon|leftIcon|rightIcon|startIcon|endIcon)\s*=\s*["']([^"']+)["']/g;
+  const propRe =
+    /\b(?:name|icon|leftIcon|rightIcon|startIcon|endIcon)\s*=\s*["']([^"']+)["']/g;
   let m: RegExpExecArray | null;
   while ((m = propRe.exec(src))) {
     const before = src.slice(Math.max(0, m.index - 24), m.index);
@@ -263,13 +257,7 @@ export const DEFAULT_SEMANTIC_NAMES = [
 
 /** Resolve a placement for the generated registry from the consumer layout. */
 export function detectIconTargetDir(cwd: string): string {
-  const candidates = [
-    "lib/ui",
-    "src/components/ui",
-    "src/lib",
-    "lib",
-    "src",
-  ];
+  const candidates = ["lib/ui", "src/components/ui", "src/lib", "lib", "src"];
   const hasSource = (dir: string) => {
     if (!existsSync(dir)) return false;
     // A dir counts as a home only if it actually holds source files
@@ -334,7 +322,9 @@ export function detectIconTargetDir(cwd: string): string {
   for (const appDir of ["client", "web", "frontend", "apps"]) {
     const base = path.join(cwd, appDir);
     if (!existsSync(base)) continue;
-    const match = candidates.map((c) => path.join(base, c)).find((p) => existsSync(p));
+    const match = candidates
+      .map((c) => path.join(base, c))
+      .find((p) => existsSync(p));
     if (match) return match;
   }
   return path.join(cwd, "src");
@@ -422,11 +412,17 @@ export function buildLucideCatalog(cwd: string): LucideCatalog {
       const pkgJson = path.join(pkgDir, "package.json");
       if (!existsSync(pkgJson)) continue;
       try {
-        version = (JSON.parse(readFileSync(pkgJson, "utf8")) as { version?: string }).version ?? version;
+        version =
+          (JSON.parse(readFileSync(pkgJson, "utf8")) as { version?: string })
+            .version ?? version;
       } catch {
         // ignore
       }
-      const dts = ["dist/lucide-react.d.ts", "dist/types/lucide-react.d.ts", "lucide-react.d.ts"]
+      const dts = [
+        "dist/lucide-react.d.ts",
+        "dist/types/lucide-react.d.ts",
+        "lucide-react.d.ts",
+      ]
         .map((p) => path.join(pkgDir, p))
         .find((p) => existsSync(p));
       if (dts) {
@@ -452,7 +448,9 @@ export function buildLucideCatalog(cwd: string): LucideCatalog {
       }
     }
     // Backfill any icons not annotated (declared but not in a doc block).
-    for (const decl of dts.matchAll(/declare const ([A-Z]\w+)\s*:\s*ForwardRefExoticComponent/g)) {
+    for (const decl of dts.matchAll(
+      /declare const ([A-Z]\w+)\s*:\s*ForwardRefExoticComponent/g,
+    )) {
       const exportName = decl[1]!;
       const key = toKebab(exportName);
       if (!names.has(key)) names.set(key, exportName);
@@ -496,7 +494,7 @@ export const LUCIDE_ALIASES: Record<string, string> = {
   "arrow-circle-left": "circle-arrow-left",
   "edit-3": "pen",
   "edit-2": "pen",
-  "edit": "pen",
+  edit: "pen",
   "more-horizontal": "ellipsis",
   "more-vertical": "ellipsis-vertical",
   "external-link": "external-link",
@@ -507,10 +505,10 @@ export const LUCIDE_ALIASES: Record<string, string> = {
   "bar-chart-3": "chart-column",
   "line-chart": "chart-line",
   "pie-chart": "chart-pie",
-  "loader": "loader-circle",
-  "spinner": "loader-circle",
-  "crosshair": "crosshair",
-  "shield": "shield",
+  loader: "loader-circle",
+  spinner: "loader-circle",
+  crosshair: "crosshair",
+  shield: "shield",
   "shield-alert": "shield-alert",
   "shield-check": "shield-check",
   "shield-x": "shield-x",
@@ -519,13 +517,13 @@ export const LUCIDE_ALIASES: Record<string, string> = {
   // camelCase export names).
   "building-2": "building2",
   "building-3": "building3",
-  "github": "github",
-  "twitter": "twitter",
-  "slack": "slack",
-  "facebook": "facebook",
-  "instagram": "instagram",
-  "linkedin": "linkedin",
-  "youtube": "youtube",
+  github: "github",
+  twitter: "twitter",
+  slack: "slack",
+  facebook: "facebook",
+  instagram: "instagram",
+  linkedin: "linkedin",
+  youtube: "youtube",
 };
 
 /** Resolve the used set (call sites + defaults) through the catalog. */
@@ -561,8 +559,14 @@ export function resolveUsedIcons(
 
 /** The generated registry module: a self-contained Icon component that
  * resolves the consumer's used set via direct lucide imports. */
-export function generateIconRegistry(scan: IconScan, resolved: ResolvedIcons): GeneratedFile {
-  const imports = [...new Set(resolved.used.values())].sort().map((n) => `  ${n},`).join("\n");
+export function generateIconRegistry(
+  scan: IconScan,
+  resolved: ResolvedIcons,
+): GeneratedFile {
+  const imports = [...new Set(resolved.used.values())]
+    .sort()
+    .map((n) => `  ${n},`)
+    .join("\n");
   const entries = [...resolved.used.entries()]
     .map(([kebab, exportName]) => `  "${kebab}": ${exportName},`)
     .join("\n");
@@ -625,7 +629,11 @@ function readdirSafe(p: string): string[] {
 /** Walk up from `fromDir` looking for <dir>/<name>, optionally gated by a
  * matcher on the candidate path. Returns the absolute path or "" when
  * not found. */
-function findUp(fromDir: string, name: string, match?: (candidate: string) => boolean): string {
+function findUp(
+  fromDir: string,
+  name: string,
+  match?: (candidate: string) => boolean,
+): string {
   let dir = path.resolve(fromDir);
   for (;;) {
     const candidate = path.join(dir, name);

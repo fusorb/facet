@@ -52,7 +52,9 @@ describe("facet docs init end-to-end (wizard + write)", () => {
       expect(written.length).toBeGreaterThan(0);
 
       // The scaffolded package.json exists and carries resolved ranges.
-      const pkg = JSON.parse(fs.readFileSync(path.join(cwd, "package.json"), "utf8"));
+      const pkg = JSON.parse(
+        fs.readFileSync(path.join(cwd, "package.json"), "utf8"),
+      );
       expect(pkg.dependencies["@fusorb/facet-docs"]).toMatch(/^\^/);
 
       // The consumer's own pages file exists (never facet's authored docs).

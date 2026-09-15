@@ -27,7 +27,10 @@ const DEFAULT_DOMAINS = [
   "edu",
 ];
 
-export interface MailInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+export interface MailInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "type"
+> {
   /** Suggested domains shown when the user types @. Default: common providers. */
   domains?: string[];
   /** Show the domain suggestion dropdown. Default: true. */
@@ -64,7 +67,8 @@ export const MailInput = React.forwardRef<HTMLInputElement, MailInputProps>(
     const atIndex = currentValue.lastIndexOf("@");
     const afterAt = atIndex >= 0 ? currentValue.slice(atIndex + 1) : "";
 
-    const showDropdown = showSuggestions && open && atIndex >= 0 && afterAt.length < 4;
+    const showDropdown =
+      showSuggestions && open && atIndex >= 0 && afterAt.length < 4;
 
     const filteredDomains = React.useMemo(() => {
       if (atIndex < 0) return [];
@@ -109,7 +113,9 @@ export const MailInput = React.forwardRef<HTMLInputElement, MailInputProps>(
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
         onKeyDown?.(e);
-        setHighlighted((h) => (h - 1 + filteredDomains.length) % filteredDomains.length);
+        setHighlighted(
+          (h) => (h - 1 + filteredDomains.length) % filteredDomains.length,
+        );
       } else if (e.key === "Enter") {
         e.preventDefault();
         onKeyDown?.(e);
@@ -168,10 +174,7 @@ export const MailInput = React.forwardRef<HTMLInputElement, MailInputProps>(
           aria-expanded={showDropdown || undefined}
           aria-haspopup="listbox"
           aria-controls={showDropdown ? listId : undefined}
-          className={cn(
-            showDropdown && "rounded-b-none border-b-0",
-            className,
-          )}
+          className={cn(showDropdown && "rounded-b-none border-b-0", className)}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onFocus={handleFocus}
@@ -191,7 +194,8 @@ export const MailInput = React.forwardRef<HTMLInputElement, MailInputProps>(
                 aria-selected={i === highlighted}
                 className={cn(
                   "cursor-pointer px-3 py-2 opacity-60 hover:opacity-100",
-                  i === highlighted && "bg-accent text-accent-foreground opacity-100",
+                  i === highlighted &&
+                    "bg-accent text-accent-foreground opacity-100",
                 )}
                 onMouseDown={(e) => {
                   e.preventDefault();

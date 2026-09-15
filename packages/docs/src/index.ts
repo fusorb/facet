@@ -15,7 +15,12 @@ export { DocsApp } from "./docs-app.js";
 export type { DocsAppProps } from "./docs-app.js";
 
 // Config + context
-export { DocsAppProvider, useDocsApp, PackageManagerProvider, usePackageManager } from "./context.js";
+export {
+  DocsAppProvider,
+  useDocsApp,
+  PackageManagerProvider,
+  usePackageManager,
+} from "./context.js";
 export type { DocsAppValue } from "./context.js";
 
 // Page registry
@@ -32,7 +37,17 @@ export { extendedManifest, extendedEntries } from "./lib/manifest.js";
 export type { DocsManifestEntry } from "./lib/manifest.js";
 
 // Reusable docs components
-export { GuidePage, H2, P, Pre, Ul, Li, Code, PageNav, InlineText } from "./components/Guide.js";
+export {
+  GuidePage,
+  H2,
+  P,
+  Pre,
+  Ul,
+  Li,
+  Code,
+  PageNav,
+  InlineText,
+} from "./components/Guide.js";
 export type { GuidePageProps } from "./components/Guide.js";
 export { DocsTable } from "./components/DocsTable.js";
 export type { DocsTableProps } from "./components/DocsTable.js";

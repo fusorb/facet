@@ -73,13 +73,17 @@ describe("RichTextEditor sanitization", () => {
 
   it("rejects javascript: URL in the link dialog", async () => {
     const onChange = vi.fn();
-    const execSpy = vi.spyOn(document, "execCommand").mockImplementation(() => true);
+    const execSpy = vi
+      .spyOn(document, "execCommand")
+      .mockImplementation(() => true);
     render(<RichTextEditor value="" onChange={onChange} />);
 
     // Open the link dialog
     fireEvent.click(screen.getByLabelText("Link"));
 
-    const urlInput = screen.getByPlaceholderText("https://") as HTMLInputElement;
+    const urlInput = screen.getByPlaceholderText(
+      "https://",
+    ) as HTMLInputElement;
     fireEvent.change(urlInput, { target: { value: "javascript:alert(1)" } });
 
     fireEvent.click(screen.getByRole("button", { name: "Insert" }));
@@ -93,18 +97,26 @@ describe("RichTextEditor sanitization", () => {
 
   it("accepts https:// URL in the link dialog", async () => {
     const onChange = vi.fn();
-    const execSpy = vi.spyOn(document, "execCommand").mockImplementation(() => true);
+    const execSpy = vi
+      .spyOn(document, "execCommand")
+      .mockImplementation(() => true);
     render(<RichTextEditor value="" onChange={onChange} />);
 
     fireEvent.click(screen.getByLabelText("Link"));
 
-    const urlInput = screen.getByPlaceholderText("https://") as HTMLInputElement;
+    const urlInput = screen.getByPlaceholderText(
+      "https://",
+    ) as HTMLInputElement;
     fireEvent.change(urlInput, { target: { value: "https://example.com" } });
 
     fireEvent.click(screen.getByRole("button", { name: "Insert" }));
 
     await waitFor(() => {
-      expect(execSpy).toHaveBeenCalledWith("createLink", false, "https://example.com");
+      expect(execSpy).toHaveBeenCalledWith(
+        "createLink",
+        false,
+        "https://example.com",
+      );
     });
 
     execSpy.mockRestore();
@@ -112,13 +124,19 @@ describe("RichTextEditor sanitization", () => {
 
   it("rejects data: URL in the link dialog", async () => {
     const onChange = vi.fn();
-    const execSpy = vi.spyOn(document, "execCommand").mockImplementation(() => true);
+    const execSpy = vi
+      .spyOn(document, "execCommand")
+      .mockImplementation(() => true);
     render(<RichTextEditor value="" onChange={onChange} />);
 
     fireEvent.click(screen.getByLabelText("Link"));
 
-    const urlInput = screen.getByPlaceholderText("https://") as HTMLInputElement;
-    fireEvent.change(urlInput, { target: { value: "data:text/html,<script>alert(1)</script>" } });
+    const urlInput = screen.getByPlaceholderText(
+      "https://",
+    ) as HTMLInputElement;
+    fireEvent.change(urlInput, {
+      target: { value: "data:text/html,<script>alert(1)</script>" },
+    });
 
     fireEvent.click(screen.getByRole("button", { name: "Insert" }));
 

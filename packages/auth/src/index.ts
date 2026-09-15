@@ -1,5 +1,5 @@
 /**
- * @fusorb/facet-auth: domain-customizable auth components wired to arc-id SDK.
+ * @fusorb/facet-auth: domain-customizable auth components wired to SovGrant SDK.
  *
  * Usage:
  *   import { ArcProvider, SignIn, Guard } from "@fusorb/facet-auth";
@@ -12,7 +12,12 @@
  */
 
 /* ── Provider ──────────────────────────────────────────────── */
-export { type ArcProviderProps, ArcProvider, useAuth, useOptionalAuth } from "./provider.js";
+export {
+  type ArcProviderProps,
+  ArcProvider,
+  useAuth,
+  useOptionalAuth,
+} from "./provider.js";
 
 /* ── Storage ───────────────────────────────────────────────── */
 export { type TokenStorage, defaultStorage } from "./storage.js";
@@ -22,17 +27,33 @@ export { type SignInProps, type SignInCopy, SignIn } from "./sign-in.js";
 
 export { type SignUpProps, SignUp } from "./sign-up.js";
 
-export { type UserButtonProps, type UserButtonCopy, UserButton } from "./user-button.js";
+export {
+  type UserButtonProps,
+  type UserButtonCopy,
+  UserButton,
+} from "./user-button.js";
 
 export { type GuardProps, Guard } from "./guard.js";
 
 export { type MfaDialogProps, MfaDialog } from "./mfa-dialog.js";
 
 /* ── Domain Presets ────────────────────────────────────────── */
-export { fintechPreset, medPreset, eduPreset, enterprisePreset, defaultPreset } from "./presets.js";
+export {
+  fintechPreset,
+  medPreset,
+  eduPreset,
+  enterprisePreset,
+  defaultPreset,
+} from "./presets.js";
 
 /* ── Preset Registry ──────────────────────────────────────── */
-export { registerPreset, getPreset, hasPreset, listPresets, resolvePreset } from "./registry.js";
+export {
+  registerPreset,
+  getPreset,
+  hasPreset,
+  listPresets,
+  resolvePreset,
+} from "./registry.js";
 export type { PresetName } from "./registry.js";
 
 /* ── Forms ─────────────────────────────────────────────────── */

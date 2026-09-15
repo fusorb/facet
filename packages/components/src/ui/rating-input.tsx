@@ -84,7 +84,9 @@ export function RatingInput({
   return (
     <div className={cn("flex flex-col gap-1", className)}>
       {label && (
-        <span className="text-xs font-medium text-muted-foreground">{label}</span>
+        <span className="text-xs font-medium text-muted-foreground">
+          {label}
+        </span>
       )}
       <div
         role="radiogroup"
@@ -98,7 +100,8 @@ export function RatingInput({
       >
         {Array.from({ length: max }, (_, i) => i + 1).map((idx) => {
           const isActive = display >= idx;
-          const isHalfActive = allowHalf && display >= idx - 0.5 && display < idx;
+          const isHalfActive =
+            allowHalf && display >= idx - 0.5 && display < idx;
           return (
             <button
               key={idx}
@@ -129,9 +132,9 @@ export function RatingInput({
                 className={cn(
                   iconSize,
                   isActive
-                    ? "fill-amber-400 text-amber-400"
+                    ? "fill-warning text-warning"
                     : isHalfActive
-                      ? "fill-amber-400/50 text-amber-400"
+                      ? "fill-warning/50 text-warning"
                       : "text-muted-foreground/30",
                 )}
               />

@@ -27,7 +27,7 @@ export interface RenderOptions {
 }
 
 export interface EmailBrand {
-  /** Primary brand color (buttons, links). Default: "#6366f1". */
+  /** Primary brand color (buttons, links). Default: neutral slate "#334155". */
   primary?: string;
   /** Background color of the email body. Default: "#f6f6f6". */
   background?: string;
@@ -78,7 +78,8 @@ function styleToCss(style: Record<string, unknown>): string {
 
 /* ── Hyperscript helper ───────────────────────────────────── */
 
-export type TemplateChild = TemplateNode | string | number | bigint | null | undefined | false;
+export type TemplateChild =
+  TemplateNode | string | number | bigint | null | undefined | false;
 
 export function createElement(
   tag: string,
@@ -101,7 +102,14 @@ export function createElement(
 /* ── HTML rendering ───────────────────────────────────────── */
 
 const VOID_TAGS = new Set(["img", "br", "hr", "meta", "link", "input", "wbr"]);
-const BOOLEAN_ATTRS = new Set(["checked", "disabled", "selected", "readonly", "multiple", "required"]);
+const BOOLEAN_ATTRS = new Set([
+  "checked",
+  "disabled",
+  "selected",
+  "readonly",
+  "multiple",
+  "required",
+]);
 
 function renderAttrs(props: Record<string, unknown>): string {
   const parts: string[] = [];
@@ -133,16 +141,18 @@ function renderAttrs(props: Record<string, unknown>): string {
   return parts.length ? ` ${parts.join(" ")}` : "";
 }
 
-function renderNode(node: TemplateNode, brand: EmailBrand, depth: number): string {
+function renderNode(
+  node: TemplateNode,
+  brand: EmailBrand,
+  depth: number,
+): string {
   const { tag, props = {}, children = [] } = node;
   const attrs = renderAttrs(props);
   if (VOID_TAGS.has(tag)) return `<${tag}${attrs}>`;
 
   const inner = children
     .map((c) =>
-      typeof c === "string"
-        ? escapeText(c)
-        : renderNode(c, brand, depth + 1),
+      typeof c === "string" ? escapeText(c) : renderNode(c, brand, depth + 1),
     )
     .join("");
 
@@ -150,7 +160,7 @@ function renderNode(node: TemplateNode, brand: EmailBrand, depth: number): strin
 }
 
 function brandStyleBlock(brand: EmailBrand): string {
-  const primary = brand.primary ?? "#6366f1";
+  const primary = brand.primary ?? "#334155";
   const text = brand.text ?? "#1f2937";
   const muted = brand.muted ?? "#6b7280";
   const radius = brand.radius ?? 8;
@@ -213,9 +223,20 @@ export function renderEmailText(node: TemplateNode | TemplateNode[]): string {
   const walk = (n: TemplateNode, depth: number) => {
     const { tag, children = [] } = n;
     const blockish =
-      tag === "p" || tag === "div" || tag === "section" || tag === "tr" || tag === "li" ||
-      tag === "h1" || tag === "h2" || tag === "h3" || tag === "h4" ||
-      tag === "ul" || tag === "ol" || tag === "table" || tag === "br" || tag === "hr";
+      tag === "p" ||
+      tag === "div" ||
+      tag === "section" ||
+      tag === "tr" ||
+      tag === "li" ||
+      tag === "h1" ||
+      tag === "h2" ||
+      tag === "h3" ||
+      tag === "h4" ||
+      tag === "ul" ||
+      tag === "ol" ||
+      tag === "table" ||
+      tag === "br" ||
+      tag === "hr";
 
     for (const child of children) {
       if (typeof child === "string") {
@@ -223,7 +244,10 @@ export function renderEmailText(node: TemplateNode | TemplateNode[]): string {
         continue;
       }
       if (child.tag === "a" && typeof child.props?.href === "string") {
-        const label = child.children?.map((c) => (typeof c === "string" ? c.trim() : "")).join("") || child.props.href;
+        const label =
+          child.children
+            ?.map((c) => (typeof c === "string" ? c.trim() : ""))
+            .join("") || child.props.href;
         parts.push(`[${label}](${child.props.href})`);
         continue;
       }

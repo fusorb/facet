@@ -57,10 +57,12 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         <Icon
           name="quote"
           className="size-5"
-          style={{ color: t.accent ?? "var(--primary, #6366f1)" }}
+          style={{ color: t.accent ?? "var(--primary)" }}
           aria-hidden="true"
         />
-        <p className="flex-1 text-sm leading-relaxed text-foreground">{t.quote}</p>
+        <p className="flex-1 text-sm leading-relaxed text-foreground">
+          {t.quote}
+        </p>
         <div className="flex items-center gap-2.5 pt-1">
           <Avatar className="size-8">
             {t.avatar && <AvatarImage src={t.avatar} alt={t.author} />}
@@ -70,7 +72,9 @@ function TestimonialCard({ t }: { t: Testimonial }) {
           </Avatar>
           <div>
             <p className="text-sm font-semibold text-foreground">{t.author}</p>
-            {t.role && <p className="text-xs text-muted-foreground">{t.role}</p>}
+            {t.role && (
+              <p className="text-xs text-muted-foreground">{t.role}</p>
+            )}
           </div>
         </div>
       </CardContent>
@@ -100,8 +104,14 @@ export function TestimonialShowcase({
     <div className={cn("w-full", className)} {...props}>
       {(title || description) && (
         <div className="mb-5 space-y-1">
-          {title && <h3 className="font-heading text-xl font-semibold text-foreground">{title}</h3>}
-          {description && <p className="text-sm text-muted-foreground">{description}</p>}
+          {title && (
+            <h3 className="font-heading text-xl font-semibold text-foreground">
+              {title}
+            </h3>
+          )}
+          {description && (
+            <p className="text-sm text-muted-foreground">{description}</p>
+          )}
         </div>
       )}
 

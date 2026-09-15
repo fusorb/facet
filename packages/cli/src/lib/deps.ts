@@ -14,9 +14,19 @@
  * and print the exact install/remove command instead of auto-running it.
  */
 
-import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  readdirSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync,
+} from "node:fs";
 import path from "node:path";
-import { detectMonorepo, detectPackageManager, type PackageManager } from "./types.js";
+import {
+  detectMonorepo,
+  detectPackageManager,
+  type PackageManager,
+} from "./types.js";
 import { readExistingPackageJson } from "./writer.js";
 
 /**
@@ -45,7 +55,10 @@ export function detectPathAliases(cwd: string): PathAlias[] {
   const parse = (source: string, base: string): PathAlias[] => {
     try {
       const json = JSON.parse(source) as {
-        compilerOptions?: { paths?: Record<string, string[]>; baseUrl?: string };
+        compilerOptions?: {
+          paths?: Record<string, string[]>;
+          baseUrl?: string;
+        };
       };
       const paths = json.compilerOptions?.paths;
       if (!paths) return [];
@@ -54,7 +67,11 @@ export function detectPathAliases(cwd: string): PathAlias[] {
         .filter(([, targets]) => targets.length > 0)
         .map(([alias, targets]) => ({
           alias: alias.endsWith("*") ? alias.slice(0, -1) : alias,
-          target: path.posix.join(base, baseUrl, (targets[0] ?? "").replace(/\*$/, "")),
+          target: path.posix.join(
+            base,
+            baseUrl,
+            (targets[0] ?? "").replace(/\*$/, ""),
+          ),
         }));
     } catch {
       return [];
@@ -75,13 +92,18 @@ export function detectPathAliases(cwd: string): PathAlias[] {
     { alias: "@app/", target: "app/" },
   ];
   for (const k of known) {
-    if (!out.some((a) => a.alias === k.alias) && existsSync(path.join(cwd, k.target))) {
+    if (
+      !out.some((a) => a.alias === k.alias) &&
+      existsSync(path.join(cwd, k.target))
+    ) {
       out.push(k);
     }
   }
   // Dedupe by alias.
   const seen = new Set<string>();
-  return out.filter((a) => (seen.has(a.alias) ? false : (seen.add(a.alias), true)));
+  return out.filter((a) =>
+    seen.has(a.alias) ? false : (seen.add(a.alias), true),
+  );
 }
 
 /** Best alias for importing from a generated file at `fromFile` that wants
@@ -96,7 +118,10 @@ export function importSpecifier(
   const aliases = detectPathAliases(cwd);
   // Match alias targets against the path RELATIVE to cwd (tsconfig paths
   // are cwd-relative). Absolute input paths are normalized first.
-  const norm = path.relative(cwd, targetPath).replace(/\\/g, "/").replace(/\/$/, "");
+  const norm = path
+    .relative(cwd, targetPath)
+    .replace(/\\/g, "/")
+    .replace(/\/$/, "");
   for (const a of aliases) {
     const aTarget = a.target.replace(/\\/g, "/").replace(/\/$/, "");
     if (norm === aTarget || norm.startsWith(aTarget + "/")) {
@@ -109,51 +134,143 @@ export function importSpecifier(
   // path segment, so relative("C:/a/b", "C:/a/c") would drop the "a".
   const stripDrive = (p: string) => p.replace(/^[A-Za-z]:/, "");
   const fromDir = path.posix.dirname(stripDrive(fromFile.replace(/\\/g, "/")));
-  const absTarget = stripDrive(targetPath.replace(/\\/g, "/")).replace(/\/$/, "");
+  const absTarget = stripDrive(targetPath.replace(/\\/g, "/")).replace(
+    /\/$/,
+    "",
+  );
   let rel = path.posix.relative(fromDir, absTarget);
   if (!rel.startsWith(".")) rel = `./${rel}`;
   return rel;
 }
 
-
 /** Dependency names that @fusorb/facet-components already bundles, so a
  * consumer that imports components from the package does not need them. */
 export const BUNDLED_DEPS: { name: string; why: string }[] = [
-  { name: "@radix-ui/react-accordion", why: "bundled by @fusorb/facet-components (Accordion)" },
-  { name: "@radix-ui/react-alert-dialog", why: "bundled by @fusorb/facet-components (AlertDialog)" },
-  { name: "@radix-ui/react-aspect-ratio", why: "bundled by @fusorb/facet-components (AspectRatio)" },
-  { name: "@radix-ui/react-avatar", why: "bundled by @fusorb/facet-components (Avatar)" },
-  { name: "@radix-ui/react-checkbox", why: "bundled by @fusorb/facet-components (Checkbox)" },
-  { name: "@radix-ui/react-collapsible", why: "bundled by @fusorb/facet-components (Collapsible)" },
-  { name: "@radix-ui/react-context-menu", why: "bundled by @fusorb/facet-components (ContextMenu)" },
-  { name: "@radix-ui/react-dialog", why: "bundled by @fusorb/facet-components (Dialog)" },
-  { name: "@radix-ui/react-dropdown-menu", why: "bundled by @fusorb/facet-components (DropdownMenu)" },
-  { name: "@radix-ui/react-hover-card", why: "bundled by @fusorb/facet-components (HoverCard)" },
-  { name: "@radix-ui/react-label", why: "bundled by @fusorb/facet-components (Label)" },
-  { name: "@radix-ui/react-menubar", why: "bundled by @fusorb/facet-components (Menubar)" },
-  { name: "@radix-ui/react-navigation-menu", why: "bundled by @fusorb/facet-components (NavigationMenu)" },
-  { name: "@radix-ui/react-popover", why: "bundled by @fusorb/facet-components (Popover)" },
-  { name: "@radix-ui/react-progress", why: "bundled by @fusorb/facet-components (Progress)" },
-  { name: "@radix-ui/react-radio-group", why: "bundled by @fusorb/facet-components (RadioGroup)" },
-  { name: "@radix-ui/react-scroll-area", why: "bundled by @fusorb/facet-components (ScrollArea)" },
-  { name: "@radix-ui/react-select", why: "bundled by @fusorb/facet-components (Select)" },
-  { name: "@radix-ui/react-separator", why: "bundled by @fusorb/facet-components (Separator)" },
-  { name: "@radix-ui/react-slider", why: "bundled by @fusorb/facet-components (Slider)" },
-  { name: "@radix-ui/react-switch", why: "bundled by @fusorb/facet-components (Switch)" },
-  { name: "@radix-ui/react-tabs", why: "bundled by @fusorb/facet-components (Tabs)" },
-  { name: "@radix-ui/react-toggle", why: "bundled by @fusorb/facet-components (Toggle)" },
-  { name: "@radix-ui/react-toggle-group", why: "bundled by @fusorb/facet-components (ToggleGroup)" },
-  { name: "@radix-ui/react-tooltip", why: "bundled by @fusorb/facet-components (Tooltip)" },
-  { name: "lucide-react", why: "use the facet Icon registry (<Icon name=... />) instead" },
+  {
+    name: "@radix-ui/react-accordion",
+    why: "bundled by @fusorb/facet-components (Accordion)",
+  },
+  {
+    name: "@radix-ui/react-alert-dialog",
+    why: "bundled by @fusorb/facet-components (AlertDialog)",
+  },
+  {
+    name: "@radix-ui/react-aspect-ratio",
+    why: "bundled by @fusorb/facet-components (AspectRatio)",
+  },
+  {
+    name: "@radix-ui/react-avatar",
+    why: "bundled by @fusorb/facet-components (Avatar)",
+  },
+  {
+    name: "@radix-ui/react-checkbox",
+    why: "bundled by @fusorb/facet-components (Checkbox)",
+  },
+  {
+    name: "@radix-ui/react-collapsible",
+    why: "bundled by @fusorb/facet-components (Collapsible)",
+  },
+  {
+    name: "@radix-ui/react-context-menu",
+    why: "bundled by @fusorb/facet-components (ContextMenu)",
+  },
+  {
+    name: "@radix-ui/react-dialog",
+    why: "bundled by @fusorb/facet-components (Dialog)",
+  },
+  {
+    name: "@radix-ui/react-dropdown-menu",
+    why: "bundled by @fusorb/facet-components (DropdownMenu)",
+  },
+  {
+    name: "@radix-ui/react-hover-card",
+    why: "bundled by @fusorb/facet-components (HoverCard)",
+  },
+  {
+    name: "@radix-ui/react-label",
+    why: "bundled by @fusorb/facet-components (Label)",
+  },
+  {
+    name: "@radix-ui/react-menubar",
+    why: "bundled by @fusorb/facet-components (Menubar)",
+  },
+  {
+    name: "@radix-ui/react-navigation-menu",
+    why: "bundled by @fusorb/facet-components (NavigationMenu)",
+  },
+  {
+    name: "@radix-ui/react-popover",
+    why: "bundled by @fusorb/facet-components (Popover)",
+  },
+  {
+    name: "@radix-ui/react-progress",
+    why: "bundled by @fusorb/facet-components (Progress)",
+  },
+  {
+    name: "@radix-ui/react-radio-group",
+    why: "bundled by @fusorb/facet-components (RadioGroup)",
+  },
+  {
+    name: "@radix-ui/react-scroll-area",
+    why: "bundled by @fusorb/facet-components (ScrollArea)",
+  },
+  {
+    name: "@radix-ui/react-select",
+    why: "bundled by @fusorb/facet-components (Select)",
+  },
+  {
+    name: "@radix-ui/react-separator",
+    why: "bundled by @fusorb/facet-components (Separator)",
+  },
+  {
+    name: "@radix-ui/react-slider",
+    why: "bundled by @fusorb/facet-components (Slider)",
+  },
+  {
+    name: "@radix-ui/react-switch",
+    why: "bundled by @fusorb/facet-components (Switch)",
+  },
+  {
+    name: "@radix-ui/react-tabs",
+    why: "bundled by @fusorb/facet-components (Tabs)",
+  },
+  {
+    name: "@radix-ui/react-toggle",
+    why: "bundled by @fusorb/facet-components (Toggle)",
+  },
+  {
+    name: "@radix-ui/react-toggle-group",
+    why: "bundled by @fusorb/facet-components (ToggleGroup)",
+  },
+  {
+    name: "@radix-ui/react-tooltip",
+    why: "bundled by @fusorb/facet-components (Tooltip)",
+  },
+  {
+    name: "lucide-react",
+    why: "use the facet Icon registry (<Icon name=... />) instead",
+  },
   { name: "cmdk", why: "bundled by @fusorb/facet-components (Command)" },
-  { name: "embla-carousel-react", why: "bundled by @fusorb/facet-components (Carousel)" },
+  {
+    name: "embla-carousel-react",
+    why: "bundled by @fusorb/facet-components (Carousel)",
+  },
   { name: "input-otp", why: "bundled by @fusorb/facet-components (InputOTP)" },
   { name: "qrcode.react", why: "bundled by @fusorb/facet-components (QRCode)" },
-  { name: "react-hook-form", why: "bundled by @fusorb/facet-components (Form)" },
-  { name: "react-resizable-panels", why: "bundled by @fusorb/facet-components (Resizable)" },
+  {
+    name: "react-hook-form",
+    why: "bundled by @fusorb/facet-components (Form)",
+  },
+  {
+    name: "react-resizable-panels",
+    why: "bundled by @fusorb/facet-components (Resizable)",
+  },
   { name: "sonner", why: "bundled by @fusorb/facet-components (Toast)" },
   { name: "vaul", why: "bundled by @fusorb/facet-components (Drawer)" },
-  { name: "class-variance-authority", why: "bundled by @fusorb/facet-components" },
+  {
+    name: "class-variance-authority",
+    why: "bundled by @fusorb/facet-components",
+  },
   { name: "clsx", why: "bundled by @fusorb/facet-components" },
   { name: "tailwind-merge", why: "bundled by @fusorb/facet-components" },
 ];
@@ -172,16 +289,26 @@ const WHY_MAP = new Map(BUNDLED_DEPS.map((d) => [d.name, d.why]));
  * facet-components is actually present - no manual BUNDLED_DEPS update needed
  * when a new bundled dep is added upstream.
  */
-export function resolveBundledDeps(cwd: string): { name: string; why: string }[] {
+export function resolveBundledDeps(
+  cwd: string,
+): { name: string; why: string }[] {
   try {
-    const pkgPath = path.join(cwd, "node_modules/@fusorb/facet-components/package.json");
+    const pkgPath = path.join(
+      cwd,
+      "node_modules/@fusorb/facet-components/package.json",
+    );
     if (!existsSync(pkgPath)) return BUNDLED_DEPS;
-    const pkg = JSON.parse(readFileSync(pkgPath, "utf8")) as { dependencies?: Record<string, string> };
+    const pkg = JSON.parse(readFileSync(pkgPath, "utf8")) as {
+      dependencies?: Record<string, string>;
+    };
     const deps = pkg.dependencies ?? {};
     // Exclude facet's own workspace peers and React (peer dep) - those are
     // not "bundled" in the sense that consumers should also install them.
     const bundled = Object.keys(deps).filter(
-      (name) => !name.startsWith("@fusorb/") && name !== "react" && name !== "react-dom",
+      (name) =>
+        !name.startsWith("@fusorb/") &&
+        name !== "react" &&
+        name !== "react-dom",
     );
     if (!bundled.length) return BUNDLED_DEPS;
     return bundled.map((name) => ({
@@ -243,7 +370,10 @@ export function scanUnnecessaryDeps(cwd: string): UnnecessaryDepEntry[] {
     };
     const found = Object.keys(declared)
       .filter((name) => bundled.has(name))
-      .map((name) => ({ name, why: why.get(name) ?? "bundled by @fusorb/facet-components" }));
+      .map((name) => ({
+        name,
+        why: why.get(name) ?? "bundled by @fusorb/facet-components",
+      }));
     if (found.length) {
       entries.push({
         pkgPath,
@@ -269,7 +399,12 @@ export function findSourceFiles(cwd: string, maxDepth = 6): string[] {
       return;
     }
     for (const entry of entries) {
-      if (entry.name === "node_modules" || entry.name === "dist" || entry.name === ".git") continue;
+      if (
+        entry.name === "node_modules" ||
+        entry.name === "dist" ||
+        entry.name === ".git"
+      )
+        continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) {
         walk(full, depth + 1);
@@ -284,7 +419,8 @@ export function findSourceFiles(cwd: string, maxDepth = 6): string[] {
 
 /** Import specifiers that point at a shadcn/ui-style local component
  * folder, or directly at a bundled dep. */
-const IMPORT_RE = /(?:import|export)\s+(?:[^'"`]*?\s+from\s+)?["'`]([^"'`]*)["'`]/g;
+const IMPORT_RE =
+  /(?:import|export)\s+(?:[^'"`]*?\s+from\s+)?["'`]([^"'`]*)["'`]/g;
 
 /** A detected import that should be redirected to the facet package. */
 export interface ImportMatch {
@@ -309,7 +445,8 @@ export function bundledDepFor(
   from: string,
   deps: { name: string }[] = BUNDLED_DEPS,
 ): string | undefined {
-  return deps.find((d) => from === d.name || from.startsWith(d.name + "/"))?.name;
+  return deps.find((d) => from === d.name || from.startsWith(d.name + "/"))
+    ?.name;
 }
 
 /** True when the specifier looks like a shadcn/ui-style local folder
@@ -367,7 +504,11 @@ export function removeBundledDeps(
   if (!pkg) return { content: null, removed: [] };
   const removeSet = new Set(toRemove);
   const removed: string[] = [];
-  for (const section of ["dependencies", "devDependencies", "peerDependencies"] as const) {
+  for (const section of [
+    "dependencies",
+    "devDependencies",
+    "peerDependencies",
+  ] as const) {
     const deps = pkg[section] as Record<string, string> | undefined;
     if (!deps) continue;
     for (const name of Object.keys(deps)) {
@@ -390,21 +531,32 @@ export function removeCommand(
   const pkgs = names.join(" ");
   const rootFlag = workspace ? " -w" : "";
   switch (pm) {
-    case "pnpm": return `pnpm${rootFlag} remove ${pkgs}`;
-    case "yarn": return `yarn workspace remove ${pkgs}`;
-    case "bun": return `bun remove ${pkgs}`;
-    default: return `npm uninstall ${pkgs}`;
+    case "pnpm":
+      return `pnpm${rootFlag} remove ${pkgs}`;
+    case "yarn":
+      return `yarn workspace remove ${pkgs}`;
+    case "bun":
+      return `bun remove ${pkgs}`;
+    default:
+      return `npm uninstall ${pkgs}`;
   }
 }
 
 /** Compute the global remove/uninstall command for the detected package manager. */
-export function globalRemoveCommand(pm: PackageManager, names: string[]): string {
+export function globalRemoveCommand(
+  pm: PackageManager,
+  names: string[],
+): string {
   const pkgs = names.join(" ");
   switch (pm) {
-    case "pnpm": return `pnpm remove -g ${pkgs}`;
-    case "yarn": return `yarn global remove ${pkgs}`;
-    case "bun": return `bun remove -g ${pkgs}`;
-    default: return `npm uninstall -g ${pkgs}`;
+    case "pnpm":
+      return `pnpm remove -g ${pkgs}`;
+    case "yarn":
+      return `yarn global remove ${pkgs}`;
+    case "bun":
+      return `bun remove -g ${pkgs}`;
+    default:
+      return `npm uninstall -g ${pkgs}`;
   }
 }
 
@@ -429,8 +581,12 @@ export function rewriteImports(matches: ImportMatch[]): string[] {
     for (const from of froms) {
       // Only rewrite when the import is a named import from the bundled
       // dep or a shadcn folder. Bare imports (`import "x"`) are left alone.
-      next = next.split(`from "${from}"`).join(`from "@fusorb/facet-components"`);
-      next = next.split(`from '${from}'`).join(`from '@fusorb/facet-components'`);
+      next = next
+        .split(`from "${from}"`)
+        .join(`from "@fusorb/facet-components"`);
+      next = next
+        .split(`from '${from}'`)
+        .join(`from '@fusorb/facet-components'`);
     }
     if (next !== source) {
       writeFileSync(file, next, "utf8");
@@ -449,7 +605,12 @@ export function deleteIfUnused(file: string, cwd: string): boolean {
     if (src === file) continue;
     try {
       const source = readFileSync(src, "utf8");
-      if (source.includes(`/ui/${name}"`) || source.includes(`/ui/${name}'`) || source.includes(`"${name}"`) || source.includes(`'${name}'`)) {
+      if (
+        source.includes(`/ui/${name}"`) ||
+        source.includes(`/ui/${name}'`) ||
+        source.includes(`"${name}"`) ||
+        source.includes(`'${name}'`)
+      ) {
         importedElsewhere = true;
         break;
       }
@@ -459,10 +620,17 @@ export function deleteIfUnused(file: string, cwd: string): boolean {
   }
   if (importedElsewhere) return false;
   // Only delete shadcn-style component files under a ui/ folder.
-  if (!/[/\\]ui[/\\]/.test(file) && !/components[/\\]ui/.test(file)) return false;
+  if (!/[/\\]ui[/\\]/.test(file) && !/components[/\\]ui/.test(file))
+    return false;
   try {
     const dir = path.dirname(file);
-    const remaining = readdirSync(dir).filter((f) => f.endsWith(".tsx") || f.endsWith(".ts") || f.endsWith(".jsx") || f.endsWith(".js"));
+    const remaining = readdirSync(dir).filter(
+      (f) =>
+        f.endsWith(".tsx") ||
+        f.endsWith(".ts") ||
+        f.endsWith(".jsx") ||
+        f.endsWith(".js"),
+    );
     if (remaining.length <= 1) {
       // Last file in the folder: leave the folder alone.
       return false;
@@ -511,7 +679,10 @@ export function buildCleanPlan(cwd: string): CleanPlan {
 }
 
 /** Preset scripts the CLI can offer. Keyed by a stable id. */
-export const PRESET_SCRIPTS: Record<string, { label: string; scripts: Record<string, string> }> = {
+export const PRESET_SCRIPTS: Record<
+  string,
+  { label: string; scripts: Record<string, string> }
+> = {
   docs: {
     label: "Docs scripts (docs:dev, docs:build, docs:preview)",
     scripts: {
@@ -581,9 +752,11 @@ export function buildPrepPlan(cwd: string): { steps: string[] } {
   const steps: string[] = [];
   steps.push("facet pkg - check facet deps are current");
   steps.push("facet doctor - audit repo health");
-  if (scripts.typecheck) steps.push(`${pm} typecheck - run the consumer's typecheck`);
+  if (scripts.typecheck)
+    steps.push(`${pm} typecheck - run the consumer's typecheck`);
   if (scripts.build) steps.push(`${pm} build - run the consumer's build`);
   if (scripts.test) steps.push(`${pm} test - run the consumer's tests`);
-  if (detectMonorepo(cwd)) steps.push("pnpm changeset status - pending release set");
+  if (detectMonorepo(cwd))
+    steps.push("pnpm changeset status - pending release set");
   return { steps };
 }

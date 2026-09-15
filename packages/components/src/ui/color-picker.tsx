@@ -25,7 +25,13 @@ export function normalizeHex(value: string): string {
   const m = value.trim().match(/^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/);
   if (!m) return "";
   const hex = m[1]!;
-  const full = hex.length === 3 ? hex.split("").map((c) => c + c).join("") : hex;
+  const full =
+    hex.length === 3
+      ? hex
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : hex;
   return `#${full.toLowerCase()}`;
 }
 
@@ -39,7 +45,17 @@ export function isValidHex(value: string): boolean {
  * text field. `onValueChange` only fires with valid, normalized hex colors.
  */
 const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
-  ({ value, onValueChange, label = "Pick a color", compact, className, disabled }, ref) => {
+  (
+    {
+      value,
+      onValueChange,
+      label = "Pick a color",
+      compact,
+      className,
+      disabled,
+    },
+    ref,
+  ) => {
     const [draft, setDraft] = React.useState(value);
     const valid = isValidHex(value);
     const draftValid = isValidHex(draft);
@@ -85,7 +101,10 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
               setDraft(next);
               if (isValidHex(next)) onValueChange?.(normalizeHex(next));
             }}
-            className={cn("w-28 font-mono", !draftValid && "border-destructive")}
+            className={cn(
+              "w-28 font-mono",
+              !draftValid && "border-destructive",
+            )}
             placeholder="#000000"
             spellCheck={false}
           />

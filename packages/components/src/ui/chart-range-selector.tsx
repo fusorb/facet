@@ -12,15 +12,12 @@ export interface ChartRangePreset {
 
 /** Anchor position relative to the chart container. */
 export type ChartRangeSelectorPosition =
-  | "top-left"
-  | "top-right"
-  | "bottom-left"
-  | "bottom-right"
-  | "top"
-  | "bottom";
+  "top-left" | "top-right" | "bottom-left" | "bottom-right" | "top" | "bottom";
 
-export interface ChartRangeSelectorProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface ChartRangeSelectorProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onChange"
+> {
   /** Preset options to display. */
   presets: ChartRangePreset[];
   /** Currently selected value (controlled). */
@@ -50,7 +47,10 @@ const POSITION_CLASSES: Record<ChartRangeSelectorPosition, string> = {
   bottom: "absolute bottom-2 left-1/2 -translate-x-1/2",
 };
 
-const SIZE_CLASSES: Record<NonNullable<ChartRangeSelectorProps["size"]>, string> = {
+const SIZE_CLASSES: Record<
+  NonNullable<ChartRangeSelectorProps["size"]>,
+  string
+> = {
   compact: "gap-0.5 px-1 py-0.5 text-xs",
   normal: "gap-1 px-2 py-1 text-sm",
   wide: "gap-2 px-3 py-1.5 text-sm",
@@ -97,9 +97,8 @@ export function ChartRangeSelector({
   className,
   ...rest
 }: ChartRangeSelectorProps) {
-  const [internalMinimized, setInternalMinimized] = React.useState(
-    defaultMinimized,
-  );
+  const [internalMinimized, setInternalMinimized] =
+    React.useState(defaultMinimized);
   const minimized = controlledMinimized ?? internalMinimized;
 
   const handleToggle = () => {

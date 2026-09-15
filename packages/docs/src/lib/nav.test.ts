@@ -1,6 +1,10 @@
 // @vitest-environment node
 import { describe, it, expect } from "vitest";
-import { buildDocsLayoutConfig, isExtendedLayoutSlug, type DocsSiteConfig } from "./nav.js";
+import {
+  buildDocsLayoutConfig,
+  isExtendedLayoutSlug,
+  type DocsSiteConfig,
+} from "./nav.js";
 import type { DocsPage } from "./pages.js";
 import type { NavSection } from "@fusorb/facet-layout";
 
@@ -14,7 +18,10 @@ function makeConfig(overrides: Partial<DocsSiteConfig> = {}): DocsSiteConfig {
   };
 }
 
-function findSection(nav: NavSection[], idOrTitle: string): NavSection | undefined {
+function findSection(
+  nav: NavSection[],
+  idOrTitle: string,
+): NavSection | undefined {
   return nav.find((s) => s.id === idOrTitle || s.title === idOrTitle);
 }
 
@@ -54,7 +61,10 @@ describe("buildDocsLayoutConfig", () => {
   it("passes through the config's brand and pre-existing navigation", () => {
     const config = makeConfig({
       navigation: [
-        { title: "Dashboard", items: [{ href: "/dashboard", label: "Dashboard" }] },
+        {
+          title: "Dashboard",
+          items: [{ href: "/dashboard", label: "Dashboard" }],
+        },
       ],
     });
     const result = buildDocsLayoutConfig(config, [], false);
@@ -157,7 +167,7 @@ describe("buildDocsLayoutConfig", () => {
       },
     ];
     const config = makeConfig({
-      ecosystem: [{ label: "arc-id", href: "https://arc.id" }],
+      ecosystem: [{ label: "SovGrant", href: "https://arc.id" }],
     });
     const result = buildDocsLayoutConfig(config, pages, true);
     const titles = result.navigation.map((s) => s.title);

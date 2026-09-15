@@ -8,7 +8,12 @@
 import * as React from "react";
 import { useAuth } from "./provider.js";
 import { defaultConfig } from "./types.js";
-import type { AuthConfig, Appearance, ComponentSlots, SignUpCopy } from "./types.js";
+import type {
+  AuthConfig,
+  Appearance,
+  ComponentSlots,
+  SignUpCopy,
+} from "./types.js";
 import { defaultSignUpCopy } from "./types.js";
 
 import {
@@ -104,7 +109,9 @@ export function SignUp({
     <Card className={appearance?.className}>
       <CardHeader>
         {slots?.title ?? <CardTitle>{c.title}</CardTitle>}
-        {slots?.description ?? <CardDescription>{c.description}</CardDescription>}
+        {slots?.description ?? (
+          <CardDescription>{c.description}</CardDescription>
+        )}
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -117,7 +124,9 @@ export function SignUp({
               autoComplete="name"
               required
               value={name}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setName(e.target.value)
+              }
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -129,7 +138,9 @@ export function SignUp({
               autoComplete="email"
               required
               value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -141,7 +152,9 @@ export function SignUp({
               required
               minLength={8}
               value={password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
             />
             {showPasswordStrength && <PasswordStrengthMeter value={password} />}
           </div>

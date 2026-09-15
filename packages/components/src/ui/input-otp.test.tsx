@@ -1,7 +1,12 @@
 import { describe, expect, it, beforeAll } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "./input-otp.js";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+  InputOTPSeparator,
+} from "./input-otp.js";
 
 // The input-otp paste handler schedules a timer that calls
 // document.elementFromPoint, which jsdom doesn't implement. Stub it so
@@ -12,7 +17,15 @@ beforeAll(() => {
   }
 });
 
-function OTP({ maxLength = 6, slots = 6, separated = false }: { maxLength?: number; slots?: number; separated?: boolean }) {
+function OTP({
+  maxLength = 6,
+  slots = 6,
+  separated = false,
+}: {
+  maxLength?: number;
+  slots?: number;
+  separated?: boolean;
+}) {
   return (
     <InputOTP maxLength={maxLength} aria-label="One-time code">
       <InputOTPGroup>

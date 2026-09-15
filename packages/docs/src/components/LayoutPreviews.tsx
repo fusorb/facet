@@ -11,7 +11,9 @@ function CodeShell({
 }) {
   return (
     <section className="not-prose mt-8">
-      <h2 className="font-heading text-xl font-semibold text-foreground">{title}</h2>
+      <h2 className="font-heading text-xl font-semibold text-foreground">
+        {title}
+      </h2>
       <p className="mt-1 text-sm text-muted-foreground">{description}</p>
       <div className="mt-4">
         <CodeBlock title={`${title} usage`} code={code} />
@@ -33,7 +35,9 @@ export function LayoutPreviews() {
     <div className="space-y-2">
       <CodeShell
         title="ConsoleLayout"
-        description={'Dashboard shell: sidebar + topbar + content area. mode="full" is always-labeled; mode="rail" collapses to an icon-only rail. Mobile collapses to a Sheet.'}
+        description={
+          'Dashboard shell: sidebar + topbar + content area. mode="full" is always-labeled; mode="rail" collapses to an icon-only rail. Mobile collapses to a Sheet.'
+        }
         code={`import { ConsoleLayout, defaultLayoutPreset } from "@fusorb/facet-layout";
 
 <ConsoleLayout config={defaultLayoutPreset} mode="full">
@@ -70,7 +74,7 @@ import { SignIn, fintechPreset } from "@fusorb/facet-auth";
 
       <CodeShell
         title="LandingLayout"
-        description="Full-bleed marketing shell with a glassmorphic hero. Pair with the Navbar pill variant."
+        description="Full-bleed marketing shell with a glassmorphic hero. Pair with the Navbar pill variant for a flush, scroll-aware glass header."
         code={`import { LandingLayout } from "@fusorb/facet-layout";
 import { Navbar } from "@fusorb/facet-components";
 

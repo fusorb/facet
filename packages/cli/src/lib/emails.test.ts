@@ -9,8 +9,15 @@ import {
   formatDetection,
   emailSuggestionProvider,
 } from "./emails.js";
-import { buildRepoContext, generalRepoProvider, suggestRepoSteps } from "./suggest.js";
-import { generateEmailsScaffold, emailsPackageJsonAdditions } from "./emails-generators.js";
+import {
+  buildRepoContext,
+  generalRepoProvider,
+  suggestRepoSteps,
+} from "./suggest.js";
+import {
+  generateEmailsScaffold,
+  emailsPackageJsonAdditions,
+} from "./emails-generators.js";
 
 function tmp(): string {
   return fs.mkdtempSync(path.join(os.tmpdir(), "facet-emails-cli-"));
@@ -26,10 +33,14 @@ describe("detectMailSetup", () => {
   it("detects react-email in the consumer manifest", () => {
     const dir = tmp();
     try {
-      writeFile(dir, "package.json", JSON.stringify({
-        name: "app",
-        dependencies: { "@react-email/components": "^1.0.0" },
-      }));
+      writeFile(
+        dir,
+        "package.json",
+        JSON.stringify({
+          name: "app",
+          dependencies: { "@react-email/components": "^1.0.0" },
+        }),
+      );
       const d = detectMailSetup(dir);
       expect(d.hasExisting).toBe(true);
       expect(d.renderer).toBe("react-email");
@@ -43,10 +54,14 @@ describe("detectMailSetup", () => {
   it("detects resend as a provider (renderer null, hasExisting true)", () => {
     const dir = tmp();
     try {
-      writeFile(dir, "package.json", JSON.stringify({
-        name: "app",
-        dependencies: { resend: "^6.0.0" },
-      }));
+      writeFile(
+        dir,
+        "package.json",
+        JSON.stringify({
+          name: "app",
+          dependencies: { resend: "^6.0.0" },
+        }),
+      );
       const d = detectMailSetup(dir);
       expect(d.hasExisting).toBe(true);
       expect(d.renderer).toBe("resend");
@@ -72,10 +87,14 @@ describe("detectMailSetup", () => {
   it("detects facet-emails already installed", () => {
     const dir = tmp();
     try {
-      writeFile(dir, "package.json", JSON.stringify({
-        name: "app",
-        dependencies: { "@fusorb/facet-emails": "1.0.0" },
-      }));
+      writeFile(
+        dir,
+        "package.json",
+        JSON.stringify({
+          name: "app",
+          dependencies: { "@fusorb/facet-emails": "1.0.0" },
+        }),
+      );
       const d = detectMailSetup(dir);
       expect(d.facetEmailsInstalled).toBe(true);
     } finally {
@@ -114,10 +133,14 @@ describe("planEmailsInit", () => {
   it("plans migration when react-email exists", () => {
     const dir = tmp();
     try {
-      writeFile(dir, "package.json", JSON.stringify({
-        name: "app",
-        dependencies: { "@react-email/components": "^1.0.0" },
-      }));
+      writeFile(
+        dir,
+        "package.json",
+        JSON.stringify({
+          name: "app",
+          dependencies: { "@react-email/components": "^1.0.0" },
+        }),
+      );
       const detection = detectMailSetup(dir);
       const answers = planEmailsInit(detection, {});
       expect(answers.mode).toBe("migrate");
@@ -129,10 +152,14 @@ describe("planEmailsInit", () => {
   it("honors --fresh override", () => {
     const dir = tmp();
     try {
-      writeFile(dir, "package.json", JSON.stringify({
-        name: "app",
-        dependencies: { "@react-email/components": "^1.0.0" },
-      }));
+      writeFile(
+        dir,
+        "package.json",
+        JSON.stringify({
+          name: "app",
+          dependencies: { "@react-email/components": "^1.0.0" },
+        }),
+      );
       const detection = detectMailSetup(dir);
       const answers = planEmailsInit(detection, { fresh: true });
       expect(answers.mode).toBe("fresh");
@@ -147,10 +174,14 @@ describe("planEmailsInit", () => {
     expect(mailPackageRole("nodemailer")).toBe("nodemailer");
     const dir = tmp();
     try {
-      writeFile(dir, "package.json", JSON.stringify({
-        name: "app",
-        dependencies: { nodemailer: "^6.9.0" },
-      }));
+      writeFile(
+        dir,
+        "package.json",
+        JSON.stringify({
+          name: "app",
+          dependencies: { nodemailer: "^6.9.0" },
+        }),
+      );
       const detection = detectMailSetup(dir);
       const answers = planEmailsInit(detection, {});
       expect(answers.provider).toBe("nodemailer");
@@ -224,10 +255,14 @@ describe("formatDetection", () => {
   it("produces human-readable lines", () => {
     const dir = tmp();
     try {
-      writeFile(dir, "package.json", JSON.stringify({
-        name: "app",
-        dependencies: { resend: "^6.0.0" },
-      }));
+      writeFile(
+        dir,
+        "package.json",
+        JSON.stringify({
+          name: "app",
+          dependencies: { resend: "^6.0.0" },
+        }),
+      );
       const lines = formatDetection(detectMailSetup(dir));
       expect(lines.some((l) => l.includes("Package manager"))).toBe(true);
       expect(lines.some((l) => l.includes("resend"))).toBe(true);
@@ -241,14 +276,20 @@ describe("suggestion providers", () => {
   it("email provider suggests migration guidance when react-email is present", () => {
     const dir = tmp();
     try {
-      writeFile(dir, "package.json", JSON.stringify({
-        name: "app",
-        dependencies: { "@react-email/components": "^1.0.0" },
-      }));
+      writeFile(
+        dir,
+        "package.json",
+        JSON.stringify({
+          name: "app",
+          dependencies: { "@react-email/components": "^1.0.0" },
+        }),
+      );
       const d = detectMailSetup(dir);
       const answers = planEmailsInit(d, {});
       const ctx = buildRepoContext(dir);
-      const steps = suggestRepoSteps(ctx, [emailSuggestionProvider(d, answers)]);
+      const steps = suggestRepoSteps(ctx, [
+        emailSuggestionProvider(d, answers),
+      ]);
       expect(steps.some((s) => s.includes("react-email"))).toBe(true);
       expect(steps.some((s) => s.includes("mail:preview"))).toBe(true);
     } finally {
@@ -259,14 +300,20 @@ describe("suggestion providers", () => {
   it("email provider suggests framework integration for Next.js", () => {
     const dir = tmp();
     try {
-      writeFile(dir, "package.json", JSON.stringify({
-        name: "app",
-        dependencies: { next: "^15" },
-      }));
+      writeFile(
+        dir,
+        "package.json",
+        JSON.stringify({
+          name: "app",
+          dependencies: { next: "^15" },
+        }),
+      );
       const d = detectMailSetup(dir);
       const answers = planEmailsInit(d, {});
       const ctx = buildRepoContext(dir);
-      const steps = suggestRepoSteps(ctx, [emailSuggestionProvider(d, answers)]);
+      const steps = suggestRepoSteps(ctx, [
+        emailSuggestionProvider(d, answers),
+      ]);
       expect(steps.some((s) => s.includes("Next.js"))).toBe(true);
       expect(steps.some((s) => s.includes("app/api"))).toBe(true);
     } finally {
@@ -277,12 +324,16 @@ describe("suggestion providers", () => {
   it("general provider mentions the monorepo when workspace globs exist", () => {
     const dir = tmp();
     try {
-      writeFile(dir, "package.json", JSON.stringify({
-        name: "app",
-        private: true,
-        workspaces: ["packages/*"],
-      }));
-      writeFile(dir, "pnpm-workspace.yaml", "packages:\n  - \"packages/*\"\n");
+      writeFile(
+        dir,
+        "package.json",
+        JSON.stringify({
+          name: "app",
+          private: true,
+          workspaces: ["packages/*"],
+        }),
+      );
+      writeFile(dir, "pnpm-workspace.yaml", 'packages:\n  - "packages/*"\n');
       const ctx = buildRepoContext(dir);
       const steps = suggestRepoSteps(ctx, [generalRepoProvider]);
       expect(steps.some((s) => s.includes("Monorepo"))).toBe(true);

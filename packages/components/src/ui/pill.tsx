@@ -9,7 +9,8 @@ import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 
 export type PillVariant = "default" | "outline" | "filled" | "ghost" | "subtle";
-export type PillColor = "default" | "primary" | "secondary" | "success" | "warning" | "destructive";
+export type PillColor =
+  "default" | "primary" | "secondary" | "success" | "warning" | "destructive";
 export type PillRadius = "full" | "rounded" | "md";
 export type PillSize = "sm" | "md" | "lg";
 export type PillIndicator = "dot" | "icon" | "none";
@@ -44,31 +45,47 @@ interface PillTokens {
 }
 
 const pillColors: Record<PillColor, PillTokens> = {
-  default: { dot: "bg-muted-foreground", border: "", text: "", filled: "bg-foreground text-background" },
-  primary: { dot: "bg-primary", border: "border-primary/40", text: "text-primary", filled: "bg-primary text-primary-foreground" },
-  secondary: { dot: "bg-secondary-foreground", border: "border-secondary/40", text: "text-secondary-foreground", filled: "bg-secondary text-secondary-foreground" },
+  default: {
+    dot: "bg-muted-foreground",
+    border: "",
+    text: "",
+    filled: "bg-foreground text-background",
+  },
+  primary: {
+    dot: "bg-primary",
+    border: "border-primary/40",
+    text: "text-primary",
+    filled: "bg-primary text-primary-foreground",
+  },
+  secondary: {
+    dot: "bg-secondary-foreground",
+    border: "border-secondary/40",
+    text: "text-secondary-foreground",
+    filled: "bg-secondary text-secondary-foreground",
+  },
   success: {
-    dot: "bg-green-600 dark:bg-green-400",
-    border: "border-green-500/30 dark:border-green-400/30",
-    text: "text-green-600 dark:text-green-400",
-    filled: "bg-green-600 text-white dark:bg-green-400",
+    dot: "bg-success",
+    border: "border-success/30",
+    text: "text-success",
+    filled: "bg-success text-success-foreground",
   },
   warning: {
-    dot: "bg-amber-600 dark:bg-amber-400",
-    border: "border-amber-500/30 dark:border-amber-400/30",
-    text: "text-amber-600 dark:text-amber-400",
-    filled: "bg-amber-600 text-white dark:bg-amber-400",
+    dot: "bg-warning",
+    border: "border-warning/30",
+    text: "text-warning",
+    filled: "bg-warning text-warning-foreground",
   },
   destructive: {
-    dot: "bg-red-600 dark:bg-red-400",
-    border: "border-red-500/30 dark:border-red-400/30",
-    text: "text-red-600 dark:text-red-400",
-    filled: "bg-red-600 text-white dark:bg-red-400",
+    dot: "bg-destructive",
+    border: "border-destructive/30",
+    text: "text-destructive",
+    filled: "bg-destructive text-destructive-foreground",
   },
 };
 
 export interface PillProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "color">,
+  extends
+    Omit<React.HTMLAttributes<HTMLElement>, "color">,
     VariantProps<typeof pillVariants> {
   /** Leading indicator: `dot` (default), `icon`, or `none`. */
   indicator?: PillIndicator;
@@ -126,9 +143,15 @@ export const Pill = React.forwardRef<HTMLElement, PillProps>(
 
     const renderIndicator = () => {
       if (leading) return <span className="shrink-0">{leading}</span>;
-      if (indicator === "icon") return icon ? <span className="shrink-0">{icon}</span> : null;
+      if (indicator === "icon")
+        return icon ? <span className="shrink-0">{icon}</span> : null;
       if (indicator === "dot") {
-        return <span className={cn("size-1.5 shrink-0 rounded-full", dotClass)} aria-hidden="true" />;
+        return (
+          <span
+            className={cn("size-1.5 shrink-0 rounded-full", dotClass)}
+            aria-hidden="true"
+          />
+        );
       }
       return null;
     };
@@ -158,7 +181,12 @@ export const Pill = React.forwardRef<HTMLElement, PillProps>(
 
     if (href) {
       return (
-        <a href={href} ref={ref as React.Ref<HTMLAnchorElement>} className={base} {...props}>
+        <a
+          href={href}
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          className={base}
+          {...props}
+        >
           {content}
         </a>
       );
@@ -170,7 +198,9 @@ export const Pill = React.forwardRef<HTMLElement, PillProps>(
           type="button"
           ref={ref as React.Ref<HTMLButtonElement>}
           className={base}
-          onClick={onClick as unknown as React.MouseEventHandler<HTMLButtonElement>}
+          onClick={
+            onClick as unknown as React.MouseEventHandler<HTMLButtonElement>
+          }
           aria-pressed={selected && !isTab ? true : undefined}
           {...props}
         >
@@ -240,7 +270,9 @@ export const PillTrigger = React.forwardRef<HTMLElement, PillTriggerProps>(
     const handleKeydown = (e: React.KeyboardEvent<HTMLElement>) => {
       const list = e.currentTarget.closest('[role="tablist"]');
       if (!list) return;
-      const tabs = Array.from(list.querySelectorAll<HTMLElement>('[role="tab"]'));
+      const tabs = Array.from(
+        list.querySelectorAll<HTMLElement>('[role="tab"]'),
+      );
       const i = tabs.indexOf(e.currentTarget);
       if (i === -1) return;
       const move = (n: number) => {
@@ -266,8 +298,12 @@ export const PillTrigger = React.forwardRef<HTMLElement, PillTriggerProps>(
         aria-selected={selected}
         aria-label={props["aria-label"]}
         selected={selected}
-        onClick={handleSelect as unknown as React.MouseEventHandler<HTMLElement>}
-        onKeyDown={handleKeydown as unknown as React.KeyboardEventHandler<HTMLElement>}
+        onClick={
+          handleSelect as unknown as React.MouseEventHandler<HTMLElement>
+        }
+        onKeyDown={
+          handleKeydown as unknown as React.KeyboardEventHandler<HTMLElement>
+        }
         variant="ghost"
         radius="full"
         color={selected ? "primary" : "default"}

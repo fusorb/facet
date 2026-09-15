@@ -32,6 +32,13 @@ export type QrScannerStatus =
   | "paused"
   | "error";
 
+export interface QrScannerCopy {
+  /** Override the status pill label per status. */
+  statusLabels?: Partial<Record<QrScannerStatus, string>>;
+  /** Label for the resume button shown while paused. */
+  resumeLabel?: string;
+}
+
 export interface QrScannerProps {
   /** Called when a code is successfully scanned. */
   onScan: (result: string) => void;
@@ -47,6 +54,8 @@ export interface QrScannerProps {
   title?: string;
   /** Description under the title. */
   description?: string;
+  /** Optional copy overrides (status labels + resume button). */
+  copy?: QrScannerCopy;
   /** Optional list of formats to detect (passed through to BarcodeDetector). */
   formats?: string[];
   /**
@@ -65,7 +74,9 @@ export interface QrScannerProps {
 // Minimal shape of the native BarcodeDetector API so we don't need the
 // lib.dom typings for it (still experimental in TS).
 interface BarcodeDetectorInstance {
-  detect(image: ImageBitmap | ImageData | HTMLCanvasElement | HTMLVideoElement): Promise<Array<{ rawValue: string }>>;
+  detect(
+    image: ImageBitmap | ImageData | HTMLCanvasElement | HTMLVideoElement,
+  ): Promise<Array<{ rawValue: string }>>;
 }
 interface BarcodeDetectorCtor {
   new (opts?: { formats?: string[] }): BarcodeDetectorInstance;
@@ -75,7 +86,8 @@ interface BarcodeDetectorCtor {
 
 function getBarcodeDetector(): BarcodeDetectorCtor | undefined {
   if (typeof window === "undefined") return undefined;
-  return (window as unknown as { BarcodeDetector?: BarcodeDetectorCtor }).BarcodeDetector;
+  return (window as unknown as { BarcodeDetector?: BarcodeDetectorCtor })
+    .BarcodeDetector;
 }
 
 /* ── Component ─────────────────────────────────────────────── */
@@ -99,6 +111,7 @@ export function QrScanner({
   className,
   title = "Scan a code",
   description,
+  copy,
   formats = ["qr_code", "code_128", "ean_13", "ean_8"],
   pauseOnScan = true,
   cooldownMs = 600,
@@ -148,7 +161,10 @@ export function QrScanner({
     (async () => {
       try {
         updateStatus("requesting");
-        if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
+        if (
+          typeof navigator === "undefined" ||
+          !navigator.mediaDevices?.getUserMedia
+        ) {
           updateStatus("unsupported");
           return;
         }
@@ -168,7 +184,8 @@ export function QrScanner({
         updateStatus("scanning");
         loop(detector);
       } catch (err) {
-        if ((err as DOMException)?.name === "NotAllowedError") updateStatus("denied");
+        if ((err as DOMException)?.name === "NotAllowedError")
+          updateStatus("denied");
         else {
           updateStatus("error");
           onError?.(err instanceof Error ? err : new Error(String(err)));
@@ -199,7 +216,8 @@ export function QrScanner({
             const text = r.rawValue;
             if (!text) continue;
             const last = lastScanRef.current;
-            if (last && last.text === text && now - last.at < cooldownMs) continue;
+            if (last && last.text === text && now - last.at < cooldownMs)
+              continue;
             lastScanRef.current = { text, at: now };
             onScan(text);
             if (pauseOnScan) {
@@ -242,7 +260,7 @@ export function QrScanner({
       {/* Status pill */}
       <div className="absolute left-3 top-3 flex items-center gap-2 rounded-full bg-black/60 px-2.5 py-1 text-xs font-medium text-white backdrop-blur">
         <StatusDot status={status} />
-        <span>{STATUS_LABEL[status]}</span>
+        <span>{copy?.statusLabels?.[status] ?? STATUS_LABEL[status]}</span>
       </div>
 
       {/* Title + description */}
@@ -257,7 +275,7 @@ export function QrScanner({
       {status === "paused" && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/40">
           <Button onClick={resume} variant="default">
-            Scan another
+            {copy?.resumeLabel ?? "Scan another"}
           </Button>
         </div>
       )}
@@ -290,14 +308,14 @@ const STATUS_ICON: Record<QrScannerStatus, IconName> = {
 function StatusDot({ status }: { status: QrScannerStatus }) {
   const tone =
     status === "scanning"
-      ? "bg-emerald-400"
+      ? "bg-success"
       : status === "paused"
-        ? "bg-amber-400"
+        ? "bg-warning"
         : status === "denied" || status === "error"
-          ? "bg-rose-400"
+          ? "bg-destructive"
           : status === "unsupported"
-            ? "bg-zinc-400"
-            : "bg-white/70";
+            ? "bg-muted-foreground"
+            : "bg-foreground/70";
   return (
     <span className="flex items-center gap-1.5">
       <span className={cn("size-2 rounded-full", tone)} />

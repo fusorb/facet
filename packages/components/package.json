@@ -1,7 +1,7 @@
 {
   "name": "@fusorb/facet-components",
   "version": "1.11.0",
-  "description": "Radix-based UI component library for the ArcevoCirqle ecosystem: 114 accessible, styled components using the Alpha Palette design tokens",
+  "description": "Radix-based UI component library: 114 accessible, styled components using the Alpha Palette design tokens",
   "type": "module",
   "exports": {
     ".": {
@@ -54,13 +54,12 @@
   "bugs": {
     "url": "https://github.com/fusorb/facet/issues"
   },
-  "homepage": "https://facet.arcevocirqle.com.ng",
+  "homepage": "https://github.com/fusorb/facet",
   "license": "MIT",
   "keywords": [
     "ui-components",
     "radix-ui",
     "react",
-    "arcevocirqle",
     "design-system",
     "tailwindcss"
   ],

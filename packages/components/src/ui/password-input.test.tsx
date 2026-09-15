@@ -27,11 +27,18 @@ describe("PasswordInput", () => {
   it("respects controlled visibility", async () => {
     const onVisibleChange = vi.fn();
     const { container } = render(
-      <PasswordInput value="secret" visible={false} onVisibleChange={onVisibleChange} />,
+      <PasswordInput
+        value="secret"
+        visible={false}
+        onVisibleChange={onVisibleChange}
+      />,
     );
     await userEvent.click(screen.getByLabelText("Show password"));
     expect(onVisibleChange).toHaveBeenCalledWith(true);
     // Controlled: stays hidden because visible prop is still false.
-    expect(container.querySelector("input")).toHaveAttribute("type", "password");
+    expect(container.querySelector("input")).toHaveAttribute(
+      "type",
+      "password",
+    );
   });
 });

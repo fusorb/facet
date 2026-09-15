@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ArcIdClient } from "./client.js";
 
 describe("ArcIdClient", () => {
-  const baseUrl = "https://auth.arcevo.dev/api/v1";
+  const baseUrl = "https://auth.example.dev/api/v1";
 
   let fetchMock: ReturnType<typeof vi.fn>;
 
@@ -30,7 +30,9 @@ describe("ArcIdClient", () => {
 
   describe("request basics", () => {
     it("sends GET with Authorization header when a token is set", async () => {
-      fetchMock.mockResolvedValue(jsonResponse({ success: true, data: { ok: true } }));
+      fetchMock.mockResolvedValue(
+        jsonResponse({ success: true, data: { ok: true } }),
+      );
 
       const client = new ArcIdClient({ baseUrl });
       client.setAccessToken("secret");
@@ -67,11 +69,16 @@ describe("ArcIdClient", () => {
       const [url, init] = callAt(0);
       expect(url).toBe(`${baseUrl}/auth/login`);
       expect(init.method).toBe("POST");
-      expect(JSON.parse(init.body as string)).toEqual({ email: "a@b.c", password: "pw" });
+      expect(JSON.parse(init.body as string)).toEqual({
+        email: "a@b.c",
+        password: "pw",
+      });
     });
 
     it("unwraps the { success, data } envelope by default", async () => {
-      fetchMock.mockResolvedValue(jsonResponse({ success: true, data: { accessToken: "t" } }));
+      fetchMock.mockResolvedValue(
+        jsonResponse({ success: true, data: { accessToken: "t" } }),
+      );
 
       const client = new ArcIdClient({ baseUrl });
       const res = await client.get<{ accessToken: string }>("/me");
@@ -80,7 +87,9 @@ describe("ArcIdClient", () => {
     });
 
     it("returns the raw body with bare: true", async () => {
-      fetchMock.mockResolvedValue(jsonResponse({ access_token: "t", token_type: "Bearer" }));
+      fetchMock.mockResolvedValue(
+        jsonResponse({ access_token: "t", token_type: "Bearer" }),
+      );
 
       const client = new ArcIdClient({ baseUrl });
       const res = await client.post<{ access_token: string }>(
@@ -169,7 +178,10 @@ describe("ArcIdClient", () => {
       const res = await client.get("/offline");
 
       expect(res.data).toBeNull();
-      expect(res.error).toMatchObject({ statusCode: 0, error: "NETWORK_ERROR" });
+      expect(res.error).toMatchObject({
+        statusCode: 0,
+        error: "NETWORK_ERROR",
+      });
     });
   });
 
@@ -178,8 +190,12 @@ describe("ArcIdClient", () => {
       const onTokenRefresh = vi.fn().mockResolvedValue("new-token");
 
       fetchMock
-        .mockResolvedValueOnce(jsonResponse({ error: "UNAUTHORIZED", message: "expired" }, 401))
-        .mockResolvedValueOnce(jsonResponse({ success: true, data: { ok: true } }));
+        .mockResolvedValueOnce(
+          jsonResponse({ error: "UNAUTHORIZED", message: "expired" }, 401),
+        )
+        .mockResolvedValueOnce(
+          jsonResponse({ success: true, data: { ok: true } }),
+        );
 
       const client = new ArcIdClient({
         baseUrl,
@@ -201,7 +217,9 @@ describe("ArcIdClient", () => {
     it("does not retry when onTokenRefresh returns null", async () => {
       const onTokenRefresh = vi.fn().mockResolvedValue(null);
 
-      fetchMock.mockResolvedValue(jsonResponse({ error: "UNAUTHORIZED", message: "expired" }, 401));
+      fetchMock.mockResolvedValue(
+        jsonResponse({ error: "UNAUTHORIZED", message: "expired" }, 401),
+      );
 
       const client = new ArcIdClient({
         baseUrl,
@@ -217,7 +235,9 @@ describe("ArcIdClient", () => {
     it("does not retry when no token is configured", async () => {
       const onTokenRefresh = vi.fn();
 
-      fetchMock.mockResolvedValue(jsonResponse({ error: "UNAUTHORIZED", message: "expired" }, 401));
+      fetchMock.mockResolvedValue(
+        jsonResponse({ error: "UNAUTHORIZED", message: "expired" }, 401),
+      );
 
       const client = new ArcIdClient({ baseUrl, onTokenRefresh });
       const res = await client.get("/protected");
@@ -231,7 +251,9 @@ describe("ArcIdClient", () => {
       const onAuthCleared = vi.fn();
       const onTokenRefresh = vi.fn().mockResolvedValue(null);
 
-      fetchMock.mockResolvedValue(jsonResponse({ error: "UNAUTHORIZED", message: "expired" }, 401));
+      fetchMock.mockResolvedValue(
+        jsonResponse({ error: "UNAUTHORIZED", message: "expired" }, 401),
+      );
 
       const client = new ArcIdClient({
         baseUrl,
@@ -251,7 +273,9 @@ describe("ArcIdClient", () => {
       ["patch", "PATCH"],
       ["del", "DELETE"],
     ] as const)("%s maps to %s", async (verb, method) => {
-      fetchMock.mockResolvedValue(jsonResponse({ success: true, data: { ok: true } }));
+      fetchMock.mockResolvedValue(
+        jsonResponse({ success: true, data: { ok: true } }),
+      );
 
       const client = new ArcIdClient({ baseUrl });
       await client[verb]("/thing", { a: 1 } as never);
@@ -262,7 +286,9 @@ describe("ArcIdClient", () => {
   });
 
   it("setAccessToken overrides the token at runtime", async () => {
-    fetchMock.mockResolvedValue(jsonResponse({ success: true, data: { ok: true } }));
+    fetchMock.mockResolvedValue(
+      jsonResponse({ success: true, data: { ok: true } }),
+    );
 
     const client = new ArcIdClient({ baseUrl, apiKey: "one" });
     client.setAccessToken("two");

@@ -1,7 +1,7 @@
 {
   "name": "@fusorb/facet-sdk",
   "version": "1.2.0",
-  "description": "arc-id API client: framework-agnostic fetch SDK for the ArcevoCirqle identity platform. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
+  "description": "SovGrant API client: framework-agnostic fetch SDK. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
   "type": "module",
   "exports": {
     ".": {
@@ -36,16 +36,15 @@
   "bugs": {
     "url": "https://github.com/fusorb/facet/issues"
   },
-  "homepage": "https://facet.arcevocirqle.com.ng",
+  "homepage": "https://github.com/fusorb/facet",
   "license": "MIT",
   "keywords": [
-    "arc-id",
+    "SovGrant",
     "sdk",
     "identity",
     "oauth",
     "did",
-    "verifiable-credentials",
-    "arcevocirqle"
+    "verifiable-credentials"
   ],
   "devDependencies": {
     "tsup": "^8.5.1",

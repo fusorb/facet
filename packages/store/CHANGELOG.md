@@ -5,7 +5,7 @@
 ### Major Changes
 
 - 43ccd14: Bump CLI and store to stable 1.0.0. The store handles auth-critical token-refresh
-  state consumed by arc-id in production, so 0.1.0 (alpha) stability is no longer
+  state consumed by SovGrant in production, so 0.1.0 (alpha) stability is no longer
   acceptable. The CLI is the primary developer tool and all other packages are
   already 1.x - aligning both to 1.0.0 signals release-readiness and removes
   pre-release confusion. Per the handbook rule: "anything release-ready should be
@@ -33,7 +33,7 @@
   coupling in the store logic) - React is only required by the auto-generated
   hooks at the consumer boundary, so it stays a peer, not a bundled dependency.
 
-  Consumers share one source of truth: arc-id, the docs preview surface, and
-  the RN wallet app. The state layer has zero `any` and zero arc-id-specific
+  Consumers share one source of truth: SovGrant, the docs preview surface, and
+  the RN wallet app. The state layer has zero `any` and zero SovGrant-specific
   logic (verified: `grep any src/store` returns no matches); types
   (`User`/`Tenant`) are re-exported from `@fusorb/facet-sdk`.

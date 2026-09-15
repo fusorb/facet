@@ -8,7 +8,7 @@
  * registry and it renders via DocsContentPage and appears in the sidebar
  * and search palette with zero component edits.
  *
- * Consumers author their own pages (e.g. arc-id's "Overview", "Getting
+ * Consumers author their own pages (e.g. SovGrant's "Overview", "Getting
  * Started", "API Reference") and pass them to <DocsApp>; the engine ships
  * the block types here, not any specific content.
  */
@@ -20,6 +20,7 @@ export interface DocsLink {
 export type DocsBlock =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
+  | { type: "pre"; text: string }
   | { type: "code"; text: string; lang?: string }
   | { type: "install"; pkg: string; extras?: string[] }
   | { type: "ul"; items: string[] }
@@ -52,7 +53,13 @@ export type DocsBlock =
         title?: string;
         pre?: boolean;
         changes: Array<{
-          kind: "added" | "changed" | "fixed" | "removed" | "deprecated" | "security";
+          kind:
+            | "added"
+            | "changed"
+            | "fixed"
+            | "removed"
+            | "deprecated"
+            | "security";
           text: string;
           href?: string;
           author?: string;
@@ -60,7 +67,8 @@ export type DocsBlock =
       }>;
       /** Show the kind filter row. Default: true. */
       showFilter?: boolean;
-    } | {
+    }
+  | {
       /** Centralised live playground: component selector + editable usage code with a live preview. */
       type: "playground";
       /** Manifest slug to pre-select. Defaults to "button". */

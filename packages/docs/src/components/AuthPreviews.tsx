@@ -21,11 +21,15 @@ function PreviewShell({
   const [showCode, setShowCode] = React.useState(false);
   return (
     <section className="not-prose mt-8">
-      <h2 className="font-heading text-xl font-semibold text-foreground">{title}</h2>
+      <h2 className="font-heading text-xl font-semibold text-foreground">
+        {title}
+      </h2>
       <p className="mt-1 text-sm text-muted-foreground">{description}</p>
       <div className="mt-4 overflow-visible rounded-lg border border-border">
         <div className="flex items-center justify-between gap-3 border-b border-border bg-muted/30 px-4 py-2.5">
-          <span className="text-xs font-medium text-muted-foreground">Live preview</span>
+          <span className="text-xs font-medium text-muted-foreground">
+            Live preview
+          </span>
           <button
             type="button"
             onClick={() => setShowCode((v) => !v)}
@@ -127,10 +131,7 @@ export function AuthPreviews() {
       >
         <AuthProvider>
           <div className="w-full max-w-md">
-            <LoginForm
-              onSubmit={async () => null}
-              validate
-            />
+            <LoginForm onSubmit={async () => null} validate />
           </div>
         </AuthProvider>
       </PreviewShell>

@@ -87,7 +87,9 @@ export function MultiCombobox({
     if (!search) return options;
     const q = search.toLowerCase();
     return options.filter(
-      (o) => o.label.toLowerCase().includes(q) || o.description?.toLowerCase().includes(q),
+      (o) =>
+        o.label.toLowerCase().includes(q) ||
+        o.description?.toLowerCase().includes(q),
     );
   }, [options, search]);
 
@@ -99,7 +101,10 @@ export function MultiCombobox({
   // Close on outside click.
   React.useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -218,7 +223,12 @@ export function MultiCombobox({
                 )}
               >
                 <span className="flex items-center gap-2">
-                  {opt.icon && <Icon name={opt.icon} className="size-4 text-muted-foreground" />}
+                  {opt.icon && (
+                    <Icon
+                      name={opt.icon}
+                      className="size-4 text-muted-foreground"
+                    />
+                  )}
                   <span>
                     <span className="block">{opt.label}</span>
                     {opt.description && (
@@ -228,7 +238,9 @@ export function MultiCombobox({
                     )}
                   </span>
                 </span>
-                {picked && <Icon name="check" className="size-4 text-primary" />}
+                {picked && (
+                  <Icon name="check" className="size-4 text-primary" />
+                )}
               </li>
             );
           })}

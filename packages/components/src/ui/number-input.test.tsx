@@ -72,7 +72,9 @@ describe("NumberInput", () => {
 
   it("accepts typed numbers and clamps on change", async () => {
     const onValueChange = vi.fn();
-    render(<Controlled initial={0} min={0} max={10} onValueChange={onValueChange} />);
+    render(
+      <Controlled initial={0} min={0} max={10} onValueChange={onValueChange} />,
+    );
     const input = screen.getByRole("textbox");
     await userEvent.clear(input);
     await userEvent.type(input, "7");
@@ -86,7 +88,9 @@ describe("NumberInput", () => {
 
   it("renders a currency prefix and keeps numeric value", async () => {
     const onValueChange = vi.fn();
-    render(<Controlled initial={25} currency="$" onValueChange={onValueChange} />);
+    render(
+      <Controlled initial={25} currency="$" onValueChange={onValueChange} />,
+    );
     expect(screen.getByText("$")).toBeInTheDocument();
     const input = screen.getByRole("textbox");
     expect(input).toHaveValue("25");

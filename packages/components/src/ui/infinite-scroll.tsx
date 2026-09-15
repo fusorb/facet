@@ -79,7 +79,8 @@ const InfiniteScroll = React.forwardRef<HTMLDivElement, InfiniteScrollProps>(
     React.useEffect(() => {
       const container = containerRef.current;
       const node = sentinelRef.current;
-      if (!container || !node || typeof IntersectionObserver === "undefined") return;
+      if (!container || !node || typeof IntersectionObserver === "undefined")
+        return;
 
       // root = the scroll container; rootMargin pulls the boundary inward by
       // `threshold` px so loading starts before the exact edge.
@@ -121,7 +122,10 @@ const InfiniteScroll = React.forwardRef<HTMLDivElement, InfiniteScrollProps>(
         <div
           ref={sentinelRef}
           aria-hidden="true"
-          className={cn("shrink-0", direction === "vertical" ? "h-1 w-full" : "h-full w-px")}
+          className={cn(
+            "shrink-0",
+            direction === "vertical" ? "h-1 w-full" : "h-full w-px",
+          )}
         />
       </>
     );
@@ -134,7 +138,9 @@ const InfiniteScroll = React.forwardRef<HTMLDivElement, InfiniteScrollProps>(
           else if (ref) ref.current = node;
         }}
         className={cn(
-          direction === "horizontal" ? "flex items-stretch gap-3" : "flex flex-col gap-3",
+          direction === "horizontal"
+            ? "flex items-stretch gap-3"
+            : "flex flex-col gap-3",
           // The CONSUMER controls the max height (e.g. max-h-64) so the
           // container can actually scroll; this component adds the overflow.
           scrollable && direction === "vertical" && "overflow-y-auto",
@@ -153,7 +159,9 @@ const InfiniteScroll = React.forwardRef<HTMLDivElement, InfiniteScrollProps>(
           {hasMore || loading ? (
             loader
           ) : (
-            <span className="py-2 text-xs text-muted-foreground">{endMessage}</span>
+            <span className="py-2 text-xs text-muted-foreground">
+              {endMessage}
+            </span>
           )}
         </div>
       </div>

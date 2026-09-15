@@ -111,7 +111,11 @@ export function Tree({
   };
 
   return (
-    <ul role="tree" aria-label={ariaLabel} className={cn("space-y-0.5 text-sm", className)}>
+    <ul
+      role="tree"
+      aria-label={ariaLabel}
+      className={cn("space-y-0.5 text-sm", className)}
+    >
       {nodes.map((node) => (
         <TreeItem
           key={node.id}
@@ -163,11 +167,17 @@ const TreeItem: React.FC<TreeItemProps> = ({
   const selected = isSelected(node.id);
 
   return (
-    <li role="treeitem" aria-expanded={hasChildren ? expanded : undefined} aria-selected={selected}>
+    <li
+      role="treeitem"
+      aria-expanded={hasChildren ? expanded : undefined}
+      aria-selected={selected}
+    >
       <div
         className={cn(
           "group flex items-center gap-1 rounded-md py-1 pr-2",
-          !node.disabled && selectionMode !== "none" && "hover:bg-secondary/60 cursor-pointer",
+          !node.disabled &&
+            selectionMode !== "none" &&
+            "hover:bg-secondary/60 cursor-pointer",
           node.disabled && "cursor-not-allowed opacity-50",
           selected && "bg-primary/10 text-primary",
         )}
@@ -199,9 +209,13 @@ const TreeItem: React.FC<TreeItemProps> = ({
           />
         )}
 
-        {node.icon && <Icon name={node.icon} className="size-4 text-muted-foreground" />}
+        {node.icon && (
+          <Icon name={node.icon} className="size-4 text-muted-foreground" />
+        )}
 
-        <span className="truncate">{renderLabel ? renderLabel(node) : node.label}</span>
+        <span className="truncate">
+          {renderLabel ? renderLabel(node) : node.label}
+        </span>
       </div>
 
       {hasChildren && expanded && (

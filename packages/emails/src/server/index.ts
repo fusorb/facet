@@ -22,7 +22,12 @@
  */
 
 import { createServer, type Server } from "node:http";
-import { renderEmail, renderEmailText, type TemplateNode, type EmailBrand } from "../index.js";
+import {
+  renderEmail,
+  renderEmailText,
+  type TemplateNode,
+  type EmailBrand,
+} from "../index.js";
 
 export interface EmailPreviewTemplate {
   title: string;
@@ -56,7 +61,7 @@ function indexHtml(names: string[]): string {
       h1 { font-size: 22px; }
       ul { list-style: none; padding: 0; }
       li { margin: 8px 0; }
-      a { color: #6366f1; text-decoration: none; font-weight: 600; }
+      a { color: #334155; text-decoration: none; font-weight: 600; }
       a:hover { text-decoration: underline; }
       code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
     </style>
@@ -114,11 +119,20 @@ function previewHtml(title: string, html: string, text: string): string {
 export function startEmailPreviewServer(
   options: EmailPreviewServerOptions,
 ): Server {
-  const { templates, brand, port = 3888, host = "127.0.0.1", onReady } = options;
+  const {
+    templates,
+    brand,
+    port = 3888,
+    host = "127.0.0.1",
+    onReady,
+  } = options;
   const names = Object.keys(templates);
 
   const server = createServer((req, res) => {
-    const url = new URL(req.url ?? "/", `http://${req.headers.host ?? "localhost"}`);
+    const url = new URL(
+      req.url ?? "/",
+      `http://${req.headers.host ?? "localhost"}`,
+    );
     const path = url.pathname;
 
     res.setHeader("content-type", "text/html; charset=utf-8");
@@ -134,10 +148,13 @@ export function startEmailPreviewServer(
       const template = templates[name];
       if (!template) {
         res.statusCode = 404;
-        res.end(`<h1>Unknown template: ${esc(name)}</h1><p><a href="/">Back</a></p>`);
+        res.end(
+          `<h1>Unknown template: ${esc(name)}</h1><p><a href="/">Back</a></p>`,
+        );
         return;
       }
-      const tree = typeof template.tree === "function" ? template.tree() : template.tree;
+      const tree =
+        typeof template.tree === "function" ? template.tree() : template.tree;
       const html = renderEmail(tree, { brand, fullDocument: false });
       const text = renderEmailText(tree);
       res.end(previewHtml(template.title, html, text));
@@ -145,7 +162,7 @@ export function startEmailPreviewServer(
     }
 
     res.statusCode = 404;
-    res.end("<h1>Not found</h1><p><a href=\"/\">Back</a></p>");
+    res.end('<h1>Not found</h1><p><a href="/">Back</a></p>');
   });
 
   server.listen(port, host, () => onReady?.(port));

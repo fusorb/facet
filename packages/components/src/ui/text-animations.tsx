@@ -65,7 +65,8 @@ function splitWords(
 function resolveText(text?: string, children?: React.ReactNode): string {
   if (text != null) return text;
   if (typeof children === "string") return children;
-  if (Array.isArray(children)) return children.filter((c) => typeof c === "string").join("");
+  if (Array.isArray(children))
+    return children.filter((c) => typeof c === "string").join("");
   return "";
 }
 
@@ -175,7 +176,10 @@ export function FlipText({
     duration,
   );
   return (
-    <span className={cn("inline-block [perspective:400px]", className)} {...props}>
+    <span
+      className={cn("inline-block [perspective:400px]", className)}
+      {...props}
+    >
       {chars}
     </span>
   );
@@ -206,8 +210,20 @@ export function SplitText({
   const resolved = resolveText(text, children);
   const items =
     by === "chars"
-      ? splitChars(resolved, delay, stagger, "animate-[facet-fade-up_600ms_ease-out_both]", duration)
-      : splitWords(resolved, delay, stagger, "animate-[facet-fade-up_600ms_ease-out_both]", duration);
+      ? splitChars(
+          resolved,
+          delay,
+          stagger,
+          "animate-[facet-fade-up_600ms_ease-out_both]",
+          duration,
+        )
+      : splitWords(
+          resolved,
+          delay,
+          stagger,
+          "animate-[facet-fade-up_600ms_ease-out_both]",
+          duration,
+        );
   return (
     <span className={cn("inline-block", className)} {...props}>
       {items}
@@ -239,7 +255,10 @@ export function FadeUpText({
         "inline-block animate-[facet-fade-up_600ms_ease-out_both]",
         className,
       )}
-      style={{ animationDelay: `${delay}ms`, animationDuration: `${duration}ms` }}
+      style={{
+        animationDelay: `${delay}ms`,
+        animationDuration: `${duration}ms`,
+      }}
       {...props}
     >
       {resolved}
@@ -311,7 +330,12 @@ export interface GradientTextProps extends React.HTMLAttributes<HTMLSpanElement>
 /** An animated gradient fills the text. */
 export function GradientText({
   text,
-  colors = ["var(--primary, #6366f1)", "#d946ef", "#06b6d4", "var(--primary, #6366f1)"],
+  colors = [
+    "var(--primary)",
+    "#d946ef",
+    "var(--alpha-electric-cyan)",
+    "var(--primary)",
+  ],
   duration = 4000,
   className,
   children,
@@ -373,8 +397,15 @@ export function LetterSpacingText({
   const track = loop || hovered ? open : closed;
   return (
     <span
-      className={cn("inline-block cursor-default transition-[letter-spacing] will-change-[letter-spacing]", className)}
-      style={{ ...style, letterSpacing: track, transitionDuration: `${duration}ms` }}
+      className={cn(
+        "inline-block cursor-default transition-[letter-spacing] will-change-[letter-spacing]",
+        className,
+      )}
+      style={{
+        ...style,
+        letterSpacing: track,
+        transitionDuration: `${duration}ms`,
+      }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       {...props}
@@ -386,7 +417,10 @@ export function LetterSpacingText({
 
 /* ── 9. CountUpText ────────────────────────────────────────── */
 
-export interface CountUpTextProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, "children"> {
+export interface CountUpTextProps extends Omit<
+  React.HTMLAttributes<HTMLSpanElement>,
+  "children"
+> {
   /** Target number. */
   to: number;
   /** Start value. Default: 0. */
@@ -433,7 +467,10 @@ export function CountUpText({
   }, [to, from, duration, ease]);
 
   const formatted = separator
-    ? value.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+    ? value.toLocaleString("en-US", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })
     : value.toFixed(decimals);
 
   return (

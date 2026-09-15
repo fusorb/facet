@@ -5,12 +5,13 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  Badge,
+  Pill,
   buttonVariants,
   cn,
   Separator,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
+import { SITE_PACKAGES } from "../../data/site-data.generated.js";
 
 interface TeaserTier {
   id: string;
@@ -28,13 +29,17 @@ const TIERS: TeaserTier[] = [
     name: "Open source",
     price: "Free",
     description: "Every package, MIT-licensed. npm-install, ship.",
-    bullets: ["All 9 packages on npm", "MIT license", "Community Discord"],
+    bullets: [
+      `All ${SITE_PACKAGES.length} packages on npm`,
+      "MIT license",
+      "Community-driven",
+    ],
   },
   {
     id: "components",
     name: "Components",
     price: "Free",
-    description: "113 styled Radix components, themed with the Alpha Palette.",
+    description: "Styled Radix components, themed with the Alpha Palette.",
     bullets: ["Drop-in ready", "Tree-shaken icons", "CI-verified coverage"],
     highlight: true,
     badge: "Most useful",
@@ -43,30 +48,36 @@ const TIERS: TeaserTier[] = [
     id: "auth",
     name: "Auth + SDK",
     price: "Free",
-    description: "Domain-customizable auth + a typed arc-id SDK + store.",
-    bullets: ["State machine + presets", "62 endpoints audited", "Plug-in storage"],
+    description: "Domain-customizable auth + a typed SovGrant SDK + store.",
+    bullets: [
+      "State machine + presets",
+      "Endpoints audited",
+      "Plug-in storage",
+    ],
   },
 ];
 
 /**
  * Pricing teaser that links to the dedicated /pricing page. Three-card
- * grid highlighting the components tier. Every tier is free - facet is
- * open source end to end.
+ * grid highlighting the components tier. Every tier is free.
  */
 export function PricingTeaserSection() {
   return (
     <section id="pricing-teaser" className="mx-auto max-w-7xl px-8 py-24">
       <div className="mb-12 text-center">
-        <Badge variant="outline" className="mb-4 border-primary/30 text-primary">
-          <LightIcon name="credit-card" size={12} className="mr-1.5" />
+        <Pill
+          color="primary"
+          indicator="icon"
+          icon={<LightIcon name="credit-card" size={12} />}
+        >
           Free, forever
-        </Badge>
-        <h2 className="text-3xl font-bold text-foreground font-heading sm:text-4xl">
+        </Pill>
+        <h2 className="mt-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
           Everything ships free, MIT-licensed
         </h2>
-        <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-          Components, auth, layout, SDK, store, tokens, docs, emails, CLI -
-          all on npm, all free. Pick the pieces you need.
+        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+          Components, auth, layout, SDK, store, tokens, docs, emails, CLI. All
+          on npm, all free. Pick the pieces you need.
         </p>
       </div>
 
@@ -85,7 +96,9 @@ export function PricingTeaserSection() {
               </span>
             )}
             <CardHeader>
-              <CardTitle className="font-heading text-xl">{tier.name}</CardTitle>
+              <CardTitle className="font-heading text-xl">
+                {tier.name}
+              </CardTitle>
               <CardDescription>{tier.description}</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-1 flex-col">
@@ -98,7 +111,11 @@ export function PricingTeaserSection() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 {tier.bullets.map((b) => (
                   <li key={b} className="flex items-start gap-2">
-                    <LightIcon name="check" size={14} className="mt-1 text-primary" />
+                    <LightIcon
+                      name="check"
+                      size={14}
+                      className="mt-1 text-success"
+                    />
                     <span>{b}</span>
                   </li>
                 ))}

@@ -86,7 +86,7 @@ all` toolbar buttons; active section scrolls into view.
     independent tokens that were previously `:root`-only.
 
   The light theme is now fully self-contained: a consumer applying
-  `[data-theme="light"]` on a subtree gets every token arc-id/components
+  `[data-theme="light"]` on a subtree gets every token SovGrant/components
   expect, with no fallback to undefined.
 
 ## 1.1.0

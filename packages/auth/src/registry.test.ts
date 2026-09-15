@@ -17,7 +17,13 @@ import {
 describe("preset registry", () => {
   it("exposes the five built-in presets", () => {
     expect(listPresets()).toEqual(
-      expect.arrayContaining(["fintech", "med", "edu", "enterprise", "default"]),
+      expect.arrayContaining([
+        "fintech",
+        "med",
+        "edu",
+        "enterprise",
+        "default",
+      ]),
     );
     expect(hasPreset("fintech")).toBe(true);
     expect(getPreset("fintech")).toEqual(fintechPreset);

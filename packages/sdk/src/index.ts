@@ -1,18 +1,18 @@
 /**
- * @fusorb/facet-sdk: arc-id API client
+ * @fusorb/facet-sdk: SovGrant API client
  *
  * Pure fetch. No framework dependencies.
  *
- * First-party app (own arc-id backend - session-based auth):
+ * First-party app (own SovGrant backend - session-based auth):
  *   import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
  *
- *   const client = new ArcIdClient({ baseUrl: "https://auth.arcevo.dev/api/v1" });
+ *   const client = new ArcIdClient({ baseUrl: "https://auth.example.dev/api/v1" });
  *   const auth = new AuthSdk(client);
  *   const { data, error } = await auth.login("email", "password");
  *
- * Third-party / external integration (shared arc-id instance - OAuth2/OIDC):
+ * Third-party / external integration (shared SovGrant instance - OAuth2/OIDC):
  *   const client = new ArcIdClient({
- *     baseUrl: "https://auth.arcevo.dev/api/v1",
+ *     baseUrl: "https://auth.example.dev/api/v1",
  *     clientId: "my-app-id",          // registered OAuth client
  *     clientSecret: "…",              // only for confidential clients
  *   });
@@ -127,7 +127,11 @@ export { TenantSdk } from "./tenant.sdk.js";
 export { BillingSdk } from "./billing.sdk.js";
 
 export { WebhooksSdk } from "./webhooks.sdk.js";
-export type { CreateWebhookParams, UpdateWebhookParams, ListEventsParams } from "./webhooks.sdk.js";
+export type {
+  CreateWebhookParams,
+  UpdateWebhookParams,
+  ListEventsParams,
+} from "./webhooks.sdk.js";
 
 export { AuditSdk } from "./audit.sdk.js";
 export type { AuditListParams } from "./audit.sdk.js";

@@ -17,7 +17,7 @@ import { toNodeValue } from "./react.js";
 
 /* ── Style tokens ─────────────────────────────────────────── */
 
-const PRIMARY = "var(--primary, #6366f1)";
+const PRIMARY = "var(--primary, #334155)";
 const SURFACE = "var(--surface, #ffffff)";
 const TEXT = "var(--text, #1f2937)";
 const MUTED = "var(--muted, #6b7280)";
@@ -25,7 +25,8 @@ const MUTED = "var(--muted, #6b7280)";
 /** Merge props.children with variadic children (framework-agnostic API
  *  lets callers pass children either way: emailText({children}, "x") or
  *  emailText({}, "x", "y")). */
-type AnyChild = TemplateNode | string | number | bigint | null | undefined | false;
+type AnyChild =
+  TemplateNode | string | number | bigint | null | undefined | false;
 function mergeChildren(
   propsChildren: React.ReactNode | undefined,
   variadic: AnyChild[],
@@ -61,7 +62,10 @@ export interface EmailLayoutProps {
   children?: React.ReactNode;
 }
 
-export function emailLayout(props: EmailLayoutProps, ...extra: AnyChild[]): TemplateNode {
+export function emailLayout(
+  props: EmailLayoutProps,
+  ...extra: AnyChild[]
+): TemplateNode {
   const {
     previewText,
     heading,
@@ -73,7 +77,17 @@ export function emailLayout(props: EmailLayoutProps, ...extra: AnyChild[]): Temp
   const mergedChildren = mergeChildren(children, extra);
   const body = createElement(
     "table",
-    { width: "100%", cellPadding: 0, cellSpacing: 0, role: "presentation", style: { backgroundColor: "var(--background, #f6f6f6)", margin: 0, padding: 0 } },
+    {
+      width: "100%",
+      cellPadding: 0,
+      cellSpacing: 0,
+      role: "presentation",
+      style: {
+        backgroundColor: "var(--background, #f6f6f6)",
+        margin: 0,
+        padding: 0,
+      },
+    },
     createElement(
       "tr",
       {},
@@ -82,9 +96,27 @@ export function emailLayout(props: EmailLayoutProps, ...extra: AnyChild[]): Temp
         { align: "center", style: { padding: "32px 16px" } },
         createElement(
           "table",
-          { width: "100%", cellPadding: 0, cellSpacing: 0, role: "presentation", style: { maxWidth: "600px", width: "100%", margin: "0 auto", backgroundColor: SURFACE, borderRadius: "12px", border: "1px solid #00000014", overflow: "hidden" } },
+          {
+            width: "100%",
+            cellPadding: 0,
+            cellSpacing: 0,
+            role: "presentation",
+            style: {
+              maxWidth: "600px",
+              width: "100%",
+              margin: "0 auto",
+              backgroundColor: SURFACE,
+              borderRadius: "12px",
+              border: "1px solid #00000014",
+              overflow: "hidden",
+            },
+          },
           // Preview text (hidden)
-          createElement("div", { style: { display: "none", maxHeight: 0, overflow: "hidden" } }, previewText),
+          createElement(
+            "div",
+            { style: { display: "none", maxHeight: 0, overflow: "hidden" } },
+            previewText,
+          ),
           // Header
           createElement(
             "tr",
@@ -92,11 +124,28 @@ export function emailLayout(props: EmailLayoutProps, ...extra: AnyChild[]): Temp
             createElement(
               "td",
               { style: { padding: "24px 32px" } },
-              createElement("h1", { style: { margin: 0, fontSize: "20px", fontWeight: 700, color: TEXT } }, brandName),
+              createElement(
+                "h1",
+                {
+                  style: {
+                    margin: 0,
+                    fontSize: "20px",
+                    fontWeight: 700,
+                    color: TEXT,
+                  },
+                },
+                brandName,
+              ),
             ),
           ),
           // Divider
-          createElement("tr", {}, createElement("td", { style: { borderTop: "1px solid #00000014" } })),
+          createElement(
+            "tr",
+            {},
+            createElement("td", {
+              style: { borderTop: "1px solid #00000014" },
+            }),
+          ),
           // Heading + body
           createElement(
             "tr",
@@ -104,7 +153,20 @@ export function emailLayout(props: EmailLayoutProps, ...extra: AnyChild[]): Temp
             createElement(
               "td",
               { style: { padding: "24px 32px" } },
-              heading ? createElement("h2", { style: { margin: "0 0 16px", fontSize: "18px", fontWeight: 700, color: TEXT } }, heading) : null,
+              heading
+                ? createElement(
+                    "h2",
+                    {
+                      style: {
+                        margin: "0 0 16px",
+                        fontSize: "18px",
+                        fontWeight: 700,
+                        color: TEXT,
+                      },
+                    },
+                    heading,
+                  )
+                : null,
               ...mergedChildren,
             ),
           ),
@@ -114,11 +176,32 @@ export function emailLayout(props: EmailLayoutProps, ...extra: AnyChild[]): Temp
             {},
             createElement(
               "td",
-              { style: { padding: "24px 32px", borderTop: "1px solid #00000014" } },
+              {
+                style: {
+                  padding: "24px 32px",
+                  borderTop: "1px solid #00000014",
+                },
+              },
               footerNote
-                ? createElement("p", { style: { margin: "0 0 8px", fontSize: "13px", lineHeight: "20px", color: MUTED } }, footerNote)
+                ? createElement(
+                    "p",
+                    {
+                      style: {
+                        margin: "0 0 8px",
+                        fontSize: "13px",
+                        lineHeight: "20px",
+                        color: MUTED,
+                      },
+                    },
+                    footerNote,
+                  )
                 : null,
-              createElement("p", { style: { margin: 0, fontSize: "12px", color: MUTED } }, footerMeta ?? "This is an automated message. Please do not reply."),
+              createElement(
+                "p",
+                { style: { margin: 0, fontSize: "12px", color: MUTED } },
+                footerMeta ??
+                  "This is an automated message. Please do not reply.",
+              ),
             ),
           ),
         ),
@@ -140,7 +223,12 @@ export interface EmailButtonProps {
 }
 
 export function emailButton(props: EmailButtonProps): TemplateNode {
-  const { href, children = "Learn more", variant = "primary", style = {} } = props;
+  const {
+    href,
+    children = "Learn more",
+    variant = "primary",
+    style = {},
+  } = props;
   const base: React.CSSProperties = {
     display: "inline-block",
     padding: "13px 24px",
@@ -163,7 +251,11 @@ export function emailButton(props: EmailButtonProps): TemplateNode {
     base.color = PRIMARY;
     base.backgroundColor = "transparent";
   }
-  return createElement("a", { href, className: "facet-btn", style: base }, ...mergeChildren(children, []));
+  return createElement(
+    "a",
+    { href, className: "facet-btn", style: base },
+    ...mergeChildren(children, []),
+  );
 }
 
 /* ── EmailText ────────────────────────────────────────────── */
@@ -176,7 +268,10 @@ export interface EmailTextProps {
   style?: React.CSSProperties;
 }
 
-export function emailText(props: EmailTextProps, ...extra: AnyChild[]): TemplateNode {
+export function emailText(
+  props: EmailTextProps,
+  ...extra: AnyChild[]
+): TemplateNode {
   const { children, variant = "default", style = {} } = props;
   const mergedChildren = mergeChildren(children, extra);
   const base: React.CSSProperties = {
@@ -243,19 +338,51 @@ export function emailCodeBlock(props: EmailCodeBlockProps): TemplateNode {
   if (code != null && codes == null) {
     return createElement(
       "table",
-      { width: "100%", cellPadding: 0, cellSpacing: 0, role: "presentation", style: { margin: "16px 0", ...style } },
+      {
+        width: "100%",
+        cellPadding: 0,
+        cellSpacing: 0,
+        role: "presentation",
+        style: { margin: "16px 0", ...style },
+      },
       createElement(
         "tr",
         {},
         createElement(
           "td",
-          { style: { backgroundColor: "#0f172a", borderRadius: "8px", padding: "16px 20px" } },
+          {
+            style: {
+              backgroundColor: "#0f172a",
+              borderRadius: "8px",
+              padding: "16px 20px",
+            },
+          },
           label
-            ? createElement("p", { style: { margin: "0 0 8px", fontSize: "11px", letterSpacing: "1px", textTransform: "uppercase", color: "#94a3b8" } }, label)
+            ? createElement(
+                "p",
+                {
+                  style: {
+                    margin: "0 0 8px",
+                    fontSize: "11px",
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                    color: "#94a3b8",
+                  },
+                },
+                label,
+              )
             : null,
           createElement(
             "pre",
-            { style: { margin: 0, color: "#e2e8f0", fontFamily: "ui-monospace,SFMono-Regular,Menlo,monospace", fontSize: "15px", letterSpacing: "2px" } },
+            {
+              style: {
+                margin: 0,
+                color: "#e2e8f0",
+                fontFamily: "ui-monospace,SFMono-Regular,Menlo,monospace",
+                fontSize: "15px",
+                letterSpacing: "2px",
+              },
+            },
             code,
           ),
         ),
@@ -276,24 +403,58 @@ export function emailCodeBlock(props: EmailCodeBlockProps): TemplateNode {
 
   return createElement(
     "table",
-    { width: "100%", cellPadding: 0, cellSpacing: 0, role: "presentation", style: { margin: "16px 0", ...style } },
+    {
+      width: "100%",
+      cellPadding: 0,
+      cellSpacing: 0,
+      role: "presentation",
+      style: { margin: "16px 0", ...style },
+    },
     createElement(
       "tr",
       {},
       createElement(
         "td",
-        { style: { backgroundColor: "#f9fafb", border: "1px solid #00000014", borderRadius: "8px", padding: "16px 20px" } },
+        {
+          style: {
+            backgroundColor: "#f9fafb",
+            border: "1px solid #00000014",
+            borderRadius: "8px",
+            padding: "16px 20px",
+          },
+        },
         label
-          ? createElement("p", { style: { margin: "0 0 12px", fontSize: "13px", color: MUTED } }, label)
+          ? createElement(
+              "p",
+              { style: { margin: "0 0 12px", fontSize: "13px", color: MUTED } },
+              label,
+            )
           : null,
         ...pairs.map((pair, i) =>
           createElement(
             "table",
-            { width: "100%", cellPadding: 0, cellSpacing: 0, role: "presentation", style: { marginBottom: i < pairs.length - 1 ? "8px" : 0 } },
+            {
+              width: "100%",
+              cellPadding: 0,
+              cellSpacing: 0,
+              role: "presentation",
+              style: { marginBottom: i < pairs.length - 1 ? "8px" : 0 },
+            },
             createElement(
               "tr",
               {},
-              ...pair.map((c) => createElement("td", { style: { width: columns === 2 ? "50%" : "100%", padding: "2px" } }, c ? codeCell(c) : null)),
+              ...pair.map((c) =>
+                createElement(
+                  "td",
+                  {
+                    style: {
+                      width: columns === 2 ? "50%" : "100%",
+                      padding: "2px",
+                    },
+                  },
+                  c ? codeCell(c) : null,
+                ),
+              ),
             ),
           ),
         ),
@@ -305,7 +466,13 @@ export function emailCodeBlock(props: EmailCodeBlockProps): TemplateNode {
 /* ── EmailDivider ─────────────────────────────────────────── */
 
 export function emailDivider(): TemplateNode {
-  return createElement("hr", { style: { border: "none", borderTop: "1px solid #00000014", margin: "24px 0" } });
+  return createElement("hr", {
+    style: {
+      border: "none",
+      borderTop: "1px solid #00000014",
+      margin: "24px 0",
+    },
+  });
 }
 
 /* ── EmailLink ────────────────────────────────────────────── */
@@ -316,11 +483,18 @@ export interface EmailLinkProps {
   style?: React.CSSProperties;
 }
 
-export function emailLink(props: EmailLinkProps, ...extra: AnyChild[]): TemplateNode {
+export function emailLink(
+  props: EmailLinkProps,
+  ...extra: AnyChild[]
+): TemplateNode {
   const { href, children, style = {} } = props;
   const merged = mergeChildren(children, extra);
   const kids: (TemplateNode | string)[] = merged.length ? merged : [href];
-  return createElement("a", { href, style: { color: PRIMARY, textDecoration: "underline", ...style } }, ...kids);
+  return createElement(
+    "a",
+    { href, style: { color: PRIMARY, textDecoration: "underline", ...style } },
+    ...kids,
+  );
 }
 
 /* ── EmailSecurityNotice ──────────────────────────────────── */
@@ -346,8 +520,17 @@ const NOTICE_STYLES: Record<
   info: { bg: "#f9fafb", border: "#e5e7eb", text: "#4b5563" },
 };
 
-export function emailSecurityNotice(props: EmailSecurityNoticeProps): TemplateNode {
-  const { ip, userAgent, location, children, variant = "info", style = {} } = props;
+export function emailSecurityNotice(
+  props: EmailSecurityNoticeProps,
+): TemplateNode {
+  const {
+    ip,
+    userAgent,
+    location,
+    children,
+    variant = "info",
+    style = {},
+  } = props;
   const s = NOTICE_STYLES[variant];
 
   // Callout form: arbitrary children with variant styling.
@@ -355,14 +538,39 @@ export function emailSecurityNotice(props: EmailSecurityNoticeProps): TemplateNo
     const merged = mergeChildren(children, []);
     return createElement(
       "table",
-      { width: "100%", cellPadding: 0, cellSpacing: 0, role: "presentation", style: { margin: "16px 0", ...style } },
+      {
+        width: "100%",
+        cellPadding: 0,
+        cellSpacing: 0,
+        role: "presentation",
+        style: { margin: "16px 0", ...style },
+      },
       createElement(
         "tr",
         {},
         createElement(
           "td",
-          { style: { backgroundColor: s.bg, border: `1px solid ${s.border}`, borderRadius: "8px", padding: "12px 20px" } },
-          createElement("p", { style: { margin: 0, color: s.text, fontSize: "14px", lineHeight: "20px", fontWeight: 500 } }, ...merged),
+          {
+            style: {
+              backgroundColor: s.bg,
+              border: `1px solid ${s.border}`,
+              borderRadius: "8px",
+              padding: "12px 20px",
+            },
+          },
+          createElement(
+            "p",
+            {
+              style: {
+                margin: 0,
+                color: s.text,
+                fontSize: "14px",
+                lineHeight: "20px",
+                fontWeight: 500,
+              },
+            },
+            ...merged,
+          ),
         ),
       ),
     );
@@ -376,13 +584,39 @@ export function emailSecurityNotice(props: EmailSecurityNoticeProps): TemplateNo
   ];
   return createElement(
     "table",
-    { width: "100%", cellPadding: 0, cellSpacing: 0, role: "presentation", style: { margin: "16px 0", border: "1px solid #00000014", borderRadius: "8px", ...style } },
+    {
+      width: "100%",
+      cellPadding: 0,
+      cellSpacing: 0,
+      role: "presentation",
+      style: {
+        margin: "16px 0",
+        border: "1px solid #00000014",
+        borderRadius: "8px",
+        ...style,
+      },
+    },
     ...rows.map((r) =>
       createElement(
         "tr",
         {},
-        createElement("td", { style: { padding: "8px 16px", width: "120px", fontSize: "13px", color: MUTED } }, r.k),
-        createElement("td", { style: { padding: "8px 16px", fontSize: "13px", color: TEXT } }, r.v),
+        createElement(
+          "td",
+          {
+            style: {
+              padding: "8px 16px",
+              width: "120px",
+              fontSize: "13px",
+              color: MUTED,
+            },
+          },
+          r.k,
+        ),
+        createElement(
+          "td",
+          { style: { padding: "8px 16px", fontSize: "13px", color: TEXT } },
+          r.v,
+        ),
       ),
     ),
   );
@@ -396,13 +630,26 @@ export interface EmailSectionProps {
 }
 
 /** A table-based container for grouped email content (react-email Section equivalent). */
-export function emailSection(props: EmailSectionProps, ...extra: AnyChild[]): TemplateNode {
+export function emailSection(
+  props: EmailSectionProps,
+  ...extra: AnyChild[]
+): TemplateNode {
   const { style = {}, children } = props;
   const merged = mergeChildren(children, extra);
   return createElement(
     "table",
-    { width: "100%", cellPadding: 0, cellSpacing: 0, role: "presentation", style },
-    createElement("tr", {}, createElement("td", { style: { padding: "0" } }, ...merged)),
+    {
+      width: "100%",
+      cellPadding: 0,
+      cellSpacing: 0,
+      role: "presentation",
+      style,
+    },
+    createElement(
+      "tr",
+      {},
+      createElement("td", { style: { padding: "0" } }, ...merged),
+    ),
   );
 }
 
@@ -412,7 +659,10 @@ export interface EmailRowProps {
 }
 
 /** A table row for grid layouts (react-email Row equivalent). */
-export function emailRow(props: EmailRowProps, ...extra: AnyChild[]): TemplateNode {
+export function emailRow(
+  props: EmailRowProps,
+  ...extra: AnyChild[]
+): TemplateNode {
   const { style = {}, children } = props;
   const merged = mergeChildren(children, extra);
   return createElement("tr", { style }, ...merged);
@@ -424,7 +674,10 @@ export interface EmailColumnProps {
 }
 
 /** A table cell (react-email Column equivalent). */
-export function emailColumn(props: EmailColumnProps, ...extra: AnyChild[]): TemplateNode {
+export function emailColumn(
+  props: EmailColumnProps,
+  ...extra: AnyChild[]
+): TemplateNode {
   const { style = {}, children } = props;
   const merged = mergeChildren(children, extra);
   return createElement("td", { style }, ...merged);
@@ -443,7 +696,18 @@ export function emailList(props: EmailListProps): TemplateNode {
     "ul",
     { style: { margin: "16px 0", paddingLeft: "20px", ...style } },
     ...items.map((item) =>
-      createElement("li", { style: { margin: "0 0 8px", fontSize: "15px", lineHeight: "24px", color: TEXT } }, item),
+      createElement(
+        "li",
+        {
+          style: {
+            margin: "0 0 8px",
+            fontSize: "15px",
+            lineHeight: "24px",
+            color: TEXT,
+          },
+        },
+        item,
+      ),
     ),
   );
 }
@@ -472,14 +736,18 @@ function toReactNode(node: TemplateNode): React.ReactElement {
       if (typeof (c as { tag?: unknown }).tag !== "string") {
         const converted = toNodeValue(c as never);
         if (converted == null) return null;
-        return typeof converted === "string" ? converted : toReactNode(converted);
+        return typeof converted === "string"
+          ? converted
+          : toReactNode(converted);
       }
       return toReactNode(c);
     }),
   );
 }
 
-export const EmailLayout = wrap<EmailLayoutProps & { children?: React.ReactNode }>((props) => {
+export const EmailLayout = wrap<
+  EmailLayoutProps & { children?: React.ReactNode }
+>((props) => {
   const { children, ...rest } = props;
   return emailLayout({ ...rest, children });
 });
@@ -488,7 +756,8 @@ export const EmailText = wrap<EmailTextProps>(emailText);
 export const EmailCodeBlock = wrap<EmailCodeBlockProps>(emailCodeBlock);
 export const EmailDivider = wrap<{}>(() => emailDivider());
 export const EmailLink = wrap<EmailLinkProps>(emailLink);
-export const EmailSecurityNotice = wrap<EmailSecurityNoticeProps>(emailSecurityNotice);
+export const EmailSecurityNotice =
+  wrap<EmailSecurityNoticeProps>(emailSecurityNotice);
 export const EmailList = wrap<EmailListProps>(emailList);
 export const EmailSection = wrap<EmailSectionProps>(emailSection);
 export const EmailRow = wrap<EmailRowProps>(emailRow);

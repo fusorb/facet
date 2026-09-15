@@ -9,8 +9,9 @@ dist
 *.log
 # Command Code local config (taste, settings) -- local only, not in git
 # scratch / generated agent output
-# .agent/ is tracked in git (see AGENTS.md Session Protocol)
+# .agent/ is local-only session tracking (todo/output dashboards, audit notes)
 .commandcode
+.agent/
 test-out.txt
 typecheck-out.txt
 build-output.txt

@@ -1,13 +1,18 @@
 const fs = require("fs");
 const path = require("path");
 
-// 1. Read arc-id's ROUTES constant (the canonical contract list).
-// Configurable via ARC_ID_ROUTES env var; defaults to ../arc-id relative
+// 1. Read SovGrant's ROUTES constant (the canonical contract list).
+// Configurable via ARC_ID_ROUTES env var; defaults to ../SovGrant relative
 // to this script's location so it works on any machine without a
 // hardcoded absolute path.
 const ARC_ID_ROUTES =
   process.env.ARC_ID_ROUTES ||
-  path.resolve(__dirname, "../../arc-id/src/lib/api/routes/index.ts");
+  path.resolve(__dirname, "../../SovGrant/src/lib/api/routes/index.ts");
+
+if (!fs.existsSync(ARC_ID_ROUTES)) {
+  console.log("SovGrant routes not found at", ARC_ID_ROUTES, "- skipping SDK coverage audit.");
+  process.exit(0);
+}
 
 const routesSrc = fs.readFileSync(ARC_ID_ROUTES, "utf8");
 
@@ -38,7 +43,7 @@ for (const m of sdkSource.matchAll(/`([^`]*)`/g)) {
   if (pathMatch) sdkPaths.add(pathMatch[1]);
 }
 
-// 3. Diff: arc-id paths not covered by SDK.
+// 3. Diff: SovGrant paths not covered by SDK.
 const arcPaths = [...paths].sort();
 const uncovered = arcPaths.filter((p) => {
   const normalized = p.replace(/\/:[a-z]+/g, "/:id");
@@ -51,16 +56,16 @@ const uncovered = arcPaths.filter((p) => {
   });
 });
 
-console.log("=== arc-id ROUTES index paths:", arcPaths.length, "===");
+console.log("=== SovGrant ROUTES index paths:", arcPaths.length, "===");
 for (const p of arcPaths) console.log("  ", p);
 
 console.log("\n=== SDK endpoint strings:", sdkPaths.size, "===");
 for (const p of [...sdkPaths].sort()) console.log("  ", p);
 
-console.log("\n=== arc-id paths NOT covered by the SDK ===");
+console.log("\n=== SovGrant paths NOT covered by the SDK ===");
 if (!uncovered.length) console.log("  (none - full coverage)");
 else for (const p of uncovered) console.log("  ", p);
 
 const covered = arcPaths.length - uncovered.length;
-console.log(`\n=== Coverage: ${covered}/${arcPaths.length} arc-id routes covered by @fusorb/facet-sdk ===`);
+console.log(`\n=== Coverage: ${covered}/${arcPaths.length} SovGrant routes covered by @fusorb/facet-sdk ===`);
 if (uncovered.length) process.exitCode = 1;

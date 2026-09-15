@@ -39,7 +39,10 @@ export interface LoginFormProps {
     renderButton?: (props: AnimatedButtonRenderProps) => React.ReactNode;
   };
   /** Called with email + password. Return error string or null/undefined. */
-  onSubmit: (email: string, password: string) => Promise<string | null | undefined>;
+  onSubmit: (
+    email: string,
+    password: string,
+  ) => Promise<string | null | undefined>;
   /** Called when user clicks the back button */
   onBack?: () => void;
   /** Called when user clicks "Forgot password?" */
@@ -80,7 +83,10 @@ export function LoginForm({
     setIsSubmitting(true);
 
     try {
-      const err = await onSubmit(values?.email ?? email, values?.password ?? password);
+      const err = await onSubmit(
+        values?.email ?? email,
+        values?.password ?? password,
+      );
       if (err) setError(err);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unexpected error");
@@ -102,14 +108,16 @@ export function LoginForm({
     ? register("email")
     : {
         value: email,
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value),
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+          setEmail(e.target.value),
       };
 
   const passwordFieldProps = validate
     ? register("password")
     : {
         value: password,
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value),
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+          setPassword(e.target.value),
       };
 
   return (
@@ -119,7 +127,11 @@ export function LoginForm({
         <CardDescription>{c.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleFormSubmit} className="flex flex-col gap-4" noValidate={validate}>
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex flex-col gap-4"
+          noValidate={validate}
+        >
           <div className="flex flex-col gap-2">
             <Label htmlFor="signin-email">{c.emailLabel}</Label>
             <Input
@@ -131,7 +143,9 @@ export function LoginForm({
               {...emailFieldProps}
               aria-invalid={emailError ? true : undefined}
             />
-            {emailError && <p className="text-sm text-destructive">{emailError}</p>}
+            {emailError && (
+              <p className="text-sm text-destructive">{emailError}</p>
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
@@ -155,7 +169,9 @@ export function LoginForm({
               {...passwordFieldProps}
               aria-invalid={passwordError ? true : undefined}
             />
-            {passwordError && <p className="text-sm text-destructive">{passwordError}</p>}
+            {passwordError && (
+              <p className="text-sm text-destructive">{passwordError}</p>
+            )}
           </div>
           {error && <p className="text-sm text-destructive">{error}</p>}
           <AnimatedButton

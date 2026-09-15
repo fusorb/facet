@@ -20,7 +20,13 @@
  */
 
 import type { AuthConfig } from "./types.js";
-import { fintechPreset, medPreset, eduPreset, enterprisePreset, defaultPreset } from "./presets.js";
+import {
+  fintechPreset,
+  medPreset,
+  eduPreset,
+  enterprisePreset,
+  defaultPreset,
+} from "./presets.js";
 
 /** Name of a built-in or registered preset. */
 export type PresetName = string;
@@ -46,7 +52,8 @@ export function getPreset(name: PresetName): AuthConfig {
   const preset = registry.get(name);
   if (!preset) {
     throw new Error(
-      `Unknown auth preset "${name}". ` + `Registered presets: ${[...registry.keys()].join(", ")}`,
+      `Unknown auth preset "${name}". ` +
+        `Registered presets: ${[...registry.keys()].join(", ")}`,
     );
   }
   return preset;

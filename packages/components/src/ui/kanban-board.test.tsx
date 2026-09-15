@@ -1,7 +1,18 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { act, fireEvent, renderHook, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  renderHook,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { KanbanBoard, useKanban, type KanbanColumnDef } from "./kanban-board.js";
+import {
+  KanbanBoard,
+  useKanban,
+  type KanbanColumnDef,
+} from "./kanban-board.js";
 
 function TestBoard({ columns }: { columns: KanbanColumnDef[] }) {
   const board = useKanban({ columns });
@@ -146,7 +157,9 @@ describe("KanbanCard actions", () => {
     render(<TestBoard columns={actionColumns} />);
     await userEvent.click(screen.getByLabelText("Card actions"));
     await userEvent.click(await screen.findByText("Delete"));
-    await userEvent.click(await screen.findByRole("button", { name: "Delete" }));
+    await userEvent.click(
+      await screen.findByRole("button", { name: "Delete" }),
+    );
     await waitFor(() => {
       expect(screen.queryByText("Task A")).toBeNull();
     });
@@ -161,7 +174,9 @@ describe("KanbanCard actions", () => {
   });
 
   it("exports the card as a JSON file", async () => {
-    const createObjectURL = vi.spyOn(URL, "createObjectURL").mockReturnValue("blob:mock");
+    const createObjectURL = vi
+      .spyOn(URL, "createObjectURL")
+      .mockReturnValue("blob:mock");
     render(<TestBoard columns={actionColumns} />);
     await userEvent.click(screen.getByLabelText("Card actions"));
     await userEvent.click(await screen.findByText("Export as JSON"));

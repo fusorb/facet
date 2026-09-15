@@ -43,7 +43,10 @@ export interface ResetPasswordFormProps {
   /** Reset token from the email link (extracted by the consuming app). */
   token: string;
   /** Called with token + new password. Return error string or null/undefined on success. */
-  onSubmit: (token: string, newPassword: string) => Promise<string | null | undefined>;
+  onSubmit: (
+    token: string,
+    newPassword: string,
+  ) => Promise<string | null | undefined>;
   onSuccess?: () => void;
   onBack?: () => void;
   /** Enable zod client-side validation. Default: false */
@@ -129,14 +132,16 @@ export function ResetPasswordForm({
     ? register("password")
     : {
         value: password,
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value),
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+          setPassword(e.target.value),
       };
 
   const confirmFieldProps = validate
     ? register("confirm")
     : {
         value: confirm,
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => setConfirm(e.target.value),
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+          setConfirm(e.target.value),
       };
 
   if (done) {
@@ -147,9 +152,7 @@ export function ResetPasswordForm({
           <CardDescription>{c.successDescription}</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">
-            {c.successBody}
-          </p>
+          <p className="text-sm text-muted-foreground">{c.successBody}</p>
         </CardContent>
         {onBack && (
           <CardFooter className="justify-center">
@@ -169,7 +172,11 @@ export function ResetPasswordForm({
         <CardDescription>{c.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleFormSubmit} className="flex flex-col gap-4" noValidate={validate}>
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex flex-col gap-4"
+          noValidate={validate}
+        >
           <div className="flex flex-col gap-2">
             <Label htmlFor="reset-password">{c.passwordLabel}</Label>
             <PasswordInput
@@ -182,7 +189,9 @@ export function ResetPasswordForm({
               aria-invalid={passwordError ? true : undefined}
             />
             {showPasswordStrength && <PasswordStrengthMeter value={password} />}
-            {passwordError && <p className="text-sm text-destructive">{passwordError}</p>}
+            {passwordError && (
+              <p className="text-sm text-destructive">{passwordError}</p>
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="reset-confirm">{c.confirmLabel}</Label>
@@ -195,7 +204,9 @@ export function ResetPasswordForm({
               {...confirmFieldProps}
               aria-invalid={confirmError ? true : undefined}
             />
-            {confirmError && <p className="text-sm text-destructive">{confirmError}</p>}
+            {confirmError && (
+              <p className="text-sm text-destructive">{confirmError}</p>
+            )}
           </div>
           {error && <p className="text-sm text-destructive">{error}</p>}
           <AnimatedButton

@@ -51,12 +51,39 @@ export interface DateRangePickerProps {
 /* ── Defaults ──────────────────────────────────────────────── */
 
 const defaultRangePresets: DateRangePreset[] = [
-  { id: "today", label: "Today", build: (today) => ({ from: today, to: today }) },
-  { id: "yesterday", label: "Yesterday", build: (today) => ({ from: addDays(today, -1), to: addDays(today, -1) }) },
-  { id: "7days", label: "Last 7 days", build: (today) => ({ from: addDays(today, -6), to: today }) },
-  { id: "30days", label: "Last 30 days", build: (today) => ({ from: addDays(today, -29), to: today }) },
-  { id: "this-month", label: "This month", build: (today) => ({ from: startOfMonth(today), to: endOfMonth(today) }) },
-  { id: "last-month", label: "Last month", build: (today) => { const f = startOfMonth(addMonths(today, -1)); return { from: f, to: endOfMonth(f) }; } },
+  {
+    id: "today",
+    label: "Today",
+    build: (today) => ({ from: today, to: today }),
+  },
+  {
+    id: "yesterday",
+    label: "Yesterday",
+    build: (today) => ({ from: addDays(today, -1), to: addDays(today, -1) }),
+  },
+  {
+    id: "7days",
+    label: "Last 7 days",
+    build: (today) => ({ from: addDays(today, -6), to: today }),
+  },
+  {
+    id: "30days",
+    label: "Last 30 days",
+    build: (today) => ({ from: addDays(today, -29), to: today }),
+  },
+  {
+    id: "this-month",
+    label: "This month",
+    build: (today) => ({ from: startOfMonth(today), to: endOfMonth(today) }),
+  },
+  {
+    id: "last-month",
+    label: "Last month",
+    build: (today) => {
+      const f = startOfMonth(addMonths(today, -1));
+      return { from: f, to: endOfMonth(f) };
+    },
+  },
 ];
 
 const defaultSinglePresets: DateRangePreset[] = [
@@ -138,7 +165,9 @@ function MonthGrid({
     <div>
       <div className="grid grid-cols-7 gap-px text-xs font-medium text-muted-foreground">
         {WEEKDAYS.map((d) => (
-          <div key={d} className="text-center">{d}</div>
+          <div key={d} className="text-center">
+            {d}
+          </div>
         ))}
       </div>
       <div className="grid grid-cols-7 gap-px">
@@ -157,9 +186,13 @@ function MonthGrid({
                 "mx-auto my-[2px] flex h-8 w-8 items-center justify-center text-sm outline-none",
                 !inMonth && "text-muted-foreground/30",
                 dis && "cursor-not-allowed opacity-40",
-                sel && isRange && "rounded bg-primary/10 font-medium text-primary",
+                sel &&
+                  isRange &&
+                  "rounded bg-primary/10 font-medium text-primary",
                 sel && !isRange && "rounded bg-primary text-primary-foreground",
-                !sel && anchor && "rounded-full border border-primary font-medium",
+                !sel &&
+                  anchor &&
+                  "rounded-full border border-primary font-medium",
               )}
             >
               {d.getDate()}
@@ -187,9 +220,12 @@ export function DateRangePicker({
 }: DateRangePickerProps) {
   const [open, setOpen] = React.useState(false);
   const [calendar, setCalendar] = React.useState(new Date());
-  const [draft, setDraft] = React.useState<DateRange | Date | null>(value ?? null);
+  const [draft, setDraft] = React.useState<DateRange | Date | null>(
+    value ?? null,
+  );
   const isRange = mode === "range";
-  const activePresets = presets ?? (isRange ? defaultRangePresets : defaultSinglePresets);
+  const activePresets =
+    presets ?? (isRange ? defaultRangePresets : defaultSinglePresets);
 
   React.useEffect(() => setDraft(value ?? null), [value]);
 
@@ -284,7 +320,10 @@ export function DateRangePicker({
                 <Icon name="chevron-left" className="size-4" />
               </Button>
               <span className="text-sm font-medium">
-                {calendar.toLocaleString(undefined, { month: "long", year: "numeric" })}
+                {calendar.toLocaleString(undefined, {
+                  month: "long",
+                  year: "numeric",
+                })}
               </span>
               <Button
                 type="button"

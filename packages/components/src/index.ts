@@ -12,7 +12,14 @@
 export { cn, isMac, getModSymbol } from "./utils.js";
 
 /* ── Icon registry ──────────────────────────────────────────── */
-export { IconProvider, Icon, registerIcon, resetIconRegistry, getIcon, toKebab } from "./icon/index.js";
+export {
+  IconProvider,
+  Icon,
+  registerIcon,
+  resetIconRegistry,
+  getIcon,
+  toKebab,
+} from "./icon/index.js";
 export type {
   IconComponent,
   IconName,
@@ -43,13 +50,21 @@ export {
 
 /* ── Theme system ────────────────────────────────────────────── */
 export { ThemeProvider, useTheme, ThemeToggle } from "./theme/index.js";
-export type { Theme, ThemeProviderProps, ThemeToggleProps } from "./theme/index.js";
+export type {
+  Theme,
+  ThemeProviderProps,
+  ThemeToggleProps,
+} from "./theme/index.js";
 
 export { type ButtonProps, Button, buttonVariants } from "./ui/button.js";
 
 export { type InputProps, Input } from "./ui/input.js";
 
 export { InputGroup, InputGroupAddon } from "./ui/input-group.js";
+export type {
+  InputGroupProps,
+  InputGroupAddonProps,
+} from "./ui/input-group.js";
 
 export { Label } from "./ui/label.js";
 
@@ -70,7 +85,13 @@ export {
   pillVariants,
 } from "./ui/pill.js";
 
-export { type AlertProps, Alert, AlertTitle, AlertDescription, alertVariants } from "./ui/alert.js";
+export {
+  type AlertProps,
+  Alert,
+  AlertTitle,
+  AlertDescription,
+  alertVariants,
+} from "./ui/alert.js";
 
 export {
   AlertDialog,
@@ -95,6 +116,7 @@ export type {
 } from "./ui/alert-dialog.js";
 
 export { RadioGroup, RadioGroupItem } from "./ui/radio-group.js";
+export type { RadioGroupProps, RadioGroupItemProps } from "./ui/radio-group.js";
 
 export { type ToggleProps, Toggle, toggleVariants } from "./ui/toggle.js";
 
@@ -137,7 +159,16 @@ export {
   ContextMenuRadioGroup,
 } from "./ui/context-menu.js";
 
-export { HoverCard, HoverCardTrigger, HoverCardContent } from "./ui/hover-card.js";
+export {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "./ui/hover-card.js";
+export type {
+  HoverCardProps,
+  HoverCardTriggerProps,
+  HoverCardContentProps,
+} from "./ui/hover-card.js";
 
 export { type KbdProps, Kbd } from "./ui/kbd.js";
 
@@ -149,7 +180,11 @@ export { type ButtonGroupProps, ButtonGroup } from "./ui/button-group.js";
 
 export { type AvatarGroupProps, AvatarGroup } from "./ui/avatar-group.js";
 
-export { type ComboboxProps, type ComboboxOption, Combobox } from "./ui/combobox.js";
+export {
+  type ComboboxProps,
+  type ComboboxOption,
+  Combobox,
+} from "./ui/combobox.js";
 
 export {
   type CardProps,
@@ -164,6 +199,7 @@ export {
 } from "./ui/card.js";
 
 export { AspectRatio } from "./ui/aspect-ratio.js";
+export type { AspectRatioProps } from "./ui/aspect-ratio.js";
 
 export {
   Carousel,
@@ -190,10 +226,18 @@ export {
 } from "./ui/resizable.js";
 
 export { Separator } from "./ui/separator.js";
+export type { SeparatorProps } from "./ui/separator.js";
 
 export { Skeleton } from "./ui/skeleton.js";
+export type { SkeletonProps } from "./ui/skeleton.js";
 
-export { Avatar, AvatarImage, AvatarFallback, UserAvatar, getInitials } from "./ui/avatar.js";
+export {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+  UserAvatar,
+  getInitials,
+} from "./ui/avatar.js";
 export type {
   UserAvatarProps,
   UserAvatarUser,
@@ -201,8 +245,10 @@ export type {
 } from "./ui/avatar.js";
 
 export { Checkbox } from "./ui/checkbox.js";
+export type { CheckboxProps } from "./ui/checkbox.js";
 
 export { Switch } from "./ui/switch.js";
+export type { SwitchProps } from "./ui/switch.js";
 
 export {
   Dialog,
@@ -231,6 +277,17 @@ export {
   DrawerDescription,
   DrawerClose,
 } from "./ui/drawer.js";
+export type {
+  DrawerProps,
+  DrawerTriggerProps,
+  DrawerOverlayProps,
+  DrawerContentProps,
+  DrawerHeaderProps,
+  DrawerFooterProps,
+  DrawerTitleProps,
+  DrawerDescriptionProps,
+  DrawerCloseProps,
+} from "./ui/drawer.js";
 
 export {
   Select,
@@ -245,14 +302,50 @@ export {
   SelectScrollUpButton,
   SelectScrollDownButton,
 } from "./ui/select.js";
+export type {
+  SelectProps,
+  SelectGroupProps,
+  SelectValueProps,
+  SelectTriggerProps,
+  SelectContentProps,
+  SelectLabelProps,
+  SelectItemProps,
+  SelectSeparatorProps,
+  SelectSearchProps,
+  SelectScrollUpButtonProps,
+  SelectScrollDownButtonProps,
+} from "./ui/select.js";
 
-export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from "./ui/popover.js";
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverAnchor,
+} from "./ui/popover.js";
+export type {
+  PopoverProps,
+  PopoverTriggerProps,
+  PopoverContentProps,
+  PopoverAnchorProps,
+} from "./ui/popover.js";
 
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs.js";
+export type {
+  TabsProps,
+  TabsListProps,
+  TabsTriggerProps,
+  TabsContentProps,
+} from "./ui/tabs.js";
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./ui/tooltip.js";
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "./ui/tooltip.js";
 
 export { Slider } from "./ui/slider.js";
+export type { SliderProps } from "./ui/slider.js";
 
 export {
   DropdownMenu,
@@ -295,8 +388,19 @@ export {
   TableCell,
   TableCaption,
 } from "./ui/table.js";
+export type {
+  TableProps,
+  TableHeaderProps,
+  TableBodyProps,
+  TableFooterProps,
+  TableHeadProps,
+  TableRowProps,
+  TableCellProps,
+  TableCaptionProps,
+} from "./ui/table.js";
 
 export { Textarea } from "./ui/textarea.js";
+export type { TextareaProps } from "./ui/textarea.js";
 
 export {
   Breadcrumb,
@@ -306,6 +410,15 @@ export {
   BreadcrumbPage,
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
+} from "./ui/breadcrumb.js";
+export type {
+  BreadcrumbProps,
+  BreadcrumbListProps,
+  BreadcrumbItemProps,
+  BreadcrumbLinkProps,
+  BreadcrumbPageProps,
+  BreadcrumbSeparatorProps,
+  BreadcrumbEllipsisProps,
 } from "./ui/breadcrumb.js";
 
 export {
@@ -319,14 +432,37 @@ export {
 } from "./ui/pagination.js";
 
 export { Progress } from "./ui/progress.js";
+export type { ProgressProps } from "./ui/progress.js";
 
 export { ScrollArea, ScrollBar } from "./ui/scroll-area.js";
+export type { ScrollAreaProps, ScrollBarProps } from "./ui/scroll-area.js";
 
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "./ui/input-otp.js";
+export {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+  InputOTPSeparator,
+} from "./ui/input-otp.js";
+export type {
+  InputOTPProps,
+  InputOTPGroupProps,
+  InputOTPSlotProps,
+  InputOTPSeparatorProps,
+} from "./ui/input-otp.js";
 
-export { Collapsible, CollapsibleTrigger, CollapsibleContent } from "./ui/collapsible.js";
+export {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "./ui/collapsible.js";
+export type {
+  CollapsibleProps,
+  CollapsibleTriggerProps,
+  CollapsibleContentProps,
+} from "./ui/collapsible.js";
 
 export { Toaster } from "./ui/sonner.js";
+export type { ToasterProps } from "./ui/sonner.js";
 
 export {
   Accordion,
@@ -360,6 +496,17 @@ export {
   CommandShortcut,
   CommandSeparator,
 } from "./ui/command.js";
+export type {
+  CommandProps,
+  CommandDialogProps,
+  CommandInputProps,
+  CommandListProps,
+  CommandEmptyProps,
+  CommandGroupProps,
+  CommandItemProps,
+  CommandShortcutProps,
+  CommandSeparatorProps,
+} from "./ui/command.js";
 
 export { Navbar, navbarVariants } from "./ui/navbar.js";
 export type {
@@ -390,9 +537,16 @@ export {
 
 export { type QRCodeProps, QRCode } from "./ui/qrcode.js";
 
-export { type InfiniteScrollProps, InfiniteScroll } from "./ui/infinite-scroll.js";
+export {
+  type InfiniteScrollProps,
+  InfiniteScroll,
+} from "./ui/infinite-scroll.js";
 
-export { type MarqueeProps, type MarqueeVariant, Marquee } from "./ui/marquee.js";
+export {
+  type MarqueeProps,
+  type MarqueeVariant,
+  Marquee,
+} from "./ui/marquee.js";
 
 export {
   type RoadmapItem,
@@ -445,9 +599,18 @@ export {
   formatDate,
 } from "./ui/date-picker.js";
 
-export { type NumberInputProps, type Currency, NumberInput, CURRENCIES } from "./ui/number-input.js";
+export {
+  type NumberInputProps,
+  type Currency,
+  NumberInput,
+  CURRENCIES,
+} from "./ui/number-input.js";
 
-export { type DateInputProps, DateInput, validateIsoDate } from "./ui/date-input.js";
+export {
+  type DateInputProps,
+  DateInput,
+  validateIsoDate,
+} from "./ui/date-input.js";
 
 export { type PasswordInputProps, PasswordInput } from "./ui/password-input.js";
 
@@ -713,7 +876,7 @@ export {
 
 /* ── Ready-to-use: project & tracking ─────────────────────── */
 export {
-   type KanbanCardDef,
+  type KanbanCardDef,
   type KanbanColumnDef,
   type UseKanbanOptions,
   type KanbanApi,
@@ -736,7 +899,6 @@ export {
   ChangelogList,
 } from "./ui/changelog-list.js";
 export { type ChangelogRelease as FacetChangelogRelease } from "./ui/changelog-list.js";
-export { facetChangelog } from "./data/changelog.js";
 
 export {
   type WizardFormStep,
@@ -777,6 +939,7 @@ export {
 
 export {
   type QrScannerStatus,
+  type QrScannerCopy,
   type QrScannerProps,
   QrScanner,
 } from "./ui/qr-scanner.js";
@@ -793,11 +956,7 @@ export {
   PricingComparison,
 } from "./ui/pricing-comparison.js";
 
-export {
-  type TreeNode,
-  type TreeProps,
-  Tree,
-} from "./ui/tree.js";
+export { type TreeNode, type TreeProps, Tree } from "./ui/tree.js";
 
 export {
   type MultiComboboxOption,
@@ -805,30 +964,15 @@ export {
   MultiCombobox,
 } from "./ui/multi-combobox.js";
 
-export {
-  type TagInputProps,
-  TagInput,
-} from "./ui/tag-input.js";
+export { type TagInputProps, TagInput } from "./ui/tag-input.js";
 
-export {
-  type RangeSliderProps,
-  RangeSlider,
-} from "./ui/range-slider.js";
+export { type RangeSliderProps, RangeSlider } from "./ui/range-slider.js";
 
-export {
-  type RatingInputProps,
-  RatingInput,
-} from "./ui/rating-input.js";
+export { type RatingInputProps, RatingInput } from "./ui/rating-input.js";
 
-export {
-  type CookieBannerProps,
-  CookieBanner,
-} from "./ui/cookie-banner.js";
+export { type CookieBannerProps, CookieBanner } from "./ui/cookie-banner.js";
 
-export {
-  type OtpInputProps,
-  OtpInput,
-} from "./ui/otp-input.js";
+export { type OtpInputProps, OtpInput } from "./ui/otp-input.js";
 
 export {
   type RichTextEditorProps,

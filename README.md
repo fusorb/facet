@@ -1,31 +1,33 @@
 # facet
 
-Domain-customizable auth-first component system for the ArcevoCirqle ecosystem.
+Domain-customizable auth-first component system.
 
-facet is what you get when you own the identity backend (arc-id), have a formal
+facet is what you get when you own the identity backend (SovGrant), have a formal
 design manual (Alpha Palette), and your auth requirements differ per sector
 (fintech vs med vs edu vs enterprise).
 
 ## Packages
 
-| Package | Description | Status |
-| --- | --- | --- |
-| `@fusorb/facet-tokens` | Design tokens: Alpha Palette, typography, spacing, CSS vars | ✅ 1.1.4 |
-| `@fusorb/facet-sdk` | arc-id API client (pure fetch, typed, 10 domain SDKs) | ✅ 1.2.0 |
-| `@fusorb/facet-components` | 114 styled UI components (Radix + tailwind-merge + variants) | ✅ 1.11.0 |
-| `@fusorb/facet-auth` | Auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms | ✅ 1.2.3 |
-| `@fusorb/facet-layout` | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets | ✅ 1.4.2 |
-| `@fusorb/facet-store` | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native | ✅ 2.0.0 |
-| `@fusorb/facet-docs` | Installable docs engine: mount `<DocsApp>` with your own brand, nav, pages | ✅ 1.4.7 |
-| `@fusorb/facet-cli` | Scaffold docs (`facet docs init` + `facet docs scan`), audit/update (`facet pkg/up/doctor`), copy components (`facet copy`), generate a tree-shaken icon registry (`facet icons generate`) | ✅ 2.0.0 |
-| `@fusorb/facet-emails` | Framework-agnostic email builder + React bridge (`renderEmail`, `emailLayout`, `EmailLayout`) | ✅ 1.1.1 |
+| Package                    | Description                                                                                                                                                                                | Status    |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- |
+| `@fusorb/facet-tokens`     | Design tokens: Alpha Palette, typography, spacing, CSS vars                                                                                                                                | ✅ 1.1.4  |
+| `@fusorb/facet-sdk`        | SovGrant API client (pure fetch, typed, 10 domain SDKs)                                                                                                                                      | ✅ 1.2.0  |
+| `@fusorb/facet-components` | 114 styled UI components (Radix + tailwind-merge + variants)                                                                                                                               | ✅ 1.11.0 |
+| `@fusorb/facet-auth`       | Auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms                                                                                                                  | ✅ 1.2.3  |
+| `@fusorb/facet-layout`     | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets                                                                                        | ✅ 1.4.2  |
+| `@fusorb/facet-store`      | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native                                                                 | ✅ 2.0.0  |
+| `@fusorb/facet-docs`       | Installable docs engine: mount `<DocsApp>` with your own brand, nav, pages                                                                                                                 | ✅ 1.4.7  |
+| `@fusorb/facet-cli`        | Scaffold docs (`facet docs init` + `facet docs scan`), audit/update (`facet pkg/up/doctor`), copy components (`facet copy`), generate a tree-shaken icon registry (`facet icons generate`) | ✅ 2.0.0  |
+| `@fusorb/facet-emails`     | Framework-agnostic email builder + React bridge (`renderEmail`, `emailLayout`, `EmailLayout`)                                                                                              | ✅ 1.1.1  |
 
 Published to npm: components 1.11.0, layout 1.4.2, docs 1.4.7, auth 1.2.3, cli 2.0.0, tokens 1.1.4, store 2.0.0, sdk 1.2.0, emails 1.1.1.
 
 ## Sites
 
-- Landing: https://facet.arcevocirqle.com.ng
-- Demo-Docs (component gallery + docs): https://docs.facet.arcevocirqle.com.ng
+Run locally:
+
+- Landing: `pnpm dev:landing` → http://localhost:5174
+- Demo-Docs (component gallery + docs): `pnpm dev:docs-site` → http://localhost:5173
 
 ## Documentation
 
@@ -108,7 +110,10 @@ Framework-agnostic slot-based shells: no routing dependency:
 import { SignIn, fintechPreset } from "@fusorb/facet-auth";
 
 // Domain presets customise every copy, step, and behaviour
-<SignIn config={fintechPreset} onSuccess={(result) => router.push("/dashboard")} />;
+<SignIn
+  config={fintechPreset}
+  onSuccess={(result) => router.push("/dashboard")}
+/>;
 ```
 
 Forms are independently importable: `LoginForm`, `MagicLinkForm`, `ForgotPasswordForm`,
@@ -153,4 +158,4 @@ pnpm dev:landing    # Landing → http://localhost:5174 (local)
 
 ## License
 
-MIT: ArcevoCirqle
+MIT: facet contributors

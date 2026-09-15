@@ -10,7 +10,12 @@ export interface GuidePageProps {
 }
 
 /** Shared guide page header + prose wrapper. */
-export function GuidePage({ title, description, children, back }: GuidePageProps) {
+export function GuidePage({
+  title,
+  description,
+  children,
+  back,
+}: GuidePageProps) {
   return (
     <article>
       {back && (
@@ -37,8 +42,12 @@ export function GuidePage({ title, description, children, back }: GuidePageProps
           {back.label}
         </Link>
       )}
-      <h1 className="font-heading text-3xl font-bold text-foreground">{title}</h1>
-      {description && <p className="mt-2 text-muted-foreground">{description}</p>}
+      <h1 className="font-heading text-3xl font-bold text-foreground">
+        {title}
+      </h1>
+      {description && (
+        <p className="mt-2 text-muted-foreground">{description}</p>
+      )}
       <div className="prose-docs mt-6 space-y-5 text-sm leading-7 text-foreground/90">
         {children}
       </div>
@@ -61,7 +70,11 @@ export function InlineText({ text }: { text: string }) {
         const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
         if (link?.[1] && link?.[2]) {
           return (
-            <Link key={i} to={link[2]} className="text-primary underline-offset-4 hover:underline">
+            <Link
+              key={i}
+              to={link[2]}
+              className="text-primary underline-offset-4 hover:underline"
+            >
               {link[1]}
             </Link>
           );
@@ -91,11 +104,20 @@ export function Pre({ children }: { children: React.ReactNode }) {
 }
 
 export function H2({ children }: { children: React.ReactNode }) {
-  return <h2 className="pt-4 font-heading text-xl font-semibold text-foreground">{children}</h2>;
+  return (
+    <h2 className="pt-4 font-heading text-xl font-semibold text-foreground">
+      {children}
+    </h2>
+  );
 }
 
 export function P({ children }: { children: React.ReactNode }) {
-  if (typeof children === "string") return <p><InlineText text={children} /></p>;
+  if (typeof children === "string")
+    return (
+      <p>
+        <InlineText text={children} />
+      </p>
+    );
   return <p>{children}</p>;
 }
 
@@ -104,7 +126,12 @@ export function Ul({ children }: { children: React.ReactNode }) {
 }
 
 export function Li({ children }: { children: React.ReactNode }) {
-  if (typeof children === "string") return <li><InlineText text={children} /></li>;
+  if (typeof children === "string")
+    return (
+      <li>
+        <InlineText text={children} />
+      </li>
+    );
   return <li>{children}</li>;
 }
 
@@ -117,7 +144,10 @@ export function PageNav({
   next?: { label: string; to: string };
 }) {
   return (
-    <nav aria-label="Page navigation" className="mt-10 grid grid-cols-1 gap-3 border-t border-border pt-6 sm:grid-cols-2">
+    <nav
+      aria-label="Page navigation"
+      className="mt-10 grid grid-cols-1 gap-3 border-t border-border pt-6 sm:grid-cols-2"
+    >
       {prev ? (
         <Link
           to={prev.to}
@@ -141,8 +171,12 @@ export function PageNav({
             />
           </svg>
           <span className="min-w-0">
-            <span className="block text-xs text-muted-foreground">Previous</span>
-            <span className="block truncate text-sm font-medium text-foreground">{prev.label}</span>
+            <span className="block text-xs text-muted-foreground">
+              Previous
+            </span>
+            <span className="block truncate text-sm font-medium text-foreground">
+              {prev.label}
+            </span>
           </span>
         </Link>
       ) : (
@@ -155,7 +189,9 @@ export function PageNav({
         >
           <span className="min-w-0">
             <span className="block text-xs text-muted-foreground">Next</span>
-            <span className="block truncate text-sm font-medium text-foreground">{next.label}</span>
+            <span className="block truncate text-sm font-medium text-foreground">
+              {next.label}
+            </span>
           </span>
           <svg
             width="16"

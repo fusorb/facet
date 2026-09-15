@@ -21,7 +21,9 @@ export const emailSchema = z
   .min(1, "Email is required");
 
 /** Password: at least 8 characters, with a hint for the requirement. */
-export const passwordSchema = z.string().min(8, "Password must be at least 8 characters");
+export const passwordSchema = z
+  .string()
+  .min(8, "Password must be at least 8 characters");
 
 /** Login: email + password. */
 export const loginSchema = z.object({
@@ -51,7 +53,7 @@ export const mfaCodeSchema = z
   .trim()
   .regex(/^\d{6}$/, "Enter the 6-digit code");
 
-/** Recovery code: the XXXX-XXXX format used by arc-id. */
+/** Recovery code: the XXXX-XXXX format used by SovGrant. */
 export const recoveryCodeSchema = z
   .string()
   .trim()

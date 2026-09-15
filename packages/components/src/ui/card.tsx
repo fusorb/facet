@@ -8,7 +8,7 @@ const cardVariants = cva("rounded-xl border shadow", {
       default: "bg-card text-card-foreground",
       glass: "glass-card text-card-foreground",
       frost: "frost text-card-foreground",
-      glow: "bg-card text-card-foreground glow-indigo",
+      glow: "bg-card text-card-foreground glow-primary",
       ghost: "border-transparent bg-transparent shadow-none",
       outline: "border bg-transparent text-card-foreground shadow-none",
       elevated: "bg-card text-card-foreground shadow-md",
@@ -53,7 +53,9 @@ export const CardFlipBack = React.forwardRef<
 CardFlipBack.displayName = "CardFlipBack";
 
 interface CardProps
-  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> {
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cardVariants> {
   /** Flip direction for the `flip` variant. Default: "horizontal". */
   flipDirection?: CardFlipDirection;
   /** Allow click to toggle the flip (for touch / mobile). Default: true. */
@@ -61,7 +63,19 @@ interface CardProps
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant, flipDirection = "horizontal", flipOnClick = true, onMouseMove, onMouseLeave, onClick, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      flipDirection = "horizontal",
+      flipOnClick = true,
+      onMouseMove,
+      onMouseLeave,
+      onClick,
+      ...props
+    },
+    ref,
+  ) => {
     const innerRef = React.useRef<HTMLDivElement | null>(null);
     const [flipped, setFlipped] = React.useState(false);
 
@@ -78,7 +92,8 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     };
     const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
       if (variant === "tilt" && innerRef.current) {
-        innerRef.current.style.transform = "perspective(800px) rotateX(0) rotateY(0)";
+        innerRef.current.style.transform =
+          "perspective(800px) rotateX(0) rotateY(0)";
       }
       // Flip: mouse out always returns to the front (transient reveal).
       if (variant === "flip") setFlipped(false);
@@ -140,43 +155,60 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 );
 Card.displayName = "Card";
 
-const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />
-  ),
-);
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    {...props}
+  />
+));
 CardHeader.displayName = "CardHeader";
 
-const CardTitle = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn("font-semibold leading-none tracking-tight", className)}
-      {...props}
-    />
-  ),
-);
+const CardTitle = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("font-semibold leading-none tracking-tight", className)}
+    {...props}
+  />
+));
 CardTitle.displayName = "CardTitle";
 
-const CardDescription = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
-  ),
-);
+const CardDescription = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
+));
 CardDescription.displayName = "CardDescription";
 
-const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-  ),
-);
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+));
 CardContent.displayName = "CardContent";
 
-const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("flex items-center p-6 pt-0", className)} {...props} />
-  ),
-);
+const CardFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center p-6 pt-0", className)}
+    {...props}
+  />
+));
 CardFooter.displayName = "CardFooter";
 
 export {

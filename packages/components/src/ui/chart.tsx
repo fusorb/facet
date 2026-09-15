@@ -15,7 +15,7 @@
  *  - Fade-in entry animation
  *  - Line / area draw-from-origin animation (stroke-dashdraw)
  *  - Pie / donut spin-open animation (0 → 360°)
- * 
+ *
  *  Usage:
  *   import { Chart } from "@fusorb/facet-components";
  *   <Chart x={["Mon", "Tue"]} series={[{ id: "a", label: "A", data: [30, 80] }]} />
@@ -23,11 +23,15 @@
 
 import * as React from "react";
 import { cn } from "../utils.js";
-import { ChartRangeSelector, type ChartRangeSelectorProps } from "./chart-range-selector.js";
+import {
+  ChartRangeSelector,
+  type ChartRangeSelectorProps,
+} from "./chart-range-selector.js";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
-export type ChartType = "line" | "bar" | "area" | "pie" | "donut" | "composed" | "histogram";
+export type ChartType =
+  "line" | "bar" | "area" | "pie" | "donut" | "composed" | "histogram";
 export type ChartSeriesType = "line" | "bar" | "area";
 export type CurveType = "linear" | "smooth" | "step";
 export type ChartLegendPosition = "top" | "bottom";
@@ -100,7 +104,11 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Maximum value of the value axis; overrides the auto-computed range. */
   yMax?: number;
   /** Override a tooltip value. */
-  formatTooltipValue?: (value: number, series: ChartSeries, dataIndex: number) => string;
+  formatTooltipValue?: (
+    value: number,
+    series: ChartSeries,
+    dataIndex: number,
+  ) => string;
   /** Custom tooltip renderer. */
   renderTooltip?: (props: ChartTooltipProps) => React.ReactNode;
   /** Theme color slot for the default series color. */
@@ -126,26 +134,26 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Called when hover state changes. */
   onHover?: (state: { seriesIndex: number; dataIndex: number } | null) => void;
   /** Wrap the chart in a vertically scrollable container when its natural
- *  height exceeds this pixel value. Ideal for horizontal bar charts with many
- *  categories. */
+   *  height exceeds this pixel value. Ideal for horizontal bar charts with many
+   *  categories. */
   maxHeight?: number;
   /** Row height (px) per category for horizontal bar charts; drives the
- *  auto-grown chart height so bars/labels don't crowd. Default: 36. */
+   *  auto-grown chart height so bars/labels don't crowd. Default: 36. */
   rowHeight?: number;
   /** Render colored point markers that track the crosshair cursor.
- *  Default: false — points stay fixed at their data positions and only the
- *  crosshair line follows the mouse. */
+   *  Default: false — points stay fixed at their data positions and only the
+   *  crosshair line follows the mouse. */
   crosshairPoints?: boolean;
   /** Chart viewBox width in pixels. Default: 800. Set to match your container
- *  for crisp text at any rendered size. */
+   *  for crisp text at any rendered size. */
   width?: number;
   /** Font size (px) for axis tick labels and category labels. Default: 11. */
   axisFontSize?: number;
   /** Font size (px) for pie/donut slice labels (primary line). Default: 12. */
   pieLabelFontSize?: number;
   /** Custom renderer for pie/donut slice labels. Receives the slice index,
- *  value, percentage (0–100), x-axis label, and the source series. When
- *  omitted the default rich label (bold category + muted value) is used. */
+   *  value, percentage (0–100), x-axis label, and the source series. When
+   *  omitted the default rich label (bold category + muted value) is used. */
   renderSliceLabel?: (
     index: number,
     value: number,
@@ -154,14 +162,14 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
     series: ChartSeries,
   ) => React.ReactNode;
   /** Position the floating tooltip relative to the cursor (px), clamped to the
- *  chart bounds so it never overlaps content. Accepts a uniform number or
- *  { x, y }. Default: 16. */
+   *  chart bounds so it never overlaps content. Accepts a uniform number or
+   *  { x, y }. Default: 16. */
   tooltipOffset?: number | { x: number; y: number };
   /** Hide pie/donut slice labels whose share of the total falls below this
- *  fraction (0–1). Default 0 = render every label. */
+   *  fraction (0–1). Default 0 = render every label. */
   sliceLabelThreshold?: number;
   /** Custom centered content for a donut chart (e.g. a total + subtext). When
- *  omitted, a centered total plus slice count is rendered. */
+   *  omitted, a centered total plus slice count is rendered. */
   renderCenter?: () => React.ReactNode;
   /** Corner radius (px) for bar charts. Use 0 for sharp bars. Default: 4. */
   barRadius?: number;
@@ -301,7 +309,8 @@ const DEFAULT_CHART_COLORS: Required<ChartColors> = {
 const ANIMATION_ID = "facet-chart-anim";
 
 function injectKeyframes() {
-  if (typeof document === "undefined" || document.getElementById(ANIMATION_ID)) return;
+  if (typeof document === "undefined" || document.getElementById(ANIMATION_ID))
+    return;
   const style = document.createElement("style");
   style.id = ANIMATION_ID;
   style.textContent = `
@@ -347,7 +356,10 @@ function stepPath(pts: Array<[number, number]>, endX?: number): string {
 }
 
 /** Cardinal-spline (Catmull-Rom → Bézier) for smooth curves. */
-function smoothPath(pts: Array<[number, number]>, tension = DEFAULT_CURVE_TENSION): string {
+function smoothPath(
+  pts: Array<[number, number]>,
+  tension = DEFAULT_CURVE_TENSION,
+): string {
   if (pts.length === 0) return "";
   if (pts.length === 1) return `M ${pts[0]!.join(",")}`;
   if (pts.length === 2) return linearPath(pts);
@@ -381,7 +393,9 @@ function buildLinePath(
   endX?: number,
   tension: number = DEFAULT_CURVE_TENSION,
 ): string {
-  const valid = connectNulls ? pts.filter((p) => p != null) as Array<[number, number]> : pts as Array<[number, number]>;
+  const valid = connectNulls
+    ? (pts.filter((p) => p != null) as Array<[number, number]>)
+    : (pts as Array<[number, number]>);
   if (curve === "smooth") return smoothPath(valid, tension);
   if (curve === "step") return stepPath(valid, endX);
   return linearPath(valid);
@@ -417,7 +431,11 @@ function buildAreaPath(
  * @param end  which side holds the value (the rounded end): "top" | "bottom" | "left" | "right"
  */
 function barPath(
-  x: number, y: number, w: number, h: number, radius: number,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  radius: number,
   end: "top" | "bottom" | "left" | "right",
 ): string {
   if (radius <= 0 || w <= 0 || h <= 0) {
@@ -462,7 +480,10 @@ function barPath(
       `Z`,
     ].join(" "),
   };
-  return paths[end] ?? `M${x} ${y} L${x + w} ${y} L${x + w} ${y + h} L${x} ${y + h} Z`;
+  return (
+    paths[end] ??
+    `M${x} ${y} L${x + w} ${y} L${x + w} ${y + h} L${x} ${y + h} Z`
+  );
 }
 
 /* Pie / donut arc helpers */
@@ -481,7 +502,12 @@ function pieSlices(
   const total = values.reduce((a, b) => a + b, 0);
   if (total === 0) return [];
 
-  const slices: Array<{ path: string; midAngle: number; labelX: number; labelY: number }> = [];
+  const slices: Array<{
+    path: string;
+    midAngle: number;
+    labelX: number;
+    labelY: number;
+  }> = [];
   let startAngle = -Math.PI / 2; // 12 o'clock, clockwise
 
   for (let i = 0; i < values.length; i++) {
@@ -581,7 +607,10 @@ function colorFor(
 }
 
 /** Resolve the effective series type given the chart type. */
-function effectiveSeriesType(s: ChartSeries, chartType: ChartType): ChartSeriesType {
+function effectiveSeriesType(
+  s: ChartSeries,
+  chartType: ChartType,
+): ChartSeriesType {
   if (s.type) return s.type;
   if (chartType === "area") return "area";
   if (chartType === "bar") return "bar";
@@ -663,7 +692,8 @@ export function Chart({
 }: ChartProps) {
   const isRadial = type === "pie" || type === "donut";
   const isHorizontal = type === "bar" && layout === "horizontal";
-  const effectiveHeight = height ?? (isRadial ? DEFAULT_HEIGHT_RADIAL : DEFAULT_HEIGHT);
+  const effectiveHeight =
+    height ?? (isRadial ? DEFAULT_HEIGHT_RADIAL : DEFAULT_HEIGHT);
   const crosshair = showCrosshair ?? showTooltip;
   const n = x.length;
   const resolvedColors = {
@@ -673,14 +703,19 @@ export function Chart({
     muted: chartColors.muted ?? DEFAULT_CHART_COLORS.muted,
   };
   const palette: string[] =
-    chartColors.chart && chartColors.chart.length > 0 ? chartColors.chart : PALETTE;
+    chartColors.chart && chartColors.chart.length > 0
+      ? chartColors.chart
+      : PALETTE;
   const scaleRef = React.useRef(1);
 
   const [hover, setHover] = React.useState<{
     seriesIndex: number;
     dataIndex: number;
   } | null>(null);
-  const [mousePos, setMousePos] = React.useState<{ x: number; y: number } | null>(null);
+  const [mousePos, setMousePos] = React.useState<{
+    x: number;
+    y: number;
+  } | null>(null);
   const [mounted, setMounted] = React.useState(false);
   const [drawProgress, setDrawProgress] = React.useState(0);
   const [openProgress, setOpenProgress] = React.useState(0);
@@ -798,9 +833,10 @@ export function Chart({
   const maxRadius = isRadial
     ? Math.min(width, chartHeight) / 2 - DEFAULT_RADIAL_MARGIN
     : Math.min(plotW, plotH) / 2 - DEFAULT_CARTESIAN_MARGIN;
-  const innerR = type === "donut"
-    ? (innerRadius ?? maxRadius * DEFAULT_DONUT_INNER_RADIUS_RATIO)
-    : 0;
+  const innerR =
+    type === "donut"
+      ? (innerRadius ?? maxRadius * DEFAULT_DONUT_INNER_RADIUS_RATIO)
+      : 0;
 
   /* ── Hover handlers ───────────────────────────────────────── */
 
@@ -860,44 +896,45 @@ export function Chart({
   function renderCartesian() {
     return (
       <>
-         {/* Axis spines — visible borders that "ground" the chart.
+        {/* Axis spines — visible borders that "ground" the chart.
              For horizontal layout the spine is on the left (categories) and
              the bottom spine carries the value ticks. */}
-         {showAxes && (
-           <>
-             <line
-               x1={padding.left}
-               x2={padding.left}
-               y1={padding.top}
-               y2={padding.top + plotH}
-               stroke={resolvedColors.border}
-               strokeWidth={axisWidth}
-             />
-             {layout === "horizontal" ? (
-               <line
-                 x1={padding.left}
-                 x2={padding.left + plotW}
-                 y1={padding.top}
-                 y2={padding.top}
-                 stroke={resolvedColors.border}
-                 strokeWidth={axisWidth}
-               />
-             ) : (
-               <line
-                 x1={padding.left}
-                 x2={padding.left + plotW}
-                 y1={padding.top + plotH}
-                 y2={padding.top + plotH}
-                 stroke={resolvedColors.border}
-                 strokeWidth={axisWidth}
-               />
-             )}
-           </>
-         )}
+        {showAxes && (
+          <>
+            <line
+              x1={padding.left}
+              x2={padding.left}
+              y1={padding.top}
+              y2={padding.top + plotH}
+              stroke={resolvedColors.border}
+              strokeWidth={axisWidth}
+            />
+            {layout === "horizontal" ? (
+              <line
+                x1={padding.left}
+                x2={padding.left + plotW}
+                y1={padding.top}
+                y2={padding.top}
+                stroke={resolvedColors.border}
+                strokeWidth={axisWidth}
+              />
+            ) : (
+              <line
+                x1={padding.left}
+                x2={padding.left + plotW}
+                y1={padding.top + plotH}
+                y2={padding.top + plotH}
+                stroke={resolvedColors.border}
+                strokeWidth={axisWidth}
+              />
+            )}
+          </>
+        )}
 
         {/* Y-axis (left): value ticks + horizontal gridlines for vertical layout;
             category labels for horizontal layout. */}
-        {showAxes && layout !== "horizontal" &&
+        {showAxes &&
+          layout !== "horizontal" &&
           yTicks.map((tick, i) => (
             <g key={`ygrid-${i}`}>
               <line
@@ -923,7 +960,8 @@ export function Chart({
           ))}
 
         {/* For horizontal layout: left axis shows categories, bottom axis shows values */}
-        {showAxes && layout === "horizontal" &&
+        {showAxes &&
+          layout === "horizontal" &&
           x.map((v, i) => (
             <text
               key={`yaxis-${i}`}
@@ -940,7 +978,8 @@ export function Chart({
 
         {/* X-axis (bottom): category labels for vertical layout;
             value ticks + vertical gridlines for horizontal layout. */}
-        {showAxes && layout !== "horizontal" &&
+        {showAxes &&
+          layout !== "horizontal" &&
           x.map((v, i) => (
             <text
               key={`xaxis-${i}`}
@@ -954,7 +993,8 @@ export function Chart({
             </text>
           ))}
 
-        {showAxes && layout === "horizontal" &&
+        {showAxes &&
+          layout === "horizontal" &&
           yTicks.map((tick, i) => (
             <g key={`xgrid-${i}`}>
               <line
@@ -988,76 +1028,102 @@ export function Chart({
             shows the interpolated value at the hover point. Per-series colored
             markers are opt-in via `crosshairPoints` (off by default). Only
             rendered for cartesian charts. */}
-        {crosshair && hover && !isRadial && (() => {
-          // Horizontal bar charts swap the axes: category axis is Y (catY),
-          // value axis is X (xOfVal). Vertical charts use X for category (xOf),
-          // Y for value (yOf).
-          const catPosOf = isHorizontal ? catY : xOf;
-          const valPosOf = isHorizontal ? xOfVal : yOf;
-          const firstData = visibleSeries[0]?.data ?? [];
-          const snapCat = catPosOf(hover.dataIndex);
-          const trackCat = mousePos ? (isHorizontal ? mousePos.y : mousePos.x) : snapCat;
-          // Snap to the data point only when `crosshairSnap` is on; otherwise the
-          // guide line and dot track the raw cursor (interpolateAtX pins the dot's
-          // value to a bar as the cursor passes its column). No fixed pixel
-          // threshold — bar/histogram crosshairs follow the cursor smoothly.
-          const isSnapped = crosshairSnap;
-          const catPos = isSnapped ? snapCat : trackCat;
-          const valPos = crosshairSnap
-            ? valPosOf(firstData[hover.dataIndex] ?? 0)
-            : (isHorizontal
-                ? (mousePos ? mousePos.x : valPosOf(firstData[hover.dataIndex] ?? 0))
-                : interpolateAtX(trackCat, firstData, xOf, yOf));
-          // Line spans the full plot dimension perpendicular to the category axis
-          const lineProps = isHorizontal
-            ? { x1: padding.left, x2: padding.left + plotW, y1: catPos, y2: catPos }
-            : { x1: catPos, x2: catPos, y1: padding.top, y2: padding.top + plotH };
-          const dotCx = isHorizontal ? valPos : catPos;
-          const dotCy = isHorizontal ? catPos : valPos;
-          return (
-            <>
-              <line
-                x1={lineProps.x1}
-                x2={lineProps.x2}
-                y1={lineProps.y1}
-                y2={lineProps.y2}
-                stroke={resolvedColors.foreground}
-                strokeOpacity={crosshairOpacity}
-                strokeDasharray={crosshairDasharray}
-                strokeWidth={crosshairWidth}
-                style={{ transition: `opacity ${transitionDuration / 1000}s ease, stroke-opacity ${transitionDuration / 1000}s ease` }}
-              />
-              {!isSnapped && (
-                <circle
-                  cx={dotCx}
-                  cy={dotCy}
-                  r={crosshairDotRadius}
-                  fill={resolvedColors.background}
-                  stroke={resolvedColors.background}
-                  strokeWidth={crosshairDotWidth}
-                  style={{ transition: `opacity ${transitionDuration / 1000}s ease` }}
+        {crosshair &&
+          hover &&
+          !isRadial &&
+          (() => {
+            // Horizontal bar charts swap the axes: category axis is Y (catY),
+            // value axis is X (xOfVal). Vertical charts use X for category (xOf),
+            // Y for value (yOf).
+            const catPosOf = isHorizontal ? catY : xOf;
+            const valPosOf = isHorizontal ? xOfVal : yOf;
+            const firstData = visibleSeries[0]?.data ?? [];
+            const snapCat = catPosOf(hover.dataIndex);
+            const trackCat = mousePos
+              ? isHorizontal
+                ? mousePos.y
+                : mousePos.x
+              : snapCat;
+            // Snap to the data point only when `crosshairSnap` is on; otherwise the
+            // guide line and dot track the raw cursor (interpolateAtX pins the dot's
+            // value to a bar as the cursor passes its column). No fixed pixel
+            // threshold — bar/histogram crosshairs follow the cursor smoothly.
+            const isSnapped = crosshairSnap;
+            const catPos = isSnapped ? snapCat : trackCat;
+            const valPos = crosshairSnap
+              ? valPosOf(firstData[hover.dataIndex] ?? 0)
+              : isHorizontal
+                ? mousePos
+                  ? mousePos.x
+                  : valPosOf(firstData[hover.dataIndex] ?? 0)
+                : interpolateAtX(trackCat, firstData, xOf, yOf);
+            // Line spans the full plot dimension perpendicular to the category axis
+            const lineProps = isHorizontal
+              ? {
+                  x1: padding.left,
+                  x2: padding.left + plotW,
+                  y1: catPos,
+                  y2: catPos,
+                }
+              : {
+                  x1: catPos,
+                  x2: catPos,
+                  y1: padding.top,
+                  y2: padding.top + plotH,
+                };
+            const dotCx = isHorizontal ? valPos : catPos;
+            const dotCy = isHorizontal ? catPos : valPos;
+            return (
+              <>
+                <line
+                  x1={lineProps.x1}
+                  x2={lineProps.x2}
+                  y1={lineProps.y1}
+                  y2={lineProps.y2}
+                  stroke={resolvedColors.foreground}
+                  strokeOpacity={crosshairOpacity}
+                  strokeDasharray={crosshairDasharray}
+                  strokeWidth={crosshairWidth}
+                  style={{
+                    transition: `opacity ${transitionDuration / 1000}s ease, stroke-opacity ${transitionDuration / 1000}s ease`,
+                  }}
                 />
-              )}
-              {crosshairPoints &&
-                visibleSeries.map((s, si) => {
-                  const val = s.data[hover.dataIndex];
-                  if (val == null) return null;
-                  return (
-                    <circle
-                      key={`cross-${s.id}`}
-                      cx={isHorizontal ? xOfVal(val) : xOf(hover.dataIndex)}
-                      cy={isHorizontal ? catY(hover.dataIndex) : yOf(val)}
-                      r={dotRadius}
-                      fill={colorFor(si, s, defaultColor, palette)}
-                      stroke={resolvedColors.background}
-                      strokeWidth={crosshairDotWidth}
-                      style={{ transition: `cx ${(transitionDuration / 3) / 1000}s ease-out, cy ${(transitionDuration / 3) / 1000}s ease-out` }}
-                    />
-                  );
-                })}
-            </>
-          );
-        })()}
+                {!isSnapped && (
+                  <circle
+                    cx={dotCx}
+                    cy={dotCy}
+                    r={crosshairDotRadius}
+                    fill={resolvedColors.background}
+                    stroke={resolvedColors.background}
+                    strokeWidth={crosshairDotWidth}
+                    style={{
+                      transition: `opacity ${transitionDuration / 1000}s ease`,
+                    }}
+                  />
+                )}
+                {crosshairPoints &&
+                  visibleSeries.map((s, si) => {
+                    const val = s.data[hover.dataIndex];
+                    if (val == null) return null;
+                    return (
+                      <circle
+                        key={`cross-${s.id}`}
+                        data-crosshair-point="true"
+                        cx={isHorizontal ? xOfVal(val) : xOf(hover.dataIndex)}
+                        cy={isHorizontal ? catY(hover.dataIndex) : yOf(val)}
+                        r={dotRadius}
+                        fill={colorFor(si, s, defaultColor, palette)}
+                        stroke={resolvedColors.background}
+                        strokeWidth={crosshairDotWidth}
+                        style={{
+                          transition: `cx ${transitionDuration / 3 / 1000}s ease-out, cy ${transitionDuration / 3 / 1000}s ease-out`,
+                        }}
+                      />
+                    );
+                  })}
+              </>
+            );
+          })()}
 
         {/* Series */}
         {visibleSeries.map((s, si) => {
@@ -1067,20 +1133,21 @@ export function Chart({
           const isArea = sType === "area";
           const isStacked = stacked && (isBar || isArea);
           const animDelay = si * 80;
-          const animStyle: React.CSSProperties = animate && mounted
-            ? {
-                 animation: `facet-chart-fadeIn ${animationDuration / 1000}s ease-out forwards`,
-                animationDelay: `${animDelay}ms`,
-                clipPath: `url(#facet-draw-${s.id})`,
-              }
-            : {};
+          const animStyle: React.CSSProperties =
+            animate && mounted
+              ? {
+                  animation: `facet-chart-fadeIn ${animationDuration / 1000}s ease-out forwards`,
+                  animationDelay: `${animDelay}ms`,
+                  clipPath: `url(#facet-draw-${s.id})`,
+                }
+              : {};
 
           // Index of this series among all visible bar-type series (for grouped layout)
           const barIdx = visibleSeries
             .slice(0, si)
             .filter((ss) => effectiveSeriesType(ss, type) === "bar").length;
           const barSeriesCount = visibleSeries.filter(
-            (ss) => effectiveSeriesType(ss, type) === "bar"
+            (ss) => effectiveSeriesType(ss, type) === "bar",
           ).length;
 
           if (isBar) {
@@ -1115,20 +1182,33 @@ export function Chart({
                       const vTop = v + baseline;
                       const startX = xOfVal(vTop);
                       const baseX = xOfVal(baseline);
-                      const barEnd: "left" | "right" = vTop >= baseline ? "right" : "left";
+                      const barEnd: "left" | "right" =
+                        vTop >= baseline ? "right" : "left";
                       return (
                         <path
                           key={`bar-${i}`}
                           d={barPath(
-                            Math.min(startX, baseX), catY(i) - thick / 2,
-                            Math.abs(startX - baseX), thick, barRadius, barEnd,
+                            Math.min(startX, baseX),
+                            catY(i) - thick / 2,
+                            Math.abs(startX - baseX),
+                            thick,
+                            barRadius,
+                            barEnd,
                           )}
                           fill={color}
-                          opacity={hover && hover.dataIndex !== i ? barInactiveOpacity : 1}
-style={{
-                              transition: `opacity ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease`,
-                              transform: hover?.dataIndex === i ? `scaleX(${DEFAULT_BAR_HOVER_SCALE})` : "scaleX(1)",
-                            }}
+                          opacity={
+                            hover && hover.dataIndex !== i
+                              ? barInactiveOpacity
+                              : 1
+                          }
+                          style={{
+                            transition: `opacity ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease`,
+                            transform:
+                              hover?.dataIndex === i
+                                ? `scaleX(${DEFAULT_BAR_HOVER_SCALE})`
+                                : "scaleX(1)",
+                            transformOrigin: `${baseX}px ${catY(i)}px`,
+                          }}
                         />
                       );
                     })}
@@ -1149,22 +1229,39 @@ style={{
                     </clipPath>
                   )}
                   {s.data.map((v, i) => {
-                    const barY = catY(i) - groupH / 2 + barIdx * slotH + (slotH - barH) / 2;
+                    const barY =
+                      catY(i) -
+                      groupH / 2 +
+                      barIdx * slotH +
+                      (slotH - barH) / 2;
                     const valX = xOfVal(v);
-                    const barEnd: "left" | "right" = valX >= zeroX ? "right" : "left";
+                    const barEnd: "left" | "right" =
+                      valX >= zeroX ? "right" : "left";
                     return (
                       <path
                         key={`bar-${i}`}
                         d={barPath(
-                          Math.min(valX, zeroX), barY,
-                          Math.abs(valX - zeroX), barH, barRadius, barEnd,
+                          Math.min(valX, zeroX),
+                          barY,
+                          Math.abs(valX - zeroX),
+                          barH,
+                          barRadius,
+                          barEnd,
                         )}
                         fill={color}
-                        opacity={hover && hover.dataIndex !== i ? barInactiveOpacity : 1}
-style={{
-                              transition: `opacity ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease`,
-                              transform: hover?.dataIndex === i ? `scaleX(${DEFAULT_BAR_HOVER_SCALE})` : "scaleX(1)",
-                            }}
+                        opacity={
+                          hover && hover.dataIndex !== i
+                            ? barInactiveOpacity
+                            : 1
+                        }
+                        style={{
+                          transition: `opacity ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease`,
+                          transform:
+                            hover?.dataIndex === i
+                              ? `scaleX(${DEFAULT_BAR_HOVER_SCALE})`
+                              : "scaleX(1)",
+                          transformOrigin: `${zeroX}px ${barY + barH / 2}px`,
+                        }}
                       />
                     );
                   })}
@@ -1190,20 +1287,33 @@ style={{
                   {s.data.map((v, i) => {
                     const baseline = stackedBaseline(si, i, "bar");
                     const vTop = v + baseline;
-                    const barEnd: "top" | "bottom" = vTop >= baseline ? "top" : "bottom";
+                    const barEnd: "top" | "bottom" =
+                      vTop >= baseline ? "top" : "bottom";
                     return (
                       <path
                         key={`bar-${i}`}
                         d={barPath(
-                          xOf(i) - barWidth / 2, yOf(vTop),
-                          barWidth, Math.abs(yOf(vTop) - yOf(baseline)), barRadius, barEnd,
+                          xOf(i) - barWidth / 2,
+                          yOf(vTop),
+                          barWidth,
+                          Math.abs(yOf(vTop) - yOf(baseline)),
+                          barRadius,
+                          barEnd,
                         )}
                         fill={color}
-                        opacity={hover && hover.dataIndex !== i ? barInactiveOpacity : 1}
-style={{
-                            transition: `opacity ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease`,
-                            transform: hover?.dataIndex === i ? `scaleY(${DEFAULT_BAR_HOVER_SCALE})` : "scaleY(1)",
-                           }}
+                        opacity={
+                          hover && hover.dataIndex !== i
+                            ? barInactiveOpacity
+                            : 1
+                        }
+                        style={{
+                          transition: `opacity ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease`,
+                          transform:
+                            hover?.dataIndex === i
+                              ? `scaleY(${DEFAULT_BAR_HOVER_SCALE})`
+                              : "scaleY(1)",
+                          transformOrigin: `${xOf(i)}px ${yOf(baseline)}px`,
+                        }}
                       />
                     );
                   })}
@@ -1224,21 +1334,33 @@ style={{
                   </clipPath>
                 )}
                 {s.data.map((v, i) => {
-                  const barX = xOf(i) - groupW / 2 + barIdx * slotW + (slotW - barW) / 2;
+                  const barX =
+                    xOf(i) - groupW / 2 + barIdx * slotW + (slotW - barW) / 2;
                   const valY = yOf(Math.max(0, v));
                   const barEnd: "top" | "bottom" = v >= 0 ? "top" : "bottom";
                   return (
                     <path
                       key={`bar-${i}`}
                       d={barPath(
-                        barX, valY, barW, Math.abs(yOf(v) - yOf(0)), barRadius, barEnd,
+                        barX,
+                        valY,
+                        barW,
+                        Math.abs(yOf(v) - yOf(0)),
+                        barRadius,
+                        barEnd,
                       )}
                       fill={color}
-                      opacity={hover && hover.dataIndex !== i ? barInactiveOpacity : 1}
-style={{
-                            transition: `opacity ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease`,
-                            transform: hover?.dataIndex === i ? `scaleY(${DEFAULT_BAR_HOVER_SCALE})` : "scaleY(1)",
-                           }}
+                      opacity={
+                        hover && hover.dataIndex !== i ? barInactiveOpacity : 1
+                      }
+                      style={{
+                        transition: `opacity ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease`,
+                        transform:
+                          hover?.dataIndex === i
+                            ? `scaleY(${DEFAULT_BAR_HOVER_SCALE})`
+                            : "scaleY(1)",
+                        transformOrigin: `${barX + barW / 2}px ${yOf(0)}px`,
+                      }}
                     />
                   );
                 })}
@@ -1248,7 +1370,8 @@ style={{
 
           // line / area
           const pts: Array<[number, number]> = s.data.map((v, i2) => {
-            const off = isStacked && isArea ? stackedBaseline(si, i2, "area") : 0;
+            const off =
+              isStacked && isArea ? stackedBaseline(si, i2, "area") : 0;
             return [xOf(i2), yOf(v + off)];
           });
 
@@ -1256,9 +1379,10 @@ style={{
           // left edge to the first data point) so animated lines and areas
           // "grow" from the origin (0,0) rather than just appearing.
           const originPt: [number, number] = [padding.left, yOf(0)];
-          const linePts = animate && pts.length > 0
-            ? ([originPt, ...pts] as Array<[number, number]>)
-            : pts;
+          const linePts =
+            animate && pts.length > 0
+              ? ([originPt, ...pts] as Array<[number, number]>)
+              : pts;
           const firstX = padding.left;
           const lastX = pts[pts.length - 1]?.[0] ?? padding.left + plotW;
           const endX = padding.left + plotW;
@@ -1277,13 +1401,27 @@ style={{
               )}
               {isArea && (
                 <path
-                  d={buildAreaPath(linePts, yOf(0), curve, firstX, lastX, endX, curveTension)}
+                  d={buildAreaPath(
+                    linePts,
+                    yOf(0),
+                    curve,
+                    firstX,
+                    lastX,
+                    endX,
+                    curveTension,
+                  )}
                   fill={color}
                   fillOpacity={0.15}
                 />
               )}
               <path
-                d={buildLinePath(linePts, curve, connectNulls, endX, curveTension)}
+                d={buildLinePath(
+                  linePts,
+                  curve,
+                  connectNulls,
+                  endX,
+                  curveTension,
+                )}
                 fill="none"
                 stroke={color}
                 strokeWidth={lineWidth}
@@ -1291,7 +1429,8 @@ style={{
                 strokeLinecap="round"
               />
               {s.data.map((v, i2) => {
-                const off = isStacked && isArea ? stackedBaseline(si, i2, "area") : 0;
+                const off =
+                  isStacked && isArea ? stackedBaseline(si, i2, "area") : 0;
                 const isActive = hover?.dataIndex === i2;
                 const dotCx = xOf(i2);
                 const dotCy = yOf(v + off);
@@ -1302,13 +1441,16 @@ style={{
                     cy={dotCy}
                     r={isActive ? dotRadius + 2 : dotRadius}
                     fill={color}
-                    stroke={isActive ? resolvedColors.foreground : undefined}
+                    stroke={isActive ? resolvedColors.background : undefined}
                     strokeWidth={isActive ? lineWidth : 0}
-                    opacity={hover && hover.dataIndex !== i2 ? dotInactiveOpacity : 1}
+                    opacity={
+                      hover && hover.dataIndex !== i2 ? dotInactiveOpacity : 1
+                    }
                     style={{
-                      transition:
-                        `r ${transitionDuration / 1000}s ease-out, opacity ${transitionDuration / 1000}s ease, stroke-width ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease-out`,
-                      transform: isActive ? `scale(${DEFAULT_DOT_HOVER_SCALE})` : "scale(1)",
+                      transition: `r ${transitionDuration / 1000}s ease-out, opacity ${transitionDuration / 1000}s ease, stroke-width ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease-out`,
+                      transform: isActive
+                        ? `scale(${DEFAULT_DOT_HOVER_SCALE})`
+                        : "scale(1)",
                       transformOrigin: `${dotCx}px ${dotCy}px`,
                     }}
                   />
@@ -1331,12 +1473,24 @@ style={{
     const total = values.reduce((a, b) => a + b, 0);
     if (type === "donut") {
       let startAngle = -Math.PI / 2;
-      const donutSlices: Array<{ path: string; midAngle: number; labelX: number; labelY: number }> = [];
+      const donutSlices: Array<{
+        path: string;
+        midAngle: number;
+        labelX: number;
+        labelY: number;
+      }> = [];
       for (let i = 0; i < values.length; i++) {
         const v = values[i]!;
         const fraction = (total > 0 ? v / total : 0) * openProgress;
         const endAngle = startAngle + fraction * 2 * Math.PI;
-        const path = donutSlicePath(cx, cy, maxRadius, innerR, startAngle, endAngle);
+        const path = donutSlicePath(
+          cx,
+          cy,
+          maxRadius,
+          innerR,
+          startAngle,
+          endAngle,
+        );
         const midAngle = (startAngle + endAngle) / 2;
         const labelR = maxRadius + DEFAULT_RADIAL_LABEL_GAP;
         donutSlices.push({
@@ -1356,11 +1510,17 @@ style={{
               d={sl.path}
               fill={colorFor(i, first, defaultColor, palette)}
               stroke={resolvedColors.background}
-              strokeWidth={hover?.dataIndex === i ? sliceWidth + 0.5 : sliceWidth}
+              strokeWidth={
+                hover?.dataIndex === i ? sliceWidth + 0.5 : sliceWidth
+              }
               style={{
-                opacity: hover && hover.dataIndex !== i ? dotInactiveOpacity : 1,
+                opacity:
+                  hover && hover.dataIndex !== i ? dotInactiveOpacity : 1,
                 cursor: "pointer",
-                transform: hover?.dataIndex === i ? `scale(${DEFAULT_SLICE_HOVER_SCALE})` : "scale(1)",
+                transform:
+                  hover?.dataIndex === i
+                    ? `scale(${DEFAULT_SLICE_HOVER_SCALE})`
+                    : "scale(1)",
                 transition: `opacity ${transitionDuration / 1000}s ease, stroke-width ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease`,
                 transformOrigin: `${cx}px ${cy}px`,
               }}
@@ -1408,7 +1568,8 @@ style={{
               ) {
                 return null;
               }
-              const pct = total > 0 ? ((values[i]! / total) * 100).toFixed(1) : "0";
+              const pct =
+                total > 0 ? ((values[i]! / total) * 100).toFixed(1) : "0";
               const slicedX = x[i]!;
               const labelText = formatX ? formatX(slicedX) : String(slicedX);
               const isHovered = hover?.dataIndex === i;
@@ -1431,32 +1592,44 @@ style={{
                     strokeWidth={gridlineWidth}
                     strokeOpacity={dotInactiveOpacity}
                   />
-                  {renderSliceLabel
-                    ? (
-                      <g transform={`translate(${sl.labelX}, ${sl.labelY})`}>
-                        {renderSliceLabel(i, values[i]!, Number(pct), slicedX, first)}
-                      </g>
-                    )
-                    : (
-                      <text
+                  {renderSliceLabel ? (
+                    <g transform={`translate(${sl.labelX}, ${sl.labelY})`}>
+                      {renderSliceLabel(
+                        i,
+                        values[i]!,
+                        Number(pct),
+                        slicedX,
+                        first,
+                      )}
+                    </g>
+                  ) : (
+                    <text
+                      x={textX}
+                      y={sl.labelY}
+                      textAnchor={anchor}
+                      dominantBaseline="central"
+                      fontSize={pieLabelFontSize}
+                      fill={
+                        isHovered
+                          ? resolvedColors.foreground
+                          : resolvedColors.muted
+                      }
+                    >
+                      <tspan fontWeight={600}>{labelText}</tspan>
+                      <tspan
                         x={textX}
-                        y={sl.labelY}
-                        textAnchor={anchor}
-                        dominantBaseline="central"
-                        fontSize={pieLabelFontSize}
-                        fill={isHovered ? resolvedColors.foreground : resolvedColors.muted}
+                        dy="1.3em"
+                        fontSize={pieLabelFontSize * PIE_SECONDARY_LABEL_SCALE}
+                        fill={
+                          isHovered
+                            ? resolvedColors.foreground
+                            : resolvedColors.muted
+                        }
                       >
-                        <tspan fontWeight={600}>{labelText}</tspan>
-                        <tspan
-                          x={textX}
-                          dy="1.3em"
-                          fontSize={pieLabelFontSize * PIE_SECONDARY_LABEL_SCALE}
-                          fill={isHovered ? resolvedColors.foreground : resolvedColors.muted}
-                        >
-                          {` (${pct}%)`}
-                        </tspan>
-                      </text>
-                    )}
+                        {` (${pct}%)`}
+                      </tspan>
+                    </text>
+                  )}
                 </g>
               );
             })}
@@ -1475,7 +1648,9 @@ style={{
           const labelText = formatX ? formatX(slicedX) : String(slicedX);
           const pct = total > 0 ? ((values[i]! / total) * 100).toFixed(1) : "0";
           const skipSliceLabel =
-            sliceLabelThreshold > 0 && total > 0 && values[i]! / total < sliceLabelThreshold;
+            sliceLabelThreshold > 0 &&
+            total > 0 &&
+            values[i]! / total < sliceLabelThreshold;
           const cos = Math.cos(sl.midAngle);
           const anchor: "start" | "end" | "middle" =
             cos > 0.05 ? "start" : cos < -0.05 ? "end" : "middle";
@@ -1490,11 +1665,17 @@ style={{
                 d={sl.path}
                 fill={colorFor(i, first, defaultColor, palette)}
                 stroke={resolvedColors.background}
-                strokeWidth={hover?.dataIndex === i ? sliceWidth + 0.5 : sliceWidth}
+                strokeWidth={
+                  hover?.dataIndex === i ? sliceWidth + 0.5 : sliceWidth
+                }
                 style={{
-                  opacity: hover && hover.dataIndex !== i ? dotInactiveOpacity : 1,
+                  opacity:
+                    hover && hover.dataIndex !== i ? dotInactiveOpacity : 1,
                   cursor: "pointer",
-                  transform: hover?.dataIndex === i ? `scale(${DEFAULT_SLICE_HOVER_SCALE})` : "scale(1)",
+                  transform:
+                    hover?.dataIndex === i
+                      ? `scale(${DEFAULT_SLICE_HOVER_SCALE})`
+                      : "scale(1)",
                   transition: `opacity ${transitionDuration / 1000}s ease, stroke-width ${transitionDuration / 1000}s ease, transform ${transitionDuration / 1000}s ease`,
                   transformOrigin: `${cx}px ${cy}px`,
                 }}
@@ -1512,32 +1693,44 @@ style={{
                     strokeWidth={gridlineWidth}
                     strokeOpacity={dotInactiveOpacity}
                   />
-                  {renderSliceLabel
-                    ? (
-                      <g transform={`translate(${sl.labelX}, ${sl.labelY})`}>
-                        {renderSliceLabel(i, values[i]!, Number(pct), slicedX, first)}
-                      </g>
-                    )
-                    : (
-                      <text
+                  {renderSliceLabel ? (
+                    <g transform={`translate(${sl.labelX}, ${sl.labelY})`}>
+                      {renderSliceLabel(
+                        i,
+                        values[i]!,
+                        Number(pct),
+                        slicedX,
+                        first,
+                      )}
+                    </g>
+                  ) : (
+                    <text
+                      x={textX}
+                      y={sl.labelY}
+                      textAnchor={anchor}
+                      dominantBaseline="central"
+                      fontSize={pieLabelFontSize}
+                      fill={
+                        isHovered
+                          ? resolvedColors.foreground
+                          : resolvedColors.muted
+                      }
+                    >
+                      <tspan fontWeight={600}>{labelText}</tspan>
+                      <tspan
                         x={textX}
-                        y={sl.labelY}
-                        textAnchor={anchor}
-                        dominantBaseline="central"
-                        fontSize={pieLabelFontSize}
-                        fill={isHovered ? resolvedColors.foreground : resolvedColors.muted}
+                        dy="1.3em"
+                        fontSize={pieLabelFontSize * PIE_SECONDARY_LABEL_SCALE}
+                        fill={
+                          isHovered
+                            ? resolvedColors.foreground
+                            : resolvedColors.muted
+                        }
                       >
-                        <tspan fontWeight={600}>{labelText}</tspan>
-                        <tspan
-                          x={textX}
-                          dy="1.3em"
-                          fontSize={pieLabelFontSize * PIE_SECONDARY_LABEL_SCALE}
-                          fill={isHovered ? resolvedColors.foreground : resolvedColors.muted}
-                        >
-                          {` (${pct}%)`}
-                        </tspan>
-                      </text>
-                    )}
+                        {` (${pct}%)`}
+                      </tspan>
+                    </text>
+                  )}
                 </g>
               )}
             </g>
@@ -1581,7 +1774,10 @@ style={{
             {formatX ? formatX(xVal!) : String(xVal)}
           </div>
           <div className="flex items-center gap-2 text-muted-foreground">
-            <span className="size-2 rounded-full" style={{ background: colorVal }} />
+            <span
+              className="size-2 rounded-full"
+              style={{ background: colorVal }}
+            />
             <span>{s.label}:</span>
             <span className="font-medium text-foreground">{displayValue}</span>
           </div>
@@ -1620,10 +1816,18 @@ style={{
               ? formatTooltipValue(rawValue, s, hover.dataIndex)
               : formatY(rawValue);
             return (
-              <div key={s.id} className="flex items-center gap-2 text-muted-foreground">
-                <span className="size-2 rounded-full" style={{ background: colorVal }} />
+              <div
+                key={s.id}
+                className="flex items-center gap-2 text-muted-foreground"
+              >
+                <span
+                  className="size-2 rounded-full"
+                  style={{ background: colorVal }}
+                />
                 <span>{s.label}:</span>
-                <span className="font-medium text-foreground">{displayValue}</span>
+                <span className="font-medium text-foreground">
+                  {displayValue}
+                </span>
               </div>
             );
           })}
@@ -1657,15 +1861,26 @@ style={{
         const svgTop = svgRect.top - ctrRect.top;
         const tipW = DEFAULT_TIP_WIDTH;
         const tipH = DEFAULT_TIP_HEIGHT;
-        left = Math.max(svgLeft + 8, Math.min(left as number, svgLeft + svgRect.width - tipW - 8));
-        top = Math.max(svgTop + 8, Math.min(top as number, svgTop + svgRect.height - tipH - 8));
+        left = Math.max(
+          svgLeft + 8,
+          Math.min(left as number, svgLeft + svgRect.width - tipW - 8),
+        );
+        top = Math.max(
+          svgTop + 8,
+          Math.min(top as number, svgTop + svgRect.height - tipH - 8),
+        );
       }
     }
 
     return (
       <div
         className="pointer-events-none absolute z-10 rounded-md border border-border bg-popover px-3 py-1.5 text-xs shadow-md"
-        style={{ left, top, opacity: mousePos ? 1 : 0, transition: `opacity ${transitionDuration / 1000}s ease` }}
+        style={{
+          left,
+          top,
+          opacity: mousePos ? 1 : 0,
+          transition: `opacity ${transitionDuration / 1000}s ease`,
+        }}
       >
         {content}
       </div>
@@ -1729,7 +1944,11 @@ style={{
   return (
     <div
       ref={containerRef}
-      className={cn("relative w-full", maxHeight ? "overflow-y-auto" : undefined, className)}
+      className={cn(
+        "relative w-full",
+        maxHeight ? "overflow-y-auto" : undefined,
+        className,
+      )}
       style={maxHeight ? { maxHeight: `${maxHeight}px`, ...style } : style}
       {...rest}
     >
@@ -1741,9 +1960,11 @@ style={{
         className="block w-full"
         role="img"
         aria-label={
-          type === "pie" ? "Pie chart"
-          : type === "donut" ? "Donut chart"
-          : "Chart"
+          type === "pie"
+            ? "Pie chart"
+            : type === "donut"
+              ? "Donut chart"
+              : "Chart"
         }
         onMouseMove={handlePointerMove}
         onMouseLeave={handlePointerLeave}

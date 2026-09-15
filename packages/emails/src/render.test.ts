@@ -32,35 +32,56 @@ describe("renderEmail (framework-agnostic core)", () => {
   });
 
   it("escapes text content and attributes", () => {
-    const tree = createElement("div", {}, createElement("p", {}, "<script>alert(1)</script> & more"));
+    const tree = createElement(
+      "div",
+      {},
+      createElement("p", {}, "<script>alert(1)</script> & more"),
+    );
     const html = renderEmail(tree, { fullDocument: false });
     expect(html).toContain("&lt;script&gt;");
     expect(html).not.toContain("<script>alert");
   });
 
   it("does not leak undefined values", () => {
-    const tree = createElement("div", {}, createElement("p", {}, "a", undefined, "b"));
+    const tree = createElement(
+      "div",
+      {},
+      createElement("p", {}, "a", undefined, "b"),
+    );
     const html = renderEmail(tree, { fullDocument: false });
     expect(html).not.toContain("undefined");
     expect(html).toContain("ab");
   });
 
   it("handles void tags and boolean attributes", () => {
-    const tree = createElement("input", { type: "email", required: true, disabled: false, placeholder: "you@example.com" });
+    const tree = createElement("input", {
+      type: "email",
+      required: true,
+      disabled: false,
+      placeholder: "you@example.com",
+    });
     const html = renderEmail(tree, { fullDocument: false });
-    expect(html).toContain("<input type=\"email\" required placeholder=\"you@example.com\">");
+    expect(html).toContain(
+      '<input type="email" required placeholder="you@example.com">',
+    );
     expect(html).not.toContain("disabled");
   });
 
   it("renders className as class and htmlFor as for", () => {
-    const tree = createElement("label", { htmlFor: "email", className: "label" }, "Email");
+    const tree = createElement(
+      "label",
+      { htmlFor: "email", className: "label" },
+      "Email",
+    );
     const html = renderEmail(tree, { fullDocument: false });
     expect(html).toContain('<label for="email" class="label">Email</label>');
   });
 
   it("injects brand tokens into a style block", () => {
     const tree = createElement("p", {}, "Hi");
-    const html = renderEmail(tree, { brand: { primary: "#ff0000", brandName: "Test Brand" } });
+    const html = renderEmail(tree, {
+      brand: { primary: "#ff0000", brandName: "Test Brand" },
+    });
     // brand.primary themes links; the title carries the brand name.
     expect(html).toContain("color:#ff0000");
     expect(html).toContain("<title>Test Brand</title>");
@@ -92,18 +113,29 @@ describe("renderEmailText", () => {
 
 describe("primitives (tree form)", () => {
   it("emailButton renders an anchor with the href and label", () => {
-    const tree = emailButton({ href: "https://acme.dev/go", children: "Get started" });
+    const tree = emailButton({
+      href: "https://acme.dev/go",
+      children: "Get started",
+    });
     const html = renderEmail(tree, { fullDocument: false });
     expect(html).toContain('href="https://acme.dev/go"');
     expect(html).toContain(">Get started</a>");
   });
 
   it("emailButton variants change background color", () => {
-    const primary = renderEmail(emailButton({ href: "#", children: "x" }), { fullDocument: false });
+    const primary = renderEmail(emailButton({ href: "#", children: "x" }), {
+      fullDocument: false,
+    });
     expect(primary).toContain("background-color:var(--primary");
-    const danger = renderEmail(emailButton({ href: "#", children: "x", variant: "danger" }), { fullDocument: false });
+    const danger = renderEmail(
+      emailButton({ href: "#", children: "x", variant: "danger" }),
+      { fullDocument: false },
+    );
     expect(danger).toContain("background-color:var(--danger");
-    const outline = renderEmail(emailButton({ href: "#", children: "x", variant: "outline" }), { fullDocument: false });
+    const outline = renderEmail(
+      emailButton({ href: "#", children: "x", variant: "outline" }),
+      { fullDocument: false },
+    );
     expect(outline).toContain("border:1px solid var(--primary");
   });
 
@@ -115,7 +147,11 @@ describe("primitives (tree form)", () => {
   });
 
   it("emailSecurityNotice renders IP/device rows", () => {
-    const tree = emailSecurityNotice({ ip: "102.89.3.1", userAgent: "Chrome", location: "Lagos" });
+    const tree = emailSecurityNotice({
+      ip: "102.89.3.1",
+      userAgent: "Chrome",
+      location: "Lagos",
+    });
     const html = renderEmail(tree, { fullDocument: false });
     expect(html).toContain("102.89.3.1");
     expect(html).toContain("Chrome");
@@ -148,7 +184,11 @@ describe("Section / Row / Column", () => {
   });
 
   it("emailRow and emailColumn compose a grid", () => {
-    const tree = emailRow({}, emailColumn({ style: { width: "50%" } }, "A"), emailColumn({ style: { width: "50%" } }, "B"));
+    const tree = emailRow(
+      {},
+      emailColumn({ style: { width: "50%" } }, "A"),
+      emailColumn({ style: { width: "50%" } }, "B"),
+    );
     const html = renderEmail(tree, { fullDocument: false });
     expect(html).toContain("<tr");
     expect(html).toContain('style="width:50%"');
@@ -159,14 +199,20 @@ describe("Section / Row / Column", () => {
 
 describe("security notice variants", () => {
   it("renders a warning callout with children", () => {
-    const tree = emailSecurityNotice({ variant: "warning", children: "Be careful" });
+    const tree = emailSecurityNotice({
+      variant: "warning",
+      children: "Be careful",
+    });
     const html = renderEmail(tree, { fullDocument: false });
     expect(html).toContain("Be careful");
     expect(html).toContain("#fffbeb");
   });
 
   it("renders a danger callout", () => {
-    const tree = emailSecurityNotice({ variant: "danger", children: "Critical" });
+    const tree = emailSecurityNotice({
+      variant: "danger",
+      children: "Critical",
+    });
     const html = renderEmail(tree, { fullDocument: false });
     expect(html).toContain("Critical");
     expect(html).toContain("#fef2f2");

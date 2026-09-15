@@ -29,7 +29,21 @@ describe("ISO_COUNTRY_CODES", () => {
   it("is a full ISO dial-code list", () => {
     expect(ISO_COUNTRY_CODES.length).toBeGreaterThan(100);
     // Major economies present.
-    for (const c of ["US", "GB", "NG", "GH", "KE", "ZA", "IN", "CN", "JP", "DE", "FR", "BR", "MX"]) {
+    for (const c of [
+      "US",
+      "GB",
+      "NG",
+      "GH",
+      "KE",
+      "ZA",
+      "IN",
+      "CN",
+      "JP",
+      "DE",
+      "FR",
+      "BR",
+      "MX",
+    ]) {
       expect(ISO_COUNTRY_CODES.some((x) => x.country === c)).toBe(true);
     }
   });
@@ -69,33 +83,55 @@ describe("filterCountryCodes", () => {
 
 describe("CountryCodeInput", () => {
   it("renders the default country and number", () => {
-    render(<CountryCodeInput value={{ country: "NG", number: "8012345678" }} />);
-    expect(screen.getByPlaceholderText("Phone number")).toHaveValue("8012345678");
+    render(
+      <CountryCodeInput value={{ country: "NG", number: "8012345678" }} />,
+    );
+    expect(screen.getByPlaceholderText("Phone number")).toHaveValue(
+      "8012345678",
+    );
   });
 
   it("renders a label when provided", () => {
-    render(<CountryCodeInput label="Mobile" value={{ country: "US", number: "" }} />);
+    render(
+      <CountryCodeInput label="Mobile" value={{ country: "US", number: "" }} />,
+    );
     expect(screen.getByText("Mobile")).toBeInTheDocument();
   });
 
   it("updates the number and keeps the country", () => {
     const onValueChange = vi.fn();
-    render(<CountryCodeInput value={{ country: "US", number: "" }} onValueChange={onValueChange} />);
+    render(
+      <CountryCodeInput
+        value={{ country: "US", number: "" }}
+        onValueChange={onValueChange}
+      />,
+    );
     fireEvent.change(screen.getByPlaceholderText("Phone number"), {
       target: { value: "5551234" },
     });
-    expect(onValueChange).toHaveBeenLastCalledWith({ country: "US", number: "5551234" });
+    expect(onValueChange).toHaveBeenLastCalledWith({
+      country: "US",
+      number: "5551234",
+    });
   });
 
   it("changes the country code via the select", async () => {
     const onValueChange = vi.fn();
-    render(<CountryCodeInput value={{ country: "US", number: "123" }} onValueChange={onValueChange} />);
+    render(
+      <CountryCodeInput
+        value={{ country: "US", number: "123" }}
+        onValueChange={onValueChange}
+      />,
+    );
     const trigger = screen.getByLabelText("Country code");
     trigger.focus();
     fireEvent.keyDown(trigger, { key: "ArrowDown" });
     const ng = await screen.findByText("Nigeria (+234)");
     fireEvent.click(ng);
-    expect(onValueChange).toHaveBeenLastCalledWith({ country: "NG", number: "123" });
+    expect(onValueChange).toHaveBeenLastCalledWith({
+      country: "NG",
+      number: "123",
+    });
   });
 
   it("exports the common country list", () => {
@@ -139,7 +175,12 @@ describe("CountryCodeInput", () => {
   });
 
   it("filters the full list by world region", async () => {
-    render(<CountryCodeInput countries={ISO_COUNTRY_CODES} includeRegions={["africa"]} />);
+    render(
+      <CountryCodeInput
+        countries={ISO_COUNTRY_CODES}
+        includeRegions={["africa"]}
+      />,
+    );
     const trigger = screen.getByLabelText("Country code");
     trigger.focus();
     fireEvent.keyDown(trigger, { key: "ArrowDown" });
@@ -157,7 +198,12 @@ describe("CountryCodeInput", () => {
   });
 
   it("excludes a world region from the full list", async () => {
-    render(<CountryCodeInput countries={ISO_COUNTRY_CODES} excludeRegions={["europe"]} />);
+    render(
+      <CountryCodeInput
+        countries={ISO_COUNTRY_CODES}
+        excludeRegions={["europe"]}
+      />,
+    );
     const trigger = screen.getByLabelText("Country code");
     trigger.focus();
     fireEvent.keyDown(trigger, { key: "ArrowDown" });

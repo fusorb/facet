@@ -1,4 +1,9 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@fusorb/facet-components/light";
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "@fusorb/facet-components/light";
 import { usePackageManager } from "../context.js";
 
 export interface InstallCommand {
@@ -25,11 +30,14 @@ const MANAGERS = [
  * a wide content column.
  */
 export function InstallTabs({ commands }: { commands: InstallCommand[] }) {
-  const { activeManager: active, setActiveManager: setActive } = usePackageManager();
+  const { activeManager: active, setActiveManager: setActive } =
+    usePackageManager();
 
   const joined = (cmd: string) =>
     commands
-      .map((entry) => `${cmd} ${[entry.pkg, ...(entry.extras ?? [])].join(" ")}`)
+      .map(
+        (entry) => `${cmd} ${[entry.pkg, ...(entry.extras ?? [])].join(" ")}`,
+      )
       .join("\n");
 
   return (
