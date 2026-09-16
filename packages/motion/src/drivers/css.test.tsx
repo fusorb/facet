@@ -1,5 +1,6 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
-import { cssDriver, preferReducedMotion, resolveDuration, resolveEasing } from "./css.js";
+import { cssDriver, preferReducedMotion } from "./css.js";
+import { resolveDuration, resolveEasing } from "./resolve.js";
 import { motionValue } from "../values/motion-value.js";
 
 describe("preferReducedMotion", () => {
