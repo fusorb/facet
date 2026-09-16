@@ -3,6 +3,7 @@
   "files": [],
   "references": [
     { "path": "packages/tokens" },
+    { "path": "packages/motion" },
     { "path": "packages/sdk" },
     { "path": "packages/store" },
     { "path": "packages/components" },

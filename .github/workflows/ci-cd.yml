@@ -29,6 +29,7 @@ jobs:
       - run: pnpm check:icons
       - run: pnpm check:components
       - run: pnpm check:sdk-drift
+      - run: pnpm check:motion-drift
       - run: pnpm -r typecheck
       - run: pnpm test
       - run: pnpm sandbox:e2e
