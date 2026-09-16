@@ -15,6 +15,7 @@ export { alpha } from "./colors";
 export { typography } from "./typography";
 export { spacing } from "./spacing";
 export { subBrands } from "./sub-brands";
+export { motion } from "./motion";
 export type {
   AlphaPalette,
   TypographyScale,
@@ -23,5 +24,13 @@ export type {
   SubBrand,
   SubBrandKey,
   SubBrands,
+  MotionDuration,
+  MotionEasing,
+  MotionDistance,
+  MotionScale,
+  MotionBlur,
+  MotionTokens,
+  FacetMotionDuration,
+  FacetMotionEasing,
   FacetTokens,
 } from "./types";

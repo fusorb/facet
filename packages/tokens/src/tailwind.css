@@ -121,6 +121,18 @@
   --animate-facet-glow-pulse: facet-glow-pulse 2s ease-in-out infinite;
   --animate-facet-overlay-in: facet-overlay-in 120ms ease-out both;
   --animate-facet-overlay-out: facet-overlay-out 100ms ease-in both;
+
+  /* ── Motion system (consolidated from animation.txt master sheet) ────── */
+  --animate-facet-fade-in: facet-fade-in var(--motion-duration-150) var(--motion-ease-standard-decelerate) both;
+  --animate-facet-fade-out: facet-fade-out var(--motion-duration-100) var(--motion-ease-standard-accelerate) both;
+  --animate-facet-slide-down: facet-slide-down var(--motion-duration-150) var(--motion-ease-standard) both;
+  --animate-facet-slide-left: facet-slide-left var(--motion-duration-150) var(--motion-ease-standard) both;
+  --animate-facet-slide-right: facet-slide-right var(--motion-duration-150) var(--motion-ease-standard) both;
+  --animate-facet-zoom-in: facet-zoom-in var(--motion-duration-200) var(--motion-ease-spring) both;
+  --animate-facet-zoom-out: facet-zoom-out var(--motion-duration-150) var(--motion-ease-standard-accelerate) both;
+  --animate-facet-flip-x: facet-flip-x var(--motion-duration-400) var(--motion-ease-standard) both;
+  --animate-facet-bounce: facet-bounce var(--motion-duration-350) var(--motion-ease-bounce) both;
+  --animate-facet-shake: facet-shake var(--motion-duration-500) ease-in-out both;
 }
 
 @keyframes accordion-down {
@@ -329,6 +341,121 @@
 @keyframes facet-spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* ── New animations (consolidated from animation.txt master sheet) ─
+ * Organized by category: entrances/exits, slides, zooms, attention, 3D.
+ * All durations/easings use motion-token CSS variables for themeability. */
+
+/* Entrances */
+@keyframes facet-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes facet-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Slides */
+@keyframes facet-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-var(--motion-distance-lg));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes facet-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(var(--motion-distance-lg));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes facet-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-var(--motion-distance-lg));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Zooms */
+@keyframes facet-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(var(--motion-scale-inactive));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes facet-zoom-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(var(--motion-scale-inactive));
+  }
+}
+
+/* Attention seekers */
+@keyframes facet-bounce {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-8px);
+  }
+}
+@keyframes facet-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-4px);
+  }
+  40% {
+    transform: translateX(4px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+/* 3D flips */
+@keyframes facet-flip-x {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(180deg);
   }
 }
 

@@ -99,7 +99,7 @@ describe("generateNext", () => {
   it("emits a Next app route + config + pages registry", () => {
     const files = generateNext(answers, "/repo");
     const names = files.map((f) => f.path.replace(/\\/g, "/").split("/").pop());
-    expect(names).toEqual(["page.tsx", "config.ts", "pages.ts", "index.ts"]);
+    expect(names).toEqual(["package.json", "page.tsx", "config.ts", "pages.ts", "index.ts"]);
     const route = files.find((f) => f.path.endsWith("page.tsx"))!.content;
     expect(route).toContain('"use client"');
     expect(route).toContain("DocsApp");
@@ -158,7 +158,7 @@ describe("generateRemix", () => {
   it("emits a Remix route + config + pages registry", () => {
     const files = generateRemix(answers, "/repo");
     const names = files.map((f) => f.path.replace(/\\/g, "/").split("/").pop());
-    expect(names).toEqual(["docs.tsx", "config.ts", "pages.ts", "index.ts"]);
+    expect(names).toEqual(["package.json", "docs.tsx", "config.ts", "pages.ts", "index.ts"]);
     const route = files.find((f) => f.path.endsWith("docs.tsx"))!.content;
     expect(route).toContain('"use client"');
     expect(route).toContain("DocsApp");

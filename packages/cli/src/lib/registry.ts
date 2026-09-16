@@ -18,8 +18,6 @@ export const ALL_FACET_PACKAGES = [
   "@fusorb/facet-tokens",
 ] as const;
 
-export type AllFacetPackage = (typeof ALL_FACET_PACKAGES)[number];
-
 /** Discover facet packages dynamically: the npm @fusorb scope (via the
  *  registry search API) merged with the static baseline. Returns a set of
  *  package names; falls back to the baseline alone if the registry is
@@ -153,13 +151,6 @@ export async function resolveLatestVersion(
   } catch {
     return undefined;
   }
-}
-
-/** One-line summary of resolved versions for the CLI's "next steps". */
-export function formatVersions(versions: Record<FacetPackage, string>): string {
-  return Object.entries(versions)
-    .map(([name, range]) => `  ${name}@${range}`)
-    .join("\n");
 }
 
 /** Install command that adds the facet packages with resolved ranges. */

@@ -332,22 +332,6 @@ export function detectFramework(cwd: string): Framework {
   return "plain-js";
 }
 
-/** Dev-server script for the detected frontend framework. */
-export function devCommand(framework: Framework): string {
-  switch (framework) {
-    case "next":
-      return "pnpm dev";
-    case "remix":
-      return "pnpm dev";
-    case "react-vite":
-      return "pnpm dev";
-    case "python":
-      return "python docs_pipeline.py";
-    default:
-      return "Run the content pipeline";
-  }
-}
-
 function readdirSafe(p: string): string[] {
   try {
     return readdirSync(p);

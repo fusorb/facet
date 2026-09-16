@@ -106,6 +106,73 @@
 
   /* ── Hero glow (marketing surfaces) ─────────────────────────── */
   --hero-glow: oklch(0.82 0.13 220 / 30%);
+
+  /* ── Motion tokens ────────────────────────────────────────────
+   * Durations, easings, travel distances, and scales that back every
+   * facet animation. Values follow Material Design 3 timing + curve
+   * conventions (cubic-bezier standard → decelerate → accelerate →
+   * emphasized) with additional spring/bounce curves borrowed from
+   * Framer Motion and the animation.txt research sheet. All
+   * --animate-facet-* utilities in tailwind.css reference these
+   * variables so the entire system is themeable from one place. */
+
+  /* Durations: 0ms → 1000ms, stepped by MD3-recommended intervals */
+  --motion-duration-0: 0ms;
+  --motion-duration-50: 50ms;
+  --motion-duration-100: 100ms;
+  --motion-duration-150: 150ms;
+  --motion-duration-200: 200ms;
+  --motion-duration-250: 250ms;
+  --motion-duration-300: 300ms;
+  --motion-duration-350: 350ms;
+  --motion-duration-500: 500ms;
+  --motion-duration-700: 700ms;
+  --motion-duration-1000: 1000ms;
+
+  /* Easings */
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-standard-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --motion-ease-standard-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --motion-ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --motion-ease-emphasized-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --motion-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --motion-ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Travel distances (for slide/move keyframe offsets) */
+  --motion-distance-sm: 0.25rem;
+  --motion-distance-md: 0.5rem;
+  --motion-distance-lg: 1rem;
+  --motion-distance-xl: 1.5rem;
+  --motion-distance-2xl: 2.5rem;
+
+  /* Stagger delay (per cascade level) */
+  --motion-delay-stagger: 50ms;
+
+  /* Scales (for zoom/pop effects) */
+  --motion-scale-inactive: 0.95;
+  --motion-scale-pop: 1.05;
+  --motion-blur-inactive: 4px;
+
+  /* ── Facet motion duration/easing tokens ────────────────────────
+   * Semantic tiers consumed by @fusorb/facet-motion's registry.
+   * Each resolves to a var() reference over the existing --motion-*
+   * ladder so the entire system stays themeable from one place.
+   * (These back the Duration / Easing enums in the motion package's
+   * registry types — the registry never hardcodes a millisecond
+   * or bezier value directly.) */
+  --facet-motion-duration-instant: 0ms;
+  --facet-motion-duration-fast: var(--motion-duration-150);
+  --facet-motion-duration-base: var(--motion-duration-250);
+  --facet-motion-duration-slow: var(--motion-duration-500);
+  --facet-motion-duration-cinematic: var(--motion-duration-1000);
+
+  --facet-motion-ease-linear: linear;
+  --facet-motion-ease-standard: var(--motion-ease-standard);
+  --facet-motion-ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --facet-motion-ease-emphasized: var(--motion-ease-emphasized);
+  --facet-motion-ease-spring: var(--motion-ease-spring);
+  --facet-motion-ease-elastic: cubic-bezier(0.25, 0.1, 0.25, 5);
 }
 
 /* ── Light theme ──────────────────────────────────────────────── */

@@ -42,9 +42,72 @@ export type SubBrandKey =
   "fellowship" | "labs" | "academy" | "ventures" | "community" | "research";
 export type SubBrands = Record<SubBrandKey, SubBrand>;
 
+/** Motion duration tokens (CSS: --motion-duration-*) */
+export type MotionDuration =
+  | "0"
+  | "50"
+  | "100"
+  | "150"
+  | "200"
+  | "250"
+  | "300"
+  | "350"
+  | "500"
+  | "700"
+  | "1000";
+
+/** Motion easing tokens (CSS: --motion-ease-*) */
+export type MotionEasing =
+  | "standard"
+  | "standard-decelerate"
+  | "standard-accelerate"
+  | "emphasized"
+  | "emphasized-decelerate"
+  | "emphasized-accelerate"
+  | "spring"
+  | "bounce";
+
+/** Facet motion duration tokens (CSS: --facet-motion-duration-*)
+ * Semantic named durations consumed by @fusorb/facet-motion's registry. */
+export type FacetMotionDuration = "instant" | "fast" | "base" | "slow" | "cinematic";
+
+/** Facet motion easing tokens (CSS: --facet-motion-ease-*)
+ * Curated easing curves for the facet-motion registry. */
+export type FacetMotionEasing =
+  | "linear"
+  | "standard"
+  | "smooth"
+  | "emphasized"
+  | "spring"
+  | "elastic";
+
+/** Motion travel-distance tokens (CSS: --motion-distance-*) */
+export type MotionDistance = "sm" | "md" | "lg" | "xl" | "2xl";
+
+/** Motion scale tokens (CSS: --motion-scale-*) */
+export type MotionScale = "inactive" | "pop";
+
+/** Motion blur tokens (CSS: --motion-blur-*) */
+export type MotionBlur = "inactive";
+
+/** Full motion token set. Runtime values are CSS variable references so
+ * the actual timing/easing/distance values stay defined in tokens.css
+ * and can be overridden per-theme. */
+export interface MotionTokens {
+  readonly duration: Record<MotionDuration, string>;
+  readonly easing: Record<MotionEasing, string>;
+  readonly distance: Record<MotionDistance, string>;
+  readonly scale: Record<MotionScale, string>;
+  readonly blur: Record<MotionBlur, string>;
+  readonly staggerDelay: string;
+  readonly facetDuration: Record<FacetMotionDuration, string>;
+  readonly facetEasing: Record<FacetMotionEasing, string>;
+}
+
 export interface FacetTokens {
   alpha: AlphaPalette;
   typography: TypographyScale;
   spacing: SpacingScale;
   subBrands: SubBrands;
+  motion: MotionTokens;
 }

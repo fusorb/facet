@@ -3,6 +3,7 @@ import path from "node:path";
 import type { AddTarget, DocsAnswers, GeneratedFile } from "./types.js";
 import { importSpecifier } from "./deps.js";
 import { starterPages } from "./starter-pages.js";
+import { mergePackageJson, readExistingPackageJson } from "./writer.js";
 
 /** Extension for the consumer's language (.ts vs .js). */
 function ext(language: "typescript" | "javascript"): string {
@@ -236,7 +237,17 @@ export const docsConfig: DocsSiteConfig = {
 export const docsPages: DocsPage[] = ${JSON.stringify(starterPages(answers.template, answers.name), null, 2).replace(/"([a-z]+)":/g, "$1:")};
 `;
 
+  const packageJson = mergePackageJson(readExistingPackageJson(base), {
+    facetDocs: answers.facetVersions["@fusorb/facet-docs"] ?? "^1.0.0",
+    facetTokens: answers.facetVersions["@fusorb/facet-tokens"] ?? "^1.0.0",
+    facetComponents: answers.facetVersions["@fusorb/facet-components"] ?? "^1.0.0",
+    facetLayout: answers.facetVersions["@fusorb/facet-layout"] ?? "^1.0.0",
+    framework: answers.framework,
+    language: answers.language,
+  });
+
   const files: GeneratedFile[] = [
+    { path: path.join(base, "package.json"), content: packageJson.content },
     {
       path: path.join(base, "src", "app", "docs", `page.${tsx}`),
       content: routeFile,
@@ -502,7 +513,17 @@ export const docsConfig: DocsSiteConfig = {
 export const docsPages: DocsPage[] = ${JSON.stringify(starterPages(answers.template, answers.name), null, 2).replace(/"([a-z]+)":/g, "$1:")};
 `;
 
+  const packageJson = mergePackageJson(readExistingPackageJson(base), {
+    facetDocs: answers.facetVersions["@fusorb/facet-docs"] ?? "^1.0.0",
+    facetTokens: answers.facetVersions["@fusorb/facet-tokens"] ?? "^1.0.0",
+    facetComponents: answers.facetVersions["@fusorb/facet-components"] ?? "^1.0.0",
+    facetLayout: answers.facetVersions["@fusorb/facet-layout"] ?? "^1.0.0",
+    framework: answers.framework,
+    language: answers.language,
+  });
+
   const files: GeneratedFile[] = [
+    { path: path.join(base, "package.json"), content: packageJson.content },
     {
       path: path.join(base, "app", "routes", `docs.${tsx}`),
       content: routeFile,
