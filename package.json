@@ -12,6 +12,7 @@
     "release": "pnpm build && pnpm changeset publish",
     "dev:landing": "pnpm -F @fusorb/facet-landing dev",
     "dev:docs-site": "pnpm -F @fusorb/facet-docs-site dev",
+    "dev:playground": "pnpm -F @fusorb/facet-playground dev",
     "build:docs": "pnpm -F @fusorb/facet-docs build && pnpm -F @fusorb/facet-docs-site build",
     "lint": "eslint . --ext .ts,.tsx --ignore-pattern dist --ignore-pattern .next",
     "format": "prettier --write \"**/*.{ts,tsx,json,css,md}\" --ignore-path .gitignore",
