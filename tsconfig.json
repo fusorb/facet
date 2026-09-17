@@ -4,6 +4,7 @@
   "references": [
     { "path": "packages/tokens" },
     { "path": "packages/motion" },
+    { "path": "packages/native" },
     { "path": "packages/sdk" },
     { "path": "packages/store" },
     { "path": "packages/components" },

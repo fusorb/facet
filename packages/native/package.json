@@ -1,0 +1,57 @@
+{
+  "name": "@fusorb/facet-native",
+  "version": "0.1.0",
+  "description": "React Native motion driver shell for @fusorb/facet-motion — provides motionValues re-export and toEasingCurve adapter for converting CSS easing references to native cubic-bezier coordinates.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "build:analyze": "tsup --metafile",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fusorb/facet.git",
+    "directory": "packages/native"
+  },
+  "bugs": {
+    "url": "https://github.com/fusorb/facet/issues"
+  },
+  "homepage": "https://github.com/fusorb/facet",
+  "license": "MIT",
+  "keywords": [
+    "react-native",
+    "animation",
+    "motion-tokens",
+    "facet",
+    "native-driver",
+    "easing"
+  ],
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@fusorb/facet-tokens": "workspace:*"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
