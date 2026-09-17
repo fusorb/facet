@@ -76,8 +76,9 @@ export interface NativeTransitionSpec {
   /** Duration as a facet token ("base", "slow", "cinematic"),
    * a numeric ms value, or a granular string ("300"). */
   duration?: string | number;
-  /** Easing token or CSS variable reference from motionValues. */
-  easing?: string;
+  /** Easing token, CSS variable reference, or a raw cubic-bezier tuple
+   * (e.g. motionValues.facetEasing.standard). */
+  easing?: string | EasingValue;
   /** Distance token key ("sm", "md", "lg", "xl", "xl2"). */
   distance?: string;
   /** Scale token key ("inactive", "pop"). */
@@ -149,8 +150,39 @@ export function resolveNativeTransition(
   };
 }
 
-// ── Native driver shell ───────────────────────────────────────────
+// ── Native driver (Phase 3: bindable Animated) ────────────────────
 
+/** A value node created by the bound `Animated` module. */
+export interface NativeValue {
+  /** Imperatively write a number to the animated node. */
+  setValue(value: number): void;
+}
+
+/** The consumer-provided Animated API. Bound via `bindAnimated()`. */
+export interface NativeAnimatedAPI {
+  /** Create an animated numeric node seeded with `initial`. */
+  createValue(initial: number): NativeValue;
+}
+
+/** Subscribe return — call to unsubscribe from a binding. */
+export type Unsubscribe = () => void;
+
+/** Duck-typed observable number. Structurally compatible with
+ *  facet-motion's `MotionValue`, so motion values can be passed directly. */
+export interface NativeMotionValue {
+  get(): number;
+  subscribe(listener: (value: number) => void): Unsubscribe;
+}
+
+/** A React Native target — an object whose style props accept native values. */
+export type NativeTarget = Record<string, unknown>;
+
+/** prop name → motion value (driven live) | static value (applied once). */
+export interface NativeBindings {
+  [property: string]: NativeMotionValue | string | number;
+}
+
+/** Handle returned by `nativeDriver.apply()` — call `cleanup()` to unsubscribe. */
 export interface NativeDriverHandle {
   cleanup: () => void;
   /** Whether the driver is actively animating. */
@@ -158,19 +190,118 @@ export interface NativeDriverHandle {
 }
 
 /**
- * Native motion driver shell (Phase 2C).
- *
- * `isSupported()` returns `false` until a real `Animated` module
- * is bound in Phase 3. The `apply()` stub is a no-op that returns
- * `{ active: false }` so callers can detect the shell state.
+ * The contract `nativeDriver` implements — mirrors facet-motion's
+ * `MotionDriver` but with JS-native target types instead of
+ * `CSSStyleDeclaration`, since React Native has no DOM elements.
  */
-export const nativeDriver = {
-  apply(): NativeDriverHandle {
-    return { cleanup: () => {}, active: false };
+export interface NativeMotionDriver {
+  apply(target: NativeTarget, bindings: NativeBindings): NativeDriverHandle;
+  isSupported(): boolean;
+}
+
+// ── binding state ──────────────────────────────────────────────────
+
+let animated: NativeAnimatedAPI | null = null;
+let reduceMotion = false;
+
+/**
+ * Bind a consumer-provided `Animated` module so the driver can create
+ * animated value nodes. Pass the `Animated` export from `react-native`
+ * or reanimated v2, or a compatible shim.
+ */
+export function bindAnimated(api: NativeAnimatedAPI): void {
+  animated = api;
+}
+
+/** Detach the bound `Animated` module, returning the driver to its
+ *  no-op shell state. */
+export function unbindAnimated(): void {
+  animated = null;
+}
+
+/** Whether an `Animated` module is currently bound. */
+export function isBound(): boolean {
+  return animated !== null;
+}
+
+/**
+ * Toggle reduced-motion preference at the driver boundary.
+ *
+ * Mirrors cssDriver's `prefersReducedMotion()` check — consumer-side,
+ * wire it to RN's `AccessibilityInfo.isReduceMotionEnabled()` (async),
+ * then call this with the resolved boolean.
+ */
+export function setReduceMotion(enabled: boolean): void {
+  reduceMotion = enabled;
+}
+
+function isMotionValue(value: unknown): value is NativeMotionValue {
+  return (
+    value !== null &&
+    typeof value === "object" &&
+    "subscribe" in value &&
+    "get" in value
+  );
+}
+
+/**
+ * The React Native motion driver.
+ *
+ * Before `bindAnimated()` is called it is a no-op shell:
+ * `isSupported()` returns `false` and `apply()` returns
+ * `{ active: false }`. Once bound, `apply()` subscribes motion values to
+ * the bound `Animated` nodes and writes them to the target — the RN
+ * analogue of `cssDriver.apply()` writing to `element.style`.
+ */
+export const nativeDriver: NativeMotionDriver & {
+  bindAnimated: typeof bindAnimated;
+  unbindAnimated: typeof unbindAnimated;
+  isBound: typeof isBound;
+  setReduceMotion: typeof setReduceMotion;
+  toEasingCurve: typeof toEasingCurve;
+  resolveNativeTransition: typeof resolveNativeTransition;
+} = {
+  apply(target: NativeTarget, bindings: NativeBindings): NativeDriverHandle {
+    if (!animated) {
+      return { cleanup: () => {}, active: false };
+    }
+
+    if (reduceMotion) {
+      for (const [prop, value] of Object.entries(bindings)) {
+        target[prop] = isMotionValue(value) ? value.get() : value;
+      }
+      return { cleanup: () => {}, active: false };
+    }
+
+    const unsubscribers: Unsubscribe[] = [];
+
+    for (const [prop, value] of Object.entries(bindings)) {
+      if (isMotionValue(value)) {
+        const node = animated.createValue(value.get());
+        const unsub = value.subscribe((v: number) => node.setValue(v));
+        unsubscribers.push(unsub);
+        target[prop] = node;
+      } else {
+        target[prop] = value;
+      }
+    }
+
+    return {
+      cleanup: () => {
+        unsubscribers.forEach((unsub) => unsub());
+      },
+      active: true,
+    };
   },
+
   isSupported(): boolean {
-    return false;
+    return animated !== null && !reduceMotion;
   },
+
+  bindAnimated,
+  unbindAnimated,
+  isBound,
+  setReduceMotion,
   toEasingCurve,
   resolveNativeTransition,
 };

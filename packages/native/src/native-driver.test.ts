@@ -1,10 +1,75 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, afterEach } from "vitest";
 import { motionValues } from "@fusorb/facet-tokens";
 import {
   toEasingCurve,
   resolveNativeTransition,
   nativeDriver,
+  bindAnimated,
+  unbindAnimated,
+  isBound,
+  setReduceMotion,
 } from "./native-driver.js";
+import type {
+  NativeAnimatedAPI,
+  NativeValue,
+  NativeMotionValue,
+} from "./native-driver.js";
+
+/* ---------- test fixtures ---------- */
+
+/** A minimal observable number — structurally compatible with
+ *  facet-motion's MotionValue, so a real MotionValue can be passed in. */
+interface TestMotionValue extends NativeMotionValue {
+  set(v: number): void;
+}
+
+function createMotionValue(initial: number): TestMotionValue {
+  const listeners = new Set<(v: number) => void>();
+  let value = initial;
+  return {
+    get: () => value,
+    set: (v: number) => {
+      value = v;
+      listeners.forEach((l) => l(v));
+    },
+    subscribe: (listener: (v: number) => void) => {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+  };
+}
+
+/** A mock Animated module that records every created node and the
+ *  setValue calls made against it. */
+function createMockAnimated(): NativeAnimatedAPI & {
+  nodes: NativeValue[];
+  calls: number[][];
+} {
+  const nodes: NativeValue[] = [];
+  const calls: number[][] = [];
+  return {
+    createValue(_initial: number): NativeValue {
+      const record: number[] = [];
+      calls.push(record);
+      const node: NativeValue = {
+        setValue(v: number) {
+          record.push(v);
+        },
+      };
+      nodes.push(node);
+      return node;
+    },
+    nodes,
+    calls,
+  };
+}
+
+afterEach(() => {
+  nativeDriver.unbindAnimated();
+  setReduceMotion(false);
+});
+
+/* ---------- toEasingCurve ---------- */
 
 describe("toEasingCurve", () => {
   it("resolves token names to cubic-bezier coordinates", () => {
@@ -42,6 +107,8 @@ describe("toEasingCurve", () => {
     expect(toEasingCurve("var(--motion-ease-nope)")).toEqual([0, 0, 1, 1]);
   });
 });
+
+/* ---------- resolveNativeTransition ---------- */
 
 describe("resolveNativeTransition", () => {
   it("applies defaults for an empty spec", () => {
@@ -104,20 +171,90 @@ describe("resolveNativeTransition", () => {
   });
 });
 
-describe("nativeDriver", () => {
-  it("is not supported until bound to a real Animated module", () => {
+/* ---------- nativeDriver ---------- */
+
+describe("nativeDriver (unbound shell)", () => {
+  it("is not supported until an Animated module is bound", () => {
     expect(nativeDriver.isSupported()).toBe(false);
+    expect(isBound()).toBe(false);
   });
 
-  it("apply() returns an inactive handle (shell)", () => {
-    const handle = nativeDriver.apply();
+  it("apply() is a no-op returning an inactive handle", () => {
+    const handle = nativeDriver.apply({}, {});
     expect(handle.active).toBe(false);
     expect(typeof handle.cleanup).toBe("function");
     handle.cleanup();
   });
 
-  it("exposes toEasingCurve and resolveNativeTransition", () => {
+  it("exposes the resolution helpers", () => {
     expect(nativeDriver.toEasingCurve).toBe(toEasingCurve);
     expect(nativeDriver.resolveNativeTransition).toBe(resolveNativeTransition);
+  });
+});
+
+describe("nativeDriver (bound)", () => {
+  it("becomes supported once an Animated module is bound", () => {
+    bindAnimated(createMockAnimated());
+    expect(isBound()).toBe(true);
+    expect(nativeDriver.isSupported()).toBe(true);
+    unbindAnimated();
+    expect(isBound()).toBe(false);
+    expect(nativeDriver.isSupported()).toBe(false);
+  });
+
+  it("apply() drives motion values through the bound Animated", () => {
+    const animated = createMockAnimated();
+    bindAnimated(animated);
+
+    const opacity = createMotionValue(0);
+    const target = {} as Record<string, unknown>;
+    const handle = nativeDriver.apply(target, {
+      opacity,
+      scale: 1.5,
+    });
+
+    expect(handle.active).toBe(true);
+    // only the motion value creates a native node
+    expect(animated.nodes).toHaveLength(1);
+    expect(animated.calls).toHaveLength(1);
+    // the motion value is bound to the created node
+    expect(target.opacity).toBe(animated.nodes[0]);
+    // static values are written directly, no node
+    expect(target.scale).toBe(1.5);
+
+    // driving the motion value pushes through to the native node
+    opacity.set(0.7);
+    expect(animated.calls[0]).toEqual([0.7]);
+
+    handle.cleanup();
+  });
+
+  it("cleanup() stops driving native nodes", () => {
+    const animated = createMockAnimated();
+    bindAnimated(animated);
+
+    const opacity = createMotionValue(0);
+    const handle = nativeDriver.apply({}, { opacity });
+    opacity.set(0.4);
+    expect(animated.calls[0]).toEqual([0.4]);
+
+    handle.cleanup();
+    opacity.set(0.9);
+    // after cleanup the node is no longer driven
+    expect(animated.calls[0]).toEqual([0.4]);
+  });
+
+  it("respects reduce-motion: applies terminal values, inactive", () => {
+    bindAnimated(createMockAnimated());
+    setReduceMotion(true);
+
+    const opacity = createMotionValue(0.4);
+    const target = {} as Record<string, unknown>;
+    const handle = nativeDriver.apply(target, { opacity });
+
+    expect(handle.active).toBe(false);
+    // terminal value written directly; no native node created
+    expect(target.opacity).toBe(0.4);
+    expect(nativeDriver.isSupported()).toBe(false);
   });
 });

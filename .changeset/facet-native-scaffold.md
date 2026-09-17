@@ -2,4 +2,4 @@
 "@fusorb/facet-native": minor
 ---
 
-Added @fusorb/facet-native package: Phase 2C native motion driver shell. Re-exports `motionValues` from `@fusorb/facet-tokens` and provides a `toEasingCurve` adapter (CSS easing var → native cubic-bezier coordinates) plus `resolveNativeTransition` helper for resolving motion specs to native animation values. No `react-native` dependency — consumers provide their own `Animated` module in Phase 3.
+Added @fusorb/facet-native package — the React Native motion driver for @fusorb/facet-motion. Re-exports `motionValues` from `@fusorb/facet-tokens` and provides: `toEasingCurve` (CSS easing var → native cubic-bezier coordinates), `resolveNativeTransition` (motion spec → native animation values), and a bindable `nativeDriver` that subscribes facet motion values to a consumer-provided `Animated` module (react-native or reanimated v2) via `bindAnimated()`. Until bound, `nativeDriver` is no-op (`isSupported()` → `false`, `apply()` → inactive handle). No `react-native` dependency — consumers supply their own `Animated`.

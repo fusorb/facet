@@ -1,7 +1,7 @@
 {
   "name": "@fusorb/facet-native",
   "version": "0.1.0",
-  "description": "React Native motion driver shell for @fusorb/facet-motion — provides motionValues re-export and toEasingCurve adapter for converting CSS easing references to native cubic-bezier coordinates.",
+  "description": "React Native motion driver for @fusorb/facet-motion — subscribes facet motion values to a consumer-provided Animated module (react-native or reanimated v2) via bindAnimated().",
   "type": "module",
   "exports": {
     ".": {
