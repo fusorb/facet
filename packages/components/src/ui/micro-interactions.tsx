@@ -9,6 +9,11 @@
 
 import * as React from "react";
 import { cn } from "../utils.js";
+import {
+  resolveMotion,
+  preferReducedMotion,
+  resolveEasing,
+} from "@fusorb/facet-motion";
 
 /* ── TiltCard ──────────────────────────────────────────────── */
 
@@ -168,7 +173,7 @@ export function RippleButton({
       const d = Math.max(r.width, r.height) * 2;
       const span = document.createElement("span");
       span.className =
-        "pointer-events-none absolute rounded-full animate-[facet-ripple_0.6s_ease-out_forwards]";
+        "pointer-events-none absolute rounded-full animate-facet-ripple-forwards";
       span.style.width = span.style.height = `${d}px`;
       span.style.left = `${e.clientX - r.left - d / 2}px`;
       span.style.top = `${e.clientY - r.top - d / 2}px`;
@@ -288,8 +293,16 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [visible, setVisible] = React.useState(false);
+  const [reduce, setReduce] = React.useState(false);
+  const resolved = React.useMemo(() => resolveMotion("fade", "up"), []);
 
   React.useEffect(() => {
+    const isReduced = preferReducedMotion();
+    setReduce(isReduced);
+    if (isReduced) {
+      setVisible(true);
+      return;
+    }
     const el = ref.current;
     if (!el) return;
     if (typeof IntersectionObserver === "undefined") {
@@ -316,11 +329,13 @@ export function ScrollReveal({
   return (
     <div
       ref={ref}
-      className={cn("will-change-opacity", className)}
+      className={cn("will-change-[opacity,transform]", className)}
       style={{
         ...style,
-        opacity: visible ? 1 : 0,
-        transition: `opacity ${duration}ms ease-out`,
+        ...(visible ? resolved?.to : resolved?.from),
+        transition: reduce
+          ? "none"
+          : `opacity, transform ${duration}ms ${resolveEasing("standard")}`,
         transitionDelay: `${delay}ms`,
       }}
       {...props}
@@ -355,7 +370,7 @@ export const DissolveButton = React.forwardRef<
     for (let i = 0; i < 16; i++) {
       const span = document.createElement("span");
       span.className =
-        "pointer-events-none absolute h-1 w-2 rounded bg-white/50 opacity-70 blur-[1px] animate-[facet-dissolve_0.7s_ease-out_reverse]";
+        "pointer-events-none absolute h-1 w-2 rounded bg-white/50 opacity-70 blur-[1px] animate-facet-dissolve-reverse";
       const angle = (Math.PI * 2 * i) / 16;
       const dist = 25 + Math.random() * 25;
       span.style.left = `${x}px`;

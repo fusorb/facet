@@ -89,7 +89,7 @@ export const Aurora = React.forwardRef<HTMLDivElement, AuroraProps>(
       {...props}
     >
       <div
-        className="absolute -inset-1/2 animate-[facet-aurora_18s_ease-in-out_infinite_alternate]"
+        className="absolute -inset-1/2 animate-facet-aurora"
         style={{
           background: `conic-gradient(from 180deg at 50% 50%, ${colors.join(", ")})`,
           filter: "blur(60px)",
@@ -123,7 +123,7 @@ export const Beams = React.forwardRef<HTMLDivElement, BeamsProps>(
       {Array.from({ length: count }, (_, i) => (
         <div
           key={i}
-          className="absolute inset-y-0 w-40 -skew-x-12 animate-[facet-beam_7s_ease-in-out_infinite]"
+          className="absolute inset-y-0 w-40 -skew-x-12 animate-facet-beam"
           style={{
             left: `${(i + 1) * 25}%`,
             background: `linear-gradient(to right, transparent, ${color}, transparent)`,
@@ -190,7 +190,7 @@ export const SparkleButton = React.forwardRef<
     for (let i = 0; i < 10; i++) {
       const span = document.createElement("span");
       span.className =
-        "pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-white animate-[facet-sparkle_0.7s_ease-out]";
+        "pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-white animate-facet-sparkle";
       const angle = (Math.PI * 2 * i) / 10;
       const dist = 40 + Math.random() * 30;
       span.style.left = `${x}px`;

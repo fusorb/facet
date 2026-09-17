@@ -15,6 +15,11 @@ import * as React from "react";
 import { cn } from "../utils.js";
 import { Card } from "./card.js";
 import { Icon, type IconName } from "../icon/index.js";
+import {
+  resolveMotion,
+  preferReducedMotion,
+  resolveEasing,
+} from "@fusorb/facet-motion";
 
 /* ── FlipCard ─────────────────────────────────────────────── */
 
@@ -268,7 +273,15 @@ export function RevealCard({
 }: RevealCardProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [visible, setVisible] = React.useState(false);
+  const [reduce, setReduce] = React.useState(false);
+  const resolved = React.useMemo(() => resolveMotion("fade", "up"), []);
   React.useEffect(() => {
+    const isReduced = preferReducedMotion();
+    setReduce(isReduced);
+    if (isReduced) {
+      setVisible(true);
+      return;
+    }
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -286,12 +299,15 @@ export function RevealCard({
   return (
     <div
       ref={ref}
-      className={cn("w-full will-change-opacity", className)}
+      className={cn("w-full will-change-[opacity,transform]", className)}
       style={
         {
           ...style,
-          opacity: visible ? 1 : 0,
-          transition: `opacity ${duration}ms ease-out ${delay}ms`,
+          ...(visible ? resolved?.to : resolved?.from),
+          transition: reduce
+            ? "none"
+            : `opacity, transform ${duration}ms ${resolveEasing("standard")}`,
+          transitionDelay: `${delay}ms`,
         } as React.CSSProperties
       }
       {...props}
@@ -419,7 +435,7 @@ export function DissolveCard({
     <div
       className={cn(
         "relative rounded-xl border border-border bg-background p-6 shadow-sm",
-        "animate-[facet-dissolve_500ms_ease-out_both]",
+        "animate-facet-dissolve",
         "before:absolute before:inset-0 before:-z-10 before:rounded-xl",
         "before:bg-gradient-to-r before:from-white/0 before:via-white/5 before:to-white/0",
         "before:opacity-0 before:blur before:duration-300 before:ease-out",

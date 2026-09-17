@@ -16,6 +16,8 @@ import {
   TabsContent,
   Badge,
   Pill,
+  Motion,
+  Stagger,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { PageShell } from "../components/PageShell.js";
@@ -69,25 +71,28 @@ export function DashboardDemoPage() {
       {/* KPI strip - horizontally scrollable so all six stats stay one
           row on large screens instead of stacking 4+2 */}
       <section className="mx-auto max-w-7xl px-8 py-8">
-        <div className="flex gap-4 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {DASHBOARD_STATS_FULL.map((s, i) => (
-            <ScrollReveal
-              key={s.label}
-              delay={i * 75}
-              duration={500}
-              className="w-[230px] shrink-0"
-            >
-              <StatCard
-                label={s.label}
-                value={s.value}
-                delta={s.delta}
-                icon={s.icon}
-                hint={s.hint}
-                className="h-full"
-              />
-            </ScrollReveal>
-          ))}
-        </div>
+        <Stagger delay={60}>
+          <div className="flex gap-4 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {DASHBOARD_STATS_FULL.map((s, i) => (
+              <Motion
+                key={s.label}
+                effect="fade"
+                direction="up"
+                staggerIndex={i}
+                className="w-[230px] shrink-0"
+              >
+                <StatCard
+                  label={s.label}
+                  value={s.value}
+                  delta={s.delta}
+                  icon={s.icon}
+                  hint={s.hint}
+                  className="h-full"
+                />
+              </Motion>
+            ))}
+          </div>
+        </Stagger>
       </section>
 
       {/* Activity + quick stats */}

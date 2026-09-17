@@ -108,19 +108,29 @@
   --color-brand-glow: oklch(0.82 0.13 220);
 
   /* ── Animations (for Radix accordion etc.) ───────────────── */
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-  --animate-pulse-ring: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-accordion-down: accordion-down var(--motion-duration-200) var(--motion-ease-standard-decelerate);
+  --animate-accordion-up: accordion-up var(--motion-duration-200) var(--motion-ease-standard-decelerate);
+  --animate-pulse-ring: pulse-ring var(--facet-motion-duration-cinematic) cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-facet-marquee: facet-marquee 20s linear infinite;
-  --animate-caret-blink: caret-blink 1s step-end infinite;
-  --animate-facet-ripple: facet-ripple 0.6s ease-out;
+  --animate-caret-blink: caret-blink var(--motion-duration-1000) step-end infinite;
+  --animate-facet-ripple: facet-ripple var(--motion-duration-500) var(--motion-ease-standard-decelerate);
+  --animate-facet-ripple-forwards: facet-ripple var(--motion-duration-500) var(--motion-ease-standard-decelerate) forwards;
   --animate-facet-aurora: facet-aurora 18s ease-in-out infinite alternate;
   --animate-facet-beam: facet-beam 7s ease-in-out infinite;
-  --animate-facet-sparkle: facet-sparkle 0.7s ease-out;
-  --animate-facet-dissolve: facet-dissolve 500ms ease-out both;
+  --animate-facet-sparkle: facet-sparkle var(--motion-duration-700) var(--motion-ease-standard-decelerate);
+  --animate-facet-dissolve: facet-dissolve var(--motion-duration-500) var(--motion-ease-standard-decelerate) both;
+  --animate-facet-dissolve-reverse: facet-dissolve var(--motion-duration-700) var(--motion-ease-standard-decelerate) both reverse;
   --animate-facet-glow-pulse: facet-glow-pulse 2s ease-in-out infinite;
-  --animate-facet-overlay-in: facet-overlay-in 120ms ease-out both;
-  --animate-facet-overlay-out: facet-overlay-out 100ms ease-in both;
+  --animate-facet-fade-up: facet-fade-up var(--motion-duration-300) var(--facet-motion-ease-standard) both;
+  --animate-facet-overlay-in: facet-overlay-in var(--motion-duration-150) var(--motion-ease-standard-decelerate) both;
+  --animate-facet-overlay-out: facet-overlay-out var(--motion-duration-150) var(--motion-ease-standard-accelerate) both;
+
+  /* ── Text animations ── */
+  --animate-facet-text-blur: facet-text-blur var(--motion-duration-500) var(--motion-ease-standard-decelerate) both;
+  --animate-facet-text-wave: facet-text-wave var(--motion-duration-1000) ease-in-out infinite;
+  --animate-facet-flip: facet-flip var(--motion-duration-500) var(--motion-ease-standard-decelerate) both;
+  --animate-facet-shimmer: facet-shimmer var(--facet-motion-duration-cinematic) linear infinite;
+  --animate-facet-gradient-shift: facet-gradient-shift var(--facet-motion-duration-cinematic) ease infinite;
 
   /* ── Motion system (consolidated from animation.txt master sheet) ────── */
   --animate-facet-fade-in: facet-fade-in var(--motion-duration-150) var(--motion-ease-standard-decelerate) both;
@@ -132,7 +142,7 @@
   --animate-facet-zoom-out: facet-zoom-out var(--motion-duration-150) var(--motion-ease-standard-accelerate) both;
   --animate-facet-flip-x: facet-flip-x var(--motion-duration-400) var(--motion-ease-standard) both;
   --animate-facet-bounce: facet-bounce var(--motion-duration-350) var(--motion-ease-bounce) both;
-  --animate-facet-shake: facet-shake var(--motion-duration-500) ease-in-out both;
+  --animate-facet-shake: facet-shake var(--motion-duration-500) var(--motion-ease-standard) both;
 }
 
 @keyframes accordion-down {

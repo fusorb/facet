@@ -104,6 +104,23 @@ export interface MotionTokens {
   readonly facetEasing: Record<FacetMotionEasing, string>;
 }
 
+/** Easing value as cubic-bezier control points or "linear". */
+export type EasingValue = [number, number, number, number] | "linear";
+
+/** Raw numeric motion tokens for React Native.
+ * Duration in ms, distance/scale/blur in px (1rem = 16px), easing as
+ * [x1, y1, x2, y2] cubic-bezier tuples or "linear". */
+export interface MotionValues {
+  readonly duration: Record<MotionDuration, number>;
+  readonly easing: Record<MotionEasing, EasingValue>;
+  readonly distance: Record<MotionDistance, number>;
+  readonly scale: Record<MotionScale, number>;
+  readonly blur: Record<MotionBlur, number>;
+  readonly staggerDelay: number;
+  readonly facetDuration: Record<FacetMotionDuration, number>;
+  readonly facetEasing: Record<FacetMotionEasing, EasingValue>;
+}
+
 export interface FacetTokens {
   alpha: AlphaPalette;
   typography: TypographyScale;

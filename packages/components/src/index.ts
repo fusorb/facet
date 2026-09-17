@@ -1001,3 +1001,45 @@ export {
   type GlowBorderCardProps,
   GlowBorderCard,
 } from "./ui/glow-border-card.js";
+
+/* ── Motion: declarative animation primitives ──
+ * Re-exported from @fusorb/facet-motion so consumers can import
+ * everything from one barrel. */
+export {
+  Motion,
+  Reveal,
+  Stagger,
+  Presence,
+  motionValue,
+  animate,
+  stagger,
+  sequence,
+  tween,
+  spring,
+  resolveMotion,
+  get,
+  registry,
+  generativeFamilies,
+  preferReducedMotion,
+  resolveDuration,
+  resolveEasing,
+} from "@fusorb/facet-motion";
+export type {
+  MotionProps,
+  RevealProps,
+  StaggerProps,
+  PresenceProps,
+  MotionValue,
+  MotionVariant,
+  ResolvedMotion,
+  MotionTransition,
+  MotionEffectDefinition,
+  MotionPreset,
+  MotionEffectRegistry,
+  Direction,
+  Intensity,
+  Duration,
+  Easing,
+  EasingFunction,
+  AnimateOptions,
+} from "@fusorb/facet-motion";

@@ -102,12 +102,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           const size = Math.max(r.width, r.height) * 2;
           const span = document.createElement("span");
           span.className =
-            "pointer-events-none absolute rounded-full bg-white/30 animate-[facet-ripple_0.6s_ease-out]";
+            "pointer-events-none absolute rounded-full bg-white/30 animate-facet-ripple";
           span.style.width = span.style.height = `${size}px`;
           span.style.left = `${e.clientX - r.left - size / 2}px`;
           span.style.top = `${e.clientY - r.top - size / 2}px`;
           el.appendChild(span);
-          setTimeout(() => span.remove(), 700);
+          setTimeout(() => span.remove(), 600);
         }
       }
       props.onClick?.(e);

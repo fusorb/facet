@@ -34,7 +34,7 @@ const DialogOverlay = React.forwardRef<
     ref={ref}
     className={cn(
       dialogOverlayVariants({ variant }),
-      "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "data-[state=open]:animate-facet-fade-in data-[state=closed]:animate-facet-fade-out",
       className,
     )}
     {...props}
@@ -73,7 +73,7 @@ const DialogContent = React.forwardRef<
       ref={ref}
       className={cn(
         dialogContentVariants({ variant }),
-        "duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        "data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
         className,
       )}
       {...props}

@@ -15,7 +15,7 @@ export { alpha } from "./colors";
 export { typography } from "./typography";
 export { spacing } from "./spacing";
 export { subBrands } from "./sub-brands";
-export { motion } from "./motion";
+export { motion, motionValues } from "./motion";
 export type {
   AlphaPalette,
   TypographyScale,
@@ -33,4 +33,6 @@ export type {
   FacetMotionDuration,
   FacetMotionEasing,
   FacetTokens,
+  EasingValue,
+  MotionValues,
 } from "./types";

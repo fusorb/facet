@@ -57,6 +57,7 @@ import {
   SelectContent,
   SelectItem,
 } from "./select.js";
+import { stagger } from "@fusorb/facet-motion";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
@@ -366,6 +367,10 @@ export function DataTable<T extends object>({
   const pageRows = pagination
     ? sorted.slice((page - 1) * rowsPerPage, page * rowsPerPage)
     : sorted;
+  const rowStaggerDelays = React.useMemo(
+    () => stagger(40, { count: pageRows.length }),
+    [pageRows.length],
+  );
 
   const shownColumns = columns.filter((c) => visibleColumns.includes(c.key));
 
@@ -624,8 +629,8 @@ export function DataTable<T extends object>({
                   <TableRow
                     key={key}
                     data-state={isSelected ? "selected" : undefined}
-                    className="animate-[facet-fade-up_300ms_ease-out_both]"
-                    style={{ animationDelay: `${i * 40}ms` }}
+                    className="animate-facet-fade-up"
+                    style={{ animationDelay: `${rowStaggerDelays[i] ?? 0}ms` }}
                   >
                     {selectable && (
                       <TableCell className={rowDensity}>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ShineButton, buttonVariants, cn } from "@fusorb/facet-components";
+import { ShineButton, Stagger, Motion, buttonVariants, cn } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { PageShell } from "../components/PageShell.js";
 import { ECOSYSTEM } from "../data/ecosystem.js";
@@ -18,33 +18,39 @@ export function EcosystemPage() {
     >
       {/* Package grid */}
       <section className="mx-auto max-w-5xl px-8 py-12">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {ECOSYSTEM.map((entry) => (
-            <Link
-              key={entry.slug}
-              to={`/ecosystem/${entry.slug}`}
-              className="group cursor-pointer rounded-xl border border-border bg-card p-5 text-left transition-all hover:translate-y-[-2px] hover:shadow-lg"
-            >
-              <div className="flex items-start gap-3">
-                <LightIcon
-                  name={entry.icon}
-                  className="mt-1 size-5 text-primary"
-                />
-                <div>
-                  <div className="font-medium text-foreground transition-colors group-hover:text-primary">
-                    {entry.name}
+        <Stagger delay={60}>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {ECOSYSTEM.map((entry, i) => (
+              <Motion
+                key={entry.slug}
+                effect="fade"
+                direction="up"
+                staggerIndex={i}
+                className="group cursor-pointer rounded-xl border border-border bg-card p-5 text-left transition-all hover:translate-y-[-2px] hover:shadow-lg"
+              >
+                <Link to={`/ecosystem/${entry.slug}`} className="block">
+                  <div className="flex items-start gap-3">
+                    <LightIcon
+                      name={entry.icon}
+                      className="mt-1 size-5 text-primary"
+                    />
+                    <div>
+                      <div className="font-medium text-foreground transition-colors group-hover:text-primary">
+                        {entry.name}
+                      </div>
+                      <div className="mt-1 text-sm text-muted-foreground">
+                        {entry.short}
+                      </div>
+                      <div className="mt-2 text-xs text-muted-foreground/70">
+                        v{entry.version}
+                      </div>
+                    </div>
                   </div>
-                  <div className="mt-1 text-sm text-muted-foreground">
-                    {entry.short}
-                  </div>
-                  <div className="mt-2 text-xs text-muted-foreground/70">
-                    v{entry.version}
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+                </Link>
+              </Motion>
+            ))}
+          </div>
+        </Stagger>
       </section>
 
       {/* CTA */}

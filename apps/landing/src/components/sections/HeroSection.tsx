@@ -1,6 +1,8 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   SparkleButton,
+  Stagger,
+  Motion,
   Pill,
   GradientText,
   TypewriterText,
@@ -110,22 +112,27 @@ export function HeroSection() {
           CSS v4
         </p>
 
-        {/* Live stats: generated at build time from the workspace packages */}
-        <div className="mt-16 grid w-full max-w-3xl grid-cols-2 gap-4 sm:grid-cols-4">
-          {SITE_STATS.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-xl border border-border/60 bg-card px-4 py-6 text-center shadow-sm"
-            >
-              <div className="font-heading text-2xl font-bold text-foreground">
-                <CountUpText to={Number(stat.value)} duration={1200} />
-              </div>
-              <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* Live stats: generated at build-time from the workspace packages */}
+        <Stagger delay={60}>
+          <div className="mt-16 grid w-full max-w-3xl grid-cols-2 gap-4 sm:grid-cols-4">
+            {SITE_STATS.map((stat, i) => (
+              <Motion
+                key={stat.label}
+                effect="fade"
+                direction="up"
+                staggerIndex={i}
+                className="rounded-xl border border-border/60 bg-card px-4 py-6 text-center shadow-sm"
+              >
+                <div className="font-heading text-2xl font-bold text-foreground">
+                  <CountUpText to={Number(stat.value)} duration={1200} />
+                </div>
+                <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
+                  {stat.label}
+                </div>
+              </Motion>
+            ))}
+          </div>
+        </Stagger>
 
         <p className="mt-8 text-xs text-muted-foreground/70">
           {site.brand.name} is free, MIT-licensed, and published under the

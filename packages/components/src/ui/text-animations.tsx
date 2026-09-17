@@ -12,6 +12,7 @@
 
 import * as React from "react";
 import { cn } from "../utils.js";
+import { stagger, motionValue, animate } from "@fusorb/facet-motion";
 
 /* ── Shared helpers ────────────────────────────────────────── */
 
@@ -23,13 +24,14 @@ function splitChars(
   className: string,
   duration?: number,
 ): React.ReactNode[] {
+  const delays = stagger(step, { count: text.length });
   return text.split("").map((ch, i) => (
     <span
       key={i}
       aria-hidden={ch === " " ? undefined : true}
       className={cn("inline-block will-change-transform", className)}
       style={{
-        animationDelay: `${baseDelay + i * step}ms`,
+        animationDelay: `${baseDelay + (delays[i] ?? 0)}ms`,
         ...(duration != null ? { animationDuration: `${duration}ms` } : {}),
       }}
     >
@@ -46,17 +48,19 @@ function splitWords(
   className: string,
   duration?: number,
 ): React.ReactNode[] {
-  return text.split(" ").map((word, i) => (
+  const words = text.split(" ");
+  const delays = stagger(step, { count: words.length });
+  return words.map((word, i) => (
     <span
       key={i}
       className={cn("inline-block will-change-transform", className)}
       style={{
-        animationDelay: `${baseDelay + i * step}ms`,
+        animationDelay: `${baseDelay + (delays[i] ?? 0)}ms`,
         ...(duration != null ? { animationDuration: `${duration}ms` } : {}),
       }}
     >
       {word}
-      {i < text.split(" ").length - 1 ? "\u00A0" : ""}
+      {i < words.length - 1 ? "\u00A0" : ""}
     </span>
   ));
 }
@@ -97,7 +101,7 @@ export function BlurText({
     resolved,
     delay,
     stagger,
-    "animate-[facet-text-blur_500ms_ease-out_both]",
+    "animate-facet-text-blur",
     duration,
   );
   return (
@@ -137,7 +141,7 @@ export function WaveText({
     resolved,
     delay,
     stagger,
-    "animate-[facet-text-wave_1200ms_ease-in-out_infinite]",
+    "animate-facet-text-wave",
     duration,
   );
   return (
@@ -172,7 +176,7 @@ export function FlipText({
     resolved,
     delay,
     stagger,
-    "animate-[facet-flip_500ms_ease-out_both]",
+    "animate-facet-flip",
     duration,
   );
   return (
@@ -214,14 +218,14 @@ export function SplitText({
           resolved,
           delay,
           stagger,
-          "animate-[facet-fade-up_600ms_ease-out_both]",
+          "animate-facet-fade-up",
           duration,
         )
       : splitWords(
           resolved,
           delay,
           stagger,
-          "animate-[facet-fade-up_600ms_ease-out_both]",
+          "animate-facet-fade-up",
           duration,
         );
   return (
@@ -252,7 +256,7 @@ export function FadeUpText({
   return (
     <span
       className={cn(
-        "inline-block animate-[facet-fade-up_600ms_ease-out_both]",
+        "inline-block animate-facet-fade-up",
         className,
       )}
       style={{
@@ -295,7 +299,7 @@ export function ShimmerText({
     <span
       className={cn(
         "inline-block bg-clip-text",
-        "animate-[facet-shimmer_2200ms_linear_infinite]",
+        "animate-facet-shimmer",
         "[--tw-shimmer-base:color-mix(in_oklab,var(--foreground)_78%,transparent)] dark:[--tw-shimmer-base:color-mix(in_oklab,var(--foreground)_60%,transparent)]",
         "[--tw-shimmer-hl:color-mix(in_oklab,var(--foreground)_30%,white)] dark:[--tw-shimmer-hl:white]",
         className,
@@ -347,7 +351,7 @@ export function GradientText({
     <span
       className={cn(
         "inline-block bg-clip-text text-transparent",
-        "animate-[facet-gradient-shift_4000ms_ease_infinite]",
+        "animate-facet-gradient-shift",
         className,
       )}
       style={
@@ -448,22 +452,22 @@ export function CountUpText({
 }: CountUpTextProps) {
   // SSR-safe: render the target first so the initial paint shows the final
   // value; the effect below animates from `from` to `to` on the client.
+  // Uses @fusorb/facet-motion's core engine (motionValue + animate) so the
+  // animation shares the same timing/easing pipeline as <Motion> components.
   const [value, setValue] = React.useState(to);
-  const started = React.useRef(false);
 
   React.useEffect(() => {
-    if (started.current) return;
-    started.current = true;
-    let raf = 0;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const p = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - p, ease);
-      setValue(from + (to - from) * eased);
-      if (p < 1) raf = requestAnimationFrame(tick);
+    const mv = motionValue(from);
+    const unsubscribe = mv.subscribe(setValue);
+    const controller = animate(mv, to, {
+      type: "tween",
+      duration: duration / 1000,
+      ease: (t: number) => 1 - Math.pow(1 - t, ease),
+    });
+    return () => {
+      controller.stop();
+      unsubscribe();
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
   }, [to, from, duration, ease]);
 
   const formatted = separator
@@ -509,7 +513,7 @@ export function DissolveText({
     resolved,
     delay,
     stagger,
-    "animate-[facet-dissolve_500ms_ease-out_both]",
+    "animate-facet-dissolve",
     duration,
   );
   return (

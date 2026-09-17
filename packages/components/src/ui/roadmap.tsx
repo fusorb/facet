@@ -8,6 +8,7 @@
  */
 import * as React from "react";
 import { cn } from "../utils.js";
+import { stagger } from "@fusorb/facet-motion";
 
 export type RoadmapStatus = "done" | "in-progress" | "planned";
 
@@ -66,7 +67,9 @@ const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
       ...props
     },
     ref,
-  ) => (
+  ) => {
+    const itemStaggerDelays = stagger(70, { count: items.length });
+    return (
     <div
       ref={ref}
       className={cn(
@@ -83,8 +86,8 @@ const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
           return (
             <div
               key={`${item.title}-${i}`}
-              className="relative flex gap-5 pb-8 last:pb-0 animate-[facet-fade-up_400ms_ease-out_both]"
-            style={{ animationDelay: `${i * 70}ms` }}
+              className="relative flex gap-5 pb-8 last:pb-0 animate-facet-fade-up"
+            style={{ animationDelay: `${itemStaggerDelays[i] ?? 0}ms` }}
             >
               {showLine && (
                 <span
@@ -133,8 +136,8 @@ const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
         return (
           <div
             key={`${item.title}-${i}`}
-            className="relative flex gap-4 pb-6 last:pb-0 animate-[facet-fade-up_400ms_ease-out_both]"
-          style={{ animationDelay: `${i * 70}ms` }}
+            className="relative flex gap-4 pb-6 last:pb-0 animate-facet-fade-up"
+          style={{ animationDelay: `${itemStaggerDelays[i] ?? 0}ms` }}
           >
             {showLine && (
               <span
@@ -177,8 +180,9 @@ const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
           </div>
         );
       })}
-    </div>
-  ),
+      </div>
+      );
+  },
 );
 Roadmap.displayName = "Roadmap";
 

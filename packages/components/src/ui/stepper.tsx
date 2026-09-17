@@ -23,6 +23,7 @@ import * as React from "react";
 import { cn } from "../utils.js";
 import { Button } from "./button.js";
 import { Icon, type IconName } from "../icon/index.js";
+import { Motion } from "@fusorb/facet-motion";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
@@ -461,12 +462,14 @@ export function StepperPanel({
   const active = api.current;
   return (
     <div className={cn("min-h-0", className)} {...props}>
-      <div
+      <Motion
         key={active.id}
-        className="w-full animate-[facet-fade-up_250ms_ease-out_both]"
+        effect="fade"
+        direction="up"
+        className="w-full"
       >
         {children(active)}
-      </div>
+      </Motion>
     </div>
   );
 }

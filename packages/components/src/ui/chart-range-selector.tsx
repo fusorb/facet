@@ -113,7 +113,7 @@ export function ChartRangeSelector({
         "inline-flex items-center gap-1 rounded-lg bg-muted",
         POSITION_CLASSES[position],
         SIZE_CLASSES[size],
-        "animate-in fade-in",
+        "animate-facet-fade-in",
         className,
       )}
       {...rest}
