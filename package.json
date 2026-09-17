@@ -24,6 +24,7 @@
     "check:sdk-coverage": "node scripts/audit-sdk-coverage.cjs",
     "check:sdk-drift": "node scripts/check-sdk-table-drift.mjs",
     "check:motion-drift": "node packages/motion/scripts/check-motion-drift.mjs",
+    "audit:motion-parity": "node scripts/audit-motion-parity.mjs",
     "build:turbo": "turbo run build",
     "test:turbo": "turbo run test",
     "typecheck:turbo": "turbo run typecheck",

@@ -274,7 +274,7 @@ export function RevealCard({
   const ref = React.useRef<HTMLDivElement>(null);
   const [visible, setVisible] = React.useState(false);
   const [reduce, setReduce] = React.useState(false);
-  const resolved = React.useMemo(() => resolveMotion("fade", "up"), []);
+  const resolved = React.useMemo(() => resolveMotion("fade", { direction: "up" }), []);
   React.useEffect(() => {
     const isReduced = preferReducedMotion();
     setReduce(isReduced);

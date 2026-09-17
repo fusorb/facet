@@ -19,10 +19,10 @@
     "build": "tsup",
     "build:analyze": "tsup --metafile",
     "clean": "rm -rf dist",
-    "check:motion-drift": "node scripts/check-motion-drift.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "check:motion-drift": "node scripts/check-motion-drift.mjs"
   },
   "publishConfig": {
     "access": "public"

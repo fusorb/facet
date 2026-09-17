@@ -85,7 +85,7 @@ export function get(id: string): MotionEffectDefinition | undefined {
 export function resolveMotion(
   effectId: string,
   variant: MotionVariant,
-  transition: MotionTransition,
+  transition: MotionTransition = { duration: "base", ease: "standard" },
 ): ResolvedMotion | null {
   const def = registry[effectId];
   if (!def) return null;
