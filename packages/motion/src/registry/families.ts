@@ -716,3 +716,6 @@ export const generativeFamilies: MotionEffectRegistry = {
   shimmer,
   "text-reveal": textReveal,
 };
+
+/** Keys of `generativeFamilies` — the 15 family IDs. */
+export const GENERATIVE_FAMILY_IDS = Object.keys(generativeFamilies);

@@ -5,7 +5,7 @@
  *   core/   → animate(), sequence(), stagger(), tween, spring (zero DOM)
  *   values/ → motionValue() observable (get/set/subscribe)
  *   drivers/ → cssDriver (applies values to element.style, prefers-reduced-motion)
- *   registry/ → 15 generative families + 14 authored placeholders with resolve()
+ *   registry/ → 15 generative families + 18 authored effects with resolve()
  *   react/   → <Motion>, <Presence>, <Reveal>, <Stagger> thin JSX bindings
  *
  * Duration/easing tokens resolve against @fusorb/facet-tokens CSS custom
@@ -56,6 +56,15 @@ export {
   DEFAULT_INTENSITY,
   DEFAULT_EASING,
   DEFAULT_DURATION,
+  // Phase 3: domain motion presets
+  fintechMotion,
+  medMotion,
+  eduMotion,
+  enterpriseMotion,
+  defaultMotion,
+  getDomainMotionConfig,
+  easingFor,
+  GENERATIVE_FAMILY_IDS,
 } from "./registry/index.js";
 export type {
   Direction,
@@ -70,6 +79,7 @@ export type {
   MotionEffectDefinition,
   MotionPreset,
   MotionEffectRegistry,
+  DomainMotionConfig,
 } from "./registry/index.js";
 
 // react — thin JSX bindings (no animation logic)

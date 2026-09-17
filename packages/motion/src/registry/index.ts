@@ -46,8 +46,18 @@ import {
   DEFAULT_INTENSITY,
   resolveTransition,
 } from "./types.js";
-import { generativeFamilies } from "./families.js";
+import { generativeFamilies, GENERATIVE_FAMILY_IDS } from "./families.js";
 import { authoredRegistry } from "./authored.js";
+import {
+  fintechMotion,
+  medMotion,
+  eduMotion,
+  enterpriseMotion,
+  defaultMotion,
+  getDomainMotionConfig,
+  type DomainMotionConfig,
+  easingFor,
+} from "./domains.js";
 
 /* ---- combined registry ---- */
 
@@ -101,8 +111,15 @@ export function resolveMotion(
 
 /* ---- re-exports ---- */
 
-export { generativeFamilies, authoredRegistry };
+export { generativeFamilies, GENERATIVE_FAMILY_IDS, authoredRegistry };
 export {
+  fintechMotion,
+  medMotion,
+  eduMotion,
+  enterpriseMotion,
+  defaultMotion,
+  getDomainMotionConfig,
+  easingFor,
   DEFAULT_INTENSITY,
   DEFAULT_EASING,
   DEFAULT_DURATION,
@@ -122,4 +139,5 @@ export type {
   MotionVariant,
   ResolvedMotion,
   TransitionType,
+  DomainMotionConfig,
 };
