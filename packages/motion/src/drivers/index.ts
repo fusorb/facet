@@ -6,8 +6,7 @@ export type {
   MotionDriver,
   Unsubscribe,
 } from "./types.js";
-export {
-  preferReducedMotion,
-  resolveDuration,
-  resolveEasing,
-} from "./css.js";
+export { preferReducedMotion } from "./css.js";
+export { resolveDuration, resolveEasing } from "./resolve.js";
+export type { EasingFunction } from "./resolve.js";
+export { DURATION_VALUES, EASING_FUNCTIONS } from "./resolve.js";
