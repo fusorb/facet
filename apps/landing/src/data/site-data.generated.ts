@@ -60,13 +60,13 @@ export const SITE_PACKAGES: SitePackage[] = [
     "name": "@fusorb/facet-cli",
     "desc": "Scaffold docs + emails, audit/update your facet setup, generate an icon registry.",
     "icon": "terminal",
-    "version": "2.0.0"
+    "version": "1.0.0"
   },
   {
     "name": "@fusorb/facet-store",
     "desc": "Framework-agnostic Zustand stores for SovGrant (session, tenant, token-refresh).",
     "icon": "store",
-    "version": "2.0.0"
+    "version": "1.0.0"
   }
 ];
 
