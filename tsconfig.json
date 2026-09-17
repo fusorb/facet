@@ -13,6 +13,7 @@
     { "path": "packages/docs" },
     { "path": "packages/cli" },
     { "path": "packages/emails" },
+    { "path": "packages/sandbox" },
     { "path": "apps/docs" },
     { "path": "apps/landing" }
   ]

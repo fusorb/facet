@@ -21,6 +21,7 @@ export default defineConfig({
       "packages/motion/vitest.config.ts",
       "packages/emails/vitest.config.ts",
       "packages/native/vitest.config.ts",
+      "packages/sandbox/vitest.config.ts",
       "packages/docs/vitest.config.ts",
     ],
   },

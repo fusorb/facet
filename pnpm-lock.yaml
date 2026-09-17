@@ -701,6 +701,24 @@ importers:
         specifier: ^5
         version: 5.9.3
 
+  packages/sandbox:
+    devDependencies:
+      '@types/react':
+        specifier: ^19
+        version: 19.2.17
+      react:
+        specifier: ^19
+        version: 19.2.8
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1
+      typescript:
+        specifier: ^5
+        version: 5.9.3
+      vitest:
+        specifier: ^4
+        version: 4.1.11
+
   packages/sdk:
     devDependencies:
       tsup:

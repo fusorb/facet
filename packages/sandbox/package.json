@@ -1,0 +1,71 @@
+{
+  "name": "@fusorb/facet-sandbox",
+  "version": "0.1.0",
+  "description": "Framework-agnostic live-preview sandbox host: block registry, adapter seam, security helpers. Ships no framework code; the React adapter ships under /react.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "default": "./dist/react/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "build:analyze": "tsup --metafile",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fusorb/facet.git",
+    "directory": "packages/sandbox"
+  },
+  "bugs": {
+    "url": "https://github.com/fusorb/facet/issues"
+  },
+  "homepage": "https://github.com/fusorb/facet",
+  "license": "MIT",
+  "keywords": [
+    "sandbox",
+    "playground",
+    "live-preview",
+    "facet"
+  ],
+  "peerDependencies": {
+    "react": "^19"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "react": "^19",
+    "tsup": "^8.5.1",
+    "typescript": "^5",
+    "vitest": "^4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
