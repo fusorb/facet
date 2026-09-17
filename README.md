@@ -10,17 +10,19 @@ design manual (Alpha Palette), and your auth requirements differ per sector
 
 | Package                    | Description                                                                                                                                                                                | Status    |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- |
-| `@fusorb/facet-tokens`     | Design tokens: Alpha Palette, typography, spacing, CSS vars                                                                                                                                | ✅ 1.1.4  |
+| `@fusorb/facet-tokens`     | Design tokens: Alpha Palette, typography, spacing, CSS vars + motion tokens                                                                                                               | ✅ 1.1.4  |
 | `@fusorb/facet-sdk`        | SovGrant API client (pure fetch, typed, 10 domain SDKs)                                                                                                                                      | ✅ 1.2.0  |
-| `@fusorb/facet-components` | 114 styled UI components (Radix + tailwind-merge + variants)                                                                                                                               | ✅ 1.11.0 |
+| `@fusorb/facet-motion`     | Declarative animation system: core (animate/sequence/stagger), CSS + React Native drivers, 15 generative families + 18 authored effects, <Motion>/<Presence>/<Reveal>/<Stagger>            | ✅ 0.1.0  |
+| `@fusorb/facet-native`     | React Native bridge for @fusorb/facet-motion (motionValues, native-driver stubs)                                                                                                             | ⚠ 0.1.0   |
+| `@fusorb/facet-components` | 114 styled UI components (Radix + tailwind-merge + variants) + motion grammar (animate-facet-*)                                                                                           | ✅ 1.11.0 |
 | `@fusorb/facet-auth`       | Auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms                                                                                                                  | ✅ 1.2.3  |
 | `@fusorb/facet-layout`     | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets                                                                                        | ✅ 1.4.2  |
-| `@fusorb/facet-store`      | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native                                                                 | ✅ 2.0.0  |
+| `@fusorb/facet-store`      | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native                                                                 | ✅ 1.0.0  |
 | `@fusorb/facet-docs`       | Installable docs engine: mount `<DocsApp>` with your own brand, nav, pages                                                                                                                 | ✅ 1.4.7  |
-| `@fusorb/facet-cli`        | Scaffold docs (`facet docs init` + `facet docs scan`), audit/update (`facet pkg/up/doctor`), copy components (`facet copy`), generate a tree-shaken icon registry (`facet icons generate`) | ✅ 2.0.0  |
+| `@fusorb/facet-cli`        | Scaffold docs (`facet docs init` + `facet docs scan`), audit/update (`facet pkg/up/doctor`), copy components (`facet copy`), generate a tree-shaken icon registry (`facet icons generate`) | ✅ 1.0.0  |
 | `@fusorb/facet-emails`     | Framework-agnostic email builder + React bridge (`renderEmail`, `emailLayout`, `EmailLayout`)                                                                                              | ✅ 1.1.1  |
 
-Published to npm: components 1.11.0, layout 1.4.2, docs 1.4.7, auth 1.2.3, cli 2.0.0, tokens 1.1.4, store 2.0.0, sdk 1.2.0, emails 1.1.1.
+Published to npm: components 1.11.0, layout 1.4.2, docs 1.4.7, auth 1.2.3, cli 1.0.0, tokens 1.1.4, store 1.0.0, sdk 1.2.0, emails 1.1.1, motion 0.1.0. facet-native is unpublished (scaffold only).
 
 ## Sites
 

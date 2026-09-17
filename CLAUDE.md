@@ -22,8 +22,10 @@ Three customization axes: `appearance` (style), `config` (behavior flags), `slot
 ## Package Layout
 
 ```
-packages/tokens/       ← Design tokens (finished)
+packages/tokens/       ← Design tokens + motion tokens (finished)
 packages/sdk/          ← SovGrant SDK (finished)
+packages/motion/       ← Declarative animation system (core + CSS driver + registry + React bindings)
+packages/native/       ← React Native bridge for facet-motion (0.1.0, scaffold)
 packages/components/   ← 114 styled Radix components (shadcn-style, Radix + tailwind-merge)
 packages/auth/         ← Auth components + domain presets (fintech, med, edu)
 packages/layout/       ← Domain-configurable app shell (ConsoleLayout, AuthLayout, LandingLayout)
@@ -113,6 +115,8 @@ COMPLETE → (onSuccess callback) → redirect
 16. ✅ Architectural debt sprint - 10 items resolved and committed: `@fusorb/facet-store` stabilized at 1.0.0 (was 0.1.0-alpha), `@fusorb/facet-cli` stabilized at 1.0.0 (was 0.8.0); CLI deps resolved dynamically from the installed components package.json (no hardcoded BUNDLED_DEPS); CLI self-update is CI-aware (skips update check in CI, suggests npx fallback); docs engine has 6 test files (manifest, nav, pages, docs-app integration); scan.ts detects Fastify/OpenAPI backend routes + generates API reference pages; `facet clean` is opt-in destructive (`--delete-local` flag; `--yes` preset never deletes files); icon catalog is lazy-loaded (1,500-icon map deferred, ~30 semantic icons resolved synchronously); SDK table↔barrel + icon-map drift gates wired into CI; `facet install` (`.alias("add")`) + `facet copy` (component source) split clarifies the commands; template-merge.ts marker bug fixed. See `.changeset/stabilize-cli-store.md`.
 17. ✅ CI gates: `build → check:docs → check:icons → check:components → check:sdk-drift → typecheck → test (workspace) → sandbox:e2e`. Version job has `permissions: contents: write` (fixes 403 on changesets version PR push).
 18. ✅ Production-grade pass (2026-09-13, working tree): full audit written to `.agent/production-audit.txt` (sections A-G); packages de-branded (no "Arcevo"/"SovGrant" strings in src, neutral emails default, semantic tokens over hardcoded palette); tokens build now minifies dist CSS via esbuild; all 22 components missing typed props now export `XxxProps` types (check:components gate 114/114 + 114/114); CI actions pinned to commit SHAs; changesets/action v2.1.2 + @changesets/cli 3.0.2 (renamed inputs, explicit github-token, releases/tags disabled); publish job grants `id-token: write` for the future npm Trusted Publishing swap; `.agent/` untracked + gitignored; landing rebuilt config-driven (`site.config.ts` + `scripts/gen-site-data.mjs` codegen + pages registry + sections) with the "f" monogram placeholder (no logo assets); landing/docs-site build, typecheck, tests (749), and all drift gates green. Remaining: browser visual QA and the E-cluster cosmetic docs/CLI gaps (tracked in `.agent/todo.txt`).
+
+19. ✅ Motion system (2026-09-15..17, committed + consumed): `@fusorb/facet-motion@0.1.0` scaffolded (3fefa64) — pure-JS engine (animate/sequence/stagger, motionValue, cssDriver, 15 generative + 18 authored registries, <Motion>/<Presence>/<Reveal>/<Stagger>), motion tokens wired into facet-tokens (2c37fad), drift gate (`scripts/check-motion-drift.mjs`) in CI. Phase 2B consumption: 14 component files migrated to animate-facet-* grammar; zero inline duration literals remain. Phase 2C: `@fusorb/facet-native@0.1.0` scaffolded (motionValues + native-driver stubs). Version reconciliation: CLI + Store 2.0.0 → 1.0.0. Tests: 749/749 (incl. 106 motion tests). Next: Phase 3 presets + Phase 4 nativeDriver. See `.agent/episodes.md` EP 32.
 
 ## Known Gaps for SovGrant Consumption
 
