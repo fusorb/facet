@@ -35,8 +35,8 @@ Run locally:
 
 The docs site (`apps/docs`) is a thin consumer of the installable
 `@fusorb/facet-docs` engine, the same package any project can mount with its
-own brand, nav, and pages. Guides cover getting started, auth, layout,
-them, tokens, and the docs package itself; the component gallery shows all 114 components with live demos and usage tabs.
+own brand, nav, and pages. Guides cover getting started, auth, layout, themes,
+tokens, and the docs package itself; the component gallery shows all 114 components with live demos and usage tabs.
 
 ```sh
 pnpm dev:docs-site  # run the docs site locally (Vite, port 5173)
@@ -64,8 +64,8 @@ existing `package.json` rather than overwriting it. See
 ```sh
 pnpm install
 pnpm build
-pnpm test      # vitest workspace (sdk/store/components/auth/layout)
-pnpm typecheck # all 11 projects
+pnpm test      # vitest workspace (10 projects: sdk, store, components, auth, layout, cli, motion, native, docs, emails)
+pnpm typecheck # all 11 packages + 2 apps (13 workspaces)
 ```
 
 Consume in your app:
@@ -128,7 +128,8 @@ driven by GitHub Actions (`.github/workflows/ci-cd.yml`). The workflow runs
 three jobs:
 
 1. **ci** -- validation gate: `pnpm install`, `pnpm build`, `pnpm check:docs`,
-   `pnpm check:icons`, `pnpm check:sdk-drift`, `pnpm -r typecheck`, `pnpm test`,
+   `pnpm check:icons`, `pnpm check:components`, `pnpm check:sdk-drift`,
+   `pnpm check:motion-drift`, `pnpm -r typecheck`, `pnpm test`,
    `pnpm sandbox:e2e`.
 2. **changeset** -- auto-opens/updates a "Version Packages" PR on `main`
    whenever changesets land. It only versions (bumps `package.json` +

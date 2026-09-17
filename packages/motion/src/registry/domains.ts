@@ -15,6 +15,7 @@
  *   // cfg.defaultTransition, cfg.allowSpring, cfg.distanceScale, ...
  */
 
+import { motionValues } from "@fusorb/facet-tokens";
 import type { Easing, Intensity, MotionTransition } from "./types.js";
 
 export interface DomainMotionConfig {
@@ -101,16 +102,18 @@ export const defaultMotion: DomainMotionConfig = {
   maxIntensity: "dramatic",
 };
 
+/**
+ * Resolve an easing token to its cubic-bezier coordinates.
+ *
+ * Curves are sourced from `@fusorb/facet-tokens` `motionValues.facetEasing`
+ * — the same table that `drivers/resolve.ts` derives `EASING_FUNCTIONS` from
+ * — so the JS lookup never drifts from the `--facet-motion-ease-*` CSS
+ * custom properties (parity is enforced by `scripts/audit-motion-parity.mjs`).
+ */
 const easingFor = (e: Easing): number[] => {
-  const table: Record<Easing, number[]> = {
-    linear: [0, 0, 1, 1],
-    standard: [0.2, 0, 0, 1],
-    smooth: [0.4, 0, 0.2, 1],
-    emphasized: [0.2, 0, 0, 1],
-    spring: [0.34, 1.56, 0.64, 1],
-    elastic: [0.25, 0.1, 0.25, 5],
-  };
-  return table[e];
+  const value =
+    motionValues.facetEasing[e as keyof typeof motionValues.facetEasing];
+  return value === "linear" ? [0, 0, 1, 1] : [...value];
 };
 
 /**

@@ -7,6 +7,7 @@
 
 import { describe, expect, it } from "vitest";
 import { GENERATIVE_FAMILY_IDS } from "./families.js";
+import type { Easing } from "./index.js";
 import {
   fintechMotion,
   medMotion,
@@ -161,7 +162,7 @@ describe("domain presets", () => {
   });
 
   describe("easingFor", () => {
-    const EASING_CURVES: Record<string, number[]> = {
+    const EASING_CURVES: Record<Easing, number[]> = {
       linear: [0, 0, 1, 1],
       standard: [0.2, 0, 0, 1],
       smooth: [0.4, 0, 0.2, 1],

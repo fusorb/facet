@@ -2,16 +2,23 @@
  * @fusorb/facet-motion — token resolution (platform-agnostic)
  *
  * Converts registry token strings ("fast", "standard") into the numeric /
- * function values the core `animate()` loop needs. These lookup tables
- * mirror the `--facet-motion-duration-*` / `--facet-motion-ease-*` CSS
- * custom properties in `@fusorb/facet-tokens` so JS-driven and CSS-driven
- * animations stay in sync.
+ * function values the core `animate()` loop needs.
+ *
+ * The duration and easing lookup tables are NOT hardcoded here — they are
+ * derived from `@fusorb/facet-tokens`' `motionValues.facetDuration` /
+ * `facetEasing`, which are kept in sync with the `--facet-motion-duration-*`
+ * / `--facet-motion-ease-*` CSS custom properties by
+ * `scripts/audit-motion-parity.mjs`. This is the single source of truth shared
+ * by the web driver (cssDriver) and the React Native driver (`@fusorb/facet-native`,
+ * which already reads `motionValues`).
  *
  * Extracted from the CSS driver so that both cssDriver (DOM) and a future
  * nativeDriver (React Native Animated) can reuse the same resolution logic
  * without pulling in any browser APIs.
  */
 
+import { motionValues } from "@fusorb/facet-tokens";
+import type { EasingValue } from "@fusorb/facet-tokens";
 import type { EasingFunction } from "../core/generators.js";
 import type { Duration, Easing } from "../registry/types.js";
 
@@ -70,34 +77,46 @@ function cubicBezier(
   };
 }
 
-/* ---------- token → value lookup tables ---------- */
+/* ---------- token → value lookup tables (sourced from @fusorb/facet-tokens) ---------- */
 
+/**
+ * Convert a token easing value (a cubic-bezier control-point tuple or the
+ * string "linear") into the matching CSS/JS easing function.
+ */
+export function easingValueToFunction(value: EasingValue): EasingFunction {
+  if (value === "linear") return (t: number) => t;
+  return cubicBezier(...value);
+}
+
+/**
+ * Duration tokens (ms), sourced from `motionValues.facetDuration` — no
+ * hardcoded literals here, so the JS table tracks the CSS custom properties.
+ */
 export const DURATION_VALUES: Record<string, number> = {
-  instant: 0,
-  fast: 150,
-  base: 250,
-  slow: 500,
-  cinematic: 1000,
+  ...motionValues.facetDuration,
 };
 
-export const EASING_FUNCTIONS: Record<string, EasingFunction> = {
-  linear: (t: number) => t,
-  standard: cubicBezier(0.2, 0, 0, 1),
-  smooth: cubicBezier(0.4, 0, 0.2, 1),
-  emphasized: cubicBezier(0.2, 0, 0, 1),
-  spring: cubicBezier(0.34, 1.56, 0.64, 1),
-  elastic: cubicBezier(0.25, 0.1, 0.25, 5),
-};
+/**
+ * Easing tokens → solver functions, derived from `motionValues.facetEasing`
+ * (the same cubic-bezier curves as the CSS `--facet-motion-ease-*`).
+ */
+export const EASING_FUNCTIONS: Record<string, EasingFunction> = Object.fromEntries(
+  Object.entries(motionValues.facetEasing).map(([token, value]) => [
+    token,
+    easingValueToFunction(value),
+  ]),
+);
 
 /* ---------- public helpers ---------- */
 
 /**
  * Convert a `Duration` token to milliseconds.
- * Numbers pass through; strings are looked up; unknown → 250.
+ * Numbers pass through; strings are looked up; unknown → `base` token,
+ * sourced from `motionValues.facetDuration` (250ms).
  */
 export function resolveDuration(token: Duration): number {
   if (typeof token === "number") return token;
-  return DURATION_VALUES[token] ?? 250;
+  return DURATION_VALUES[token] ?? motionValues.facetDuration.base;
 }
 
 /**
