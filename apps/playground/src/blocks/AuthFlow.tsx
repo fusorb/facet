@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Button } from "@fusorb/facet-components";
 
 /**
  * Simulated auth flow demo.
@@ -68,20 +69,22 @@ export function AuthFlow() {
   return (
     <div className="mx-auto max-w-xl space-y-4">
       <div className="flex items-center gap-3">
-        <button
+        <Button
           onClick={signIn}
           disabled={step !== "idle" && step !== "authed"}
-          className="rounded-md border px-3 py-1 text-sm"
+          size="sm"
+          variant="default"
         >
           {step === "authed" ? "Re-sign-in" : "Sign in"}
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={switchTenant}
           disabled={step !== "authed"}
-          className="rounded-md border px-3 py-1 text-sm text-muted-foreground"
+          size="sm"
+          variant="outline"
         >
           Switch tenant
-        </button>
+        </Button>
         <span className="text-xs text-muted-foreground">
           step: {step} · token: {token ? "present" : "none"}
         </span>

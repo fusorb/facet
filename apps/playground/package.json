@@ -15,7 +15,8 @@
     "react-dom": "^19",
     "@fusorb/facet-sandbox": "workspace:*",
     "@fusorb/facet-motion": "workspace:*",
-    "@fusorb/facet-tokens": "workspace:*"
+    "@fusorb/facet-tokens": "workspace:*",
+    "@fusorb/facet-components": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19",

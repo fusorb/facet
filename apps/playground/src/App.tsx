@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import type { SandboxConfig } from "@fusorb/facet-sandbox";
 import { Sandbox, reactAdapter } from "@fusorb/facet-sandbox/react";
+import { Button, ThemeProvider, ThemeToggle } from "@fusorb/facet-components";
 import { MotionDemo } from "./blocks/MotionDemo.js";
 import { AuthFlow } from "./blocks/AuthFlow.js";
 import { StackAgnosticism } from "./blocks/StackAgnosticism.js";
@@ -22,6 +23,14 @@ const DEVICE = [
 type Device = (typeof DEVICE)[number]["id"];
 
 export default function App() {
+  return (
+    <ThemeProvider defaultTheme="system">
+      <AppFrame />
+    </ThemeProvider>
+  );
+}
+
+function AppFrame() {
   const [tab, setTab] = useState<string>("motion");
   const [preset, setPreset] = useState<string>(PRESETS[0]);
   const [device, setDevice] = useState<Device>(DEVICE[0].id);
@@ -46,20 +55,18 @@ export default function App() {
     <div className="flex h-screen w-full flex-col bg-background text-foreground">
       <header className="flex items-center justify-between border-b px-4 py-3">
         <h1 className="font-medium text-foreground">facet playground</h1>
-        <nav className="flex gap-1">
+        <nav className="flex items-center gap-1">
           {TAB.map((t) => (
-            <button
+            <Button
               key={t.id}
+              variant={tab === t.id ? "default" : "ghost"}
+              size="sm"
               onClick={() => setTab(t.id)}
-              className={
-                tab === t.id
-                  ? "rounded-md border px-3 py-1 text-sm"
-                  : "rounded-md px-3 py-1 text-sm text-muted-foreground"
-              }
             >
               {t.label}
-            </button>
+            </Button>
           ))}
+          <ThemeToggle />
         </nav>
       </header>
 
@@ -71,7 +78,7 @@ export default function App() {
               <select
                 value={preset}
                 onChange={(e) => setPreset(e.target.value)}
-                className="ml-2 text-sm"
+                className="ml-2 rounded-md border border-input bg-background text-sm"
               >
                 {PRESETS.map((p) => (
                   <option key={p} value={p}>
@@ -90,7 +97,7 @@ export default function App() {
           <select
             value={device}
             onChange={(e) => setDevice(e.target.value as Device)}
-            className="ml-2 text-sm"
+            className="ml-2 rounded-md border border-input bg-background text-sm"
           >
             {DEVICE.map((d) => (
               <option key={d.id} value={d.id}>

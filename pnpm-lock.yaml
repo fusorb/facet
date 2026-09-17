@@ -321,6 +321,9 @@ importers:
 
   apps/playground:
     dependencies:
+      '@fusorb/facet-components':
+        specifier: workspace:*
+        version: link:../../packages/components
       '@fusorb/facet-motion':
         specifier: workspace:*
         version: link:../../packages/motion
