@@ -1,0 +1,28 @@
+@import "@fusorb/facet-tokens/tailwind.css";
+
+/* Device-frame presets for preview windows (mobile/tablet/desktop). */
+.preview-device-mobile {
+  width: 375px;
+  height: 667px;
+  max-width: 100%;
+  margin-inline: auto;
+  border: 12px solid #0b0f14;
+  border-radius: 42px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+.preview-device-tablet {
+  width: 768px;
+  height: 1024px;
+  max-width: 100%;
+  margin-inline: auto;
+  border: 10px solid #0b0f14;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.preview-device-desktop {
+  width: 100%;
+  border: 1px solid hsl(var(--border));
+  border-radius: 10px;
+}

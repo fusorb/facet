@@ -1,0 +1,32 @@
+{
+  "name": "@fusorb/facet-playground",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Live playground for @fusorb/facet — device-framed previews of motion presets + a stubbed fullstack auth flow. Powered by @fusorb/facet-sandbox.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^19",
+    "react-dom": "^19",
+    "@fusorb/facet-sandbox": "workspace:*",
+    "@fusorb/facet-motion": "workspace:*",
+    "@fusorb/facet-tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5",
+    "vite": "^8.0.0",
+    "@vitejs/plugin-react": "^6.0.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
