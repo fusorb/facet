@@ -1,0 +1,62 @@
+# @fusorb/facet-motion
+
+## 0.2.0
+
+### Minor Changes
+
+- 3fefa64: ## facet-motion — initial release (0.1.0)
+
+  New `@fusorb/facet-motion` package: declarative animation system
+  built on facet motion tokens. CSS-keyframe driver, stagger/sequence
+  orchestrator, registry, and thin React bindings.
+
+  - Core: `animate`, `sequence`, `stagger` — framework-agnostic
+  - CSS driver: applies `facet-*` animation classes to DOM elements
+  - Registry: 10-entry generative animation lookup (fade, slide, zoom,
+    attention, 3d, layout, glass, marketing families)
+  - Values: spring easing presets mapped to motion easing tokens
+  - Presets: pre-built combos (modal, toast, card, list stagger)
+  - React hooks: `useMotion`, `useAnimationControls`, `useStagger`
+  - Accessibility: respects `prefers-reduced-motion` with instant fallback
+  - `cn`: clsx + tailwind-merge className utility
+  - SSR-safe: zero runtime JS on CSS-only path
+
+  Bumped from 0.0.0 → 0.1.0 (new package).
+
+- f4ca95a: ## Domain Motion Presets
+
+  Adds domain-customizable motion presets that mirror the auth/layout preset
+  pattern — the same domain name (`"fintech"`, `"med"`, `"edu"`, `"enterprise"`)
+  drives both auth behavior and motion behavior.
+
+  - **DomainMotionConfig** interface: `defaultTransition`, `allowSpring`,
+    `distanceScale`, `forceReducedMotion`, `preferredFamilies`, `maxIntensity`
+  - **5 presets**: `fintechMotion` (fast, no spring, 0.75x distance), `medMotion`
+    (smooth, spring ok, 1.0x), `eduMotion` (spring easing, 1.2x distance,
+    dramatic), `enterpriseMotion` (standard, no spring, 0.9x), `defaultMotion`
+    (balanced, spring ok, 1.0x)
+  - **getDomainMotionConfig(domain)**: resolves a domain string to its config,
+    falling back to `defaultMotion` for unknown domains
+  - **easingFor(easing)**: resolves an easing token name to cubic-bezier coordinates,
+    sourced from `@fusorb/facet-tokens` `motionValues.facetEasing` — no hardcoded
+    bezier values
+  - **GENERATIVE_FAMILY_IDS**: exported list of family identifiers for validation
+  - **24 tests** covering preset validation, easing resolution, and family
+    enumeration
+
+  Additionally, `DURATION_VALUES` and `EASING_FUNCTIONS` in `drivers/resolve.ts`
+  now derive directly from `motionValues` (`facetDuration` / `facetEasing`) instead
+  of being copied tables — single source of truth across the web CSS driver, the
+  React Native driver binding, and the JS registry.
+
+  Added `scripts/audit-motion-parity.mjs`: verifies that `motionValues.facetDuration`
+  and `motionValues.facetEasing` stay in sync with the `--facet-motion-duration-*`
+  and `--facet-motion-ease-*` CSS custom properties in `tokens.css`, and structurally
+  asserts that `resolve.ts` derives its tables from `motionValues` (no hardcoded
+  literals).
+
+### Patch Changes
+
+- Updated dependencies [db287b3]
+- Updated dependencies [3fefa64]
+  - @fusorb/facet-tokens@1.2.0

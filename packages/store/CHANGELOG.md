@@ -1,5 +1,26 @@
 # @fusorb/facet-store
 
+## 1.0.1
+
+### Patch Changes
+
+- db287b3: De-brand and production hardening:
+
+  - tokens: brand color changed from indigo to Electric Cyan; new facet animation
+    keyframes (overlay-in/out, fade-up, chart-fadeIn/draw); new CSS variables
+    (elevation, hero-glow); dist CSS minified via esbuild (zero API change,
+    smaller consumer payloads)
+  - components: changelog-list pre-release badge uses the semantic `warning` token instead of hardcoded amber classes
+  - sdk: docs and test fixtures neutralized (`auth.arcevo.dev` → `auth.example.dev`)
+  - emails: default brand color is now a neutral slate instead of indigo
+  - cli: emails generator default matches the new neutral emails default
+  - auth: package metadata neutralized (description, keywords, homepage removed "ArcevoCirqle")
+  - layout: package metadata neutralized (description, keywords, homepage)
+  - store: package keywords updated (`arc-id` → `SovGrant`); homepage neutralized
+
+- Updated dependencies [db287b3]
+  - @fusorb/facet-sdk@1.2.1
+
 ## 1.0.0
 
 ### Major Changes

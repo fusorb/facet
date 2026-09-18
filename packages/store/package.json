@@ -1,6 +1,6 @@
 {
   "name": "@fusorb/facet-store",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Framework-agnostic state stores for ArcID auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
   "type": "module",
   "exports": {
