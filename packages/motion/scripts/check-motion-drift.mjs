@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * check:motion-drift — manifest gate for @fusorb/facet-motion.
+ * check:motion-drift - manifest gate for @fusorb/facet-motion.
  *
  * Fails if:
  *  1. A registry entry (generative family or authored effect) is not
@@ -27,7 +27,7 @@ let barrelContent;
 try {
   barrelContent = readFileSync(barrelPath, "utf-8");
 } catch {
-  console.error("check:motion-drift: src/index.ts not found — barrel missing");
+  console.error("check:motion-drift: src/index.ts not found - barrel missing");
   process.exit(1);
 }
 
@@ -134,7 +134,7 @@ for (const file of tsFiles) {
 }
 
 console.log(
-  `check:motion-drift: OK — barrel exports ${barrelExports.size} symbols; ` +
+  `check:motion-drift: OK - barrel exports ${barrelExports.size} symbols; ` +
   `registry has ${genCount} generative + ${authoredCount} authored effects.`,
 );
 process.exit(0);

@@ -1,5 +1,5 @@
 /**
- * `stagger()` — orchestration modifier for staggered child animations.
+ * `stagger()` - orchestration modifier for staggered child animations.
  *
  * The sheet's 10-level stagger-delay-* ladder collapses into a single
  * `stagger(baseDelay, { count, from })` call. It is applied *on top*

@@ -40,6 +40,7 @@ export const site = {
   },
   feedbackEmail: "feedback@facet.dev",
   socials,
+  techBadges: ["React 18/19", "TypeScript", "Radix UI", "Tailwind CSS v4"],
 } as const;
 
 export type SiteConfig = typeof site;

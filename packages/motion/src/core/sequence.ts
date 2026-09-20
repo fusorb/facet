@@ -1,7 +1,7 @@
 /**
  * Core: sequential animation.
  *
- * Runs a series of animations one after another — useful for multi-step
+ * Runs a series of animations one after another - useful for multi-step
  * transitions (e.g. fade out old view, then fade in new view).
  */
 

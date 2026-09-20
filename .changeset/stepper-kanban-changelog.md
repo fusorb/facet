@@ -9,7 +9,7 @@
 
 Three new ready-to-use surfaces in `@fusorb/facet-components`:
 
-- **`Stepper`** — headless-first wizard primitive (`useStepper` hook +
+- **`Stepper`** - headless-first wizard primitive (`useStepper` hook +
   `Stepper` / `StepperNav` / `StepperPanel` / `StepperFooter` renderers).
   Per-step `validate` gating, controlled + uncontrolled modes, loop
   support, onStepChange callback. The headless split is intentional: the
@@ -17,12 +17,12 @@ Three new ready-to-use surfaces in `@fusorb/facet-components`:
   React Native later without redesigning the logic. Closes the Phase 1
   roadmap item: "Generic <Stepper> with per-step validation gating".
 
-- **`KanbanBoard`** — drop-in kanban with native HTML5 drag-and-drop,
+- **`KanbanBoard`** - drop-in kanban with native HTML5 drag-and-drop,
   `useKanban` hook (controlled + uncontrolled), per-column WIP limits,
   add/remove cards, add/remove columns. Every project tracker is a
   kanban; consumers shouldn't wire 200 lines of DnD + state.
 
-- **`ChangelogList`** — vertical release-log timeline with version, date,
+- **`ChangelogList`** - vertical release-log timeline with version, date,
   kind-grouped bullets (added / changed / fixed / deprecated / removed /
   security), optional filter row, optional pre-release tag. Every docs
   site needs one; nobody should hand-style it again.

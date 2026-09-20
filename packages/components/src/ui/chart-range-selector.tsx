@@ -56,7 +56,7 @@ const SIZE_CLASSES: Record<
   wide: "gap-2 px-3 py-1.5 text-sm",
 };
 
-/** Chevron icon — points down when expanded, points up when minimized. */
+/** Chevron icon - points down when expanded, points up when minimized. */
 function MinimizeIcon({ collapsed }: { collapsed: boolean }) {
   return (
     <svg
@@ -79,7 +79,7 @@ function MinimizeIcon({ collapsed }: { collapsed: boolean }) {
 }
 
 /** Quick date / range filter bar that sits on top of a Chart. Fully
- * controlled — you decide which presets exist and what data they map to.
+ * controlled - you decide which presets exist and what data they map to.
  *
  * When embedded via `<Chart rangeSelector={...} />` the container is already
  * `position: relative`, so every `position` option anchors correctly.

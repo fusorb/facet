@@ -1,5 +1,5 @@
 /**
- * Core generators — pure math, zero DOM knowledge, zero CSS.
+ * Core generators - pure math, zero DOM knowledge, zero CSS.
  *
  * Each generator returns a progress function `(elapsedMs) => number`
  * that the animate() loop feeds elapsed-milliseconds into. Tests run
@@ -69,17 +69,17 @@ export function spring(opts: SpringOpts): (elapsedMs: number) => number {
     let envelope: number;
 
     if (zeta < 1) {
-      // underdamped — bouncy, oscillates around the target
+      // underdamped - bouncy, oscillates around the target
       const omegaD = omega0 * Math.sqrt(1 - zeta * zeta);
       envelope =
         Math.exp(-zeta * omega0 * t) *
         (Math.cos(omegaD * t) +
           (zeta * omega0 / omegaD) * Math.sin(omegaD * t));
     } else if (Math.abs(zeta - 1) < 1e-6) {
-      // critically damped — fastest return without oscillation
+      // critically damped - fastest return without oscillation
       envelope = (1 + omega0 * t) * Math.exp(-omega0 * t);
     } else {
-      // overdamped — slow exponential return, no oscillation
+      // overdamped - slow exponential return, no oscillation
       const sqrtTerm = omega0 * Math.sqrt(zeta * zeta - 1);
       const r1 = -zeta * omega0 + sqrtTerm;
       const r2 = -zeta * omega0 - sqrtTerm;

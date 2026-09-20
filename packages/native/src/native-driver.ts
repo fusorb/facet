@@ -1,11 +1,11 @@
 /**
- * @fusorb/facet-native — React Native motion driver shell (Phase 2C)
+ * @fusorb/facet-native: React Native motion driver shell (Phase 2C)
  *
  * Provides native equivalents of the motion token resolution tables,
  * plus a `toEasingCurve` adapter that converts CSS easing references
  * to cubic-bezier coordinate arrays for React Native's `Animated` API.
  *
- * No `react-native` dependency — consumers pass their own `Animated`
+ * No `react-native` dependency. Consumers pass their own `Animated`
  * module when the driver becomes active (Phase 3).
  *
  * The easing coordinates below mirror the `--motion-ease-*` CSS variables
@@ -164,7 +164,7 @@ export interface NativeAnimatedAPI {
   createValue(initial: number): NativeValue;
 }
 
-/** Subscribe return — call to unsubscribe from a binding. */
+/** Subscribe return - call to unsubscribe from a binding. */
 export type Unsubscribe = () => void;
 
 /** Duck-typed observable number. Structurally compatible with
@@ -174,7 +174,7 @@ export interface NativeMotionValue {
   subscribe(listener: (value: number) => void): Unsubscribe;
 }
 
-/** A React Native target — an object whose style props accept native values. */
+/** A React Native target - an object whose style props accept native values. */
 export type NativeTarget = Record<string, unknown>;
 
 /** prop name → motion value (driven live) | static value (applied once). */
@@ -182,7 +182,7 @@ export interface NativeBindings {
   [property: string]: NativeMotionValue | string | number;
 }
 
-/** Handle returned by `nativeDriver.apply()` — call `cleanup()` to unsubscribe. */
+/** Handle returned by `nativeDriver.apply()` - call `cleanup()` to unsubscribe. */
 export interface NativeDriverHandle {
   cleanup: () => void;
   /** Whether the driver is actively animating. */
@@ -190,7 +190,7 @@ export interface NativeDriverHandle {
 }
 
 /**
- * The contract `nativeDriver` implements — mirrors facet-motion's
+ * The contract `nativeDriver` implements - mirrors facet-motion's
  * `MotionDriver` but with JS-native target types instead of
  * `CSSStyleDeclaration`, since React Native has no DOM elements.
  */
@@ -227,7 +227,7 @@ export function isBound(): boolean {
 /**
  * Toggle reduced-motion preference at the driver boundary.
  *
- * Mirrors cssDriver's `prefersReducedMotion()` check — consumer-side,
+ * Mirrors cssDriver's `prefersReducedMotion()` check - consumer-side,
  * wire it to RN's `AccessibilityInfo.isReduceMotionEnabled()` (async),
  * then call this with the resolved boolean.
  */
@@ -250,7 +250,7 @@ function isMotionValue(value: unknown): value is NativeMotionValue {
  * Before `bindAnimated()` is called it is a no-op shell:
  * `isSupported()` returns `false` and `apply()` returns
  * `{ active: false }`. Once bound, `apply()` subscribes motion values to
- * the bound `Animated` nodes and writes them to the target — the RN
+ * the bound `Animated` nodes and writes them to the target - the RN
  * analogue of `cssDriver.apply()` writing to `element.style`.
  */
 export const nativeDriver: NativeMotionDriver & {

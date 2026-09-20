@@ -64,6 +64,9 @@ import {
   ExternalLink,
   Globe,
   Store,
+  Play,
+  Pause,
+  Repeat,
   type LucideIcon,
 } from "lucide-react";
 import { brandIcons } from "./brand-icons.js";
@@ -126,6 +129,9 @@ const SEMANTIC_LUCIDE: Record<string, LucideIcon> = {
   "external-link": ExternalLink,
   globe: Globe,
   store: Store,
+  play: Play,
+  pause: Pause,
+  repeat: Repeat,
 };
 
 const DIRECT: Record<string, IconComponent> = {

@@ -4,10 +4,14 @@ import {
   Pill,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { FAQ } from "../../data/features.js";
+import { FAQ } from "../../data/faq.js";
 import { getDocsUrl } from "../../site.config.js";
+import { useDomain } from "../../lib/domain-context.js";
 
 export function FaqSection() {
+  const { domain } = useDomain();
+  const { faqSection } = domain;
+
   return (
     <FacetFaqSection
       items={FAQ}
@@ -15,13 +19,13 @@ export function FaqSection() {
         <Pill
           color="primary"
           indicator="icon"
-          icon={<LightIcon name="circle-question-mark" size={12} />}
+          icon={<LightIcon name={faqSection.labelIcon} size={12} />}
         >
-          FAQ
+          {faqSection.label}
         </Pill>
       }
-      title="Frequently Asked Questions"
-      description="Quick answers to the questions consumers ask most."
+      title={faqSection.title}
+      description={faqSection.subtitle}
       align="center"
       type="single"
       limit={6}

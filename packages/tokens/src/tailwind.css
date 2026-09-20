@@ -99,17 +99,38 @@
   --font-sans: var(--font-body); /* body text: Inter */
   --font-body: var(--font-body); /* Inter (alias for utility class) */
   --font-mono: var(--font-mono); /* JetBrains Mono */
-  --font-heading: var(--font-heading); /* Montserrat */
+  --font-display: var(--font-display); /* Instrument Sans (display/headings) */
+  --font-heading: var(--font-heading); /* Instrument Sans */
   --font-technical: var(--font-technical); /* Rajdhani */
+
+  /* ── Scratchpad layer / text palette ─────────────────────────── */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-panel: var(--panel);
+  --color-panel-hover: var(--panel-hover);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-dim: var(--text-dim);
+  --color-border: var(--border);
+  --color-border-bright: var(--border-bright);
+  --color-border-focus: var(--border-focus);
+
+  /* ── Scratchpad accent palette ───────────────────────────────── */
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-green: var(--green);
+  --color-amber: var(--amber);
+  --color-red: var(--red);
+  --color-purple: var(--purple);
 
   /* ── Extra brand palette (SovGrant compatibility) ──────────── */
   --color-navy-900: oklch(0.18 0.03 234);
   --color-navy-950: oklch(0.12 0.03 234);
-  --color-brand-glow: oklch(0.82 0.13 220);
+  --color-brand-glow: var(--primary);
 
   /* ── Animations (for Radix accordion etc.) ───────────────── */
-  --animate-accordion-down: accordion-down var(--motion-duration-200) var(--motion-ease-standard-decelerate);
-  --animate-accordion-up: accordion-up var(--motion-duration-200) var(--motion-ease-standard-decelerate);
+  --animate-accordion-down: accordion-down var(--facet-motion-duration-base) var(--facet-motion-ease-emphasized) both;
+  --animate-accordion-up: accordion-up var(--facet-motion-duration-base) var(--facet-motion-ease-emphasized) both;
   --animate-pulse-ring: pulse-ring var(--facet-motion-duration-cinematic) cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-facet-marquee: facet-marquee 20s linear infinite;
   --animate-caret-blink: caret-blink var(--motion-duration-1000) step-end infinite;
@@ -120,7 +141,8 @@
   --animate-facet-sparkle: facet-sparkle var(--motion-duration-700) var(--motion-ease-standard-decelerate);
   --animate-facet-dissolve: facet-dissolve var(--motion-duration-500) var(--motion-ease-standard-decelerate) both;
   --animate-facet-dissolve-reverse: facet-dissolve var(--motion-duration-700) var(--motion-ease-standard-decelerate) both reverse;
-  --animate-facet-glow-pulse: facet-glow-pulse 2s ease-in-out infinite;
+  --animate-facet-glow-pulse: facet-glow-pulse var(--facet-motion-duration-slow) var(--facet-motion-ease-smooth) infinite;
+  --animate-facet-spin: facet-spin var(--facet-motion-duration-cinematic) var(--facet-motion-ease-linear) infinite;
   --animate-facet-fade-up: facet-fade-up var(--motion-duration-300) var(--facet-motion-ease-standard) both;
   --animate-facet-overlay-in: facet-overlay-in var(--motion-duration-150) var(--motion-ease-standard-decelerate) both;
   --animate-facet-overlay-out: facet-overlay-out var(--motion-duration-150) var(--motion-ease-standard-accelerate) both;
@@ -143,23 +165,45 @@
   --animate-facet-flip-x: facet-flip-x var(--motion-duration-400) var(--motion-ease-standard) both;
   --animate-facet-bounce: facet-bounce var(--motion-duration-350) var(--motion-ease-bounce) both;
   --animate-facet-shake: facet-shake var(--motion-duration-500) var(--motion-ease-standard) both;
+
+  /* ── Scratchpad animation aliases ────────────────────────────── */
+  --animate-aurora-shift: facet-aurora var(--facet-motion-duration-cinematic) ease-in-out infinite alternate;
+  --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
+  --animate-ripple-expand: ripple-expand var(--motion-duration-500) var(--motion-ease-standard-decelerate);
+  --animate-beam-move: facet-beam 7s ease-in-out infinite;
+  --animate-reveal-up: reveal-up var(--motion-duration-500) var(--motion-ease-standard-decelerate) both;
+  --animate-grid-move: grid-move 20s linear infinite;
+  --animate-typewriter-blink: typewriter-blink 1s step-end infinite;
+  --animate-shine-sweep: shine-sweep 3s linear infinite;
+  --animate-fade-up: fade-up var(--motion-duration-300) var(--motion-ease-standard) both;
+  --animate-spotlight-rotate: spotlight-rotate 20s linear infinite;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+  --animate-tilt-rock: tilt-rock 4s ease-in-out infinite;
 }
 
 @keyframes accordion-down {
   from {
     height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
   }
   to {
     height: var(--radix-accordion-content-height);
+    opacity: 1;
+    transform: none;
   }
 }
 
 @keyframes accordion-up {
   from {
     height: var(--radix-accordion-content-height);
+    opacity: 1;
+    transform: none;
   }
   to {
     height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
   }
 }
 
@@ -341,14 +385,19 @@
 @keyframes facet-glow-pulse {
   0%,
   100% {
-    opacity: 0.4;
+    opacity: 0.9;
+    filter: brightness(1);
   }
   50% {
-    opacity: 0.9;
+    opacity: 1;
+    filter: brightness(1.6);
   }
 }
 
 @keyframes facet-spin {
+  from {
+    transform: rotate(0deg);
+  }
   to {
     transform: rotate(360deg);
   }

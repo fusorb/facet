@@ -1,5 +1,5 @@
 /**
- * @fusorb/facet-motion — driver interface (stub)
+ * @fusorb/facet-motion - driver interface (stub)
  *
  * A driver is the only layer that touches a real rendering target.
  * `css.ts` implements this interface for the web; `react-native.ts`
@@ -24,14 +24,14 @@ export interface DriverBindings {
   [property: string]: MotionValue | string | number;
 }
 
-/** Handle returned by `apply()` — call `cleanup()` to unsubscribe. */
+/** Handle returned by `apply()` - call `cleanup()` to unsubscribe. */
 export interface DriverHandle {
   cleanup: () => void;
   /** Whether the driver is actively animating (false if prefers-reduced-motion). */
   active: boolean;
 }
 
-/** Subscribe return — call to unsubscribe from a driver binding. */
+/** Subscribe return - call to unsubscribe from a driver binding. */
 export type Unsubscribe = () => void;
 
 /**

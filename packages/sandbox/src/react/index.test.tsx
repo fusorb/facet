@@ -120,7 +120,7 @@ describe("react adapter", () => {
     }
   });
 
-  it("never throws on malformed input — surfaces an error node", () => {
+  it("never throws on malformed input - surfaces an error node", () => {
     const out = reactAdapter.renderPreview("<not even valid", { Button });
     expect(out.kind).toBe("node");
     if (out.kind === "node") {

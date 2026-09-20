@@ -1,5 +1,5 @@
 /**
- * Core animation engine — `animate()`.
+ * Core animation engine - `animate()`.
  *
  * Zero DOM knowledge, zero CSS, zero React. Drives a `MotionValue`
  * from its current value to a target using a generator (tween or spring)

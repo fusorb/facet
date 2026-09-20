@@ -20,92 +20,114 @@
   --alpha-base-white: #ffffff;
 
   /* ── Typography ─────────────────────────────────────────────── */
-  --font-heading: "Montserrat", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Instrument Sans", "Inter", sans-serif;
+  --font-heading: "Instrument Sans", "Inter", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
   --font-technical: "Rajdhani", sans-serif;
 
   /* ── Core semantic colour tokens ────────────────────────────── */
-  --background: oklch(0.12 0.02 240);
-  --foreground: oklch(0.95 0.01 240);
+  /* Scratchpad palette: deep terminal dark with electric cyan accent */
+  --background: #07080d;
+  --foreground: #dde4ef;
 
-  --card: oklch(0.155 0.02 240);
-  --card-foreground: oklch(0.95 0.01 240);
+  --card: #111520;
+  --card-foreground: #dde4ef;
 
-  --popover: oklch(0.14 0.02 240);
-  --popover-foreground: oklch(0.95 0.01 240);
+  --popover: #0c0f16;
+  --popover-foreground: #dde4ef;
 
   /* Primary: Electric Cyan (Alpha Palette brand) */
-  --primary: oklch(0.82 0.13 220);
-  --primary-foreground: oklch(0.17 0.03 240);
+  --primary: #38bdf8;
+  --primary-foreground: #040d18;
 
   /* Secondary: subtle surface */
-  --secondary: oklch(0.19 0.02 240);
-  --secondary-foreground: oklch(0.95 0.01 240);
+  --secondary: #0c0f16;
+  --secondary-foreground: #94a3b8;
 
   /* Muted */
-  --muted: oklch(0.19 0.02 240);
-  --muted-foreground: oklch(0.65 0.02 240);
+  --muted: #0c0f16;
+  --muted-foreground: #7b8a9e;
 
   /* Accent */
-  --accent: oklch(0.22 0.03 240);
-  --accent-foreground: oklch(0.98 0 0);
+  --accent: #38bdf8;
+  --accent-foreground: #040d18;
 
   /* Destructive */
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.99 0 0);
+  --destructive: #f87171;
+  --destructive-foreground: #ffffff;
 
   /* Success: green */
-  --success: oklch(0.527 0.154 150);
-  --success-foreground: oklch(0.99 0 0);
+  --success: #34d399;
+  --success-foreground: #040d18;
 
   /* Warning: amber */
-  --warning: oklch(0.7 0.18 80);
-  --warning-foreground: oklch(0.12 0.02 240);
+  --warning: #f59e0b;
+  --warning-foreground: #040d18;
 
   /* Borders and inputs */
-  --border: oklch(0.22 0.02 240);
-  --input: oklch(0.22 0.02 240);
-  --ring: oklch(0.82 0.13 220 / 50%);
-  --radius: 0.5rem;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-bright: rgba(255, 255, 255, 0.13);
+  --border-focus: rgba(56, 189, 248, 0.5);
+  --input: rgba(255, 255, 255, 0.07);
+  --ring: #38bdf8;
+  --radius: 4px;
+
+  /* ── Scratchpad layer palette ────────────────────────────── */
+  --bg: #07080d;
+  --surface: #0c0f16;
+  --panel: #111520;
+  --panel-hover: #161b28;
+
+  /* ── Scratchpad text palette ───────────────────────────────── */
+  --text: #dde4ef;
+  --text-muted: #7b8a9e;
+  --text-dim: #374355;
+
+  /* ── Scratchpad accent palette ─────────────────────────────── */
+  --accent-dim: rgba(56, 189, 248, 0.12);
+  --green: #34d399;
+  --amber: #f59e0b;
+  --red: #f87171;
+  --purple: #a78bfa;
 
   /* Charts */
-  --chart-1: oklch(0.82 0.13 220);
-  --chart-2: oklch(0.696 0.17 162);
-  --chart-3: oklch(0.398 0.07 227);
-  --chart-4: oklch(0.828 0.189 84);
-  --chart-5: oklch(0.769 0.188 70);
+  --chart-1: #38bdf8;
+  --chart-2: #2dd36f;
+  --chart-3: #6366f1;
+  --chart-4: #fbbf24;
+  --chart-5: #f59e0b;
 
   /* Sidebar */
-  --sidebar: oklch(0.135 0.02 240);
-  --sidebar-foreground: oklch(0.95 0.01 240);
-  --sidebar-primary: oklch(0.82 0.13 220);
-  --sidebar-primary-foreground: oklch(0.17 0.03 240);
-  --sidebar-accent: oklch(0.19 0.02 240);
-  --sidebar-accent-foreground: oklch(0.95 0.01 240);
-  --sidebar-border: oklch(0.22 0.02 240);
-  --sidebar-ring: oklch(0.82 0.13 220 / 50%);
+  --sidebar: #07080d;
+  --sidebar-foreground: #94a3b8;
+  --sidebar-primary: #38bdf8;
+  --sidebar-primary-foreground: #040d18;
+  --sidebar-accent: #0c0f16;
+  --sidebar-accent-foreground: #94a3b8;
+  --sidebar-border: rgba(255, 255, 255, 0.07);
+  --sidebar-ring: #38bdf8;
 
   /* ── Radius scale ───────────────────────────────────────────── */
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
 
   /* ── Sub-brand accent overrides (set via JS at runtime) ─────── */
   --sub-brand-accent: var(--primary);
   --sub-brand-accent-foreground: var(--primary-foreground);
 
   /* ── Elevation / shadow scale (namespaced to avoid Tailwind utility clash) ── */
-  --elevation-sm: 0 1px 2px oklch(0 0 0 / 20%);
-  --elevation-md: 0 8px 32px oklch(0 0 0 / 30%);
-  --elevation-lg: 0 12px 40px oklch(0 0 0 / 40%);
-  --elevation-inset: inset 0 0 0 1px oklch(1 0 0 / 4%);
+  --elevation-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --elevation-md: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --elevation-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
+  --elevation-inset: inset 0 0 0 1px rgba(255, 255, 255, 4%);
 
   /* ── Hero glow (marketing surfaces) ─────────────────────────── */
-  --hero-glow: oklch(0.82 0.13 220 / 30%);
+  --hero-glow: rgba(56, 189, 248, 0.35);
 
   /* ── Motion tokens ────────────────────────────────────────────
    * Durations, easings, travel distances, and scales that back every
@@ -159,7 +181,7 @@
    * Each resolves to a var() reference over the existing --motion-*
    * ladder so the entire system stays themeable from one place.
    * (These back the Duration / Easing enums in the motion package's
-   * registry types — the registry never hardcodes a millisecond
+   * registry types - the registry never hardcodes a millisecond
    * or bezier value directly.) */
   --facet-motion-duration-instant: 0ms;
   --facet-motion-duration-fast: var(--motion-duration-150);
@@ -186,73 +208,94 @@
   --alpha-base-white: #ffffff;
 
   /* Typography */
-  --font-heading: "Montserrat", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Instrument Sans", "Inter", sans-serif;
+  --font-heading: "Instrument Sans", "Inter", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
   --font-technical: "Rajdhani", sans-serif;
 
-  --background: oklch(0.97 0.01 240);
-  --foreground: oklch(0.15 0.02 240);
+  --background: #f6f8fc;
+  --foreground: #0c1222;
 
-  --card: oklch(0.99 0 0);
-  --card-foreground: oklch(0.15 0.02 240);
+  --card: #ffffff;
+  --card-foreground: #0c1222;
 
-  --popover: oklch(0.99 0 0);
-  --popover-foreground: oklch(0.15 0.02 240);
+  --popover: #edf0f7;
+  --popover-foreground: #0c1222;
 
-  --primary: oklch(0.75 0.13 220);
-  --primary-foreground: oklch(0.17 0.03 240);
+  /* Primary: Electric Cyan (Alpha Palette brand) */
+  --primary: #0284c7;
+  --primary-foreground: #ffffff;
 
-  --secondary: oklch(0.92 0.01 240);
-  --secondary-foreground: oklch(0.15 0.02 240);
+  /* Secondary: subtle surface */
+  --secondary: #edf0f7;
+  --secondary-foreground: #5c6b80;
 
-  --muted: oklch(0.94 0.01 240);
-  --muted-foreground: oklch(0.5 0.02 240);
+  /* Muted */
+  --muted: #edf0f7;
+  --muted-foreground: #5c6b80;
 
-  --accent: oklch(0.9 0.02 240);
-  --accent-foreground: oklch(0.15 0.02 240);
+  /* Accent */
+  --accent: #0284c7;
+  --accent-foreground: #040d18;
 
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.99 0 0);
+  /* Destructive */
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
 
   /* Success: green (light-optimized) */
-  --success: oklch(0.52 0.15 150);
-  --success-foreground: oklch(0.99 0 0);
+  --success: #059669;
+  --success-foreground: #040d18;
 
   /* Warning: amber (light-optimized) */
-  --warning: oklch(0.65 0.17 80);
-  --warning-foreground: oklch(0.2 0.02 240);
+  --warning: #d97706;
+  --warning-foreground: #040d18;
 
-  --border: oklch(0.85 0.02 240);
-  --input: oklch(0.85 0.02 240);
-  --ring: oklch(0.75 0.13 220 / 50%);
-  --radius: 0.5rem;
+  /* Borders and inputs */
+  --border: rgba(0, 0, 0, 0.08);
+  --border-bright: rgba(0, 0, 0, 0.15);
+  --border-focus: rgba(2, 132, 199, 0.4);
+  --input: rgba(0, 0, 0, 0.08);
+  --ring: #0284c7;
+  --radius: 4px;
 
-  /* Charts (light-optimized: darker, higher-contrast hues) */
-  --chart-1: oklch(0.75 0.13 220);
-  --chart-2: oklch(0.55 0.15 162);
-  --chart-3: oklch(0.4 0.08 227);
-  --chart-4: oklch(0.72 0.19 84);
-  --chart-5: oklch(0.68 0.19 70);
+  /* Scratchpad light-mode layer / text palette */
+  --bg: #f6f8fc;
+  --surface: #edf0f7;
+  --panel: #ffffff;
+  --panel-hover: #f0f4fb;
+  --text: #0c1222;
+  --text-muted: #5c6b80;
+  --text-dim: #c4cede;
+  --accent-dim: rgba(2, 132, 199, 0.10);
+  --green: #059669;
+  --amber: #d97706;
+  --red: #dc2626;
+  --purple: #7c3aed;
 
-  --sidebar: oklch(0.95 0.01 240);
-  --sidebar-foreground: oklch(0.15 0.02 240);
-  --sidebar-primary: oklch(0.75 0.13 220);
-  --sidebar-primary-foreground: oklch(0.17 0.03 240);
-  --sidebar-accent: oklch(0.9 0.02 240);
-  --sidebar-accent-foreground: oklch(0.15 0.02 240);
-  --sidebar-border: oklch(0.85 0.02 240);
-  --sidebar-ring: oklch(0.75 0.13 220 / 50%);
+  /* Charts */
+  --chart-1: #0284c7;
+  --chart-2: #059669;
+  --chart-3: #2563eb;
+  --chart-4: #d97706;
+  --chart-5: #ea580c;
 
-  /* Radius scale (identical values; declared here so the light theme is
-   * self-contained for consumers that set [data-theme="light"] on a
-   * subtree without the :root block). */
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
+  --sidebar: #f6f8fc;
+  --sidebar-foreground: #5c6b80;
+  --sidebar-primary: #0284c7;
+  --sidebar-primary-foreground: #040d18;
+  --sidebar-accent: #edf0f7;
+  --sidebar-accent-foreground: #5c6b80;
+  --sidebar-border: rgba(0, 0, 0, 0.08);
+  --sidebar-ring: #0284c7;
+
+  /* Radius scale */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
 
   /* Sub-brand accent override (set via JS at runtime) */
   --sub-brand-accent: var(--primary);
@@ -304,7 +347,18 @@
   }
 }
 
+/* Respect reduced-motion: disable transitions and animations entirely. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
 html {
+  scroll-behavior: smooth;
   font-family: var(--font-body);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -314,8 +368,26 @@ html {
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.18);
+  color: var(--text);
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius);
 }
 
 /* Interactive elements show a pointer cursor.
@@ -348,37 +420,188 @@ summary {
 }
 
 .glass {
-  background: oklch(0.155 0.02 240 / 80%);
+  background: color-mix(in oklab, var(--panel) 80%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
 /* Glass card: elevated glassmorphic surface for hero sections */
 .glass-card {
-  background: oklch(0.155 0.02 240 / 60%);
+  background: color-mix(in oklab, var(--panel) 60%, transparent);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid oklch(1 0 0 / 8%);
+  border: 1px solid var(--border-bright);
   box-shadow: var(--elevation-md), var(--elevation-inset);
 }
 
-[data-theme="light"] .glass-card {
-  background: oklch(0.97 0.01 240 / 60%);
-  border: 1px solid oklch(0 0 0 / 8%);
-  box-shadow:
-    0 8px 32px oklch(0 0 0 / 8%),
-    inset 0 0 0 1px oklch(1 0 0 / 50%);
+/* ── Animation keyframes ────────────────────────────────────────
+ * These keyframes back the facet animation components that animate
+ * directly (Marquee, InputOTP caret) and the marketing surface
+ * animations defined in the scratchpad design system. */
+@keyframes facet-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-/* Frost: frosted surface optimized for readability over glass.
- * More opaque than glass-card so body text stays high-contrast on top
- * of blurred content. All values are CSS variables so consumers can
- * customize the frost (opacity, blur radius, border, shadow) per theme. */
+@keyframes caret-blink {
+  0%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ── Scratchpad marketing keyframes ───────────────────────────── */
+@keyframes aurora-shift {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(90deg) scale(1.15);
+  }
+  100% {
+    transform: rotate(180deg) scale(1);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes ripple-expand {
+  from {
+    transform: scale(0);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes beam-move {
+  0%,
+  100% {
+    transform: translateX(-120%) skewX(-12deg);
+    opacity: 0;
+  }
+  35%,
+  65% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(320%) skewX(-12deg);
+  }
+}
+
+@keyframes reveal-up {
+  0% {
+    opacity: 0;
+    filter: blur(4px);
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes grid-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}
+
+@keyframes typewriter-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes shine-sweep {
+  from {
+    background-position: -200% center;
+  }
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spotlight-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes tilt-rock {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes facet-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .frost {
-  --frost-bg: oklch(0.155 0.02 240 / 82%);
+  --frost-bg: color-mix(in oklab, var(--panel) 82%, transparent);
   --frost-blur: 16px;
-  --frost-border: 1px solid oklch(1 0 0 / 10%);
-  --frost-shadow: var(--elevation-md), inset 0 0 0 1px oklch(1 0 0 / 5%);
+  --frost-border: 1px solid var(--border-bright);
+  --frost-shadow: var(--elevation-md), inset 0 0 0 1px var(--border);
 
   background: var(--frost-bg);
   backdrop-filter: blur(var(--frost-blur));
@@ -388,21 +611,24 @@ summary {
 }
 
 [data-theme="light"] .frost {
-  --frost-bg: oklch(0.99 0.01 240 / 88%);
-  --frost-border: 1px solid oklch(0 0 0 / 10%);
-  --frost-shadow:
-    0 8px 32px oklch(0 0 0 / 12%), inset 0 0 0 1px oklch(1 0 0 / 60%);
+  --frost-bg: color-mix(in oklab, var(--panel) 88%, transparent);
+  --frost-border: 1px solid rgba(0, 0, 0, 0.1);
+  --frost-shadow: 0 8px 32px rgba(0, 0, 0, 0.12%), inset 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
 .text-gradient {
   background: linear-gradient(
     135deg,
-    oklch(0.82 0.13 220) 0%,
-    oklch(0.9 0.1 215) 100%
+    var(--accent) 0%,
+    color-mix(in oklab, var(--accent) 85%, transparent) 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+@utility border-glow {
+  border-color: color-mix(in oklab, var(--primary) 25%, transparent);
 }
 
 /* ── Animation keyframes ────────────────────────────────────────

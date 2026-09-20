@@ -1,7 +1,7 @@
 /**
  * Per-framework certification is verified in CI, not in a hosted playground:
  * `facet docs init` / `facet emails init` / `facet motion preview` emit stacks
- * for react-vite, next, remix, plain-js, plain-css, python — each snapshotted
+ * for react-vite, next, remix, plain-js, plain-css, python - each snapshotted
  * by the verify-first workflow. See .github/workflows/ci-cd.yml.
  *
  * The sandbox host itself is framework-agnostic (block registry + adapter
@@ -46,7 +46,7 @@ export function StackAgnosticism() {
         </tbody>
       </table>
       <p className="text-xs text-muted-foreground">
-        Run <code>facet init</code> in any folder — the wizard auto-detects the
+        Run <code>facet init</code> in any folder - the wizard auto-detects the
         framework and writes facet config. CI diffs the output per stack.
       </p>
     </div>

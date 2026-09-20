@@ -1,8 +1,8 @@
 /**
- * @fusorb/facet-motion — CSS driver
+ * @fusorb/facet-motion - CSS driver
  *
  * The only driver in Phase 1. It:
- *  1. Detects `prefers-reduced-motion` at the driver boundary —
+ *  1. Detects `prefers-reduced-motion` at the driver boundary -
  *     a component author using the engine directly cannot bypass it.
  *  2. Subscribes to motion values and writes them to `element.style`
  *     (regular CSS properties and CSS custom properties alike).

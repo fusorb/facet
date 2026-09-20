@@ -1,7 +1,7 @@
 /**
- * @fusorb/facet-motion — domain-customizable animation engine.
+ * @fusorb/facet-motion - domain-customizable animation engine.
  *
- * Layered architecture (per .agent/facet-motion-architecture.md):
+ * Layered architecture (archived in `.agent/episodes.md` EP 36):
  *   core/   → animate(), sequence(), stagger(), tween, spring (zero DOM)
  *   values/ → motionValue() observable (get/set/subscribe)
  *   drivers/ → cssDriver (applies values to element.style, prefers-reduced-motion)
@@ -9,13 +9,13 @@
  *   react/   → <Motion>, <Presence>, <Reveal>, <Stagger> thin JSX bindings
  *
  * Duration/easing tokens resolve against @fusorb/facet-tokens CSS custom
- * properties — the registry never hardcodes a millisecond or bezier value.
+ * properties - the registry never hardcodes a millisecond or bezier value.
  */
 
 // utils
 export { cn } from "./utils/cn.js";
 
-// core — framework-agnostic generators + orchestration
+// core - framework-agnostic generators + orchestration
 export { animate, sequence, stagger, defaultScheduler, tween, spring } from "./core/index.js";
 export type {
   AnimateOptions,
@@ -31,11 +31,11 @@ export type {
   Unscheduler,
 } from "./core/index.js";
 
-// values — observable motion value (seam between core and drivers)
+// values - observable motion value (seam between core and drivers)
 export { motionValue } from "./values/index.js";
 export type { MotionValue, MotionValueSubscriber } from "./values/index.js";
 
-// drivers — the only layer that touches a real target (CSS / DOM)
+// drivers - the only layer that touches a real target (CSS / DOM)
 export { cssDriver, preferReducedMotion, resolveDuration, resolveEasing } from "./drivers/index.js";
 export type {
   MotionDriver,
@@ -45,7 +45,7 @@ export type {
   Unsubscribe,
 } from "./drivers/index.js";
 
-// registry — data-driven effect resolution
+// registry - data-driven effect resolution
 export {
   resolveMotion,
   get,
@@ -82,7 +82,7 @@ export type {
   DomainMotionConfig,
 } from "./registry/index.js";
 
-// react — thin JSX bindings (no animation logic)
+// react - thin JSX bindings (no animation logic)
 export { Motion, Presence, Reveal, Stagger } from "./react/index.js";
 export type { MotionProps, PresenceProps, RevealProps, StaggerProps } from "./react/index.js";
 export { PresenceContext, StaggerContext } from "./react/index.js";

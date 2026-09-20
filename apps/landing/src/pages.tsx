@@ -1,13 +1,17 @@
 import type { ReactNode } from "react";
 
 import { AboutPage } from "./pages/AboutPage.js";
+import { AuthLabPage } from "./pages/AuthLabPage.js";
+import { ComponentsPage } from "./pages/ComponentsPage.js";
 import { DashboardDemoPage } from "./pages/DashboardDemoPage.js";
 import { EcosystemDetailPage } from "./pages/EcosystemDetailPage.js";
 import { EcosystemPage } from "./pages/EcosystemPage.js";
 import { FeedbackPage } from "./pages/FeedbackPage.js";
 import { HomePage } from "./pages/HomePage.js";
+import { MotionLabPage } from "./pages/MotionLabPage.js";
 import { PricingPage } from "./pages/PricingPage.js";
 import { SecurityPage } from "./pages/SecurityPage.js";
+import { TokensPage } from "./pages/TokensPage.js";
 
 export type NavGroup = "product" | "resources";
 
@@ -75,6 +79,34 @@ export const pages: LandingPage[] = [
       "A working dashboard assembled entirely from facet components.",
     navGroup: "product",
     element: <DashboardDemoPage />,
+  },
+  {
+    path: "/components",
+    title: "Component catalog",
+    description: "Browse all 114+ components across 7 categories.",
+    navGroup: "product",
+    element: <ComponentsPage />,
+  },
+  {
+    path: "/lab/auth",
+    title: "Auth Lab",
+    description: "Interactive auth state machine with domain presets.",
+    navGroup: "product",
+    element: <AuthLabPage />,
+  },
+  {
+    path: "/lab/motion",
+    title: "Motion Lab",
+    description: "Interactive motion effect gallery with configuration.",
+    navGroup: "product",
+    element: <MotionLabPage />,
+  },
+  {
+    path: "/lab/tokens",
+    title: "Token Explorer",
+    description: "Explore all CSS custom properties with live theme values.",
+    navGroup: "product",
+    element: <TokensPage />,
   },
   {
     path: "/feedback",

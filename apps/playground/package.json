@@ -1,8 +1,8 @@
 {
   "name": "@fusorb/facet-playground",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Live playground for @fusorb/facet — device-framed previews of motion presets + a stubbed fullstack auth flow. Powered by @fusorb/facet-sandbox.",
+  "description": "Live playground for @fusorb/facet - device-framed previews of motion presets + a stubbed fullstack auth flow. Powered by @fusorb/facet-sandbox.",
   "type": "module",
   "scripts": {
     "dev": "vite",

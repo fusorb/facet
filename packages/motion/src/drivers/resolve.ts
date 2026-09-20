@@ -1,10 +1,10 @@
 /**
- * @fusorb/facet-motion — token resolution (platform-agnostic)
+ * @fusorb/facet-motion - token resolution (platform-agnostic)
  *
  * Converts registry token strings ("fast", "standard") into the numeric /
  * function values the core `animate()` loop needs.
  *
- * The duration and easing lookup tables are NOT hardcoded here — they are
+ * The duration and easing lookup tables are NOT hardcoded here - they are
  * derived from `@fusorb/facet-tokens`' `motionValues.facetDuration` /
  * `facetEasing`, which are kept in sync with the `--facet-motion-duration-*`
  * / `--facet-motion-ease-*` CSS custom properties by
@@ -89,7 +89,7 @@ export function easingValueToFunction(value: EasingValue): EasingFunction {
 }
 
 /**
- * Duration tokens (ms), sourced from `motionValues.facetDuration` — no
+ * Duration tokens (ms), sourced from `motionValues.facetDuration` - no
  * hardcoded literals here, so the JS table tracks the CSS custom properties.
  */
 export const DURATION_VALUES: Record<string, number> = {

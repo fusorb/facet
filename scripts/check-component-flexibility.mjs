@@ -3,11 +3,11 @@
 // asserts an invariant across every ui/ component and fails (exit 1) on drift.
 //
 // Invariant (from CLAUDE.md -> Architecture -> 3 customization axes):
-//   appearance  — style overrides: className passthrough styled with design
+//   appearance  - style overrides: className passthrough styled with design
 //                 tokens (cn/cva/clsx/tailwind-merge) so consumers can theme.
-//   config       — a typed props surface for behavior/data (extends
+//   config       - a typed props surface for behavior/data (extends
 //                 *HTMLAttributes, or cva/VariantProps, or named typed props).
-//   slots        — content/render injection (render* props, ReactNode/ReactElement
+//   slots        - content/render injection (render* props, ReactNode/ReactElement
 //                 props, asChild/as element substitution, or children).
 //
 // Layer-aware: leaf primitives (styled inputs, labels, etc.) are expected to

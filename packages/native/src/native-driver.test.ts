@@ -17,7 +17,7 @@ import type {
 
 /* ---------- test fixtures ---------- */
 
-/** A minimal observable number — structurally compatible with
+/** A minimal observable number - structurally compatible with
  *  facet-motion's MotionValue, so a real MotionValue can be passed in. */
 interface TestMotionValue extends NativeMotionValue {
   set(v: number): void;

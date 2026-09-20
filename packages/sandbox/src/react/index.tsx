@@ -495,7 +495,7 @@ function toReactNode(
 
 /**
  * Main parser entry point. Strips imports, finds the `return` expression, and
- * recursively parses all JSX — handling fragments, nested components, JSX inside
+ * recursively parses all JSX - handling fragments, nested components, JSX inside
  * brace expressions, HTML elements, and multiple roots.
  */
 export function renderFromCode(
@@ -639,7 +639,7 @@ export type ComponentMap = Record<string, React.ComponentType<any>>;
 /**
  * Default adapter. Turns consumer source into React nodes via the parser and
  * hands them back as `{ kind: "node", node }` for the host to render. Per the
- * `SandboxAdapter` contract it never throws — a parse failure becomes a readable
+ * `SandboxAdapter` contract it never throws - a parse failure becomes a readable
  * error node instead.
  */
 export const reactAdapter: SandboxAdapter = {

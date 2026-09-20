@@ -1,19 +1,19 @@
 /**
- * @fusorb/facet-motion — authored / signature effects.
+ * @fusorb/facet-motion - authored / signature effects.
  *
- * 18 handwritten effects from `.agent/facet-motion-registry-spec.md` §3.
+ * 18 handwritten effects, per the registry design (archived in `.agent/episodes.md` EP 36).
  * Each registers into the same `MotionEffectDefinition` shape
  * (`kind: "authored"`) so `<Motion effect="shake" />` works identically
  * from the consumer's side.
  *
- * Per the architecture doc, these are NOT implemented in Phase 1 —
+ * Per the architecture doc, these are NOT implemented in Phase 1 -
  * `resolve()` is absent and `resolveMotion()` throws a clear
  * "deferred to Phase 4" error. Consumers can still branch on
  * `registry.get(id).kind === "authored"`.
  *
  * NOTE: the spec text says "14 authored effects" but the §3 table
  * enumerates 18 rows. All 18 are registered here to avoid a silent
- * gap — the count discrepancy is a spec drafting error, not a design
+ * gap - the count discrepancy is a spec drafting error, not a design
  * decision.
  */
 

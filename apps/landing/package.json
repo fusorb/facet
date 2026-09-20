@@ -1,11 +1,11 @@
 {
   "name": "@fusorb/facet-landing",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node ../../scripts/gen-site-data.mjs && vite build",
+    "build": "node ../../scripts/gen-site-data.mjs && node ../../scripts/gen-changelog.mjs && vite build",
     "analyze": "vite-bundle-visualizer",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"

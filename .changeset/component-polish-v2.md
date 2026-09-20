@@ -9,14 +9,14 @@ Animation + layout polish (V2-READINESS):
   `facet-overlay-in/out` (120ms ease-out in / 100ms ease-in out) instead of
   Radix default `animate-in/fade-in/zoom-in-95`. Modals (Dialog, Sheet,
   AlertDialog) and NavigationMenu viewport retain their centred zoom per
-  the intentional animation grammar — the two systems are NOT unified.
+  the intentional animation grammar - the two systems are NOT unified.
 - Navbar: glass-header redesign with scroll-aware `data-stuck` state;
   pill flattened to a full-width integrated surface (light `bg-background/60`
   + `backdrop-blur-xl` at rest, intensifying to `bg-background/95` + shadow
   on scroll). Removed duplicate native tooltip.
 - FaqSection: new `limit`, `showMoreLabel`, and `showLessLabel` props
   (Google-style show-more reveal).
-- DropdownMenu: icon-aware description indent — text-only items no longer
+- DropdownMenu: icon-aware description indent - text-only items no longer
   receive a 24px jump; label and description align in both single-column and
   megamenu variants.
 - ShineButton: inline-flex content span so icon no longer stacks on text.

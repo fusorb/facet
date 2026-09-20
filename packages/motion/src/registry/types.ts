@@ -1,7 +1,7 @@
 /**
- * @fusorb/facet-motion — registry types
+ * @fusorb/facet-motion - registry types
  *
- * Per `.agent/facet-motion-registry-spec.md` section 1.
+ * Per the motion registry design (archived in `.agent/episodes.md` EP 36).
  * These types define the registry's public contract.
  */
 
@@ -55,10 +55,23 @@ export interface MotionVariant {
   intensity?: Intensity;
 }
 
+/** Keyframe milestone for multi-step authored effects (e.g. aurora's 3-step cycle). */
+export interface MotionKeyframe {
+  /** Position within the animation cycle (0–100). */
+  percent: number;
+  /** Style properties at this point. */
+  style: Record<string, string | number>;
+}
+
 export interface ResolvedMotion {
   from: Record<string, string | number>;
   to: Record<string, string | number>;
   transition: Required<Pick<MotionTransition, "duration" | "ease">> & MotionTransition;
+  /**
+   * Optional intermediate keyframes for multi-step authored effects
+   * (e.g. aurora, tilt). Excludes `from` (0%) and `to` (100%).
+   */
+  keyframes?: MotionKeyframe[];
 }
 
 export interface MotionEffectDefinition {
@@ -68,12 +81,12 @@ export interface MotionEffectDefinition {
   directions?: Direction[];
   intensities?: Intensity[];
   defaultTransition: MotionTransition;
-  /** Generative only — pure function, no DOM access. */
+  /** Generative only - pure function, no DOM access. */
   resolve?: (
     variant: MotionVariant,
     transition: MotionTransition,
   ) => ResolvedMotion;
-  /** Authored only — reference to a handwritten keyframe/motion-value program. */
+  /** Authored only - reference to a handwritten keyframe/motion-value program. */
   program?: string;
 }
 

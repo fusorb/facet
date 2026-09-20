@@ -1,0 +1,59 @@
+/* Lab + architecture surface vocabulary + shared keyframes.
+ *
+ * Imported once in main.tsx so every lab route and the architecture graph
+ * share one palette. --domain-accent is set at runtime by the DomainProvider
+ * (see domain-context.tsx) from the active LAB_DOMAIN preset. */
+
+:root {
+  /* Semantic colors not present in facet-tokens but used by lab syntax
+     highlighting and category indicators. */
+  --violet: oklch(0.68 0.26 290); /* ~ violet-400 / #a78bfa */
+  --amber: oklch(0.75 0.15 55); /* ~ amber-500 / #f59e0b */
+}
+
+.lab {
+  --domain-accent: var(--primary);
+}
+
+/* "live" dot used by the hero brand line and the auth live indicator. */
+.lab-live {
+  animation: lab-pulse 2s infinite ease-in-out;
+}
+
+/* fade-in for architecture node connectors + dots (depth-staggered). */
+.lab-node-elem {
+  opacity: 0;
+  animation: lab-fade 0.45s ease-out forwards;
+}
+
+@keyframes lab-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes lab-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes lab-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.lab :where(input, textarea):focus-visible {
+  outline: 2px solid var(--domain-accent);
+  outline-offset: 2px;
+}

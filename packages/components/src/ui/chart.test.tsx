@@ -546,7 +546,7 @@ describe("Chart", () => {
     const svg = container.querySelector("svg")!;
     await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
     // For radial charts, a cartesian snap would re-target the slice nearest the
-    // cursor's X — overriding the slice actually under the pointer. Only slice
+    // cursor's X - overriding the slice actually under the pointer. Only slice
     // onMouseEnter should drive radial hover.
     expect(container.querySelector(".absolute.z-10")).toBeNull();
   });
@@ -733,7 +733,7 @@ describe("Chart", () => {
       d = path?.getAttribute("d") ?? "";
     // Starts with M <originX>,<baselineY> then steps toward first data point
     const match = d.match(/M ([\d.]+),([\d.]+)/)!;
-    // originX should be padding.left (56) — the left edge of the plot area
+    // originX should be padding.left (56) - the left edge of the plot area
     expect(parseFloat(match[1]!)).toBe(56);
     // baselineY should be padding.top + plotH = 20 + (240-20-40) = 200
     expect(parseFloat(match[2]!)).toBe(200);
@@ -819,7 +819,7 @@ describe("Chart", () => {
     expect(crosshair).toBeInTheDocument();
     // Line snaps to the nearest data point (index 0 → xOf(0) = 128).
     expect(parseFloat(crosshair!.getAttribute("x1")!)).toBe(128);
-    // Crosshair dot is hidden when crosshairSnap=true (default for line) —
+    // Crosshair dot is hidden when crosshairSnap=true (default for line) -
     // the active data-point dot already marks the position.
     const dot = Array.from(container.querySelectorAll("circle")).find(
       (c) =>
@@ -938,7 +938,7 @@ describe("Chart", () => {
     const svg = container.querySelector("svg")!;
     await fireEvent.mouseMove(svg, { clientX: 100, clientY: 50 });
     // The active data dot (r=8 = 6+2) should carry the custom duration in its
-    // inline transition style — proving transitionDuration is wired, not hardcoded.
+    // inline transition style - proving transitionDuration is wired, not hardcoded.
     const dots = Array.from(container.querySelectorAll("circle[fill]")).filter(
       (c) => c.getAttribute("r") !== "4" /* exclude crosshair dot */,
     );

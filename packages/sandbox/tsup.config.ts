@@ -13,7 +13,7 @@ export default defineConfig({
   dts: true,
   clean: true,
   // react is an (optional) peer dependency and is externalized automatically;
-  // prettier is optional — formatting degrades to a no-op when it's absent.
+  // prettier is optional - formatting degrades to a no-op when it's absent.
   external: [/^react/, /^react-dom/, /^prettier/],
   banner: {
     js: '"use client";',

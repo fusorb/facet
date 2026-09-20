@@ -4,7 +4,7 @@ import { Button } from "@fusorb/facet-components";
 /**
  * Simulated auth flow demo.
  *
- * This does NOT call a real OAuth provider — it stubs the token exchange so the
+ * This does NOT call a real OAuth provider - it stubs the token exchange so the
  * playground can illustrate a multi-step fullstack flow inside the sandbox:
  *   sign-in → access token → 401 (expired) → auto-refresh → session
  *   restored → tenant switch → re-authenticate.
@@ -31,7 +31,7 @@ export function AuthFlow() {
 
   const signIn = () => {
     setStep("loading");
-    add("POST /oauth/token — signing in…");
+    add("POST /oauth/token - signing in…");
     setTimeout(() => {
       setToken("access-token (stub)");
       setStep("authed");
@@ -63,7 +63,7 @@ export function AuthFlow() {
   const switchTenant = () => {
     setStep("idle");
     setToken(null);
-    add("tenant switch — clearing session");
+    add("tenant switch - clearing session");
   };
 
   return (
@@ -96,7 +96,7 @@ export function AuthFlow() {
       </pre>
       <p className="text-xs text-muted-foreground">
         Simulated. Swap the stub for <code>@fusorb/facet-auth</code> (ArcProvider
-        + useAuth) to drive a real OAuth/SovGrant backend — the 401→refresh→tenant
+        + useAuth) to drive a real OAuth/SovGrant backend - the 401→refresh→tenant
         path is identical.
       </p>
     </div>

@@ -14,6 +14,7 @@ import { LightIcon } from "@fusorb/facet-components/light";
 import { site, getDocsUrl } from "../site.config.js";
 import { pages } from "../pages.js";
 import { Wordmark } from "./Brand.js";
+import { DomainToggle } from "./DomainToggle.js";
 
 /** Nav links derived from the pages registry + in-page anchors.
  *  Built lazily (not at module scope) so importing this module never
@@ -24,13 +25,20 @@ function getLinks(): NavLink[] {
   {
     href: "#product",
     label: "Product",
-    children: pages
-      .filter((p) => p.navGroup === "product")
-      .map((p) => ({
-        href: p.path,
-        label: p.title,
-        description: p.description,
-      })),
+    children: [
+      ...pages
+        .filter((p) => p.navGroup === "product")
+        .map((p) => ({
+          href: p.path,
+          label: p.title,
+          description: p.description,
+        })),
+      {
+        href: "#architecture",
+        label: "Architecture",
+        description: "How the four layers compose",
+      },
+    ],
   },
   {
     href: "#resources",
@@ -229,6 +237,12 @@ export function Nav() {
             <GithubIcon size={16} />
             GitHub
           </a>
+          <div className="hidden lg:flex">
+            <DomainToggle />
+          </div>
+          <div className="lg:hidden">
+            <DomainToggle compact />
+          </div>
           <TooltipProvider delayDuration={200}>
             <Tooltip>
               <TooltipTrigger asChild>

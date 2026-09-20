@@ -166,8 +166,9 @@ export function AboutPage() {
         <p className="mt-3 text-sm text-muted-foreground">
           The same toolchain you can see in the open-source repo.
         </p>
-        <div className="mt-6 flex flex-wrap gap-2">
-          {STACK.map((s) => (
+        <div className="mt-6 overflow-x-auto">
+          <div className="flex min-w-max gap-2">
+            {STACK.map((s) => (
             <span
               key={s.name}
               className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1 text-xs text-foreground/80"
@@ -176,6 +177,7 @@ export function AboutPage() {
               <span className="text-xs opacity-50">· {s.tag}</span>
             </span>
           ))}
+          </div>
         </div>
       </section>
 

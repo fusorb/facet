@@ -959,6 +959,12 @@ export {
 export { type TreeNode, type TreeProps, Tree } from "./ui/tree.js";
 
 export {
+  type SystemNode,
+  type LayerGraphProps,
+  LayerGraph,
+} from "./ui/layer-graph.js";
+
+export {
   type MultiComboboxOption,
   type MultiComboboxProps,
   MultiCombobox,

@@ -2,7 +2,7 @@
  * Frame scheduler abstraction.
  *
  * Uses `requestAnimationFrame` when available (browser) and falls back
- * to `setInterval` (~60 fps) for plain Node environments — so core/
+ * to `setInterval` (~60 fps) for plain Node environments - so core/
  * can be unit-tested with `vi.useFakeTimers()` and no jsdom.
  *
  * Consumers can inject a custom scheduler for testing or for platforms

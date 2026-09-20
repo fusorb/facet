@@ -1,13 +1,13 @@
 /**
- * @fusorb/facet-motion — 15 generative families.
+ * @fusorb/facet-motion - 15 generative families.
  *
  * Each entry is a `MotionEffectDefinition` with a pure `resolve()` function
  * that maps (effect × direction × intensity × duration × easing) into a
- * `ResolvedMotion` — framework-agnostic keyframe data with no DOM access.
+ * `ResolvedMotion` - framework-agnostic keyframe data with no DOM access.
  *
- * Intensity tables derive from `.agent/facet-motion-registry-spec.md` §2.
+ * Intensity tables per the registry design (archived in `.agent/episodes.md` EP 36).
  * Where the sheet gave only one tier (e.g. flip's 90° example), the
- * remaining tiers are filled with a sensible geometric progression —
+ * remaining tiers are filled with a sensible geometric progression -
  * see the open-decision comment in registry/index.ts.
  */
 
@@ -49,7 +49,7 @@ const BLUR_RADIUS: Record<Intensity, number> = {
   dramatic: 20,
 };
 
-/** Open-decision §5.1 — rotation degrees per intensity tier. */
+/** Open-decision §5.1 - rotation degrees per intensity tier. */
 const FLIP_ROTATION: Record<Intensity, number> = {
   subtle: 15,
   soft: 30,
@@ -58,7 +58,7 @@ const FLIP_ROTATION: Record<Intensity, number> = {
   dramatic: 180,
 };
 
-/** Open-decision §5.1 — text-reveal distance per intensity tier. */
+/** Open-decision §5.1 - text-reveal distance per intensity tier. */
 const TEXT_DISTANCE: Record<Intensity, number> = {
   subtle: 4,
   soft: 12,
@@ -246,7 +246,7 @@ export const zoom: MotionEffectDefinition = {
       };
     }
 
-    // "in" (no direction) — scale only
+    // "in" (no direction) - scale only
     return {
       from: { opacity: 0, transform: `scale(${s})` },
       to: { opacity: 1, transform: "scale(1)" },
@@ -717,5 +717,5 @@ export const generativeFamilies: MotionEffectRegistry = {
   "text-reveal": textReveal,
 };
 
-/** Keys of `generativeFamilies` — the 15 family IDs. */
+/** Keys of `generativeFamilies` - the 15 family IDs. */
 export const GENERATIVE_FAMILY_IDS = Object.keys(generativeFamilies);

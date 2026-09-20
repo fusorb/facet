@@ -337,7 +337,7 @@ export function Navbar({
               { onNavigate: handleNav },
             )
           ) : (
-            <div className="flex flex-col gap-1">
+            <div className="flex max-h-[60vh] flex-col gap-1 overflow-y-auto p-1">
               {links.map((link) => (
                 <MobileNavLink
                   key={link.href}
@@ -381,7 +381,13 @@ function NavLinkItem({
       ? router.isActive(link.href)
       : typeof window !== "undefined" && isHrefActive(link.href));
 
-  // Active item gets a subtle chip (rounded-full in pill mode, square otherwise).
+  // In click mode Radix owns open/close; we mirror the state locally so the
+  // chevron can rotate on toggle.  In hover mode the parent openDropdown is
+  // the source of truth.
+  const [localOpen, setLocalOpen] = React.useState(false);
+  const isDropdownOpen = hoverDropdowns
+    ? openDropdown === link.href
+    : localOpen;
   const itemClass = cn(
     "flex items-center gap-2 text-sm font-medium transition-colors",
     isPill ? "rounded-full px-3 py-1.5" : "rounded-md px-3 py-2",
@@ -425,7 +431,9 @@ function NavLinkItem({
             setOpenDropdown?.(link.href);
           }
         }
-      : undefined;
+      : (open: boolean) => {
+          setLocalOpen(open);
+        };
 
     const triggerClick = hoverDropdowns
       ? (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -479,7 +487,10 @@ function NavLinkItem({
             )}
             <Icon
               name="chevron-down"
-              className="text-muted-foreground/60"
+              className={cn(
+                "text-muted-foreground/60 transition-transform duration-200",
+                isDropdownOpen && "rotate-180",
+              )}
               aria-hidden="true"
             />
           </button>
@@ -492,13 +503,8 @@ function NavLinkItem({
           {...contentHoverProps}
         >
           {isMega ? (
-            /* Wide multi-column megamenu (OpenAI-style) */
-            <div
-              className="grid gap-2"
-              style={{
-                gridTemplateColumns: `repeat(${Math.min(link.columns ?? 2, 4)}, minmax(0,1fr))`,
-              }}
-            >
+            /* Multi-column megamenu — flex layout for even, scrollable flow */
+            <div className="flex flex-col gap-1.5">
               {link.children.map((child) => (
                 <DropdownMenuItem
                   key={child.href}

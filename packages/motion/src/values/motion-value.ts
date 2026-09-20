@@ -1,8 +1,8 @@
 /**
- * @fusorb/facet-motion — values layer
+ * @fusorb/facet-motion - values layer
  *
  * A motion value is a plain observable number container. It knows nothing
- * about React, the DOM, or CSS — it is simply "this number changes over
+ * about React, the DOM, or CSS - it is simply "this number changes over
  * time and anyone can subscribe." This is the load-bearing abstraction
  * that lets core/ and drivers/ stay decoupled.
  */

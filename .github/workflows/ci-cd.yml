@@ -42,7 +42,7 @@ jobs:
   # Requires `contents: write` to push the changeset-release/main branch,
   # `pull-requests: write` to open/update the version PR, and `issues: write`
   # for the action to post a comment on that PR (PR comments are issue comments
-  # in the GitHub GraphQL API). All three were needed — the old job lacked
+  # in the GitHub GraphQL API). All three were needed - the old job lacked
   # `issues: write`, causing "Resource not accessible by integration" on PR
   # comment creation.
   #

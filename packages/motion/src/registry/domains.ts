@@ -1,7 +1,7 @@
 /**
- * @fusorb/facet-motion — domain presets.
+ * @fusorb/facet-motion - domain presets.
  *
- * Per `.agent/facet-motion-registry-spec.md` §4, each product domain gets a
+ * Per the registry design, each product domain gets a
  * tailored motion profile that adjusts timing, distance, and allowed effects.
  *
  * Mirrors the auth preset structure (`packages/auth/src/presets.ts`) so the
@@ -36,7 +36,7 @@ export interface DomainMotionConfig {
 /* ── Fintech ────────────────────────────────────────────────
    Professional / conservative.
    Short durations, standard easing, minimal movement.
-   No spring or bounce — too informal for financial data.
+   No spring or bounce - too informal for financial data.
    ───────────────────────────────────────────────────────── */
 export const fintechMotion: DomainMotionConfig = {
   defaultTransition: { duration: "fast", ease: "standard", type: "tween" },
@@ -78,7 +78,7 @@ export const eduMotion: DomainMotionConfig = {
 
 /* ── Enterprise ───────────────────────────────────────────────
    Balanced / professional.
-   Standard easing, slightly reduced movement. No spring —
+   Standard easing, slightly reduced movement. No spring -
    enterprise apps value predictability.
    ───────────────────────────────────────────────────────── */
 export const enterpriseMotion: DomainMotionConfig = {
@@ -106,8 +106,8 @@ export const defaultMotion: DomainMotionConfig = {
  * Resolve an easing token to its cubic-bezier coordinates.
  *
  * Curves are sourced from `@fusorb/facet-tokens` `motionValues.facetEasing`
- * — the same table that `drivers/resolve.ts` derives `EASING_FUNCTIONS` from
- * — so the JS lookup never drifts from the `--facet-motion-ease-*` CSS
+ * - the same table that `drivers/resolve.ts` derives `EASING_FUNCTIONS` from
+ * - so the JS lookup never drifts from the `--facet-motion-ease-*` CSS
  * custom properties (parity is enforced by `scripts/audit-motion-parity.mjs`).
  */
 const easingFor = (e: Easing): number[] => {

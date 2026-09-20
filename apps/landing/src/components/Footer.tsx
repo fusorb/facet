@@ -21,9 +21,18 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     title: "Product",
     links: [
       { label: "Ecosystem", href: "/ecosystem" },
+      { label: "Component catalog", href: "/components" },
       { label: "Pricing", href: "/pricing" },
       { label: "Security surfaces", href: "/security" },
       { label: "Console demo", href: "/dashboard-demo" },
+    ],
+  },
+  {
+    title: "Lab",
+    links: [
+      { label: "Auth Lab", href: "/lab/auth" },
+      { label: "Motion Lab", href: "/lab/motion" },
+      { label: "Token Explorer", href: "/lab/tokens" },
     ],
   },
   {

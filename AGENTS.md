@@ -5,14 +5,13 @@ It overrides/supplements CLAUDE.md for AI agents.
 
 ## Session Protocol
 
-1. Always write analysis and planning output to `.agent/todo.txt` first,
+1. Always write analysis and planning output to `.agent/output.txt` first,
    so the user can read from that file instead of scrolling the terminal.
-2. After every significant milestone, update `.agent/todo.txt` status dashboard.
+2. After every significant milestone, update `.agent/output.txt` status dashboard.
 3. When starting a new package, read any existing `.agent/**` planning files
    first before writing code.
 4. `.agent/` is local-only (gitignored); it contains the live dashboard
-   (`output.txt`), todo tracker (`todo.txt`), and the architectural
-   episode canon (`episodes.md`, `episodes-plain.md`).
+   (`output.txt`) and the architectural episode canon (`episodes.md`).
 
 ## Architecture Rules
 
@@ -34,7 +33,8 @@ It overrides/supplements CLAUDE.md for AI agents.
 See `CLAUDE.md` and the README for the verified build/test/typecheck state.
 `.agent/output.txt` is the local-only live dashboard.
 
-The repo is in a commit-stable state (working tree clean). The three P0
+The repo's tracked state reflects the latest committed work; the working tree
+may contain in-progress changes. The three P0
 breakages from the previous analysis (storiesDir path, missing
 @storybook/react, root tsconfig reference) were fixed on 2026-08-03 in
 commit 43ccd14: Storybook is fully purged and the drift gate is a barrel

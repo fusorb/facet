@@ -4,7 +4,7 @@
  *
  * The motion driver (`packages/motion/src/drivers/resolve.ts`) derives its
  * `DURATION_VALUES` and `EASING_FUNCTIONS` lookup tables from `motionValues`
- * (`packages/tokens/src/motion.ts`) — a single source of truth with no
+ * (`packages/tokens/src/motion.ts`) - a single source of truth with no
  * hardcoded literals. The React Native driver (`@fusorb/facet-native`) reads
  * the same `motionValues`.
  *
@@ -41,7 +41,7 @@ const derivesFromTokens =
 if (!derivesFromTokens) {
   console.error(
     "audit:motion-parity: resolve.ts must derive DURATION_VALUES / EASING_FUNCTIONS\n" +
-      "  from `motionValues` (@fusorb/facet-tokens) — hardcoded literals detected.\n" +
+      "  from `motionValues` (@fusorb/facet-tokens) - hardcoded literals detected.\n" +
       "  Expected an import of { motionValues } and tables built via\n" +
       "  { ...motionValues.facetDuration } and Object.entries(motionValues.facetEasing).",
   );

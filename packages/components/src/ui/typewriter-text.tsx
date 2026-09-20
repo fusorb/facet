@@ -23,7 +23,7 @@ export interface TypewriterTextProps extends React.HTMLAttributes<HTMLSpanElemen
   delay?: number;
   /** Show the blinking caret. Default: true. */
   showCaret?: boolean;
-  /** Class for the caret span (e.g. "text-primary"). */
+  /** Class for the caret span (e.g. "border-primary"). */
   caretClassName?: string;
 }
 
@@ -75,11 +75,9 @@ export function TypewriterText({
           aria-hidden="true"
           className={
             caretClassName ??
-            "ml-0.5 inline-block w-0.5 animate-pulse text-primary"
+            "ml-0.5 inline-block h-[1em] w-px animate-caret-blink border-r-2 border-primary align-text-bottom"
           }
-        >
-          |
-        </span>
+        />
       )}
     </span>
   );

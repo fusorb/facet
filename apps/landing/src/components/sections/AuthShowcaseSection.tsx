@@ -17,6 +17,7 @@ import {
   Pill,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
+import { useDomain } from "../../lib/domain-context.js";
 
 /**
  * Live auth surfaces from the ready-to-use auth components. Switches
@@ -28,6 +29,7 @@ import { LightIcon } from "@fusorb/facet-components/light";
 export function AuthShowcaseSection() {
   const [tab, setTab] = React.useState("password");
   const [password, setPassword] = React.useState("");
+  const { domain } = useDomain();
 
   return (
     <section id="auth" className="mx-auto max-w-5xl px-8 py-24">
@@ -35,20 +37,15 @@ export function AuthShowcaseSection() {
         <Pill
           color="primary"
           indicator="icon"
-          icon={<LightIcon name="shield-check" size={12} />}
+          icon={<LightIcon name={domain.authSection.labelIcon} size={12} />}
         >
-          Auth
+          {domain.authSection.label}
         </Pill>
         <h2 className="mt-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
-          Auth flows you can show, not describe
+          {domain.authSection.title}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Live surfaces from{" "}
-          <code className="rounded bg-secondary/50 px-2 py-1 text-xs">
-            @fusorb/facet-components
-          </code>
-          : password strength, MFA verification, and the rest of the state
-          machine.
+          {domain.authSection.subtitle}
         </p>
       </div>
 

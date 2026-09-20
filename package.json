@@ -1,6 +1,6 @@
 {
   "name": "@fusorb/facet",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
   "description": "Domain-customizable auth-first component system",
   "type": "module",
@@ -12,6 +12,7 @@
     "release": "pnpm build && pnpm changeset publish",
     "dev:landing": "pnpm -F @fusorb/facet-landing dev",
     "dev:docs-site": "pnpm -F @fusorb/facet-docs-site dev",
+    "dev:all": "turbo run dev --filter=@fusorb/facet-landing --filter=@fusorb/facet-docs-site --filter=@fusorb/facet-playground",
     "dev:playground": "pnpm -F @fusorb/facet-playground dev",
     "build:docs": "pnpm -F @fusorb/facet-docs build && pnpm -F @fusorb/facet-docs-site build",
     "lint": "eslint . --ext .ts,.tsx --ignore-pattern dist --ignore-pattern .next",

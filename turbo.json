@@ -10,6 +10,11 @@
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
     },
+    "dev": {
+      "outputs": [],
+      "persistent": true,
+      "cache": false
+    },
     "lint": {
       "outputs": []
     },

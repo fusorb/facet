@@ -141,7 +141,7 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
    *  auto-grown chart height so bars/labels don't crowd. Default: 36. */
   rowHeight?: number;
   /** Render colored point markers that track the crosshair cursor.
-   *  Default: false — points stay fixed at their data positions and only the
+   *  Default: false - points stay fixed at their data positions and only the
    *  crosshair line follows the mouse. */
   crosshairPoints?: boolean;
   /** Chart viewBox width in pixels. Default: 800. Set to match your container
@@ -176,7 +176,7 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Plot-area padding (px). Pass a partial object to override individual sides
    * for full control of chart spacing. Default: { top: 20, right: 24, bottom: 40, left: 56 }. */
   padding?: Partial<Record<"top" | "right" | "bottom" | "left", number>>;
-  /** Spacing between bar groups (px) — i.e. the gap between category slots.
+  /** Spacing between bar groups (px) - i.e. the gap between category slots.
    * Increase for more breathing room between bars. Default: 8. */
   barCategoryGap?: number;
   /** Animation duration in milliseconds. Default: 500. */
@@ -225,14 +225,14 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   transitionDuration?: number;
   /** Whether the crosshair intersection dot snaps to the nearest data point.
    *  The crosshair line ALWAYS follows the raw cursor (Recharts pattern).
-   *  When `true` (default for line/area/composed), the dot is hidden — the
+   *  When `true` (default for line/area/composed), the dot is hidden - the
    *  active data-point dot already marks the position, so rendering both
    *  would create a visual duplicate. When `false` (default for
    *  bar/histogram), the dot follows the cursor and shows the interpolated
    *  value at the hover point. Override with an explicit boolean. */
   crosshairSnap?: boolean;
   /** Optional range selector rendered inside the chart container.
-   *  Fully opt-in — only rendered when provided. Accepts position, size,
+   *  Fully opt-in - only rendered when provided. Accepts position, size,
    *  and minimizable props; see {@link ChartRangeSelectorProps}. */
   rangeSelector?: Pick<
     ChartRangeSelectorProps,
@@ -296,7 +296,7 @@ const PIE_SECONDARY_LABEL_SCALE = 0.8;
 const DEFAULT_TRANSITION_DURATION = 150;
 
 /** Falls-back chart colors. Individual entries can be overridden via the
- *  `colors` prop — omitted keys inherit from the design-token theme. */
+ *  `colors` prop - omitted keys inherit from the design-token theme. */
 const DEFAULT_CHART_COLORS: Required<ChartColors> = {
   foreground: "var(--foreground)",
   background: "var(--background)",
@@ -338,7 +338,7 @@ function linearPath(pts: Array<[number, number]>): string {
   return `M ${pts.map((p) => p.join(",")).join(" L ")}`;
 }
 
-/** Step (Monotone-X) path — step-after: horizontal to the next x, then vertical.
+/** Step (Monotone-X) path - step-after: horizontal to the next x, then vertical.
  * The last step extends to `endX` (the plot's right edge) so the staircase
  * is visually complete and the line touches the last marker. */
 function stepPath(pts: Array<[number, number]>, endX?: number): string {
@@ -384,7 +384,7 @@ function smoothPath(
 }
 
 /** Build a line path honoring `curve` and `connectNulls`.
- * @param endX  X coordinate of the plot's right edge — used by `step` to
+ * @param endX  X coordinate of the plot's right edge - used by `step` to
  *   extend the last stair tread so the line reaches the edge. */
 function buildLinePath(
   pts: Array<[number, number] | null>,
@@ -402,7 +402,7 @@ function buildLinePath(
 }
 
 /** Build an area path (line + baseline closure).
- * @param endX  X for the closing baseline edge — defaults to `lastX` but when
+ * @param endX  X for the closing baseline edge - defaults to `lastX` but when
  *   set (e.g. for `step`), the fill extends the full plot width. */
 function buildAreaPath(
   pts: Array<[number, number]>,
@@ -421,7 +421,7 @@ function buildAreaPath(
 
 /** SVG bar path with rounded corners only at the *value* (extending) end.
  * The end anchored at the zero-baseline stays sharp, so the bar looks like it
- * "grows" from a solid root — a detail recharts does well.
+ * "grows" from a solid root - a detail recharts does well.
  *
  * @param x  top-left x of the bar's bounding rect
  * @param y  top-left y of the bar's bounding rect
@@ -816,12 +816,12 @@ export function Chart({
   const yTicks = niceTicks(minY, maxY, tickCount);
   // Category positions are band-centered so the first/last category (and its
   // axis label) sits fully inside the plot instead of touching the y-axis spine
-  // / "0" tick or running to the right edge — the cause of the first x-axis
+  // / "0" tick or running to the right edge - the cause of the first x-axis
   // label overlapping the y-axis origin.
   const xOf = (i: number) =>
     n === 1 ? padding.left + plotW / 2 : padding.left + (i + 0.5) * (plotW / n);
   const yOf = (v: number) => padding.top + plotH - ((v - minY) / range) * plotH;
-  // Maps a value to an x-coordinate — used for horizontal-bar charts where the
+  // Maps a value to an x-coordinate - used for horizontal-bar charts where the
   // value axis runs horizontally (left = minY, right = maxY).
   const xOfVal = (v: number) => padding.left + ((v - minY) / range) * plotW;
   const catY = (i: number) =>
@@ -852,11 +852,11 @@ export function Chart({
     setMousePos({ x: relX * scaleRef.current, y: relY * scaleRef.current });
 
     // For radial charts the slice <path> onMouseEnter/onMouseLeave handlers own
-    // the hover state — a mousemove-based cartesian "snap" would override the
+    // the hover state - a mousemove-based cartesian "snap" would override the
     // actual slice under the cursor, so the highlighted slice diverges from the
     // data shown in the tooltip / opacity dimming.
     if (crosshair && n > 0 && !isRadial) {
-      // For horizontal bar charts the category axis is Y (catY) — scan cursor
+      // For horizontal bar charts the category axis is Y (catY) - scan cursor
       // Y against catY(i). For vertical charts scan cursor X against xOf(i).
       const axisPos = (isHorizontal ? relY : relX) * scaleRef.current;
       const posOf = isHorizontal ? catY : xOf;
@@ -896,7 +896,7 @@ export function Chart({
   function renderCartesian() {
     return (
       <>
-        {/* Axis spines — visible borders that "ground" the chart.
+        {/* Axis spines - visible borders that "ground" the chart.
              For horizontal layout the spine is on the left (categories) and
              the bottom spine carries the value ticks. */}
         {showAxes && (
@@ -1018,11 +1018,11 @@ export function Chart({
             </g>
           ))}
 
-        {/* Crosshair — guide line + intersection dot on cursor hover.
+        {/* Crosshair - guide line + intersection dot on cursor hover.
             The guide line ALWAYS follows the raw cursor (Recharts pattern),
             giving a stable reference at the exact hover x/y. The intersection
             dot snaps to the nearest data point when `crosshairSnap` is true and
-            is HIDDEN (the active data-point dot already marks the position —
+            is HIDDEN (the active data-point dot already marks the position -
             rendering both would create a visual duplicate). When `crosshairSnap`
             is false (default for bar/histogram), the dot follows the cursor and
             shows the interpolated value at the hover point. Per-series colored
@@ -1047,7 +1047,7 @@ export function Chart({
             // Snap to the data point only when `crosshairSnap` is on; otherwise the
             // guide line and dot track the raw cursor (interpolateAtX pins the dot's
             // value to a bar as the cursor passes its column). No fixed pixel
-            // threshold — bar/histogram crosshairs follow the cursor smoothly.
+            // threshold - bar/histogram crosshairs follow the cursor smoothly.
             const isSnapped = crosshairSnap;
             const catPos = isSnapped ? snapCat : trackCat;
             const valPos = crosshairSnap

@@ -2,13 +2,13 @@
 "@fusorb/facet-components": minor
 ---
 
-Chart v2 polish — crosshair fix, animations, and range selector:
+Chart v2 polish - crosshair fix, animations, and range selector:
 
 - **Crosshair**: The guide line + intersection dot snap to the nearest data point
   when `crosshairSnap` is on; the dot is hidden there (the active marker already
   marks the position, so rendering both would look duplicated). When off (the
   default for bar/histogram), the line and dot track the raw cursor and
-  `interpolateAtX` pins the dot's value to a bar as it passes — bar/histogram
+  `interpolateAtX` pins the dot's value to a bar as it passes - bar/histogram
   crosshairs follow the cursor smoothly. The old fixed 8px snap window (which made
   bars jitter between snapping and floating) is removed.
 

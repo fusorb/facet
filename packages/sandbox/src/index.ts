@@ -1,5 +1,5 @@
 /**
- * @fusorb/facet-sandbox — framework-agnostic live-preview host.
+ * @fusorb/facet-sandbox - framework-agnostic live-preview host.
  *
  * The host ships NO framework code. Each runtime supplies a `SandboxAdapter`
  * (see {@link SandboxAdapter}) that turns consumer source into preview content.
@@ -17,7 +17,7 @@ export type SandboxBlockKind = string;
 /**
  * A composable, data-driven UI block inside a sandbox session. Blocks are
  * registered by `kind` and wired into a {@SandboxConfig} so consumers can
- * reconfigure the playground without forking — matching the
+ * reconfigure the playground without forking - matching the
  * tone/language-configurability the system is built around.
  */
 export interface SandboxBlock<T = unknown> {
@@ -71,14 +71,14 @@ export type PreviewContent =
 
 /**
  * Bridge interface a runtime adapter implements. The host never calls into a
- * framework directly — it only speaks `SandboxAdapter`. The React adapter
+ * framework directly - it only speaks `SandboxAdapter`. The React adapter
  * (`@fusorb/facet-sandbox/react`) ships a `reactAdapter` implementation.
  */
 export interface SandboxAdapter {
   readonly name: string;
   /**
    * Transform consumer `code` + `components` into preview content. Must not
-   * throw on malformed input — surface a readable error via `PreviewContent`
+   * throw on malformed input - surface a readable error via `PreviewContent`
    * instead so one bad snippet can't crash the host.
    */
   renderPreview(

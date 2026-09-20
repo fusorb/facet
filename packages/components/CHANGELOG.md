@@ -8,7 +8,7 @@
   FacebookIcon, TiktokIcon, WhatsappIcon, XIcon, TwitterIcon, YoutubeIcon, SlackIcon,
   DiscordIcon, TelegramIcon, FigmaIcon, SpotifyIcon) from the main barrel so consuming
   apps can import them directly without duplicating the SVGs. These components already
-  power the icon registry's `brandIcons` map and `LightIcon` — they were simply not
+  power the icon registry's `brandIcons` map and `LightIcon` - they were simply not
   re-exported as named exports from the package entry point.
 - 205d83b: Add `hoverDropdowns` prop to Navbar for hover-to-open dropdown menus on desktop, with shared close-timer coordination so only one dropdown is open at a time. Also add optional `icon` field to FooterLink and `lg:px-8` to navbar padding.
 
@@ -49,7 +49,7 @@
     pixels (e.g. `defaultSize={50}` → 50 px), but facet docs and examples all
     pass `defaultSize={50}` expecting 50 %. The component now normalizes 0–100
     numbers to percentage strings automatically (`normalizeSize`).
-  - **Add `useResizable` hook** for imperative control — `groupRef`, `panelRef`,
+  - **Add `useResizable` hook** for imperative control - `groupRef`, `panelRef`,
     `getLayout`, `setLayout`, `collapse`, `expand`, `isCollapsed`, `resize`,
     `getSize`.
   - **Add `useResizableLayout` hook** wrapping v4's `useDefaultLayout` for
@@ -60,7 +60,7 @@
     via v4 pass-through.
   - **Fix** stale manifest description and **add** a collapsible variant to the
     docs gallery.
-  - **Fix** flaky `docs-app.test.tsx` — lazy-loaded `DocsLayout` needs >1000 ms
+  - **Fix** flaky `docs-app.test.tsx` - lazy-loaded `DocsLayout` needs >1000 ms
     under load; `findByTestId` timeout raised to 5000 ms.
 
 - 1bf5de5: Fix sidebar accordion (singleOpen) collapse, auto-infer ResizableHandle orientation, and export brand icons from the components barrel.

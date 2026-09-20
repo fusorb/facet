@@ -6,4 +6,4 @@ Chart: add pie/donut/composed chart types, per-series type override, smooth & st
 
 DataTable: add `loading` (skeleton), `density` (compact/comfortable), `emptyState` (custom empty), and `total` props.
 
-DataTablePage: removed — features merged into DataTable.
+DataTablePage: removed - features merged into DataTable.

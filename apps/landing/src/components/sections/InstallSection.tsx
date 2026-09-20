@@ -7,23 +7,27 @@ import {
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { INSTALL_STEPS } from "../../data/features.js";
+import { useDomain } from "../../lib/domain-context.js";
 
 export function InstallSection() {
+  const { domain } = useDomain();
+  const { installSection } = domain;
+
   return (
     <section id="install" className="mx-auto max-w-7xl px-8 py-24">
       <div className="mb-12 text-center">
         <Pill
           color="primary"
           indicator="icon"
-          icon={<LightIcon name="terminal" size={12} />}
+          icon={<LightIcon name={installSection.labelIcon} size={12} />}
         >
-          Install
+          {installSection.label}
         </Pill>
         <h2 className="mt-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
-          Get started in minutes
+          {installSection.title}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Install one command, import what you need, ship your app.
+          {installSection.subtitle}
         </p>
       </div>
 

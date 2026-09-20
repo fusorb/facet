@@ -24,6 +24,7 @@ import {
 import { LightIcon } from "@fusorb/facet-components/light";
 import { site } from "../../site.config.js";
 import { BUTTON_VARIANTS, BADGE_VARIANTS } from "../../data/features.js";
+import { useDomain } from "../../lib/domain-context.js";
 
 /**
  * Live demo section. Each tab is a working slice of the library: real
@@ -52,7 +53,7 @@ function DemoCard({
   );
 }
 
-/** 1. Button + badge variants (visual only — no action). */
+/** 1. Button + badge variants (visual only - no action). */
 function ButtonsDemo() {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
@@ -255,18 +256,34 @@ function SparkleDemo() {
   );
 }
 
-const DEMOS = [
-  { id: "buttons", label: "Buttons", node: <ButtonsDemo /> },
-  { id: "controls", label: "Controls", node: <ControlsDemo /> },
-  { id: "theme", label: "Theme", node: <ThemeDemo /> },
-  { id: "qr", label: "QR Code", node: <QrDemo /> },
-  { id: "color", label: "Color", node: <ColorDemo /> },
-  { id: "marquee", label: "Marquee", node: <MarqueeDemo /> },
-  { id: "sparkle", label: "Sparkle", node: <SparkleDemo /> },
-];
+// Maps demo IDs → their live React surface. The list of which demos
+// appear is driven by the active DomainContent (domain.showcaseDemos),
+// so a domain can surface a different subset without touching this file.
+const DEMO_REGISTRY: Record<string, React.ReactNode> = {
+  buttons: <ButtonsDemo />,
+  controls: <ControlsDemo />,
+  theme: <ThemeDemo />,
+  qr: <QrDemo />,
+  color: <ColorDemo />,
+  marquee: <MarqueeDemo />,
+  sparkle: <SparkleDemo />,
+};
 
 export function DemoShowcaseSection() {
   const [tab, setTab] = useState("buttons");
+  const { domain } = useDomain();
+
+  // Surface only the demos this domain advertises, resolved through the
+  // registry. Order comes from the domain config.
+  const demos = domain.showcaseDemos
+    .map((d) => ({
+      id: d.id,
+      label: d.label,
+      node: DEMO_REGISTRY[d.id],
+    }))
+    .filter((d): d is { id: string; label: string; node: React.ReactNode } =>
+      d.node !== undefined,
+    );
 
   return (
     <section id="demo" className="mx-auto max-w-5xl px-8 py-24">
@@ -274,23 +291,22 @@ export function DemoShowcaseSection() {
         <Pill
           color="primary"
           indicator="icon"
-          icon={<LightIcon name="zap" size={12} />}
+          icon={<LightIcon name={domain.showcaseSection.labelIcon} size={12} />}
         >
-          Live demos
+          {domain.showcaseSection.label}
         </Pill>
         <h2 className="mt-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
-          See it in action
+          {domain.showcaseSection.title}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Not screenshots. Live components running on the real tokens. Flip the
-          theme, drag the slider, scan the QR code, burst some sparkles.
+          {domain.showcaseSection.subtitle}
         </p>
       </div>
 
       <Tabs value={tab} onValueChange={(v) => setTab(v)} className="w-full">
         <div className="mb-8 overflow-x-auto text-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <TabsList className="inline-flex flex-nowrap items-center justify-center gap-1">
-            {DEMOS.map((d) => (
+            {demos.map((d) => (
               <TabsTrigger key={d.id} value={d.id} className="flex-shrink-0">
                 {d.label}
               </TabsTrigger>
@@ -298,7 +314,7 @@ export function DemoShowcaseSection() {
           </TabsList>
         </div>
 
-        {DEMOS.map((d) => (
+        {demos.map((d) => (
           <TabsContent key={d.id} value={d.id} className="space-y-6">
             {d.node}
           </TabsContent>

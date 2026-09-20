@@ -46,7 +46,7 @@ function isSpringType(type: string | undefined): boolean {
  *
  * It resolves an effect+variant through the registry, creates motion
  * values, mounts the CSS driver, and drives values with core `animate()`.
- * No animation logic lives here — this is a thin wiring layer.
+ * No animation logic lives here - this is a thin wiring layer.
  */
 export function Motion({
   effect,
@@ -119,7 +119,7 @@ export function Motion({
     const doSpring = isSpringType(resolvedTransition.type);
 
     // CSS variable references for the CSS transition (string properties).
-    // The registry never hardcodes ms/bezier — these resolve to the
+    // The registry never hardcodes ms/bezier - these resolve to the
     // facet-tokens CSS custom properties at runtime.
     const durCSS =
       typeof resolvedTransition.duration === "number"
@@ -143,7 +143,7 @@ export function Motion({
 
     for (const [prop, toValue] of Object.entries(to)) {
       if (typeof toValue === "number") {
-        // Numeric prop — JS-driven via motion value + core animate()
+        // Numeric prop - JS-driven via motion value + core animate()
         const fromValue =
           typeof from[prop] === "number" ? (from[prop] as number) : toValue;
         const mv = motionValue(fromValue);
@@ -162,7 +162,7 @@ export function Motion({
         });
         controllers.push(controller);
       } else {
-        // String prop — CSS transition handles the interpolation
+        // String prop - CSS transition handles the interpolation
         el.style.setProperty(prop, String(toValue));
       }
     }

@@ -42,7 +42,7 @@ export function LandingLayout({
               "radial-gradient(ellipse at 50% 0%, var(--hero-glow), transparent 70%)",
           }}
         />
-        <div className="relative mx-auto max-w-7xl px-8 py-24 lg:py-32">
+        <div className="relative mx-auto max-w-7xl px-8 py-16 lg:py-24">
           {hero}
         </div>
       </section>

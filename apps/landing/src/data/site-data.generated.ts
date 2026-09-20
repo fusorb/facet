@@ -77,7 +77,7 @@ export interface SiteStat {
 
 export const SITE_STATS: SiteStat[] = [
   {
-    "value": "114",
+    "value": "115",
     "label": "components"
   },
   {
@@ -93,3 +93,7 @@ export const SITE_STATS: SiteStat[] = [
     "label": "auth presets"
   }
 ];
+
+// Root workspace version, resolved from the repo package.json at generation
+// time.  Consumers: HeroSection version badge, changelog, etc.
+export const SITE_VERSION: string = "2.0.0";

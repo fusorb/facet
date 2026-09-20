@@ -11,78 +11,36 @@ import {
   Separator,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { SITE_PACKAGES } from "../../data/site-data.generated.js";
-
-interface TeaserTier {
-  id: string;
-  name: string;
-  price: string;
-  description: string;
-  bullets: string[];
-  highlight?: boolean;
-  badge?: string;
-}
-
-const TIERS: TeaserTier[] = [
-  {
-    id: "oss",
-    name: "Open source",
-    price: "Free",
-    description: "Every package, MIT-licensed. npm-install, ship.",
-    bullets: [
-      `All ${SITE_PACKAGES.length} packages on npm`,
-      "MIT license",
-      "Community-driven",
-    ],
-  },
-  {
-    id: "components",
-    name: "Components",
-    price: "Free",
-    description: "Styled Radix components, themed with the Alpha Palette.",
-    bullets: ["Drop-in ready", "Tree-shaken icons", "CI-verified coverage"],
-    highlight: true,
-    badge: "Most useful",
-  },
-  {
-    id: "auth",
-    name: "Auth + SDK",
-    price: "Free",
-    description: "Domain-customizable auth + a typed SovGrant SDK + store.",
-    bullets: [
-      "State machine + presets",
-      "Endpoints audited",
-      "Plug-in storage",
-    ],
-  },
-];
+import { useDomain } from "../../lib/domain-context.js";
 
 /**
- * Pricing teaser that links to the dedicated /pricing page. Three-card
- * grid highlighting the components tier. Every tier is free.
+ * Pricing teaser - every label, tier name, bullet, and link flows from the
+ * active DomainContent via useDomain(). Nothing is hardcoded in JSX.
  */
 export function PricingTeaserSection() {
+  const { domain } = useDomain();
+  const { pricing } = domain;
+
   return (
     <section id="pricing-teaser" className="mx-auto max-w-7xl px-8 py-24">
       <div className="mb-12 text-center">
         <Pill
           color="primary"
           indicator="icon"
-          icon={<LightIcon name="credit-card" size={12} />}
+          icon={<LightIcon name={pricing.header.labelIcon} size={12} />}
         >
-          Free, forever
+          {pricing.header.label}
         </Pill>
         <h2 className="mt-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
-          Everything ships free, MIT-licensed
+          {pricing.header.title}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Components, auth, layout, SDK, store, tokens, docs, emails, CLI. All
-          on npm, all free. Pick the pieces you need.
+          {pricing.header.subtitle}
         </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
-        {TIERS.map((tier) => (
+        {pricing.tiers.map((tier) => (
           <Card
             key={tier.id}
             className={cn(
@@ -131,7 +89,7 @@ export function PricingTeaserSection() {
                     "w-full",
                   )}
                 >
-                  See all packages
+                  {pricing.tierCta}
                 </Link>
               </div>
             </CardContent>
@@ -144,7 +102,7 @@ export function PricingTeaserSection() {
           to="/pricing"
           className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
         >
-          See the full pricing breakdown
+          {pricing.footerLink}
           <LightIcon name="arrow-right" size={14} />
         </Link>
       </div>

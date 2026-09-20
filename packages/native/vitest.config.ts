@@ -2,7 +2,7 @@ import { defineConfig } from "vitest/config";
 
 /**
  * @fusorb/facet-native is framework-agnostic (no React DOM, no RN).
- * Tests run in the node environment — no jsdom or React plugin needed.
+ * Tests run in the node environment - no jsdom or React plugin needed.
  */
 export default defineConfig({
   test: {

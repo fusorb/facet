@@ -81,7 +81,7 @@ describe("registry", () => {
     });
   });
 
-  describe("resolveMotion — worked examples (spec §4)", () => {
+  describe("resolveMotion - worked examples (spec §4)", () => {
     it("fade / up / soft / fast", () => {
       const result = resolveMotion("fade", { direction: "up", intensity: "soft" }, { duration: "fast" });
       expect(result).toEqual({
@@ -118,7 +118,7 @@ describe("registry", () => {
     });
   });
 
-  describe("resolveMotion — all 15 generative families resolve", () => {
+  describe("resolveMotion - all 15 generative families resolve", () => {
     const cases: Array<[string, MotionVariant]> = [
       ["fade", { direction: "up", intensity: "soft" }],
       ["zoom", { direction: "in", intensity: "medium" }],
@@ -148,7 +148,7 @@ describe("registry", () => {
     });
   });
 
-  describe("resolveMotion — authored effects throw", () => {
+  describe("resolveMotion - authored effects throw", () => {
     it.each(["shake", "wobble", "jello", "tada", "heartbeat", "flash"])(
       "throws for authored effect %s",
       (id) => {
@@ -157,7 +157,7 @@ describe("registry", () => {
     );
   });
 
-  describe("resolveMotion — unknown effect returns null", () => {
+  describe("resolveMotion - unknown effect returns null", () => {
     it("returns null for unknown effect id", () => {
       expect(resolveMotion("nonexistent", {}, {})).toBeNull();
     });
