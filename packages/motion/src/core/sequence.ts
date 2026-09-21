@@ -47,7 +47,7 @@ export function sequence(steps: SequenceStep[]): AnimationController {
       resolveFinished();
       return;
     }
-    const step = steps[index]!
+    const step = steps[index]!;
     currentController = animate(step.value, step.to, {
       ...step.options,
       onComplete: () => playStep(index + 1),
@@ -61,6 +61,8 @@ export function sequence(steps: SequenceStep[]): AnimationController {
       resolveFinished();
     },
     finished,
-    value: (currentController as AnimationController | null)?.value ?? motionValue(0),
+    value:
+      (currentController as AnimationController | null)?.value ??
+      motionValue(0),
   };
 }

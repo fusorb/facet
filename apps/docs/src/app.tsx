@@ -10,6 +10,7 @@ export default function App() {
     <DocsApp
       config={demoConfig}
       pages={demoPages}
+      showTableOfContents
       topbar={
         <a
           href="https://github.com/fusorb/facet"

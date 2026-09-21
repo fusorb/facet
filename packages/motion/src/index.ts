@@ -16,7 +16,14 @@
 export { cn } from "./utils/cn.js";
 
 // core - framework-agnostic generators + orchestration
-export { animate, sequence, stagger, defaultScheduler, tween, spring } from "./core/index.js";
+export {
+  animate,
+  sequence,
+  stagger,
+  defaultScheduler,
+  tween,
+  spring,
+} from "./core/index.js";
 export type {
   AnimateOptions,
   AnimationController,
@@ -36,7 +43,12 @@ export { motionValue } from "./values/index.js";
 export type { MotionValue, MotionValueSubscriber } from "./values/index.js";
 
 // drivers - the only layer that touches a real target (CSS / DOM)
-export { cssDriver, preferReducedMotion, resolveDuration, resolveEasing } from "./drivers/index.js";
+export {
+  cssDriver,
+  preferReducedMotion,
+  resolveDuration,
+  resolveEasing,
+} from "./drivers/index.js";
 export type {
   MotionDriver,
   DriverTarget,
@@ -76,6 +88,7 @@ export type {
   MotionTransition,
   MotionVariant,
   ResolvedMotion,
+  MotionKeyframe,
   MotionEffectDefinition,
   MotionPreset,
   MotionEffectRegistry,
@@ -84,6 +97,11 @@ export type {
 
 // react - thin JSX bindings (no animation logic)
 export { Motion, Presence, Reveal, Stagger } from "./react/index.js";
-export type { MotionProps, PresenceProps, RevealProps, StaggerProps } from "./react/index.js";
+export type {
+  MotionProps,
+  PresenceProps,
+  RevealProps,
+  StaggerProps,
+} from "./react/index.js";
 export { PresenceContext, StaggerContext } from "./react/index.js";
 export { usePresence, useStagger } from "./react/index.js";

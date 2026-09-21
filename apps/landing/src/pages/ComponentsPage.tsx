@@ -3,12 +3,7 @@ import type { CSSProperties } from "react";
 import { ALL_COMPONENTS } from "../data/scratchpad.js";
 import { useLabDomain } from "../lib/lab-domain.js";
 import { PageShell } from "../components/PageShell.js";
-import {
-  LabDomainBar,
-  LabTag,
-  CodeLine,
-  CopyButton,
-} from "../components/labs";
+import { LabDomainBar, LabTag, CodeLine, CopyButton } from "../components/labs";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { cn } from "@fusorb/facet-components";
 
@@ -17,9 +12,7 @@ function pkgLabel(pkg: string): string {
 }
 
 function categoryLabel(cat: string): string {
-  return cat === "all"
-    ? "All"
-    : cat.charAt(0).toUpperCase() + cat.slice(1);
+  return cat === "all" ? "All" : cat.charAt(0).toUpperCase() + cat.slice(1);
 }
 
 function importSegments(name: string, pkg: string) {
@@ -48,8 +41,7 @@ export function ComponentsPage() {
 
   const filtered = useMemo(() => {
     return ALL_COMPONENTS.filter((c) => {
-      const matchesCategory =
-        category === "all" || c.category === category;
+      const matchesCategory = category === "all" || c.category === category;
       const term = search.toLowerCase();
       const matchesSearch =
         !term ||
@@ -59,7 +51,9 @@ export function ComponentsPage() {
     });
   }, [category, search]);
 
-  const rootStyle: CSSProperties = { "--domain-accent": accent } as CSSProperties;
+  const rootStyle: CSSProperties = {
+    "--domain-accent": accent,
+  } as CSSProperties;
 
   return (
     <PageShell
@@ -93,7 +87,10 @@ export function ComponentsPage() {
                         boxShadow: `0 0 0 2px var(--background), 0 0 0 4px ${accent}`,
                       }
                     : active
-                      ? { borderColor: accent, boxShadow: `0 0 0 2px var(--background), 0 0 0 4px ${accent}` }
+                      ? {
+                          borderColor: accent,
+                          boxShadow: `0 0 0 2px var(--background), 0 0 0 4px ${accent}`,
+                        }
                       : undefined
                 }
               >
@@ -140,7 +137,10 @@ export function ComponentsPage() {
               <tbody>
                 {filtered.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="px-4 py-8 text-center text-sm text-muted-foreground">
+                    <td
+                      colSpan={4}
+                      className="px-4 py-8 text-center text-sm text-muted-foreground"
+                    >
                       No components match this filter.
                     </td>
                   </tr>

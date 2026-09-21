@@ -34,6 +34,7 @@ import type {
   Intensity,
   MotionEffectDefinition,
   MotionEffectRegistry,
+  MotionKeyframe,
   MotionPreset,
   MotionTransition,
   MotionVariant,
@@ -89,8 +90,8 @@ export function get(id: string): MotionEffectDefinition | undefined {
  * { from, to, transition } keyframe object.
  *
  * Returns `null` if the effect id is unknown.
- * Throws if the effect is authored (kind: "authored") - those are
- * deferred to Phase 4.
+ * Throws if the effect is authored AND has no `resolve()` function
+ * (i.e. its implementation is deferred to a later phase).
  */
 export function resolveMotion(
   effectId: string,
@@ -100,9 +101,9 @@ export function resolveMotion(
   const def = registry[effectId];
   if (!def) return null;
 
-  if (def.kind === "authored" || !def.resolve) {
+  if (!def.resolve) {
     throw new Error(
-      `"${effectId}" is an authored effect - implementation deferred to Phase 4.`,
+      `"${effectId}" is an authored effect without a resolver - implementation deferred to Phase 4.`,
     );
   }
 

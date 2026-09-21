@@ -3,9 +3,8 @@
  * domain.  Reads its label/availability data from the DomainContext, so
  * adding a new domain to domain-config.ts is all it takes to extend it.
  *
- * Designed to live in the Navbar actions area.  On narrow viewports it
- * collapses to a compact "Domain: <current>" button that opens a
- * Popover menu.
+ * On narrow viewports it collapses to a compact "Domain: <current>" button
+ * that opens a Popover menu.
  */
 
 import { useState } from "react";

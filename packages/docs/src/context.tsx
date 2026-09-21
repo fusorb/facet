@@ -10,6 +10,8 @@ export interface DocsAppValue {
   pages: DocsPage[];
   /** Whether the /components gallery routes are mounted. */
   showComponents: boolean;
+  /** Render the sticky "on this page" right rail on content pages. */
+  showTableOfContents?: boolean;
   /** Extra topbar content (e.g. a GitHub link), rendered after search. */
   topbar?: React.ReactNode;
   /** External links rendered in the settings menu. */

@@ -157,7 +157,9 @@ describe("domain presets", () => {
     });
 
     it("resolveMotion with a non-registered effect returns null", () => {
-      expect(resolveMotion("nonexistent", {}, fintechMotion.defaultTransition)).toBeNull();
+      expect(
+        resolveMotion("nonexistent", {}, fintechMotion.defaultTransition),
+      ).toBeNull();
     });
   });
 

@@ -82,7 +82,9 @@ describe("toEasingCurve", () => {
   });
 
   it("parses var(--motion-ease-*) references", () => {
-    expect(toEasingCurve("var(--motion-ease-standard)")).toEqual([0.2, 0, 0, 1]);
+    expect(toEasingCurve("var(--motion-ease-standard)")).toEqual([
+      0.2, 0, 0, 1,
+    ]);
     expect(toEasingCurve("var(--motion-ease-spring)")).toEqual([
       0.34, 1.56, 0.64, 1,
     ]);

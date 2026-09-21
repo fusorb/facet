@@ -240,7 +240,8 @@ export const docsPages: DocsPage[] = ${JSON.stringify(starterPages(answers.templ
   const packageJson = mergePackageJson(readExistingPackageJson(base), {
     facetDocs: answers.facetVersions["@fusorb/facet-docs"] ?? "^1.0.0",
     facetTokens: answers.facetVersions["@fusorb/facet-tokens"] ?? "^1.0.0",
-    facetComponents: answers.facetVersions["@fusorb/facet-components"] ?? "^1.0.0",
+    facetComponents:
+      answers.facetVersions["@fusorb/facet-components"] ?? "^1.0.0",
     facetLayout: answers.facetVersions["@fusorb/facet-layout"] ?? "^1.0.0",
     framework: answers.framework,
     language: answers.language,
@@ -516,7 +517,8 @@ export const docsPages: DocsPage[] = ${JSON.stringify(starterPages(answers.templ
   const packageJson = mergePackageJson(readExistingPackageJson(base), {
     facetDocs: answers.facetVersions["@fusorb/facet-docs"] ?? "^1.0.0",
     facetTokens: answers.facetVersions["@fusorb/facet-tokens"] ?? "^1.0.0",
-    facetComponents: answers.facetVersions["@fusorb/facet-components"] ?? "^1.0.0",
+    facetComponents:
+      answers.facetVersions["@fusorb/facet-components"] ?? "^1.0.0",
     facetLayout: answers.facetVersions["@fusorb/facet-layout"] ?? "^1.0.0",
     framework: answers.framework,
     language: answers.language,

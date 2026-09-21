@@ -103,11 +103,37 @@ export function Pre({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function H2({ children }: { children: React.ReactNode }) {
+export function H2({
+  children,
+  id,
+}: {
+  children: React.ReactNode;
+  id?: string;
+}) {
   return (
-    <h2 className="pt-4 font-heading text-xl font-semibold text-foreground">
+    <h2
+      id={id}
+      className="pt-4 font-heading text-xl font-semibold text-foreground"
+    >
       {children}
     </h2>
+  );
+}
+
+export function H3({
+  children,
+  id,
+}: {
+  children: React.ReactNode;
+  id?: string;
+}) {
+  return (
+    <h3
+      id={id}
+      className="mt-3 font-heading text-lg font-semibold text-foreground"
+    >
+      {children}
+    </h3>
   );
 }
 

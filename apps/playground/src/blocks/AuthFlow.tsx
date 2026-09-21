@@ -95,9 +95,9 @@ export function AuthFlow() {
         ))}
       </pre>
       <p className="text-xs text-muted-foreground">
-        Simulated. Swap the stub for <code>@fusorb/facet-auth</code> (ArcProvider
-        + useAuth) to drive a real OAuth/SovGrant backend - the 401→refresh→tenant
-        path is identical.
+        Simulated. Swap the stub for <code>@fusorb/facet-auth</code>{" "}
+        (ArcProvider + useAuth) to drive a real OAuth/SovGrant backend - the
+        401→refresh→tenant path is identical.
       </p>
     </div>
   );

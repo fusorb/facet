@@ -24,15 +24,11 @@ export type Direction =
 
 export type Intensity = "subtle" | "soft" | "medium" | "strong" | "dramatic";
 
-export type Duration = "instant" | "fast" | "base" | "slow" | "cinematic" | number;
+export type Duration =
+  "instant" | "fast" | "base" | "slow" | "cinematic" | number;
 
 export type Easing =
-  | "linear"
-  | "standard"
-  | "smooth"
-  | "emphasized"
-  | "spring"
-  | "elastic";
+  "linear" | "standard" | "smooth" | "emphasized" | "spring" | "elastic";
 
 export type TransitionType = "tween" | "spring" | "inertia";
 
@@ -66,7 +62,8 @@ export interface MotionKeyframe {
 export interface ResolvedMotion {
   from: Record<string, string | number>;
   to: Record<string, string | number>;
-  transition: Required<Pick<MotionTransition, "duration" | "ease">> & MotionTransition;
+  transition: Required<Pick<MotionTransition, "duration" | "ease">> &
+    MotionTransition;
   /**
    * Optional intermediate keyframes for multi-step authored effects
    * (e.g. aurora, tilt). Excludes `from` (0%) and `to` (100%).

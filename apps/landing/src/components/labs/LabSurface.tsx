@@ -12,7 +12,8 @@ export function LabTag({
   tone?: "muted" | "accent" | "dim";
   className?: string;
 }) {
-  const style = tone === "accent" ? { color: "var(--domain-accent)" } : undefined;
+  const style =
+    tone === "accent" ? { color: "var(--domain-accent)" } : undefined;
   return (
     <span
       className={cn(
@@ -46,7 +47,10 @@ export function LabPanel({
   );
 }
 
-export type CodeSeg = { text: string; role?: "keyword" | "string" | "ident" | "dim" };
+export type CodeSeg = {
+  text: string;
+  role?: "keyword" | "string" | "ident" | "dim";
+};
 
 const CODE_COLOR: Record<NonNullable<CodeSeg["role"]>, string> = {
   keyword: "#a78bfa",
@@ -83,13 +87,10 @@ export function CopyButton({
 }) {
   const [copied, setCopied] = useState(false);
   const onCopy = () => {
-    navigator
-      .clipboard
-      .writeText(value)
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1800);
-      });
+    navigator.clipboard.writeText(value).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    });
   };
   return (
     <button

@@ -15,7 +15,19 @@ import type { IconName } from "@fusorb/facet-components";
 export function getDocsUrl(): string {
   return import.meta.env.DEV
     ? "http://localhost:5173"
-    : "https://github.com/fusorb/facet/tree/main/packages/docs";
+    : "https://facet.so/docs";
+}
+
+/** Resolves the facet docs changelog URL for the current environment. */
+export function getDocsChangelogUrl(): string {
+  return `${getDocsUrl()}/changelog`;
+}
+
+/** Resolves the facet playground URL for the current environment. */
+export function getPlaygroundUrl(): string {
+  return import.meta.env.DEV
+    ? "http://localhost:5174"
+    : "https://facet.so/playground";
 }
 
 export interface SiteSocial {

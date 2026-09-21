@@ -1,6 +1,7 @@
 import { ChangelogList, Pill } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { changelog } from "../../data/changelog.js";
+import { getDocsChangelogUrl } from "../../site.config.js";
 import { useDomain } from "../../lib/domain-context.js";
 
 export function ChangelogSection() {
@@ -25,6 +26,18 @@ export function ChangelogSection() {
         </p>
       </div>
       <ChangelogList releases={changelog} showFilter />
+      <div className="mt-6 text-center">
+        <a
+          href={getDocsChangelogUrl()}
+          onClick={(e) => {
+            if (import.meta.env.DEV) e.preventDefault();
+          }}
+          className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline decoration-primary/50"
+        >
+          View full changelog on docs
+          <LightIcon name="arrow-up-right" size={14} />
+        </a>
+      </div>
     </section>
   );
 }

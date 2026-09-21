@@ -74,7 +74,7 @@ export function spring(opts: SpringOpts): (elapsedMs: number) => number {
       envelope =
         Math.exp(-zeta * omega0 * t) *
         (Math.cos(omegaD * t) +
-          (zeta * omega0 / omegaD) * Math.sin(omegaD * t));
+          ((zeta * omega0) / omegaD) * Math.sin(omegaD * t));
     } else if (Math.abs(zeta - 1) < 1e-6) {
       // critically damped - fastest return without oscillation
       envelope = (1 + omega0 * t) * Math.exp(-omega0 * t);
@@ -83,8 +83,7 @@ export function spring(opts: SpringOpts): (elapsedMs: number) => number {
       const sqrtTerm = omega0 * Math.sqrt(zeta * zeta - 1);
       const r1 = -zeta * omega0 + sqrtTerm;
       const r2 = -zeta * omega0 - sqrtTerm;
-      envelope =
-        (r2 * Math.exp(r1 * t) - r1 * Math.exp(r2 * t)) / (r2 - r1);
+      envelope = (r2 * Math.exp(r1 * t) - r1 * Math.exp(r2 * t)) / (r2 - r1);
     }
 
     return to + delta * envelope;

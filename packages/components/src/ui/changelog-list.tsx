@@ -77,7 +77,7 @@ export interface ChangelogListCopy {
   kindLabels: Partial<Record<ChangelogChangeKind, string>>;
 }
 
-const defaultChangelogCopy: ChangelogListCopy = {
+export const defaultChangelogCopy: ChangelogListCopy = {
   filterLabel: "Filter",
   preRelease: "pre-release",
   kindLabels: {},
@@ -85,7 +85,7 @@ const defaultChangelogCopy: ChangelogListCopy = {
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
-const KIND_META: Record<
+export const KIND_META: Record<
   ChangelogChangeKind,
   { label: string; icon: IconName; pill: string }
 > = {
@@ -121,7 +121,7 @@ const KIND_META: Record<
   },
 };
 
-function defaultFormatDate(value: string) {
+export function defaultFormatDate(value: string) {
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return value;
   return d.toLocaleDateString(undefined, {
@@ -133,7 +133,7 @@ function defaultFormatDate(value: string) {
 
 /* ── Filter chip ──────────────────────────────────────────── */
 
-function FilterChip({
+export function FilterChip({
   kind,
   label,
   count,
@@ -170,7 +170,7 @@ function FilterChip({
 
 /* ── Main component ────────────────────────────────────────── */
 
-const KIND_ORDER: ChangelogChangeKind[] = [
+export const KIND_ORDER: ChangelogChangeKind[] = [
   "added",
   "changed",
   "fixed",

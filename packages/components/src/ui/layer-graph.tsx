@@ -154,9 +154,7 @@ export function LayerGraph({ nodes = [] }: LayerGraphProps) {
           className={cn(
             "flex w-full flex-col items-center gap-3 rounded-xl border bg-card p-6 text-left transition-all hover:shadow-lg",
             "border-l-2",
-            isOpen
-              ? "ring-2 ring-primary/20"
-              : "border-border/60",
+            isOpen ? "ring-2 ring-primary/20" : "border-border/60",
           )}
           style={{
             borderLeftColor: accent,

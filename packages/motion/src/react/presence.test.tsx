@@ -2,7 +2,6 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Presence, usePresence } from "./presence.js";
 
-
 describe("Presence", () => {
   it("renders children", () => {
     render(<Presence>I am present</Presence>);

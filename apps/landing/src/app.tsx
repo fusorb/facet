@@ -2,6 +2,8 @@ import * as React from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { NotFound, ThemeProvider } from "@fusorb/facet-components";
 import { pages } from "./pages.js";
+import { CommandPaletteProvider } from "./components/command-palette-context.js";
+import { LandingCommandPalette } from "./components/CommandPalette.js";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -46,10 +48,13 @@ export default function App() {
       {/* Customization proof: consumers retheme the whole surface without a
           rebuild by uncommenting overrideVars, e.g.
           overrideVars={{ "--primary": "oklch(0.7 0.2 300)" }} */}
-      <BrowserRouter>
-        <ScrollToTop />
-        <AppRoutes />
-      </BrowserRouter>
+      <CommandPaletteProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <LandingCommandPalette />
+          <AppRoutes />
+        </BrowserRouter>
+      </CommandPaletteProvider>
     </ThemeProvider>
   );
 }

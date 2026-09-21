@@ -146,6 +146,16 @@ function App() {
         type: "p",
         text: "See the `Auth` guide for the full state machine and preset table.",
       },
+      { type: "h3", text: "Domain presets" },
+      {
+        type: "ul",
+        items: [
+          "`fintechPreset`: KYC/AML-aware copy, regulatory footer, masked PAN display.",
+          "`medPreset`: HIPAA consent language, patient identifier styling, audit trail.",
+          "`eduPreset`: institutional SSO defaults, student email validation.",
+          "`enterprisePreset`: SAML/OIDC, SCIM provisioning, B2B org picker.",
+        ],
+      },
       { type: "h2", text: "6. App shells" },
       {
         type: "p",
@@ -389,13 +399,28 @@ function MyHeader() {
       },
       { type: "h2", text: "Methods" },
       {
-        type: "ul",
-        items: [
-          "Email + password: the default form.",
-          "Magic link: passwordless email link (config.allowMagicLink).",
-          "Passkey: WebAuthn via the real SDK (config.allowPasskey).",
-          "OAuth: provider buttons from config.oauthProviders calling onOAuth.",
-        ],
+        type: "p",
+        text: "The email/password form is the embedded default entry point; the other methods branch off it based on `config`.",
+      },
+      { type: "h3", text: "Email + password" },
+      {
+        type: "p",
+        text: "The default form. Submit calls `auth.login(email, password)` and returns `{ sessionId, requiresMfa }`.",
+      },
+      { type: "h3", text: "Magic link" },
+      {
+        type: "p",
+        text: "Passwordless email link, enabled via `config.allowMagicLink`. Calls `auth.magicLink(email, redirectUri)`.",
+      },
+      { type: "h3", text: "Passkey" },
+      {
+        type: "p",
+        text: "WebAuthn passkeys via the real SDK, enabled via `config.allowPasskey`. Calls `auth.passkey()` for registration + authentication.",
+      },
+      { type: "h3", text: "OAuth" },
+      {
+        type: "p",
+        text: "Provider buttons rendered from `config.oauthProviders`. Each button calls `onOAuth(provider)`, which starts the OAuth authorize-exchange flow.",
       },
       { type: "h2", text: "Customizing components" },
       {
@@ -581,6 +606,26 @@ function MyHeader() {
           ["`enterprisePreset`", "Required", "On", "Off", "8 hr", "SSO + MFA"],
           ["`defaultPreset`", "Optional", "On", "On", "8 hr", "General"],
         ],
+      },
+      { type: "h3", text: "fintechPreset" },
+      {
+        type: "p",
+        text: "Trading & banking: MFA required, shorter 15-min session TTL, magic link on for step-up recovery.",
+      },
+      { type: "h3", text: "medPreset" },
+      {
+        type: "p",
+        text: "HIPAA-compliant: MFA required, 30-min TTL, no passkeys to avoid device-bound credentials.",
+      },
+      { type: "h3", text: "eduPreset" },
+      {
+        type: "p",
+        text: "Student portals: optional MFA, passkeys + magic link enabled, 24-hour TTL for shared devices.",
+      },
+      { type: "h3", text: "enterprisePreset" },
+      {
+        type: "p",
+        text: "SSO + MFA: enterprise-grade session (8 hr TTL), passkey for workforce, no magic link.",
       },
       { type: "h2", text: "Custom presets" },
       {
@@ -1121,13 +1166,28 @@ facet docs scan --out docs && facet docs scan -y`,
       },
       { type: "h2", text: "How it stays current" },
       {
-        type: "ul",
-        items: [
-          "Detects your frontend stack (Next.js, Remix, Vite, plain JS, Python); backend frameworks are ignored: docs are a frontend concern.",
-          "Detects your package manager from the lockfile and recommends the matching install command.",
-          "Resolves current published facet versions from the npm registry, so the scaffold never pins a stale version.",
-          "Patches an existing package.json, preserving your scripts, deps, name, and metadata.",
-        ],
+        type: "p",
+        text: "`facet docs scan` and `facet docs init` keep the scaffold in sync with your repo, not a snapshot.",
+      },
+      { type: "h3", text: "Stack detection" },
+      {
+        type: "p",
+        text: "Detects your frontend stack (Next.js, Remix, Vite, plain JS, Python); backend frameworks are ignored: docs are a frontend concern.",
+      },
+      { type: "h3", text: "Package manager detection" },
+      {
+        type: "p",
+        text: "Detects your package manager from the lockfile and recommends the matching install command.",
+      },
+      { type: "h3", text: "Version resolution" },
+      {
+        type: "p",
+        text: "Resolves current published facet versions from the npm registry, so the scaffold never pins a stale version.",
+      },
+      { type: "h3", text: "Safe package.json patching" },
+      {
+        type: "p",
+        text: "Patches an existing package.json, preserving your scripts, deps, name, and metadata.",
       },
       { type: "h2", text: "Commands" },
       {
@@ -1620,6 +1680,31 @@ const client = new ArcIdClient({
           ["`IdpSdk`", "SSO connections (OIDC/SAML)"],
         ],
       },
+      { type: "h3", text: "AuthSdk" },
+      {
+        type: "p",
+        text: "Identity lifecycle: login, register, MFA, sessions, magic-link, password reset, step-up, context switching, and the full OAuth2/OIDC authorize-exchange-refresh flow for both first-party and third-party apps.",
+      },
+      { type: "h3", text: "IdentitySdk" },
+      {
+        type: "p",
+        text: "User profile management, admin operations (suspend/reinstate), linked accounts, device management, delegation chains, onboarding flows, and wallet-based DID operations.",
+      },
+      { type: "h3", text: "OAuthSdk" },
+      {
+        type: "p",
+        text: "OAuth2/OIDC server surface: client registration, consent management, token issuance, introspection, revocation, userinfo, and JWKS key set discovery.",
+      },
+      { type: "h3", text: "TenantSdk" },
+      {
+        type: "p",
+        text: "Multi-tenant operations: tenant lifecycle, member management, policy engine, signing key rotation, tenant DID, and invite workflows.",
+      },
+      { type: "h3", text: "VcSdk" },
+      {
+        type: "p",
+        text: "Verifiable credentials end-to-end: issue, verify, revoke, status-list management, credential offers, and full VC workflow orchestration.",
+      },
       {
         type: "p",
         text: "Every endpoint string in the SDK is audited against SovGrant's `ROUTES` index (`scripts/audit-sdk-coverage.cjs` reports 62/62 covered).",
@@ -1723,6 +1808,7 @@ const client = new ArcIdClient({
       {
         type: "changelog",
         releases: facetChangelog,
+        layout: "date",
         showFilter: true,
       },
     ],

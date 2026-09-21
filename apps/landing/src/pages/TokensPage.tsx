@@ -58,7 +58,9 @@ export function TokensPage() {
                   )}
                   style={
                     isActive
-                      ? { background: `color-mix(in srgb, ${accent} 16%, transparent)` }
+                      ? {
+                          background: `color-mix(in srgb, ${accent} 16%, transparent)`,
+                        }
                       : undefined
                   }
                 >
@@ -161,7 +163,12 @@ function renderSample(t: TokenSpec, category: string): ReactNode {
       );
 
     case "Spacing":
-      return <span className="block h-2 w-10 rounded bg-muted" style={{ width: t.value }} />;
+      return (
+        <span
+          className="block h-2 w-10 rounded bg-muted"
+          style={{ width: t.value }}
+        />
+      );
 
     case "Radius":
       return (

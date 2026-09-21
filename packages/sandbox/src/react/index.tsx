@@ -783,15 +783,15 @@ export function Sandbox({
 
   return (
     <section
-      className={[
-        "facet-sandbox",
-        className,
-        `facet-sandbox--${theme}`,
-      ].filter(Boolean).join(" ")}
+      className={["facet-sandbox", className, `facet-sandbox--${theme}`]
+        .filter(Boolean)
+        .join(" ")}
     >
       <style>{SANDBOX_STYLES}</style>
       <header className="facet-sandbox__toolbar">
-        {config.title && <span className="facet-sandbox__title">{config.title}</span>}
+        {config.title && (
+          <span className="facet-sandbox__title">{config.title}</span>
+        )}
         <span
           className={`facet-sandbox__theme facet-sandbox__theme--${theme}`}
           aria-label={`theme: ${theme}`}
@@ -810,10 +810,9 @@ export function Sandbox({
       </header>
       <div className="facet-sandbox__body">
         <textarea
-          className={[
-            "facet-sandbox__editor",
-            classNames?.editor,
-          ].filter(Boolean).join(" ")}
+          className={["facet-sandbox__editor", classNames?.editor]
+            .filter(Boolean)
+            .join(" ")}
           value={code}
           onChange={(e) => setCode(e.target.value)}
           spellCheck={false}
@@ -821,10 +820,9 @@ export function Sandbox({
         />
         {error && <div className="facet-sandbox__error">{error}</div>}
         <div
-          className={[
-            "facet-sandbox__preview",
-            classNames?.preview,
-          ].filter(Boolean).join(" ")}
+          className={["facet-sandbox__preview", classNames?.preview]
+            .filter(Boolean)
+            .join(" ")}
         >
           {htmlContent ? (
             <PreviewFrame

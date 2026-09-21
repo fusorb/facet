@@ -1,0 +1,8 @@
+gc : Cannot find path 'C:\Users\HP\Desktop\fusorb\facet\apps\apps\landing\package.json' because it does not exist.
+At line:1 char:2
++ (gc apps/landing/src/data/../../../apps/landing/package.json | Out-St ...
++  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\HP\Des...ng\package.json:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 

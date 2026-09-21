@@ -13,6 +13,7 @@ import {
   DropdownMenuSubContent,
 } from "./dropdown-menu.js";
 import { UserAvatar, type UserAvatarUser } from "./avatar.js";
+import { Button } from "./button.js";
 import { Icon } from "../icon/index.js";
 
 /** Minimal router abstraction so Navbar can render framework-native links. */
@@ -32,20 +33,20 @@ export interface NavbarRouter {
 /* ── Navbar variants ───────────────────────────────────────── */
 
 export const navbarVariants = cva(
-  "flex w-full items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8",
+  "flex w-full items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8",
   {
     variants: {
       variant: {
         default: "border-b border-border bg-background",
         sticky:
-          "sticky top-0 z-60 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80",
+          "sticky top-0 z-60     border-border bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/80",
         glass: "sticky top-0 z-60 border-b border-white/10 glass",
         bordered: "border border-border/60 bg-background shadow-sm",
         transparent: "border-b border-transparent bg-transparent",
         pill: [
           "sticky top-0 z-60 w-full",
-          "border-b border-border/40 bg-background/60 px-3 py-2 backdrop-blur-xl transition-all duration-300",
-          "sm:px-6 lg:px-8",
+          "border-b border-border/40 bg-background/60 px-4 py-2 backdrop-blur-xl transition-all duration-300",
+          "sm:px-4 lg:px-8",
         ].join(" "),
       },
       size: {
@@ -76,6 +77,10 @@ export interface NavChildLink {
   badge?: string | number;
   /** Nested sub-links (rendered as a second-level sub-menu). */
   children?: NavChildLink[];
+  /** Section/group label for megamenu columns. Children that share the
+   *  same `section` string are rendered together under a column header.
+   *  Omit to keep the child in the flat default section. */
+  section?: string;
 }
 
 export interface NavLink {
@@ -265,7 +270,7 @@ export function Navbar({
         hasOwnPosition ? "" : "relative",
         stuck &&
           variant === "pill" &&
-          "border-b border-border/60 bg-background/95 shadow-md backdrop-blur-xl",
+          "border-b border-border/60 bg-background/85 shadow-md backdrop-blur-xl",
         className,
       )}
       {...props}
@@ -302,19 +307,19 @@ export function Navbar({
           </div>
         )}
         {showHamburger && (
-          <button
-            type="button"
+          <Button
+            variant="ghost"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "Close menu" : "Toggle menu"}
             aria-expanded={mobileOpen}
-            className={`inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 hover:bg-accent hover:text-accent-foreground ${bpHide}`}
+            className={`inline-flex h-8 w-8 items-center justify-center rounded-md text-foreground/70 transition-colors hover:bg-foreground/10 hover:text-foreground ${bpHide}`}
           >
             {mobileOpen ? (
-              <Icon name="close" className="size-5" aria-hidden="true" />
+              <Icon name="close" className="size-4" aria-hidden="true" />
             ) : (
-              <Icon name="menu" className="size-5" aria-hidden="true" />
+              <Icon name="menu" className="size-4" aria-hidden="true" />
             )}
-          </button>
+          </Button>
         )}
       </div>
 
@@ -322,7 +327,7 @@ export function Navbar({
       {showHamburger && mobileOpen && (
         <div
           className={cn(
-            `absolute inset-x-0 top-full z-60 border-b border-border bg-background p-4 ${bpHide}`,
+            `absolute inset-x-0 top-full z-60 border-b border-border bg-background p-4 max-h-[70vh] overflow-y-auto ${bpHide}`,
           )}
         >
           {mobileMenu ? (
@@ -355,6 +360,104 @@ export function Navbar({
 }
 
 /* ── Internal link item (desktop) ──────────────────────────── */
+
+/** Static grid-column classes keyed by count.  Using a lookup table keeps
+ *  every possible class name as a static string literal so the Tailwind v4
+ *  scanner discovers them — dynamic template literals like
+ *  `grid-cols-${n}` are invisible to the scanner and silently fail. */
+const SECTIONS_GRID_COLS: Record<number, string> = {
+  2: "grid-cols-2",
+  3: "grid-cols-3",
+  4: "grid-cols-4",
+};
+
+/** Group megamenu children by their `section` property (preserving order).
+ *  When no children carry a section, fall back to splitting them evenly
+ *  across `fallbackCols` columns so `columns > 1` always yields a
+ *  multi-column layout. */
+function groupChildrenBySection(
+  children: NavChildLink[],
+  fallbackCols: number,
+): Array<{ name: string; children: NavChildLink[] }> {
+  const hasSections = children.some((c) => c.section);
+  if (hasSections) {
+    const result: Array<{ name: string; children: NavChildLink[] }> = [];
+    for (const child of children) {
+      const name = child.section ?? "";
+      const existing = result.find((s) => s.name === name);
+      if (existing) {
+        existing.children.push(child);
+      } else {
+        result.push({ name, children: [child] });
+      }
+    }
+    return result;
+  }
+  // No sections: distribute children evenly across columns
+  const chunkSize = Math.ceil(children.length / fallbackCols);
+  return Array.from({ length: fallbackCols }, (_, i) => ({
+    name: "",
+    children: children.slice(i * chunkSize, (i + 1) * chunkSize),
+  }));
+}
+
+function MegaMenuContent({
+  link,
+  onNavigate,
+}: {
+  link: NavLink;
+  onNavigate: (href: string) => void;
+}) {
+  const sections = groupChildrenBySection(
+    link.children ?? [],
+    link.columns ?? 2,
+  );
+  const gridClass = SECTIONS_GRID_COLS[sections.length] ?? "grid-cols-2";
+  return (
+    <div className={cn("grid gap-x-6 gap-y-3", gridClass)}>
+      {sections.map((section) => (
+        <div key={section.name || "default"} className="flex flex-col gap-1.5">
+          {section.name && (
+            <span className="text-xs font-semibold text-muted-foreground">
+              {section.name}
+            </span>
+          )}
+          {section.children.map((child) => (
+            <DropdownMenuItem
+              key={child.href}
+              onSelect={() => onNavigate(child.href)}
+              className="flex cursor-pointer flex-col items-start gap-1 rounded-md px-3 py-2.5"
+            >
+              <span className="flex items-center gap-2 text-sm font-medium">
+                {child.icon && (
+                  <span className="size-4 shrink-0 text-primary/70">
+                    {child.icon}
+                  </span>
+                )}
+                {child.label}
+                {child.badge != null && (
+                  <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-medium text-primary-foreground">
+                    {child.badge}
+                  </span>
+                )}
+              </span>
+              {child.description && (
+                <span
+                  className={cn(
+                    "text-xs leading-snug text-muted-foreground",
+                    child.icon && "pl-6",
+                  )}
+                >
+                  {child.description}
+                </span>
+              )}
+            </DropdownMenuItem>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function NavLinkItem({
   link,
@@ -390,7 +493,7 @@ function NavLinkItem({
     : localOpen;
   const itemClass = cn(
     "flex items-center gap-2 text-sm font-medium transition-colors",
-    isPill ? "rounded-full px-3 py-1.5" : "rounded-md px-3 py-2",
+    isPill ? "rounded-full px-4 py-1.5" : "rounded-md px-4 py-2",
     isActive
       ? "bg-accent text-accent-foreground"
       : "text-foreground/70 hover:bg-accent/60 hover:text-foreground",
@@ -468,9 +571,9 @@ function NavLinkItem({
         modal={!hoverDropdowns}
       >
         <DropdownMenuTrigger asChild>
-          <button
-            type="button"
-            className={cn(itemClass, "data-[state=open]:bg-accent/60")}
+          <Button
+            variant="ghost"
+            className={cn(itemClass, "data-[state=open]:bg-accent/5")}
             {...triggerHoverProps}
             onClick={triggerClick}
           >
@@ -493,7 +596,7 @@ function NavLinkItem({
               )}
               aria-hidden="true"
             />
-          </button>
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="start"
@@ -503,40 +606,7 @@ function NavLinkItem({
           {...contentHoverProps}
         >
           {isMega ? (
-            /* Multi-column megamenu — flex layout for even, scrollable flow */
-            <div className="flex flex-col gap-1.5">
-              {link.children.map((child) => (
-                <DropdownMenuItem
-                  key={child.href}
-                  onSelect={() => onNavigate(child.href)}
-                  className="flex cursor-pointer flex-col items-start gap-1 rounded-md px-3 py-2.5"
-                >
-                  <span className="flex items-center gap-2 text-sm font-medium">
-                    {child.icon && (
-                      <span className="size-4 shrink-0 text-primary/70">
-                        {child.icon}
-                      </span>
-                    )}
-                    {child.label}
-                    {child.badge != null && (
-                      <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-medium text-primary-foreground">
-                        {child.badge}
-                      </span>
-                    )}
-                  </span>
-                  {child.description && (
-                    <span
-                      className={cn(
-                        "text-xs leading-snug text-muted-foreground",
-                        child.icon && "pl-6",
-                      )}
-                    >
-                      {child.description}
-                    </span>
-                  )}
-                </DropdownMenuItem>
-              ))}
-            </div>
+            <MegaMenuContent link={link} onNavigate={onNavigate} />
           ) : (
             /* Single-column list with optional nested sub-menus */
             <div className="flex flex-col gap-0.5">
@@ -669,7 +739,7 @@ function MobileNavLink({
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="flex items-center justify-between rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-foreground"
+          className="flex items-center justify-between rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/60 hover:text-foreground"
         >
           <span className="flex items-center gap-2">
             {link.icon && (
@@ -698,7 +768,7 @@ function MobileNavLink({
                   e.preventDefault();
                   onNavigate(child.href);
                 }}
-                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-foreground/70 transition-colors hover:bg-accent hover:text-foreground"
+                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-foreground/70 transition-colors hover:bg-accent/60 hover:text-foreground"
               >
                 {child.icon && (
                   <span className="size-4 shrink-0">{child.icon}</span>
@@ -724,7 +794,7 @@ function MobileNavLink({
         e.preventDefault();
         onNavigate(link.href);
       }}
-      className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-foreground"
+      className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/60 hover:text-foreground"
     >
       {link.icon && (
         <span className="size-4 shrink-0 text-primary/70">{link.icon}</span>

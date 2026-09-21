@@ -265,7 +265,9 @@ export function ShineButton({
       {...props}
     >
       <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-      <span className="relative inline-flex items-center gap-2">{children}</span>
+      <span className="relative inline-flex items-center gap-2">
+        {children}
+      </span>
     </button>
   );
 }
@@ -294,7 +296,10 @@ export function ScrollReveal({
   const ref = React.useRef<HTMLDivElement>(null);
   const [visible, setVisible] = React.useState(false);
   const [reduce, setReduce] = React.useState(false);
-  const resolved = React.useMemo(() => resolveMotion("fade", { direction: "up" }), []);
+  const resolved = React.useMemo(
+    () => resolveMotion("fade", { direction: "up" }),
+    [],
+  );
 
   React.useEffect(() => {
     const isReduced = preferReducedMotion();

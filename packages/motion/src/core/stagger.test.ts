@@ -3,15 +3,21 @@ import { stagger } from "./stagger.js";
 
 describe("stagger", () => {
   it("computes delays from start (default)", () => {
-    expect(stagger(100, { count: 5, from: "start" })).toEqual([0, 100, 200, 300, 400]);
+    expect(stagger(100, { count: 5, from: "start" })).toEqual([
+      0, 100, 200, 300, 400,
+    ]);
   });
 
   it("computes delays from center", () => {
-    expect(stagger(100, { count: 5, from: "center" })).toEqual([200, 100, 0, 100, 200]);
+    expect(stagger(100, { count: 5, from: "center" })).toEqual([
+      200, 100, 0, 100, 200,
+    ]);
   });
 
   it("computes delays from end", () => {
-    expect(stagger(100, { count: 5, from: "end" })).toEqual([400, 300, 200, 100, 0]);
+    expect(stagger(100, { count: 5, from: "end" })).toEqual([
+      400, 300, 200, 100, 0,
+    ]);
   });
 
   it("returns [0] for count = 1", () => {

@@ -4,7 +4,10 @@ import { motionValue } from "../values/motion-value.js";
 import type { Scheduler } from "./scheduler.js";
 
 /** A test scheduler that fires at fixed 10ms intervals. */
-function makeScheduler(delta = 10): { scheduler: Scheduler; ticks: () => number } {
+function makeScheduler(delta = 10): {
+  scheduler: Scheduler;
+  ticks: () => number;
+} {
   let tickCount = 0;
   const scheduler: Scheduler = (cb) => {
     let t = 0;

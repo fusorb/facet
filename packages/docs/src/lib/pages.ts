@@ -20,6 +20,7 @@ export interface DocsLink {
 export type DocsBlock =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
+  | { type: "h3"; text: string }
   | { type: "pre"; text: string }
   | { type: "code"; text: string; lang?: string }
   | { type: "install"; pkg: string; extras?: string[] }
@@ -67,6 +68,12 @@ export type DocsBlock =
       }>;
       /** Show the kind filter row. Default: true. */
       showFilter?: boolean;
+      /**
+       * Visual layout for the release log.
+       * - "list" (default): the standard ChangelogList (kind-filter + version cards)
+       * - "date": ChangelogWithDate — releases grouped by year with a date axis (Lovable-style)
+       */
+      layout?: "list" | "date";
     }
   | {
       /** Centralised live playground: component selector + editable usage code with a live preview. */

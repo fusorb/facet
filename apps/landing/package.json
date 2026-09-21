@@ -16,7 +16,9 @@
     "react-router-dom": "^7.1.1",
     "@fusorb/facet-tokens": "workspace:*",
     "@fusorb/facet-layout": "workspace:*",
-    "@fusorb/facet-components": "workspace:*"
+    "@fusorb/facet-components": "workspace:*",
+    "@fusorb/facet-motion": "workspace:*",
+    "@fusorb/facet-auth": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19",

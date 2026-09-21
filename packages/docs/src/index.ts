@@ -40,6 +40,7 @@ export type { DocsManifestEntry } from "./lib/manifest.js";
 export {
   GuidePage,
   H2,
+  H3,
   P,
   Pre,
   Ul,
@@ -68,6 +69,9 @@ export type { PlaygroundPageProps } from "./components/PlaygroundPage.js";
 
 // Content engine
 export { DocsContentPage } from "./pages/DocsContentPage.js";
+export { DocsTableOfContents } from "./components/DocsTableOfContents.js";
+export type { DocsTableOfContentsProps } from "./components/DocsTableOfContents.js";
+export { slug } from "./lib/ids.js";
 
 // Component manifest (auto-generated)
 export { docsManifest } from "./manifest.js";

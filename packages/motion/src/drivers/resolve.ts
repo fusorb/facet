@@ -46,9 +46,7 @@ function cubicBezier(
   for (let i = 0; i < sampleCount; i++) {
     const t = i * sampleStep;
     sampleValues[i] =
-      3 * x1 * (1 - t) * (1 - t) * t +
-      3 * x2 * (1 - t) * t * t +
-      t * t * t;
+      3 * x1 * (1 - t) * (1 - t) * t + 3 * x2 * (1 - t) * t * t + t * t * t;
   }
 
   function getTForX(x: number): number {
@@ -70,9 +68,7 @@ function cubicBezier(
     if (x >= 1) return 1;
     const t = getTForX(x);
     return (
-      3 * y1 * (1 - t) * (1 - t) * t +
-      3 * y2 * (1 - t) * t * t +
-      t * t * t
+      3 * y1 * (1 - t) * (1 - t) * t + 3 * y2 * (1 - t) * t * t + t * t * t
     );
   };
 }
@@ -100,12 +96,13 @@ export const DURATION_VALUES: Record<string, number> = {
  * Easing tokens → solver functions, derived from `motionValues.facetEasing`
  * (the same cubic-bezier curves as the CSS `--facet-motion-ease-*`).
  */
-export const EASING_FUNCTIONS: Record<string, EasingFunction> = Object.fromEntries(
-  Object.entries(motionValues.facetEasing).map(([token, value]) => [
-    token,
-    easingValueToFunction(value),
-  ]),
-);
+export const EASING_FUNCTIONS: Record<string, EasingFunction> =
+  Object.fromEntries(
+    Object.entries(motionValues.facetEasing).map(([token, value]) => [
+      token,
+      easingValueToFunction(value),
+    ]),
+  );
 
 /* ---------- public helpers ---------- */
 

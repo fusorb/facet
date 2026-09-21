@@ -278,12 +278,18 @@ importers:
 
   apps/landing:
     dependencies:
+      '@fusorb/facet-auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@fusorb/facet-components':
         specifier: workspace:*
         version: link:../../packages/components
       '@fusorb/facet-layout':
         specifier: workspace:*
         version: link:../../packages/layout
+      '@fusorb/facet-motion':
+        specifier: workspace:*
+        version: link:../../packages/motion
       '@fusorb/facet-tokens':
         specifier: workspace:*
         version: link:../../packages/tokens

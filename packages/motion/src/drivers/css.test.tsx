@@ -82,10 +82,13 @@ describe("cssDriver", () => {
 
   it("applies direct string/number values immediately", () => {
     const el = document.createElement("div");
-    cssDriver.apply({ style: el.style }, {
-      opacity: 0.5,
-      transform: "translateX(10px)",
-    });
+    cssDriver.apply(
+      { style: el.style },
+      {
+        opacity: 0.5,
+        transform: "translateX(10px)",
+      },
+    );
     expect(el.style.opacity).toBe("0.5");
     expect(el.style.transform).toBe("translateX(10px)");
   });

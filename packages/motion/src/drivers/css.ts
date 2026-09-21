@@ -35,7 +35,10 @@ import type {
  * component authors using the engine directly.
  */
 export function preferReducedMotion(): boolean {
-  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+  if (
+    typeof window === "undefined" ||
+    typeof window.matchMedia !== "function"
+  ) {
     return false; // SSR / non-browser: no explicit preference
   }
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -94,7 +97,9 @@ export const cssDriver: MotionDriver & {
   },
 
   isSupported(): boolean {
-    return typeof window !== "undefined" && typeof window.matchMedia === "function";
+    return (
+      typeof window !== "undefined" && typeof window.matchMedia === "function"
+    );
   },
 
   resolveDuration,

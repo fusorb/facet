@@ -21,8 +21,8 @@ export function MotionPreviewSection() {
         <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
           15 generative animation families and 5 domain-specific presets, all
           driven by the same CSS custom properties you can override in your own
-          product. Each card plays its family live — tap Play, Loop, or Pause
-          to feel the motion.
+          product. Each card plays its family live — tap Play, Loop, or Pause to
+          feel the motion.
         </p>
       </div>
 

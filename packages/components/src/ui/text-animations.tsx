@@ -214,20 +214,8 @@ export function SplitText({
   const resolved = resolveText(text, children);
   const items =
     by === "chars"
-      ? splitChars(
-          resolved,
-          delay,
-          stagger,
-          "animate-facet-fade-up",
-          duration,
-        )
-      : splitWords(
-          resolved,
-          delay,
-          stagger,
-          "animate-facet-fade-up",
-          duration,
-        );
+      ? splitChars(resolved, delay, stagger, "animate-facet-fade-up", duration)
+      : splitWords(resolved, delay, stagger, "animate-facet-fade-up", duration);
   return (
     <span className={cn("inline-block", className)} {...props}>
       {items}
@@ -255,10 +243,7 @@ export function FadeUpText({
   const resolved = resolveText(text, children);
   return (
     <span
-      className={cn(
-        "inline-block animate-facet-fade-up",
-        className,
-      )}
+      className={cn("inline-block animate-facet-fade-up", className)}
       style={{
         animationDelay: `${delay}ms`,
         animationDuration: `${duration}ms`,

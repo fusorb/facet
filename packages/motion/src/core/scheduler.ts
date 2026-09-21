@@ -19,7 +19,9 @@ export type Scheduler = (callback: TickCallback) => Unscheduler;
  * On each tick, `callback` receives the elapsed time since the previous
  * tick in milliseconds.
  */
-export const defaultScheduler: Scheduler = (callback: TickCallback): Unscheduler => {
+export const defaultScheduler: Scheduler = (
+  callback: TickCallback,
+): Unscheduler => {
   let stopped = false;
 
   if (typeof requestAnimationFrame === "function") {

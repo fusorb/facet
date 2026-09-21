@@ -462,12 +462,7 @@ export function StepperPanel({
   const active = api.current;
   return (
     <div className={cn("min-h-0", className)} {...props}>
-      <Motion
-        key={active.id}
-        effect="fade"
-        direction="up"
-        className="w-full"
-      >
+      <Motion key={active.id} effect="fade" direction="up" className="w-full">
         {children(active)}
       </Motion>
     </div>

@@ -17,10 +17,10 @@
  * tailwindcss-animate) so the enter/exit utilities used by the
  * facet components (animate-in/out, fade-*, zoom-*, slide-*) exist
  * for Tailwind consumers.
- * ================================================================= */
-
-/* tw-animate-css provides the enter/exit animation utilities
- * (animate-in/out, fade, zoom, slide) referenced by facet components. */
+ *
+ * All @keyframes live in tokens.css (single source of truth).
+ * This file only declares @theme (→ animate-* utility classes),
+ * @utility, and @variant blocks. */
 @import "tw-animate-css";
 
 @theme {
@@ -129,393 +129,93 @@
   --color-brand-glow: var(--primary);
 
   /* ── Animations (for Radix accordion etc.) ───────────────── */
-  --animate-accordion-down: accordion-down var(--facet-motion-duration-base) var(--facet-motion-ease-emphasized) both;
-  --animate-accordion-up: accordion-up var(--facet-motion-duration-base) var(--facet-motion-ease-emphasized) both;
-  --animate-pulse-ring: pulse-ring var(--facet-motion-duration-cinematic) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-accordion-down: accordion-down var(--facet-motion-duration-base)
+    var(--facet-motion-ease-emphasized) both;
+  --animate-accordion-up: accordion-up var(--facet-motion-duration-base)
+    var(--facet-motion-ease-emphasized) both;
+  --animate-pulse-ring: pulse-ring var(--facet-motion-duration-cinematic)
+    cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-facet-marquee: facet-marquee 20s linear infinite;
-  --animate-caret-blink: caret-blink var(--motion-duration-1000) step-end infinite;
-  --animate-facet-ripple: facet-ripple var(--motion-duration-500) var(--motion-ease-standard-decelerate);
-  --animate-facet-ripple-forwards: facet-ripple var(--motion-duration-500) var(--motion-ease-standard-decelerate) forwards;
+  --animate-caret-blink: caret-blink var(--motion-duration-1000) step-end
+    infinite;
+  --animate-facet-ripple: facet-ripple var(--motion-duration-500)
+    var(--motion-ease-standard-decelerate);
+  --animate-facet-ripple-forwards: facet-ripple var(--motion-duration-500)
+    var(--motion-ease-standard-decelerate) forwards;
   --animate-facet-aurora: facet-aurora 18s ease-in-out infinite alternate;
   --animate-facet-beam: facet-beam 7s ease-in-out infinite;
-  --animate-facet-sparkle: facet-sparkle var(--motion-duration-700) var(--motion-ease-standard-decelerate);
-  --animate-facet-dissolve: facet-dissolve var(--motion-duration-500) var(--motion-ease-standard-decelerate) both;
-  --animate-facet-dissolve-reverse: facet-dissolve var(--motion-duration-700) var(--motion-ease-standard-decelerate) both reverse;
-  --animate-facet-glow-pulse: facet-glow-pulse var(--facet-motion-duration-slow) var(--facet-motion-ease-smooth) infinite;
-  --animate-facet-spin: facet-spin var(--facet-motion-duration-cinematic) var(--facet-motion-ease-linear) infinite;
-  --animate-facet-fade-up: facet-fade-up var(--motion-duration-300) var(--facet-motion-ease-standard) both;
-  --animate-facet-overlay-in: facet-overlay-in var(--motion-duration-150) var(--motion-ease-standard-decelerate) both;
-  --animate-facet-overlay-out: facet-overlay-out var(--motion-duration-150) var(--motion-ease-standard-accelerate) both;
+  --animate-facet-sparkle: facet-sparkle var(--motion-duration-700)
+    var(--motion-ease-standard-decelerate);
+  --animate-facet-dissolve: facet-dissolve var(--motion-duration-500)
+    var(--motion-ease-standard-decelerate) both;
+  --animate-facet-dissolve-reverse: facet-dissolve var(--motion-duration-700)
+    var(--motion-ease-standard-decelerate) both reverse;
+  --animate-facet-glow-pulse: facet-glow-pulse var(--facet-motion-duration-slow)
+    var(--facet-motion-ease-smooth) infinite;
+  --animate-facet-spin: facet-spin var(--facet-motion-duration-cinematic)
+    var(--facet-motion-ease-linear) infinite;
+  --animate-facet-fade-up: facet-fade-up var(--motion-duration-300)
+    var(--facet-motion-ease-standard) both;
+  --animate-facet-overlay-in: facet-overlay-in var(--motion-duration-150)
+    var(--motion-ease-standard-decelerate) both;
+  --animate-facet-overlay-out: facet-overlay-out var(--motion-duration-150)
+    var(--motion-ease-standard-accelerate) both;
 
   /* ── Text animations ── */
-  --animate-facet-text-blur: facet-text-blur var(--motion-duration-500) var(--motion-ease-standard-decelerate) both;
-  --animate-facet-text-wave: facet-text-wave var(--motion-duration-1000) ease-in-out infinite;
-  --animate-facet-flip: facet-flip var(--motion-duration-500) var(--motion-ease-standard-decelerate) both;
-  --animate-facet-shimmer: facet-shimmer var(--facet-motion-duration-cinematic) linear infinite;
-  --animate-facet-gradient-shift: facet-gradient-shift var(--facet-motion-duration-cinematic) ease infinite;
+  --animate-facet-text-blur: facet-text-blur var(--motion-duration-500)
+    var(--motion-ease-standard-decelerate) both;
+  --animate-facet-text-wave: facet-text-wave var(--motion-duration-1000)
+    ease-in-out infinite;
+  --animate-facet-flip: facet-flip var(--motion-duration-500)
+    var(--motion-ease-standard-decelerate) both;
+  --animate-facet-shimmer: facet-shimmer var(--facet-motion-duration-cinematic)
+    linear infinite;
+  --animate-facet-gradient-shift: facet-gradient-shift
+    var(--facet-motion-duration-cinematic) ease infinite;
 
   /* ── Motion system (consolidated from animation.txt master sheet) ────── */
-  --animate-facet-fade-in: facet-fade-in var(--motion-duration-150) var(--motion-ease-standard-decelerate) both;
-  --animate-facet-fade-out: facet-fade-out var(--motion-duration-100) var(--motion-ease-standard-accelerate) both;
-  --animate-facet-slide-down: facet-slide-down var(--motion-duration-150) var(--motion-ease-standard) both;
-  --animate-facet-slide-left: facet-slide-left var(--motion-duration-150) var(--motion-ease-standard) both;
-  --animate-facet-slide-right: facet-slide-right var(--motion-duration-150) var(--motion-ease-standard) both;
-  --animate-facet-zoom-in: facet-zoom-in var(--motion-duration-200) var(--motion-ease-spring) both;
-  --animate-facet-zoom-out: facet-zoom-out var(--motion-duration-150) var(--motion-ease-standard-accelerate) both;
-  --animate-facet-flip-x: facet-flip-x var(--motion-duration-400) var(--motion-ease-standard) both;
-  --animate-facet-bounce: facet-bounce var(--motion-duration-350) var(--motion-ease-bounce) both;
-  --animate-facet-shake: facet-shake var(--motion-duration-500) var(--motion-ease-standard) both;
+  --animate-facet-fade-in: facet-fade-in var(--motion-duration-150)
+    var(--motion-ease-standard-decelerate) both;
+  --animate-facet-fade-out: facet-fade-out var(--motion-duration-100)
+    var(--motion-ease-standard-accelerate) both;
+  --animate-facet-slide-down: facet-slide-down var(--motion-duration-150)
+    var(--motion-ease-standard) both;
+  --animate-facet-slide-left: facet-slide-left var(--motion-duration-150)
+    var(--motion-ease-standard) both;
+  --animate-facet-slide-right: facet-slide-right var(--motion-duration-150)
+    var(--motion-ease-standard) both;
+  --animate-facet-zoom-in: facet-zoom-in var(--motion-duration-200)
+    var(--motion-ease-spring) both;
+  --animate-facet-zoom-out: facet-zoom-out var(--motion-duration-150)
+    var(--motion-ease-standard-accelerate) both;
+  --animate-facet-flip-x: facet-flip-x var(--motion-duration-400)
+    var(--motion-ease-standard) both;
+  --animate-facet-bounce: facet-bounce var(--motion-duration-350)
+    var(--motion-ease-bounce) both;
+  --animate-facet-shake: facet-shake var(--motion-duration-500)
+    var(--motion-ease-standard) both;
 
-  /* ── Scratchpad animation aliases ────────────────────────────── */
-  --animate-aurora-shift: facet-aurora var(--facet-motion-duration-cinematic) ease-in-out infinite alternate;
+  /* ── Scratchpad animation aliases ──────────────────────────────
+   * These map bare `animate-*` utility classes to keyframes that
+   * live in tokens.css. The facet-prefixed equivalents above are
+   * used by @fusorb/facet-components; these aliases serve the
+   * landing site marketing surfaces. */
+  --animate-aurora-shift: facet-aurora var(--facet-motion-duration-cinematic)
+    ease-in-out infinite alternate;
   --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
-  --animate-ripple-expand: ripple-expand var(--motion-duration-500) var(--motion-ease-standard-decelerate);
+  --animate-ripple-expand: ripple-expand var(--motion-duration-500)
+    var(--motion-ease-standard-decelerate);
   --animate-beam-move: facet-beam 7s ease-in-out infinite;
-  --animate-reveal-up: reveal-up var(--motion-duration-500) var(--motion-ease-standard-decelerate) both;
+  --animate-reveal-up: reveal-up var(--motion-duration-500)
+    var(--motion-ease-standard-decelerate) both;
   --animate-grid-move: grid-move 20s linear infinite;
   --animate-typewriter-blink: typewriter-blink 1s step-end infinite;
   --animate-shine-sweep: shine-sweep 3s linear infinite;
-  --animate-fade-up: fade-up var(--motion-duration-300) var(--motion-ease-standard) both;
+  --animate-fade-up: fade-up var(--motion-duration-300)
+    var(--motion-ease-standard) both;
   --animate-spotlight-rotate: spotlight-rotate 20s linear infinite;
   --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
   --animate-tilt-rock: tilt-rock 4s ease-in-out infinite;
-}
-
-@keyframes accordion-down {
-  from {
-    height: 0;
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    height: var(--radix-accordion-content-height);
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes accordion-up {
-  from {
-    height: var(--radix-accordion-content-height);
-    opacity: 1;
-    transform: none;
-  }
-  to {
-    height: 0;
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes pulse-ring {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.3;
-    transform: scale(1.05);
-  }
-}
-
-/* ── facet-marquee + caret-blink (back the --animate-* vars) ─── */
-@keyframes facet-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes caret-blink {
-  0%,
-  70%,
-  100% {
-    opacity: 1;
-  }
-  20%,
-  50% {
-    opacity: 0;
-  }
-}
-
-@keyframes facet-ripple {
-  from {
-    transform: scale(0);
-    opacity: 0.6;
-  }
-  to {
-    transform: scale(1);
-    opacity: 0;
-  }
-}
-
-@keyframes facet-aurora {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(90deg) scale(1.15);
-  }
-  100% {
-    transform: rotate(180deg) scale(1);
-  }
-}
-
-@keyframes facet-beam {
-  0%,
-  100% {
-    transform: translateX(-120%) skewX(-12deg);
-    opacity: 0;
-  }
-  35%,
-  65% {
-    opacity: 1;
-  }
-  50% {
-    transform: translateX(320%) skewX(-12deg);
-  }
-}
-
-@keyframes facet-sparkle {
-  from {
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: translate(var(--dx), var(--dy)) scale(0);
-    opacity: 0;
-  }
-}
-
-@keyframes facet-dissolve {
-  0% {
-    opacity: 0;
-    filter: blur(4px);
-    transform: scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0);
-    transform: scale(1);
-  }
-}
-
-@keyframes facet-overlay-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes facet-overlay-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-/* ── Text + micro-interaction animations ─────────────────────── */
-@keyframes facet-text-blur {
-  from {
-    opacity: 0;
-    filter: blur(12px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-
-@keyframes facet-text-wave {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-0.25em);
-  }
-}
-
-@keyframes facet-shimmer {
-  from {
-    background-position: -200% center;
-  }
-  to {
-    background-position: 200% center;
-  }
-}
-
-@keyframes facet-gradient-shift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes facet-flip {
-  from {
-    transform: rotateX(90deg);
-    opacity: 0;
-  }
-  to {
-    transform: rotateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes facet-fade-up {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes facet-glow-pulse {
-  0%,
-  100% {
-    opacity: 0.9;
-    filter: brightness(1);
-  }
-  50% {
-    opacity: 1;
-    filter: brightness(1.6);
-  }
-}
-
-@keyframes facet-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ── New animations (consolidated from animation.txt master sheet) ─
- * Organized by category: entrances/exits, slides, zooms, attention, 3D.
- * All durations/easings use motion-token CSS variables for themeability. */
-
-/* Entrances */
-@keyframes facet-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes facet-fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-/* Slides */
-@keyframes facet-slide-down {
-  from {
-    opacity: 0;
-    transform: translateY(-var(--motion-distance-lg));
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes facet-slide-left {
-  from {
-    opacity: 0;
-    transform: translateX(var(--motion-distance-lg));
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes facet-slide-right {
-  from {
-    opacity: 0;
-    transform: translateX(-var(--motion-distance-lg));
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Zooms */
-@keyframes facet-zoom-in {
-  from {
-    opacity: 0;
-    transform: scale(var(--motion-scale-inactive));
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@keyframes facet-zoom-out {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(var(--motion-scale-inactive));
-  }
-}
-
-/* Attention seekers */
-@keyframes facet-bounce {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(-8px);
-  }
-}
-@keyframes facet-shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  20% {
-    transform: translateX(-4px);
-  }
-  40% {
-    transform: translateX(4px);
-  }
-  60% {
-    transform: translateX(-4px);
-  }
-  80% {
-    transform: translateX(4px);
-  }
-}
-
-/* 3D flips */
-@keyframes facet-flip-x {
-  from {
-    transform: rotateX(0deg);
-  }
-  to {
-    transform: rotateX(180deg);
-  }
 }
 
 /* ── Custom utilities (SovGrant compatibility) ──────────────────── */

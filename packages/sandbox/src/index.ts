@@ -63,11 +63,11 @@ export function listSandboxBlocks(): readonly SandboxBlock[] {
 export type PreviewContent =
   | { readonly kind: "node"; readonly node: unknown }
   | {
-    readonly kind: "html";
-    readonly html: string;
-    readonly css?: string;
-    readonly js?: string;
-  };
+      readonly kind: "html";
+      readonly html: string;
+      readonly css?: string;
+      readonly js?: string;
+    };
 
 /**
  * Bridge interface a runtime adapter implements. The host never calls into a

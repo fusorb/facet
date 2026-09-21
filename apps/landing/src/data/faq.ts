@@ -50,7 +50,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "How do I use the icon registry, and can I override it?",
-    a: "The <Icon> component resolves any lucide-style kebab name out of the box. To use your own icons (react-icons, heroicons, or your own SVG components), pass overrides via <IconProvider overrides={{ settings: MyIcon }}> per app/domain, or `registerIcon(\"name\", MyIcon)` globally.",
+    a: 'The <Icon> component resolves any lucide-style kebab name out of the box. To use your own icons (react-icons, heroicons, or your own SVG components), pass overrides via <IconProvider overrides={{ settings: MyIcon }}> per app/domain, or `registerIcon("name", MyIcon)` globally.',
   },
   {
     q: "Where can I see a live example of each component?",

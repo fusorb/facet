@@ -425,7 +425,9 @@ describe("DocsApp integration - consumer-style config + pages", () => {
 
     await screen.findByTestId("console-layout", {}, { timeout: 5000 });
     expect(screen.getByText(/facet is what you get/)).toBeInTheDocument();
-    expect(screen.getByText("Packages")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Packages" }),
+    ).toBeInTheDocument();
     // Code blocks render as <pre><code>
     const codeBlock = screen.getByText((content) =>
       content.includes("pnpm install"),

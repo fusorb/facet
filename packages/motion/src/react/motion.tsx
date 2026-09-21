@@ -76,7 +76,16 @@ export function Motion({
 
   const resolved = useMemo<ResolvedMotion | null>(
     () => resolveMotion(effect, variant, transition),
-    [effect, direction, intensity, duration, ease, delay, staggerDelay, staggerIndex],
+    [
+      effect,
+      direction,
+      intensity,
+      duration,
+      ease,
+      delay,
+      staggerDelay,
+      staggerIndex,
+    ],
   );
 
   // SSR / first-paint: apply the "from" state so there's no flash.

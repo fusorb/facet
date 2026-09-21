@@ -115,10 +115,7 @@ const GLOW_RADIUS: Record<Intensity, number> = {
   dramatic: 24,
 };
 
-const PANEL_PARAMS: Record<
-  Intensity,
-  { distance: number; scale: number }
-> = {
+const PANEL_PARAMS: Record<Intensity, { distance: number; scale: number }> = {
   subtle: { distance: 10, scale: 0.97 },
   soft: { distance: 20, scale: 0.95 },
   medium: { distance: 30, scale: 0.93 },

@@ -68,6 +68,8 @@ export interface DocsAppProps {
   pages: DocsPage[];
   /** Mount the /components gallery routes (requires the component manifest). */
   showComponents?: boolean;
+  /** Render the sticky "on this page" right rail on content pages. */
+  showTableOfContents?: boolean;
   /** Extra topbar content (e.g. a GitHub link), rendered after the search bar. */
   topbar?: React.ReactNode;
   /** External links rendered in the settings gear menu. */
@@ -89,11 +91,19 @@ export function DocsApp({
   config,
   pages,
   showComponents = true,
+  showTableOfContents = true,
   topbar,
   links,
   defaultTheme = "system",
 }: DocsAppProps) {
-  const value: DocsAppValue = { config, pages, showComponents, topbar, links };
+  const value: DocsAppValue = {
+    config,
+    pages,
+    showComponents,
+    showTableOfContents,
+    topbar,
+    links,
+  };
   return (
     <ThemeProvider defaultTheme={defaultTheme}>
       <BrowserRouter>

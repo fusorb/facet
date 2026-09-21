@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  FaqSection as FacetFaqSection,
-  Pill,
-} from "@fusorb/facet-components";
+import { FaqSection as FacetFaqSection, Pill } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { FAQ } from "../../data/faq.js";
 import { getDocsUrl } from "../../site.config.js";

@@ -3,7 +3,11 @@ import { LightIcon } from "@fusorb/facet-components/light";
 import { PageShell } from "../components/PageShell.js";
 import { BrandMark } from "../components/Brand.js";
 import { FEATURES, ROADMAP } from "../data/features.js";
-import { SITE_PACKAGES, SITE_STATS } from "../data/site-data.generated.js";
+import {
+  SITE_PACKAGES,
+  SITE_PACKAGES_COUNT,
+  SITE_STATS,
+} from "../data/site-data.generated.js";
 import { site, getDocsUrl } from "../site.config.js";
 
 /** "Built with" stack for the About page. Curated to match the toolchain
@@ -65,7 +69,7 @@ export function AboutPage() {
             What it is
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Nine packages, published to npm under{" "}
+            {SITE_PACKAGES_COUNT} packages, published to npm under{" "}
             <code className="rounded bg-secondary/50 px-2 py-1">@fusorb</code>,
             sharing one token system and staying in sync through CI gates. The
             numbers below are generated from the workspace at build time, so
@@ -169,14 +173,14 @@ export function AboutPage() {
         <div className="mt-6 overflow-x-auto">
           <div className="flex min-w-max gap-2">
             {STACK.map((s) => (
-            <span
-              key={s.name}
-              className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1 text-xs text-foreground/80"
-            >
-              {s.name}
-              <span className="text-xs opacity-50">· {s.tag}</span>
-            </span>
-          ))}
+              <span
+                key={s.name}
+                className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1 text-xs text-foreground/80"
+              >
+                {s.name}
+                <span className="text-xs opacity-50">· {s.tag}</span>
+              </span>
+            ))}
           </div>
         </div>
       </section>

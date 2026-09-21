@@ -44,8 +44,7 @@ export const SYSTEM_LAYERS: SystemNode[] = [
             label: "Components",
             sub: "@fusorb/facet-components",
             pkg: "@fusorb/facet-components",
-            desc:
-              "114+ primitives, composed surfaces, and ready-to-use pages. Every component is independently versionable.",
+            desc: "114+ primitives, composed surfaces, and ready-to-use pages. Every component is independently versionable.",
             icon: "boxes",
             color: "oklch(0.72 0.18 270)",
             children: [
@@ -285,11 +284,7 @@ export type MotionDirection =
   | "tracking";
 
 export type MotionIntensity =
-  | "subtle"
-  | "soft"
-  | "medium"
-  | "strong"
-  | "dramatic";
+  "subtle" | "soft" | "medium" | "strong" | "dramatic";
 
 export interface MotionEffectSpec {
   id: string;
@@ -528,16 +523,40 @@ export const TOKEN_CATEGORIES: TokenCategory[] = [
   {
     label: "Color",
     tokens: [
-      { name: "background", cssVar: "--background", value: "oklch(0.12 0.02 240)" },
-      { name: "foreground", cssVar: "--foreground", value: "oklch(0.95 0.01 240)" },
+      {
+        name: "background",
+        cssVar: "--background",
+        value: "oklch(0.12 0.02 240)",
+      },
+      {
+        name: "foreground",
+        cssVar: "--foreground",
+        value: "oklch(0.95 0.01 240)",
+      },
       { name: "primary", cssVar: "--primary", value: "oklch(0.82 0.13 220)" },
-      { name: "primary-foreground", cssVar: "--primary-foreground", value: "oklch(0.17 0.03 240)" },
-      { name: "secondary", cssVar: "--secondary", value: "oklch(0.19 0.02 240)" },
+      {
+        name: "primary-foreground",
+        cssVar: "--primary-foreground",
+        value: "oklch(0.17 0.03 240)",
+      },
+      {
+        name: "secondary",
+        cssVar: "--secondary",
+        value: "oklch(0.19 0.02 240)",
+      },
       { name: "muted", cssVar: "--muted", value: "oklch(0.19 0.02 240)" },
-      { name: "muted-foreground", cssVar: "--muted-foreground", value: "oklch(0.65 0.02 240)" },
+      {
+        name: "muted-foreground",
+        cssVar: "--muted-foreground",
+        value: "oklch(0.65 0.02 240)",
+      },
       { name: "accent", cssVar: "--accent", value: "oklch(0.22 0.03 240)" },
       { name: "border", cssVar: "--border", value: "oklch(0.22 0.02 240)" },
-      { name: "destructive", cssVar: "--destructive", value: "oklch(0.577 0.245 27.325)" },
+      {
+        name: "destructive",
+        cssVar: "--destructive",
+        value: "oklch(0.577 0.245 27.325)",
+      },
       { name: "success", cssVar: "--success", value: "oklch(0.527 0.154 150)" },
       { name: "card", cssVar: "--card", value: "oklch(0.155 0.02 240)" },
     ],
@@ -548,7 +567,11 @@ export const TOKEN_CATEGORIES: TokenCategory[] = [
       { name: "font-heading", cssVar: "--font-heading", value: '"Montserrat"' },
       { name: "font-body", cssVar: "--font-body", value: '"Inter"' },
       { name: "font-mono", cssVar: "--font-mono", value: '"JetBrains Mono"' },
-      { name: "font-technical", cssVar: "--font-technical", value: '"Rajdhani"' },
+      {
+        name: "font-technical",
+        cssVar: "--font-technical",
+        value: '"Rajdhani"',
+      },
     ],
   },
   {
@@ -578,12 +601,36 @@ export const TOKEN_CATEGORIES: TokenCategory[] = [
   {
     label: "Motion",
     tokens: [
-      { name: "duration-fast", cssVar: "--facet-motion-duration-fast", value: "150ms" },
-      { name: "duration-base", cssVar: "--facet-motion-duration-base", value: "250ms" },
-      { name: "duration-slow", cssVar: "--facet-motion-duration-slow", value: "500ms" },
-      { name: "ease-standard", cssVar: "--motion-ease-standard", value: "cubic-bezier(0.2, 0, 0, 1)" },
-      { name: "ease-spring", cssVar: "--motion-ease-spring", value: "cubic-bezier(0.34, 1.56, 0.64, 1)" },
-      { name: "ease-emphasized", cssVar: "--motion-ease-emphasized", value: "cubic-bezier(0.2, 0, 0, 1)" },
+      {
+        name: "duration-fast",
+        cssVar: "--facet-motion-duration-fast",
+        value: "150ms",
+      },
+      {
+        name: "duration-base",
+        cssVar: "--facet-motion-duration-base",
+        value: "250ms",
+      },
+      {
+        name: "duration-slow",
+        cssVar: "--facet-motion-duration-slow",
+        value: "500ms",
+      },
+      {
+        name: "ease-standard",
+        cssVar: "--motion-ease-standard",
+        value: "cubic-bezier(0.2, 0, 0, 1)",
+      },
+      {
+        name: "ease-spring",
+        cssVar: "--motion-ease-spring",
+        value: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+      },
+      {
+        name: "ease-emphasized",
+        cssVar: "--motion-ease-emphasized",
+        value: "cubic-bezier(0.2, 0, 0, 1)",
+      },
     ],
   },
 ];
@@ -593,29 +640,83 @@ export const TOKEN_CATEGORIES: TokenCategory[] = [
 export const COMPONENT_CATEGORIES: Record<string, string[]> = {
   Foundations: ["Icon", "Theme", "Typography", "Tokens"],
   Inputs: [
-    "Input", "PasswordInput", "OTP", "Select", "Combobox", "DatePicker",
-    "Form", "TagInput", "Slider", "MultiCombobox", "PhoneInput", "RichTextEditor",
+    "Input",
+    "PasswordInput",
+    "OTP",
+    "Select",
+    "Combobox",
+    "DatePicker",
+    "Form",
+    "TagInput",
+    "Slider",
+    "MultiCombobox",
+    "PhoneInput",
+    "RichTextEditor",
   ],
   "Data Display": [
-    "Table", "DataTable", "Avatar", "AvatarGroup", "Badge", "Pill", "Kbd",
-    "Tree", "NotificationDrawer",
+    "Table",
+    "DataTable",
+    "Avatar",
+    "AvatarGroup",
+    "Badge",
+    "Pill",
+    "Kbd",
+    "Tree",
+    "NotificationDrawer",
   ],
   Feedback: [
-    "Alert", "Dialog", "AlertDialog", "Drawer", "Sheet", "Popover",
-    "Tooltip", "Progress", "Spinner", "Skeleton", "Toast", "EmptyState",
+    "Alert",
+    "Dialog",
+    "AlertDialog",
+    "Drawer",
+    "Sheet",
+    "Popover",
+    "Tooltip",
+    "Progress",
+    "Spinner",
+    "Skeleton",
+    "Toast",
+    "EmptyState",
   ],
   Layout: [
-    "Card", "Tabs", "Accordion", "Separator", "Breadcrumb", "Pagination",
-    "Resizable", "Navbar", "NavigationMenu", "ContextMenu", "DropdownMenu",
+    "Card",
+    "Tabs",
+    "Accordion",
+    "Separator",
+    "Breadcrumb",
+    "Pagination",
+    "Resizable",
+    "Navbar",
+    "NavigationMenu",
+    "ContextMenu",
+    "DropdownMenu",
   ],
   "Ready-to-use": [
-    "Stepper", "WizardFormPage", "KanbanBoard", "ApiKeyManager",
-    "ActivityFeed", "StatCard", "InviteTeam", "AccountSettings",
-    "PageHeader", "PricingComparison", "QRCode", "Dropzone",
+    "Stepper",
+    "WizardFormPage",
+    "KanbanBoard",
+    "ApiKeyManager",
+    "ActivityFeed",
+    "StatCard",
+    "InviteTeam",
+    "AccountSettings",
+    "PageHeader",
+    "PricingComparison",
+    "QRCode",
+    "Dropzone",
   ],
   Motion: [
-    "Spotlight", "Aurora", "Beams", "Grid", "Typewriter", "Reveal",
-    "Glow", "Shine", "Ripple", "Magnetic", "Tilt",
+    "Spotlight",
+    "Aurora",
+    "Beams",
+    "Grid",
+    "Typewriter",
+    "Reveal",
+    "Glow",
+    "Shine",
+    "Ripple",
+    "Magnetic",
+    "Tilt",
   ],
 };
 

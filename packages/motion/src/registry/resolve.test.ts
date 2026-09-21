@@ -1,6 +1,17 @@
 import { describe, it, expect } from "vitest";
-import { resolveMotion, get, registry, generativeFamilies, authoredRegistry } from "./index.js";
-import { resolveTransition, DEFAULT_INTENSITY, DEFAULT_EASING, DEFAULT_DURATION } from "./index.js";
+import {
+  resolveMotion,
+  get,
+  registry,
+  generativeFamilies,
+  authoredRegistry,
+} from "./index.js";
+import {
+  resolveTransition,
+  DEFAULT_INTENSITY,
+  DEFAULT_EASING,
+  DEFAULT_DURATION,
+} from "./index.js";
 import type { MotionVariant } from "./index.js";
 
 describe("registry", () => {
@@ -38,6 +49,24 @@ describe("registry", () => {
   describe("authoredRegistry", () => {
     it("registers at least 14 authored effects", () => {
       expect(Object.keys(authoredRegistry).length).toBeGreaterThanOrEqual(14);
+    });
+
+    it("includes all 9 landscaped authored effects with resolve()", () => {
+      const ids = Object.keys(authoredRegistry);
+      for (const id of [
+        "aurora",
+        "beams",
+        "spotlight",
+        "grid",
+        "ripple",
+        "tilt",
+        "shine",
+        "typewriter",
+        "magnetic",
+      ]) {
+        expect(ids).toContain(id);
+        expect(authoredRegistry[id]!.resolve).toBeTypeOf("function");
+      }
     });
 
     it("marks all authored effects with kind: authored", () => {
@@ -83,7 +112,11 @@ describe("registry", () => {
 
   describe("resolveMotion - worked examples (spec §4)", () => {
     it("fade / up / soft / fast", () => {
-      const result = resolveMotion("fade", { direction: "up", intensity: "soft" }, { duration: "fast" });
+      const result = resolveMotion(
+        "fade",
+        { direction: "up", intensity: "soft" },
+        { duration: "fast" },
+      );
       expect(result).toEqual({
         from: { opacity: 0, transform: "translateY(20px)" },
         to: { opacity: 1, transform: "translateY(0)" },
@@ -92,7 +125,11 @@ describe("registry", () => {
     });
 
     it("zoom / in / dramatic / spring", () => {
-      const result = resolveMotion("zoom", { direction: "in", intensity: "dramatic" }, { type: "spring" });
+      const result = resolveMotion(
+        "zoom",
+        { direction: "in", intensity: "dramatic" },
+        { type: "spring" },
+      );
       expect(result).toEqual({
         from: { opacity: 0, transform: "scale(0.6)" },
         to: { opacity: 1, transform: "scale(1)" },
@@ -157,6 +194,50 @@ describe("registry", () => {
     );
   });
 
+  describe("resolveMotion - landscaped authored effects resolve", () => {
+    it.each([
+      "aurora",
+      "beams",
+      "spotlight",
+      "grid",
+      "ripple",
+      "tilt",
+      "shine",
+    ])("resolves landscaped authored effect %s", (id) => {
+      const result = resolveMotion(id, {}, {});
+      expect(result).not.toBeNull();
+      expect(result!.from).toBeTypeOf("object");
+      expect(result!.to).toBeTypeOf("object");
+      expect(result!.transition).toBeTypeOf("object");
+      expect(result!.transition.duration).toBeDefined();
+      expect(result!.transition.ease).toBeDefined();
+    });
+
+    it("aurora returns 3-step keyframes", () => {
+      const result = resolveMotion("aurora", {}, {})!;
+      expect(result.keyframes).toHaveLength(1);
+      expect(result.keyframes![0]!.percent).toBe(50);
+    });
+
+    it("tilt returns 3-step keyframes", () => {
+      const result = resolveMotion("tilt", {}, {})!;
+      expect(result.keyframes).toHaveLength(1);
+      expect(result.keyframes![0]!.percent).toBe(50);
+    });
+
+    it("typewriter returns blink keyframes", () => {
+      const result = resolveMotion("typewriter", {}, {})!;
+      expect(result.keyframes).toHaveLength(1);
+      expect(result.keyframes![0]!.percent).toBe(50);
+    });
+
+    it("magnetic returns spring transition without keyframes", () => {
+      const result = resolveMotion("magnetic", {}, {})!;
+      expect(result.keyframes).toBeUndefined();
+      expect(result.transition.type).toBe("spring");
+    });
+  });
+
   describe("resolveMotion - unknown effect returns null", () => {
     it("returns null for unknown effect id", () => {
       expect(resolveMotion("nonexistent", {}, {})).toBeNull();
@@ -165,7 +246,10 @@ describe("registry", () => {
 
   describe("resolveTransition", () => {
     it("fills in default duration and ease", () => {
-      const result = resolveTransition({}, { duration: "base", ease: "standard" });
+      const result = resolveTransition(
+        {},
+        { duration: "base", ease: "standard" },
+      );
       expect(result.duration).toBe("base");
       expect(result.ease).toBe("standard");
     });

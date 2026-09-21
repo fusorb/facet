@@ -90,7 +90,9 @@ export function MotionFamilyCard({ family }: MotionFamilyCardProps) {
           <button
             type="button"
             onClick={handleLoop}
-            aria-label={loop ? `Unloop ${family.label}` : `Loop ${family.label}`}
+            aria-label={
+              loop ? `Unloop ${family.label}` : `Loop ${family.label}`
+            }
             className={cn(
               "rounded-md p-1.5 text-muted-foreground/60 transition-all",
               "hover:bg-secondary hover:text-foreground",

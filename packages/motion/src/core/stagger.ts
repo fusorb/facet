@@ -26,10 +26,7 @@ export interface StaggerOptions {
  * stagger(50, { count: 3 });            // [0, 50, 100]
  * stagger(50, { count: 3, from: "center" });  // [50, 0, 50]
  */
-export function stagger(
-  baseDelay: number,
-  options?: StaggerOptions,
-): number[] {
+export function stagger(baseDelay: number, options?: StaggerOptions): number[] {
   const count = Math.max(1, options?.count ?? 1);
   const from = options?.from ?? "start";
   const startDelay = options?.startDelay ?? 0;

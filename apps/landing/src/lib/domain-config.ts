@@ -3,7 +3,7 @@
  *
  * Every string, icon, feature, and CTA on the landing page flows from this
  * file - nothing is hardcoded in section components themselves.  Switching
- * the active domain (via the DomainToggle in the navbar) swaps every visible
+ * the active domain (via the hero's domain machine) swaps every visible
  * headline, feature description, badge, and showcase tab in one shot.
  *
  * The `authPreset` field wires each domain to the matching auth preset
@@ -12,6 +12,11 @@
  */
 
 import type { IconName } from "@fusorb/facet-components";
+import {
+  SITE_PACKAGES_COUNT,
+  COMPONENT_COUNT,
+  ICON_COUNT,
+} from "../data/site-data.generated.js";
 
 export const DOMAIN_IDS = [
   "default",
@@ -135,7 +140,12 @@ export interface DomainContent {
   };
 
   pricing: {
-    header: { label: string; labelIcon: IconName; title: string; subtitle: string };
+    header: {
+      label: string;
+      labelIcon: IconName;
+      title: string;
+      subtitle: string;
+    };
     tierCta: string;
     footerLink: string;
     tiers: PricingTier[];
@@ -172,16 +182,26 @@ const ALL_SHOWCASE_DEMOS = [
   { id: "sparkle", label: "Sparkle" },
 ];
 
+/** Core product stats — dynamically detected from the workspace at build time. */
+export const BASE_STATS: DomainStat[] = [
+  { value: String(SITE_PACKAGES_COUNT), label: "Packages" },
+  { value: String(COMPONENT_COUNT), label: "Components" },
+];
+
 /** Product-level stats that are real (from gen-site-data.mjs), domain-agnostic. */
 const SHARED_STATS: DomainStat[] = [
-  { value: "12", label: "Packages" },
-  { value: "114", label: "Components" },
-  { value: "1,700+", label: "Icons" },
+  ...BASE_STATS,
+  { value: String(ICON_COUNT), label: "Icons" },
   { value: "5", label: "Domain presets" },
 ];
 
 const SHARED_PRICING: {
-  header: { label: string; labelIcon: IconName; title: string; subtitle: string };
+  header: {
+    label: string;
+    labelIcon: IconName;
+    title: string;
+    subtitle: string;
+  };
   tierCta: string;
   footerLink: string;
   tiers: PricingTier[];
@@ -218,7 +238,11 @@ const SHARED_PRICING: {
       name: "Auth + SDK",
       price: "Free",
       description: "Domain-customizable auth + a typed SovGrant SDK + store.",
-      bullets: ["State machine + presets", "Endpoints audited", "Plug-in storage"],
+      bullets: [
+        "State machine + presets",
+        "Endpoints audited",
+        "Plug-in storage",
+      ],
     },
   ],
 };
@@ -347,7 +371,8 @@ export const domainDefs: Record<DomainId, DomainContent> = {
       label: "Get started",
       labelIcon: "sparkles",
       title: "Build something people love to use",
-      subtitle: "The components are free. Your time is not. Start with the essentials.",
+      subtitle:
+        "The components are free. Your time is not. Start with the essentials.",
     },
     ctaButtons: {
       primary: { label: "Browse components", action: "docs" },
@@ -453,8 +478,7 @@ export const domainDefs: Record<DomainId, DomainContent> = {
     },
 
     stats: [
-      { value: "12", label: "Packages" },
-      { value: "114", label: "Components" },
+      ...BASE_STATS,
       { value: "<100ms", label: "Token swap" },
       { value: "3", label: "Auth presets" },
     ],
@@ -463,7 +487,8 @@ export const domainDefs: Record<DomainId, DomainContent> = {
       label: "Get started",
       labelIcon: "sparkles",
       title: "Start building compliant interfaces",
-      subtitle: "Components, auth, and tokens - all free and MIT-licensed. Begin with the essentials.",
+      subtitle:
+        "Components, auth, and tokens - all free and MIT-licensed. Begin with the essentials.",
     },
     ctaButtons: {
       primary: { label: "Browse components", action: "docs" },
@@ -569,8 +594,7 @@ export const domainDefs: Record<DomainId, DomainContent> = {
     },
 
     stats: [
-      { value: "12", label: "Packages" },
-      { value: "114", label: "Components" },
+      ...BASE_STATS,
       { value: "20", label: "ms auth latency" },
       { value: "5", label: "Preset domains" },
     ],
@@ -579,7 +603,8 @@ export const domainDefs: Record<DomainId, DomainContent> = {
       label: "Get started",
       labelIcon: "sparkles",
       title: "Start building patient-safe interfaces",
-      subtitle: "Components, auth, and tokens - all free and MIT-licensed. Begin with the essentials.",
+      subtitle:
+        "Components, auth, and tokens - all free and MIT-licensed. Begin with the essentials.",
     },
     ctaButtons: {
       primary: { label: "Browse components", action: "docs" },
@@ -686,8 +711,7 @@ export const domainDefs: Record<DomainId, DomainContent> = {
     },
 
     stats: [
-      { value: "12", label: "Packages" },
-      { value: "114", label: "Components" },
+      ...BASE_STATS,
       { value: "2", label: "Mins to SSO" },
       { value: "5", label: "Preset domains" },
     ],
@@ -696,7 +720,8 @@ export const domainDefs: Record<DomainId, DomainContent> = {
       label: "Get started",
       labelIcon: "sparkles",
       title: "Start building campus-safe platforms",
-      subtitle: "Components, auth, and tokens - all free and MIT-licensed. Begin with the essentials.",
+      subtitle:
+        "Components, auth, and tokens - all free and MIT-licensed. Begin with the essentials.",
     },
     ctaButtons: {
       primary: { label: "Browse components", action: "docs" },
@@ -803,8 +828,7 @@ export const domainDefs: Record<DomainId, DomainContent> = {
     },
 
     stats: [
-      { value: "12", label: "Packages" },
-      { value: "114", label: "Components" },
+      ...BASE_STATS,
       { value: "5", label: "Domain presets" },
       { value: "99.9%", label: "SLA" },
     ],
@@ -813,7 +837,8 @@ export const domainDefs: Record<DomainId, DomainContent> = {
       label: "Get started",
       labelIcon: "sparkles",
       title: "Start building enterprise-grade platforms",
-      subtitle: "Components, auth, and tokens - all free and MIT-licensed. Begin with the essentials.",
+      subtitle:
+        "Components, auth, and tokens - all free and MIT-licensed. Begin with the essentials.",
     },
     ctaButtons: {
       primary: { label: "Browse components", action: "docs" },
@@ -827,7 +852,9 @@ export const domainDefs: Record<DomainId, DomainContent> = {
 };
 
 /** Convenience: ordered list of all domain configs for the toggle. */
-export const domainList: DomainContent[] = DOMAIN_IDS.map((id) => domainDefs[id]);
+export const domainList: DomainContent[] = DOMAIN_IDS.map(
+  (id) => domainDefs[id],
+);
 
 /** Resolve a domain by id, falling back to the default domain. */
 export function resolveDomain(id: string): DomainContent {

@@ -100,7 +100,9 @@ function resolveNativeDuration(duration: string | number | undefined): number {
   if (duration === undefined) return motionValues.facetDuration.base;
 
   const facetVal =
-    motionValues.facetDuration[duration as keyof typeof motionValues.facetDuration];
+    motionValues.facetDuration[
+      duration as keyof typeof motionValues.facetDuration
+    ];
   if (facetVal !== undefined) return facetVal;
 
   const num = Number(duration);

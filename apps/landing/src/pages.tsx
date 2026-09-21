@@ -12,6 +12,10 @@ import { MotionLabPage } from "./pages/MotionLabPage.js";
 import { PricingPage } from "./pages/PricingPage.js";
 import { SecurityPage } from "./pages/SecurityPage.js";
 import { TokensPage } from "./pages/TokensPage.js";
+import {
+  SITE_PACKAGES_COUNT,
+  COMPONENT_COUNT,
+} from "./data/site-data.generated.js";
 
 export type NavGroup = "product" | "resources";
 
@@ -47,7 +51,7 @@ export const pages: LandingPage[] = [
   {
     path: "/ecosystem",
     title: "Ecosystem",
-    description: "Nine focused packages, one coherent system.",
+    description: `${SITE_PACKAGES_COUNT} focused packages, one coherent system.`,
     navGroup: "product",
     element: <EcosystemPage />,
   },
@@ -83,7 +87,7 @@ export const pages: LandingPage[] = [
   {
     path: "/components",
     title: "Component catalog",
-    description: "Browse all 114+ components across 7 categories.",
+    description: `${COMPONENT_COUNT}+ components across 7 categories.`,
     navGroup: "product",
     element: <ComponentsPage />,
   },

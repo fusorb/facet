@@ -69,17 +69,13 @@ export type MotionEasing =
 
 /** Facet motion duration tokens (CSS: --facet-motion-duration-*)
  * Semantic named durations consumed by @fusorb/facet-motion's registry. */
-export type FacetMotionDuration = "instant" | "fast" | "base" | "slow" | "cinematic";
+export type FacetMotionDuration =
+  "instant" | "fast" | "base" | "slow" | "cinematic";
 
 /** Facet motion easing tokens (CSS: --facet-motion-ease-*)
  * Curated easing curves for the facet-motion registry. */
 export type FacetMotionEasing =
-  | "linear"
-  | "standard"
-  | "smooth"
-  | "emphasized"
-  | "spring"
-  | "elastic";
+  "linear" | "standard" | "smooth" | "emphasized" | "spring" | "elastic";
 
 /** Motion travel-distance tokens (CSS: --motion-distance-*) */
 export type MotionDistance = "sm" | "md" | "lg" | "xl" | "2xl";

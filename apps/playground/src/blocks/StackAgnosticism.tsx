@@ -24,9 +24,9 @@ export function StackAgnosticism() {
       <div>
         <h2 className="font-medium">Framework agnosticism</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          The sandbox host is framework-agnostic; only the parser is shipped as a
-          React adapter today (v1). Certification across frameworks happens via
-          CI snapshots, not a multi-framework playground.
+          The sandbox host is framework-agnostic; only the parser is shipped as
+          a React adapter today (v1). Certification across frameworks happens
+          via CI snapshots, not a multi-framework playground.
         </p>
       </div>
       <table className="w-full text-left text-sm">

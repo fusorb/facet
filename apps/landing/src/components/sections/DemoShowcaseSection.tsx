@@ -281,8 +281,9 @@ export function DemoShowcaseSection() {
       label: d.label,
       node: DEMO_REGISTRY[d.id],
     }))
-    .filter((d): d is { id: string; label: string; node: React.ReactNode } =>
-      d.node !== undefined,
+    .filter(
+      (d): d is { id: string; label: string; node: React.ReactNode } =>
+        d.node !== undefined,
     );
 
   return (

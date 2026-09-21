@@ -45,10 +45,7 @@ export interface MotionDriver {
    * Subscribe to motion values and apply them to the target's `style`.
    * Returns a handle with `cleanup()` and an `active` flag.
    */
-  apply(
-    target: DriverTarget,
-    bindings: DriverBindings,
-  ): DriverHandle;
+  apply(target: DriverTarget, bindings: DriverBindings): DriverHandle;
 
   /** Whether the driver's target API is available in this environment. */
   isSupported(): boolean;

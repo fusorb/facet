@@ -12,7 +12,9 @@ interface PresenceValue {
   isPresent: boolean;
 }
 
-export const PresenceContext = createContext<PresenceValue>({ isPresent: true });
+export const PresenceContext = createContext<PresenceValue>({
+  isPresent: true,
+});
 
 /**
  * Presence wraps a tree of <Motion> children so that exit animations

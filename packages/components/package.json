@@ -25,6 +25,7 @@
       "default": "./dist/theme/index.js"
     },
     "./tokens.css": "./dist/tokens.css",
+    "./tailwind.css": "./dist/tailwind.css",
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
@@ -36,7 +37,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup && node -e \"require('fs').cpSync('../tokens/src/tokens.css', 'dist/tokens.css')\"",
+    "build": "tsup && node -e \"require('fs').cpSync('../tokens/src/tokens.css', 'dist/tokens.css') && require('fs').cpSync('../tokens/src/tailwind.css', 'dist/tailwind.css')\"",
     "build:analyze": "tsup --metafile",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",

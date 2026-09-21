@@ -16,57 +16,75 @@ export interface SitePackage {
 export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-components",
-    "desc": "Accessible, styled React components built on Radix primitives.",
-    "icon": "boxes",
-    "version": "1.11.0"
+    "desc": "Radix-based UI component library: 114 accessible, styled components using the Alpha Palette design tokens",
+    "version": "1.11.0",
+    "icon": "boxes"
   },
   {
     "name": "@fusorb/facet-docs",
-    "desc": "Installable docs engine: mount <DocsApp> with your own brand, nav, and pages.",
-    "icon": "book-open",
-    "version": "1.4.7"
+    "desc": "Installable, config-driven documentation site engine: component gallery with variant pages, per-variant usage tabs, install tabs, and an optional ecosystem links section. Mount <DocsApp config={...} /> with your own brand, pages, and nav.",
+    "version": "1.4.7",
+    "icon": "book-open"
   },
   {
     "name": "@fusorb/facet-auth",
-    "desc": "SignIn, SignUp, Guard, MFA and forms with per-domain presets.",
-    "icon": "shield-check",
-    "version": "1.2.3"
+    "desc": "Domain-customizable auth components: ArcProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
+    "version": "1.2.3",
+    "icon": "shield-check"
   },
   {
     "name": "@fusorb/facet-layout",
-    "desc": "Console, auth and landing shells with a collapsible icon rail.",
-    "icon": "building",
-    "version": "1.4.2"
+    "desc": "Domain-configurable app shell: Sidebar, Topbar, AuthLayout, ConsoleLayout, LandingLayout, PageHeader, TenantSwitcher, and 5 domain presets (fintech, med, edu, enterprise, default).",
+    "version": "1.4.2",
+    "icon": "building"
   },
   {
     "name": "@fusorb/facet-sdk",
-    "desc": "Typed fetch client for SovGrant: domain SDKs, zero React.",
-    "icon": "zap",
-    "version": "1.2.0"
+    "desc": "SovGrant API client: framework-agnostic fetch SDK. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
+    "version": "1.2.0",
+    "icon": "zap"
   },
   {
     "name": "@fusorb/facet-tokens",
-    "desc": "Alpha Palette design tokens: color, type, spacing, surfaces.",
-    "icon": "palette",
-    "version": "1.1.4"
+    "desc": "Design tokens: Alpha Palette colors, typography, spacing, surfaces, and sub-brand accents in OKLCH, as CSS variables and a Tailwind v4 theme.",
+    "version": "1.1.4",
+    "icon": "palette"
   },
   {
     "name": "@fusorb/facet-emails",
-    "desc": "Framework-agnostic email templates: HTML/text from React or plain trees.",
-    "icon": "mail",
-    "version": "1.1.1"
+    "desc": "Framework-agnostic email template renderer: render React or plain template trees to email-safe HTML and text, with template primitives and a dev preview server. Zero runtime dependencies.",
+    "version": "1.1.1",
+    "icon": "mail"
   },
   {
     "name": "@fusorb/facet-cli",
-    "desc": "Scaffold docs + emails, audit/update your facet setup, generate an icon registry.",
-    "icon": "terminal",
-    "version": "1.0.0"
+    "desc": "facet CLI: scaffold docs + email template sites, add components, generate tree-shaken icon registries, and audit/update your facet setup from the terminal.",
+    "version": "1.0.0",
+    "icon": "terminal"
   },
   {
     "name": "@fusorb/facet-store",
-    "desc": "Framework-agnostic Zustand stores for SovGrant (session, tenant, token-refresh).",
-    "icon": "store",
-    "version": "1.0.0"
+    "desc": "Framework-agnostic state stores for ArcID auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
+    "version": "1.0.0",
+    "icon": "store"
+  },
+  {
+    "name": "@fusorb/facet-motion",
+    "desc": "Domain-customizable animation engine: generator-driven core (tween + spring), observable motion values, CSS driver with prefers-reduced-motion, a 15-family generative registry, and thin React bindings. Wired to @fusorb/facet-tokens CSS custom properties.",
+    "version": "0.1.0",
+    "icon": "sparkle"
+  },
+  {
+    "name": "@fusorb/facet-native",
+    "desc": "React Native motion driver for @fusorb/facet-motion - subscribes facet motion values to a consumer-provided Animated module (react-native or reanimated v2) via bindAnimated().",
+    "version": "0.1.0",
+    "icon": "phone"
+  },
+  {
+    "name": "@fusorb/facet-sandbox",
+    "desc": "Framework-agnostic live-preview sandbox host: block registry, adapter seam, security helpers. Ships no framework code; the React adapter ships under /react.",
+    "version": "1.0.0",
+    "icon": "play"
   }
 ];
 
@@ -77,7 +95,7 @@ export interface SiteStat {
 
 export const SITE_STATS: SiteStat[] = [
   {
-    "value": "115",
+    "value": "116",
     "label": "components"
   },
   {
@@ -91,8 +109,21 @@ export const SITE_STATS: SiteStat[] = [
   {
     "value": "5",
     "label": "auth presets"
+  },
+  {
+    "value": "1190",
+    "label": "icons"
   }
 ];
+
+/** Total number of workspace packages (auto-detected from the packages directory). */
+export const SITE_PACKAGES_COUNT: number = 12;
+
+/** Number of component files in packages/components (auto-detected). */
+export const COMPONENT_COUNT: number = 116;
+
+/** Number of registered icons (auto-detected from icon-map.ts). */
+export const ICON_COUNT: number = 1190;
 
 // Root workspace version, resolved from the repo package.json at generation
 // time.  Consumers: HeroSection version badge, changelog, etc.

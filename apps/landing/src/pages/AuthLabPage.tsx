@@ -27,7 +27,10 @@ export function AuthLabPage() {
       title="Authentication Lab"
       description="Interactive auth state machine driven by a live domain preset."
     >
-      <div className="lab" style={{ "--domain-accent": accent } as CSSProperties}>
+      <div
+        className="lab"
+        style={{ "--domain-accent": accent } as CSSProperties}
+      >
         <LabDomainBar />
 
         <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
@@ -46,7 +49,13 @@ export function AuthLabPage() {
             </div>
 
             <LabPanel className="lab-surface relative isolate min-h-[250px]">
-              {renderSurface(active, accent, domain.authMethods, setAuthState, domain.label)}
+              {renderSurface(
+                active,
+                accent,
+                domain.authMethods,
+                setAuthState,
+                domain.label,
+              )}
             </LabPanel>
 
             <p className="text-xs text-muted-foreground/70">{active.desc}</p>
@@ -176,9 +185,7 @@ function renderSurface(
       return (
         <div className="flex h-full flex-col items-center justify-center gap-5">
           <div className="text-center">
-            <h3 className="font-heading text-xl font-semibold">
-              Welcome back
-            </h3>
+            <h3 className="font-heading text-xl font-semibold">Welcome back</h3>
             <p className="mt-1 text-sm text-muted-foreground">
               Sign in to continue
             </p>
@@ -290,7 +297,11 @@ function renderSurface(
     case "error":
       return (
         <div className="flex h-full flex-col items-center justify-center gap-3">
-          <LightIcon name="alert-circle" size={32} className="text-destructive" />
+          <LightIcon
+            name="alert-circle"
+            size={32}
+            className="text-destructive"
+          />
           <h3 className="font-heading text-xl font-semibold">
             Couldn't sign you in
           </h3>
@@ -346,11 +357,19 @@ function configLines(domain: {
       { text: `"${domain.id}"`, role: S },
       { text: ",", role: D },
     ],
-    [{ text: "auth-methods", role: I }, { text: ": [", role: D }],
-    ...methods.map(
-      (m) => [{ text: "  ", role: D }, { text: `"${m}"`, role: S }, { text: ",", role: D }],
-    ),
-    [{ text: "]", role: D }, { text: ",", role: D }],
+    [
+      { text: "auth-methods", role: I },
+      { text: ": [", role: D },
+    ],
+    ...methods.map((m) => [
+      { text: "  ", role: D },
+      { text: `"${m}"`, role: S },
+      { text: ",", role: D },
+    ]),
+    [
+      { text: "]", role: D },
+      { text: ",", role: D },
+    ],
     [
       { text: "density", role: I },
       { text: ": ", role: D },

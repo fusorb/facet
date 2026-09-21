@@ -1,12 +1,23 @@
 import * as React from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
-import { GuidePage, H2, P, Ul, Li, PageNav } from "../components/Guide.js";
+import { GuidePage, H2, H3, P, Ul, Li, PageNav } from "../components/Guide.js";
+import { DocsTableOfContents } from "../components/DocsTableOfContents.js";
+import { slug } from "../lib/ids.js";
 import { DocsTable } from "../components/DocsTable.js";
 import { CodeBlock } from "../components/CodeBlock.js";
+
+function cn(...classes: (string | false | undefined)[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
 import { InstallTabs } from "../components/InstallTabs.js";
 import { InteractiveDemo } from "../components/InteractiveDemo.js";
 import { KeyboardShortcuts } from "../components/KeyboardShortcuts.js";
-import { ChangelogList, type ChangelogRelease } from "@fusorb/facet-components";
+import {
+  ChangelogList,
+  ChangelogWithDate,
+  type ChangelogRelease,
+} from "@fusorb/facet-components";
 import type { DocsBlock } from "../lib/pages.js";
 import { useDocsApp } from "../context.js";
 import { useDocsKeyboardNav, useDocsNavigation } from "../lib/keyboard-nav.js";
@@ -37,7 +48,9 @@ const PlaygroundPage = React.lazy(() =>
 function Block({ block }: { block: DocsBlock }) {
   switch (block.type) {
     case "h2":
-      return <H2>{block.text}</H2>;
+      return <H2 id={slug(block.text)}>{block.text}</H2>;
+    case "h3":
+      return <H3 id={slug(block.text)}>{block.text}</H3>;
     case "p":
       return <P>{block.text}</P>;
     case "pre":
@@ -122,7 +135,12 @@ function Block({ block }: { block: DocsBlock }) {
         />
       );
     case "changelog":
-      return (
+      return block.layout === "date" ? (
+        <ChangelogWithDate
+          releases={block.releases as ChangelogRelease[]}
+          showFilter={block.showFilter ?? true}
+        />
+      ) : (
         <ChangelogList
           releases={block.releases as ChangelogRelease[]}
           showFilter={block.showFilter ?? true}
@@ -147,7 +165,7 @@ function Block({ block }: { block: DocsBlock }) {
  * renders here with zero component edits).
  */
 export function DocsContentPage() {
-  const { pages } = useDocsApp();
+  const { pages, showTableOfContents } = useDocsApp();
   const { pathname } = useLocation();
   const page = pages.find((p) => p.path === pathname);
   if (!page) return <Navigate to="/" replace />;
@@ -157,15 +175,30 @@ export function DocsContentPage() {
   const { prev, next } = useDocsNavigation();
   useDocsKeyboardNav();
 
+  const hasHeadings =
+    showTableOfContents &&
+    page.blocks.some((b) => b.type === "h2" || b.type === "h3");
+
   return (
     <GuidePage title={page.title} description={page.description}>
-      {page.blocks.map((block, i) => (
-        <Block key={i} block={block} />
-      ))}
-      <PageNav
-        prev={prev ? { label: prev.label, to: prev.path } : undefined}
-        next={next ? { label: next.label, to: next.path } : undefined}
-      />
+      <div
+        className={cn(
+          hasHeadings
+            ? "grid grid-cols-1 gap-8 xl:grid-cols-[1fr_260px]"
+            : "space-y-5",
+        )}
+      >
+        <div className={cn("min-w-0", hasHeadings && "space-y-5")}>
+          {page.blocks.map((block, i) => (
+            <Block key={i} block={block} />
+          ))}
+          <PageNav
+            prev={prev ? { label: prev.label, to: prev.path } : undefined}
+            next={next ? { label: next.label, to: next.path } : undefined}
+          />
+        </div>
+        {hasHeadings && <DocsTableOfContents blocks={page.blocks} />}
+      </div>
     </GuidePage>
   );
 }

@@ -12,6 +12,10 @@ import { MotionDemo } from "./blocks/MotionDemo.js";
 import { AuthFlow } from "./blocks/AuthFlow.js";
 import { StackAgnosticism } from "./blocks/StackAgnosticism.js";
 
+const DOCS_CHANGELOG_URL = import.meta.env.DEV
+  ? "http://localhost:5173/changelog"
+  : "https://facet.so/docs/changelog";
+
 const PRESETS = ["fintech", "med", "edu", "enterprise", "default"] as const;
 
 const TAB_TITLES: Record<string, string> = {
@@ -20,7 +24,8 @@ const TAB_TITLES: Record<string, string> = {
   stack: "Stack agnosticism",
 };
 const TAB_DESCRIPTIONS: Record<string, string> = {
-  motion: "Preview motion profiles across the fintech, med, edu, enterprise and default domains.",
+  motion:
+    "Preview motion profiles across the fintech, med, edu, enterprise and default domains.",
   auth: "Staged auth lifecycle: simulated 401 → silent refresh → tenant switch.",
   stack: "Framework-agnostic rendering surface shared across all demo stacks.",
 };
@@ -39,6 +44,11 @@ const playgroundConfig: LayoutConfig = {
         { href: "#auth", label: "Auth flow" },
         { href: "#stack", label: "Stack agnosticism" },
       ],
+    },
+    {
+      id: "changelog",
+      title: "Changelog",
+      items: [{ href: DOCS_CHANGELOG_URL, label: "View changelog" }],
     },
   ],
   features: { tenantSwitcher: false, themeToggle: true },
@@ -112,8 +122,7 @@ export default function App() {
       ...base,
       isActive: (href: string) =>
         typeof window !== "undefined" && window.location.hash === href,
-      asPath:
-        typeof window !== "undefined" ? window.location.hash : undefined,
+      asPath: typeof window !== "undefined" ? window.location.hash : undefined,
     };
   }, []);
 

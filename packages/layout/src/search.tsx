@@ -40,6 +40,7 @@ import {
   AlertDialogFooter,
   AlertDialogAction,
   AlertDialogCancel,
+  Button,
   Icon,
 } from "@fusorb/facet-components";
 import type { LayoutConfig, NavItem } from "./types.js";
@@ -100,9 +101,9 @@ export interface CommandPaletteProps {
   /** Controlled open-state change (required when `open` is set). */
   onOpenChange?: (open: boolean) => void;
   /**
-   * Render the trigger button. Defaults to a search bar with a "Ctrl K"
+   * Render the trigger Button. Defaults to a search bar with a "Ctrl K"
    * badge. Pass `null` to hide the trigger (e.g. when the parent renders
-   * its own button and only controls open state).
+   * its own Button and only controls open state).
    */
   trigger?: ((props: { onClick: () => void }) => React.ReactNode) | null;
 }
@@ -167,6 +168,15 @@ export function CommandPalette({
     typeof window !== "undefined" ? loadHistory() : [],
   );
   const [confirmClearOpen, setConfirmClearOpen] = React.useState(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  // Focus the search input when the dialog opens.
+  React.useEffect(() => {
+    if (open) {
+      const t = window.setTimeout(() => inputRef.current?.focus(), 50);
+      return () => window.clearTimeout(t);
+    }
+  }, [open]);
 
   // Persist history on change.
   React.useEffect(() => {
@@ -284,7 +294,7 @@ export function CommandPalette({
     ) : null;
 
   // Recent searches: shown only when the input is empty. Each row has a
-  // trash button to delete that entry, and a "Clear history" action opens
+  // trash Button to delete that entry, and a "Clear history" action opens
   // a confirmation dialog.
   const renderRecentSearches = () => {
     if (query.trim() !== "" || history.length === 0) return null;
@@ -298,8 +308,8 @@ export function CommandPalette({
               className="relative pr-8"
             >
               <span className="min-w-0 truncate">{term}</span>
-              <button
-                type="button"
+              <Button
+                variant="ghost"
                 tabIndex={-1}
                 aria-label={`Delete search "${term}"`}
                 onClick={(e) => {
@@ -309,7 +319,7 @@ export function CommandPalette({
                 className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer rounded p-1 text-muted-foreground opacity-60 transition-opacity hover:bg-accent hover:text-foreground hover:opacity-100"
               >
                 <Icon name="trash" className="size-3.5" />
-              </button>
+              </Button>
             </CommandItem>
           ))}
           <CommandItem
@@ -370,8 +380,8 @@ export function CommandPalette({
   };
 
   const defaultTrigger = ({ onClick }: { onClick: () => void }) => (
-    <button
-      type="button"
+    <Button
+      variant="ghost"
       onClick={onClick}
       className="flex h-9 w-40 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground sm:w-64"
     >
@@ -380,7 +390,7 @@ export function CommandPalette({
       <Kbd className="hidden items-center gap-0.5 border-border bg-muted px-1.5 py-0.5 text-[10px] sm:inline-flex">
         {getModSymbol()} K
       </Kbd>
-    </button>
+    </Button>
   );
 
   return (
@@ -398,6 +408,7 @@ export function CommandPalette({
             className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:size-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:size-5"
           >
             <CommandInput
+              ref={inputRef}
               placeholder={placeholder}
               value={query}
               onValueChange={setQuery}

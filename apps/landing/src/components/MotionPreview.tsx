@@ -550,7 +550,14 @@ export function MotionPreview({
 
       default: {
         // magnetic
-        return <MagneticPreview base={base} accent={accent} playing={playing} loop={loop} />;
+        return (
+          <MagneticPreview
+            base={base}
+            accent={accent}
+            playing={playing}
+            loop={loop}
+          />
+        );
       }
     }
   };

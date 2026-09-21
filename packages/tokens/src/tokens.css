@@ -267,7 +267,7 @@
   --text: #0c1222;
   --text-muted: #5c6b80;
   --text-dim: #c4cede;
-  --accent-dim: rgba(2, 132, 199, 0.10);
+  --accent-dim: rgba(2, 132, 199, 0.1);
   --green: #059669;
   --amber: #d97706;
   --red: #dc2626;
@@ -460,18 +460,6 @@ summary {
 }
 
 /* ── Scratchpad marketing keyframes ───────────────────────────── */
-@keyframes aurora-shift {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(90deg) scale(1.15);
-  }
-  100% {
-    transform: rotate(180deg) scale(1);
-  }
-}
-
 @keyframes glow-pulse {
   0%,
   100% {
@@ -490,21 +478,6 @@ summary {
   to {
     transform: scale(1.5);
     opacity: 0;
-  }
-}
-
-@keyframes beam-move {
-  0%,
-  100% {
-    transform: translateX(-120%) skewX(-12deg);
-    opacity: 0;
-  }
-  35%,
-  65% {
-    opacity: 1;
-  }
-  50% {
-    transform: translateX(320%) skewX(-12deg);
   }
 }
 
@@ -613,7 +586,8 @@ summary {
 [data-theme="light"] .frost {
   --frost-bg: color-mix(in oklab, var(--panel) 88%, transparent);
   --frost-border: 1px solid rgba(0, 0, 0, 0.1);
-  --frost-shadow: 0 8px 32px rgba(0, 0, 0, 0.12%), inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --frost-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12%), inset 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
 .text-gradient {
@@ -631,30 +605,311 @@ summary {
   border-color: color-mix(in oklab, var(--primary) 25%, transparent);
 }
 
-/* ── Animation keyframes ────────────────────────────────────────
- * The enter/exit utility classes (animate-in/out, fade-*, zoom-*,
- * slide-*) are provided to Tailwind consumers via tailwind.css
- * (tw-animate-css import). These keyframes back the two facet
- * components that animate directly: Marquee (facet-marquee) and
- * InputOTP's caret (caret-blink). Non-Tailwind consumers can define
- * the enter/exit utilities from tw-animate-css themselves. */
-@keyframes facet-marquee {
+/* ── Component + Radix overlay keyframes ──────────────────────────
+ * These back the animate-facet-* utility classes registered in
+ * tailwind.css's @theme block. Non-Tailwind consumers can reference
+ * them directly via inline `animation: facet-fade-in 250ms ...`
+ * declarations. Radix overlay primitives (Dialog, Sheet, Dropdown,
+ * etc.) use animate-{facet-overlay-in|facet-fade-in|facet-zoom-in}
+ * for enter/exit. */
+
+@keyframes accordion-down {
   from {
-    transform: translateX(0);
+    height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
   }
   to {
-    transform: translateX(-50%);
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+    transform: none;
   }
 }
 
-@keyframes caret-blink {
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes pulse-ring {
   0%,
-  70%,
   100% {
     opacity: 1;
+    transform: scale(1);
   }
-  20%,
   50% {
+    opacity: 0.3;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes facet-ripple {
+  from {
+    transform: scale(0);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1);
     opacity: 0;
+  }
+}
+
+@keyframes facet-aurora {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(90deg) scale(1.15);
+  }
+  100% {
+    transform: rotate(180deg) scale(1);
+  }
+}
+
+@keyframes facet-beam {
+  0%,
+  100% {
+    transform: translateX(-120%) skewX(-12deg);
+    opacity: 0;
+  }
+  35%,
+  65% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(320%) skewX(-12deg);
+  }
+}
+
+@keyframes facet-sparkle {
+  from {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--dx), var(--dy)) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes facet-dissolve {
+  0% {
+    opacity: 0;
+    filter: blur(4px);
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes facet-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes facet-overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes facet-text-blur {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes facet-text-wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.25em);
+  }
+}
+
+@keyframes facet-shimmer {
+  from {
+    background-position: -200% center;
+  }
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes facet-gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes facet-flip {
+  from {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes facet-fade-up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes facet-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.9;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.6);
+  }
+}
+
+@keyframes facet-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes facet-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes facet-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-var(--motion-distance-lg));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes facet-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(var(--motion-distance-lg));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes facet-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-var(--motion-distance-lg));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes facet-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(var(--motion-scale-inactive));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes facet-zoom-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(var(--motion-scale-inactive));
+  }
+}
+
+@keyframes facet-bounce {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-8px);
+  }
+}
+
+@keyframes facet-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-4px);
+  }
+  40% {
+    transform: translateX(4px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes facet-flip-x {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(180deg);
   }
 }

@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
-import { ShineButton, Stagger, Motion, buttonVariants, cn } from "@fusorb/facet-components";
+import {
+  ShineButton,
+  Stagger,
+  Motion,
+  buttonVariants,
+  cn,
+} from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { PageShell } from "../components/PageShell.js";
 import { ECOSYSTEM } from "../data/ecosystem.js";
 import { getDocsUrl } from "../site.config.js";
+import { SITE_PACKAGES_COUNT } from "../data/site-data.generated.js";
 
 export function EcosystemPage() {
   return (
@@ -14,7 +21,7 @@ export function EcosystemPage() {
         </span>
       }
       title="The ecosystem"
-      description="Nine packages, one source of truth. Each package below is fully analyzed on its own page, with a direct link to the corresponding docs site entry."
+      description={`${SITE_PACKAGES_COUNT} packages, one source of truth. Each package below is fully analyzed on its own page, with a direct link to the corresponding docs site entry.`}
     >
       {/* Package grid */}
       <section className="mx-auto max-w-5xl px-8 py-12">

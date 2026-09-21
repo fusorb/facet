@@ -32,9 +32,7 @@ export function MotionLabPage() {
       MOTION_EFFECTS.filter(
         (e) =>
           (category === "all" || e.category === category) &&
-          (e.label + " " + e.desc)
-            .toLowerCase()
-            .includes(search.toLowerCase()),
+          (e.label + " " + e.desc).toLowerCase().includes(search.toLowerCase()),
       ),
     [category, search],
   );
@@ -72,7 +70,9 @@ export function MotionLabPage() {
                   )}
                   style={
                     category === c.id
-                      ? { background: `color-mix(in srgb, ${accent} 16%, transparent)` }
+                      ? {
+                          background: `color-mix(in srgb, ${accent} 16%, transparent)`,
+                        }
                       : undefined
                   }
                 >
@@ -122,7 +122,9 @@ export function MotionLabPage() {
                       className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full"
                       style={{
                         background:
-                          e.category === "generative" ? "#a78bfa" : "var(--success)",
+                          e.category === "generative"
+                            ? "#a78bfa"
+                            : "var(--success)",
                       }}
                       aria-hidden
                     />
@@ -143,7 +145,10 @@ export function MotionLabPage() {
                       <span
                         className="inline-block rounded px-1.5 py-0.25 text-[9px] uppercase"
                         style={{
-                          color: e.category === "generative" ? "var(--violet)" : "var(--success)",
+                          color:
+                            e.category === "generative"
+                              ? "var(--violet)"
+                              : "var(--success)",
                         }}
                       >
                         {e.category}
@@ -207,7 +212,11 @@ export function MotionLabPage() {
                 ))}
               </pre>
               <div className="mt-2">
-                <CopyButton value={codeText(active)} label="Copy import" size="xs" />
+                <CopyButton
+                  value={codeText(active)}
+                  label="Copy import"
+                  size="xs"
+                />
               </div>
             </div>
           </div>
@@ -232,9 +241,7 @@ function ConfigRow({
         {label}
       </span>
       {control ?? (
-        <span className="text-xs font-medium text-foreground/80">
-          {value}
-        </span>
+        <span className="text-xs font-medium text-foreground/80">{value}</span>
       )}
     </div>
   );

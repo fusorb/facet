@@ -35,8 +35,12 @@ describe("url safety helpers", () => {
     expect(sanitizeUrlProps({ href: "javascript:alert(1)" })).toEqual({
       href: "#",
     });
-    expect(sanitizeUrlProps({ src: "/safe.png" })).toEqual({ src: "/safe.png" });
-    expect(sanitizeUrlProps({ href: "https://example.com", target: "_blank" })).toEqual({
+    expect(sanitizeUrlProps({ src: "/safe.png" })).toEqual({
+      src: "/safe.png",
+    });
+    expect(
+      sanitizeUrlProps({ href: "https://example.com", target: "_blank" }),
+    ).toEqual({
       href: "https://example.com",
       target: "_blank",
     });
@@ -80,10 +84,13 @@ describe("playground parser", () => {
   });
 
   it("parses JSX nested in a prop value", () => {
-    const el = renderFromCode('<Item icon={<Button size="sm" />}>Title</Item>', {
-      Button,
-      Item,
-    });
+    const el = renderFromCode(
+      '<Item icon={<Button size="sm" />}>Title</Item>',
+      {
+        Button,
+        Item,
+      },
+    );
     expect(React.isValidElement(el)).toBe(true);
     const icon = (el as React.ReactElement<any>).props.icon;
     expect(React.isValidElement(icon)).toBe(true);
@@ -109,10 +116,9 @@ describe("react adapter", () => {
   });
 
   it("renders preview content for valid JSX", () => {
-    const out = reactAdapter.renderPreview(
-      '<Button size="sm">Hi</Button>',
-      { Button },
-    );
+    const out = reactAdapter.renderPreview('<Button size="sm">Hi</Button>', {
+      Button,
+    });
     expect(out.kind).toBe("node");
     if (out.kind === "node") {
       expect(React.isValidElement(out.node)).toBe(true);

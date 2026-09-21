@@ -11,6 +11,7 @@ import * as React from "react";
 import { LightIcon } from "../icon/light-icon.js";
 import { cn } from "../utils.js";
 import { useTheme } from "./theme-provider.js";
+import { Button } from "../ui/button.js";
 
 export interface ThemeToggleProps {
   className?: string;
@@ -31,13 +32,13 @@ export function ThemeToggle({
   const isDark = resolvedTheme === "dark";
 
   return (
-    <button
-      type="button"
+    <Button
+      variant="ghost"
       aria-label={label}
       title={label}
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={cn(
-        "inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "inline-flex h-8 w-8 items-center justify-center rounded-md text-foreground/70 transition-colors hover:bg-foreground/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         className,
       )}
     >
@@ -67,6 +68,6 @@ export function ThemeToggle({
       ) : (
         <span className="size-4" />
       )}
-    </button>
+    </Button>
   );
 }

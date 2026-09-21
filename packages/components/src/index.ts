@@ -7,6 +7,7 @@
  * Usage:
  *   import { Button, Card, Input } from "@fusorb/facet-components";
  *   import "@fusorb/facet-components/tokens.css";
+ *   import "@fusorb/facet-components/tailwind.css"; // registers animate-facet-* utility classes
  */
 
 export { cn, isMac, getModSymbol } from "./utils.js";
@@ -899,6 +900,11 @@ export {
   ChangelogList,
 } from "./ui/changelog-list.js";
 export { type ChangelogRelease as FacetChangelogRelease } from "./ui/changelog-list.js";
+
+export {
+  type ChangelogWithDateProps,
+  ChangelogWithDate,
+} from "./ui/changelog-with-date.js";
 
 export {
   type WizardFormStep,

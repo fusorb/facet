@@ -1,158 +1,153 @@
-import {
-  SparkleButton,
-  Stagger,
-  Motion,
-  Pill,
-  GradientText,
-  TypewriterText,
-  cn,
-} from "@fusorb/facet-components";
+import { cn, Pill } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { useState } from "react";
-import { site } from "../../site.config.js";
+import { useEffect, useState } from "react";
+import { getDocsUrl, getPlaygroundUrl } from "../../site.config.js";
 import { useDomain } from "../../lib/domain-context.js";
 import type { DomainId } from "../../lib/domain-config.js";
-import { LAB_DOMAINS, PACKAGES } from "../../data/scratchpad.js";
-import { SITE_PACKAGES, SITE_VERSION } from "../../data/site-data.generated.js";
+import { LAB_DOMAINS } from "../../data/scratchpad.js";
+import { SITE_VERSION } from "../../data/site-data.generated.js";
 
-const INSTALL_PKG =
-  SITE_PACKAGES.find((p) => p.name === "@fusorb/facet-components")?.name ??
-  "@fusorb/facet-components";
+const HERO_TAGS = [
+  "Auth",
+  "Components",
+  "Layout",
+  "Motion",
+  "Tokens",
+  "SDK",
+  "CLI",
+  "Sandbox",
+  "Native",
+];
 
 const INSTALL_COMMANDS = {
-  pnpm: `pnpm add ${INSTALL_PKG}`,
-  npm: `npm install ${INSTALL_PKG}`,
-  yarn: `yarn add ${INSTALL_PKG}`,
-  bun: `bun add ${INSTALL_PKG}`,
+  pnpm: `pnpm add @fusorb/facet-components @fusorb/facet-auth @fusorb/facet-layout @fusorb/facet-motion`,
+  npm: `npm install @fusorb/facet-components @fusorb/facet-auth @fusorb/facet-layout @fusorb/facet-motion`,
+  yarn: `yarn add @fusorb/facet-components @fusorb/facet-auth @fusorb/facet-layout @fusorb/facet-motion`,
+  bun: `bun add @fusorb/facet-components @fusorb/facet-auth @fusorb/facet-layout @fusorb/facet-motion`,
 } as const;
 
-const HERO_TAGS = PACKAGES.map((p) => {
-  const s = p.short;
-  return s === "sdk"
-    ? "SDK"
-    : s === "cli"
-      ? "CLI"
-      : s.charAt(0).toUpperCase() + s.slice(1);
-});
-
 export function HeroSection() {
-  const { domain, domainId, switchDomain, handleCta } = useDomain();
-  const { hero, stats } = domain;
-  const {
-    headline,
-    headlineAccent,
-    subtext,
-    phrases,
-    badges,
-    primaryCta,
-    secondaryCta,
-  } = hero;
-
-  const labDomain =
-    (LAB_DOMAINS.find((d) => d.id === domainId) ?? LAB_DOMAINS[0])!;
-
-  const [installTab, setInstallTab] = useState<keyof typeof INSTALL_COMMANDS>(
-    "pnpm",
+  const { domainId, switchDomain } = useDomain();
+  const [cycleIndex, setCycleIndex] = useState(0);
+  const [installTab, setInstallTab] =
+    useState<keyof typeof INSTALL_COMMANDS>("pnpm");
+  const [copied, setCopied] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== "undefined" &&
+      window.matchMedia("(min-width: 1024px)").matches,
   );
 
+  // Track the desktop breakpoint so the state-machine preview only drives
+  // domain cycling while it is actually visible.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener?.("change", handler);
+    return () => mq.removeEventListener?.("change", handler);
+  }, []);
+
+  // Auto-cycle domain presets every 3.2s — only when the preview card is
+  // visible (desktop). On smaller screens the state-machine card is hidden,
+  // so cycling would just flicker the rest of the page for nothing.
+  useEffect(() => {
+    if (!isDesktop) return;
+    const iv = setInterval(() => {
+      const next = (cycleIndex + 1) % LAB_DOMAINS.length;
+      const nextDomain = LAB_DOMAINS[next];
+      if (!nextDomain) return;
+      setCycleIndex(next);
+      switchDomain(nextDomain.id as DomainId);
+    }, 3200);
+    return () => clearInterval(iv);
+  }, [cycleIndex, switchDomain, isDesktop]);
+
+  // Sync cycleIndex when domain changes externally (user picks a preset)
+  useEffect(() => {
+    const idx = LAB_DOMAINS.findIndex((d) => d.id === domainId);
+    if (idx !== -1 && idx !== cycleIndex) {
+      setCycleIndex(idx);
+    }
+  }, [domainId, cycleIndex]);
+
+  const activeDomain = (LAB_DOMAINS[cycleIndex] ??
+    LAB_DOMAINS[0]) as (typeof LAB_DOMAINS)[number];
+
   return (
-    <section className="px-8 py-20 lg:py-24">
-      <div className="mx-auto max-w-4xl">
-        {/* Brand line: version badge with pulse dot + tag row */}
-        <div className="mb-10 flex flex-col items-center gap-4">
-          <div className="flex items-center justify-center gap-2.5 text-sm text-muted-foreground">
-            <span className="lab-live h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
-            <span>v{SITE_VERSION}</span>
-            <span className="text-muted-foreground/40">·</span>
-            <span>MIT</span>
-            <span className="text-muted-foreground/40">·</span>
-            <a
-              href={site.links.github}
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              github.com/fusorb/facet
-            </a>
-          </div>
-          <div className="flex flex-wrap justify-center gap-1.5 text-xs font-mono text-muted-foreground/50">
-            {HERO_TAGS.map((tag, i) => (
-              <span key={tag}>
-                {tag}
-                {i < HERO_TAGS.length - 1 && (
-                  <span className="mx-1.5 text-muted-foreground/30">·</span>
-                )}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Two-column grid: scratchpad layout: message | domain preview */}
-        <div className="lg:grid lg:grid-cols-[1fr_380px] lg:gap-16">
+    <section className="px-4 sm:px-8">
+      <div className="relative mx-auto max-w-[1200px] min-h-[60vh] lg:min-h-[calc(100vh-56px)]">
+        {/* Two-column layout: message | domain preview.
+            The state-machine preview (right) is hidden on small screens
+            so the mobile hero stays focused on the value prop. */}
+        <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-12">
           {/* LEFT: value prop */}
-          <div>
-            {/* Badge pills */}
-            <Stagger
-              delay={60}
-              className="flex flex-wrap justify-center gap-2 lg:justify-start"
-            >
-              {badges.map((badge, i) => (
-                <Motion
-                  key={badge.label}
-                  effect="fade"
-                  direction="up"
-                  staggerIndex={i}
-                  className="inline-flex"
-                >
-                  <Pill
-                    indicator="icon"
-                    icon={<LightIcon name={badge.icon} size={14} />}
-                    size="sm"
-                    color="secondary"
-                  >
-                    {badge.label}
-                  </Pill>
-                </Motion>
-              ))}
-            </Stagger>
-
-            {/* Headline */}
-            <h1 className="mt-6 font-heading text-4xl font-extrabold tracking-tight text-balance text-center text-pretty lg:text-left sm:text-5xl">
-              {headline}
-              <GradientText
-                text={headlineAccent}
-                className="block sm:inline"
+          <div className="lg:mx-0 lg:max-w-none">
+            {/* Version badge with pulse dot */}
+            <div className="mb-4 flex items-center justify-center gap-2.5 text-[11px] font-mono text-text-dim lg:justify-start">
+              <span
+                className="h-1.5 w-1.5 shrink-0 animate-pulse-dot rounded-full"
+                style={{ background: "var(--green)" }}
               />
-            </h1>
-
-            {/* Phrases */}
-            <div className="mt-6">
-              <TypewriterText phrases={phrases} />
+              <span>v{SITE_VERSION} · MIT Licensed</span>
             </div>
 
-            {/* Subtext */}
-            <p className="mt-6 max-w-2xl text-center text-lg text-muted-foreground lg:text-left">
-              {subtext}
+            {/* H1 */}
+            <h1
+              className="font-display text-3xl font-extrabold text-balance text-center text-pretty sm:text-5xl lg:text-[56px] lg:text-left"
+              style={{
+                letterSpacing: "-0.035em",
+                lineHeight: 1.08,
+              }}
+            >
+              <span>One system. </span>
+              <br className="hidden sm:block" />
+              <span>Every surface.</span>
+            </h1>
+
+            {/* Body copy */}
+            <p className="mt-6 max-w-md text-[16px] leading-[1.7] text-center text-pretty text-muted-foreground lg:text-left">
+              Facet is a ground-up UX system that stitches design tokens,
+              domain-customizable components, auth, layout, and motion into one
+              composable stack. Four layers, every seam an extension point.
             </p>
+
+            {/* Tech tag pills: Pill component, subtle variant, mono label */}
+            <div className="mt-8 flex flex-wrap justify-center gap-1.5 lg:justify-start">
+              {HERO_TAGS.map((tag) => (
+                <Pill
+                  key={tag}
+                  variant="subtle"
+                  radius="full"
+                  size="sm"
+                  indicator="none"
+                  className="font-mono font-medium uppercase text-[10px] text-text-dim"
+                >
+                  {tag}
+                </Pill>
+              ))}
+            </div>
 
             {/* CTAs */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
-              <SparkleButton
-                label={primaryCta.label}
-                onClick={() => handleCta(primaryCta.action)}
-                className="h-10 px-8"
-              />
               <button
                 type="button"
-                onClick={() => handleCta(secondaryCta.action)}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                onClick={() => (window.location.href = getPlaygroundUrl())}
+                className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-accent/90"
               >
-                {secondaryCta.label}
+                Open Playground
+                <LightIcon name="arrow-right" size={14} />
+              </button>
+              <button
+                type="button"
+                onClick={() => (window.location.href = getDocsUrl())}
+                className="rounded-lg border border-surface bg-transparent px-6 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-panel-hover"
+              >
+                Read the Docs
               </button>
             </div>
 
-            {/* Install command with package-manager tabs */}
-            <div className="mt-10 max-w-md">
+            {/* Install command row */}
+            <div className="mt-8 max-w-md mx-auto lg:mx-0">
               <div className="flex items-center gap-1 rounded-md border border-border bg-muted/30 p-1 text-xs font-mono">
                 {(["pnpm", "npm", "yarn", "bun"] as const).map((pm) => (
                   <button
@@ -163,7 +158,7 @@ export function HeroSection() {
                       "rounded px-2 py-1 text-xs font-medium transition-all",
                       installTab === pm
                         ? "bg-background text-foreground shadow"
-                        : "text-muted-foreground hover:text-foreground",
+                        : "text-text-dim hover:text-foreground",
                     )}
                   >
                     {pm}
@@ -171,77 +166,54 @@ export function HeroSection() {
                 ))}
               </div>
               <div className="relative mt-2">
-                <code className="block w-full overflow-x-auto rounded-lg border border-border bg-muted/40 px-4 py-2.5 text-sm">
+                <code className="block w-full overflow-x-auto rounded-lg border border-border bg-muted/40 px-4 py-2.5 text-sm font-mono text-text-dim">
                   {INSTALL_COMMANDS[installTab]}
                 </code>
                 <button
                   type="button"
-                  onClick={() =>
-                    navigator.clipboard.writeText(
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(
                       INSTALL_COMMANDS[installTab],
-                    )
-                  }
+                    );
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 1500);
+                  }}
                   aria-label="Copy install command"
-                  className="absolute top-1/2 right-2 -translate-y-1/2 rounded p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  className="absolute top-1/2 right-2 -translate-y-1/2 rounded p-1 text-text-dim transition-colors hover:text-foreground"
                 >
-                  <LightIcon name="copy" size={14} />
+                  <LightIcon name={copied ? "check" : "copy"} size={14} />
                 </button>
               </div>
             </div>
-
-            {/* Stats grid */}
-            <div className="mt-12 grid w-full grid-cols-2 gap-6 sm:grid-cols-4">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="font-heading text-2xl font-bold text-foreground">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* License note */}
-            <p className="mt-6 text-center text-xs text-muted-foreground lg:text-left">
-              MIT Licensed · Free forever ·{" "}
-              <a
-                href={site.links.github}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-foreground"
-              >
-                View on GitHub
-              </a>
-            </p>
           </div>
 
-          {/* RIGHT: domain preview */}
-          <div className="mt-12 space-y-6 lg:mt-0">
-            {/* Domain selector */}
+          {/* RIGHT: domain cycling + sign-in card (state machine).
+              Hidden on small screens — revealed from lg up. */}
+          <div className="hidden space-y-6 lg:block">
+            {/* Domain preset pills (auto-cycling every 3.2s) */}
             <div className="space-y-2">
-              <p className="text-center text-xs text-muted-foreground">
+              <p className="text-center text-xs text-text-dim">
                 Switch domain preset
               </p>
               <div className="flex justify-center gap-2">
-                {LAB_DOMAINS.map((d) => (
+                {LAB_DOMAINS.map((d, i) => (
                   <button
                     key={d.id}
                     type="button"
-                    onClick={() => switchDomain(d.id as DomainId)}
+                    onClick={() => {
+                      setCycleIndex(i);
+                      switchDomain(d.id as DomainId);
+                    }}
                     className={cn(
-                      "rounded-lg border-2 px-3 py-1.5 text-xs font-medium transition-all",
-                      domainId === d.id
-                        ? "bg-background shadow"
-                        : "border-transparent hover:border-muted",
+                      "rounded-lg border-2 px-3 py-1.5 text-xs font-medium transition-all duration-300 ease-in-out",
+                      cycleIndex === i
+                        ? "bg-accent-dim"
+                        : "border-transparent text-text-dim hover:border-border",
                     )}
                     style={{
-                      borderColor: domainId === d.id ? d.accent : undefined,
+                      borderColor: cycleIndex === i ? d.accent : undefined,
                       boxShadow:
-                        domainId === d.id
-                          ? `0 0 12px ${d.accent}`
-                          : undefined,
+                        cycleIndex === i ? `0 0 12px ${d.accent}` : undefined,
                     }}
                   >
                     {d.label}
@@ -250,61 +222,54 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* Auth preview card */}
+            {/* Sign-in card */}
             <div
-              className="relative rounded-2xl border-2 bg-card p-6 shadow-xl"
+              className="rounded-xl border-2 bg-panel p-6 shadow-xl transition-all"
               style={{
-                borderColor: `${labDomain.accent}40`,
-                boxShadow: `0 0 30px ${labDomain.accent}15`,
+                borderColor: `color-mix(in srgb, ${activeDomain.accent} 22%, transparent)`,
+                boxShadow: `0 0 30px color-mix(in srgb, ${activeDomain.accent} 6%, transparent)`,
               }}
             >
-              {/* Floating stat badge */}
-              <div className="absolute top-3 right-3 z-10 flex flex-col gap-1">
-                {stats.slice(0, 2).map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="rounded-full border border-border bg-background/95 px-2.5 py-0.5 text-xs font-medium backdrop-blur"
-                  >
-                    <span className="text-foreground">{stat.value}</span>{" "}
-                    <span className="text-muted-foreground">{stat.label}</span>
+              <div className="flex items-center gap-3">
+                <div
+                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md"
+                  style={{ background: activeDomain.accent }}
+                >
+                  <LightIcon name="user" size={12} className="text-white" />
+                </div>
+                <span className="text-sm font-medium text-foreground">
+                  Sign in to {activeDomain.label}
+                </span>
+              </div>
+
+              <div className="mt-4 flex flex-col gap-3">
+                {activeDomain.authMethods.map((method) => (
+                  <div key={method} className="flex items-center gap-2">
+                    <span
+                      className="h-[7px] w-[7px] shrink-0 rounded-full"
+                      style={{ background: "var(--green)" }}
+                    />
+                    <span className="text-xs font-mono text-text-dim">
+                      {method}
+                    </span>
                   </div>
                 ))}
               </div>
 
-              {/* Auth surface preview */}
-              <div className="space-y-4 text-center">
-                <div>
-                  <h3 className="text-sm font-semibold text-foreground">
-                    Sign in to {labDomain.label}
-                  </h3>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {labDomain.desc}
-                  </p>
-                </div>
+              <button
+                type="button"
+                onClick={() => (window.location.href = getPlaygroundUrl())}
+                className="mt-4 w-full rounded-lg py-2 text-sm font-medium"
+                style={{
+                  background: activeDomain.accent,
+                  color: "var(--primary-foreground)",
+                }}
+              >
+                Continue
+              </button>
 
-                {/* Auth method chips */}
-                <div className="flex flex-wrap justify-center gap-1.5">
-                  {labDomain.authMethods.map((method) => (
-                    <span
-                      key={method}
-                      className="rounded-full border border-border bg-muted/30 px-2.5 py-1 text-xs"
-                    >
-                      {method}
-                    </span>
-                  ))}
-                </div>
-
-                <button
-                  type="button"
-                  className="w-full rounded-lg bg-primary py-2 text-sm font-medium text-primary-foreground"
-                >
-                  Continue
-                </button>
-
-                <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>Density: {labDomain.density}</span>
-                  <span>Domain: {labDomain.label}</span>
-                </div>
+              <div className="mt-3 text-center text-[9px] text-text-dim">
+                preset: {activeDomain.label} · density: {activeDomain.density}
               </div>
             </div>
           </div>
