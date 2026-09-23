@@ -115,12 +115,19 @@ console.log(`  composites wire >=2 siblings: ${composites.length} (${compositesW
 console.log("\nHARD gaps (missing appearance or config):");
 if (HARD_GAPS.length) for (const g of HARD_GAPS) console.log(`  - ${g}`);
 else console.log("  (none)");
-console.log("\nSOFT warnings (composite without slots):");
+console.log("\nSlot gaps (composites missing slots — CI hard gate):");
 if (SOFT_GAPS.length) for (const g of SOFT_GAPS) console.log(`  - ${g}`);
 else console.log("  (none)");
 
-if (HARD_GAPS.length) {
-  console.log("\nFAILED: some components lack required axes.");
+// P14: slots on composites are a hard gate, not a soft warning, so CI
+// defends the composability invariant. After P13 every composite exposes
+// slots, so this currently passes; future regressions will fail the build.
+if (HARD_GAPS.length || SOFT_GAPS.length) {
+  console.log(
+    "\nFAILED: composability invariant violated — see HARD gaps (appear" +
+      "ance/config) and slot gaps above.",
+  );
   process.exit(1);
 }
 console.log(`\nAll ${components.length} components expose the required axes (appearance + config).`);
+console.log(`All ${composites.length} composites expose slots.`);
