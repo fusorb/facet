@@ -170,23 +170,13 @@ function ChatLayoutInner({
   const isAuthenticated = auth?.isAuthenticated ?? true;
   const isLoading = auth?.isLoading ?? false;
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-      </div>
-    );
-  }
-
-  // Not authenticated: render children directly (let a Guard or SignIn handle it).
-  if (!isAuthenticated) {
-    return <>{children}</>;
-  }
-
-  // Click-outside (and Escape) closes the mobile sidebar. The hamburger is
-  // excluded via [data-mobile-trigger] so click-to-pin still works.
+  // Click-outside (and Escape) closes the mobile sidebar. Declared before the
+  // conditional returns so hook order stays stable across loading/auth
+  // transitions (Rules of Hooks); guarded so it is a no-op until the shell is
+  // live. The hamburger is excluded via [data-mobile-trigger] so click-to-pin
+  // still works.
   React.useEffect(() => {
-    if (!sidebarOpen) return;
+    if (!sidebarOpen || isLoading || !isAuthenticated) return;
     const close = () => setSidebarOpen(false);
     const onPointerDown = (event: PointerEvent) => {
       const target = event.target as HTMLElement | null;
@@ -206,7 +196,20 @@ function ChatLayoutInner({
       document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [sidebarOpen, setSidebarOpen]);
+  }, [sidebarOpen, isLoading, isAuthenticated, setSidebarOpen]);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    );
+  }
+
+  // Not authenticated: render children directly (let a Guard or SignIn handle it).
+  if (!isAuthenticated) {
+    return <>{children}</>;
+  }
 
   return (
     <div className="flex min-h-screen bg-background">
