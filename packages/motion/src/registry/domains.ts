@@ -117,6 +117,30 @@ const easingFor = (e: Easing): number[] => {
 };
 
 /**
+ * Domain preset registry: maps domain names to their motion configs.
+ *
+ * Mirrors the `@fusorb/facet-layout` preset registry — consumers can
+ * register custom domains via `registerDomainMotion` without forking
+ * the package, and `getDomainMotionConfig` falls back to `defaultMotion`
+ * for unknown/undefined domains.
+ */
+const domainMotionRegistry = new Map<string, DomainMotionConfig>([
+  ["fintech", fintechMotion],
+  ["med", medMotion],
+  ["edu", eduMotion],
+  ["enterprise", enterpriseMotion],
+  ["default", defaultMotion],
+]);
+
+/** Register a custom motion preset (or override a built-in one). */
+export function registerDomainMotion(
+  name: string,
+  config: DomainMotionConfig,
+): void {
+  domainMotionRegistry.set(name, config);
+}
+
+/**
  * Resolve a domain name to its motion config, falling back to
  * `defaultMotion` for unknown domains.
  *
@@ -126,18 +150,17 @@ const easingFor = (e: Easing): number[] => {
 export function getDomainMotionConfig(
   domain: string | undefined,
 ): DomainMotionConfig {
-  switch (domain) {
-    case "fintech":
-      return fintechMotion;
-    case "med":
-      return medMotion;
-    case "edu":
-      return eduMotion;
-    case "enterprise":
-      return enterpriseMotion;
-    default:
-      return defaultMotion;
-  }
+  return domainMotionRegistry.get(domain ?? "") ?? defaultMotion;
+}
+
+/** Whether a motion preset is registered for `name`. */
+export function hasDomainMotionConfig(name: string): boolean {
+  return domainMotionRegistry.has(name);
+}
+
+/** List all registered motion preset names. */
+export function listDomainMotionConfigs(): string[] {
+  return [...domainMotionRegistry.keys()];
 }
 
 export { easingFor };

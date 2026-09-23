@@ -75,6 +75,9 @@ export {
   enterpriseMotion,
   defaultMotion,
   getDomainMotionConfig,
+  registerDomainMotion,
+  hasDomainMotionConfig,
+  listDomainMotionConfigs,
   easingFor,
   GENERATIVE_FAMILY_IDS,
 } from "./registry/index.js";
