@@ -29,6 +29,53 @@ export interface TopbarProps {
   mode?: "full" | "rail";
   /** Mobile: brand logo node to show in place of the hamburger. */
   mobileBrand?: React.ReactNode;
+  /**
+   * Customize the tenant switcher. Receives the resolved props; falls back to
+   * the built-in TenantSwitcher when absent (backward-compatible).
+   */
+  renderTenantSwitcher?: (props: {
+    tenants: TenantReference[];
+    activeTenant: TenantReference | null;
+    onSwitch: (tenantId: string) => void;
+  }) => React.ReactNode;
+  /**
+   * Customize the user menu. Receives the resolved props; falls back to the
+   * built-in UserMenu when absent (backward-compatible).
+   */
+  renderUserMenu?: (props: {
+    settingsPath?: string;
+    onSignOut?: () => void;
+  }) => React.ReactNode;
+}
+
+/** Default tenant switcher: delegates to the built-in TenantSwitcher. */
+function DefaultTenantSwitcher({
+  tenants,
+  activeTenant,
+  onSwitch,
+}: {
+  tenants: TenantReference[];
+  activeTenant: TenantReference | null;
+  onSwitch: (tenantId: string) => void;
+}) {
+  return (
+    <TenantSwitcher
+      tenants={tenants}
+      activeTenant={activeTenant}
+      onSwitch={onSwitch}
+    />
+  );
+}
+
+/** Default user menu: delegates to the built-in UserMenu. */
+function DefaultUserMenu({
+  settingsPath,
+  onSignOut,
+}: {
+  settingsPath?: string;
+  onSignOut?: () => void;
+}) {
+  return <UserMenu settingsPath={settingsPath} onSignOut={onSignOut} />;
 }
 
 export function Topbar({
@@ -41,6 +88,8 @@ export function Topbar({
   onSignOut,
   mode = "full",
   mobileBrand,
+  renderTenantSwitcher,
+  renderUserMenu,
 }: TopbarProps) {
   const {
     sidebarOpen,
@@ -50,6 +99,8 @@ export function Topbar({
     hoverEnterSidebar,
     hoverLeaveSidebar,
   } = useLayout();
+
+  const handleTenantSwitch = onTenantSwitch ?? (() => {});
 
   return (
     <header className="sticky top-0 z-60 flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
@@ -133,17 +184,32 @@ export function Topbar({
           </button>
         )}
 
-        <TenantSwitcher
-          tenants={tenants}
-          activeTenant={activeTenant}
-          onSwitch={onTenantSwitch ?? (() => {})}
-        />
+        {renderTenantSwitcher
+          ? renderTenantSwitcher({
+              tenants,
+              activeTenant,
+              onSwitch: handleTenantSwitch,
+            })
+          : (
+            <DefaultTenantSwitcher
+              tenants={tenants}
+              activeTenant={activeTenant}
+              onSwitch={handleTenantSwitch}
+            />
+          )}
       </div>
 
       <div className="flex items-center gap-3">
         {themeToggle && <ThemeToggle />}
         {children}
-        <UserMenu settingsPath={settingsPath} onSignOut={onSignOut} />
+        {renderUserMenu
+          ? renderUserMenu({ settingsPath, onSignOut })
+          : (
+            <DefaultUserMenu
+              settingsPath={settingsPath}
+              onSignOut={onSignOut}
+            />
+          )}
       </div>
     </header>
   );
