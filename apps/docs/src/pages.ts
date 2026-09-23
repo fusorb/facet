@@ -748,6 +748,26 @@ export function App() {
             "Live layout previews (ConsoleLayout, AuthLayout, Sidebar/Topbar, LandingLayout) with copyable code",
           ],
           ["`keyboardShortcuts`", "`{}`", "Docs keyboard shortcuts table"],
+          [
+            "`image`",
+            "`{ src, alt, caption? }`",
+            "Inline or full-bleed image with optional caption",
+          ],
+          [
+            "`card`",
+            "`{ title?, content, icon?, href?, variant? }`",
+            "Stylized content card (default / outline / ghost / elevated)",
+          ],
+          [
+            "`grid`",
+            "`{ columns?, items[] }`",
+            "Responsive grid of cards (feature grids, galleries)",
+          ],
+          [
+            "`hero`",
+            "`{ title, subtitle?, cta? }`",
+            "Stylized page hero: headline + subheading + optional CTA",
+          ],
         ],
       },
       { type: "h2", text: "Component gallery" },
@@ -802,6 +822,17 @@ export function App() {
       {
         type: "p",
         text: "Full-bleed marketing page with a glassmorphic hero and hover-lift CTAs. Pair with the `Navbar` `pill` variant for a flush, scroll-aware glass header.",
+      },
+      { type: "h2", text: "ChatLayout" },
+      {
+        type: "p",
+        text: "Chat-style shell (ChatGPT / Claude / Lovable): a persistent sidebar (brand + nav / conversations) with a `New chat` button, a scrollable message area, and an inline chat-input bar. Mobile collapses to a slide-in sidebar; reuse `LayoutProvider` for router-aware links.",
+      },
+      {
+        type: "code",
+        text: `<ChatLayout config={config} onSendMessage={(msg) => send(msg)}>
+  {/* chat message history */}
+</ChatLayout>`,
       },
       { type: "h2", text: "Sidebar & Topbar" },
       {

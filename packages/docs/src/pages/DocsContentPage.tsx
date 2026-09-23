@@ -6,14 +6,11 @@ import { slug } from "../lib/ids.js";
 import { DocsTable } from "../components/DocsTable.js";
 import { CodeBlock } from "../components/CodeBlock.js";
 
-function cn(...classes: (string | false | undefined)[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 import { InstallTabs } from "../components/InstallTabs.js";
 import { InteractiveDemo } from "../components/InteractiveDemo.js";
 import { KeyboardShortcuts } from "../components/KeyboardShortcuts.js";
 import {
+  cn,
   ChangelogList,
   ChangelogWithDate,
   type ChangelogRelease,
@@ -83,6 +80,125 @@ function Block({ block }: { block: DocsBlock }) {
         >
           {block.label}
         </Link>
+      );
+    case "image":
+      return (
+        <figure className="my-8">
+          <img
+            src={block.src}
+            alt={block.alt}
+            {...(block.width ? { width: block.width } : {})}
+            {...(block.height ? { height: block.height } : {})}
+            className={cn(
+              "rounded-xl border border-border",
+              block.full ? "w-full" : "max-w-full",
+            )}
+          />
+          {block.caption && (
+            <figcaption className="mt-2 text-sm text-muted-foreground">
+              {block.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    case "card": {
+      const variant = block.variant ?? "default";
+      return (
+        <div
+          className={cn(
+            "rounded-xl p-6",
+            variant === "default" &&
+              "border border-border bg-muted/30",
+            variant === "outline" &&
+              "border border-border bg-transparent",
+            variant === "ghost" &&
+              "border-transparent bg-transparent",
+            variant === "elevated" &&
+              "border border-border bg-muted/30 shadow-lg",
+          )}
+        >
+          {block.icon && (
+            <span className="mb-3 block text-2xl">{block.icon}</span>
+          )}
+          {block.title && (
+            <h3 className="text-lg font-semibold text-foreground">
+              {block.title}
+            </h3>
+          )}
+          {block.content && (
+            <p className="mt-2 text-sm text-muted-foreground">
+              {block.content}
+            </p>
+          )}
+          {block.href && (
+            <a
+              href={block.href}
+              className="mt-3 inline-flex text-sm font-medium text-primary underline-offset-4 hover:underline"
+            >
+              Learn more →
+            </a>
+          )}
+        </div>
+      );
+    }
+    case "grid":
+      return (
+        <div
+          className="grid gap-4"
+          style={{
+            gridTemplateColumns: `repeat(${block.columns ?? 3}, minmax(0, 1fr))`,
+          }}
+        >
+          {block.items.map((item, i) => (
+            <div
+              key={i}
+              className="rounded-xl border border-border bg-muted/30 p-5"
+            >
+              {item.icon && (
+                <span className="mb-2 block text-2xl">{item.icon}</span>
+              )}
+              {item.title && (
+                <h3 className="text-base font-semibold text-foreground">
+                  {item.title}
+                </h3>
+              )}
+              {item.content && (
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {item.content}
+                </p>
+              )}
+              {item.href && (
+                <a
+                  href={item.href}
+                  className="mt-2 inline-flex text-sm font-medium text-primary underline-offset-4 hover:underline"
+                >
+                  Learn more →
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      );
+    case "hero":
+      return (
+        <section className="py-12 text-center">
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+            {block.title}
+          </h2>
+          {block.subtitle && (
+            <p className="mt-4 text-lg text-muted-foreground">
+              {block.subtitle}
+            </p>
+          )}
+          {block.cta && (
+            <a
+              href={block.cta.href}
+              className="mt-6 inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              {block.cta.label}
+            </a>
+          )}
+        </section>
       );
     case "authDemo":
       return (

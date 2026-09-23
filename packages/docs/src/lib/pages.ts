@@ -27,6 +27,44 @@ export type DocsBlock =
   | { type: "ul"; items: string[] }
   | { type: "table"; headers: string[]; rows: string[][] }
   | { type: "link"; label: string; href: string }
+  | {
+      /** Inline or full-bleed image with an optional caption. */
+      type: "image";
+      src: string;
+      alt: string;
+      caption?: string;
+      width?: string;
+      height?: string;
+      /** Break out of the content column. Default: false. */
+      full?: boolean;
+    }
+  | {
+      /** Stylized content card (feature highlights, CTAs, callouts). */
+      type: "card";
+      title?: string;
+      content: string;
+      icon?: string;
+      href?: string;
+      variant?: "default" | "outline" | "ghost" | "elevated";
+    }
+  | {
+      /** Responsive grid of cards (Lovable/Next-style feature grid). */
+      type: "grid";
+      columns?: number;
+      items: Array<{
+        title: string;
+        content?: string;
+        icon?: string;
+        href?: string;
+      }>;
+    }
+  | {
+      /** Stylized page hero: headline + subheading + optional CTA. */
+      type: "hero";
+      title: string;
+      subtitle?: string;
+      cta?: { label: string; href: string };
+    }
   | { type: "authDemo" }
   | { type: "authPreviews" }
   | { type: "layoutPreviews" }
