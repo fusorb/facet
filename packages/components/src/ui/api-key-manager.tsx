@@ -4,6 +4,10 @@
  * A ready-to-use API key manager: create keys with a scope + expiry,
  * copy secrets, reveal truncated keys, and revoke them. Controlled via
  * `keys` + callbacks so consumers own persistence.
+ *
+ * Customization: appearance (className), configuration (scopes), slots —
+ * `renderKey` replaces each key's display block so consumers can expose
+ * custom metadata/status without forking the create/reveal/revoke flow.
  */
 
 import * as React from "react";
@@ -53,6 +57,8 @@ export interface ApiKeyManagerProps extends React.HTMLAttributes<HTMLDivElement>
   onRevoke: (id: string) => Promise<void> | void;
   /** Available scopes for the create form. Default: ["read", "write", "admin"]. */
   scopes?: string[];
+  /** Replace a key's display block (e.g. custom metadata/status badges). */
+  renderKey?: (key: ApiKey) => React.ReactNode;
   /** Copy overrides. */
   copy?: Partial<{
     title: string;
@@ -77,6 +83,27 @@ export interface ApiKeyManagerProps extends React.HTMLAttributes<HTMLDivElement>
 
 const DEFAULT_SCOPES = ["read", "write", "admin"];
 
+function DefaultKeyDisplay({
+  k,
+  copy,
+}: {
+  k: ApiKey;
+  copy: ApiKeyManagerProps["copy"];
+}) {
+  return (
+    <div className="min-w-0">
+      <p className="truncate text-sm font-medium">{k.name}</p>
+      <p className="truncate text-xs text-muted-foreground">
+        {k.prefix ? `${k.prefix}_...${k.last4}` : `...${k.last4}`} ·{" "}
+        {k.scopes.join(", ")}
+        {k.expiresAt &&
+          ` · ${copy?.expiresIn ?? "expires"} ${new Date(k.expiresAt).toLocaleDateString()}`}
+        {k.revoked && ` · ${copy?.revoked ?? "revoked"}`}
+      </p>
+    </div>
+  );
+}
+
 /**
  * An API key manager panel. New keys are created through the top form and
  * their full secret is shown exactly once (copyable). Existing keys render
@@ -87,6 +114,7 @@ export function ApiKeyManager({
   onCreate,
   onRevoke,
   scopes = DEFAULT_SCOPES,
+  renderKey,
   copy = {},
   className,
   ...props
@@ -260,16 +288,7 @@ export function ApiKeyManager({
                   k.revoked && "opacity-60",
                 )}
               >
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-medium">{k.name}</p>
-                  <p className="truncate text-xs text-muted-foreground">
-                    {k.prefix ? `${k.prefix}_...${k.last4}` : `...${k.last4}`} ·{" "}
-                    {k.scopes.join(", ")}
-                    {k.expiresAt &&
-                      ` · ${copy.expiresIn ?? "expires"} ${new Date(k.expiresAt).toLocaleDateString()}`}
-                    {k.revoked && ` · ${copy.revoked ?? "revoked"}`}
-                  </p>
-                </div>
+                {renderKey ? renderKey(k) : <DefaultKeyDisplay k={k} copy={copy} />}
                 {confirmRevoke === k.id ? (
                   <div className="flex shrink-0 items-center gap-2">
                     <span className="text-xs text-destructive">

@@ -21,7 +21,7 @@ import {
   TooltipContent,
   Icon,
 } from "@fusorb/facet-components";
-import type { LayoutConfig, NavItem, NavSection } from "./types.js";
+import type { BrandConfig, LayoutConfig, NavItem, NavSection } from "./types.js";
 import type { RouterAdapter } from "./router.js";
 
 /* ── Props ────────────────────────────────────────────────── */
@@ -33,10 +33,30 @@ export interface SidebarProps {
   collapsed?: boolean;
   /** Current expanded sidebar width in px. Default: 260 */
   width?: number;
-  /** Accordion mode: opening a section closes the others, and collapsible
+  /** Accordion mode: opening a section collapses the others, and collapsible
    *  child groups within an open section also behave as accordion (opening
    *  one closes its siblings). Default: false */
   singleOpen?: boolean;
+  /** Custom render for the brand section (logo + label). Defaults to
+   *  DefaultBrand. Pass to fully replace the brand block — e.g. to add a
+   *  tagline, CTA, or domain-specific logo treatment. */
+  renderBrand?: (
+    brand: BrandConfig,
+    ctx: { collapsed: boolean },
+  ) => React.ReactNode;
+  /** Custom render for a leaf nav item. Defaults to the built-in link
+   *  rendering. Pass to fully replace how a navigation item renders
+   *  (icon, badge, active state, link element). */
+  renderNavItem?: (
+    item: NavItem,
+    ctx: {
+      isActive: boolean;
+      depth: number;
+      collapsed: boolean;
+      hasChildren: boolean;
+      router?: RouterAdapter;
+    },
+  ) => React.ReactNode;
 }
 
 /* ── Component ────────────────────────────────────────────── */
@@ -47,6 +67,8 @@ export function Sidebar({
   collapsed = false,
   width = DEFAULT_SIDEBAR_WIDTH,
   singleOpen = false,
+  renderBrand,
+  renderNavItem,
 }: SidebarProps) {
   const {
     setSidebarOpen,
@@ -118,34 +140,9 @@ export function Sidebar({
       )}
 
       {/* Brand */}
-      <div className="flex h-14 items-center gap-2 border-b border-sidebar-border px-5">
-        {config.brand.logo ?? (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="shrink-0 text-primary"
-          >
-            <path
-              d="M12 2L4 6V12C4 17.52 7.58 22.48 12 24C16.42 22.48 20 17.52 20 12V6L12 2Z"
-              fill="currentColor"
-              opacity="0.8"
-            />
-            <path
-              d="M12 6L8 8V12C8 14.5 9.67 16.8 12 17.5C14.33 16.8 16 14.5 16 12V8L12 6Z"
-              fill="currentColor"
-              opacity="0.4"
-            />
-          </svg>
-        )}
-        {!collapsed && (
-          <span className="truncate font-semibold text-sidebar-foreground">
-            {config.brand.name}
-          </span>
-        )}
-      </div>
+      {renderBrand
+        ? renderBrand(config.brand, { collapsed })
+        : <DefaultBrand brand={config.brand} collapsed={collapsed} />}
 
       {/* Nav */}
       <ScrollArea className="flex-1 px-3 py-4">
@@ -187,6 +184,7 @@ export function Sidebar({
                 collapsed={collapsed}
                 singleOpen={singleOpen}
                 sectionIds={config.navigation.map((s) => s.id ?? s.title)}
+                renderNavItem={renderNavItem}
               />
             ))}
           </nav>
@@ -235,6 +233,7 @@ function NavSectionRenderer({
   onExpand,
   singleOpen = false,
   sectionIds,
+  renderNavItem,
 }: {
   section: NavSection;
   router: RouterAdapter | undefined;
@@ -243,6 +242,7 @@ function NavSectionRenderer({
   onExpand: () => void;
   singleOpen?: boolean;
   sectionIds: string[];
+  renderNavItem?: SidebarProps["renderNavItem"];
 }) {
   // Storybook-style section: the header toggles the whole group.
   // Open by default; collapse state is persisted via layout context.
@@ -380,6 +380,7 @@ function NavSectionRenderer({
               singleOpen={singleOpen}
               openItem={openItem}
               setOpenItem={setOpenItem}
+              renderNavItem={renderNavItem}
             />
           ))}
         </ul>
@@ -400,6 +401,7 @@ function NavItemRenderer({
   singleOpen = false,
   openItem = null,
   setOpenItem,
+  renderNavItem,
 }: {
   item: NavItem;
   router: RouterAdapter | undefined;
@@ -412,6 +414,7 @@ function NavItemRenderer({
   singleOpen?: boolean;
   openItem?: string | null;
   setOpenItem?: React.Dispatch<React.SetStateAction<string | null>>;
+  renderNavItem?: SidebarProps["renderNavItem"];
 }) {
   const [internalOpen, setInternalOpen] = React.useState(false);
   // Local accordion state for nested levels (depth 1+) that don't
@@ -544,6 +547,15 @@ function NavItemRenderer({
     ? router.isActive(item.href)
     : defaultIsActive(item.href);
   const Link = router?.Link ?? DefaultAnchor;
+  if (renderNavItem) {
+    return renderNavItem(item, {
+      depth,
+      isActive,
+      collapsed,
+      hasChildren: false,
+      router,
+    });
+  }
   return (
     <li key={item.href}>
       <TooltipProvider delayDuration={200}>
@@ -638,6 +650,48 @@ function SidebarToolbar({
           <TooltipContent side="bottom">Expand all sections</TooltipContent>
         </Tooltip>
       </TooltipProvider>
+    </div>
+  );
+}
+
+/* ── Default brand ──────────────────────────────── */
+
+/** Default brand block: logo (or shield fallback) + label. */
+function DefaultBrand({
+  brand,
+  collapsed,
+}: {
+  brand: BrandConfig;
+  collapsed: boolean;
+}) {
+  return (
+    <div className="flex h-14 items-center gap-2 border-b border-sidebar-border px-5">
+      {brand.logo ?? (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="shrink-0 text-primary"
+        >
+          <path
+            d="M12 2L4 6V12C4 17.52 7.58 22.48 12 24C16.42 22.48 20 17.52 20 12V6L12 2Z"
+            fill="currentColor"
+            opacity="0.8"
+          />
+          <path
+            d="M12 6L8 8V12C8 14.5 9.67 16.8 12 17.5C14.33 16.8 16 14.5 16 12V8L12 6Z"
+            fill="currentColor"
+            opacity="0.4"
+          />
+        </svg>
+      )}
+      {!collapsed && (
+        <span className="truncate font-semibold text-sidebar-foreground">
+          {brand.name}
+        </span>
+      )}
     </div>
   );
 }

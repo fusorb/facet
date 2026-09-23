@@ -75,9 +75,9 @@ export interface LayoutConfig {
   features?: LayoutFeatures;
 }
 
-/* ── Tenant shape (consumer provides this) ────────────────── */
+/* ── TenantReference shape (consumer provides this) ────────────────── */
 
-export interface Tenant {
+export interface TenantReference {
   id: string;
   name: string;
   slug?: string;

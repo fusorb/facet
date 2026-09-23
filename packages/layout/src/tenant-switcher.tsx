@@ -7,11 +7,11 @@
  */
 
 import * as React from "react";
-import type { Tenant } from "./types.js";
+import type { TenantReference } from "./types.js";
 
 export interface TenantSwitcherProps {
-  tenants: Tenant[];
-  activeTenant: Tenant | null;
+  tenants: TenantReference[];
+  activeTenant: TenantReference | null;
   onSwitch: (tenantId: string) => void;
 }
 

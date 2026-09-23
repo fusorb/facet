@@ -13,7 +13,7 @@ import { useOptionalAuth } from "@fusorb/facet-auth";
 import { useLayout, LayoutProvider } from "./layout-context.js";
 import { Sidebar } from "./sidebar.js";
 import { Topbar } from "./topbar.js";
-import type { ConsoleLayoutMode, LayoutConfig, Tenant } from "./types.js";
+import type { ConsoleLayoutMode, LayoutConfig, TenantReference } from "./types.js";
 import type { RouterAdapter } from "./router.js";
 
 /** True when the viewport is at the desktop (lg) breakpoint or wider. */
@@ -31,8 +31,8 @@ function useIsDesktop() {
 
 export interface ConsoleLayoutProps {
   config: LayoutConfig;
-  tenants?: Tenant[];
-  activeTenant?: Tenant | null;
+  tenants?: TenantReference[];
+  activeTenant?: TenantReference | null;
   onTenantSwitch?: (tenantId: string) => void;
   /** Sidebar mode. "full" = always-labeled, "rail" = collapsible icon-only. Default: "full" */
   mode?: ConsoleLayoutMode;

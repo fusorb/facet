@@ -11,11 +11,11 @@ import { ThemeToggle } from "@fusorb/facet-components";
 import { useLayout } from "./layout-context.js";
 import { UserMenu } from "./user-menu.js";
 import { TenantSwitcher } from "./tenant-switcher.js";
-import type { Tenant } from "./types.js";
+import type { TenantReference } from "./types.js";
 
 export interface TopbarProps {
-  tenants?: Tenant[];
-  activeTenant?: Tenant | null;
+  tenants?: TenantReference[];
+  activeTenant?: TenantReference | null;
   onTenantSwitch?: (tenantId: string) => void;
   /** Rendered after the user menu (notifications, theme toggle, etc.) */
   children?: React.ReactNode;

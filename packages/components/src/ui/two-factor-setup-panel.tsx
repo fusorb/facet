@@ -5,6 +5,10 @@
  * secret), confirm with a one-time code, then reveal recovery codes.
  * Fully customizable via props and `copy`. A stepper header keeps the
  * three steps legible on every breakpoint.
+ *
+ * Customization: appearance (className), configuration (secret/otpauth),
+ * slots — `renderQRCode` replaces the QR rendering so consumers can swap
+ * the QR library or layout without forking the verify/codes steps.
  */
 
 import * as React from "react";
@@ -35,6 +39,8 @@ export interface TwoFactorSetupPanelProps extends React.HTMLAttributes<HTMLDivEl
   onRecoveryCodesSaved?: () => Promise<void> | void;
   /** Recovery codes to reveal after confirmation. */
   recoveryCodes?: string[];
+  /** Replace the QR rendering (e.g. a different QR library). */
+  renderQRCode?: (otpauthUri: string, secret: string) => React.ReactNode;
   /** Copy overrides. */
   copy?: Partial<{
     title: string;
@@ -76,6 +82,7 @@ export function TwoFactorSetupPanel({
   onConfirm,
   onRecoveryCodesSaved,
   recoveryCodes = [],
+  renderQRCode,
   copy = {},
   className,
   ...props
@@ -164,11 +171,15 @@ export function TwoFactorSetupPanel({
         {step === "scan" && (
           <>
             <div className="flex justify-center">
-              <QRCode
-                value={otpauthUri}
-                size={168}
-                className="rounded-md border border-border bg-background p-2"
-              />
+              {renderQRCode
+                ? renderQRCode(otpauthUri, secret)
+                : (
+                  <QRCode
+                    value={otpauthUri}
+                    size={168}
+                    className="rounded-md border border-border bg-background p-2"
+                  />
+                )}
             </div>
             <div className="space-y-1">
               <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">

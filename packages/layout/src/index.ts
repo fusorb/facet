@@ -18,7 +18,7 @@ export type {
   BrandConfig,
   LayoutFeatures,
   LayoutConfig,
-  Tenant,
+  TenantReference,
   LayoutContextValue,
   LayoutProviderProps,
   ConsoleLayoutMode,
@@ -68,6 +68,14 @@ export { AppLayout } from "./auth-layout.js";
 export { type ConsoleLayoutProps, ConsoleLayout } from "./console-layout.js";
 
 export { type LandingLayoutProps, LandingLayout } from "./landing-layout.js";
+
+/* ── Chat layout ──────────────────────────────────── */
+export {
+  type ChatInputProps,
+  type ChatLayoutProps,
+  ChatInput,
+  ChatLayout,
+} from "./chat-layout.js";
 
 /* ── Command palette (search) ─────────────────────────────── */
 export {

@@ -4,6 +4,10 @@
  * A ready-to-use social-proof grid (or carousel) of testimonials with
  * quote, author, role, and avatar. Composes the Avatar + Card primitives
  * and the semantic Icon registry. Data-driven and responsive.
+ *
+ * Customization: appearance (className), configuration (data/mode/cols),
+ * slots — `renderTestimonial` replaces each testimonial card so consumers
+ * can swap the avatar/layout without forking the carousel/grid logic.
  */
 
 import * as React from "react";
@@ -46,6 +50,8 @@ export interface TestimonialShowcaseProps extends React.HTMLAttributes<HTMLDivEl
   title?: string;
   /** Optional subheading. */
   description?: string;
+  /** Replace the rendered testimonial card (e.g. custom avatar layout). */
+  renderTestimonial?: (t: Testimonial) => React.ReactNode;
   /** Override user-visible text strings (carousel nav aria-labels). All fall back to English defaults. */
   copy?: Partial<TestimonialShowcaseCopy>;
 }
@@ -92,6 +98,7 @@ export function TestimonialShowcase({
   columns = 3,
   title,
   description,
+  renderTestimonial,
   copy,
   className,
   ...props
@@ -125,13 +132,21 @@ export function TestimonialShowcase({
           )}
         >
           {testimonials.map((t, i) => (
-            <TestimonialCard key={i} t={t} />
+            <React.Fragment key={i}>
+              {renderTestimonial ? renderTestimonial(t) : <TestimonialCard t={t} />}
+            </React.Fragment>
           ))}
         </div>
       ) : (
         <div className="relative">
           <div className="mx-auto max-w-xl">
-            {count > 0 && <TestimonialCard t={testimonials[index % count]!} />}
+            {count > 0 && (
+              <React.Fragment key="active">
+                {renderTestimonial
+                  ? renderTestimonial(testimonials[index % count]!)
+                  : <TestimonialCard t={testimonials[index % count]!} />}
+              </React.Fragment>
+            )}
           </div>
           {count > 1 && (
             <div className="mt-4 flex items-center justify-center gap-2">

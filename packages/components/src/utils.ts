@@ -2,16 +2,13 @@
  * Utility functions for component styling
  */
 
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
 /**
  * Merge class names with Tailwind support.
- * Combines clsx and tailwind-merge for conflict resolution.
+ * Re-exported from @fusorb/facet-motion (the canonical owner — motion sits
+ * lower in the dependency DAG: components → motion → tokens, so motion owns
+ * shared styling utilities and components re-exports to avoid a cycle).
  */
-export function cn(...inputs: ClassValue[]): string {
-  return twMerge(clsx(inputs));
-}
+export { cn } from "@fusorb/facet-motion";
 
 /**
  * True when running on macOS. Used to pick the correct modifier-key

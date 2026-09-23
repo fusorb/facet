@@ -4,6 +4,10 @@
  * A ready-to-use team invite form: add multiple email addresses, pick a
  * role, and send. Handles per-email validation and duplicate detection.
  * Controlled via `onInvite` so consumers own the API call.
+ *
+ * Customization: appearance (className), configuration (roles), slots —
+ * `renderInvitee` replaces each pending invitee row so consumers can add
+ * custom actions/metadata without forking the validation logic.
  */
 
 import * as React from "react";
@@ -38,6 +42,11 @@ export interface InviteTeamFormProps extends React.HTMLAttributes<HTMLDivElement
   roles?: string[];
   /** Called with the validated invitees. Return a rejected promise to show an error. */
   onInvite: (invitees: Invitee[]) => Promise<void> | void;
+  /** Replace a pending invitee row (e.g. extra actions). `onRemove` drops it. */
+  renderInvitee?: (
+    invitee: Invitee,
+    helpers: { onRemove: () => void },
+  ) => React.ReactNode;
   /** Copy overrides. */
   copy?: Partial<{
     title: string;
@@ -59,6 +68,36 @@ export interface InviteTeamFormProps extends React.HTMLAttributes<HTMLDivElement
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+function DefaultInviteeRow({
+  inv,
+  onRemove,
+  copy,
+}: {
+  inv: Invitee;
+  onRemove: () => void;
+  copy: InviteTeamFormProps["copy"];
+}) {
+  return (
+    <>
+      <div className="min-w-0">
+        <p className="truncate text-sm font-medium">{inv.email}</p>
+        <p className="text-xs text-muted-foreground">
+          Role: {inv.role}
+        </p>
+      </div>
+      <Button
+        size="sm"
+        variant="ghost"
+        className="shrink-0 text-muted-foreground hover:text-destructive"
+        onClick={onRemove}
+      >
+        <Icon name="trash-2" className="mr-1.5 size-3.5" />
+        {copy?.remove ?? "Remove"}
+      </Button>
+    </>
+  );
+}
+
 /**
  * A team invite form: type an email, pick a role, add it to the list,
  * then send all pending invites. Invalid or duplicate emails are flagged
@@ -67,6 +106,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function InviteTeamForm({
   roles = ["Member", "Admin", "Owner"],
   onInvite,
+  renderInvitee,
   copy = {},
   className,
   ...props
@@ -77,6 +117,9 @@ export function InviteTeamForm({
   const [sending, setSending] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [sent, setSent] = React.useState(false);
+
+  const removeInvitee = (email: string) =>
+    setInvitees((prev) => prev.filter((i) => i.email !== email));
 
   const addEmail = () => {
     const value = email.trim().toLowerCase();
@@ -196,25 +239,9 @@ export function InviteTeamForm({
                 key={inv.email}
                 className="flex flex-col gap-2 rounded-md border border-border p-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
               >
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-medium">{inv.email}</p>
-                  <p className="text-xs text-muted-foreground">
-                    Role: {inv.role}
-                  </p>
-                </div>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="shrink-0 text-muted-foreground hover:text-destructive"
-                  onClick={() =>
-                    setInvitees((prev) =>
-                      prev.filter((i) => i.email !== inv.email),
-                    )
-                  }
-                >
-                  <Icon name="trash-2" className="mr-1.5 size-3.5" />
-                  {copy.remove ?? "Remove"}
-                </Button>
+                {renderInvitee
+                  ? renderInvitee(inv, { onRemove: () => removeInvitee(inv.email) })
+                  : <DefaultInviteeRow inv={inv} onRemove={removeInvitee.bind(null, inv.email)} copy={copy} />}
               </li>
             ))}
           </ul>
