@@ -48,6 +48,17 @@ export interface ConsoleLayoutProps {
    * and narrow rail layouts.
    */
   singleOpen?: boolean;
+  /**
+   * Optional aside panel rendered between the sidebar and main content
+   * (desktop only, lg+). Typically used for "on this page" navigation.
+   * When provided the main content is offset to the right to make room.
+   * Desktop-only — not rendered on medium or small screens.
+   */
+  aside?: React.ReactNode;
+  /** Width of the aside panel in px. Default: 260 */
+  asideWidth?: number;
+  /** When true, the aside panel is not rendered (content takes full width). */
+  asideCollapsed?: boolean;
   children: React.ReactNode;
 }
 
@@ -60,6 +71,9 @@ function ConsoleLayoutInner({
   topbar,
   themeToggle = false,
   singleOpen = false,
+  aside,
+  asideWidth = 260,
+  asideCollapsed = false,
   children,
 }: ConsoleLayoutProps) {
   const {
@@ -149,7 +163,13 @@ function ConsoleLayoutInner({
 
   // Classic mode: the sidebar is persistent and pushes content (full/rail).
   const classicDesktop = isDesktop;
+  const showAside = classicDesktop && aside && !asideCollapsed;
+  // Rail mode: sidebar 68px rail; full mode: sidebar 260px.
+  // Per the docs layout spec, the aside is NOT compacted in full mode —
+  // it stays its given width in both rail and full.
   const padLeft = classicDesktop ? sidebarWidthPx : 0;
+  // Offset main content by the aside width when it is shown.
+  const padRight = showAside ? asideWidth : 0;
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -165,6 +185,18 @@ function ConsoleLayoutInner({
         </div>
       )}
 
+      {/* Desktop aside panel (on this page) — between sidebar and main.
+          Only rendered on large/desktop screens; hidden on medium + small. */}
+      {showAside && (
+        <aside
+          data-docs-aside
+          className="fixed top-0 z-20 hidden h-screen flex-col border-l bg-background transition-[width] duration-200 lg:flex"
+          style={{ width: `${asideWidth}px` }}
+        >
+          {aside}
+        </aside>
+      )}
+
       {/* Mobile: slide-in sidebar panel (no overlay - the hamburger stays
           clickable so you can pin it even while the preview is open). */}
       {!isDesktop && (
@@ -176,10 +208,14 @@ function ConsoleLayoutInner({
         </div>
       )}
 
-      {/* Main area */}
+      {/* Main area — offset for sidebar and (optionally) aside */}
       <div
         className="flex min-w-0 flex-1 flex-col transition-[padding] duration-200"
-        style={padLeft > 0 ? { paddingLeft: `${padLeft}px` } : undefined}
+        style={
+          padLeft > 0 || padRight > 0
+            ? { paddingLeft: `${padLeft}px`, paddingRight: `${padRight}px` }
+            : undefined
+        }
       >
         <Topbar
           tenants={tenants}
