@@ -11,11 +11,11 @@
  *   import "@fusorb/facet-tokens/tokens.css";
  */
 
-export { alpha } from "./colors";
-export { typography } from "./typography";
-export { spacing } from "./spacing";
-export { subBrands } from "./sub-brands";
-export { motion, motionValues } from "./motion";
+export { alpha } from "./colors.js";
+export { typography } from "./typography.js";
+export { spacing } from "./spacing.js";
+export { subBrands } from "./sub-brands.js";
+export { motion, motionValues } from "./motion.js";
 export type {
   AlphaPalette,
   TypographyScale,
@@ -35,4 +35,4 @@ export type {
   FacetTokens,
   EasingValue,
   MotionValues,
-} from "./types";
+} from "./types.js";

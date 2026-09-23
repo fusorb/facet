@@ -1,4 +1,4 @@
-import type { SpacingScale } from "./types";
+import type { SpacingScale } from "./types.js";
 
 export const spacing: SpacingScale = {
   0: "0px",

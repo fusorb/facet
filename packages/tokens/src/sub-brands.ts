@@ -1,4 +1,4 @@
-import type { SubBrands } from "./types";
+import type { SubBrands } from "./types.js";
 
 export const subBrands: SubBrands = {
   fellowship: { name: "Fellowship", accent: "#50C878" },

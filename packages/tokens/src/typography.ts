@@ -1,4 +1,4 @@
-import type { TypographyScale } from "./types";
+import type { TypographyScale } from "./types.js";
 
 export const typography: TypographyScale = {
   font: {
