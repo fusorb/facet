@@ -28,6 +28,7 @@ jobs:
       - run: pnpm check:docs
       - run: pnpm check:icons
       - run: pnpm check:components
+      - run: pnpm check:boundaries
       - run: pnpm check:sdk-drift
       - run: pnpm check:motion-drift
       - run: pnpm -r typecheck

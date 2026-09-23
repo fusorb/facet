@@ -29,6 +29,7 @@
     "gen:changelog": "node scripts/gen-changelog.mjs",
     "gen:changeset": "node scripts/gen-changeset.mjs",
     "check:motion-drift": "node packages/motion/scripts/check-motion-drift.mjs",
+    "check:boundaries": "node scripts/check-boundaries.mjs",
     "audit:motion-parity": "node scripts/audit-motion-parity.mjs",
     "build:turbo": "turbo run build",
     "test:turbo": "turbo run test",
