@@ -31,6 +31,15 @@ import {
 /** Name of a built-in or registered preset. */
 export type PresetName = string;
 
+/**
+ * Lifecycle (§20 — preset immutability):
+ * Explicitly-mutable singleton Map (`registerPreset` mutates it). Presets are
+ * APPLICATION CONFIG (registered once, at bootstrap), not per-request state, so
+ * a shared mutable global does not leak between requests in SSR/multi-tenant.
+ * Mutability is intentional: `registerPreset` lets consumers override
+ * built-ins (and tests swap domains). Register/override presets BEFORE calling
+ * resolvePreset/getPreset (app entry, before hydration). Do not mutate per-request.
+ */
 const registry = new Map<string, AuthConfig>([
   ["fintech", fintechPreset],
   ["med", medPreset],

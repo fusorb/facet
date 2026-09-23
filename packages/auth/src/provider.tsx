@@ -24,6 +24,7 @@ import { type ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
 import type { LoginResult, TokenBundle } from "@fusorb/facet-sdk";
 import type {
   AuthContextValue,
+  AuthState,
   AuthUser,
   LoginParams,
   RegisterParams,
@@ -50,15 +51,7 @@ export interface ArcProviderProps {
   }) => void;
 }
 
-interface AuthState {
-  user: AuthUser | null;
-  accessToken: string | null;
-  refreshToken: string | null;
-  isLoading: boolean;
-  error: string | null;
-}
-
-const INITIAL_STATE: AuthState = {
+const INITIAL_STATE: Omit<AuthState, "isAuthenticated"> = {
   user: null,
   accessToken: null,
   refreshToken: null,
@@ -67,7 +60,7 @@ const INITIAL_STATE: AuthState = {
 };
 
 /** Post-bootstrap signed-out state (loading finished, nothing restored). */
-const SIGNED_OUT_STATE: AuthState = {
+const SIGNED_OUT_STATE: Omit<AuthState, "isAuthenticated"> = {
   user: null,
   accessToken: null,
   refreshToken: null,
@@ -108,7 +101,9 @@ export function ArcProvider({
 
   // SSR-safe: do not read storage during render. Initial state has no
   // tokens; the bootstrap effect hydrates from storage after mount.
-  const [state, setState] = React.useState<AuthState>(INITIAL_STATE);
+  const [state, setState] = React.useState<
+    Omit<AuthState, "isAuthenticated">
+  >(INITIAL_STATE);
 
   /* ── Derive isAuthenticated (not stored in state) ──────────── */
 

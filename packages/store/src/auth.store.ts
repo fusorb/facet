@@ -9,11 +9,13 @@ export interface AuthState {
   refreshToken: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  error: string | null;
   setAuth: (user: User, accessToken: string, refreshToken: string) => void;
   setUser: (user: User) => void;
   setTokens: (accessToken: string, refreshToken?: string) => void;
   clearAuth: () => void;
   setLoading: (loading: boolean) => void;
+  setError: (error: string | null) => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -22,6 +24,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   refreshToken: null,
   isAuthenticated: false,
   isLoading: true,
+  error: null,
 
   setAuth: (user, accessToken, refreshToken) =>
     set({
@@ -54,7 +57,9 @@ export const useAuthStore = create<AuthState>((set) => ({
       refreshToken: null,
       isAuthenticated: false,
       isLoading: false,
+      error: null,
     }),
 
   setLoading: (isLoading) => set({ isLoading }),
+  setError: (error) => set({ error }),
 }));
