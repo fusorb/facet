@@ -25,10 +25,10 @@
 
 ### Minor Changes
 
-- b7accc3: feat(store): extract ArcID Zustand auth/tenant stores into @fusorb/facet-store
+- b7accc3: feat(store): extract SovGrant Zustand auth/tenant stores into @fusorb/facet-store
 
   Pulls the framework-agnostic state stores (auth session + tenant) out of
-  ArcID into a standalone `@fusorb/facet-store` package that is consumable
+  SovGrant into a standalone `@fusorb/facet-store` package that is consumable
   across web and React Native. The stores are pure Zustand (`create`, no React
   coupling in the store logic) - React is only required by the auto-generated
   hooks at the consumer boundary, so it stays a peer, not a bundled dependency.

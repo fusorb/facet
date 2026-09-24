@@ -99,7 +99,7 @@ export async function runInitWizard(
   const facetVersions = await resolveFacetVersions();
 
   const initial: DocsAnswers = {
-    name: options.name ?? "docs",
+    name: options.name ?? "Facet",
     location: options.location ?? ".",
     language: options.language ?? "typescript",
     framework: options.framework ?? detectedFramework,
@@ -147,7 +147,7 @@ export async function runInitWizard(
     return {
       answers: {
         ...initial,
-        name: (options.name ?? initial.name).trim() || "docs",
+        name: (options.name ?? initial.name).trim() || "Facet",
         location: (options.location ?? initial.location) as DocsLocation,
         language: options.language ?? initial.language,
         framework: options.framework ?? initial.framework,

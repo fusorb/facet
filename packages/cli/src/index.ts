@@ -86,7 +86,7 @@ docsCommand
     "-y, --yes",
     "Non-interactive: decide the best setup for me (detected framework + styling)",
   )
-  .option("--name <name>", "Docs site name (default: docs)")
+  .option("--name <name>", "Docs site name (default: Facet)")
   .option(
     "--location <location>",
     "Where the scaffold lives: . (root, recommended), docs, or src/docs (default: .)",

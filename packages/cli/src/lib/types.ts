@@ -38,7 +38,7 @@ export type TemplateKind =
 export type Styling = "facet-tokens" | "tailwind" | "plain-css" | "none";
 
 export interface DocsAnswers {
-  /** Docs site name (defaults to "docs"). */
+  /** Docs site name (defaults to "Facet"). */
   name: string;
   /** Where the scaffold lands. "." recommended. */
   location: DocsLocation;

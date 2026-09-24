@@ -251,7 +251,7 @@ function ConsoleLayoutInner({
              className={`fixed inset-y-0 left-0 z-[80] flex h-screen w-[260px] transform flex-col transition-transform duration-200 pointer-events-none ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
              data-sidebar
            >
-            <Sidebar config={config} singleOpen={singleOpen} sidebarSearch={sidebarSearch} sidebarBottom={sidebarBottom} renderBrand={() => null} />
+             <Sidebar config={config} width={260} singleOpen={singleOpen} sidebarSearch={sidebarSearch} sidebarBottom={sidebarBottom} renderBrand={() => null} />
           </div>
         )}
 

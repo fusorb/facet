@@ -64,7 +64,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   },
   {
     "name": "@fusorb/facet-store",
-    "desc": "Framework-agnostic state stores for ArcID auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
+    "desc": "Framework-agnostic state stores for SovGrant auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
     "version": "1.0.0",
     "icon": "store"
   },

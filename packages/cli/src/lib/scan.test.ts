@@ -47,7 +47,7 @@ describe("scanRepo", () => {
         path.join(dir, "src/api/plugins/swagger.plugin.ts"),
         `import swagger from "@fastify/swagger";
 fastify.register(swagger, {
-  openapi: { info: { title: "ArcID API", version: "1.0.0" } },
+  openapi: { info: { title: "SovGrant API", version: "1.0.0" } },
 });`,
       );
       fs.writeFileSync(
@@ -57,7 +57,7 @@ fastify.post("/auth/login", { schema: { tags: ["Auth"] } }, handler);`,
       );
       const scan = scanRepo(dir);
       expect(scan.api).not.toBeNull();
-      expect(scan.api!.info.title).toBe("ArcID API");
+      expect(scan.api!.info.title).toBe("SovGrant API");
       expect(scan.api!.routes.length).toBeGreaterThanOrEqual(2);
       expect(
         scan.api!.routes.some(

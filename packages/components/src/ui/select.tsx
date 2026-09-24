@@ -2,6 +2,7 @@ import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
+import { Motion } from "@fusorb/facet-motion";
 
 export type SelectProps = React.ComponentPropsWithoutRef<
   typeof SelectPrimitive.Root

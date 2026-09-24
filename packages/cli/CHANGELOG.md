@@ -111,7 +111,7 @@
 
   **Consumer validation**
 
-  - SovGrant's mail system (13 templates, components, engine, preview route) now renders through `@fusorb/facet-emails` with ArcID's own design tokens mapped into the brand option; all templates verified rendering valid HTML + plain text with no `undefined`. react-email is removed from SovGrant; resend stays for delivery.
+  - SovGrant's mail system (13 templates, components, engine, preview route) now renders through `@fusorb/facet-emails` with SovGrant's own design tokens mapped into the brand option; all templates verified rendering valid HTML + plain text with no `undefined`. react-email is removed from SovGrant; resend stays for delivery.
 
 ## 0.5.0
 

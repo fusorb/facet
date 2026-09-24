@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { cn } from "../utils.js";
+import { Motion } from "@fusorb/facet-motion";
 
 export type PopoverProps = React.ComponentPropsWithoutRef<
   typeof PopoverPrimitive.Root

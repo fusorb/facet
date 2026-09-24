@@ -590,7 +590,7 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "feat(store): extract ArcID Zustand auth/tenant stores into @fusorb/facet-store",
+        text: "feat(store): extract SovGrant Zustand auth/tenant stores into @fusorb/facet-store",
         href: "https://github.com/fusorb/facet/commit/b7accc3",
       },
     ],

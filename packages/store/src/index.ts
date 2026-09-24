@@ -1,5 +1,5 @@
 /**
- * @fusorb/facet-store — Framework-agnostic auth state for ArcID.
+ * @fusorb/facet-store — Framework-agnostic auth state for SovGrant.
  *
  * Owns the Zustand-based session (`useAuthStore`, `useTenantStore`) and the
  * `createZustandTokenStorage` token-refresh bridge. Intended for consumers

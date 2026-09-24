@@ -76,7 +76,7 @@ describe("facet docs init end-to-end (wizard + write)", () => {
       expect(decided).toBe(true);
       expect(answers.framework).toBe("react-vite");
       expect(answers.location).toBe(".");
-      expect(answers.name).toBe("docs");
+      expect(answers.name).toBe("Facet");
     } finally {
       fs.rmSync(cwd, { recursive: true, force: true });
     }
@@ -106,7 +106,7 @@ describe("facet docs init end-to-end (wizard + write)", () => {
       mockPrompts.mockReturnValue({ decide: "decide" } as never);
       const { answers, decided } = await runInitWizard(cwd);
       expect(decided).toBe(true);
-      expect(answers.name).toBe("docs"); // default when blank
+      expect(answers.name).toBe("Facet"); // default when blank
       expect(answers.barrel).toBe("auto");
     } finally {
       fs.rmSync(cwd, { recursive: true, force: true });
@@ -129,7 +129,7 @@ describe("facet docs init end-to-end (wizard + write)", () => {
       } as never);
       const { answers, decided } = await runInitWizard(cwd);
       expect(decided).toBe(false);
-      expect(answers.name).toBe("docs");
+      expect(answers.name).toBe("Facet");
       expect(answers.barrel).toBe(false);
     } finally {
       fs.rmSync(cwd, { recursive: true, force: true });

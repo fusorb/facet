@@ -12,7 +12,7 @@ import type { NavSection } from "@fusorb/facet-layout";
 
 function makeConfig(overrides: Partial<DocsSiteConfig> = {}): DocsSiteConfig {
   return {
-    brand: { name: "ArcID Docs" },
+    brand: { name: "SovGrant Docs" },
     navigation: [],
     ...overrides,
   };
@@ -54,7 +54,7 @@ describe("buildDocsLayoutConfig", () => {
   it("returns brand and empty navigation when no pages and no components", () => {
     const config = makeConfig();
     const result = buildDocsLayoutConfig(config, [], false);
-    expect(result.brand).toEqual({ name: "ArcID Docs" });
+    expect(result.brand).toEqual({ name: "SovGrant Docs" });
     expect(result.navigation).toHaveLength(0);
   });
 

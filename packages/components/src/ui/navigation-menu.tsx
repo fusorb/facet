@@ -3,6 +3,7 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { Icon } from "../icon/index.js";
 import { cva } from "class-variance-authority";
 import { cn } from "../utils.js";
+import { Motion } from "@fusorb/facet-motion";
 
 const NavigationMenu = React.forwardRef<
   React.ComponentRef<typeof NavigationMenuPrimitive.Root>,

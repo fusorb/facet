@@ -3,6 +3,7 @@ import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 import { cva, type VariantProps } from "class-variance-authority";
+import { Motion } from "@fusorb/facet-motion";
 
 const Sheet = SheetPrimitive.Root;
 const SheetTrigger = SheetPrimitive.Trigger;

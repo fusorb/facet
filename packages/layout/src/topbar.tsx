@@ -122,41 +122,44 @@ export function Topbar({
           aria-label="Toggle sidebar"
           aria-expanded={sidebarOpen}
         >
-          {mobileBrand ?? (
-            <span className="relative block">
-              {/* Default hamburger */}
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="transition-opacity duration-150 group-hover:opacity-0"
-              >
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-              {/* Window icon revealed on hover */}
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="absolute inset-0 opacity-0 transition-opacity duration-150 group-hover:opacity-100"
-              >
-                <rect x="3" y="4" width="18" height="16" rx="2" />
-                <line x1="9" y1="5" x2="9" y2="19" />
-              </svg>
+          <span className="relative block">
+            {/* Logo (or default hamburger) — fades out on hover to
+                reveal the window icon below */}
+            <span className="inline-block transition-opacity duration-150 group-hover:opacity-0">
+              {mobileBrand ?? (
+                /* Default hamburger */
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+              )}
             </span>
-          )}
+            {/* Window icon revealed on hover (morph target for logo or hamburger) */}
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="absolute inset-0 opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+            >
+              <rect x="3" y="4" width="18" height="16" rx="2" />
+              <line x1="9" y1="5" x2="9" y2="19" />
+            </svg>
+          </span>
         </button>
 
         {/* Rail-mode collapse toggle (desktop) */}

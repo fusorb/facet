@@ -22,7 +22,7 @@ const STORAGE_KEY_WIDTH = "facet:sidebar-width";
 const STORAGE_KEY_SECTIONS = "facet:sidebar-sections";
 
 /** Default expanded sidebar width. */
-export const DEFAULT_SIDEBAR_WIDTH = 260;
+export const DEFAULT_SIDEBAR_WIDTH = 240;
 
 export function LayoutProvider({
   children,

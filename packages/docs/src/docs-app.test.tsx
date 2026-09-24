@@ -326,10 +326,10 @@ vi.mock("react-router-dom", () => {
 import { DocsApp } from "./docs-app.js";
 import type { DocsSiteConfig, DocsPage } from "./index.js";
 
-// ── Consumer-style fixtures (mirrors what an SovGrant docs site passes) ──
+// ── Consumer-style fixtures (mirrors what a SovGrant docs site passes) ──
 
 const consumerConfig: DocsSiteConfig = {
-  brand: { name: "ArcID" },
+  brand: { name: "SovGrant" },
   navigation: [{ title: "Guides", items: [{ label: "Overview", href: "/" }] }],
   ecosystem: [{ label: "GitHub", href: "https://github.com/fusorb" }],
 };
