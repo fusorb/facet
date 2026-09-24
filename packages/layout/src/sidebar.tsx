@@ -86,9 +86,16 @@ export function Sidebar({
     setSidebarCollapsed,
     collapseAll,
     expandAll,
+    registerSections,
     hoverEnterSidebar,
     hoverLeaveSidebar,
   } = useLayout();
+
+  // Register this sidebar's section ids so the LayoutContext can fire
+  // collapseAllSidebar / expandAllSidebar without the caller passing ids.
+  React.useEffect(() => {
+    registerSections(config.navigation.map((s) => s.id ?? s.title));
+  }, [config.navigation, registerSections]);
 
   const handleNav = React.useCallback(() => {
     setSidebarOpen(false);

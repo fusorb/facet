@@ -10,14 +10,19 @@
  *   - Sidebar auth quick-action panel (slot at the bottom)
  *   - Mode toggle (rail / full) persisted to localStorage
  *   - Aside toggle persisted to localStorage
+ *   - Collapsed variant: one button collapses the sidebar rail, every nav
+ *     section, AND the aside at once (Ctrl/Cmd+Shift+B). Toggling restores
+ *     all three (full rail + expanded sections + aside).
  *   - SettingsMenu with ecosystem links
  *
- * The DocsLayoutContext exposes mode + aside state so that docs-specific
- * topbar controls (SettingsMenu, dropdown) can read or mutate them.
+ * The DocsLayoutContext exposes mode + aside + collapse-all state so that
+ * docs-specific topbar controls (SettingsMenu, dropdown, keyboard) can read
+ * or mutate them.
  */
 
 import * as React from "react";
 import { ConsoleLayout } from "./console-layout.js";
+import { useLayout } from "./layout-context.js";
 import type { ConsoleLayoutMode, LayoutConfig } from "./types.js";
 import type { RouterAdapter } from "./router.js";
 import { Icon } from "@fusorb/facet-components";
@@ -64,6 +69,15 @@ export interface DocsLayoutContextValue {
   setAsideOpen: (open: boolean) => void;
   /** Toggle the aside. */
   toggleAside: () => void;
+  /** Whether the sidebar rail, all nav sections, AND the aside are all collapsed.
+    *  When true the viewport is maximised for content. */
+  collapsedAll: boolean;
+  /** Collapse the sidebar rail, every nav section, AND the aside in one shot. */
+  collapseAllSidebarAndAside: () => void;
+  /** Reverse: expand the sidebar rail, unfold every section, and restore the aside. */
+  expandAllSidebarAndAside: () => void;
+  /** Toggle between fully-collapsed and fully-expanded. */
+  toggleCollapseAll: () => void;
 }
 
 const DocsLayoutContext = React.createContext<DocsLayoutContextValue | null>(
@@ -139,6 +153,18 @@ export function DocsLayout({
     setAsideOpen((prev) => !prev);
   }, []);
 
+  // ── Collapsed-all (sidebar rail + every section + aside) ────────────
+  // The combined state lives in a ref so DocsTopbarControls (rendered inside
+  // both LayoutProvider and DocsLayoutContext) can populate it synchronously
+  // during render.  External consumers read it via `collapsedAll` (synced
+  // through state) and trigger actions via the delegating callbacks below.
+  const collapseAllStateRef = React.useRef<{
+    collapsedAll: boolean;
+    collapse: (() => void) | null;
+    expand: (() => void) | null;
+  }>({ collapsedAll: false, collapse: null, expand: null });
+  const [collapsedAll, setCollapsedAll] = React.useState(false);
+
   const ctx: DocsLayoutContextValue = {
     mode: modeState,
     setMode: setModeState,
@@ -146,6 +172,16 @@ export function DocsLayout({
     asideOpen,
     setAsideOpen,
     toggleAside,
+    collapsedAll,
+    collapseAllSidebarAndAside: () => collapseAllStateRef.current.collapse?.(),
+    expandAllSidebarAndAside: () => collapseAllStateRef.current.expand?.(),
+    toggleCollapseAll: () => {
+      if (collapseAllStateRef.current.collapsedAll) {
+        collapseAllStateRef.current.expand?.();
+      } else {
+        collapseAllStateRef.current.collapse?.();
+      }
+    },
   };
 
   return (
@@ -163,45 +199,174 @@ export function DocsLayout({
         sidebarBottom={sidebarBottom}
         themeToggle
         topbar={
-          <>
-            {/* Mode toggle (rail / full) */}
-            <button
-              type="button"
-              onClick={toggleMode}
-              aria-label={`Switch to ${modeState === "rail" ? "full" : "rail"} mode`}
-              className="rounded p-1.5 text-sidebar-foreground/60 hover:bg-foreground/5 hover:text-sidebar-accent-foreground"
-              title={modeState === "rail" ? "Expand sidebar" : "Collapse sidebar"}
-            >
-              {modeState === "rail" ? (
-                <Icon name="panel-left-open" className="h-4 w-4" />
-              ) : (
-                <Icon name="panel-left-close" className="h-4 w-4" />
-              )}
-            </button>
-
-            {/* Aside toggle (on this page) */}
-            <button
-              type="button"
-              onClick={toggleAside}
-              aria-label={asideOpen ? "Hide on this page" : "Show on this page"}
-              aria-pressed={asideOpen}
-              className="rounded p-1.5 text-sidebar-foreground/60 hover:bg-foreground/5 hover:text-sidebar-accent-foreground"
-              title={asideOpen ? "Hide on this page" : "Show on this page"}
-            >
-              {asideOpen ? (
-                <Icon name="panel-right-close" className="h-4 w-4" />
-              ) : (
-                <Icon name="panel-right-open" className="h-4 w-4" />
-              )}
-            </button>
-
-            {/* Docs-specific extra controls (GitHub, SettingsMenu, …) */}
-            {topbar}
-          </>
+          <DocsTopbarControls
+            collapseAllStateRef={collapseAllStateRef}
+            setCollapsedAll={setCollapsedAll}
+            topbar={topbar}
+          />
         }
       >
         {children}
       </ConsoleLayout>
     </DocsLayoutContext.Provider>
+  );
+}
+
+/**
+ * Renders the docs-specific topbar controls: mode toggle (rail/full),
+ * aside toggle, and the combined "collapse all sidebar + aside" button.
+ *
+ * Lives inside ConsoleLayoutInner (therefore inside LayoutProvider) so it
+ * can read both useLayout() (sidebar rail + sections) and useDocsLayout()
+ * (mode + aside) and wire them together.
+ */
+interface DocsTopbarControlsProps {
+  collapseAllStateRef: React.MutableRefObject<{
+    collapsedAll: boolean;
+    collapse: (() => void) | null;
+    expand: (() => void) | null;
+  }>;
+  setCollapsedAll: (v: boolean) => void;
+  topbar?: React.ReactNode;
+}
+
+function DocsTopbarControls({
+  collapseAllStateRef,
+  setCollapsedAll,
+  topbar,
+}: DocsTopbarControlsProps) {
+  const { mode, asideOpen, setMode, setAsideOpen, toggleMode, toggleAside } =
+    useDocsLayout();
+  const { sidebarCollapsed, collapseAllSidebar, expandAllSidebar } = useLayout();
+
+  // Everything is "all collapsed" when the sidebar is in rail mode, the rail
+  // is collapsed, and the aside is hidden.
+  const computedCollapsedAll =
+    mode === "rail" && sidebarCollapsed && !asideOpen;
+
+  // Populate the ref synchronously so the delegating callbacks in the
+  // DocsLayoutContext value (which read from the ref) always see the latest
+  // closures — even before effects run.
+  collapseAllStateRef.current = {
+    collapsedAll: computedCollapsedAll,
+    collapse: () => {
+      // Rail mode + collapsed rail (all sections folded) + aside hidden.
+      setMode("rail");
+      collapseAllSidebar();
+      setAsideOpen(false);
+    },
+    expand: () => {
+      // Full mode + expanded rail (all sections unfolded) + aside restored.
+      setMode("full");
+      expandAllSidebar();
+      setAsideOpen(true);
+    },
+  };
+
+  // Sync display state for external consumers (e.g. SettingsMenu).
+  React.useEffect(() => {
+    setCollapsedAll(computedCollapsedAll);
+  }, [computedCollapsedAll, setCollapsedAll]);
+
+  // Ctrl/Cmd+Shift+B: collapse / expand everything.
+  React.useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (
+        (event.metaKey || event.ctrlKey) &&
+        event.shiftKey &&
+        event.key.toLowerCase() === "b"
+      ) {
+        event.preventDefault();
+        if (computedCollapsedAll) {
+          setMode("full");
+          expandAllSidebar();
+          setAsideOpen(true);
+        } else {
+          setMode("rail");
+          collapseAllSidebar();
+          setAsideOpen(false);
+        }
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [
+    computedCollapsedAll,
+    collapseAllSidebar,
+    expandAllSidebar,
+    setMode,
+    setAsideOpen,
+  ]);
+
+  return (
+    <>
+      {/* Mode toggle (rail / full) */}
+      <button
+        type="button"
+        onClick={toggleMode}
+        aria-label={`Switch to ${mode === "rail" ? "full" : "rail"} mode`}
+        className="rounded p-1.5 text-sidebar-foreground/60 hover:bg-foreground/5 hover:text-sidebar-accent-foreground"
+        title={mode === "rail" ? "Expand sidebar" : "Collapse sidebar"}
+      >
+        {mode === "rail" ? (
+          <Icon name="panel-left-open" className="h-4 w-4" />
+        ) : (
+          <Icon name="panel-left-close" className="h-4 w-4" />
+        )}
+      </button>
+
+      {/* Aside toggle (on this page) */}
+      <button
+        type="button"
+        onClick={toggleAside}
+        aria-label={asideOpen ? "Hide on this page" : "Show on this page"}
+        aria-pressed={asideOpen}
+        className="rounded p-1.5 text-sidebar-foreground/60 hover:bg-foreground/5 hover:text-sidebar-accent-foreground"
+        title={asideOpen ? "Hide on this page" : "Show on this page"}
+      >
+        {asideOpen ? (
+          <Icon name="panel-right-close" className="h-4 w-4" />
+        ) : (
+          <Icon name="panel-right-open" className="h-4 w-4" />
+        )}
+      </button>
+
+      {/* Collapse all sidebar sections + aside */}
+      <button
+        type="button"
+        onClick={() => {
+          if (computedCollapsedAll) {
+            setMode("full");
+            expandAllSidebar();
+            setAsideOpen(true);
+          } else {
+            setMode("rail");
+            collapseAllSidebar();
+            setAsideOpen(false);
+          }
+        }}
+        aria-label={
+          computedCollapsedAll
+            ? "Expand all sections"
+            : "Collapse all sections"
+        }
+        aria-pressed={computedCollapsedAll}
+        className="rounded p-1.5 text-sidebar-foreground/60 hover:bg-foreground/5 hover:text-sidebar-accent-foreground"
+        title={
+          computedCollapsedAll
+            ? "Expand all sections"
+            : "Collapse all sections"
+        }
+      >
+        {computedCollapsedAll ? (
+          <Icon name="maximize-2" className="h-4 w-4" />
+        ) : (
+          <Icon name="minimize-2" className="h-4 w-4" />
+        )}
+      </button>
+
+      {/* Docs-specific extra controls (GitHub, SettingsMenu, …) */}
+      {topbar}
+    </>
   );
 }

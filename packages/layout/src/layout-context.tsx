@@ -150,6 +150,11 @@ export function LayoutProvider({
     }
   });
 
+  // Section IDs registered by the Sidebar component. Stored in a ref so
+  // that collapseAllSidebar / expandAllSidebar can operate without each
+  // caller needing to pass the ids down through the tree.
+  const registeredSectionsRef = React.useRef<string[]>([])
+
   const persistSections = React.useCallback((next: Record<string, boolean>) => {
     try {
       window.localStorage.setItem(STORAGE_KEY_SECTIONS, JSON.stringify(next));
@@ -199,7 +204,7 @@ export function LayoutProvider({
     });
   }, []);
 
-  const expandAll = React.useCallback((sectionIds: string[] = []) => {
+   const expandAll = React.useCallback((sectionIds: string[] = []) => {
     setCollapsedSections(() => {
       const next: Record<string, boolean> = {};
       for (const id of sectionIds) next[id] = false;
@@ -207,6 +212,27 @@ export function LayoutProvider({
       return next;
     });
   }, []);
+
+  // Called by the Sidebar component to register its section ids so that
+  // collapseAllSidebar / expandAllSidebar can fire without the caller
+  // passing ids down through the component tree.
+  const registerSections = React.useCallback((sectionIds: string[]) => {
+    registeredSectionsRef.current = sectionIds;
+  }, []);
+
+  // Collapse every sidebar section AND the sidebar rail itself.
+  // This is the "collapsed variant" — icon-only rail with all nav groups
+  // folded, ready to reclaim maximum horizontal real estate.
+  const collapseAllSidebar = React.useCallback(() => {
+    collapseAll(registeredSectionsRef.current);
+    setSidebarCollapsed(true);
+  }, [collapseAll, setSidebarCollapsed]);
+
+  // Reverse of collapseAllSidebar: expand all sections and the rail.
+  const expandAllSidebar = React.useCallback(() => {
+    expandAll(registeredSectionsRef.current);
+    setSidebarCollapsed(false);
+  }, [expandAll, setSidebarCollapsed]);
 
   // Keep a stable default adapter so the context value is referentially
   // stable across renders unless the consumer swaps the router.
@@ -247,6 +273,9 @@ export function LayoutProvider({
       openSection,
       collapseAll,
       expandAll,
+      registerSections,
+      collapseAllSidebar,
+      expandAllSidebar,
       router: activeRouter,
     }),
     [
@@ -268,6 +297,9 @@ export function LayoutProvider({
       openSection,
       collapseAll,
       expandAll,
+      registerSections,
+      collapseAllSidebar,
+      expandAllSidebar,
       activeRouter,
     ],
   );

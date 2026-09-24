@@ -33,7 +33,8 @@ function SettingsMenu({
   label: string;
   links: { label: string; href: string; icon?: string }[];
 }) {
-  const { mode, toggleMode } = useDocsLayout();
+  const { mode, toggleMode, collapsedAll, toggleCollapseAll } =
+    useDocsLayout();
 
   return (
     <DropdownMenu>
@@ -56,6 +57,16 @@ function SettingsMenu({
             className="size-4"
           />
           Sidebar: {mode === "rail" ? "Rail" : "Full"}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={toggleCollapseAll}>
+          <LightIcon
+            name={collapsedAll ? "maximize-2" : "minimize-2"}
+            className="size-4"
+          />
+          {collapsedAll ? "Expand all" : "Collapse all sidebar + aside"}
+          <Kbd className="ml-auto">
+            Ctrl+Shift+B
+          </Kbd>
         </DropdownMenuItem>
         {links.length > 0 && (
           <>

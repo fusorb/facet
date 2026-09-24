@@ -122,6 +122,14 @@ export interface LayoutContextValue {
   collapseAll: (sectionIds: string[]) => void;
   /** Expand every known section. Pass the ids the Sidebar renders. */
   expandAll: (sectionIds: string[]) => void;
+  /** Register the Sidebar's section ids so collapseAllSidebar / expandAllSidebar
+   *  can operate without the caller passing ids through the tree. */
+  registerSections: (sectionIds: string[]) => void;
+  /** Collapse the sidebar rail to icon-only AND fold every nav section.
+   *  This is the "collapsed variant" — maximum content real estate. */
+  collapseAllSidebar: () => void;
+  /** Reverse of collapseAllSidebar: expand the rail AND unfold every section. */
+  expandAllSidebar: () => void;
   /** Framework-aware navigation. Defaults to window.location + plain <a>. */
   router?: RouterAdapter;
 }
