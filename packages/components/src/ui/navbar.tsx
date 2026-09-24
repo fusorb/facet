@@ -496,7 +496,7 @@ function NavLinkItem({
     isPill ? "rounded-full px-4 py-1.5" : "rounded-md px-4 py-2",
     isActive
       ? "bg-accent text-accent-foreground"
-      : "text-foreground/70 hover:bg-accent/60 hover:text-foreground",
+      : "text-foreground/70 hover:bg-foreground/5 hover:text-foreground",
   );
 
   // Link with sub-links → render a dropdown (OpenAI-style)
@@ -739,7 +739,7 @@ function MobileNavLink({
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="flex items-center justify-between rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/60 hover:text-foreground"
+          className="flex items-center justify-between rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground"
         >
           <span className="flex items-center gap-2">
             {link.icon && (
@@ -768,7 +768,7 @@ function MobileNavLink({
                   e.preventDefault();
                   onNavigate(child.href);
                 }}
-                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-foreground/70 transition-colors hover:bg-accent/60 hover:text-foreground"
+                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground"
               >
                 {child.icon && (
                   <span className="size-4 shrink-0">{child.icon}</span>
@@ -794,7 +794,7 @@ function MobileNavLink({
         e.preventDefault();
         onNavigate(link.href);
       }}
-      className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/60 hover:text-foreground"
+      className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground"
     >
       {link.icon && (
         <span className="size-4 shrink-0 text-primary/70">{link.icon}</span>
