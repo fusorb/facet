@@ -1,6 +1,10 @@
-import * as React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { ConsoleLayout, CommandPalette } from "@fusorb/facet-layout";
+import {
+  DocsLayout as LayoutDocsLayout,
+  SidebarAuth,
+  CommandPalette,
+  useDocsLayout,
+} from "@fusorb/facet-layout";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -14,36 +18,23 @@ import {
 import { buildDocsLayoutConfig } from "../lib/nav.js";
 import { useDocsRouterAdapter } from "../lib/docs-router.js";
 import { useDocsApp } from "../context.js";
+import { DocsTableOfContents } from "./DocsTableOfContents.js";
 
 /**
- * Docs site shell: facet ConsoleLayout with a collapsible rail sidebar.
- * The shell itself is a live demo of the facet layout system.
+ * Settings gear dropdown: ecosystem links, sidebar mode, and shortcuts.
  *
- * - Desktop: sidebar resizes via the right-edge drag handle (VS Code
- *   style), collapsing to an icon-only rail at the minimum width. The
- *   rail shows one icon per section (YouTube-style), all together with
- *   no scroll; the full item list only shows when expanded.
- * - Mobile: sidebar becomes an overlay Sheet opened from the hamburger.
- * - The routed page renders in the main area via <Outlet />.
- * - CommandPalette renders its own search bar (icon + placeholder + "Ctrl
- *   K" badge) in the topbar. Clicking it, or pressing Ctrl/Cmd+K, opens an
- *   inline results panel that searches all sidebar routes and quick
- *   actions, grouped by section.
+ * Mode toggle comes from the layout DocsLayout context (toggleMode).
+ * The theme toggle is handled by ConsoleLayout directly.
  */
-/** Settings gear dropdown: ecosystem links, sidebar mode, and shortcuts. The
- * theme toggle has its own dedicated icon in the topbar, so it is not
- * duplicated here. */
 function SettingsMenu({
   label,
   links,
-  mode,
-  onModeChange,
 }: {
   label: string;
   links: { label: string; href: string; icon?: string }[];
-  mode: "full" | "rail";
-  onModeChange: (mode: "full" | "rail") => void;
 }) {
+  const { mode, toggleMode } = useDocsLayout();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -51,7 +42,7 @@ function SettingsMenu({
           type="button"
           aria-label="Settings"
           title="Settings"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <LightIcon name="settings" className="size-4" />
         </button>
@@ -59,9 +50,7 @@ function SettingsMenu({
       <DropdownMenuContent align="end" className="w-60">
         <DropdownMenuLabel>{label}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() => onModeChange(mode === "rail" ? "full" : "rail")}
-        >
+        <DropdownMenuItem onClick={toggleMode}>
           <LightIcon
             name={mode === "rail" ? "panel-left" : "layout-panel-left"}
             className="size-4"
@@ -79,9 +68,7 @@ function SettingsMenu({
                   rel="noreferrer"
                   className="flex items-center gap-2"
                 >
-                  {link.icon && (
-                    <LightIcon name={link.icon} className="size-4" />
-                  )}
+                  {link.icon && <LightIcon name={link.icon} className="size-4" />}
                   {link.label}
                 </a>
               </DropdownMenuItem>
@@ -100,38 +87,55 @@ function SettingsMenu({
   );
 }
 
+/**
+ * Docs site shell.
+ *
+ * A thin adapter over the layout package's DocsLayout that wires up
+ * docs-specific content: the CommandPalette search trigger in the sidebar,
+ * DocsTableOfContents in the aside, SidebarAuth at the bottom, and the
+ * SettingsMenu + GitHub link in the docs topbar.
+ *
+ * The heavy lifting (mode state, aside toggle, responsive rail/full,
+ * persistent layout) lives in @fusorb/facet-layout's DocsLayout.
+ */
 export function DocsLayout() {
-  const { config, pages, showComponents, topbar, links } = useDocsApp();
+  const {
+    config,
+    pages,
+    showComponents,
+    showTableOfContents,
+    topbar,
+    links,
+  } = useDocsApp();
   const router = useDocsRouterAdapter();
-  const layoutConfig = buildDocsLayoutConfig(config, pages, showComponents);
   const navigate = useNavigate();
-  const [mode, setMode] = React.useState<"full" | "rail">("rail");
+  const layoutConfig = buildDocsLayoutConfig(config, pages, showComponents);
 
   return (
-    <ConsoleLayout
+    <LayoutDocsLayout
       config={layoutConfig}
       router={router}
-      mode={mode}
-      singleOpen
-      themeToggle
+      sidebarSearch={
+        <CommandPalette
+          config={layoutConfig}
+          navigate={(href) => navigate(href)}
+          placeholder="Search docs..."
+        />
+      }
+      aside={showTableOfContents ? <DocsTableOfContents /> : undefined}
+      sidebarBottom={<SidebarAuth actions={links ?? []} />}
       topbar={
         <>
-          <CommandPalette
-            config={layoutConfig}
-            navigate={(href) => navigate(href)}
-            placeholder="Search docs..."
-          />
           {topbar}
           <SettingsMenu
             label={config.brand?.name ?? "Docs"}
             links={links ?? []}
-            mode={mode}
-            onModeChange={setMode}
           />
         </>
       }
+      links={links}
     >
       <Outlet />
-    </ConsoleLayout>
+    </LayoutDocsLayout>
   );
 }

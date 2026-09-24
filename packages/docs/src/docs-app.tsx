@@ -1,6 +1,7 @@
 import * as React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import type { IconName } from "@fusorb/facet-components";
+import type { PageActionItem } from "./components/PageActionBar.js";
 import { ThemeProvider } from "@fusorb/facet-components/light";
 import {
   DocsAppProvider,
@@ -70,10 +71,12 @@ export interface DocsAppProps {
   showComponents?: boolean;
   /** Render the sticky "on this page" right rail on content pages. */
   showTableOfContents?: boolean;
-  /** Extra topbar content (e.g. a GitHub link), rendered after the search bar. */
+  /** Extra topbar content (e.g. a GitHub link), rendered after the toggles. */
   topbar?: React.ReactNode;
   /** External links rendered in the settings gear menu. */
   links?: { label: string; href: string; icon?: IconName }[];
+  /** Additional page-level actions for the PageActionBar dropdown. */
+  pageActions?: PageActionItem[];
   /** Initial theme for ThemeProvider. */
   defaultTheme?: "light" | "dark" | "system";
 }
@@ -94,6 +97,7 @@ export function DocsApp({
   showTableOfContents = true,
   topbar,
   links,
+  pageActions,
   defaultTheme = "system",
 }: DocsAppProps) {
   const value: DocsAppValue = {
@@ -103,6 +107,7 @@ export function DocsApp({
     showTableOfContents,
     topbar,
     links,
+    pageActions,
   };
   return (
     <ThemeProvider defaultTheme={defaultTheme}>

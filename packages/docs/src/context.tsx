@@ -2,6 +2,7 @@ import * as React from "react";
 import type { IconName } from "@fusorb/facet-components";
 import type { DocsPage } from "./lib/pages.js";
 import type { DocsSiteConfig } from "./lib/nav.js";
+import type { PageActionItem } from "./components/PageActionBar.js";
 
 export interface DocsAppValue {
   /** Brand + nav + ecosystem config fed to the layout shell. */
@@ -12,10 +13,12 @@ export interface DocsAppValue {
   showComponents: boolean;
   /** Render the sticky "on this page" right rail on content pages. */
   showTableOfContents?: boolean;
-  /** Extra topbar content (e.g. a GitHub link), rendered after search. */
+  /** Extra topbar content (e.g. a GitHub link), rendered after the mode/aside toggles. */
   topbar?: React.ReactNode;
-  /** External links rendered in the settings menu. */
+  /** External links rendered in the settings gear menu. */
   links?: { label: string; href: string; icon?: IconName }[];
+  /** Additional page-level actions appended to the PageActionBar dropdown. */
+  pageActions?: PageActionItem[];
 }
 
 const DocsAppContext = React.createContext<DocsAppValue | null>(null);

@@ -31,6 +31,8 @@ export interface DocsLayoutProps {
   mode?: ConsoleLayoutMode;
   /** Inherited landing navbar rendered above the docs-specific topbar. */
   navbar?: React.ReactNode;
+  /** Whether only one sidebar section can be open at a time (accordion). Default: true */
+  singleOpen?: boolean;
   /** Search trigger rendered inside the sidebar (opens command palette). */
   sidebarSearch?: React.ReactNode;
   /** "On this page" aside content (e.g. DocsTableOfContents / DocsAside). */
@@ -95,6 +97,7 @@ export function DocsLayout({
   router,
   mode = "rail",
   navbar,
+  singleOpen = true,
   sidebarSearch,
   aside,
   asideWidth,
@@ -151,6 +154,7 @@ export function DocsLayout({
         config={config}
         router={router}
         mode={modeState}
+        singleOpen={singleOpen}
         navbar={navbar}
         aside={aside}
         asideWidth={asideWidth}
@@ -165,7 +169,7 @@ export function DocsLayout({
               type="button"
               onClick={toggleMode}
               aria-label={`Switch to ${modeState === "rail" ? "full" : "rail"} mode`}
-              className="rounded p-1.5 text-sidebar-foreground/60 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+              className="rounded p-1.5 text-sidebar-foreground/60 hover:bg-foreground/5 hover:text-sidebar-accent-foreground"
               title={modeState === "rail" ? "Expand sidebar" : "Collapse sidebar"}
             >
               {modeState === "rail" ? (
@@ -181,7 +185,7 @@ export function DocsLayout({
               onClick={toggleAside}
               aria-label={asideOpen ? "Hide on this page" : "Show on this page"}
               aria-pressed={asideOpen}
-              className="rounded p-1.5 text-sidebar-foreground/60 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+              className="rounded p-1.5 text-sidebar-foreground/60 hover:bg-foreground/5 hover:text-sidebar-accent-foreground"
               title={asideOpen ? "Hide on this page" : "Show on this page"}
             >
               {asideOpen ? (

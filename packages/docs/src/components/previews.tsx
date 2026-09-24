@@ -276,8 +276,8 @@ function SheetPreview() {
             aria-pressed={side === s}
             className={`rounded-md border border-border px-2.5 py-1 text-xs font-medium capitalize transition-colors ${
               side === s
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                ? "bg-foreground/10 text-foreground"
+                : "text-muted-foreground hover:bg-foreground/5"
             }`}
           >
             {s}

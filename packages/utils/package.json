@@ -1,0 +1,30 @@
+{
+  "name": "@fusorb/facet-utils",
+  "version": "0.1.0",
+  "description": "Shared styling utilities for Facet packages (cn).",
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./cn": {
+      "types": "./dist/cn.d.ts",
+      "import": "./dist/cn.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.2"
+  }
+}

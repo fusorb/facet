@@ -114,8 +114,8 @@ export function QRCodeDemo() {
             aria-pressed={position === pos}
             className={`rounded-md border border-border px-3 py-1.5 text-sm font-medium transition-colors ${
               position === pos
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                ? "bg-foreground/10 text-foreground"
+                : "text-muted-foreground hover:bg-foreground/5"
             }`}
           >
             {pos}
@@ -378,7 +378,7 @@ export function CountryCodeInputDemo() {
         <button
           type="button"
           onClick={() => setScope(scope === "africa" ? "world" : "africa")}
-          className="rounded-md border border-border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          className="rounded-md border border-border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5"
         >
           {scope === "africa" ? "Show all regions" : "Africa only"}
         </button>

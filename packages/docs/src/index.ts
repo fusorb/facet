@@ -52,6 +52,8 @@ export {
 export type { GuidePageProps } from "./components/Guide.js";
 export { DocsTable } from "./components/DocsTable.js";
 export type { DocsTableProps } from "./components/DocsTable.js";
+export { PageActionBar } from "./components/PageActionBar.js";
+export type { PageActionItem } from "./components/PageActionBar.js";
 export { CodeBlock } from "./components/CodeBlock.js";
 export type { CodeBlockProps } from "./components/CodeBlock.js";
 export { InstallTabs } from "./components/InstallTabs.js";

@@ -196,8 +196,8 @@ export function ComponentsPage() {
                   aria-label={`${n} columns`}
                   className={`rounded-md px-2 py-1 text-xs font-medium transition-colors ${
                     columns === n
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      ? "bg-foreground/10 text-foreground"
+                      : "text-muted-foreground hover:bg-foreground/5"
                   }`}
                 >
                   {n}
@@ -213,8 +213,8 @@ export function ComponentsPage() {
               aria-label="Grid view"
               className={`rounded-md p-1.5 transition-colors ${
                 view === "grid"
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                  ? "bg-foreground/10 text-foreground"
+                  : "text-muted-foreground hover:bg-foreground/5"
               }`}
             >
               <LightIcon name="grid" className="size-4" />
@@ -226,8 +226,8 @@ export function ComponentsPage() {
               aria-label="List view"
               className={`rounded-md p-1.5 transition-colors ${
                 view === "list"
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                  ? "bg-foreground/10 text-foreground"
+                  : "text-muted-foreground hover:bg-foreground/5"
               }`}
             >
               <LightIcon name="list" className="size-4" />
@@ -425,7 +425,7 @@ function ComponentListRow({
   return (
     <Link
       to={`/components/${slug}`}
-      className="flex items-center justify-between gap-4 rounded-lg border border-border px-4 py-3 transition-colors hover:border-primary/50 hover:bg-accent/40"
+      className="flex items-center justify-between gap-4 rounded-lg border border-border px-4 py-3 transition-colors hover:bg-foreground/5"
     >
       <span className="min-w-0">
         <span className="block font-semibold text-foreground">{name}</span>

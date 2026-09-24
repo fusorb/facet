@@ -30,15 +30,33 @@ vi.mock("@fusorb/facet-layout", () => {
   return {
     ConsoleLayout: Stub,
     CommandPalette: VoidStub,
+    DocsLayout: ({ children }: any) =>
+      React.createElement("div", { "data-testid": "console-layout" }, children),
+    SidebarAuth: () =>
+      React.createElement("div", { "data-testid": "sidebar-auth" }),
+    useDocsLayout: () => ({ mode: "full", toggleMode: () => {} }),
   };
 });
 
 // NotFound comes from the full @fusorb/facet-components package (lazy
 // route).  Stub it; /light subpath is mocked separately below.
-vi.mock("@fusorb/facet-components", () => ({
-  NotFound: () =>
-    React.createElement("div", { "data-testid": "not-found" }, "404"),
-}));
+vi.mock("@fusorb/facet-components", () => {
+  const stub =
+    (tag: string) =>
+    ({ children, ...rest }: any) =>
+      React.createElement(
+        tag === "svg" ? "svg" : "div",
+        { "data-testid": tag, ...rest },
+        children,
+      );
+  return {
+    NotFound: () =>
+      React.createElement("div", { "data-testid": "not-found" }, "404"),
+    cn: (...args: unknown[]) => args.filter(Boolean).join(" "),
+    ChangelogList: stub("changelog-list"),
+    ChangelogWithDate: stub("changelog-with-date"),
+  };
+});
 
 // facet-components/light is imported by ThemeProvider (eager in docs-app)
 // and by content block components (CodeBlock, InstallTabs, KeyboardShortcuts,

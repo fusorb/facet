@@ -34,7 +34,7 @@ function PreviewShell({
             type="button"
             onClick={() => setShowCode((v) => !v)}
             aria-expanded={showCode}
-            className="rounded-md px-2 py-1 text-xs font-medium text-primary transition-colors hover:bg-accent"
+            className="rounded-md px-2 py-1 text-xs font-medium text-primary transition-colors hover:bg-foreground/5"
           >
             {showCode ? "Hide code" : "View code"}
           </button>

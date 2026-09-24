@@ -11,7 +11,7 @@
 import * as React from "react";
 import { useOptionalAuth } from "@fusorb/facet-auth";
 import { useLayout, LayoutProvider } from "./layout-context.js";
-import { Sidebar } from "./sidebar.js";
+import { Sidebar, BrandLogo } from "./sidebar.js";
 import { Topbar } from "./topbar.js";
 import type { ConsoleLayoutMode, LayoutConfig, TenantReference } from "./types.js";
 import type { RouterAdapter } from "./router.js";
@@ -59,6 +59,15 @@ export interface ConsoleLayoutProps {
   asideWidth?: number;
   /** When true, the aside panel is not rendered (content takes full width). */
   asideCollapsed?: boolean;
+  /** Optional search trigger rendered at the top of the sidebar nav
+   *  (between brand and navigation). Typically opens the command palette. */
+  sidebarSearch?: React.ReactNode;
+  /** Optional content at the bottom of the sidebar, below nav and above
+   *  the footer — e.g. an auth quick-action panel. */
+  sidebarBottom?: React.ReactNode;
+  /** Inherited landing navbar rendered above the docs-specific topbar
+   *  (full-width within the main content area). */
+  navbar?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -74,6 +83,9 @@ function ConsoleLayoutInner({
   aside,
   asideWidth = 260,
   asideCollapsed = false,
+  sidebarSearch,
+  sidebarBottom,
+  navbar,
   children,
 }: ConsoleLayoutProps) {
   const {
@@ -172,63 +184,92 @@ function ConsoleLayoutInner({
   const padRight = showAside ? asideWidth : 0;
 
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Classic mode: persistent adjustable sidebar (full / rail) */}
-      {classicDesktop && (
-        <div className="hidden lg:block">
-          <Sidebar
-            config={config}
-            collapsed={mode === "rail" && sidebarCollapsed}
-            width={sidebarWidth}
-            singleOpen={singleOpen}
-          />
+    <div className="flex min-h-screen flex-col bg-background">
+      {/* Topbar — full width, above all splits (navbar + docs topbar) */}
+      {navbar && (
+        <div className="border-b border-sidebar-border">
+          {navbar}
         </div>
       )}
-
-      {/* Desktop aside panel (on this page) — between sidebar and main.
-          Only rendered on large/desktop screens; hidden on medium + small. */}
-      {showAside && (
-        <aside
-          data-docs-aside
-          className="fixed top-0 z-20 hidden h-screen flex-col border-l bg-background transition-[width] duration-200 lg:flex"
-          style={{ width: `${asideWidth}px` }}
-        >
-          {aside}
-        </aside>
-      )}
-
-      {/* Mobile: slide-in sidebar panel (no overlay - the hamburger stays
-          clickable so you can pin it even while the preview is open). */}
-      {!isDesktop && (
-        <div
-          className={`fixed inset-y-0 left-0 z-[80] flex h-screen w-[260px] transform flex-col border-r bg-sidebar transition-transform duration-200 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
-          data-sidebar
-        >
-          <Sidebar config={config} singleOpen={singleOpen} />
-        </div>
-      )}
-
-      {/* Main area — offset for sidebar and (optionally) aside */}
-      <div
-        className="flex min-w-0 flex-1 flex-col transition-[padding] duration-200"
-        style={
-          padLeft > 0 || padRight > 0
-            ? { paddingLeft: `${padLeft}px`, paddingRight: `${padRight}px` }
+      <Topbar
+        tenants={tenants}
+        activeTenant={activeTenant}
+        onTenantSwitch={onTenantSwitch}
+        mode={mode}
+        themeToggle={themeToggle}
+        brand={
+          config.brand ? (
+            <span className="hidden lg:inline-flex items-center gap-2 font-semibold text-foreground">
+              {config.brand.logo ?? (
+                <BrandLogo className="h-5 w-5 text-primary" />
+              )}
+              <span className="hidden sm:inline">{config.brand.name}</span>
+            </span>
+          ) : undefined
+        }
+        mobileBrand={
+          config.brand
+            ? config.brand.logo ?? <BrandLogo className="h-5 w-5 text-primary" />
             : undefined
         }
       >
-        <Topbar
-          tenants={tenants}
-          activeTenant={activeTenant}
-          onTenantSwitch={onTenantSwitch}
-          mode={mode}
-          themeToggle={themeToggle}
+        {topbar}
+      </Topbar>
+
+      {/* Split area — below the topbar: sidebar | main | aside, all scrollable */}
+      <div className="flex min-h-0 flex-1 overflow-hidden">
+        {/* Classic mode: persistent adjustable sidebar (full / rail) */}
+        {classicDesktop && (
+          <div className="hidden lg:block">
+            <Sidebar
+              config={config}
+              collapsed={mode === "rail" && sidebarCollapsed}
+              width={sidebarWidth}
+              singleOpen={singleOpen}
+              sidebarSearch={sidebarSearch}
+              sidebarBottom={sidebarBottom}
+              renderBrand={() => null}
+            />
+          </div>
+        )}
+
+        {/* Desktop aside panel (on this page) — below the topbar, between
+            sidebar and main. Only on large/desktop; hidden on medium + small. */}
+        {showAside && (
+          <aside
+            data-docs-aside
+            className="fixed top-14 right-0 z-20 hidden h-[calc(100vh-56px)] flex-col border-l bg-background opacity-100 transition-[width] duration-200 lg:flex"
+            style={{ width: `${asideWidth}px` }}
+          >
+            {aside}
+          </aside>
+        )}
+
+        {/* Mobile: slide-in sidebar — below the topbar */}
+        {!isDesktop && (
+          <div
+             className={`fixed inset-y-0 left-0 z-[80] flex h-screen w-[260px] transform flex-col transition-transform duration-200 pointer-events-none ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+             data-sidebar
+           >
+            <Sidebar config={config} singleOpen={singleOpen} sidebarBottom={sidebarBottom} renderBrand={() => null} />
+          </div>
+        )}
+
+        {/* Main content — below topbar, offset for sidebar & aside, scrollable */}
+        <div
+          className="flex min-w-0 flex-1 overflow-auto transition-[padding] duration-200"
+          style={
+            padLeft > 0 || padRight > 0
+              ? { paddingLeft: `${padLeft}px`, paddingRight: `${padRight}px` }
+              : undefined
+          }
         >
-          {topbar}
-        </Topbar>
-        <main className="min-w-0 flex-1 p-4 md:p-8">
-          <div className="mx-auto w-full max-w-[1440px]">{children}</div>
-        </main>
+          <main className="w-full">
+            <div className="mx-auto w-full max-w-[1440px] px-4 py-4 md:py-8">
+              {children}
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );

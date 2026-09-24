@@ -43,8 +43,8 @@ export function Playground({ controls, children, note }: PlaygroundProps) {
                     aria-pressed={control.value === option}
                     className={`rounded-md px-2 py-1 text-xs font-medium transition-colors ${
                       control.value === option
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        ? "bg-foreground/10 text-foreground"
+                        : "bg-background text-muted-foreground hover:bg-foreground/5"
                     }`}
                   >
                     {option}

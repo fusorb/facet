@@ -29,6 +29,8 @@ export interface TopbarProps {
   mode?: "full" | "rail";
   /** Mobile: brand logo node to show in place of the hamburger. */
   mobileBrand?: React.ReactNode;
+  /** Persistent brand node (logo + label) rendered on the left of the topbar. */
+  brand?: React.ReactNode;
   /**
    * Customize the tenant switcher. Receives the resolved props; falls back to
    * the built-in TenantSwitcher when absent (backward-compatible).
@@ -88,6 +90,7 @@ export function Topbar({
   onSignOut,
   mode = "full",
   mobileBrand,
+  brand,
   renderTenantSwitcher,
   renderUserMenu,
 }: TopbarProps) {
@@ -105,6 +108,7 @@ export function Topbar({
   return (
     <header className="sticky top-0 z-60 flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
       <div className="flex items-center gap-3">
+        {brand}
         {/* Mobile: brand logo morphs into a window on hover. Mouse hover
             previews the sidebar; click pins it open. Hover-leave closes
             it (after a short delay) unless pinned. */}
@@ -114,7 +118,7 @@ export function Topbar({
           onMouseEnter={hoverEnterSidebar}
           onMouseLeave={hoverLeaveSidebar}
           data-mobile-trigger
-          className="group relative z-40 rounded-md p-1 text-foreground/70 transition-colors hover:bg-accent hover:text-foreground lg:hidden"
+          className="group relative z-40 rounded-md p-1 text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground lg:hidden"
           aria-label="Toggle sidebar"
           aria-expanded={sidebarOpen}
         >
@@ -159,7 +163,7 @@ export function Topbar({
         {mode === "rail" && (
           <button
             onClick={toggleSidebarCollapsed}
-            className="hidden rounded-md p-1 text-foreground/60 hover:bg-accent lg:inline-flex"
+            className="hidden rounded-md p-1 text-foreground/60 hover:bg-foreground/5 lg:inline-flex"
             aria-label={
               sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"
             }

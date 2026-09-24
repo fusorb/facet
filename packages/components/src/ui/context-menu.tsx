@@ -38,7 +38,7 @@ const ContextMenuSubContent = React.forwardRef<
   <ContextMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-facet-overlay-in data-[state=closed]:animate-facet-overlay-out",
+      "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
       className,
     )}
     {...props}
@@ -54,7 +54,7 @@ const ContextMenuContent = React.forwardRef<
     <ContextMenuPrimitive.Content
       ref={ref}
       className={cn(
-        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-facet-overlay-in data-[state=closed]:animate-facet-overlay-out",
+        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
         className,
       )}
       {...props}

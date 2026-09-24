@@ -17,7 +17,7 @@ import type {
   MotionTransition,
   MotionVariant,
 } from "../registry/types.js";
-import { cn } from "../utils/cn.js";
+import { cn } from "@fusorb/facet-utils";
 
 export interface MotionProps extends HTMLAttributes<HTMLDivElement> {
   /** Effect id from the registry (e.g. "fade", "zoom", "reveal"). */

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { GuidePage, H2, H3, P, Ul, Li, PageNav } from "../components/Guide.js";
-import { DocsTableOfContents } from "../components/DocsTableOfContents.js";
+import { PageActionBar } from "../components/PageActionBar.js";
 import { slug } from "../lib/ids.js";
 import { DocsTable } from "../components/DocsTable.js";
 import { CodeBlock } from "../components/CodeBlock.js";
@@ -18,6 +18,26 @@ import {
 import type { DocsBlock } from "../lib/pages.js";
 import { useDocsApp } from "../context.js";
 import { useDocsKeyboardNav, useDocsNavigation } from "../lib/keyboard-nav.js";
+
+const sectionLabels: Record<string, string> = {
+  "getting-started": "Get Started",
+  auth: "Auth",
+  components: "Components",
+  foundations: "Foundations",
+  guides: "Guides",
+  ecosystem: "Ecosystem",
+  "ready-to-use": "Ready to Use",
+  pages: "Pages",
+  animation: "Animation",
+};
+
+function getSectionLabel(section?: string): string | undefined {
+  if (!section) return undefined;
+  return (
+    sectionLabels[section] ??
+    section.charAt(0).toUpperCase() + section.slice(1)
+  );
+}
 
 // The auth/layout demo blocks pull the heavy facet component graph; they
 // are only rendered for specific block types, so they are lazy-loaded to
@@ -281,7 +301,7 @@ function Block({ block }: { block: DocsBlock }) {
  * renders here with zero component edits).
  */
 export function DocsContentPage() {
-  const { pages, showTableOfContents } = useDocsApp();
+  const { pages, pageActions } = useDocsApp();
   const { pathname } = useLocation();
   const page = pages.find((p) => p.path === pathname);
   if (!page) return <Navigate to="/" replace />;
@@ -291,29 +311,21 @@ export function DocsContentPage() {
   const { prev, next } = useDocsNavigation();
   useDocsKeyboardNav();
 
-  const hasHeadings =
-    showTableOfContents &&
-    page.blocks.some((b) => b.type === "h2" || b.type === "h3");
-
   return (
-    <GuidePage title={page.title} description={page.description}>
-      <div
-        className={cn(
-          hasHeadings
-            ? "grid grid-cols-1 gap-8 xl:grid-cols-[1fr_260px]"
-            : "space-y-5",
-        )}
-      >
-        <div className={cn("min-w-0", hasHeadings && "space-y-5")}>
-          {page.blocks.map((block, i) => (
-            <Block key={i} block={block} />
-          ))}
-          <PageNav
-            prev={prev ? { label: prev.label, to: prev.path } : undefined}
-            next={next ? { label: next.label, to: next.path } : undefined}
-          />
-        </div>
-        {hasHeadings && <DocsTableOfContents blocks={page.blocks} />}
+    <GuidePage
+      title={page.title}
+      description={page.description}
+      sectionLabel={getSectionLabel(page.section)}
+      pageActions={<PageActionBar actions={pageActions} />}
+    >
+      <div className="space-y-5">
+        {page.blocks.map((block, i) => (
+          <Block key={i} block={block} />
+        ))}
+        <PageNav
+          prev={prev ? { label: prev.label, to: prev.path } : undefined}
+          next={next ? { label: next.label, to: next.path } : undefined}
+        />
       </div>
     </GuidePage>
   );

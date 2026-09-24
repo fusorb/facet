@@ -57,6 +57,13 @@ export interface SidebarProps {
       router?: RouterAdapter;
     },
   ) => React.ReactNode;
+  /** Optional search bar rendered at the top of the sidebar nav
+   *  (between the brand and the navigation sections).
+   *  Typically a trigger that opens the command palette dialog. */
+  sidebarSearch?: React.ReactNode;
+  /** Content rendered at the very bottom of the sidebar, below the nav
+   *  and above the footer — e.g. auth quick-action panel. */
+  sidebarBottom?: React.ReactNode;
 }
 
 /* ── Component ────────────────────────────────────────────── */
@@ -69,6 +76,8 @@ export function Sidebar({
   singleOpen = false,
   renderBrand,
   renderNavItem,
+  sidebarSearch,
+  sidebarBottom,
 }: SidebarProps) {
   const {
     setSidebarOpen,
@@ -120,7 +129,7 @@ export function Sidebar({
   return (
     <aside
       data-sidebar
-      className={`fixed left-0 top-0 z-30 flex h-screen flex-col border-r bg-sidebar transition-[width] duration-200 ${
+      className={`fixed left-0 top-14 z-30 flex h-[calc(100vh-56px)] flex-col border-r bg-sidebar transition-[width] duration-200 pointer-events-auto ${
         collapsed ? "w-[68px]" : ""
       }`}
       style={collapsed ? undefined : { width: `${sidebarWidth}px` }}
@@ -134,7 +143,7 @@ export function Sidebar({
       {!collapsed && (
         <div
           onPointerDown={handlePointerDown}
-          className="absolute right-0 top-0 z-10 h-full w-1.5 cursor-col-resize bg-transparent transition-colors hover:bg-primary/60 active:bg-primary/80"
+          className="absolute right-0 top-0 z-10 h-full w-1.5 cursor-col-resize bg-transparent transition-colors hover:bg-foreground/30 active:bg-foreground/40"
           aria-hidden="true"
         />
       )}
@@ -143,6 +152,11 @@ export function Sidebar({
       {renderBrand
         ? renderBrand(config.brand, { collapsed })
         : <DefaultBrand brand={config.brand} collapsed={collapsed} />}
+
+      {/* Search bar — only shown when expanded (has room) */}
+      {!collapsed && sidebarSearch && (
+        <div className="px-3 py-2">{sidebarSearch}</div>
+      )}
 
       {/* Nav */}
       <ScrollArea className="flex-1 px-3 py-4">
@@ -191,8 +205,13 @@ export function Sidebar({
         )}
       </ScrollArea>
 
+      {/* Auth / quick-action bottom — only when expanded */}
+      {!collapsed && sidebarBottom && (
+        <div className="border-t border-sidebar-border p-3">{sidebarBottom}</div>
+      )}
+
       {/* Footer */}
-      <div className="border-t border-sidebar-border p-4">
+      <div className="p-4">
         {collapsed ? (
           <p className="text-center text-xs text-sidebar-foreground/40">
             {config.brand.name.slice(0, 1).toUpperCase()}
@@ -324,7 +343,7 @@ function NavSectionRenderer({
                 type="button"
                 onClick={onExpand}
                 aria-label={section.title}
-                className="flex h-9 w-9 items-center justify-center rounded-md text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                className="flex h-9 w-9 items-center justify-center rounded-md text-sidebar-foreground/70 transition-colors hover:bg-foreground/5 hover:text-sidebar-accent-foreground"
               >
                 {icon ? (
                   <span className="size-4 shrink-0 text-primary">{icon}</span>
@@ -348,7 +367,7 @@ function NavSectionRenderer({
         type="button"
         onClick={handleToggle}
         aria-expanded={open}
-        className="mb-2 flex w-full items-center gap-1 rounded-md px-2 py-1 text-[11px] font-semibold uppercase tracking-widest text-sidebar-foreground/50 transition-colors hover:text-sidebar-foreground/80"
+        className="mb-2 flex w-full items-center gap-1 rounded-md px-2 py-1 text-[11px] font-semibold uppercase tracking-widest text-sidebar-foreground/70 transition-colors hover:text-sidebar-foreground"
       >
         <svg
           width="12"
@@ -479,7 +498,7 @@ function NavItemRenderer({
                 }
                 aria-expanded={collapsed ? undefined : open}
                 aria-label={collapsed ? item.label : undefined}
-                className={`flex w-full items-center gap-3 rounded-md px-2.5 py-2 text-sm font-medium transition-colors text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground ${
+                className={`flex w-full items-center gap-3 rounded-md px-2.5 py-2 text-sm font-medium transition-colors text-foreground hover:bg-foreground/5 hover:text-sidebar-accent-foreground ${
                   collapsed ? "justify-center px-0" : ""
                 }`}
                 style={
@@ -577,8 +596,8 @@ function NavItemRenderer({
                 collapsed ? "justify-center px-0" : ""
               } ${
                 isActive
-                  ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                  : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                  ? "bg-foreground/10 text-sidebar-accent-foreground"
+                  : "text-foreground hover:bg-foreground/5 hover:text-sidebar-accent-foreground"
               }`}
             >
               {item.icon && collapsed && (
@@ -625,7 +644,7 @@ function SidebarToolbar({
               type="button"
               onClick={() => onCollapseAll(sectionIds)}
               aria-label="Collapse all sections"
-              className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-sidebar-foreground/60 transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
+              className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-sidebar-foreground/60 transition-colors hover:bg-foreground/5 hover:text-sidebar-foreground"
             >
               <Icon name="chevrons-up" className="size-3.5 shrink-0" />
               <span>Collapse all</span>
@@ -641,7 +660,7 @@ function SidebarToolbar({
               type="button"
               onClick={() => onExpandAll(sectionIds)}
               aria-label="Expand all sections"
-              className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-sidebar-foreground/60 transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
+              className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-sidebar-foreground/60 transition-colors hover:bg-foreground/5 hover:text-sidebar-foreground"
             >
               <Icon name="chevrons-down" className="size-3.5 shrink-0" />
               <span>Expand all</span>
@@ -656,6 +675,29 @@ function SidebarToolbar({
 
 /* ── Default brand ──────────────────────────────── */
 
+/** Shield fallback logo used when `brand.logo` is not provided. */
+export const BrandLogo = ({ className }: { className?: string }) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      d="M12 2L4 6V12C4 17.52 7.58 22.48 12 24C16.42 22.48 20 17.52 20 12V6L12 2Z"
+      fill="currentColor"
+      opacity="0.8"
+    />
+    <path
+      d="M12 6L8 8V12C8 14.5 9.67 16.8 12 17.5C14.33 16.8 16 14.5 16 12V8L12 6Z"
+      fill="currentColor"
+      opacity="0.4"
+    />
+  </svg>
+);
+
 /** Default brand block: logo (or shield fallback) + label. */
 function DefaultBrand({
   brand,
@@ -666,27 +708,7 @@ function DefaultBrand({
 }) {
   return (
     <div className="flex h-14 items-center gap-2 border-b border-sidebar-border px-5">
-      {brand.logo ?? (
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="shrink-0 text-primary"
-        >
-          <path
-            d="M12 2L4 6V12C4 17.52 7.58 22.48 12 24C16.42 22.48 20 17.52 20 12V6L12 2Z"
-            fill="currentColor"
-            opacity="0.8"
-          />
-          <path
-            d="M12 6L8 8V12C8 14.5 9.67 16.8 12 17.5C14.33 16.8 16 14.5 16 12V8L12 6Z"
-            fill="currentColor"
-            opacity="0.4"
-          />
-        </svg>
-      )}
+      {brand.logo ?? <BrandLogo className="shrink-0 text-primary" />}
       {!collapsed && (
         <span className="truncate font-semibold text-sidebar-foreground">
           {brand.name}

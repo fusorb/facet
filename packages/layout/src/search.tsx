@@ -316,7 +316,7 @@ export function CommandPalette({
                   e.stopPropagation();
                   removeFromHistory(term);
                 }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer rounded p-1 text-muted-foreground opacity-60 transition-opacity hover:bg-accent hover:text-foreground hover:opacity-100"
+                className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer rounded p-1 text-muted-foreground opacity-60 transition-opacity hover:bg-foreground/5 hover:text-foreground hover:opacity-100"
               >
                 <Icon name="trash" className="size-3.5" />
               </Button>
@@ -383,7 +383,7 @@ export function CommandPalette({
     <Button
       variant="ghost"
       onClick={onClick}
-      className="flex h-9 w-40 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground sm:w-64"
+      className="flex h-9 w-40 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground sm:w-64"
     >
       <Icon name="search" className="size-4 shrink-0" />
       <span className="flex-1 truncate text-left">{placeholder}</span>

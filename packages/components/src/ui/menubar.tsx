@@ -69,7 +69,7 @@ const MenubarSubContent = React.forwardRef<
   <MenubarPrimitive.SubContent
     ref={ref}
     className={cn(
-      "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-facet-overlay-in data-[state=closed]:animate-facet-overlay-out",
+      "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
       className,
     )}
     {...props}
@@ -92,7 +92,7 @@ const MenubarContent = React.forwardRef<
         alignOffset={alignOffset}
         sideOffset={sideOffset}
         className={cn(
-          "z-50 min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-facet-overlay-in data-[state=closed]:animate-facet-overlay-out",
+          "z-50 min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
           className,
         )}
         {...props}

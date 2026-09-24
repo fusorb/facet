@@ -447,6 +447,9 @@ importers:
       '@fusorb/facet-tokens':
         specifier: workspace:*
         version: link:../tokens
+      '@fusorb/facet-utils':
+        specifier: workspace:*
+        version: link:../utils
       '@radix-ui/react-accordion':
         specifier: ^1.2.8
         version: 1.2.20(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -696,12 +699,9 @@ importers:
       '@fusorb/facet-tokens':
         specifier: workspace:*
         version: link:../tokens
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      tailwind-merge:
-        specifier: ^3.0.2
-        version: 3.6.0
+      '@fusorb/facet-utils':
+        specifier: workspace:*
+        version: link:../utils
     devDependencies:
       '@testing-library/react':
         specifier: ^16.3.0
@@ -808,6 +808,15 @@ importers:
       typescript:
         specifier: ^5
         version: 5.9.3
+
+  packages/utils:
+    dependencies:
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      tailwind-merge:
+        specifier: ^3.0.2
+        version: 3.6.0
 
 packages:
 

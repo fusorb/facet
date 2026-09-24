@@ -7,6 +7,10 @@ export interface GuidePageProps {
   children: React.ReactNode;
   /** Optional back link rendered above the title (e.g. "← Components"). */
   back?: { label: string; to: string };
+  /** Mini blue section badge shown above the title (e.g. "Get Started"). */
+  sectionLabel?: string;
+  /** Bar with a copy/download page dropdown, rendered top-right. */
+  pageActions?: React.ReactNode;
 }
 
 /** Shared guide page header + prose wrapper. */
@@ -15,6 +19,8 @@ export function GuidePage({
   description,
   children,
   back,
+  sectionLabel,
+  pageActions,
 }: GuidePageProps) {
   return (
     <article>
@@ -41,6 +47,20 @@ export function GuidePage({
           </svg>
           {back.label}
         </Link>
+      )}
+      {(sectionLabel || pageActions) && (
+        <div className="mb-4 flex items-center justify-between gap-4">
+          {sectionLabel && (
+            <span className="inline-flex items-center rounded-md bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+              {sectionLabel}
+            </span>
+          )}
+          {pageActions && (
+            <div className="flex items-center gap-2">
+              {pageActions}
+            </div>
+          )}
+        </div>
       )}
       <h1 className="font-heading text-3xl font-bold text-foreground">
         {title}
@@ -177,7 +197,7 @@ export function PageNav({
       {prev ? (
         <Link
           to={prev.to}
-          className="group flex items-center gap-3 rounded-lg border border-border px-4 py-3 transition-colors hover:border-primary/50 hover:bg-accent/40"
+          className="group flex items-center gap-3 rounded-lg border border-border px-4 py-3 transition-colors hover:border-primary/50 hover:bg-foreground/10"
         >
           <svg
             width="16"
@@ -211,7 +231,7 @@ export function PageNav({
       {next ? (
         <Link
           to={next.to}
-          className="group flex items-center justify-end gap-3 rounded-lg border border-border px-4 py-3 text-right transition-colors hover:border-primary/50 hover:bg-accent/40"
+          className="group flex items-center justify-end gap-3 rounded-lg border border-border px-4 py-3 text-right transition-colors hover:border-primary/50 hover:bg-foreground/10"
         >
           <span className="min-w-0">
             <span className="block text-xs text-muted-foreground">Next</span>

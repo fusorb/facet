@@ -5,9 +5,10 @@
  *
  *   1. Pending changesets  — .changeset/*.md (frontmatter + body)
  *   2. Released versions   — packages per-package CHANGELOG.md files
+ *   3. Episodic canon       — .agent/episodes.md (local-only process narrative)
  *
  * Outputs:
- *   • apps/docs/src/data/changelog.ts  — full changelog (export: facetChangelog)
+ *   • apps/docs/src/data/changelog.ts  — full changelog + episodes (export: facetChangelog, facetEpisodes)
  *   • apps/landing/src/data/changelog.ts — curated subset (export: changelog)
  *
  *
@@ -31,6 +32,8 @@ import { execSync } from "node:child_process";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const changesetDir = path.join(root, ".changeset");
 const packagesDir = path.join(root, "packages");
+const agentDir = path.join(root, ".agent");
+const episodesFile = path.join(agentDir, "episodes.md");
 const docsOutFile = path.join(root, "apps/docs/src/data/changelog.ts");
 const landingOutFile = path.join(root, "apps/landing/src/data/changelog.ts");
 const repoUrl = "https://github.com/fusorb/facet";
@@ -340,7 +343,188 @@ function parseChangelogs() {
   return changes;
 }
 
-/* ── 3. Merge into ChangelogRelease[] grouped by date ──────────── */
+/* ── 3. Parse .agent/episodes.md ──────────────────────────────── */
+
+/**
+ * Parse the episodic canon (.agent/episodes.md) into structured entries.
+ *
+ * Episodes are delimited by full-width separator rules (`====` or `----`,
+ * 40+ chars). Each header starts with "EP <number>" (optionally prefixed
+ * with `### `) followed by "-- <title>", "— <title>", or ": <title>
+ * (date, ...)". Sections: "What broke:", "Root cause:", "How we fixed it:",
+ * "What survived:", "State:" (or "**State**:" in later episodes), "Lesson:".
+ *
+ * If the file is missing (e.g. in CI where .agent/ is gitignored), returns [].
+ */
+function parseEpisodes() {
+  if (!fs.existsSync(episodesFile)) return [];
+
+  let content = readFile(episodesFile);
+  // Inject a === separator before ### EP headers that aren't already preceded
+  // by one, so episodes like EP 33 (which uses `### EP 33:` without a rule)
+  // are parsed as their own block rather than embedded in the prior episode.
+  content = content.replace(
+    /\n(###\s*EP\s+\d+)/g,
+    "\n================================================================================\n\n$1",
+  );
+  const SECTION_NAMES = [
+    "What broke",
+    "What happened in this session",
+    "What this adds",
+    "Context",
+    "Root cause",
+    "How we fixed it",
+    "What survived",
+    "State",
+    "Lesson",
+  ];
+  const hasSection = (b) =>
+    SECTION_NAMES.some(
+      (s) => b.includes(`${s}:`) || b.includes(`**${s}**:`),
+    );
+
+  // Split on any full-width separator (==== or ----, 40+ chars).
+  // The `----` title underline after each header is also a separator, so
+  // it gets split out — we re-merge header-only blocks below.
+  const rawBlocks = content.split(/\n[=-]{40,}\n/);
+
+  // Merge header-only blocks with their following content blocks.
+  const blocks = [];
+  for (let i = 0; i < rawBlocks.length; i++) {
+    const block = rawBlocks[i];
+    const trimmed = block.trim();
+    const isEpHeader = /^(?:###\s*)?EP\s+\d+/.test(trimmed);
+
+    if (isEpHeader && !hasSection(block)) {
+      const next = rawBlocks[i + 1];
+      if (next) {
+        blocks.push(block + "\n" + next);
+        i++;
+      } else {
+        blocks.push(block);
+      }
+    } else if (!isEpHeader && trimmed !== "" && blocks.length > 0) {
+      blocks[blocks.length - 1] += "\n" + block;
+    } else {
+      blocks.push(block);
+    }
+  }
+
+  const episodes = [];
+
+  for (const block of blocks) {
+    if (!/^(?:###\s*)?EP\s+\d+/.test(block.trim())) continue;
+
+    const lines = block.split("\n");
+
+    // Find header line: "EP XX ..." or "### EP XX ..." (strip markdown prefix)
+    let header = "";
+    let bodyStart = 0;
+    for (let i = 0; i < lines.length; i++) {
+      const l = lines[i].trim();
+      if (l.match(/^(?:###\s*)?EP\s+\d+/)) {
+        header = l.replace(/^###\s+/, "").trim();
+        bodyStart = i + 1;
+        break;
+      }
+    }
+    if (!header) continue;
+
+    // Skip the ── underline that follows the header
+    if (lines[bodyStart]?.trim().startsWith("---")) bodyStart++;
+
+    // EP 01 -- The Great Storybook Purge
+    // EP 33: Full system audit (2026-09-17, 2 commits: ...)
+    // EP 35 — facet-sandbox initial scaffold + fix (committed f4ca95a):
+    const headerMatch = header.match(/^EP\s+(\d+)\s*[-:—]{1,3}\s*(.+)$/);
+    if (!headerMatch) continue;
+
+    const num = headerMatch[1];
+    const rawTitle = headerMatch[2].trim();
+
+    // Extract date from header (e.g. "(2026-09-17")
+    const dateMatch = rawTitle.match(/\((\d{4}-\d{2}-\d{2})/);
+    const date = dateMatch ? dateMatch[1] : null;
+
+    // Clean title: strip parenthetical dates and trailing colons/metadata
+    const title = rawTitle
+      .replace(/\s*\([^)]*\)[:\s]*$/, "")
+      .replace(/:\s*$/, "")
+      .trim();
+
+    const body = lines.slice(bodyStart).join("\n");
+
+    // Extract sections
+    const sections = {};
+    for (let i = 0; i < SECTION_NAMES.length; i++) {
+      const name = SECTION_NAMES[i];
+      const next = SECTION_NAMES[i + 1];
+
+      // Try normal "Name:" first, then "**Name**:" (bold variant in EP 33+)
+      let start = body.indexOf(`${name}:`);
+      let searchLen = name.length + 1;
+      if (start === -1 && name === "State") {
+        start = body.indexOf("**State**:");
+        searchLen = 10; // "**State**:".length
+      }
+      if (start === -1) {
+        sections[name] = null;
+        continue;
+      }
+      const contentStart = start + searchLen;
+      let contentEnd = body.length;
+      if (next) {
+        const nextNormal = body.indexOf(`${next}:`, contentStart);
+        const nextBold = body.indexOf(`**${next}**:`, contentStart);
+        const candidates = [nextNormal, nextBold].filter((n) => n !== -1);
+        if (candidates.length > 0) {
+          contentEnd = Math.min(...candidates);
+        }
+      }
+      if (contentEnd === -1) contentEnd = body.length;
+      let text = body.substring(contentStart, contentEnd).trim();
+      text = text.replace(/^:\s*/, "").trim();
+      // Truncate at markdown subheadings (e.g. "#### REDUNDANCIES EXPUNGED" in EP 33+)
+      const subheadIdx = text.search(/\n\n#{1,6}\s/);
+      if (subheadIdx !== -1) text = text.substring(0, subheadIdx).trim();
+      sections[name] = text || null;
+    }
+
+    // Extract commit hashes mentioned in the body
+    const hashRe = /\b([0-9a-f]{7,40})\b/g;
+    const commitHashes = [...new Set(body.match(hashRe) || [])];
+
+    const slug = title
+      .toLowerCase()
+      .replace(/['']/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    // Build a summary from the first content section (truncated)
+    const whatBroke =
+      sections["What broke"] ||
+      sections["What happened in this session"] ||
+      sections["What this adds"] ||
+      sections["Context"] ||
+      "";
+    const summary = whatBroke.slice(0, 200);
+
+    episodes.push({
+      number: `EP ${num.padStart(2, "0")}`,
+      title,
+      slug,
+      date,
+      state: sections["State"],
+      summary: summary || title,
+      lesson: sections["Lesson"],
+      commitHashes,
+    });
+  }
+
+  return episodes;
+}
+
+/* ── 4. Merge into ChangelogRelease[] grouped by date ──────────── */
 
 function buildChangelog(allChanges) {
   // Collect all distinct versions that appear on each date
@@ -433,7 +617,42 @@ function formatChangelogArray(changelog, exportName) {
   return lines;
 }
 
-function generateDocsFile(changelog) {
+function formatEpisodesArray(episodes) {
+  const lines = [];
+  lines.push("export interface FacetEpisode {");
+  lines.push("  number: string;");
+  lines.push("  title: string;");
+  lines.push("  slug: string;");
+  lines.push("  date: string | null;");
+  lines.push("  state: string | null;");
+  lines.push("  summary: string;");
+  lines.push("  lesson: string | null;");
+  lines.push("  commitHashes: string[];");
+  lines.push("}");
+  lines.push("");
+  lines.push("export const facetEpisodes: FacetEpisode[] = [");
+
+  for (const ep of episodes) {
+    lines.push("  {");
+    lines.push(`    number: ${JSON.stringify(ep.number)},`);
+    lines.push(`    title: ${JSON.stringify(ep.title)},`);
+    lines.push(`    slug: ${JSON.stringify(ep.slug)},`);
+    lines.push(`    date: ${JSON.stringify(ep.date)},`);
+    lines.push(`    state: ${JSON.stringify(ep.state)},`);
+    // Escape newlines in summary
+    const summary = ep.summary.replace(/\n/g, "\\n");
+    lines.push(`    summary: ${JSON.stringify(summary)},`);
+    const lesson = ep.lesson ? ep.lesson.replace(/\n/g, "\\n") : null;
+    lines.push(`    lesson: ${JSON.stringify(lesson)},`);
+    lines.push(`    commitHashes: ${JSON.stringify(ep.commitHashes)},`);
+    lines.push("  },");
+  }
+
+  lines.push("];");
+  return lines;
+}
+
+function generateDocsFile(changelog, episodes) {
   const lines = [];
   lines.push("// AUTO-GENERATED by scripts/gen-changelog.mjs — do not edit.");
   lines.push("// Regenerate with: pnpm gen:changelog");
@@ -443,6 +662,12 @@ function generateDocsFile(changelog) {
   lines.push(`export const CHANGELOG_RELEASE_COUNT = ${changelog.length};`);
   const totalChanges = changelog.reduce((sum, r) => sum + r.changes.length, 0);
   lines.push(`export const CHANGELOG_CHANGE_COUNT = ${totalChanges};`);
+  lines.push("");
+  lines.push("// ── Episodic canon (.agent/episodes.md) ──────────");
+  lines.push("// Local-only; may be empty in CI where .agent/ is gitignored.");
+  lines.push(...formatEpisodesArray(episodes));
+  lines.push("");
+  lines.push(`export const EPISODE_COUNT = ${episodes.length};`);
 
   fs.writeFileSync(docsOutFile, lines.join("\n") + "\n", "utf-8");
 }
@@ -471,20 +696,23 @@ function main() {
   console.log("╚════════════════════════════════════════╝");
 
   const changesetChanges = parseChangesets();
-  console.log(`[1/4] Pending changesets parsed  : ${changesetChanges.length} changes across ${new Set(changesetChanges.map(c => c.title)).size} changeset(s)`);
+  console.log(`[1/5] Pending changesets parsed  : ${changesetChanges.length} changes across ${new Set(changesetChanges.map(c => c.title)).size} changeset(s)`);
 
   const changelogChanges = parseChangelogs();
   const releasedVersions = new Set(changelogChanges.map((c) => c.version));
-  console.log(`[2/4] CHANGELOG.md parsed         : ${changelogChanges.length} changes across ${releasedVersions.size} released versions`);
+  console.log(`[2/5] CHANGELOG.md parsed         : ${changelogChanges.length} changes across ${releasedVersions.size} released versions`);
 
   const allChanges = [...changesetChanges, ...changelogChanges];
-  console.log(`[3/4] Total changes collected    : ${allChanges.length}`);
+  console.log(`[3/5] Total changes collected    : ${allChanges.length}`);
 
   const changelog = buildChangelog(allChanges);
   const totalChanges = changelog.reduce((sum, r) => sum + r.changes.length, 0);
-  console.log(`[4/4] Changelog built           : ${changelog.length} releases, ${totalChanges} total changes`);
+  console.log(`[4/5] Changelog built           : ${changelog.length} releases, ${totalChanges} total changes`);
 
-  generateDocsFile(changelog);
+  const episodes = parseEpisodes();
+  console.log(`[5/5] Episodes parsed             : ${episodes.length} entries from .agent/episodes.md`);
+
+  generateDocsFile(changelog, episodes);
   console.log(`✓ Generated ${docsOutFile}`);
 
   generateLandingFile(changelog);

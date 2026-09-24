@@ -85,6 +85,12 @@ export const SITE_PACKAGES: SitePackage[] = [
     "desc": "Framework-agnostic live-preview sandbox host: block registry, adapter seam, security helpers. Ships no framework code; the React adapter ships under /react.",
     "version": "1.0.0",
     "icon": "play"
+  },
+  {
+    "name": "@fusorb/facet-utils",
+    "desc": "Shared styling utilities for Facet packages (cn).",
+    "version": "0.1.0",
+    "icon": "package"
   }
 ];
 
@@ -103,7 +109,7 @@ export const SITE_STATS: SiteStat[] = [
     "label": "API SDKs"
   },
   {
-    "value": "3",
+    "value": "5",
     "label": "layout shells"
   },
   {
@@ -117,7 +123,7 @@ export const SITE_STATS: SiteStat[] = [
 ];
 
 /** Total number of workspace packages (auto-detected from the packages directory). */
-export const SITE_PACKAGES_COUNT: number = 12;
+export const SITE_PACKAGES_COUNT: number = 13;
 
 /** Number of component files in packages/components (auto-detected). */
 export const COMPONENT_COUNT: number = 116;

@@ -13,7 +13,7 @@
  */
 
 // utils
-export { cn } from "./utils/cn.js";
+export { cn } from "@fusorb/facet-utils";
 
 // core - framework-agnostic generators + orchestration
 export {

@@ -262,8 +262,8 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
                     aria-pressed={active === method}
                     className={`flex w-full items-center justify-between rounded-lg border px-4 py-3 text-left text-sm font-medium transition-colors ${
                       active === method
-                        ? "border-primary/60 bg-primary/10 text-primary"
-                        : "border-border bg-background text-foreground hover:bg-accent/40"
+                        ? "border-border bg-foreground/10 text-foreground"
+                        : "border-border bg-background text-foreground hover:bg-foreground/5"
                     } ${!enabled ? "cursor-not-allowed opacity-40" : ""}`}
                   >
                     <span>{method}</span>

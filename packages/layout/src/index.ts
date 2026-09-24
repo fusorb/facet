@@ -51,7 +51,7 @@ export { createDefaultAdapter, matchPath } from "./router.js";
 export type { RouterAdapter, RouterLinkProps } from "./router.js";
 
 /* ── Components ───────────────────────────────────────────── */
-export { type SidebarProps, Sidebar } from "./sidebar.js";
+export { type SidebarProps, Sidebar, BrandLogo } from "./sidebar.js";
 
 export { type TopbarProps, Topbar } from "./topbar.js";
 
@@ -66,6 +66,11 @@ export { type AuthLayoutProps, AuthLayout } from "./auth-layout.js";
 export { AppLayout } from "./auth-layout.js";
 
 export { type ConsoleLayoutProps, ConsoleLayout } from "./console-layout.js";
+
+/* ── Docs layout (console + aside + sidebar search/auth) ─────── */
+export { type DocsLayoutProps, DocsLayout, type DocsLayoutContextValue, useDocsLayout } from "./docs-layout.js";
+export { type DocsAsideProps, DocsAside } from "./docs-aside.js";
+export { type SidebarAuthProps, SidebarAuth } from "./sidebar-auth.js";
 
 export { type LandingLayoutProps, LandingLayout } from "./landing-layout.js";
 

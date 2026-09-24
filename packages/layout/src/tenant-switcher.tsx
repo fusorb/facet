@@ -38,8 +38,8 @@ function DefaultTenant({
       onClick={() => selectTenant(tenant)}
       className={`flex w-full items-center gap-2 rounded-sm px-2 py-2 text-sm ${
         tenant.id === activeTenant?.id
-          ? "bg-accent text-accent-foreground"
-          : "text-foreground/80 hover:bg-accent"
+          ? "bg-foreground/10 text-foreground"
+          : "text-foreground/80 hover:bg-foreground/5"
       }`}
     >
       <span className="size-1.5 rounded-full bg-primary" />
@@ -73,7 +73,7 @@ export function TenantSwitcher({
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex h-8 items-center gap-2 rounded-md border border-input bg-transparent px-3 text-sm text-foreground/80 hover:bg-accent"
+        className="flex h-8 items-center gap-2 rounded-md border border-input bg-transparent px-3 text-sm text-foreground/80 hover:bg-foreground/5"
       >
         <span className="size-1.5 rounded-full bg-primary" />
         <span className="max-w-[140px] truncate">
