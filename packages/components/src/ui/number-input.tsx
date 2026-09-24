@@ -212,7 +212,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                     value={currencyQuery}
                     onChange={(e) => setCurrencyQuery(e.target.value)}
                     placeholder="Search currency or code..."
-                    className="h-8 w-full rounded-md border border-input bg-transparent px-2.5 text-sm outline-none focus:ring-1 focus:ring-ring"
+                    className="h-8 w-full rounded-md border border-input bg-transparent px-2.5 text-sm outline-none"
                   />
                 </div>
                 <div className="max-h-48 overflow-y-auto">
@@ -262,7 +262,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                 commit(Number(e.target.value));
               }
             }}
-            className={`flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 ${padLeft}`}
+            className={`flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 ${padLeft}`}
             {...props}
           />
           <div className="absolute right-1 top-1/2 flex -translate-y-1/2 gap-0.5">

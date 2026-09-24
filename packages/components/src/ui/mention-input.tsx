@@ -176,7 +176,7 @@ export function MentionInput({
     <div
       ref={containerRef}
       className={cn(
-        "relative w-full rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring/30",
+        "relative w-full rounded-md border border-border bg-background",
         disabled && "opacity-60",
         className,
       )}

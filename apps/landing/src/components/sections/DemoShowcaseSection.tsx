@@ -158,7 +158,7 @@ function QrDemo() {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://..."
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none focus:ring-2 focus:ring-ring"
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none"
           />
           <div className="rounded-lg border border-border bg-background p-3">
             <QRCode

@@ -2,7 +2,6 @@ import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
-import { Motion } from "@fusorb/facet-motion";
 
 export type SelectProps = React.ComponentPropsWithoutRef<
   typeof SelectPrimitive.Root
@@ -47,7 +46,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
       className,
     )}
     {...props}
@@ -193,7 +192,7 @@ const SelectSearch = React.forwardRef<HTMLInputElement, SelectSearchProps>(
         ref={ref}
         type="text"
         className={cn(
-          "h-8 w-full rounded-md border border-input bg-transparent px-2.5 text-sm outline-none focus:ring-1 focus:ring-ring",
+          "h-8 w-full rounded-md border border-input bg-transparent px-2.5 text-sm outline-none",
           className,
         )}
         {...props}

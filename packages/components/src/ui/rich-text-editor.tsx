@@ -292,7 +292,7 @@ export function RichTextEditor({
     <div
       {...props}
       className={cn(
-        "w-full overflow-hidden rounded-md border border-border bg-background transition focus-within:ring-2 focus-within:ring-ring/30",
+        "w-full overflow-hidden rounded-md border border-border bg-background transition",
         disabled && "opacity-60",
         className,
       )}
@@ -341,7 +341,7 @@ export function RichTextEditor({
             placeholder={c.linkPlaceholder}
             value={linkUrl}
             onChange={(e) => setLinkUrl(e.target.value)}
-            className="flex-1 rounded-md border border-border bg-background px-2 py-1 outline-none focus:border-primary"
+            className="flex-1 rounded-md border border-border bg-background px-2 py-1 outline-none"
             autoFocus
           />
           <Button size="sm" onClick={submitLink}>

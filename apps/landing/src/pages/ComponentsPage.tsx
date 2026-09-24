@@ -112,7 +112,7 @@ export function ComponentsPage() {
               placeholder="Search components..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full border-0 bg-transparent py-2 text-sm text-foreground placeholder-muted-foreground/50 focus:outline-none focus:ring-0"
+              className="w-full border-0 bg-transparent py-2 text-sm text-foreground placeholder-muted-foreground/50 focus:outline-none"
             />
           </div>
 

@@ -86,7 +86,7 @@ export function ComponentsSection() {
             placeholder={SEARCH_PLACEHOLDER}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full max-w-sm rounded-md border border-border bg-surface px-3 py-1.5 text-sm text-text placeholder-text-dim focus:outline-none focus:ring-1 focus:ring-accent"
+            className="w-full max-w-sm rounded-md border border-border bg-surface px-3 py-1.5 text-sm text-text placeholder-text-dim focus:outline-none"
           />
           <span className="text-xs text-text-dim">
             {visible.length} components

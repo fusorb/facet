@@ -154,7 +154,7 @@ export function PhoneInput({
     <div
       ref={containerRef}
       className={cn(
-        "relative flex w-full items-center rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring/30",
+        "relative flex w-full items-center rounded-md border border-border bg-background",
         disabled && "cursor-not-allowed opacity-60",
         className,
       )}

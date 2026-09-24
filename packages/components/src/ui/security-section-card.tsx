@@ -60,7 +60,7 @@ export function SecuritySectionCard({
           key={f.id}
           type="button"
           onClick={() => onSelect?.(f)}
-          className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-xl"
+          className="group text-left focus-visible:outline-none rounded-xl"
         >
           <Card className="h-full transition-colors group-hover:border-primary/50">
             <CardHeader>

@@ -63,7 +63,7 @@ export function PlaygroundPage({ defaultSlug }: PlaygroundPageProps) {
           id="facet-playground-component"
           value={selectedSlug}
           onChange={(e) => setSelectedSlug(e.target.value)}
-          className="max-w-sm rounded-md border bg-background px-3 py-1.5 text-sm text-foreground outline-none ring-1 ring-border focus-within:ring-2 focus-within:ring-ring"
+          className="max-w-sm rounded-md border bg-background px-3 py-1.5 text-sm text-foreground outline-none ring-1 ring-border"
         >
           {groups.map(({ category, entries }) => (
             <optgroup key={category} label={category}>

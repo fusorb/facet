@@ -543,7 +543,7 @@ export const KanbanCard = React.forwardRef<HTMLDivElement, KanbanCardProps>(
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
-                  className="ml-1 flex h-6 w-6 items-center justify-center rounded-md opacity-25 hover:opacity-100 focus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="ml-1 flex h-6 w-6 items-center justify-center rounded-md opacity-25 hover:opacity-100 focus:opacity-100 focus:outline-none"
                   onClick={(e) => e.stopPropagation()}
                   aria-label="Card actions"
                 >

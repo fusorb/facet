@@ -153,7 +153,7 @@ export function TestimonialShowcase({
               <button
                 type="button"
                 onClick={() => setIndex((i) => (i - 1 + count) % count)}
-                className="rounded-md border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="rounded-md border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none"
                 aria-label={c.prevAriaLabel}
               >
                 <Icon name="chevron-left" className="size-4" />
@@ -164,7 +164,7 @@ export function TestimonialShowcase({
               <button
                 type="button"
                 onClick={() => setIndex((i) => (i + 1) % count)}
-                className="rounded-md border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="rounded-md border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none"
                 aria-label={c.nextAriaLabel}
               >
                 <Icon name="chevron-right" className="size-4" />

@@ -257,7 +257,7 @@ export function DatePicker({
               aria-label="Select year"
               value={viewYear}
               onChange={(e) => jumpToYear(Number(e.target.value))}
-              className="h-8 flex-1 rounded-md border border-input bg-transparent px-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="h-8 flex-1 rounded-md border border-input bg-transparent px-2 text-sm text-foreground focus-visible:outline-none"
             >
               {years.map((y) => (
                 <option key={y} value={y}>

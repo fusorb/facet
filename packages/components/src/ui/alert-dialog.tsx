@@ -5,7 +5,6 @@ import { buttonVariants } from "./button.js";
 import { Icon } from "../icon/index.js";
 import { Input } from "./input.js";
 import { Label } from "./label.js";
-import { Motion } from "@fusorb/facet-motion";
 
 const AlertDialogPrimitiveRoot = AlertDialogPrimitive.Root;
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger;

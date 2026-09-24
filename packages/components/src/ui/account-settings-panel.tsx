@@ -96,7 +96,7 @@ export function AccountSettingsPanel({
                     aria-current={isActive ? "page" : undefined}
                     className={cn(
                       "flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-left text-sm font-medium transition-colors",
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      "focus-visible:outline-none",
                       isActive
                         ? "bg-sidebar-accent text-sidebar-accent-foreground"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground",

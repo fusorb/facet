@@ -39,7 +39,7 @@ const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
     const overflow = avatars.length - shown.length;
     const hoverClass = disableHover
       ? ""
-      : "transition-transform duration-200 hover:-translate-y-0.5 hover:ring-2 hover:ring-ring hover:z-10";
+      : "transition-transform duration-200 hover:-translate-y-0.5 hover:z-10";
 
     return (
       <div

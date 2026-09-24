@@ -35,7 +35,7 @@ const CollapsibleTrigger = ({
 }: CollapsibleTriggerProps) => (
   <CollapsiblePrimitive.CollapsibleTrigger
     className={cn(
-      "cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+      "cursor-pointer transition-colors focus-visible:outline-none",
       className,
     )}
     {...props}

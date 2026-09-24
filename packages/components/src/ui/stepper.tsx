@@ -269,7 +269,7 @@ export interface StepperNavProps extends React.HTMLAttributes<HTMLOListElement> 
 
 const navBase = "flex w-full items-center gap-2 text-sm";
 const itemBase =
-  "group flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md";
+  "group flex items-center gap-2 transition-colors focus-visible:outline-none rounded-md";
 
 function StepDot({ status }: { status: "past" | "current" | "future" }) {
   const color =

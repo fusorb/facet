@@ -132,7 +132,7 @@ export function OtpInput({
           onPaste={handlePaste}
           onFocus={(e) => e.currentTarget.select()}
           className={cn(
-            "h-11 w-10 rounded-md border border-border bg-background text-center text-lg font-semibold tabular-nums outline-none transition focus:border-primary focus:ring-2 focus:ring-ring/30",
+            "h-11 w-10 rounded-md border border-border bg-background text-center text-lg font-semibold tabular-nums outline-none transition",
             disabled && "cursor-not-allowed opacity-50",
           )}
         />

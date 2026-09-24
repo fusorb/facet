@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as MenubarPrimitive from "@radix-ui/react-menubar";
 import { cn } from "../utils.js";
-import { Motion } from "@fusorb/facet-motion";
 import { Icon } from "../icon/index.js";
 
 const MenubarMenu: React.FC<

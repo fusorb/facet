@@ -206,7 +206,7 @@ export function UserAvatar({
           type="button"
           aria-label={`Open ${user.name ?? "user"} menu`}
           className={cn(
-            "rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+            "rounded-full focus-visible:outline-none",
             triggerClassName,
           )}
         >

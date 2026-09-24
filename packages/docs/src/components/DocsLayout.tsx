@@ -42,7 +42,7 @@ function SettingsMenu({
           type="button"
           aria-label="Settings"
           title="Settings"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 transition-colors hover:bg-foreground/5 focus-visible:outline-none"
         >
           <LightIcon name="settings" className="size-4" />
         </button>

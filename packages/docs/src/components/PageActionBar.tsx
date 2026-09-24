@@ -94,7 +94,7 @@ export function PageActionBar({ actions = [] }: { actions?: PageActionItem[] }) 
       <button
         type="button"
         onClick={copyPage}
-        className="flex items-center gap-1.5 px-3 py-1.5 font-medium text-foreground hover:bg-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="flex items-center gap-1.5 px-3 py-1.5 font-medium text-foreground hover:bg-foreground/10 focus-visible:outline-none"
       >
         <LightIcon name="copy" className="size-4" />
         Copy page
@@ -104,7 +104,7 @@ export function PageActionBar({ actions = [] }: { actions?: PageActionItem[] }) 
         <DropdownMenuTrigger asChild>
           <button
             type="button"
-            className="flex items-center rounded-r-md px-2.5 py-1.5 text-muted-foreground hover:text-foreground hover:bg-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=open]:rotate-180 transition-transform duration-200"
+            className="flex items-center rounded-r-md px-2.5 py-1.5 text-muted-foreground hover:text-foreground hover:bg-foreground/10 focus-visible:outline-none data-[state=open]:rotate-180 transition-transform duration-200"
           >
             <LightIcon name="chevron-down" className="size-4" />
           </button>

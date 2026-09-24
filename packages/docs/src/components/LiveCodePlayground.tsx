@@ -742,7 +742,7 @@ export function LiveCodePlayground({
           }}
           spellCheck={false}
           placeholder="// Edit the code and see it render live"
-          className="w-full min-h-[160px] pl-12 pr-14 max-h-[600px] resize-y rounded-md border bg-muted/30 p-3 font-mono text-sm leading-relaxed text-foreground outline-none ring-1 ring-border placeholder:text-muted-foreground focus-within:ring-2 focus-within:ring-ring md:min-h-[240px]"
+          className="w-full min-h-[160px] pl-12 pr-14 max-h-[600px] resize-y rounded-md border bg-muted/30 p-3 font-mono text-sm leading-relaxed text-foreground outline-none ring-1 ring-border placeholder:text-muted-foreground md:min-h-[240px]"
         />
         <button
           type="button"

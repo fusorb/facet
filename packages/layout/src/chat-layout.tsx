@@ -87,7 +87,7 @@ export function ChatInput({
         disabled={disabled}
         placeholder={placeholder}
         rows={rows}
-        className="flex-1 resize-none rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex-1 resize-none rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
       />
       <button
         type="button"

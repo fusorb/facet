@@ -294,7 +294,7 @@ export function NotificationDrawer({
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={c.searchPlaceholder}
-                className="h-8 w-full rounded-md border border-input bg-transparent pl-8 pr-2.5 text-sm outline-none focus:ring-1 focus:ring-ring"
+                className="h-8 w-full rounded-md border border-input bg-transparent pl-8 pr-2.5 text-sm outline-none"
               />
             </div>
 

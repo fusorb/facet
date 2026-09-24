@@ -148,7 +148,7 @@ export function MultiCombobox({
     <div
       ref={containerRef}
       className={cn(
-        "relative flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-1.5 text-sm transition focus-within:ring-2 focus-within:ring-ring/30",
+        "relative flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-1.5 text-sm transition",
         open && "ring-2 ring-ring/30",
         disabled && "cursor-not-allowed opacity-50",
         !wrap && "flex-nowrap overflow-x-auto",

@@ -73,7 +73,7 @@ export function AnnouncementBar({
           type="button"
           onClick={handleDismiss}
           aria-label="Dismiss announcement"
-          className="shrink-0 rounded-full p-1 opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="shrink-0 rounded-full p-1 opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none"
         >
           <Icon name="x" className="size-4" />
         </button>

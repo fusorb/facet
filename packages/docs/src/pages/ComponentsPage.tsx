@@ -161,7 +161,7 @@ export function ComponentsPage() {
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search components..."
             aria-label="Search components"
-            className="h-9 w-full rounded-md border border-input bg-transparent pl-9 pr-3 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            className="h-9 w-full rounded-md border border-input bg-transparent pl-9 pr-3 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none"
           />
         </div>
 

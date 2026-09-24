@@ -136,7 +136,6 @@ export const Pill = React.forwardRef<HTMLElement, PillProps>(
     const base = cn(
       pillVariants({ variant, radius, size }),
       colorClass,
-      "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
       selected && "ring-2 ring-ring ring-offset-2",
       className,
     );
