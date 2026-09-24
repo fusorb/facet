@@ -379,7 +379,7 @@ function NavSectionRenderer({
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"
-          className={`shrink-0 transition-transform ${open ? "rotate-90" : ""}`}
+          className={`hidden lg:inline-flex shrink-0 transition-transform ${open ? "rotate-90" : ""}`}
         >
           <path d="m9 18 6-6-6-6" />
         </svg>
@@ -529,7 +529,7 @@ function NavItemRenderer({
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     aria-hidden="true"
-                    className={`shrink-0 text-sidebar-foreground/40 transition-transform ${open ? "rotate-180" : ""}`}
+                    className={`hidden lg:inline-flex shrink-0 text-sidebar-foreground/40 transition-transform ${open ? "rotate-180" : ""}`}
                   >
                     <path d="m6 9 6 6 6-6" />
                   </svg>
@@ -636,7 +636,7 @@ function SidebarToolbar({
   onExpandAll,
 }: SidebarToolbarProps) {
   return (
-    <div className="sticky top-0 z-20 mb-4 flex items-center gap-2 border-b border-border bg-sidebar">
+    <div className="hidden lg:flex sticky top-0 z-20 mb-4 items-center gap-2 border-b border-border bg-sidebar">
       <TooltipProvider delayDuration={200}>
         <Tooltip>
           <TooltipTrigger asChild>
