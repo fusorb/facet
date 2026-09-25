@@ -8,7 +8,7 @@ export const facetChangelog: ChangelogRelease[] = [
     version: "Unreleased",
     date: "Unreleased",
     tag: "breaking",
-    title: "Chart: fix 3 failing tests (handlePointerMove no longer bails on zero-width SVG rects in jsdom; ResizeObserver scaleRef formula corrected to width/rect.width).",
+    title: "ChangelogFeed component pair for release timelines.",
     pre: true,
     changes: [
       {
@@ -38,6 +38,26 @@ export const facetChangelog: ChangelogRelease[] = [
       {
         kind: "changed",
         text: "Evolve the facet workspace.",
+      },
+      {
+        kind: "fixed",
+        text: "*Breaking:** `Changeset` is removed. Use `ChangelogCard` (single release card",
+      },
+      {
+        kind: "fixed",
+        text: "Added `ChangelogCard` + 6 compound sub-components (Header, Title, Description,",
+      },
+      {
+        kind: "fixed",
+        text: "Added `ChangelogFeed` + FilterBar + Timeline + TimelineItem — search + category",
+      },
+      {
+        kind: "fixed",
+        text: "Exported `ChangelogItem`, `ReleaseCategory`, `ReleaseStatus`, `ChangeCategory`",
+      },
+      {
+        kind: "fixed",
+        text: "Bumped component count 117 → 118 in CLAUDE.md, README, package.json, and",
       },
       {
         kind: "fixed",
@@ -410,10 +430,100 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "0.8.0, 1.1.6, 1.2.1, 1.2.2, 1.2.3, 1.3.3, 1.4.2, 1.4.3, 1.4.7, 1.7.0",
+    version: "1.1.2, 1.1.3, 1.2.2",
     date: "2026-09-25",
     tag: "fix",
-    title: "v0.8.0, 1.1.6, 1.2.1, 1.2.2, 1.2.3, 1.3.3, 1.4.2, 1.4.3, 1.4.7, 1.7.0",
+    title: "v1.1.2, 1.1.3, 1.2.2",
+    changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0",
+        href: "https://github.com/fusorb/facet/commit/b7accc3",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0",
+        href: "https://github.com/fusorb/facet/commit/3554506",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0",
+      },
+    ],
+  },
+  {
+    version: "0.1.0, 1.2.1",
+    date: "2026-09-23",
+    tag: "fix",
+    title: "v0.1.0, 1.2.1",
+    changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0\\n- @fusorb/facet-auth@1.1.2",
+      },
+      {
+        kind: "changed",
+        text: "feat(store): extract SovGrant Zustand auth/tenant stores into @fusorb/facet-store",
+        href: "https://github.com/fusorb/facet/commit/b7accc3",
+      },
+    ],
+  },
+  {
+    version: "1.0.0",
+    date: "2026-09-20",
+    tag: "fix",
+    title: "v1.0.0",
+    changes: [
+      {
+        kind: "changed",
+        text: "initial publish...",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-sdk@1.0.0\\n- @fusorb/facet-components@1.0.0",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+      },
+      {
+        kind: "changed",
+        text: "initial publish...",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.0.0",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+      },
+      {
+        kind: "changed",
+        text: "initial publish...",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+      },
+      {
+        kind: "changed",
+        text: "initial publish...",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+      },
+    ],
+  },
+  {
+    version: "1.4.1",
+    date: "2026-09-17",
+    tag: "fix",
+    title: "v1.4.1",
+    changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0\\n- @fusorb/facet-auth@1.2.2",
+        href: "https://github.com/fusorb/facet/commit/b7accc3",
+      },
+    ],
+  },
+  {
+    version: "1.11.0, 1.2.3, 1.4.2, 1.4.7",
+    date: "2026-08-23",
+    tag: "fix",
+    title: "v1.11.0, 1.2.3, 1.4.2, 1.4.7",
     changes: [
       {
         kind: "changed",
@@ -467,28 +577,38 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0",
-        href: "https://github.com/fusorb/facet/commit/b7accc3",
+        text: "Export individual brand icon components (GithubIcon, LinkedinIcon, InstagramIcon,\\n- FacebookIcon, TiktokIcon, WhatsappIcon, XIcon, TwitterIcon, YoutubeIcon, SlackIcon,\\n- DiscordIcon, TelegramIcon, FigmaIcon, SpotifyIcon) from the main barrel so consuming\\n- apps can import them directly without duplicating the SVGs. These components already\\n- power the icon registry's `brandIcons` map and `LightIcon` - they were simply not\\n- re-exported as named exports from the package entry point.",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
       },
       {
         kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.9.0",
-        href: "https://github.com/fusorb/facet/commit/18547dc",
+        text: "Add `hoverDropdowns` prop to Navbar for hover-to-open dropdown menus on desktop, with shared close-timer coordination so only one dropdown is open at a time. Also add optional `icon` field to FooterLink and `lg:px-8` to navbar padding.",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
       },
       {
         kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
+        text: "Add 5 new composable UI components: AspectRatio, Carousel, Drawer,\\n- InputGroup, Resizable. Also fix Navbar hamburger (X-icon toggle +\\n- outside-click close) and register new bundled deps in facet-cli.",
+        href: "https://github.com/fusorb/facet/commit/b1da261",
       },
       {
         kind: "changed",
-        text: "feat(cli): consumer templates + `--use-template` merge",
-        href: "https://github.com/fusorb/facet/commit/53ca15c",
+        text: "Rebuild the Resizable component for react-resizable-panels v4 compatibility and\\n- flexibility:",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
       },
       {
         kind: "changed",
-        text: "feat: config-driven billing pages, footer variants, and the new @fusorb/facet-emails package",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
+        text: "Fix sidebar accordion (singleOpen) collapse, auto-infer ResizableHandle orientation, and export brand icons from the components barrel.",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Add a 3s fetch timeout to `resolveFacetVersions` and `discoverFacetPackages` so the CLI never hangs on an unreachable or slow npm registry. Add a global `testTimeout: 15000` in the CLI vitest config to absorb slow CI and DTS parsing overhead.",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Add an ESM `\"use client\"` banner to the `dist` builds of `@fusorb/facet-components`,\\n- `@fusorb/facet-auth`, and `@fusorb/facet-layout`.",
+        href: "https://github.com/fusorb/facet/commit/cfabae9",
       },
       {
         kind: "changed",
@@ -539,11 +659,6 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.3\\n- @fusorb/facet-components@1.11.0\\n- @fusorb/facet-sdk@1.2.0\\n- @fusorb/facet-layout@1.4.2",
         href: "https://github.com/fusorb/facet/commit/cfabae9",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6\\n- @fusorb/facet-layout@1.3.3",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
@@ -600,46 +715,14 @@ export const facetChangelog: ChangelogRelease[] = [
         text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.3\\n- @fusorb/facet-components@1.11.0",
         href: "https://github.com/fusorb/facet/commit/cfabae9",
       },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
-      },
     ],
   },
   {
-    version: "0.1.0, 1.2.1",
-    date: "2026-09-23",
+    version: "0.8.0, 1.0.0, 1.5.0",
+    date: "2026-08-20",
     tag: "fix",
-    title: "v0.1.0, 1.2.1",
+    title: "v0.8.0, 1.0.0, 1.5.0",
     changes: [
-      {
-        kind: "changed",
-        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0\\n- @fusorb/facet-auth@1.1.2",
-      },
-      {
-        kind: "changed",
-        text: "feat(store): extract SovGrant Zustand auth/tenant stores into @fusorb/facet-store",
-        href: "https://github.com/fusorb/facet/commit/b7accc3",
-      },
-    ],
-  },
-  {
-    version: "1.0.0",
-    date: "2026-09-20",
-    tag: "fix",
-    title: "v1.0.0",
-    changes: [
-      {
-        kind: "changed",
-        text: "initial publish...",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-sdk@1.0.0\\n- @fusorb/facet-components@1.0.0",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
-      },
       {
         kind: "changed",
         text: "Bump CLI and store to stable 1.0.0. The store handles auth-critical token-refresh\\n- state consumed by SovGrant in production, so 0.1.0 (alpha) stability is no longer\\n- acceptable. The CLI is the primary developer tool and all other packages are\\n- already 1.x - aligning both to 1.0.0 signals release-readiness and removes\\n- pre-release confusion. Per the handbook rule: \"anything release-ready should be\\n- at 1.0.0\".",
@@ -657,18 +740,13 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "initial publish...",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+        text: "feat(cli): consumer templates + `--use-template` merge",
+        href: "https://github.com/fusorb/facet/commit/53ca15c",
       },
       {
         kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.0.0",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
-      },
-      {
-        kind: "changed",
-        text: "initial publish...",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+        text: "Animated surfaces + page components + full location dataset.",
+        href: "https://github.com/fusorb/facet/commit/3554506",
       },
       {
         kind: "changed",
@@ -685,104 +763,26 @@ export const facetChangelog: ChangelogRelease[] = [
         text: "Updated dependencies []\\n- @fusorb/facet-sdk@1.2.0",
         href: "https://github.com/fusorb/facet/commit/b1da261",
       },
-      {
-        kind: "changed",
-        text: "initial publish...",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
-      },
     ],
   },
   {
-    version: "1.0.1, 1.4.1",
-    date: "2026-09-17",
+    version: "1.2.0",
+    date: "2026-08-18",
     tag: "fix",
-    title: "v1.0.1, 1.4.1",
+    title: "v1.2.0",
     changes: [
-      {
-        kind: "changed",
-        text: "chore: update homepage to facet.arcevocirqle.com.ng",
-        href: "https://github.com/fusorb/facet/commit/d94a724",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.0.1\\n- @fusorb/facet-sdk@1.0.1",
-        href: "https://github.com/fusorb/facet/commit/d94a724",
-      },
-      {
-        kind: "changed",
-        text: "chore: update homepage to facet.arcevocirqle.com.ng",
-        href: "https://github.com/fusorb/facet/commit/d94a724",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.0.1",
-        href: "https://github.com/fusorb/facet/commit/d94a724",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0\\n- @fusorb/facet-auth@1.2.2",
-        href: "https://github.com/fusorb/facet/commit/b7accc3",
-      },
-      {
-        kind: "changed",
-        text: "chore: update homepage to facet.arcevocirqle.com.ng",
-        href: "https://github.com/fusorb/facet/commit/d94a724",
-      },
-      {
-        kind: "changed",
-        text: "chore: update homepage to facet.arcevocirqle.com.ng",
-        href: "https://github.com/fusorb/facet/commit/d94a724",
-      },
-    ],
-  },
-  {
-    version: "1.11.0",
-    date: "2026-09-09",
-    tag: "fix",
-    title: "v1.11.0",
-    changes: [
-      {
-        kind: "changed",
-        text: "Export individual brand icon components (GithubIcon, LinkedinIcon, InstagramIcon,\\n- FacebookIcon, TiktokIcon, WhatsappIcon, XIcon, TwitterIcon, YoutubeIcon, SlackIcon,\\n- DiscordIcon, TelegramIcon, FigmaIcon, SpotifyIcon) from the main barrel so consuming\\n- apps can import them directly without duplicating the SVGs. These components already\\n- power the icon registry's `brandIcons` map and `LightIcon` - they were simply not\\n- re-exported as named exports from the package entry point.",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Add `hoverDropdowns` prop to Navbar for hover-to-open dropdown menus on desktop, with shared close-timer coordination so only one dropdown is open at a time. Also add optional `icon` field to FooterLink and `lg:px-8` to navbar padding.",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
       {
         kind: "changed",
         text: "Add 5 new composable UI components: AspectRatio, Carousel, Drawer,\\n- InputGroup, Resizable. Also fix Navbar hamburger (X-icon toggle +\\n- outside-click close) and register new bundled deps in facet-cli.",
         href: "https://github.com/fusorb/facet/commit/b1da261",
       },
-      {
-        kind: "changed",
-        text: "Rebuild the Resizable component for react-resizable-panels v4 compatibility and\\n- flexibility:",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Fix sidebar accordion (singleOpen) collapse, auto-infer ResizableHandle orientation, and export brand icons from the components barrel.",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Add a 3s fetch timeout to `resolveFacetVersions` and `discoverFacetPackages` so the CLI never hangs on an unreachable or slow npm registry. Add a global `testTimeout: 15000` in the CLI vitest config to absorb slow CI and DTS parsing overhead.",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Add an ESM `\"use client\"` banner to the `dist` builds of `@fusorb/facet-components`,\\n- `@fusorb/facet-auth`, and `@fusorb/facet-layout`.",
-        href: "https://github.com/fusorb/facet/commit/cfabae9",
-      },
     ],
   },
   {
-    version: "1.1.0, 1.1.1, 1.1.3, 1.1.4, 1.10.0, 1.4.0, 1.4.5, 1.4.6, 1.9.0",
+    version: "1.1.0, 1.1.1, 1.1.4, 1.10.0, 1.3.0, 1.4.0, 1.4.6",
     date: "2026-08-17",
     tag: "fix",
-    title: "v1.1.0, 1.1.1, 1.1.3, 1.1.4, 1.10.0, 1.4.0, 1.4.5, 1.4.6, 1.9.0",
+    title: "v1.1.0, 1.1.1, 1.1.4, 1.10.0, 1.3.0, 1.4.0, 1.4.6",
     changes: [
       {
         kind: "changed",
@@ -806,16 +806,6 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "feat(components): MailInput with domain suggestions + Dissolve animation family",
-        href: "https://github.com/fusorb/facet/commit/18547dc",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.1.3",
-        href: "https://github.com/fusorb/facet/commit/18547dc",
-      },
-      {
-        kind: "changed",
         text: "DataTable: export consolidated into a single Export dropdown (CSV + pluggable exporters), plus a new overflow (⋯) actions menu for bulk row actions (select-all, mark-as-read, delete-all, custom). NavigationMenuLink is now a padded, hover-styled block link (fixes cramped dropdown items) and supports an optional description. NumberInput gains a built-in currency picker: CURRENCIES list, currencyPicker dropdown, currencyOptions override, and onCurrencyChange.",
       },
       {
@@ -830,13 +820,13 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "feat(components): MailInput with domain suggestions + Dissolve animation family",
-        href: "https://github.com/fusorb/facet/commit/18547dc",
+        text: "Animated surfaces + page components + full location dataset.",
+        href: "https://github.com/fusorb/facet/commit/3554506",
       },
       {
         kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.9.0\\n- @fusorb/facet-layout@1.4.0\\n- @fusorb/facet-tokens@1.1.3\\n- @fusorb/facet-auth@1.2.1",
-        href: "https://github.com/fusorb/facet/commit/18547dc",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0\\n- @fusorb/facet-layout@1.3.0\\n- @fusorb/facet-auth@1.1.3",
+        href: "https://github.com/fusorb/facet/commit/3554506",
       },
       {
         kind: "changed",
@@ -864,13 +854,13 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "feat(components): MailInput with domain suggestions + Dissolve animation family",
-        href: "https://github.com/fusorb/facet/commit/18547dc",
+        text: "Animated surfaces + page components + full location dataset.",
+        href: "https://github.com/fusorb/facet/commit/3554506",
       },
       {
         kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.9.0\\n- @fusorb/facet-auth@1.2.1",
-        href: "https://github.com/fusorb/facet/commit/18547dc",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0\\n- @fusorb/facet-auth@1.1.3",
+        href: "https://github.com/fusorb/facet/commit/3554506",
       },
       {
         kind: "changed",
@@ -889,21 +879,64 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "feat(components): MailInput with domain suggestions + Dissolve animation family",
-        href: "https://github.com/fusorb/facet/commit/18547dc",
-      },
-      {
-        kind: "changed",
         text: "- Adds the `tw-animate-css` enter/exit animation utility set (animate-in/out, fade, zoom, slide) to the Tailwind v4 theme extension (`tailwind.css`), so facet component class strings resolve for Tailwind consumers.\\n- Adds `facet-marquee` and `caret-blink` keyframes plus `--animate-facet-marquee` / `--animate-caret-blink` theme vars; plain-CSS equivalents live in `tokens.css` for non-Tailwind consumers.",
         href: "https://github.com/fusorb/facet/commit/3de0e04",
       },
     ],
   },
   {
-    version: "0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.2.0, 1.3.4, 1.4.4, 1.8.0",
+    version: "1.1.3, 1.2.1, 1.4.0, 1.4.5, 1.9.0",
+    date: "2026-08-16",
+    tag: "fix",
+    title: "v1.1.3, 1.2.1, 1.4.0, 1.4.5, 1.9.0",
+    changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.9.0",
+        href: "https://github.com/fusorb/facet/commit/18547dc",
+      },
+      {
+        kind: "changed",
+        text: "feat(components): MailInput with domain suggestions + Dissolve animation family",
+        href: "https://github.com/fusorb/facet/commit/18547dc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.1.3",
+        href: "https://github.com/fusorb/facet/commit/18547dc",
+      },
+      {
+        kind: "changed",
+        text: "feat(components): MailInput with domain suggestions + Dissolve animation family",
+        href: "https://github.com/fusorb/facet/commit/18547dc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.9.0\\n- @fusorb/facet-layout@1.4.0\\n- @fusorb/facet-tokens@1.1.3\\n- @fusorb/facet-auth@1.2.1",
+        href: "https://github.com/fusorb/facet/commit/18547dc",
+      },
+      {
+        kind: "changed",
+        text: "feat(components): MailInput with domain suggestions + Dissolve animation family",
+        href: "https://github.com/fusorb/facet/commit/18547dc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.9.0\\n- @fusorb/facet-auth@1.2.1",
+        href: "https://github.com/fusorb/facet/commit/18547dc",
+      },
+      {
+        kind: "changed",
+        text: "feat(components): MailInput with domain suggestions + Dissolve animation family",
+        href: "https://github.com/fusorb/facet/commit/18547dc",
+      },
+    ],
+  },
+  {
+    version: "0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.1.6, 1.2.0, 1.3.3, 1.3.4, 1.4.3, 1.4.4, 1.7.0, 1.8.0",
     date: "2026-08-15",
     tag: "fix",
-    title: "v0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.2.0, 1.3.4, 1.4.4, 1.8.0",
+    title: "v0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.1.6, 1.2.0, 1.3.3, 1.3.4, 1.4.3, 1.4.4, 1.7.0, 1.8.0",
     changes: [
       {
         kind: "changed",
@@ -929,6 +962,11 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.8.0",
         href: "https://github.com/fusorb/facet/commit/78b6543",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
@@ -962,6 +1000,11 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
+        text: "feat: config-driven billing pages, footer variants, and the new @fusorb/facet-emails package",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
+      },
+      {
+        kind: "changed",
         text: "Updated dependencies []",
         href: "https://github.com/fusorb/facet/commit/9360e93",
       },
@@ -989,6 +1032,11 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.0\\n- @fusorb/facet-components@1.8.0\\n- @fusorb/facet-tokens@1.1.2\\n- @fusorb/facet-layout@1.3.4",
         href: "https://github.com/fusorb/facet/commit/78b6543",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6\\n- @fusorb/facet-layout@1.3.3",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
@@ -1029,6 +1077,11 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.0\\n- @fusorb/facet-components@1.8.0",
         href: "https://github.com/fusorb/facet/commit/78b6543",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
@@ -1101,20 +1154,11 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "0.3.1, 0.4.0, 1.1.2, 1.1.3, 1.3.0, 1.3.1, 1.4.0, 1.5.0",
+    version: "0.3.1, 0.4.0, 1.3.1",
     date: "2026-08-13",
     tag: "fix",
-    title: "v0.3.1, 0.4.0, 1.1.2, 1.1.3, 1.3.0, 1.3.1, 1.4.0, 1.5.0",
+    title: "v0.3.1, 0.4.0, 1.3.1",
     changes: [
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0",
-        href: "https://github.com/fusorb/facet/commit/3554506",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0",
-      },
       {
         kind: "changed",
         text: "feat(cli): facet docs scan -- read the repo and draft documentation",
@@ -1127,21 +1171,6 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Animated surfaces + page components + full location dataset.",
-        href: "https://github.com/fusorb/facet/commit/3554506",
-      },
-      {
-        kind: "changed",
-        text: "Animated surfaces + page components + full location dataset.",
-        href: "https://github.com/fusorb/facet/commit/3554506",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0\\n- @fusorb/facet-layout@1.3.0\\n- @fusorb/facet-auth@1.1.3",
-        href: "https://github.com/fusorb/facet/commit/3554506",
-      },
-      {
-        kind: "changed",
         text: "DataTable: export consolidated into a single Export dropdown (CSV + pluggable exporters), plus a new overflow (⋯) actions menu for bulk row actions (select-all, mark-as-read, delete-all, custom). NavigationMenuLink is now a padded, hover-styled block link (fixes cramped dropdown items) and supports an optional description. NumberInput gains a built-in currency picker: CURRENCIES list, currencyPicker dropdown, currencyOptions override, and onCurrencyChange.",
       },
       {
@@ -1151,16 +1180,6 @@ export const facetChangelog: ChangelogRelease[] = [
       {
         kind: "changed",
         text: "@fusorb/facet-auth@1.1.4",
-      },
-      {
-        kind: "changed",
-        text: "Animated surfaces + page components + full location dataset.",
-        href: "https://github.com/fusorb/facet/commit/3554506",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0\\n- @fusorb/facet-auth@1.1.3",
-        href: "https://github.com/fusorb/facet/commit/3554506",
       },
     ],
   },
@@ -1367,11 +1386,6 @@ export const facetChangelog: ChangelogRelease[] = [
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.3.0\\n- @fusorb/facet-auth@1.1.1",
         href: "https://github.com/fusorb/facet/commit/6bb55a2",
       },
-      {
-        kind: "changed",
-        text: "Add 5 new composable UI components: AspectRatio, Carousel, Drawer,\\n- InputGroup, Resizable. Also fix Navbar hamburger (X-icon toggle +\\n- outside-click close) and register new bundled deps in facet-cli.",
-        href: "https://github.com/fusorb/facet/commit/b1da261",
-      },
     ],
   },
   {
@@ -1416,10 +1430,48 @@ export const facetChangelog: ChangelogRelease[] = [
       },
     ],
   },
+  {
+    version: "1.0.1",
+    date: "2026-08-01",
+    tag: "fix",
+    title: "v1.0.1",
+    changes: [
+      {
+        kind: "changed",
+        text: "chore: update homepage to facet.arcevocirqle.com.ng",
+        href: "https://github.com/fusorb/facet/commit/d94a724",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.0.1\\n- @fusorb/facet-sdk@1.0.1",
+        href: "https://github.com/fusorb/facet/commit/d94a724",
+      },
+      {
+        kind: "changed",
+        text: "chore: update homepage to facet.arcevocirqle.com.ng",
+        href: "https://github.com/fusorb/facet/commit/d94a724",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.0.1",
+        href: "https://github.com/fusorb/facet/commit/d94a724",
+      },
+      {
+        kind: "changed",
+        text: "chore: update homepage to facet.arcevocirqle.com.ng",
+        href: "https://github.com/fusorb/facet/commit/d94a724",
+      },
+      {
+        kind: "changed",
+        text: "chore: update homepage to facet.arcevocirqle.com.ng",
+        href: "https://github.com/fusorb/facet/commit/d94a724",
+      },
+    ],
+  },
 ];
 
-export const CHANGELOG_RELEASE_COUNT = 13;
-export const CHANGELOG_CHANGE_COUNT = 284;
+export const CHANGELOG_RELEASE_COUNT = 17;
+export const CHANGELOG_CHANGE_COUNT = 289;
 
 // ── Episodic canon (.agent/episodes.md) ──────────
 // Local-only; may be empty in CI where .agent/ is gitignored.

@@ -6,9 +6,6 @@
   "type": "module",
   "scripts": {
     "build": "pnpm build:tokens && pnpm -r build && pnpm build:docs",
-    "build:tokens": "pnpm -F @fusorb/facet-tokens build",
-    "build:components": "pnpm -F @fusorb/facet-components build",
-    "build:sdk": "pnpm -F @fusorb/facet-sdk build",
     "release": "pnpm build && pnpm changeset publish",
     "dev:landing": "pnpm -F @fusorb/facet-landing dev",
     "dev:docs-site": "pnpm -F @fusorb/facet-docs-site dev",
@@ -31,6 +28,7 @@
     "check:motion-drift": "node packages/motion/scripts/check-motion-drift.mjs",
     "check:boundaries": "node scripts/check-boundaries.mjs",
     "audit:motion-parity": "node scripts/audit-motion-parity.mjs",
+    "check:all": "pnpm check:components && pnpm check:docs && pnpm check:icons && pnpm check:sdk-coverage && pnpm check:sdk-drift && pnpm check:motion-drift && pnpm check:boundaries && pnpm audit:motion-parity && pnpm -r typecheck && pnpm test",
     "build:turbo": "turbo run build",
     "test:turbo": "turbo run test",
     "typecheck:turbo": "turbo run typecheck",
