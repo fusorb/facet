@@ -101,7 +101,7 @@ export interface SiteStat {
 
 export const SITE_STATS: SiteStat[] = [
   {
-    "value": "116",
+    "value": "117",
     "label": "components"
   },
   {
@@ -126,7 +126,7 @@ export const SITE_STATS: SiteStat[] = [
 export const SITE_PACKAGES_COUNT: number = 13;
 
 /** Number of component files in packages/components (auto-detected). */
-export const COMPONENT_COUNT: number = 116;
+export const COMPONENT_COUNT: number = 117;
 
 /** Number of registered icons (auto-detected from icon-map.ts). */
 export const ICON_COUNT: number = 1190;

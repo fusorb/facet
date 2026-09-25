@@ -1,0 +1,152 @@
+================================================================================
+LANDING APP HOME PAGE — REBUILD PLAN
+================================================================================
+Status: REVERT DONE → awaiting assessment before implementing rebuild
+================================================================================
+
+## 1. DIAGNOSIS: What was destroyed and why
+
+The Nav.tsx in the working tree was changed from:
+
+  OLD (HEAD / "perfect"):  <Navbar> from @fusorb/facet-components
+  NEW (working tree):      <Topbar> from @fusorb/facet-layout
+
+This was NOT a change I made in this session — those edits were already
+staged in commit 2fcfea1 ("chore: stage all in-progress changes") before
+this session began. My first action was to revert all apps/landing/
+files to HEAD so the perfect Navbar-based version is restored.
+
+Why someone tried to replace Navbar with Topbar:
+  → Likely motivation: unify the landing nav with the new Topbar
+    component added in 44c46a6 ("feat(layout): §17 collapsed sidebar
+    variant"). The Topbar was built for console/docs app shells, not
+    marketing pages. Migrating the landing Nav to it seemed like
+    "one component, one source of truth" — but it stripped away
+    marketing-site UX that Topbar doesn't provide.
+
+What was LOST by switching Navbar → Topbar:
+  - hoverDropdowns       (Nav dropdowns opened on hover — critical for
+                          a product site mouse UX, not just click)
+  - TooltipProvider + tooltips on Search (⌘K) and GitHub icons - the tooltips should remain removed...
+  
+  - NavbarRouter / NavbarLink  (proper <a> links with aria-current
+                           active-link styling via React Router)
+  - Navbar's built-in mobile menu (the Topbar variant has no drawer
+    integration — replaced with a hand-rolled Drawer that lost the
+    aria-labels and focus-trap)
+  - facet-components design tokens (bg-panel, text-text-dim,
+    bg-accent-dim, border-surface — replaced with shadcn-style
+    bg-card / text-muted-foreground which don't match the palette)
+  - The Navbar's <Brand /> left-slot integration (Logo + wordmark)
+
+Bottom line: Topbar belongs in the console. Navbar belongs on the
+landing. The revert already fixes this.
+
+## 2. WHAT WAS REVERTED (already done)
+
+  git checkout HEAD -- apps/landing/
+
+This restored all tracked landing files to the committed state at
+HEAD (44c46a6). The only remaining diffs are:
+
+  - M  apps/landing/src/data/site-data.generated.ts
+     (regenerated: component count 116 → 117 after changeset.tsx
+      was added during the earlier changeset fix)
+  - ?? apps/landing/src/components/labs/{CodeViewer,LabCategoryToggle,
+        LabSearchInput,LabShell}.tsx
+     (untracked leftovers from the in-progress session — will be
+      removed if the reverted HEAD pages don't import them)
+
+## 3. DRAFT: New home page structure (from scratch)
+
+The user said: "delete everything that exists — rebuild the whole page
+from scratch with the most important necessary details."
+
+I'll create a LEEEN, focused home page. No domain-cycling state
+machine in the hero, no 11-section cascade. Just the essentials.
+
+### Files KEPT (restored from HEAD, no rewrite needed)
+  - apps/landing/src/components/Nav.tsx          ← Navbar-based, perfect
+  - apps/landing/src/components/Footer.tsx       ← FacetFooter
+  - apps/landing/src/components/Brand.tsx        ← Logo + wordmark
+
+### Files REWRITTEN from scratch
+  - apps/landing/src/pages/HomePage.tsx
+      → Single clean layout: <LandingLayout nav={Nav} hero={Hero}
+        footer={Footer}> with ONE combined "below-the-fold" section
+        that folds architecture + discovery into a single scrollable
+        page.  No 12 separate section files.
+
+  - apps/landing/src/components/sections/HeroSection.tsx
+      → Simplified: headline + subhead + CTAs (Open Playground / Read
+        the Docs) + install command w/ pnpm|npm|yarn|bun tabs +
+        copy-to-clipboard + tech tag pills.
+        REMOVED: domain cycling autoswitch, LabDomainBar, sign-in
+        card (these belong on the Auth Lab page, not the hero).
+
+  - apps/landing/src/components/sections/ArchitectureSection.tsx
+      → Keep from HEAD (already clean: LayerGraph + customization
+        axes + stats row). No rewrite needed.
+
+  - apps/landing/src/components/sections/DiscoverySection.tsx  [NEW]
+      → Replaces DemoShowcase + ComponentsSection + MotionPreview +
+        TokensExplorerSection.
+      → A simple card grid of quick links:
+          • Component Catalog   → /components
+          • Auth Lab            → /auth-lab
+          • Motion Lab          → /motion-lab
+          • Token Explorer      → /tokens
+          • Playground          → external sandbox
+      → Each card: icon + title + 1-line desc + arrow link.
+      → No live interactive demos (they belong in the labs, not the
+        landing hero).
+
+### Files DELETED (not essential for the landing page)
+  - sections/DemoShowcaseSection.tsx       → labs live on their pages
+  - sections/AuthShowcaseSection.tsx       → auth lab page
+  - sections/PricingTeaserSection.tsx      → /pricing page
+  - sections/ChangelogSection.tsx          → docs site
+  - sections/FaqSection.tsx                → /faq page or docs
+  - sections/InstallSection.tsx            → install is in Hero
+  - sections/CTASection.tsx               → CTA is in Hero
+  - sections/MotionPreviewSection.tsx      → motion lab page
+  - sections/TokensExplorerSection.tsx     → tokens lab page
+  - sections/ComponentsSection.tsx         → /components page
+  - sections/LayoutSection.tsx             → demo page
+  - labs/{CodeViewer,LabCategoryToggle,
+         LabSearchInput,LabShell}.tsx       → untracked leftovers
+
+  Also check: if no tracked page imports from labs/* after revert,
+  delete the entire labs/ directory too.
+
+## 4. DESIGN LANGUAGE
+
+  - Navbar component from @fusorb/facet-components (NOT Topbar)
+  - facet design tokens: bg-panel, text-text-dim, bg-accent-dim,
+    border-surface, --primary, --accent, etc.
+  - Pill, LightIcon from @fusorb/facet-components / /light
+  - LandingLayout from @fusorb/facet-layout (provides the page shell)
+  - max-width containers: max-w-7xl, max-w-6xl, max-w-5xl
+  - Section spacing: py-24, px-8
+  - Font: font-display for H1/H2, font-body for text, font-mono for
+    code/install commands
+
+## 5. VERIFICATION
+
+  1. pnpm --filter @fusorb/facet-landing typecheck  → 0 errors
+  2. pnpm --filter @fusorb/facet-landing build      → succeeds
+  3. pnpm check:docs                                  → passes (manifest +
+                                                         count gates green)
+  4. Landing page loads in browser, Navbar works with
+     hover dropdowns + tooltips + theme toggle
+
+## 6. TIMELINE
+
+  Step 1: [DONE] Revert apps/landing/ to HEAD
+  Step 2: [DONE] Add changeset to docs manifest + update CLAUDE.md count
+  Step 3: [DONE] Regenerate site-data.generated.ts (117 components)
+  Step 4: [NEXT ] Write the new HeroSection, DiscoverySection,
+           HomePage from scratch; delete old sections
+  Step 5:         Typecheck + build the landing app
+  Step 6:         Full repo test + check:docs gate
+================================================================================

@@ -557,6 +557,12 @@ export {
 } from "./ui/roadmap.js";
 
 export {
+  type ChangesetEntry,
+  type ChangesetProps,
+  Changeset,
+} from "./ui/changeset.js";
+
+export {
   Form,
   FormField,
   FormMessage,

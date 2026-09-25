@@ -13,6 +13,7 @@ import {
   cn,
   ChangelogList,
   ChangelogWithDate,
+  Changeset,
   type ChangelogRelease,
 } from "@fusorb/facet-components";
 import type { DocsBlock } from "../lib/pages.js";
@@ -280,6 +281,18 @@ function Block({ block }: { block: DocsBlock }) {
         <ChangelogList
           releases={block.releases as ChangelogRelease[]}
           showFilter={block.showFilter ?? true}
+        />
+      );
+    case "changeset":
+      return (
+        <Changeset
+          entries={block.entries.map((entry) => ({
+            date: entry.date,
+            id: entry.id,
+            children: entry.blocks.map((subBlock, j) => (
+              <Block key={j} block={subBlock} />
+            )),
+          }))}
         />
       );
     case "playground":

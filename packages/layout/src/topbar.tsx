@@ -4,6 +4,18 @@
  * Sticky top bar with mobile hamburger, tenant switcher, user menu, and an
  * optional built-in theme toggle (renders @fusorb/facet-components'
  * ThemeToggle; requires a ThemeProvider ancestor).
+ *
+ * Composable slots:
+ *  - brand          — persistent brand node (logo + label), left side
+ *  - nav            — nav links / custom navigation content, center-left
+ *                     (narrowly added for landing-style topbars that have no
+ *                     sidebar; console apps use Sidebar instead)
+ *  - children       — right-side actions (notifications, search, CTA buttons)
+ *  - renderTenantSwitcher / renderUserMenu — render-prop overrides
+ *
+ * For non-console layouts (e.g. landing pages), pass `showSidebarToggle={false}`
+ * and suppress the tenant/user-menu via `renderTenantSwitcher={() => null}`
+ * / `renderUserMenu={() => null}`.
  */
 
 import * as React from "react";
@@ -31,6 +43,18 @@ export interface TopbarProps {
   mobileBrand?: React.ReactNode;
   /** Persistent brand node (logo + label) rendered on the left of the topbar. */
   brand?: React.ReactNode;
+  /**
+   * Nav links / custom navigation content rendered in the left group,
+   * between brand and sidebar toggles. Narrowly added for landing-style
+   * topbars that have no sidebar — console apps use Sidebar instead.
+   */
+  nav?: React.ReactNode;
+  /**
+   * Hide the sidebar hamburger (mobile) and rail collapse toggle (desktop).
+   * Set to false for non-console layouts (e.g. landing pages) that have no
+   * sidebar to toggle. Default: true.
+   */
+  showSidebarToggle?: boolean;
   /**
    * Customize the tenant switcher. Receives the resolved props; falls back to
    * the built-in TenantSwitcher when absent (backward-compatible).
@@ -91,6 +115,8 @@ export function Topbar({
   mode = "full",
   mobileBrand,
   brand,
+  nav,
+  showSidebarToggle = true,
   renderTenantSwitcher,
   renderUserMenu,
 }: TopbarProps) {
@@ -105,65 +131,75 @@ export function Topbar({
 
   const handleTenantSwitch = onTenantSwitch ?? (() => {});
 
+  const showTenantSwitcher = tenants.length > 0 || renderTenantSwitcher;
+  const showUserMenu =
+    !!renderUserMenu || !!onSignOut || !!settingsPath;
+
   return (
     <header className="sticky top-0 z-60 flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
       <div className="flex items-center gap-3">
         {brand}
+
+        {/* Nav links / custom nav content (center-left) */}
+        {nav && <div className="hidden lg:block">{nav}</div>}
+
         {/* Mobile: brand logo morphs into a window on hover. Mouse hover
             previews the sidebar; click pins it open. Hover-leave closes
             it (after a short delay) unless pinned. */}
-        <button
-          type="button"
-          onClick={toggleSidebar}
-          onMouseEnter={hoverEnterSidebar}
-          onMouseLeave={hoverLeaveSidebar}
-          data-mobile-trigger
-          className="group relative z-40 rounded-md p-1 text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground lg:hidden"
-          aria-label="Toggle sidebar"
-          aria-expanded={sidebarOpen}
-        >
-          <span className="relative block">
-            {/* Logo (or default hamburger) — fades out on hover to
-                reveal the window icon below */}
-            <span className="inline-block transition-opacity duration-150 group-hover:opacity-0">
-              {mobileBrand ?? (
-                /* Default hamburger */
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
-              )}
+        {showSidebarToggle && (
+          <button
+            type="button"
+            onClick={toggleSidebar}
+            onMouseEnter={hoverEnterSidebar}
+            onMouseLeave={hoverLeaveSidebar}
+            data-mobile-trigger
+            className="group relative z-40 rounded-md p-1 text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground lg:hidden"
+            aria-label="Toggle sidebar"
+            aria-expanded={sidebarOpen}
+          >
+            <span className="relative block">
+              {/* Logo (or default hamburger) — fades out on hover to
+                  reveal the window icon below */}
+              <span className="inline-block transition-opacity duration-150 group-hover:opacity-0">
+                {mobileBrand ?? (
+                  /* Default hamburger */
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                  </svg>
+                )}
+              </span>
+              {/* Window icon revealed on hover (morph target for logo or hamburger) */}
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="absolute inset-0 opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+              >
+                <rect x="3" y="4" width="18" height="16" rx="2" />
+                <line x1="9" y1="5" x2="9" y2="19" />
+              </svg>
             </span>
-            {/* Window icon revealed on hover (morph target for logo or hamburger) */}
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="absolute inset-0 opacity-0 transition-opacity duration-150 group-hover:opacity-100"
-            >
-              <rect x="3" y="4" width="18" height="16" rx="2" />
-              <line x1="9" y1="5" x2="9" y2="19" />
-            </svg>
-          </span>
-        </button>
+          </button>
+        )}
 
         {/* Rail-mode collapse toggle (desktop) */}
-        {mode === "rail" && (
+        {showSidebarToggle && mode === "rail" && (
           <button
             onClick={toggleSidebarCollapsed}
             className="hidden rounded-md p-1 text-foreground/60 hover:bg-foreground/5 lg:inline-flex"
@@ -191,32 +227,34 @@ export function Topbar({
           </button>
         )}
 
-        {renderTenantSwitcher
-          ? renderTenantSwitcher({
-              tenants,
-              activeTenant,
-              onSwitch: handleTenantSwitch,
-            })
-          : (
-            <DefaultTenantSwitcher
-              tenants={tenants}
-              activeTenant={activeTenant}
-              onSwitch={handleTenantSwitch}
-            />
-          )}
+        {showTenantSwitcher &&
+          (renderTenantSwitcher
+            ? renderTenantSwitcher({
+                tenants,
+                activeTenant,
+                onSwitch: handleTenantSwitch,
+              })
+            : (
+              <DefaultTenantSwitcher
+                tenants={tenants}
+                activeTenant={activeTenant}
+                onSwitch={handleTenantSwitch}
+              />
+            ))}
       </div>
 
       <div className="flex items-center gap-3">
         {themeToggle && <ThemeToggle />}
         {children}
-        {renderUserMenu
-          ? renderUserMenu({ settingsPath, onSignOut })
-          : (
-            <DefaultUserMenu
-              settingsPath={settingsPath}
-              onSignOut={onSignOut}
-            />
-          )}
+        {showUserMenu &&
+          (renderUserMenu
+            ? renderUserMenu({ settingsPath, onSignOut })
+            : (
+              <DefaultUserMenu
+                settingsPath={settingsPath}
+                onSignOut={onSignOut}
+              />
+            ))}
       </div>
     </header>
   );

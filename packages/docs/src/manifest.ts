@@ -142,6 +142,12 @@ export const docsManifest: DocsManifestEntry[] = [
     "category": "general"
   },
   {
+    "name": "Changeset",
+    "slug": "changeset",
+    "description": "Changeset: a date-grouped content timeline that renders commit dates as",
+    "category": "general"
+  },
+  {
     "name": "Chart",
     "slug": "chart",
     "description": "@fusorb/facet-components: Chart",

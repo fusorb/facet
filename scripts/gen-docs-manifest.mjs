@@ -145,10 +145,12 @@ const CATEGORY = {
   "stat-card": "ready-to-use",
   "activity-feed": "ready-to-use",
   // Ready-to-use: project & tracking
-  "kanban-board": "ready-to-use",
-  "changelog-list": "ready-to-use",
-  // Headless-first primitives
-  stepper: "ready-to-use",
+   "kanban-board": "ready-to-use",
+   "changelog-list": "ready-to-use",
+   // Date-grouped content timeline (general-purpose, like changelog-with-date)
+   changeset: "general",
+   // Headless-first primitives
+   stepper: "ready-to-use",
 };
 
 /** Slugs excluded from the docs manifest entirely (documented elsewhere). */
