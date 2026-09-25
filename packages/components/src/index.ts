@@ -557,10 +557,17 @@ export {
 } from "./ui/roadmap.js";
 
 export {
-  type ChangesetEntry,
-  type ChangesetProps,
-  Changeset,
-} from "./ui/changeset.js";
+  type ReleaseCategory,
+  type ReleaseStatus,
+  type ChangelogItem,
+  type ChangelogCardProps,
+  ChangelogCard,
+} from "./ui/changelog-card.js";
+export {
+  type ChangeCategory,
+  type ChangelogFeedProps,
+  ChangelogFeed,
+} from "./ui/changelog-feed.js";
 
 export {
   Form,

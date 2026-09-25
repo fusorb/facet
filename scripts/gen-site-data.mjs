@@ -10,6 +10,8 @@
 //   - SDK count:        exported *Sdk classes in packages/sdk/src/index.ts
 //   - Layout shells:    *-layout.tsx files in packages/layout/src
 //   - Auth presets:     exported *Preset consts in packages/auth/src/presets.ts
+//   - Color space:      oklch()/oklab() usage in packages/tokens/src/*.css
+//   - Domain presets:   auth preset count (canonical source of the domain presets)
 //
 // Writes: apps/landing/src/data/site-data.generated.ts
 // The emitted file is auto-generated: never hand-edit it.
@@ -116,6 +118,26 @@ function countAuthPresets() {
   return (src.match(/export const \w+Preset: AuthConfig/g) ?? []).length;
 }
 
+/**
+ * Detect the design color space actually used by the token system.
+ * Scans the tokens CSS for modern color functions so the landing never
+ * hardcodes "OKLCH" — if the tokens migrate to another space, the stat
+ * follows automatically.
+ */
+function detectColorSpace() {
+  const cssFiles = [
+    path.join(root, "packages/tokens/src/tokens.css"),
+    path.join(root, "packages/tokens/src/tailwind.css"),
+  ];
+  for (const file of cssFiles) {
+    if (!fs.existsSync(file)) continue;
+    const src = fs.readFileSync(file, "utf-8");
+    if (/\boklch\s*\(/.test(src)) return "OKLCH";
+    if (/\boklab\s*\(/.test(src)) return "OKLAB";
+  }
+  return "sRGB";
+}
+
 // Count available icons from the icon-map registry.
 function countIcons() {
   const mapPath = path.join(root, "packages/components/src/icon/icon-map.ts");
@@ -125,6 +147,8 @@ function countIcons() {
 
 const componentCount = countComponents();
 const iconCount = countIcons();
+const colorSpace = detectColorSpace();
+const domainPresetCount = countAuthPresets();
 
 const discoveredPackages = discoverPackages();
 
@@ -182,6 +206,12 @@ export const COMPONENT_COUNT: number = ${componentCount};
 /** Number of registered icons (auto-detected from icon-map.ts). */
 export const ICON_COUNT: number = ${iconCount};
 
+/** Color space the token system is authored in (auto-detected from tokens CSS). */
+export const COLOR_SPACE: string = ${JSON.stringify(colorSpace)};
+
+/** Number of domain presets (auto-detected from @fusorb/facet-auth presets). */
+export const DOMAIN_PRESET_COUNT: number = ${domainPresetCount};
+
 // Root workspace version, resolved from the repo package.json at generation
 // time.  Consumers: HeroSection version badge, changelog, etc.
 export const SITE_VERSION: string = ${JSON.stringify(siteVersion)};
@@ -193,4 +223,5 @@ for (const pkg of packages) {
   console.log(`  ${pkg.name}@${pkg.version} — ${pkg.desc}`);
 }
 console.log(`Stats: ${stats.map((s) => `${s.value} ${s.label}`).join(" | ")}`);
+console.log(`Color space: ${colorSpace} | Domain presets: ${domainPresetCount}`);
 console.log(`Wrote site-data to ${path.relative(root, outFile)}`);

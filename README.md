@@ -14,7 +14,7 @@ design manual (Alpha Palette), and your auth requirements differ per sector
 | `@fusorb/facet-sdk`        | SovGrant API client (pure fetch, typed, 10 domain SDKs)                                                                                                                                    | ✅ 1.2.0  |
 | `@fusorb/facet-motion`     | Declarative animation system: core (animate/sequence/stagger), CSS + React Native drivers, 15 generative families + 18 authored effects, <Motion>/<Presence>/<Reveal>/<Stagger>            | ✅ 0.1.0  |
 | `@fusorb/facet-native`     | React Native bridge for @fusorb/facet-motion (motionValues, native-driver stubs)                                                                                                           | ⚠ 0.1.0   |
-| `@fusorb/facet-components` | 114 styled UI components (Radix + tailwind-merge + variants) + motion grammar (animate-facet-*)                                                                                            | ✅ 1.11.0 |
+| `@fusorb/facet-components` | 118 styled UI components (Radix + tailwind-merge + variants) + motion grammar (animate-facet-*)                                                                                            | ✅ 1.11.0 |
 | `@fusorb/facet-auth`       | Auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms                                                                                                                  | ✅ 1.2.3  |
 | `@fusorb/facet-layout`     | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets                                                                                        | ✅ 1.4.2  |
 | `@fusorb/facet-store`      | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native                                                                 | ✅ 1.0.0  |
@@ -36,7 +36,7 @@ Run locally:
 The docs site (`apps/docs`) is a thin consumer of the installable
 `@fusorb/facet-docs` engine, the same package any project can mount with its
 own brand, nav, and pages. Guides cover getting started, auth, layout, themes,
-tokens, and the docs package itself; the component gallery shows all 114 components with live demos and usage tabs.
+tokens, and the docs package itself; the component gallery shows all 118 components with live demos and usage tabs.
 
 ```sh
 pnpm dev:docs-site  # run the docs site locally (Vite, port 5173)

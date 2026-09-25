@@ -147,8 +147,8 @@ const CATEGORY = {
   // Ready-to-use: project & tracking
    "kanban-board": "ready-to-use",
    "changelog-list": "ready-to-use",
-   // Date-grouped content timeline (general-purpose, like changelog-with-date)
-   changeset: "general",
+   "changelog-card": "ready-to-use",
+   "changelog-feed": "ready-to-use",
    // Headless-first primitives
    stepper: "ready-to-use",
 };

@@ -16,7 +16,7 @@ export interface SitePackage {
 export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-components",
-    "desc": "Radix-based UI component library: 114 accessible, styled components using the Alpha Palette design tokens",
+    "desc": "Radix-based UI component library: 118 accessible, styled components using the Alpha Palette design tokens",
     "version": "1.11.0",
     "icon": "boxes"
   },
@@ -101,7 +101,7 @@ export interface SiteStat {
 
 export const SITE_STATS: SiteStat[] = [
   {
-    "value": "117",
+    "value": "118",
     "label": "components"
   },
   {
@@ -126,10 +126,16 @@ export const SITE_STATS: SiteStat[] = [
 export const SITE_PACKAGES_COUNT: number = 13;
 
 /** Number of component files in packages/components (auto-detected). */
-export const COMPONENT_COUNT: number = 117;
+export const COMPONENT_COUNT: number = 118;
 
 /** Number of registered icons (auto-detected from icon-map.ts). */
 export const ICON_COUNT: number = 1190;
+
+/** Color space the token system is authored in (auto-detected from tokens CSS). */
+export const COLOR_SPACE: string = "OKLCH";
+
+/** Number of domain presets (auto-detected from @fusorb/facet-auth presets). */
+export const DOMAIN_PRESET_COUNT: number = 5;
 
 // Root workspace version, resolved from the repo package.json at generation
 // time.  Consumers: HeroSection version badge, changelog, etc.

@@ -5,7 +5,7 @@ import {
   PACKAGES,
   SYSTEM_LAYERS,
 } from "../../data/scratchpad.js";
-import { SITE_STATS } from "../../data/site-data.generated.js";
+import { COLOR_SPACE, DOMAIN_PRESET_COUNT, SITE_STATS } from "../../data/site-data.generated.js";
 
 const ARCHITECTURE_STATS = [
   { value: String(PACKAGES.length), label: "Packages" },
@@ -15,8 +15,8 @@ const ARCHITECTURE_STATS = [
       "+",
     label: "Components",
   },
-  { value: "OKLCH", label: "Color space" },
-  { value: "5", label: "Domain presets" },
+  { value: COLOR_SPACE, label: "Color space" },
+  { value: String(DOMAIN_PRESET_COUNT), label: "Domain presets" },
 ];
 
 /** Capitalize the customization-axis key ("appearance" -> "A"). */

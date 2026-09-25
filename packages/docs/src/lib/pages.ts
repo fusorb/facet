@@ -114,19 +114,6 @@ export type DocsBlock =
       layout?: "list" | "date";
     }
   | {
-      /**
-       * Date-grouped content timeline. Dates render as h3 headings on the
-       * left (picked up by the docs TableOfContents); sub-blocks render as
-       * plain text on the right — no card chrome.
-       */
-      type: "changeset";
-      entries: Array<{
-        date: string;
-        id?: string;
-        blocks: DocsBlock[];
-      }>;
-    }
-  | {
       /** Centralised live playground: component selector + editable usage code with a live preview. */
       type: "playground";
       /** Manifest slug to pre-select. Defaults to "button". */

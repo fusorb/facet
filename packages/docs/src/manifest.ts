@@ -130,6 +130,18 @@ export const docsManifest: DocsManifestEntry[] = [
     "category": "data-display"
   },
   {
+    "name": "Changelog Card",
+    "slug": "changelog-card",
+    "description": "ChangelogCard: a developer-console release card rendered from a single",
+    "category": "ready-to-use"
+  },
+  {
+    "name": "Changelog Feed",
+    "slug": "changelog-feed",
+    "description": "ChangelogFeed: a vertical release timeline that renders ChangelogItems as",
+    "category": "ready-to-use"
+  },
+  {
     "name": "Changelog List",
     "slug": "changelog-list",
     "description": "@fusorb/facet-components: ChangelogList",
@@ -139,12 +151,6 @@ export const docsManifest: DocsManifestEntry[] = [
     "name": "Changelog With Date",
     "slug": "changelog-with-date",
     "description": "@fusorb/facet-components: ChangelogWithDate",
-    "category": "general"
-  },
-  {
-    "name": "Changeset",
-    "slug": "changeset",
-    "description": "Changeset: a date-grouped content timeline that renders commit dates as",
     "category": "general"
   },
   {
