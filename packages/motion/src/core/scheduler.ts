@@ -25,12 +25,15 @@ export const defaultScheduler: Scheduler = (
   let stopped = false;
 
   if (typeof requestAnimationFrame === "function") {
-    let last = 0;
+    let last: number | null = null;
 
     const tick = (now: number) => {
       if (stopped) return;
-      // On the first frame, treat the start as t=0 so delta = now.
-      const delta = last === 0 ? now : now - last;
+      // On the first frame, delta is 0 — no time has elapsed since the
+      // animation started. Using the absolute rAF timestamp here would
+      // inflate `elapsed` by thousands of ms, causing spring generators
+      // to jump straight to their settled value (visible "snapping").
+      const delta = last === null ? 0 : now - last;
       last = now;
       callback(delta);
       requestAnimationFrame(tick);
