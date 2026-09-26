@@ -87,8 +87,8 @@ jobs:
   # versions beyond npm, it runs `pnpm changeset publish`.
   #
   # npm auth: changesets/action v2 no longer reads NPM_TOKEN. Auth is wired by
-  # `actions/setup-node` (registry-url + auth-token), which writes the token
-  # into the temp .npmrc as ${NODE_AUTH_TOKEN}; pnpm resolves it from the
+  # `actions/setup-node` (registry-url), which writes the token reference into
+  # the temp .npmrc as ${NODE_AUTH_TOKEN}; pnpm resolves it from the
   # NODE_AUTH_TOKEN env var below. `id-token: write` is granted so the publish
   # can move to npm Trusted Publishing (OIDC) without a workflow change once
   # the package is configured for it.
@@ -100,6 +100,8 @@ jobs:
     permissions:
       contents: write
       id-token: write
+      pull-requests: write
+      issues: write
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
@@ -112,7 +114,6 @@ jobs:
           node-version: 22
           cache: pnpm
           registry-url: 'https://registry.npmjs.org'
-          auth-token: ${{ secrets.NPM_TOKEN }}
       - run: pnpm install --frozen-lockfile
       # Rebuild fresh dist so we never publish a stale build.
       - run: pnpm -r build
