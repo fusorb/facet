@@ -1,5 +1,277 @@
 # @fusorb/facet-components
 
+## 2.0.0
+
+### Major Changes
+
+- 4ecefd6: Replace the single-purpose `Changeset` docs block with a full ChangelogCard /
+  ChangelogFeed component pair for release timelines.
+
+  **Breaking:** `Changeset` is removed. Use `ChangelogCard` (single release card
+  with category/status badges, highlights, inline diff toggle) and
+  `ChangelogFeed` (filterable vertical timeline with staggered entrances) instead.
+
+  - Added `ChangelogCard` + 6 compound sub-components (Header, Title, Description,
+    Highlights, DiffToggle, DiffViewer) — all token-driven (no hardcoded colors).
+  - Added `ChangelogFeed` + FilterBar + Timeline + TimelineItem — search + category
+    filter, stagger via `@fusorb/facet-motion`.
+  - Exported `ChangelogItem`, `ReleaseCategory`, `ReleaseStatus`, `ChangeCategory`
+    types alongside the components.
+  - Bumped component count 117 → 118 in CLAUDE.md, README, package.json, and
+    generated site data.
+
+### Minor Changes
+
+- 046ca4f: Chart: fix 3 failing tests (handlePointerMove no longer bails on zero-width SVG rects in jsdom; ResizeObserver scaleRef formula corrected to width/rect.width).
+
+  Chart: add visible axis spine lines (solid y-axis + x-axis) so axes are properly framed instead of floating with only dashed gridlines. Increased left padding from 48 to 56px for better y-axis label clearance.
+
+  Chart: add `maxHeight` prop - when set, the chart container becomes vertically scrollable so charts with many categories (especially horizontal bar layouts) can be fully viewed without crowding.
+
+  Chart: add `rowHeight` prop (default 36px) - horizontal bar charts now auto-grow their height to `n * rowHeight + padding` so each category row gets adequate vertical space, and bars distribute across the plot height (not width) via a new `catY` positioning function.
+
+  Docs: add chart component variant gallery (Line, Bar, Area, Pie, Donut, Composed, Horizontal, Stacked, Smooth, Step) to the variant gallery and usage snippets.
+
+  Chart: pie slices no longer scale(1.03) on hover from the label position (which caused an inconsistent pop) - hover now dims via opacity only, matching donut behavior.
+
+  Chart: new `crosshairPoints` prop (default false) - the colored point markers that chased the crosshair cursor are now opt-in, so the crosshair line is the only element that follows the mouse by default.
+
+- d6a688a: Chart v2 polish - crosshair fix, animations, and range selector:
+
+  - **Crosshair**: The guide line + intersection dot snap to the nearest data point
+    when `crosshairSnap` is on; the dot is hidden there (the active marker already
+    marks the position, so rendering both would look duplicated). When off (the
+    default for bar/histogram), the line and dot track the raw cursor and
+    `interpolateAtX` pins the dot's value to a bar as it passes - bar/histogram
+    crosshairs follow the cursor smoothly. The old fixed 8px snap window (which made
+    bars jitter between snapping and floating) is removed.
+
+  - **Crosshair dot centering**: The active data-point dot's hover `scale(1.15)`
+    is now anchored to the dot's centre with `transformOrigin` (matching the
+    pie/donut slices). Without it, SVG's default origin-`0` scaling shifted the
+    active dot off the band centre, re-creating the drift the snap fix was meant
+    to eliminate (the dot floated right/down away from the snapped guide line).
+
+  - **View animations**: Replaced all slide-from-top entry animations
+    (`translateY` / `slide-in-from-top-*`) with pure fade or fade+zoom in
+    Tooltip, Popover, DropdownMenu, Select, Dialog, AlertDialog, NavigationMenu,
+    Sheet, Chart (facet-chart-fadeIn keyframe), MicroInteractions,
+    RevealCard, and the `facet-fade-up` / `facet-dissolve` Tailwind keyframes.
+
+  - **ChartRangeSelector**: Now positional (`position` prop: top-left/top-right/
+    bottom-left/bottom-right/top/bottom), customizable (`size` prop: compact/
+    normal/wide), minimizable (collapsible with a toggle button, controlled or
+    uncontrolled), and opt-in via the new `rangeSelector` prop on `Chart`.
+
+- 703aea1: Chart crosshair + dynamic axis range:
+
+  - Crosshair intersection dot border now inherits the chart background color instead of the foreground, so it renders as the background (black in dark mode, light in light mode) - matching the crosshair point dots and keeping the snapped intersection visually grounded.
+  - New `tickCount` prop (default `4`) controls how many ticks are drawn on the value axis (`niceTicks` previously hardwired 4).
+  - New optional `yMin` / `yMax` props override the auto-computed value-axis range. The range still falls back to the data-derived min/max (clamped to include 0 for bar correctness) when omitted, so existing charts are unchanged.
+
+- 70b7054: Chart crosshair + animation customization:
+
+  - Crosshair now snaps to the nearest data point by default (was "dynamic - follows cursor"), fixing the visual misalignment where the crosshair dot floated away from the data-point dots that grow on hover. Added `crosshairSnap` prop (default `true`); set `crosshairSnap={false}` to revert to cursor-following behavior.
+  - `transitionDuration` (default 150ms) and `animationDuration` (default 500ms) props are now wired to all CSS transitions and animations - previously declared but ignored (hardcoded 0.3s fade-in, 0.15s hover transitions, 0.05s crosshair-point tracking).
+  - Horizontal bar charts now swap crosshair axes: the guide line tracks Y (category axis) and the dot tracks X (value axis), so crosshair snap and cursor-follow both work correctly in `layout="horizontal"` bar charts (previously the crosshair only worked for vertical layouts).
+
+- 63fb165: Chart: add pie/donut/composed chart types, per-series type override, smooth & step curves, crosshair cursor, floating tooltip, stacked mode, animation, legend toggle, horizontal bars, bar grouping, and histogram support.
+
+  DataTable: add `loading` (skeleton), `density` (compact/comfortable), `emptyState` (custom empty), and `total` props.
+
+  DataTablePage: removed - features merged into DataTable.
+
+- 046ca4f: Chart polish + ThemeToggle icon sizing:
+
+  - Chart `width` prop - make the viewBox width customizable (default 800) so text stays readable in narrower containers
+  - `axisFontSize` (default 11) and `pieLabelFontSize` (default 12) props - all font sizes are now customizable with sensible defaults, fixing the "too tiny" pie labels in constrained cards
+  - Pie + Donut: leader lines connect each slice to its label, labels spaced 24px from the arc (was 16), text anchored based on slice angle for readability, two-line default label (bold category + muted percentage), and `renderSliceLabel` prop for fully custom label content (supports bold+sublabel, icons, etc.)
+  - Pie + Donut hover focus tightened - the hovered slice stays at full opacity, non-hovered slices dim to 0.4, and `onMouseLeave` clears the hover state
+  - Cartesian bar opacity made consistent with pie/donut - full opacity by default, dim to 0.85 for non-hovered bars on hover
+  - ThemeToggle icon sized to 16px (`size={16}`) to match Navbar's other icon buttons (sun/moon icons were defaulting to 24px and overflowing the 16px container)
+  - Crosshair tracking circles now carry `data-crosshair-point="true"` (targeting + styling hook)
+  - Docs changelog surface list cleaned up - removed stale `DataTablePage` and `BorderBeamCard` (both ejected/removed), updated count to 19
+
+- 56b99e7: KanbanCard gains a full action menu (Edit, Duplicate, Export,
+  Delete) bound to the board API - zero-config or fully customizable
+  via the `actions` prop. Includes an inline edit dialog and JSON
+  export.
+
+  Chart: hover tracking fixed - tooltip and dot highlight now follow
+  the actually-hovered series instead of always series 0.
+
+  BorderBeamCard: hover brightness boost + will-change for smoother
+  animation on large screens.
+
+  Navbar: hover-dropdown blink fixed - Radix's internal auto-close no
+  longer fires during hover transitions; click-to-toggle and Escape
+  support added.
+
+  ConsoleLayout: mobile sidebar z-index raised to z-[80] - above all
+  portaled overlays (dialog/drawer/sheet/alert-dialog at z-[70]) so
+  component previews never cover the sidebar on small screens.
+
+  Topbar z-index raised to z-60 - above body content so floating elements
+  never render over the top navigation bar on mobile.
+
+  Navbar z-index raised to z-60 - above body content so the sticky nav bar
+  never gets buried under page scroll. Navbar + UserAvatar DropdownMenuContent
+  raised to z-70 - above the z-60 navbar/topbar bars so hover and user-menu
+  dropdowns aren't clipped behind their own trigger bar.
+
+  AlertDialog z-index raised from z-50 to z-[70] - consistent with
+  Dialog/Drawer/Sheet overlays so confirm modals (e.g. KanbanCard delete)
+  always render above the sticky header.
+
+  KanbanBoard: Delete action now uses an AlertDialog modal instead of
+  window.confirm().
+
+  Docs: LiveCodePlayground exported and integrated into component pages
+  as the second preview box - default-usage code is now an editable
+  live-rendered sandbox (second preview box pattern).
+
+  Export `facetChangelog` release log from the package barrel.
+
+  (The 21 new surfaces + auth/docs wiring are tracked in the separate
+  `ready-to-use-components-1.12` and `stepper-kanban-changelog` changesets;
+  this changeset covers only the polish layer above.)
+
+- 9905bd9: ## motion: asChild mode + dropdown render fix
+
+  Fixed a render issue where dropdowns triggered on hover/click (Navbar, UserMenu)
+  appeared behind other content or mispositioned. Root cause: `<Motion>` rendered a
+  plain `<div>` wrapper around Radix popover `Content`, whose inline `transform`/
+  `opacity` styles created a stacking context and distorted Radix positioning.
+
+  ### facet-motion
+  - Added `asChild` prop to `<Motion>`: when set, Motion clones its single child
+    element and applies animation styles + a merged ref directly on it — **no
+    wrapper `<div>`**. The rendered element becomes the animated node, preserving
+    Radix Portal positioning, focus scope, and z-index stacking.
+  - Added `setRef` + `useMergeRefs` helpers for stable ref merging.
+
+  ### facet-components
+  - Migrated all 10 Radix popover `Content` components from CSS
+    `data-[state=open]:animate-facet-zoom-in` to `<Motion asChild
+effect="zoom" direction="up">`:
+    - dropdown-menu (Content + SubContent), tooltip, popover, hover-card,
+      context-menu (Content + SubContent), menubar (Content + SubContent),
+      navigation-menu (Viewport), select, dialog, sheet, alert-dialog
+  - Removed enter animation CSS classes from all Contents (Motion JS spring handles enter).
+  - Preserved `data-[state=closed]:animate-facet-zoom-out` exit classes on all Contents.
+  - Left overlays (Dialog/Sheet/AlertDialog) and NavigationMenuIndicator as CSS-only.
+
+- 63fb165: Add `Pill` component - a theme-adaptable, fully-rounded pill with a leading dot, icon, or custom indicator. Renders as a span by default, a button when `selected` or `onClick` is provided, or an anchor with `href`. Supports `color` (primary, secondary, success, warning, destructive), `variant` (default, outline, filled, ghost, subtle), `radius`, `size`, `removable`/`onRemove`, and `indicator` props.
+
+  Also exports `PillGroup` (tablist container) and `PillTrigger` (tab trigger with keyboard navigation) for toggle interfaces. All three are typed, SSR-safe, and dogfooded on the landing site's section headers.
+
+  Docs engine wired with usage snippets, variant gallery, and live preview for Pill. Landing app: ad-hoc inline pills consolidated onto `<Pill>`, off-grid spacing (`px-1.5`/`py-0.5`, `mt-0.5`, `gap-1.5`, `space-y-1.5`, `px-2.5`) normalized to the 4pt/8pt grid, component counts synced to 114 across all surfaces.
+
+- 5dcbb02: Add 21 ready-to-use components that developers repeatedly rebuild:
+
+  - `WizardFormPage` - react-hook-form + zod + Stepper orchestration
+  - `DateRangePicker` - single-date and range modes with quick presets
+  - `Chart` - dependency-free line / bar / area chart in pure SVG
+  - `EmptyStatePage` - full-page empty state with CTA + illustration slot
+  - `QrScanner` - browser getUserMedia QR / barcode scanner
+  - `ConsentCapture` - scroll-to-accept legal consent + signature pad
+  - `DataTablePage` - header, filter bar, density toggle, pagination wrapper
+  - `PricingComparison` - mobile-friendly tier cards + feature matrix
+  - `Tree` - collapsible nested list with selection and keyboard nav
+  - `MultiCombobox` - multi-select chips with search and keyboard nav
+  - `TagInput` - free-form tag/chip input with separators + paste
+  - `RangeSlider` - two-thumb range slider with active-track highlight
+  - `RatingInput` - 5-star / N-item rating with half-star and keyboard
+  - `CookieBanner` - top-bar cookie notice with accept / reject / manage
+  - `OtpInput` - standalone OTP input with auto-advance and paste
+  - `RichTextEditor` - lightweight contenteditable + toolbar
+  - `PhoneInput` - country-code dropdown + E.164 formatting
+  - `MentionInput` - @mention autocomplete with paste handling
+  - `ShineBorderCard` - card with animated border shine
+  - `GlowBorderCard` - card with pulsing border glow
+
+  Also includes `PasswordStrengthMeter` wiring in `@fusorb/facet-auth`
+  (`SignUp` + `ResetPasswordForm`, opt-out via `showPasswordStrength` prop),
+  a `changelog` block type in `@fusorb/facet-docs`, and `facet docs init`
+  now scaffolds a populated `/changelog` page.
+
+- 5dcbb02: # Ready-to-use pages: Stepper, KanbanBoard, ChangelogList
+
+  Three new ready-to-use surfaces in `@fusorb/facet-components`:
+
+  - **`Stepper`** - headless-first wizard primitive (`useStepper` hook +
+    `Stepper` / `StepperNav` / `StepperPanel` / `StepperFooter` renderers).
+    Per-step `validate` gating, controlled + uncontrolled modes, loop
+    support, onStepChange callback. The headless split is intentional: the
+    hook owns the state so the rendering layer can be re-implemented for
+    React Native later without redesigning the logic. Closes the Phase 1
+    roadmap item: "Generic <Stepper> with per-step validation gating".
+
+  - **`KanbanBoard`** - drop-in kanban with native HTML5 drag-and-drop,
+    `useKanban` hook (controlled + uncontrolled), per-column WIP limits,
+    add/remove cards, add/remove columns. Every project tracker is a
+    kanban; consumers shouldn't wire 200 lines of DnD + state.
+
+  - **`ChangelogList`** - vertical release-log timeline with version, date,
+    kind-grouped bullets (added / changed / fixed / deprecated / removed /
+    security), optional filter row, optional pre-release tag. Every docs
+    site needs one; nobody should hand-style it again.
+
+  ## Wired into the auth package
+  - `<SignUp>` now renders the live `PasswordStrengthMeter` under the
+    password field by default. Opt out with `showPasswordStrength={false}`.
+  - `<ResetPasswordForm>` got the same treatment (`showPasswordStrength`).
+  - Existing tests + types stay backward-compatible.
+
+  ## Wired into the docs engine
+  - New `changelog` block type for `<DocsApp>` content pages. Pass
+    `{ type: "changelog", releases: [...] }` and the engine renders the
+    same `ChangelogList` from facet-components.
+  - `facet docs init` (product-docs template) now scaffolds a populated
+    `/changelog` page so consumers ship with a working release log on day
+    one.
+
+  ## Landing site
+  - New home section: `ChangelogSection` shows the live facet release log
+    via the same `ChangelogList` component, with the filter row.
+  - Ecosystem page now lists every published package (Components, Auth,
+    Layout, Tokens added alongside Docs, CLI, Emails, SDK, Store, and the
+    Stack-Agnosticism concept entry).
+  - Three new dedicated pages that demo ready-to-use surfaces end-to-end:
+    `/pricing` (BillingPage + BillingPageTable + BillingPageFreemium),
+    `/security` (AccountSettingsPanel + SecuritySectionCard + ApiKeyManager
+    - TwoFactorSetupPanel + PasswordStrengthMeter), `/dashboard-demo`
+      (PageHeader + StatCard + ActivityFeed + BorderBeamCard + SpotlightCard).
+
+### Patch Changes
+
+- db287b3: De-brand and production hardening:
+
+  - tokens: brand color changed from indigo to Electric Cyan; new facet animation
+    keyframes (overlay-in/out, fade-up, chart-fadeIn/draw); new CSS variables
+    (elevation, hero-glow); dist CSS minified via esbuild (zero API change,
+    smaller consumer payloads)
+  - components: changelog-list pre-release badge uses the semantic `warning` token instead of hardcoded amber classes
+  - sdk: docs and test fixtures neutralized (`auth.arcevo.dev` → `auth.example.dev`)
+  - emails: default brand color is now a neutral slate instead of indigo
+  - cli: emails generator default matches the new neutral emails default
+  - auth: package metadata neutralized (description, keywords, homepage removed "ArcevoCirqle")
+  - layout: package metadata neutralized (description, keywords, homepage)
+  - store: package keywords updated (`arc-id` → `SovGrant`); homepage neutralized
+
+- 6591426: Removed all focus-ring (blue border) styles from components, combobox, and ready-to-use components. Removed `focus:ring-*`, `focus-visible:ring-*`, `focus-within:ring-*`, `hover:ring-*`, and `focus:border-primary` Tailwind classes across 48 component/app/layout/doc files. Removed the global `:focus-visible` outline rule from `tokens.css` and the `.lab :focus-visible` outline rule from `labs.css`. Static ring classes for selected/active/badge states (e.g., pill selected, stepper active, input-otp active slot) are preserved — only focus-triggered ring/border styles were removed. `outline-none` is retained to suppress the browser's default blue outline, so clicking a component shows no border.
+- cf4f516: Removed unused `tw-animate-css` dependency after migration to facet-native `animate-facet-*` animation grammar. No component source or CSS bundle references it anymore.
+- cbb5d1d: StepperPanel animation is now driven by motion tokens (`--facet-motion-duration-base` / `--facet-motion-ease-standard`) instead of a hardcoded `250ms ease-out`. This is the first consumption of the `@fusorb/facet-motion` token system in the existing component library.
+- Updated dependencies [db287b3]
+- Updated dependencies [8891898]
+- Updated dependencies [3fefa64]
+- Updated dependencies [9905bd9]
+- Updated dependencies [f4ca95a]
+- Updated dependencies [3fefa64]
+- Updated dependencies [6591426]
+  - @fusorb/facet-tokens@1.2.0
+  - @fusorb/facet-motion@1.0.0
+
 ## 1.11.0
 
 ### Minor Changes
