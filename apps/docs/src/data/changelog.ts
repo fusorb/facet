@@ -462,52 +462,26 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.1.6, 1.2.2, 1.3.3, 1.4.3, 1.7.0",
+    version: "1.1.2",
     date: "2026-09-26",
     tag: "fix",
-    title: "v1.1.6, 1.2.2, 1.3.3, 1.4.3, 1.7.0",
+    title: "v1.1.2",
     changes: [
       {
         kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0",
-        href: "https://github.com/fusorb/facet/commit/b7accc3",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
-      },
-      {
-        kind: "changed",
-        text: "feat: config-driven billing pages, footer variants, and the new @fusorb/facet-emails package",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6\\n- @fusorb/facet-layout@1.3.3",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
+        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0",
       },
     ],
   },
   {
-    version: "0.1.0, 1.2.1",
+    version: "1.2.1",
     date: "2026-09-23",
     tag: "fix",
-    title: "v0.1.0, 1.2.1",
+    title: "v1.2.1",
     changes: [
       {
         kind: "changed",
         text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0\\n- @fusorb/facet-auth@1.1.2",
-      },
-      {
-        kind: "changed",
-        text: "feat(store): extract SovGrant Zustand auth/tenant stores into @fusorb/facet-store",
-        href: "https://github.com/fusorb/facet/commit/b7accc3",
       },
     ],
   },
@@ -546,19 +520,6 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "initial publish...",
         href: "https://github.com/fusorb/facet/commit/e79cbd5",
-      },
-    ],
-  },
-  {
-    version: "1.4.1",
-    date: "2026-09-17",
-    tag: "fix",
-    title: "v1.4.1",
-    changes: [
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0\\n- @fusorb/facet-auth@1.2.2",
-        href: "https://github.com/fusorb/facet/commit/b7accc3",
       },
     ],
   },
@@ -820,11 +781,16 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.1.4, 1.10.0, 1.4.0, 1.4.6",
+    version: "0.1.0, 1.1.4, 1.10.0, 1.2.2, 1.4.0, 1.4.1, 1.4.6",
     date: "2026-08-17",
     tag: "fix",
-    title: "v1.1.4, 1.10.0, 1.4.0, 1.4.6",
+    title: "v0.1.0, 1.1.4, 1.10.0, 1.2.2, 1.4.0, 1.4.1, 1.4.6",
     changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0",
+        href: "https://github.com/fusorb/facet/commit/b7accc3",
+      },
       {
         kind: "changed",
         text: "Polish pass: SpotlightCard default spotlight now uses color-mix for a visible semi-transparent glow (was a flat var(--primary) that was barely visible); BorderBeamCard beam refined with soft entry/exit ramps for a cleaner sweep; AnimatedButton default animation changed from shine to sparkle (consistent with BillingPageConfig's existing default); tokens CSS hides scrollbars globally across all facet apps (code blocks, tables, tabs, etc.) so interfaces look clean on mobile and medium screens.",
@@ -842,6 +808,16 @@ export const facetChangelog: ChangelogRelease[] = [
       {
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0\\n- @fusorb/facet-tokens@1.1.4\\n- @fusorb/facet-auth@1.2.2\\n- @fusorb/facet-layout@1.4.1",
+        href: "https://github.com/fusorb/facet/commit/b7accc3",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0\\n- @fusorb/facet-auth@1.2.2",
+        href: "https://github.com/fusorb/facet/commit/b7accc3",
+      },
+      {
+        kind: "changed",
+        text: "feat(store): extract SovGrant Zustand auth/tenant stores into @fusorb/facet-store",
         href: "https://github.com/fusorb/facet/commit/b7accc3",
       },
       {
@@ -905,10 +881,10 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.2.0, 1.3.4, 1.4.4, 1.8.0",
+    version: "0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.1.6, 1.2.0, 1.3.3, 1.3.4, 1.4.3, 1.4.4, 1.7.0, 1.8.0",
     date: "2026-08-15",
     tag: "fix",
-    title: "v0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.2.0, 1.3.4, 1.4.4, 1.8.0",
+    title: "v0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.1.6, 1.2.0, 1.3.3, 1.3.4, 1.4.3, 1.4.4, 1.7.0, 1.8.0",
     changes: [
       {
         kind: "changed",
@@ -934,6 +910,11 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.8.0",
         href: "https://github.com/fusorb/facet/commit/78b6543",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
@@ -967,6 +948,11 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
+        text: "feat: config-driven billing pages, footer variants, and the new @fusorb/facet-emails package",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
+      },
+      {
+        kind: "changed",
         text: "Updated dependencies []",
         href: "https://github.com/fusorb/facet/commit/9360e93",
       },
@@ -994,6 +980,11 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.0\\n- @fusorb/facet-components@1.8.0\\n- @fusorb/facet-tokens@1.1.2\\n- @fusorb/facet-layout@1.3.4",
         href: "https://github.com/fusorb/facet/commit/78b6543",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6\\n- @fusorb/facet-layout@1.3.3",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
@@ -1034,6 +1025,11 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.0\\n- @fusorb/facet-components@1.8.0",
         href: "https://github.com/fusorb/facet/commit/78b6543",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
@@ -1106,19 +1102,15 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "0.3.1, 0.4.0, 1.1.2, 1.1.3, 1.3.0, 1.3.1, 1.4.0, 1.5.0",
+    version: "0.3.1, 0.4.0, 1.1.3, 1.3.0, 1.3.1, 1.4.0, 1.5.0",
     date: "2026-08-13",
     tag: "fix",
-    title: "v0.3.1, 0.4.0, 1.1.2, 1.1.3, 1.3.0, 1.3.1, 1.4.0, 1.5.0",
+    title: "v0.3.1, 0.4.0, 1.1.3, 1.3.0, 1.3.1, 1.4.0, 1.5.0",
     changes: [
       {
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0",
         href: "https://github.com/fusorb/facet/commit/3554506",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0",
       },
       {
         kind: "changed",
@@ -1518,7 +1510,7 @@ export const facetChangelog: ChangelogRelease[] = [
   },
 ];
 
-export const CHANGELOG_RELEASE_COUNT = 19;
+export const CHANGELOG_RELEASE_COUNT = 18;
 export const CHANGELOG_CHANGE_COUNT = 297;
 
 // ── Episodic canon (.agent/episodes.md) ──────────
