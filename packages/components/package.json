@@ -1,6 +1,6 @@
 {
   "name": "@fusorb/facet-components",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Radix-based UI component library: 118 accessible, styled components using the Alpha Palette design tokens",
   "type": "module",
   "exports": {

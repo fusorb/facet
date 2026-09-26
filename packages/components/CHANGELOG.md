@@ -1,5 +1,12 @@
 # @fusorb/facet-components
 
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies [e0b3053]
+  - @fusorb/facet-motion@1.0.1
+
 ## 2.0.0
 
 ### Major Changes
