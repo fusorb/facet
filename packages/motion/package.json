@@ -1,6 +1,6 @@
 {
   "name": "@fusorb/facet-motion",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Domain-customizable animation engine: generator-driven core (tween + spring), observable motion values, CSS driver with prefers-reduced-motion, a 15-family generative registry, and thin React bindings. Wired to @fusorb/facet-tokens CSS custom properties.",
   "type": "module",
   "exports": {
