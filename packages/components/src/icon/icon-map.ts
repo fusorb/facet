@@ -1775,1791 +1775,25 @@ import {
 } from "lucide-react";
 
 /** Every icon name lucide ships, in lowercase-kebab form (e.g. "alarm-clock"). */
-export type LucideIconName =
-  | "a-arrow-down"
-  | "a-arrow-up"
-  | "a-large-small"
-  | "accessibility"
-  | "activity"
-  | "ad"
-  | "air-vent"
-  | "airplay"
-  | "alarm-clock-check"
-  | "alarm-clock-minus"
-  | "alarm-clock-off"
-  | "alarm-clock-plus"
-  | "alarm-smoke"
-  | "alarm-clock"
-  | "album"
-  | "align-center-horizontal"
-  | "align-end-horizontal"
-  | "align-end-vertical"
-  | "align-center-vertical"
-  | "align-horizontal-distribute-center"
-  | "align-horizontal-distribute-end"
-  | "align-horizontal-distribute-start"
-  | "align-horizontal-justify-center"
-  | "align-horizontal-justify-end"
-  | "align-horizontal-justify-start"
-  | "align-horizontal-space-around"
-  | "align-horizontal-space-between"
-  | "align-start-horizontal"
-  | "align-start-vertical"
-  | "align-vertical-distribute-center"
-  | "align-vertical-distribute-end"
-  | "align-vertical-distribute-start"
-  | "align-vertical-justify-center"
-  | "align-vertical-justify-start"
-  | "align-vertical-justify-end"
-  | "align-vertical-space-around"
-  | "align-vertical-space-between"
-  | "ambulance"
-  | "ampersand"
-  | "ampersands"
-  | "amphora"
-  | "anchor"
-  | "antenna"
-  | "anvil"
-  | "aperture"
-  | "app-window-mac"
-  | "app-window"
-  | "apple"
-  | "archive-restore"
-  | "archive-x"
-  | "archive"
-  | "armchair"
-  | "arrow-big-down-dash"
-  | "arrow-big-down"
-  | "arrow-big-left-dash"
-  | "arrow-big-left"
-  | "arrow-big-right-dash"
-  | "arrow-big-right"
-  | "arrow-big-up"
-  | "arrow-big-up-dash"
-  | "arrow-down01"
-  | "arrow-down10"
-  | "arrow-down-az"
-  | "arrow-down-left"
-  | "arrow-down-from-line"
-  | "arrow-down-right"
-  | "arrow-down-narrow-wide"
-  | "arrow-down-to-dot"
-  | "arrow-down-to-line"
-  | "arrow-down-up"
-  | "arrow-down-wide-narrow"
-  | "arrow-down-za"
-  | "arrow-down"
-  | "arrow-left-from-line"
-  | "arrow-left-right"
-  | "arrow-left-to-line"
-  | "arrow-left"
-  | "arrow-right-from-line"
-  | "arrow-right-left"
-  | "arrow-right-to-line"
-  | "arrow-right"
-  | "arrow-up10"
-  | "arrow-up-az"
-  | "arrow-up01"
-  | "arrow-up-down"
-  | "arrow-up-from-dot"
-  | "arrow-up-from-line"
-  | "arrow-up-left"
-  | "arrow-up-narrow-wide"
-  | "arrow-up-right"
-  | "arrow-up-to-line"
-  | "arrow-up-za"
-  | "arrow-up-wide-narrow"
-  | "arrow-up"
-  | "arrows-up-from-line"
-  | "asterisk"
-  | "astroid"
-  | "atom"
-  | "at-sign"
-  | "audio-lines-x"
-  | "audio-lines"
-  | "audio-waveform"
-  | "award"
-  | "axe"
-  | "baby"
-  | "axis3d"
-  | "backpack"
-  | "badge-alert"
-  | "badge-cent"
-  | "badge-check"
-  | "badge-dollar-sign"
-  | "badge-euro"
-  | "badge-indian-rupee"
-  | "badge-info"
-  | "badge-japanese-yen"
-  | "badge-minus"
-  | "badge-plus"
-  | "badge-percent"
-  | "badge-pound-sterling"
-  | "badge-question-mark"
-  | "badge-russian-ruble"
-  | "badge-swiss-franc"
-  | "badge-turkish-lira"
-  | "badge-x"
-  | "badge"
-  | "baggage-claim"
-  | "balloon"
-  | "ban"
-  | "banana"
-  | "bandage"
-  | "banknote-arrow-down"
-  | "banknote-arrow-up"
-  | "banknote-check"
-  | "banknote-x"
-  | "banknote"
-  | "barcode"
-  | "baseline"
-  | "barrel"
-  | "bath"
-  | "battery-low"
-  | "battery-full"
-  | "battery-charging"
-  | "battery-medium"
-  | "battery-plus"
-  | "battery-warning"
-  | "beaker"
-  | "battery"
-  | "bean-off"
-  | "bean"
-  | "bed-double"
-  | "bed-single"
-  | "bed"
-  | "beef-off"
-  | "beef"
-  | "beer-off"
-  | "beer"
-  | "bell-dot"
-  | "bell-check"
-  | "bell-electric"
-  | "bell-minus"
-  | "bell-off"
-  | "bell-plus"
-  | "bell-ring"
-  | "bell"
-  | "between-horizontal-start"
-  | "between-horizontal-end"
-  | "between-vertical-end"
-  | "between-vertical-start"
-  | "biceps-flexed"
-  | "bike"
-  | "binary"
-  | "binoculars"
-  | "biohazard"
-  | "bird"
-  | "birdhouse"
-  | "bitcoin"
-  | "blend"
-  | "blender"
-  | "blocks"
-  | "blinds"
-  | "bluetooth-connected"
-  | "bluetooth-off"
-  | "bluetooth-searching"
-  | "bluetooth"
-  | "bold"
-  | "bolt"
-  | "bone-fracture"
-  | "bomb"
-  | "bone"
-  | "book-a"
-  | "book-alert"
-  | "book-audio"
-  | "book-check"
-  | "book-dashed"
-  | "book-down"
-  | "book-copy"
-  | "book-headphones"
-  | "book-heart"
-  | "book-image"
-  | "book-key"
-  | "book-lock"
-  | "book-minus"
-  | "book-marked"
-  | "book-open-check"
-  | "book-open-text"
-  | "book-plus"
-  | "book-open"
-  | "book-search"
-  | "book-text"
-  | "book-type"
-  | "book-up"
-  | "book-up2"
-  | "book-user"
-  | "book-x"
-  | "book"
-  | "bookmark-check"
-  | "bookmark-minus"
-  | "bookmark-off"
-  | "bookmark-plus"
-  | "bookmark-x"
-  | "bookmark"
-  | "boom-box"
-  | "bot-message-square"
-  | "bot-off"
-  | "bot"
-  | "bottle-wine"
-  | "bow-arrow"
-  | "box"
-  | "braces"
-  | "boxes"
-  | "brackets"
-  | "brain-circuit"
-  | "brain-cog"
-  | "brain"
-  | "brick-wall-fire"
-  | "brick-wall-shield"
-  | "brick-wall"
-  | "briefcase-business"
-  | "briefcase-conveyor-belt"
-  | "briefcase"
-  | "briefcase-medical"
-  | "bring-to-front"
-  | "broccoli"
-  | "broom-sparkles"
-  | "broom"
-  | "brush-cleaning"
-  | "brush"
-  | "bubbles"
-  | "bug-off"
-  | "bug-play"
-  | "bug"
-  | "building2"
-  | "building"
-  | "bus-front"
-  | "bus"
-  | "cable-car"
-  | "cable"
-  | "cake-slice"
-  | "cake"
-  | "calculator"
-  | "calendar1"
-  | "calendar-arrow-up"
-  | "calendar-arrow-down"
-  | "calendar-check2"
-  | "calendar-check"
-  | "calendar-clock"
-  | "calendar-cog"
-  | "calendar-days"
-  | "calendar-fold"
-  | "calendar-minus2"
-  | "calendar-minus"
-  | "calendar-heart"
-  | "calendar-off"
-  | "calendar-plus2"
-  | "calendar-plus"
-  | "calendar-range"
-  | "calendar-search"
-  | "calendar-sync"
-  | "calendar-x2"
-  | "calendar-x"
-  | "calendars"
-  | "calendar"
-  | "camera-off"
-  | "camera"
-  | "candy-cane"
-  | "candy-off"
-  | "candy"
-  | "cannabis-off"
-  | "cannabis"
-  | "captions-off"
-  | "captions"
-  | "car-front"
-  | "car-taxi-front"
-  | "car"
-  | "caravan"
-  | "card-sim"
-  | "carrot"
-  | "case-lower"
-  | "case-sensitive"
-  | "case-upper"
-  | "cassette-tape"
-  | "cast"
-  | "castle"
-  | "cat"
-  | "cctv-off"
-  | "cctv"
-  | "chart-area"
-  | "chart-bar-big"
-  | "chart-bar-increasing"
-  | "chart-bar-decreasing"
-  | "chart-bar-stacked"
-  | "chart-bar"
-  | "chart-candlestick"
-  | "chart-column-big"
-  | "chart-column-decreasing"
-  | "chart-column-increasing"
-  | "chart-column-stacked"
-  | "chart-column"
-  | "chart-gantt"
-  | "chart-line"
-  | "chart-network"
-  | "chart-no-axes-column-decreasing"
-  | "chart-no-axes-column-increasing"
-  | "chart-no-axes-column"
-  | "chart-no-axes-combined"
-  | "chart-no-axes-gantt"
-  | "chart-pie"
-  | "chart-scatter"
-  | "chart-spline"
-  | "check-check"
-  | "check-line"
-  | "check"
-  | "chef-hat"
-  | "cherry"
-  | "chess-bishop"
-  | "chess-knight"
-  | "chess-king"
-  | "chess-pawn"
-  | "chess-queen"
-  | "chess-rook"
-  | "chevron-down"
-  | "chevron-first"
-  | "chevron-last"
-  | "chevron-left"
-  | "chevron-right"
-  | "chevron-up"
-  | "chevrons-down-up"
-  | "chevrons-down"
-  | "chevrons-left-right-ellipsis"
-  | "chevrons-left-right"
-  | "chevrons-left"
-  | "chevrons-right-left"
-  | "chevrons-right"
-  | "chevrons-up-down"
-  | "chevrons-up"
-  | "church"
-  | "cigarette"
-  | "cigarette-off"
-  | "circle-alert"
-  | "circle-arrow-down"
-  | "circle-arrow-left"
-  | "circle-arrow-out-down-left"
-  | "circle-arrow-out-down-right"
-  | "circle-arrow-out-up-left"
-  | "circle-arrow-out-up-right"
-  | "circle-arrow-right"
-  | "circle-arrow-up"
-  | "circle-check-big"
-  | "circle-check"
-  | "circle-chevron-left"
-  | "circle-chevron-down"
-  | "circle-chevron-right"
-  | "circle-chevron-up"
-  | "circle-dashed"
-  | "circle-divide"
-  | "circle-dollar-sign"
-  | "circle-dot-dashed"
-  | "circle-ellipsis"
-  | "circle-dot"
-  | "circle-equal"
-  | "circle-euro"
-  | "circle-fading-arrow-up"
-  | "circle-fading-plus"
-  | "circle-gauge"
-  | "circle-minus"
-  | "circle-off"
-  | "circle-parking-off"
-  | "circle-parking"
-  | "circle-pause"
-  | "circle-percent"
-  | "circle-pile"
-  | "circle-plus"
-  | "circle-play"
-  | "circle-pound-sterling"
-  | "circle-power"
-  | "circle-question-mark"
-  | "circle-slash"
-  | "circle-slash2"
-  | "circle-small"
-  | "circle-star"
-  | "circle-stop"
-  | "circle-user-round"
-  | "circle-user"
-  | "circle-x"
-  | "circle"
-  | "circuit-board"
-  | "citrus"
-  | "clapperboard"
-  | "clipboard-check"
-  | "clipboard-clock"
-  | "clipboard-list"
-  | "clipboard-copy"
-  | "clipboard-minus"
-  | "clipboard-paste"
-  | "clipboard-pen-line"
-  | "clipboard-pen"
-  | "clipboard-plus"
-  | "clipboard-type"
-  | "clipboard-x"
-  | "clipboard"
-  | "clock1"
-  | "clock10"
-  | "clock11"
-  | "clock12"
-  | "clock2"
-  | "clock3"
-  | "clock4"
-  | "clock6"
-  | "clock5"
-  | "clock7"
-  | "clock8"
-  | "clock9"
-  | "clock-alert"
-  | "clock-arrow-down"
-  | "clock-arrow-right"
-  | "clock-arrow-left"
-  | "clock-arrow-up"
-  | "clock-check"
-  | "clock-fading"
-  | "clock-plus"
-  | "closed-caption"
-  | "cloud-alert"
-  | "clock"
-  | "cloud-backup"
-  | "cloud-check"
-  | "cloud-cog"
-  | "cloud-download"
-  | "cloud-drizzle"
-  | "cloud-fog"
-  | "cloud-hail"
-  | "cloud-lightning"
-  | "cloud-moon-rain"
-  | "cloud-off"
-  | "cloud-moon"
-  | "cloud-rain-wind"
-  | "cloud-rain"
-  | "cloud-snow"
-  | "cloud-sun-rain"
-  | "cloud-sun"
-  | "cloud-sync"
-  | "cloud"
-  | "cloud-upload"
-  | "cloudy"
-  | "clover"
-  | "club"
-  | "code-xml"
-  | "code"
-  | "coffee"
-  | "cog"
-  | "coins"
-  | "columns2"
-  | "columns3-cog"
-  | "columns3"
-  | "columns4"
-  | "combine"
-  | "command"
-  | "compass"
-  | "component"
-  | "computer"
-  | "concierge-bell"
-  | "cone"
-  | "construction"
-  | "contact-round"
-  | "container"
-  | "contact"
-  | "contrast"
-  | "cookie"
-  | "cooking-pot"
-  | "copy-check"
-  | "copy-minus"
-  | "copy-plus"
-  | "copy-slash"
-  | "copy-x"
-  | "copyleft"
-  | "copy"
-  | "copyright"
-  | "corner-down-left"
-  | "corner-down-right"
-  | "corner-left-down"
-  | "corner-left-up"
-  | "corner-right-down"
-  | "corner-right-up"
-  | "corner-up-left"
-  | "corner-up-right"
-  | "cpu"
-  | "creative-commons"
-  | "credit-card"
-  | "croissant"
-  | "crop"
-  | "cross"
-  | "crosshair"
-  | "crown"
-  | "cuboid"
-  | "cup-soda"
-  | "currency"
-  | "cylinder"
-  | "dam"
-  | "database-arrow-down"
-  | "database-arrow-up"
-  | "database-backup"
-  | "database-check"
-  | "database-minus"
-  | "database-plus"
-  | "database-search"
-  | "database-x"
-  | "database-zap"
-  | "database"
-  | "decimals-arrow-left"
-  | "delete"
-  | "decimals-arrow-right"
-  | "dessert"
-  | "diameter"
-  | "diamond-minus"
-  | "diamond-percent"
-  | "diamond-plus"
-  | "diamond"
-  | "dice1"
-  | "dice2"
-  | "dice4"
-  | "dice3"
-  | "dice5"
-  | "dice6"
-  | "dices"
-  | "diff"
-  | "disc2"
-  | "disc3"
-  | "disc-album"
-  | "disc"
-  | "divide"
-  | "dna-off"
-  | "dna"
-  | "dock"
-  | "dog"
-  | "dollar-sign"
-  | "donut"
-  | "door-closed-locked"
-  | "door-closed"
-  | "door-open"
-  | "dot"
-  | "download"
-  | "drafting-compass"
-  | "drill"
-  | "drama"
-  | "droplet-off"
-  | "drone"
-  | "droplet"
-  | "droplets"
-  | "drum"
-  | "drumstick"
-  | "dumbbell"
-  | "ear-off"
-  | "ear"
-  | "earth"
-  | "earth-lock"
-  | "eclipse"
-  | "egg-fried"
-  | "egg-off"
-  | "egg"
-  | "ellipse"
-  | "ellipsis-vertical"
-  | "ellipsis"
-  | "equal-approximately"
-  | "equal-not"
-  | "equal"
-  | "eraser"
-  | "euro"
-  | "ethernet-port"
-  | "ev-charger"
-  | "expand"
-  | "external-link"
-  | "eye-closed"
-  | "eye-dashed"
-  | "eye-off"
-  | "eye"
-  | "face-angry"
-  | "face-grinning"
-  | "face-expressionless"
-  | "face-neutral"
-  | "face-slightly-frowning"
-  | "face-slightly-smiling-plus"
-  | "face-slightly-smiling"
-  | "factory"
-  | "fan"
-  | "fast-forward"
-  | "feather"
-  | "fence"
-  | "ferris-wheel"
-  | "file-archive"
-  | "file-badge"
-  | "file-axis3d"
-  | "file-box"
-  | "file-braces"
-  | "file-chart-column-increasing"
-  | "file-braces-corner"
-  | "file-chart-column"
-  | "file-chart-pie"
-  | "file-chart-line"
-  | "file-check-corner"
-  | "file-check"
-  | "file-clock"
-  | "file-code"
-  | "file-code-corner"
-  | "file-cog"
-  | "file-diff"
-  | "file-digit"
-  | "file-down"
-  | "file-exclamation-point"
-  | "file-headphone"
-  | "file-heart"
-  | "file-image"
-  | "file-input"
-  | "file-key"
-  | "file-lock"
-  | "file-minus-corner"
-  | "file-minus"
-  | "file-music"
-  | "file-output"
-  | "file-pen-line"
-  | "file-pen"
-  | "file-play"
-  | "file-plus"
-  | "file-plus-corner"
-  | "file-question-mark"
-  | "file-scan"
-  | "file-search-corner"
-  | "file-search"
-  | "file-signal"
-  | "file-sliders"
-  | "file-spreadsheet"
-  | "file-stack"
-  | "file-symlink"
-  | "file-terminal"
-  | "file-text"
-  | "file-type-corner"
-  | "file-type"
-  | "file-up"
-  | "file-user"
-  | "file-video-camera"
-  | "file-volume"
-  | "file-x-corner"
-  | "file"
-  | "file-x"
-  | "files"
-  | "film"
-  | "fingerprint-pattern"
-  | "fire-extinguisher"
-  | "fish-off"
-  | "fish-symbol"
-  | "fish"
-  | "fishing-hook"
-  | "fishing-rod"
-  | "flag-off"
-  | "flag-triangle-left"
-  | "flag-triangle-right"
-  | "flag"
-  | "flame-kindling"
-  | "flame"
-  | "flashlight-off"
-  | "flashlight"
-  | "flask-conical"
-  | "flask-conical-off"
-  | "flip-horizontal2"
-  | "flask-round"
-  | "flip-vertical2"
-  | "flower2"
-  | "flower"
-  | "fold-vertical"
-  | "fold-horizontal"
-  | "focus"
-  | "folder-archive"
-  | "folder-bookmark"
-  | "folder-check"
-  | "folder-clock"
-  | "folder-closed"
-  | "folder-code"
-  | "folder-cog"
-  | "folder-dot"
-  | "folder-down"
-  | "folder-git2"
-  | "folder-git"
-  | "folder-heart"
-  | "folder-input"
-  | "folder-kanban"
-  | "folder-key"
-  | "folder-lock"
-  | "folder-minus"
-  | "folder-open-dot"
-  | "folder-open"
-  | "folder-output"
-  | "folder-pen"
-  | "folder-plus"
-  | "folder-root"
-  | "folder-search2"
-  | "folder-search"
-  | "folder-symlink"
-  | "folder-sync"
-  | "folder-tree"
-  | "folder-up"
-  | "folder-x"
-  | "folders"
-  | "folder"
-  | "footprints"
-  | "form"
-  | "forward"
-  | "forklift"
-  | "frame"
-  | "fuel"
-  | "funnel-x"
-  | "fullscreen"
-  | "funnel-plus"
-  | "funnel"
-  | "gallery-horizontal-end"
-  | "gallery-horizontal"
-  | "gallery-thumbnails"
-  | "gallery-vertical-end"
-  | "gallery-vertical"
-  | "gamepad-directional"
-  | "gamepad2"
-  | "gauge"
-  | "gamepad"
-  | "gavel"
-  | "gem"
-  | "georgian-lari"
-  | "gift"
-  | "ghost"
-  | "git-branch-minus"
-  | "git-branch-plus"
-  | "git-branch"
-  | "git-commit-horizontal"
-  | "git-commit-vertical"
-  | "git-compare-arrows"
-  | "git-compare"
-  | "git-fork"
-  | "git-graph"
-  | "git-merge-conflict"
-  | "git-merge"
-  | "git-pull-request-arrow"
-  | "git-pull-request-closed"
-  | "git-pull-request-create-arrow"
-  | "git-pull-request-create"
-  | "git-pull-request-draft"
-  | "git-pull-request"
-  | "glass-water"
-  | "glasses"
-  | "globe-check"
-  | "globe-lock"
-  | "globe-off"
-  | "globe-x"
-  | "globe"
-  | "goal"
-  | "gpu"
-  | "graduation-cap"
-  | "grape"
-  | "grid2x2-check"
-  | "grid2x2-plus"
-  | "grid2x2-x"
-  | "grid2x2"
-  | "grid3x2"
-  | "grip-horizontal"
-  | "grid3x3"
-  | "grip"
-  | "group"
-  | "grip-vertical"
-  | "guitar"
-  | "ham"
-  | "hamburger"
-  | "hammer"
-  | "hand-coins"
-  | "hand-fist"
-  | "hand-grab"
-  | "hand-heart"
-  | "hand-helping"
-  | "hand-metal"
-  | "hand-platter"
-  | "hand"
-  | "handbag"
-  | "handshake"
-  | "hard-drive-download"
-  | "hard-drive-upload"
-  | "hard-drive"
-  | "hard-hat"
-  | "hash"
-  | "hat-glasses"
-  | "hd"
-  | "haze"
-  | "hdmi-port"
-  | "heading1"
-  | "heading2"
-  | "heading3"
-  | "heading4"
-  | "heading5"
-  | "heading6"
-  | "heading"
-  | "headphones"
-  | "headphone-off"
-  | "headset"
-  | "heart-crack"
-  | "heart-handshake"
-  | "heart-off"
-  | "heart-plus"
-  | "heart-minus"
-  | "heart-pulse"
-  | "heart-x"
-  | "heater"
-  | "heart"
-  | "helicopter"
-  | "hexagon"
-  | "highlighter"
-  | "hop-off"
-  | "hop"
-  | "hospital"
-  | "hourglass"
-  | "hotel"
-  | "house-heart"
-  | "house-plug"
-  | "house-plus"
-  | "house-wifi"
-  | "house"
-  | "ice-cream-bowl"
-  | "ice-cream-cone"
-  | "id-card-lanyard"
-  | "id-card"
-  | "image-down"
-  | "image-minus"
-  | "image-play"
-  | "image-off"
-  | "image-plus"
-  | "image-up"
-  | "image-upscale"
-  | "image"
-  | "images"
-  | "import"
-  | "inbox"
-  | "indian-rupee"
-  | "infinity"
-  | "inspection-panel"
-  | "info"
-  | "italic"
-  | "iteration-ccw"
-  | "iteration-cw"
-  | "japanese-yen"
-  | "kanban"
-  | "joystick"
-  | "kayak"
-  | "key-round"
-  | "key-square"
-  | "keyboard-music"
-  | "key"
-  | "keyboard-off"
-  | "keyboard"
-  | "lamp-ceiling"
-  | "lamp-desk"
-  | "lamp-floor"
-  | "lamp-wall-down"
-  | "lamp-wall-up"
-  | "lamp"
-  | "land-plot"
-  | "landmark"
-  | "laptop-minimal-check"
-  | "laptop-minimal"
-  | "languages"
-  | "lasso-select"
-  | "laptop"
-  | "lasso"
-  | "layer-arrow-down"
-  | "layer-arrow-up"
-  | "layers2"
-  | "layers-arrow-up"
-  | "layers-arrow-down"
-  | "layers-minus"
-  | "layers-plus"
-  | "layers"
-  | "layout-dashboard"
-  | "layout-freeform"
-  | "layout-grid"
-  | "layout-list"
-  | "layout-panel-left"
-  | "layout-panel-top"
-  | "layout-template"
-  | "leaf"
-  | "leafy-green"
-  | "lectern"
-  | "lens-concave"
-  | "lens-convex"
-  | "library-big"
-  | "library"
-  | "life-buoy"
-  | "ligature"
-  | "lightbulb-off"
-  | "lightbulb"
-  | "line-dot-right-horizontal"
-  | "line-squiggle"
-  | "line-style"
-  | "link2-off"
-  | "link2"
-  | "list-check"
-  | "link"
-  | "list-checks"
-  | "list-chevrons-down-up"
-  | "list-chevrons-up-down"
-  | "list-collapse"
-  | "list-end"
-  | "list-filter-plus"
-  | "list-filter"
-  | "list-indent-decrease"
-  | "list-indent-increase"
-  | "list-minus"
-  | "list-music"
-  | "list-ordered"
-  | "list-plus"
-  | "list-restart"
-  | "list-sort-ascending"
-  | "list-sort-descending"
-  | "list-start"
-  | "list-tree"
-  | "list-todo"
-  | "list-video"
-  | "list-x"
-  | "list"
-  | "loader-pinwheel"
-  | "loader-circle"
-  | "loader"
-  | "locate-off"
-  | "locate-fixed"
-  | "locate"
-  | "lock-keyhole-open"
-  | "lock-open"
-  | "lock"
-  | "lock-keyhole"
-  | "log-in"
-  | "log-out"
-  | "logs"
-  | "lollipop"
-  | "magnet"
-  | "luggage"
-  | "mail-check"
-  | "mail-minus"
-  | "mail-plus"
-  | "mail-open"
-  | "mail-question-mark"
-  | "mail-search"
-  | "mail-warning"
-  | "mail-x"
-  | "mail"
-  | "mailbox"
-  | "mails"
-  | "map-minus"
-  | "map-pin-check-inside"
-  | "map-pin-check"
-  | "map-pin-minus-inside"
-  | "map-pin-house"
-  | "map-pin-minus"
-  | "map-pin-off"
-  | "map-pin-plus-inside"
-  | "map-pin-pen"
-  | "map-pin-plus"
-  | "map-pin-search"
-  | "map-pin-x-inside"
-  | "map-pin-x"
-  | "map-pin"
-  | "map-pinned"
-  | "map-plus"
-  | "map"
-  | "mars"
-  | "mars-stroke"
-  | "martini"
-  | "maximize2"
-  | "maximize"
-  | "medal"
-  | "megaphone-off"
-  | "megaphone"
-  | "menu"
-  | "memory-stick"
-  | "merge"
-  | "message-circle-check"
-  | "message-circle-dashed"
-  | "message-circle-code"
-  | "message-circle-heart"
-  | "message-circle-more"
-  | "message-circle-off"
-  | "message-circle-plus"
-  | "message-circle-question-mark"
-  | "message-circle-reply"
-  | "message-circle-warning"
-  | "message-circle-x"
-  | "message-square-check"
-  | "message-circle"
-  | "message-square-code"
-  | "message-square-dashed"
-  | "message-square-diff"
-  | "message-square-dot"
-  | "message-square-heart"
-  | "message-square-lock"
-  | "message-square-off"
-  | "message-square-more"
-  | "message-square-plus"
-  | "message-square-reply"
-  | "message-square-share"
-  | "message-square-quote"
-  | "message-square-text"
-  | "message-square-warning"
-  | "message-square-x"
-  | "message-square"
-  | "metronome"
-  | "messages-square"
-  | "mic-audio-lines"
-  | "mic-off"
-  | "mic-signal"
-  | "mic"
-  | "microchip"
-  | "mic-vocal"
-  | "microscope"
-  | "microwave"
-  | "milestone"
-  | "milk-off"
-  | "milk"
-  | "minimize"
-  | "minimize2"
-  | "minus"
-  | "mirror-rectangular"
-  | "mirror-round"
-  | "monitor-check"
-  | "monitor-cloud"
-  | "monitor-cog"
-  | "monitor-dot"
-  | "monitor-down"
-  | "monitor-off"
-  | "monitor-pause"
-  | "monitor-smartphone"
-  | "monitor-play"
-  | "monitor-speaker"
-  | "monitor-stop"
-  | "monitor-up"
-  | "monitor-x"
-  | "monitor"
-  | "moon-star"
-  | "moon"
-  | "motorbike"
-  | "mosque"
-  | "mountain-snow"
-  | "mountain"
-  | "mouse-left"
-  | "mouse-off"
-  | "mouse-pointer2-off"
-  | "mouse-pointer2"
-  | "mouse-pointer-ban"
-  | "mouse-pointer-click"
-  | "mouse-pointer"
-  | "mouse-right"
-  | "move3d"
-  | "mouse"
-  | "move-diagonal"
-  | "move-diagonal2"
-  | "move-down-right"
-  | "move-down-left"
-  | "move-horizontal"
-  | "move-down"
-  | "move-left"
-  | "move-right"
-  | "move-up-left"
-  | "move-up-right"
-  | "move-up"
-  | "move-vertical"
-  | "move"
-  | "music2"
-  | "music3"
-  | "music4"
-  | "music"
-  | "navigation2-off"
-  | "navigation2"
-  | "navigation-off"
-  | "navigation"
-  | "network"
-  | "newspaper"
-  | "nfc"
-  | "notebook-pen"
-  | "non-binary"
-  | "notebook-tabs"
-  | "notebook-text"
-  | "notebook"
-  | "notepad-text-dashed"
-  | "notepad-text"
-  | "nut-off"
-  | "nut"
-  | "octagon-alert"
-  | "octagon-minus"
-  | "octagon-pause"
-  | "octagon"
-  | "octagon-x"
-  | "omega"
-  | "option"
-  | "orbit"
-  | "origami"
-  | "package2"
-  | "package-check"
-  | "package-minus"
-  | "package-open"
-  | "package-plus"
-  | "package-x"
-  | "package-search"
-  | "package"
-  | "paint-bucket"
-  | "paint-roller"
-  | "paintbrush-vertical"
-  | "paintbrush"
-  | "palette"
-  | "panda"
-  | "panel-bottom-close"
-  | "panel-bottom-dashed"
-  | "panel-bottom-open"
-  | "panel-bottom"
-  | "panel-left-close"
-  | "panel-left-dashed"
-  | "panel-left-open"
-  | "panel-left-right-dashed"
-  | "panel-left"
-  | "panel-right-close"
-  | "panel-right-dashed"
-  | "panel-right-open"
-  | "panel-right"
-  | "panel-top-bottom-dashed"
-  | "panel-top-close"
-  | "panel-top-dashed"
-  | "panel-top-open"
-  | "panel-top"
-  | "panels-left-bottom"
-  | "panels-right-bottom"
-  | "paper-bag"
-  | "panels-top-left"
-  | "paperclip"
-  | "parasol"
-  | "parking-meter"
-  | "party-popper"
-  | "parentheses"
-  | "pause"
-  | "paw-print"
-  | "pc-case"
-  | "pen-off"
-  | "pen-line"
-  | "pen-tool"
-  | "pen"
-  | "pencil-line"
-  | "pencil-off"
-  | "pencil-ruler"
-  | "pencil-sparkles"
-  | "pencil"
-  | "pentagon"
-  | "percent"
-  | "phi"
-  | "person-standing"
-  | "philippine-peso"
-  | "phone-call"
-  | "phone-forwarded"
-  | "phone-missed"
-  | "phone-incoming"
-  | "phone-off"
-  | "phone"
-  | "phone-outgoing"
-  | "pi"
-  | "piano"
-  | "pickaxe"
-  | "picture-in-picture2"
-  | "picture-in-picture"
-  | "piggy-bank"
-  | "pilcrow-left"
-  | "pilcrow"
-  | "pilcrow-right"
-  | "pill-bottle"
-  | "pill"
-  | "pin-off"
-  | "pipette"
-  | "pin"
-  | "pizza"
-  | "plane-landing"
-  | "plane"
-  | "plane-takeoff"
-  | "play-off"
-  | "play"
-  | "plug2"
-  | "plug-zap"
-  | "plug"
-  | "plus"
-  | "pocket-knife"
-  | "podium"
-  | "pointer-off"
-  | "pointer"
-  | "popcorn"
-  | "popsicle"
-  | "pound-sterling"
-  | "power-off"
-  | "power"
-  | "presentation"
-  | "printer-check"
-  | "printer-x"
-  | "printer"
-  | "projector"
-  | "proportions"
-  | "puzzle"
-  | "pyramid"
-  | "qr-code"
-  | "quote"
-  | "rabbit"
-  | "radar"
-  | "radiation"
-  | "radical"
-  | "radio-off"
-  | "radio-receiver"
-  | "radio-tower"
-  | "radio"
-  | "radius"
-  | "rainbow"
-  | "rat"
-  | "ratio"
-  | "receipt-cent"
-  | "receipt-euro"
-  | "receipt-indian-rupee"
-  | "receipt-japanese-yen"
-  | "receipt-pound-sterling"
-  | "receipt-russian-ruble"
-  | "receipt-swiss-franc"
-  | "receipt-text"
-  | "receipt-turkish-lira"
-  | "receipt"
-  | "rectangle-circle"
-  | "rectangle-ellipsis"
-  | "rectangle-goggles"
-  | "rectangle-vertical"
-  | "rectangle-horizontal"
-  | "recycle"
-  | "redo-dot"
-  | "redo2"
-  | "redo"
-  | "refresh-ccw-dot"
-  | "refresh-ccw"
-  | "refresh-cw-off"
-  | "refresh-cw"
-  | "refrigerator"
-  | "regex"
-  | "remove-formatting"
-  | "repeat1"
-  | "repeat2"
-  | "repeat-off"
-  | "repeat"
-  | "replace-all"
-  | "replace"
-  | "reply-all"
-  | "reply"
-  | "rewind"
-  | "ribbon"
-  | "road"
-  | "rocket"
-  | "rocking-chair"
-  | "roller-coaster"
-  | "rose"
-  | "rotate3d"
-  | "rotate-ccw-clock"
-  | "rotate-ccw-key"
-  | "rotate-ccw-square"
-  | "rotate-ccw"
-  | "rotate-cw-fading-clock"
-  | "rotate-cw-square"
-  | "rotate-cw"
-  | "route-off"
-  | "route"
-  | "rows2"
-  | "router"
-  | "rows3"
-  | "rows4"
-  | "rss"
-  | "ruler-dimension-line"
-  | "ruler"
-  | "russian-ruble"
-  | "sailboat"
-  | "sandwich"
-  | "salad"
-  | "satellite-dish"
-  | "satellite"
-  | "saudi-riyal"
-  | "save-all"
-  | "save-check"
-  | "save-off"
-  | "save-pen"
-  | "save-plus"
-  | "save"
-  | "scale3d"
-  | "scale"
-  | "scaling"
-  | "scan-barcode"
-  | "scan-box"
-  | "scan-eye"
-  | "scan-face"
-  | "scan-heart"
-  | "scan-line"
-  | "scan-qr-code"
-  | "scan-square"
-  | "scan-search"
-  | "scan-text"
-  | "scan"
-  | "scissors-line-dashed"
-  | "school"
-  | "scissors"
-  | "screen-share-off"
-  | "screen-share"
-  | "scooter"
-  | "scroll-text"
-  | "scroll"
-  | "search-alert"
-  | "search-check"
-  | "search-code"
-  | "search-slash"
-  | "search-x"
-  | "section"
-  | "search"
-  | "send-horizontal"
-  | "send-to-back"
-  | "send"
-  | "separator-horizontal"
-  | "separator-vertical"
-  | "server-cog"
-  | "server-crash"
-  | "server-off"
-  | "server-plus"
-  | "server"
-  | "settings2"
-  | "settings"
-  | "shapes"
-  | "share2"
-  | "share"
-  | "sheet"
-  | "shell"
-  | "shelving-unit"
-  | "shield-alert"
-  | "shield-ban"
-  | "shield-check"
-  | "shield-cog-corner"
-  | "shield-cog"
-  | "shield-ellipsis"
-  | "shield-half"
-  | "shield-keyhole"
-  | "shield-lock"
-  | "shield-minus"
-  | "shield-plus"
-  | "shield-off"
-  | "shield-question-mark"
-  | "shield-user"
-  | "shield-x"
-  | "shield"
-  | "ship-wheel"
-  | "ship"
-  | "shirt"
-  | "shopping-bag"
-  | "shopping-basket"
-  | "shopping-cart"
-  | "shovel"
-  | "shower-head"
-  | "shrimp"
-  | "shredder"
-  | "shrink"
-  | "shrub"
-  | "shuffle"
-  | "sigma"
-  | "signal-high"
-  | "signal-low"
-  | "signal-medium"
-  | "signal-zero"
-  | "signal"
-  | "signature"
-  | "signpost-big"
-  | "signpost"
-  | "siren"
-  | "skip-back"
-  | "skip-forward"
-  | "skull"
-  | "slash"
-  | "slice"
-  | "sliders-horizontal"
-  | "sliders-vertical"
-  | "smartphone-charging"
-  | "smartphone-nfc"
-  | "smartphone"
-  | "snail"
-  | "snowflake"
-  | "soap-dispenser-droplet"
-  | "sofa"
-  | "solar-panel"
-  | "soup"
-  | "space"
-  | "spade"
-  | "sparkle"
-  | "sparkles"
-  | "speaker"
-  | "speech"
-  | "spell-check2"
-  | "spell-check"
-  | "spline-pointer"
-  | "spline"
-  | "split"
-  | "sport-shoe"
-  | "spool"
-  | "spotlight"
-  | "spray-can"
-  | "sprout"
-  | "square-activity"
-  | "square-arrow-down-left"
-  | "square-arrow-down-right"
-  | "square-arrow-down"
-  | "square-arrow-left"
-  | "square-arrow-out-down-left"
-  | "square-arrow-out-down-right"
-  | "square-arrow-out-up-left"
-  | "square-arrow-out-up-right"
-  | "square-arrow-right-enter"
-  | "square-arrow-right-exit"
-  | "square-arrow-right"
-  | "square-arrow-up-left"
-  | "square-arrow-up-right"
-  | "square-arrow-up"
-  | "square-asterisk"
-  | "square-bottom-dashed-scissors"
-  | "square-centerline-dashed-horizontal"
-  | "square-centerline-dashed-vertical"
-  | "square-chart-gantt"
-  | "square-check-big"
-  | "square-check"
-  | "square-chevron-down"
-  | "square-chevron-right"
-  | "square-chevron-left"
-  | "square-chevron-up"
-  | "square-code"
-  | "square-dashed-bottom"
-  | "square-dashed-bottom-code"
-  | "square-dashed-kanban"
-  | "square-dashed-mouse-pointer"
-  | "square-dashed-text"
-  | "square-dashed-top-solid"
-  | "square-dashed"
-  | "square-divide"
-  | "square-dot"
-  | "square-equal"
-  | "square-function"
-  | "square-kanban"
-  | "square-library"
-  | "square-m"
-  | "square-menu"
-  | "square-minus"
-  | "square-mouse-pointer"
-  | "square-off"
-  | "square-parking-off"
-  | "square-parking"
-  | "square-pause"
-  | "square-pen"
-  | "square-percent"
-  | "square-pi"
-  | "square-pilcrow"
-  | "square-play"
-  | "square-plus"
-  | "square-power"
-  | "square-radical"
-  | "square-round-corner"
-  | "square-scissors"
-  | "square-sigma"
-  | "square-slash"
-  | "square-split-horizontal"
-  | "square-split-vertical"
-  | "square-square"
-  | "square-stack"
-  | "square-stop"
-  | "square-terminal"
-  | "square-user-round"
-  | "square-star"
-  | "square-user"
-  | "square-x"
-  | "square"
-  | "squares-intersect"
-  | "squares-exclude"
-  | "squares-subtract"
-  | "squares-unite"
-  | "squircle-dashed"
-  | "squircle"
-  | "squirrel"
-  | "stamp"
-  | "star-check"
-  | "star-half"
-  | "star-minus"
-  | "star-off"
-  | "star-plus"
-  | "star-x"
-  | "star"
-  | "step-back"
-  | "step-forward"
-  | "sticker"
-  | "stethoscope"
-  | "sticky-note-check"
-  | "sticky-note-off"
-  | "sticky-note-minus"
-  | "sticky-note-plus"
-  | "sticky-note-x"
-  | "sticky-note"
-  | "sticky-notes"
-  | "store"
-  | "stone"
-  | "stretch-horizontal"
-  | "stretch-vertical"
-  | "strikethrough"
-  | "subscript"
-  | "summary"
-  | "sun-dim"
-  | "sun-medium"
-  | "sun-moon"
-  | "sun-snow"
-  | "sun"
-  | "sunrise"
-  | "sunset"
-  | "swatch-book"
-  | "superscript"
-  | "swiss-franc"
-  | "switch-camera"
-  | "sword"
-  | "swords"
-  | "syringe"
-  | "table2"
-  | "table-cells-merge"
-  | "table-cells-split"
-  | "table-columns-split"
-  | "table-of-contents"
-  | "table-properties"
-  | "table-rows-split"
-  | "table"
-  | "tablet-smartphone"
-  | "tablet"
-  | "tablets"
-  | "tag-plus"
-  | "tag-x"
-  | "tag"
-  | "tags"
-  | "tally1"
-  | "tally2"
-  | "tally3"
-  | "tally5"
-  | "tally4"
-  | "tangent"
-  | "target"
-  | "telescope"
-  | "tent-tree"
-  | "tent"
-  | "terminal"
-  | "test-tube-diagonal"
-  | "test-tube"
-  | "test-tubes"
-  | "text-align-center"
-  | "text-align-end"
-  | "text-align-justify"
-  | "text-align-start"
-  | "text-cursor-input"
-  | "text-cursor"
-  | "text-initial"
-  | "text-quote"
-  | "text-search"
-  | "text-wrap"
-  | "theater"
-  | "thermometer-snowflake"
-  | "thermometer"
-  | "thermometer-sun"
-  | "thumbs-down"
-  | "thumbs-up"
-  | "ticket-check"
-  | "ticket-minus"
-  | "ticket-percent"
-  | "ticket-plus"
-  | "ticket-slash"
-  | "ticket-x"
-  | "ticket"
-  | "tickets-plane"
-  | "tickets"
-  | "timeline"
-  | "timer-off"
-  | "timer-reset"
-  | "timer"
-  | "toggle-left"
-  | "toggle-right"
-  | "tool-case"
-  | "toilet"
-  | "toolbox"
-  | "tornado"
-  | "torus"
-  | "touchpad"
-  | "touchpad-off"
-  | "towel-rack"
-  | "tower-control"
-  | "toy-brick"
-  | "tractor"
-  | "traffic-cone"
-  | "train-front-tunnel"
-  | "train-front"
-  | "train-track"
-  | "tram-front"
-  | "transgender"
-  | "trash2"
-  | "trash"
-  | "tree-deciduous"
-  | "tree-palm"
-  | "tree-pine"
-  | "trees"
-  | "trending-down"
-  | "trending-up-down"
-  | "trending-up"
-  | "triangle-alert"
-  | "triangle-dashed"
-  | "triangle-right"
-  | "triangle"
-  | "trophy"
-  | "truck-electric"
-  | "turkish-lira"
-  | "truck"
-  | "turntable"
-  | "turtle"
-  | "tv-minimal-play"
-  | "tv-minimal"
-  | "tv"
-  | "type-outline"
-  | "type"
-  | "umbrella-off"
-  | "umbrella"
-  | "underline"
-  | "undo-dot"
-  | "undo2"
-  | "undo"
-  | "unfold-horizontal"
-  | "unfold-vertical"
-  | "ungroup"
-  | "university"
-  | "unlink2"
-  | "unlink"
-  | "upload"
-  | "unplug"
-  | "usb"
-  | "user-check"
-  | "user-cog"
-  | "user-key"
-  | "user-lock"
-  | "user-minus"
-  | "user-pen"
-  | "user-plus"
-  | "user-round-arrow-left"
-  | "user-round-cog"
-  | "user-round-check"
-  | "user-round-key"
-  | "user-round-minus"
-  | "user-round-pen"
-  | "user-round-plus"
-  | "user-round-search"
-  | "user-round"
-  | "user-round-x"
-  | "user-search"
-  | "user-shield"
-  | "user-star"
-  | "user-x"
-  | "user"
-  | "users-round"
-  | "users"
-  | "utensils-crossed"
-  | "utensils"
-  | "utility-pole"
-  | "van"
-  | "variable"
-  | "vault"
-  | "vector-square"
-  | "vegan"
-  | "venetian-mask"
-  | "venus-and-mars"
-  | "vibrate-off"
-  | "venus"
-  | "vibrate"
-  | "video-off"
-  | "video"
-  | "videotape"
-  | "view"
-  | "voicemail"
-  | "volleyball"
-  | "volume1"
-  | "volume2"
-  | "volume-off"
-  | "volume-x"
-  | "volume"
-  | "wallet-cards"
-  | "vote"
-  | "wallet-minimal"
-  | "wallet"
-  | "wallpaper"
-  | "wand-sparkles"
-  | "wand"
-  | "warehouse"
-  | "washing-machine"
-  | "watch"
-  | "waves-arrow-up"
-  | "waves-arrow-down"
-  | "waves-horizontal"
-  | "waves-ladder"
-  | "waves-vertical"
-  | "waypoints"
-  | "webcam-off"
-  | "webcam"
-  | "webhook"
-  | "webhook-off"
-  | "weight-tilde"
-  | "weight"
-  | "wheat-off"
-  | "whole-word"
-  | "wheat"
-  | "wifi-cog"
-  | "wifi-high"
-  | "wifi-low"
-  | "wifi-off"
-  | "wifi-pen"
-  | "wifi-sync"
-  | "wifi-zero"
-  | "wifi"
-  | "wind-arrow-down"
-  | "wind"
-  | "wine-off"
-  | "wine"
-  | "workflow"
-  | "worm"
-  | "wrench-off"
-  | "wrench"
-  | "x-line-top"
-  | "zap-off"
-  | "zodiac-aquarius"
-  | "zap"
-  | "zodiac-aries"
-  | "zodiac-cancer"
-  | "zodiac-capricorn"
-  | "zodiac-gemini"
-  | "zodiac-leo"
-  | "zodiac-ophiuchus"
-  | "zodiac-libra"
-  | "zodiac-pisces"
-  | "zodiac-sagittarius"
-  | "zodiac-scorpio"
-  | "zodiac-taurus"
-  | "zoom-in"
-  | "zodiac-virgo"
-  | "zoom-out";
+export type LucideIconName = "a-arrow-down" | "a-arrow-up" | "a-large-small" | "accessibility" | "activity" | "ad" | "air-vent" | "airplay" | "alarm-clock-check" | "alarm-clock-minus" | "alarm-clock-off" | "alarm-clock-plus" | "alarm-smoke" | "alarm-clock" | "album" | "align-center-horizontal" | "align-end-horizontal" | "align-end-vertical" | "align-center-vertical" | "align-horizontal-distribute-center" | "align-horizontal-distribute-end" | "align-horizontal-distribute-start" | "align-horizontal-justify-center" | "align-horizontal-justify-end" | "align-horizontal-justify-start" | "align-horizontal-space-around" | "align-horizontal-space-between" | "align-start-horizontal" | "align-start-vertical" | "align-vertical-distribute-center" | "align-vertical-distribute-end" | "align-vertical-distribute-start" | "align-vertical-justify-center" | "align-vertical-justify-start" | "align-vertical-justify-end" | "align-vertical-space-around" | "align-vertical-space-between" | "ambulance" | "ampersand" | "ampersands" | "amphora" | "anchor" | "antenna" | "anvil" | "aperture" | "app-window-mac" | "app-window" | "apple" | "archive-restore" | "archive-x" | "archive" | "armchair" | "arrow-big-down-dash" | "arrow-big-down" | "arrow-big-left-dash" | "arrow-big-left" | "arrow-big-right-dash" | "arrow-big-right" | "arrow-big-up" | "arrow-big-up-dash" | "arrow-down01" | "arrow-down10" | "arrow-down-az" | "arrow-down-left" | "arrow-down-from-line" | "arrow-down-right" | "arrow-down-narrow-wide" | "arrow-down-to-dot" | "arrow-down-to-line" | "arrow-down-up" | "arrow-down-wide-narrow" | "arrow-down-za" | "arrow-down" | "arrow-left-from-line" | "arrow-left-right" | "arrow-left-to-line" | "arrow-left" | "arrow-right-from-line" | "arrow-right-left" | "arrow-right-to-line" | "arrow-right" | "arrow-up10" | "arrow-up-az" | "arrow-up01" | "arrow-up-down" | "arrow-up-from-dot" | "arrow-up-from-line" | "arrow-up-left" | "arrow-up-narrow-wide" | "arrow-up-right" | "arrow-up-to-line" | "arrow-up-za" | "arrow-up-wide-narrow" | "arrow-up" | "arrows-up-from-line" | "asterisk" | "astroid" | "atom" | "at-sign" | "audio-lines-x" | "audio-lines" | "audio-waveform" | "award" | "axe" | "baby" | "axis3d" | "backpack" | "badge-alert" | "badge-cent" | "badge-check" | "badge-dollar-sign" | "badge-euro" | "badge-indian-rupee" | "badge-info" | "badge-japanese-yen" | "badge-minus" | "badge-plus" | "badge-percent" | "badge-pound-sterling" | "badge-question-mark" | "badge-russian-ruble" | "badge-swiss-franc" | "badge-turkish-lira" | "badge-x" | "badge" | "baggage-claim" | "balloon" | "ban" | "banana" | "bandage" | "banknote-arrow-down" | "banknote-arrow-up" | "banknote-check" | "banknote-x" | "banknote" | "barcode" | "baseline" | "barrel" | "bath" | "battery-low" | "battery-full" | "battery-charging" | "battery-medium" | "battery-plus" | "battery-warning" | "beaker" | "battery" | "bean-off" | "bean" | "bed-double" | "bed-single" | "bed" | "beef-off" | "beef" | "beer-off" | "beer" | "bell-dot" | "bell-check" | "bell-electric" | "bell-minus" | "bell-off" | "bell-plus" | "bell-ring" | "bell" | "between-horizontal-start" | "between-horizontal-end" | "between-vertical-end" | "between-vertical-start" | "biceps-flexed" | "bike" | "binary" | "binoculars" | "biohazard" | "bird" | "birdhouse" | "bitcoin" | "blend" | "blender" | "blocks" | "blinds" | "bluetooth-connected" | "bluetooth-off" | "bluetooth-searching" | "bluetooth" | "bold" | "bolt" | "bone-fracture" | "bomb" | "bone" | "book-a" | "book-alert" | "book-audio" | "book-check" | "book-dashed" | "book-down" | "book-copy" | "book-headphones" | "book-heart" | "book-image" | "book-key" | "book-lock" | "book-minus" | "book-marked" | "book-open-check" | "book-open-text" | "book-plus" | "book-open" | "book-search" | "book-text" | "book-type" | "book-up" | "book-up2" | "book-user" | "book-x" | "book" | "bookmark-check" | "bookmark-minus" | "bookmark-off" | "bookmark-plus" | "bookmark-x" | "bookmark" | "boom-box" | "bot-message-square" | "bot-off" | "bot" | "bottle-wine" | "bow-arrow" | "box" | "braces" | "boxes" | "brackets" | "brain-circuit" | "brain-cog" | "brain" | "brick-wall-fire" | "brick-wall-shield" | "brick-wall" | "briefcase-business" | "briefcase-conveyor-belt" | "briefcase" | "briefcase-medical" | "bring-to-front" | "broccoli" | "broom-sparkles" | "broom" | "brush-cleaning" | "brush" | "bubbles" | "bug-off" | "bug-play" | "bug" | "building2" | "building" | "bus-front" | "bus" | "cable-car" | "cable" | "cake-slice" | "cake" | "calculator" | "calendar1" | "calendar-arrow-up" | "calendar-arrow-down" | "calendar-check2" | "calendar-check" | "calendar-clock" | "calendar-cog" | "calendar-days" | "calendar-fold" | "calendar-minus2" | "calendar-minus" | "calendar-heart" | "calendar-off" | "calendar-plus2" | "calendar-plus" | "calendar-range" | "calendar-search" | "calendar-sync" | "calendar-x2" | "calendar-x" | "calendars" | "calendar" | "camera-off" | "camera" | "candy-cane" | "candy-off" | "candy" | "cannabis-off" | "cannabis" | "captions-off" | "captions" | "car-front" | "car-taxi-front" | "car" | "caravan" | "card-sim" | "carrot" | "case-lower" | "case-sensitive" | "case-upper" | "cassette-tape" | "cast" | "castle" | "cat" | "cctv-off" | "cctv" | "chart-area" | "chart-bar-big" | "chart-bar-increasing" | "chart-bar-decreasing" | "chart-bar-stacked" | "chart-bar" | "chart-candlestick" | "chart-column-big" | "chart-column-decreasing" | "chart-column-increasing" | "chart-column-stacked" | "chart-column" | "chart-gantt" | "chart-line" | "chart-network" | "chart-no-axes-column-decreasing" | "chart-no-axes-column-increasing" | "chart-no-axes-column" | "chart-no-axes-combined" | "chart-no-axes-gantt" | "chart-pie" | "chart-scatter" | "chart-spline" | "check-check" | "check-line" | "check" | "chef-hat" | "cherry" | "chess-bishop" | "chess-knight" | "chess-king" | "chess-pawn" | "chess-queen" | "chess-rook" | "chevron-down" | "chevron-first" | "chevron-last" | "chevron-left" | "chevron-right" | "chevron-up" | "chevrons-down-up" | "chevrons-down" | "chevrons-left-right-ellipsis" | "chevrons-left-right" | "chevrons-left" | "chevrons-right-left" | "chevrons-right" | "chevrons-up-down" | "chevrons-up" | "church" | "cigarette" | "cigarette-off" | "circle-alert" | "circle-arrow-down" | "circle-arrow-left" | "circle-arrow-out-down-left" | "circle-arrow-out-down-right" | "circle-arrow-out-up-left" | "circle-arrow-out-up-right" | "circle-arrow-right" | "circle-arrow-up" | "circle-check-big" | "circle-check" | "circle-chevron-left" | "circle-chevron-down" | "circle-chevron-right" | "circle-chevron-up" | "circle-dashed" | "circle-divide" | "circle-dollar-sign" | "circle-dot-dashed" | "circle-ellipsis" | "circle-dot" | "circle-equal" | "circle-euro" | "circle-fading-arrow-up" | "circle-fading-plus" | "circle-gauge" | "circle-minus" | "circle-off" | "circle-parking-off" | "circle-parking" | "circle-pause" | "circle-percent" | "circle-pile" | "circle-plus" | "circle-play" | "circle-pound-sterling" | "circle-power" | "circle-question-mark" | "circle-slash" | "circle-slash2" | "circle-small" | "circle-star" | "circle-stop" | "circle-user-round" | "circle-user" | "circle-x" | "circle" | "circuit-board" | "citrus" | "clapperboard" | "clipboard-check" | "clipboard-clock" | "clipboard-list" | "clipboard-copy" | "clipboard-minus" | "clipboard-paste" | "clipboard-pen-line" | "clipboard-pen" | "clipboard-plus" | "clipboard-type" | "clipboard-x" | "clipboard" | "clock1" | "clock10" | "clock11" | "clock12" | "clock2" | "clock3" | "clock4" | "clock6" | "clock5" | "clock7" | "clock8" | "clock9" | "clock-alert" | "clock-arrow-down" | "clock-arrow-right" | "clock-arrow-left" | "clock-arrow-up" | "clock-check" | "clock-fading" | "clock-plus" | "closed-caption" | "cloud-alert" | "clock" | "cloud-backup" | "cloud-check" | "cloud-cog" | "cloud-download" | "cloud-drizzle" | "cloud-fog" | "cloud-hail" | "cloud-lightning" | "cloud-moon-rain" | "cloud-off" | "cloud-moon" | "cloud-rain-wind" | "cloud-rain" | "cloud-snow" | "cloud-sun-rain" | "cloud-sun" | "cloud-sync" | "cloud" | "cloud-upload" | "cloudy" | "clover" | "club" | "code-xml" | "code" | "coffee" | "cog" | "coins" | "columns2" | "columns3-cog" | "columns3" | "columns4" | "combine" | "command" | "compass" | "component" | "computer" | "concierge-bell" | "cone" | "construction" | "contact-round" | "container" | "contact" | "contrast" | "cookie" | "cooking-pot" | "copy-check" | "copy-minus" | "copy-plus" | "copy-slash" | "copy-x" | "copyleft" | "copy" | "copyright" | "corner-down-left" | "corner-down-right" | "corner-left-down" | "corner-left-up" | "corner-right-down" | "corner-right-up" | "corner-up-left" | "corner-up-right" | "cpu" | "creative-commons" | "credit-card" | "croissant" | "crop" | "cross" | "crosshair" | "crown" | "cuboid" | "cup-soda" | "currency" | "cylinder" | "dam" | "database-arrow-down" | "database-arrow-up" | "database-backup" | "database-check" | "database-minus" | "database-plus" | "database-search" | "database-x" | "database-zap" | "database" | "decimals-arrow-left" | "delete" | "decimals-arrow-right" | "dessert" | "diameter" | "diamond-minus" | "diamond-percent" | "diamond-plus" | "diamond" | "dice1" | "dice2" | "dice4" | "dice3" | "dice5" | "dice6" | "dices" | "diff" | "disc2" | "disc3" | "disc-album" | "disc" | "divide" | "dna-off" | "dna" | "dock" | "dog" | "dollar-sign" | "donut" | "door-closed-locked" | "door-closed" | "door-open" | "dot" | "download" | "drafting-compass" | "drill" | "drama" | "droplet-off" | "drone" | "droplet" | "droplets" | "drum" | "drumstick" | "dumbbell" | "ear-off" | "ear" | "earth" | "earth-lock" | "eclipse" | "egg-fried" | "egg-off" | "egg" | "ellipse" | "ellipsis-vertical" | "ellipsis" | "equal-approximately" | "equal-not" | "equal" | "eraser" | "euro" | "ethernet-port" | "ev-charger" | "expand" | "external-link" | "eye-closed" | "eye-dashed" | "eye-off" | "eye" | "face-angry" | "face-grinning" | "face-expressionless" | "face-neutral" | "face-slightly-frowning" | "face-slightly-smiling-plus" | "face-slightly-smiling" | "factory" | "fan" | "fast-forward" | "feather" | "fence" | "ferris-wheel" | "file-archive" | "file-badge" | "file-axis3d" | "file-box" | "file-braces" | "file-chart-column-increasing" | "file-braces-corner" | "file-chart-column" | "file-chart-pie" | "file-chart-line" | "file-check-corner" | "file-check" | "file-clock" | "file-code" | "file-code-corner" | "file-cog" | "file-diff" | "file-digit" | "file-down" | "file-exclamation-point" | "file-headphone" | "file-heart" | "file-image" | "file-input" | "file-key" | "file-lock" | "file-minus-corner" | "file-minus" | "file-music" | "file-output" | "file-pen-line" | "file-pen" | "file-play" | "file-plus" | "file-plus-corner" | "file-question-mark" | "file-scan" | "file-search-corner" | "file-search" | "file-signal" | "file-sliders" | "file-spreadsheet" | "file-stack" | "file-symlink" | "file-terminal" | "file-text" | "file-type-corner" | "file-type" | "file-up" | "file-user" | "file-video-camera" | "file-volume" | "file-x-corner" | "file" | "file-x" | "files" | "film" | "fingerprint-pattern" | "fire-extinguisher" | "fish-off" | "fish-symbol" | "fish" | "fishing-hook" | "fishing-rod" | "flag-off" | "flag-triangle-left" | "flag-triangle-right" | "flag" | "flame-kindling" | "flame" | "flashlight-off" | "flashlight" | "flask-conical" | "flask-conical-off" | "flip-horizontal2" | "flask-round" | "flip-vertical2" | "flower2" | "flower" | "fold-vertical" | "fold-horizontal" | "focus" | "folder-archive" | "folder-bookmark" | "folder-check" | "folder-clock" | "folder-closed" | "folder-code" | "folder-cog" | "folder-dot" | "folder-down" | "folder-git2" | "folder-git" | "folder-heart" | "folder-input" | "folder-kanban" | "folder-key" | "folder-lock" | "folder-minus" | "folder-open-dot" | "folder-open" | "folder-output" | "folder-pen" | "folder-plus" | "folder-root" | "folder-search2" | "folder-search" | "folder-symlink" | "folder-sync" | "folder-tree" | "folder-up" | "folder-x" | "folders" | "folder" | "footprints" | "form" | "forward" | "forklift" | "frame" | "fuel" | "funnel-x" | "fullscreen" | "funnel-plus" | "funnel" | "gallery-horizontal-end" | "gallery-horizontal" | "gallery-thumbnails" | "gallery-vertical-end" | "gallery-vertical" | "gamepad-directional" | "gamepad2" | "gauge" | "gamepad" | "gavel" | "gem" | "georgian-lari" | "gift" | "ghost" | "git-branch-minus" | "git-branch-plus" | "git-branch" | "git-commit-horizontal" | "git-commit-vertical" | "git-compare-arrows" | "git-compare" | "git-fork" | "git-graph" | "git-merge-conflict" | "git-merge" | "git-pull-request-arrow" | "git-pull-request-closed" | "git-pull-request-create-arrow" | "git-pull-request-create" | "git-pull-request-draft" | "git-pull-request" | "glass-water" | "glasses" | "globe-check" | "globe-lock" | "globe-off" | "globe-x" | "globe" | "goal" | "gpu" | "graduation-cap" | "grape" | "grid2x2-check" | "grid2x2-plus" | "grid2x2-x" | "grid2x2" | "grid3x2" | "grip-horizontal" | "grid3x3" | "grip" | "group" | "grip-vertical" | "guitar" | "ham" | "hamburger" | "hammer" | "hand-coins" | "hand-fist" | "hand-grab" | "hand-heart" | "hand-helping" | "hand-metal" | "hand-platter" | "hand" | "handbag" | "handshake" | "hard-drive-download" | "hard-drive-upload" | "hard-drive" | "hard-hat" | "hash" | "hat-glasses" | "hd" | "haze" | "hdmi-port" | "heading1" | "heading2" | "heading3" | "heading4" | "heading5" | "heading6" | "heading" | "headphones" | "headphone-off" | "headset" | "heart-crack" | "heart-handshake" | "heart-off" | "heart-plus" | "heart-minus" | "heart-pulse" | "heart-x" | "heater" | "heart" | "helicopter" | "hexagon" | "highlighter" | "hop-off" | "hop" | "hospital" | "hourglass" | "hotel" | "house-heart" | "house-plug" | "house-plus" | "house-wifi" | "house" | "ice-cream-bowl" | "ice-cream-cone" | "id-card-lanyard" | "id-card" | "image-down" | "image-minus" | "image-play" | "image-off" | "image-plus" | "image-up" | "image-upscale" | "image" | "images" | "import" | "inbox" | "indian-rupee" | "infinity" | "inspection-panel" | "info" | "italic" | "iteration-ccw" | "iteration-cw" | "japanese-yen" | "kanban" | "joystick" | "kayak" | "key-round" | "key-square" | "keyboard-music" | "key" | "keyboard-off" | "keyboard" | "lamp-ceiling" | "lamp-desk" | "lamp-floor" | "lamp-wall-down" | "lamp-wall-up" | "lamp" | "land-plot" | "landmark" | "laptop-minimal-check" | "laptop-minimal" | "languages" | "lasso-select" | "laptop" | "lasso" | "layer-arrow-down" | "layer-arrow-up" | "layers2" | "layers-arrow-up" | "layers-arrow-down" | "layers-minus" | "layers-plus" | "layers" | "layout-dashboard" | "layout-freeform" | "layout-grid" | "layout-list" | "layout-panel-left" | "layout-panel-top" | "layout-template" | "leaf" | "leafy-green" | "lectern" | "lens-concave" | "lens-convex" | "library-big" | "library" | "life-buoy" | "ligature" | "lightbulb-off" | "lightbulb" | "line-dot-right-horizontal" | "line-squiggle" | "line-style" | "link2-off" | "link2" | "list-check" | "link" | "list-checks" | "list-chevrons-down-up" | "list-chevrons-up-down" | "list-collapse" | "list-end" | "list-filter-plus" | "list-filter" | "list-indent-decrease" | "list-indent-increase" | "list-minus" | "list-music" | "list-ordered" | "list-plus" | "list-restart" | "list-sort-ascending" | "list-sort-descending" | "list-start" | "list-tree" | "list-todo" | "list-video" | "list-x" | "list" | "loader-pinwheel" | "loader-circle" | "loader" | "locate-off" | "locate-fixed" | "locate" | "lock-keyhole-open" | "lock-open" | "lock" | "lock-keyhole" | "log-in" | "log-out" | "logs" | "lollipop" | "magnet" | "luggage" | "mail-check" | "mail-minus" | "mail-plus" | "mail-open" | "mail-question-mark" | "mail-search" | "mail-warning" | "mail-x" | "mail" | "mailbox" | "mails" | "map-minus" | "map-pin-check-inside" | "map-pin-check" | "map-pin-minus-inside" | "map-pin-house" | "map-pin-minus" | "map-pin-off" | "map-pin-plus-inside" | "map-pin-pen" | "map-pin-plus" | "map-pin-search" | "map-pin-x-inside" | "map-pin-x" | "map-pin" | "map-pinned" | "map-plus" | "map" | "mars" | "mars-stroke" | "martini" | "maximize2" | "maximize" | "medal" | "megaphone-off" | "megaphone" | "menu" | "memory-stick" | "merge" | "message-circle-check" | "message-circle-dashed" | "message-circle-code" | "message-circle-heart" | "message-circle-more" | "message-circle-off" | "message-circle-plus" | "message-circle-question-mark" | "message-circle-reply" | "message-circle-warning" | "message-circle-x" | "message-square-check" | "message-circle" | "message-square-code" | "message-square-dashed" | "message-square-diff" | "message-square-dot" | "message-square-heart" | "message-square-lock" | "message-square-off" | "message-square-more" | "message-square-plus" | "message-square-reply" | "message-square-share" | "message-square-quote" | "message-square-text" | "message-square-warning" | "message-square-x" | "message-square" | "metronome" | "messages-square" | "mic-audio-lines" | "mic-off" | "mic-signal" | "mic" | "microchip" | "mic-vocal" | "microscope" | "microwave" | "milestone" | "milk-off" | "milk" | "minimize" | "minimize2" | "minus" | "mirror-rectangular" | "mirror-round" | "monitor-check" | "monitor-cloud" | "monitor-cog" | "monitor-dot" | "monitor-down" | "monitor-off" | "monitor-pause" | "monitor-smartphone" | "monitor-play" | "monitor-speaker" | "monitor-stop" | "monitor-up" | "monitor-x" | "monitor" | "moon-star" | "moon" | "motorbike" | "mosque" | "mountain-snow" | "mountain" | "mouse-left" | "mouse-off" | "mouse-pointer2-off" | "mouse-pointer2" | "mouse-pointer-ban" | "mouse-pointer-click" | "mouse-pointer" | "mouse-right" | "move3d" | "mouse" | "move-diagonal" | "move-diagonal2" | "move-down-right" | "move-down-left" | "move-horizontal" | "move-down" | "move-left" | "move-right" | "move-up-left" | "move-up-right" | "move-up" | "move-vertical" | "move" | "music2" | "music3" | "music4" | "music" | "navigation2-off" | "navigation2" | "navigation-off" | "navigation" | "network" | "newspaper" | "nfc" | "notebook-pen" | "non-binary" | "notebook-tabs" | "notebook-text" | "notebook" | "notepad-text-dashed" | "notepad-text" | "nut-off" | "nut" | "octagon-alert" | "octagon-minus" | "octagon-pause" | "octagon" | "octagon-x" | "omega" | "option" | "orbit" | "origami" | "package2" | "package-check" | "package-minus" | "package-open" | "package-plus" | "package-x" | "package-search" | "package" | "paint-bucket" | "paint-roller" | "paintbrush-vertical" | "paintbrush" | "palette" | "panda" | "panel-bottom-close" | "panel-bottom-dashed" | "panel-bottom-open" | "panel-bottom" | "panel-left-close" | "panel-left-dashed" | "panel-left-open" | "panel-left-right-dashed" | "panel-left" | "panel-right-close" | "panel-right-dashed" | "panel-right-open" | "panel-right" | "panel-top-bottom-dashed" | "panel-top-close" | "panel-top-dashed" | "panel-top-open" | "panel-top" | "panels-left-bottom" | "panels-right-bottom" | "paper-bag" | "panels-top-left" | "paperclip" | "parasol" | "parking-meter" | "party-popper" | "parentheses" | "pause" | "paw-print" | "pc-case" | "pen-off" | "pen-line" | "pen-tool" | "pen" | "pencil-line" | "pencil-off" | "pencil-ruler" | "pencil-sparkles" | "pencil" | "pentagon" | "percent" | "phi" | "person-standing" | "philippine-peso" | "phone-call" | "phone-forwarded" | "phone-missed" | "phone-incoming" | "phone-off" | "phone" | "phone-outgoing" | "pi" | "piano" | "pickaxe" | "picture-in-picture2" | "picture-in-picture" | "piggy-bank" | "pilcrow-left" | "pilcrow" | "pilcrow-right" | "pill-bottle" | "pill" | "pin-off" | "pipette" | "pin" | "pizza" | "plane-landing" | "plane" | "plane-takeoff" | "play-off" | "play" | "plug2" | "plug-zap" | "plug" | "plus" | "pocket-knife" | "podium" | "pointer-off" | "pointer" | "popcorn" | "popsicle" | "pound-sterling" | "power-off" | "power" | "presentation" | "printer-check" | "printer-x" | "printer" | "projector" | "proportions" | "puzzle" | "pyramid" | "qr-code" | "quote" | "rabbit" | "radar" | "radiation" | "radical" | "radio-off" | "radio-receiver" | "radio-tower" | "radio" | "radius" | "rainbow" | "rat" | "ratio" | "receipt-cent" | "receipt-euro" | "receipt-indian-rupee" | "receipt-japanese-yen" | "receipt-pound-sterling" | "receipt-russian-ruble" | "receipt-swiss-franc" | "receipt-text" | "receipt-turkish-lira" | "receipt" | "rectangle-circle" | "rectangle-ellipsis" | "rectangle-goggles" | "rectangle-vertical" | "rectangle-horizontal" | "recycle" | "redo-dot" | "redo2" | "redo" | "refresh-ccw-dot" | "refresh-ccw" | "refresh-cw-off" | "refresh-cw" | "refrigerator" | "regex" | "remove-formatting" | "repeat1" | "repeat2" | "repeat-off" | "repeat" | "replace-all" | "replace" | "reply-all" | "reply" | "rewind" | "ribbon" | "road" | "rocket" | "rocking-chair" | "roller-coaster" | "rose" | "rotate3d" | "rotate-ccw-clock" | "rotate-ccw-key" | "rotate-ccw-square" | "rotate-ccw" | "rotate-cw-fading-clock" | "rotate-cw-square" | "rotate-cw" | "route-off" | "route" | "rows2" | "router" | "rows3" | "rows4" | "rss" | "ruler-dimension-line" | "ruler" | "russian-ruble" | "sailboat" | "sandwich" | "salad" | "satellite-dish" | "satellite" | "saudi-riyal" | "save-all" | "save-check" | "save-off" | "save-pen" | "save-plus" | "save" | "scale3d" | "scale" | "scaling" | "scan-barcode" | "scan-box" | "scan-eye" | "scan-face" | "scan-heart" | "scan-line" | "scan-qr-code" | "scan-square" | "scan-search" | "scan-text" | "scan" | "scissors-line-dashed" | "school" | "scissors" | "screen-share-off" | "screen-share" | "scooter" | "scroll-text" | "scroll" | "search-alert" | "search-check" | "search-code" | "search-slash" | "search-x" | "section" | "search" | "send-horizontal" | "send-to-back" | "send" | "separator-horizontal" | "separator-vertical" | "server-cog" | "server-crash" | "server-off" | "server-plus" | "server" | "settings2" | "settings" | "shapes" | "share2" | "share" | "sheet" | "shell" | "shelving-unit" | "shield-alert" | "shield-ban" | "shield-check" | "shield-cog-corner" | "shield-cog" | "shield-ellipsis" | "shield-half" | "shield-keyhole" | "shield-lock" | "shield-minus" | "shield-plus" | "shield-off" | "shield-question-mark" | "shield-user" | "shield-x" | "shield" | "ship-wheel" | "ship" | "shirt" | "shopping-bag" | "shopping-basket" | "shopping-cart" | "shovel" | "shower-head" | "shrimp" | "shredder" | "shrink" | "shrub" | "shuffle" | "sigma" | "signal-high" | "signal-low" | "signal-medium" | "signal-zero" | "signal" | "signature" | "signpost-big" | "signpost" | "siren" | "skip-back" | "skip-forward" | "skull" | "slash" | "slice" | "sliders-horizontal" | "sliders-vertical" | "smartphone-charging" | "smartphone-nfc" | "smartphone" | "snail" | "snowflake" | "soap-dispenser-droplet" | "sofa" | "solar-panel" | "soup" | "space" | "spade" | "sparkle" | "sparkles" | "speaker" | "speech" | "spell-check2" | "spell-check" | "spline-pointer" | "spline" | "split" | "sport-shoe" | "spool" | "spotlight" | "spray-can" | "sprout" | "square-activity" | "square-arrow-down-left" | "square-arrow-down-right" | "square-arrow-down" | "square-arrow-left" | "square-arrow-out-down-left" | "square-arrow-out-down-right" | "square-arrow-out-up-left" | "square-arrow-out-up-right" | "square-arrow-right-enter" | "square-arrow-right-exit" | "square-arrow-right" | "square-arrow-up-left" | "square-arrow-up-right" | "square-arrow-up" | "square-asterisk" | "square-bottom-dashed-scissors" | "square-centerline-dashed-horizontal" | "square-centerline-dashed-vertical" | "square-chart-gantt" | "square-check-big" | "square-check" | "square-chevron-down" | "square-chevron-right" | "square-chevron-left" | "square-chevron-up" | "square-code" | "square-dashed-bottom" | "square-dashed-bottom-code" | "square-dashed-kanban" | "square-dashed-mouse-pointer" | "square-dashed-text" | "square-dashed-top-solid" | "square-dashed" | "square-divide" | "square-dot" | "square-equal" | "square-function" | "square-kanban" | "square-library" | "square-m" | "square-menu" | "square-minus" | "square-mouse-pointer" | "square-off" | "square-parking-off" | "square-parking" | "square-pause" | "square-pen" | "square-percent" | "square-pi" | "square-pilcrow" | "square-play" | "square-plus" | "square-power" | "square-radical" | "square-round-corner" | "square-scissors" | "square-sigma" | "square-slash" | "square-split-horizontal" | "square-split-vertical" | "square-square" | "square-stack" | "square-stop" | "square-terminal" | "square-user-round" | "square-star" | "square-user" | "square-x" | "square" | "squares-intersect" | "squares-exclude" | "squares-subtract" | "squares-unite" | "squircle-dashed" | "squircle" | "squirrel" | "stamp" | "star-check" | "star-half" | "star-minus" | "star-off" | "star-plus" | "star-x" | "star" | "step-back" | "step-forward" | "sticker" | "stethoscope" | "sticky-note-check" | "sticky-note-off" | "sticky-note-minus" | "sticky-note-plus" | "sticky-note-x" | "sticky-note" | "sticky-notes" | "store" | "stone" | "stretch-horizontal" | "stretch-vertical" | "strikethrough" | "subscript" | "summary" | "sun-dim" | "sun-medium" | "sun-moon" | "sun-snow" | "sun" | "sunrise" | "sunset" | "swatch-book" | "superscript" | "swiss-franc" | "switch-camera" | "sword" | "swords" | "syringe" | "table2" | "table-cells-merge" | "table-cells-split" | "table-columns-split" | "table-of-contents" | "table-properties" | "table-rows-split" | "table" | "tablet-smartphone" | "tablet" | "tablets" | "tag-plus" | "tag-x" | "tag" | "tags" | "tally1" | "tally2" | "tally3" | "tally5" | "tally4" | "tangent" | "target" | "telescope" | "tent-tree" | "tent" | "terminal" | "test-tube-diagonal" | "test-tube" | "test-tubes" | "text-align-center" | "text-align-end" | "text-align-justify" | "text-align-start" | "text-cursor-input" | "text-cursor" | "text-initial" | "text-quote" | "text-search" | "text-wrap" | "theater" | "thermometer-snowflake" | "thermometer" | "thermometer-sun" | "thumbs-down" | "thumbs-up" | "ticket-check" | "ticket-minus" | "ticket-percent" | "ticket-plus" | "ticket-slash" | "ticket-x" | "ticket" | "tickets-plane" | "tickets" | "timeline" | "timer-off" | "timer-reset" | "timer" | "toggle-left" | "toggle-right" | "tool-case" | "toilet" | "toolbox" | "tornado" | "torus" | "touchpad" | "touchpad-off" | "towel-rack" | "tower-control" | "toy-brick" | "tractor" | "traffic-cone" | "train-front-tunnel" | "train-front" | "train-track" | "tram-front" | "transgender" | "trash2" | "trash" | "tree-deciduous" | "tree-palm" | "tree-pine" | "trees" | "trending-down" | "trending-up-down" | "trending-up" | "triangle-alert" | "triangle-dashed" | "triangle-right" | "triangle" | "trophy" | "truck-electric" | "turkish-lira" | "truck" | "turntable" | "turtle" | "tv-minimal-play" | "tv-minimal" | "tv" | "type-outline" | "type" | "umbrella-off" | "umbrella" | "underline" | "undo-dot" | "undo2" | "undo" | "unfold-horizontal" | "unfold-vertical" | "ungroup" | "university" | "unlink2" | "unlink" | "upload" | "unplug" | "usb" | "user-check" | "user-cog" | "user-key" | "user-lock" | "user-minus" | "user-pen" | "user-plus" | "user-round-arrow-left" | "user-round-cog" | "user-round-check" | "user-round-key" | "user-round-minus" | "user-round-pen" | "user-round-plus" | "user-round-search" | "user-round" | "user-round-x" | "user-search" | "user-shield" | "user-star" | "user-x" | "user" | "users-round" | "users" | "utensils-crossed" | "utensils" | "utility-pole" | "van" | "variable" | "vault" | "vector-square" | "vegan" | "venetian-mask" | "venus-and-mars" | "vibrate-off" | "venus" | "vibrate" | "video-off" | "video" | "videotape" | "view" | "voicemail" | "volleyball" | "volume1" | "volume2" | "volume-off" | "volume-x" | "volume" | "wallet-cards" | "vote" | "wallet-minimal" | "wallet" | "wallpaper" | "wand-sparkles" | "wand" | "warehouse" | "washing-machine" | "watch" | "waves-arrow-up" | "waves-arrow-down" | "waves-horizontal" | "waves-ladder" | "waves-vertical" | "waypoints" | "webcam-off" | "webcam" | "webhook" | "webhook-off" | "weight-tilde" | "weight" | "wheat-off" | "whole-word" | "wheat" | "wifi-cog" | "wifi-high" | "wifi-low" | "wifi-off" | "wifi-pen" | "wifi-sync" | "wifi-zero" | "wifi" | "wind-arrow-down" | "wind" | "wine-off" | "wine" | "workflow" | "worm" | "wrench-off" | "wrench" | "x-line-top" | "zap-off" | "zodiac-aquarius" | "zap" | "zodiac-aries" | "zodiac-cancer" | "zodiac-capricorn" | "zodiac-gemini" | "zodiac-leo" | "zodiac-ophiuchus" | "zodiac-libra" | "zodiac-pisces" | "zodiac-sagittarius" | "zodiac-scorpio" | "zodiac-taurus" | "zoom-in" | "zodiac-virgo" | "zoom-out";
 
 /** Lowercase name -> lucide icon component. */
-export const lucideIconMap: Record<
-  LucideIconName,
-  import("lucide-react").LucideIcon
-> = {
+export const lucideIconMap: Record<LucideIconName, import("lucide-react").LucideIcon> = {
   "a-arrow-down": AArrowDown,
   "a-arrow-up": AArrowUp,
   "a-large-small": ALargeSmall,
-  accessibility: Accessibility,
-  activity: Activity,
-  ad: Ad,
+  "accessibility": Accessibility,
+  "activity": Activity,
+  "ad": Ad,
   "air-vent": AirVent,
-  airplay: Airplay,
+  "airplay": Airplay,
   "alarm-clock-check": AlarmClockCheck,
   "alarm-clock-minus": AlarmClockMinus,
   "alarm-clock-off": AlarmClockOff,
   "alarm-clock-plus": AlarmClockPlus,
   "alarm-smoke": AlarmSmoke,
   "alarm-clock": AlarmClock,
-  album: Album,
+  "album": Album,
   "align-center-horizontal": AlignCenterHorizontal,
   "align-end-horizontal": AlignEndHorizontal,
   "align-end-vertical": AlignEndVertical,
@@ -3582,21 +1816,21 @@ export const lucideIconMap: Record<
   "align-vertical-justify-end": AlignVerticalJustifyEnd,
   "align-vertical-space-around": AlignVerticalSpaceAround,
   "align-vertical-space-between": AlignVerticalSpaceBetween,
-  ambulance: Ambulance,
-  ampersand: Ampersand,
-  ampersands: Ampersands,
-  amphora: Amphora,
-  anchor: Anchor,
-  antenna: Antenna,
-  anvil: Anvil,
-  aperture: Aperture,
+  "ambulance": Ambulance,
+  "ampersand": Ampersand,
+  "ampersands": Ampersands,
+  "amphora": Amphora,
+  "anchor": Anchor,
+  "antenna": Antenna,
+  "anvil": Anvil,
+  "aperture": Aperture,
   "app-window-mac": AppWindowMac,
   "app-window": AppWindow,
-  apple: Apple,
+  "apple": Apple,
   "archive-restore": ArchiveRestore,
   "archive-x": ArchiveX,
-  archive: Archive,
-  armchair: Armchair,
+  "archive": Archive,
+  "armchair": Armchair,
   "arrow-big-down-dash": ArrowBigDownDash,
   "arrow-big-down": ArrowBigDown,
   "arrow-big-left-dash": ArrowBigLeftDash,
@@ -3640,18 +1874,18 @@ export const lucideIconMap: Record<
   "arrow-up-wide-narrow": ArrowUpWideNarrow,
   "arrow-up": ArrowUp,
   "arrows-up-from-line": ArrowsUpFromLine,
-  asterisk: Asterisk,
-  astroid: Astroid,
-  atom: Atom,
+  "asterisk": Asterisk,
+  "astroid": Astroid,
+  "atom": Atom,
   "at-sign": AtSign,
   "audio-lines-x": AudioLinesX,
   "audio-lines": AudioLines,
   "audio-waveform": AudioWaveform,
-  award: Award,
-  axe: Axe,
-  baby: Baby,
-  axis3d: Axis3d,
-  backpack: Backpack,
+  "award": Award,
+  "axe": Axe,
+  "baby": Baby,
+  "axis3d": Axis3d,
+  "backpack": Backpack,
   "badge-alert": BadgeAlert,
   "badge-cent": BadgeCent,
   "badge-check": BadgeCheck,
@@ -3669,38 +1903,38 @@ export const lucideIconMap: Record<
   "badge-swiss-franc": BadgeSwissFranc,
   "badge-turkish-lira": BadgeTurkishLira,
   "badge-x": BadgeX,
-  badge: Badge,
+  "badge": Badge,
   "baggage-claim": BaggageClaim,
-  balloon: Balloon,
-  ban: Ban,
-  banana: Banana,
-  bandage: Bandage,
+  "balloon": Balloon,
+  "ban": Ban,
+  "banana": Banana,
+  "bandage": Bandage,
   "banknote-arrow-down": BanknoteArrowDown,
   "banknote-arrow-up": BanknoteArrowUp,
   "banknote-check": BanknoteCheck,
   "banknote-x": BanknoteX,
-  banknote: Banknote,
-  barcode: Barcode,
-  baseline: Baseline,
-  barrel: Barrel,
-  bath: Bath,
+  "banknote": Banknote,
+  "barcode": Barcode,
+  "baseline": Baseline,
+  "barrel": Barrel,
+  "bath": Bath,
   "battery-low": BatteryLow,
   "battery-full": BatteryFull,
   "battery-charging": BatteryCharging,
   "battery-medium": BatteryMedium,
   "battery-plus": BatteryPlus,
   "battery-warning": BatteryWarning,
-  beaker: Beaker,
-  battery: Battery,
+  "beaker": Beaker,
+  "battery": Battery,
   "bean-off": BeanOff,
-  bean: Bean,
+  "bean": Bean,
   "bed-double": BedDouble,
   "bed-single": BedSingle,
-  bed: Bed,
+  "bed": Bed,
   "beef-off": BeefOff,
-  beef: Beef,
+  "beef": Beef,
   "beer-off": BeerOff,
-  beer: Beer,
+  "beer": Beer,
   "bell-dot": BellDot,
   "bell-check": BellCheck,
   "bell-electric": BellElectric,
@@ -3708,32 +1942,32 @@ export const lucideIconMap: Record<
   "bell-off": BellOff,
   "bell-plus": BellPlus,
   "bell-ring": BellRing,
-  bell: Bell,
+  "bell": Bell,
   "between-horizontal-start": BetweenHorizontalStart,
   "between-horizontal-end": BetweenHorizontalEnd,
   "between-vertical-end": BetweenVerticalEnd,
   "between-vertical-start": BetweenVerticalStart,
   "biceps-flexed": BicepsFlexed,
-  bike: Bike,
-  binary: Binary,
-  binoculars: Binoculars,
-  biohazard: Biohazard,
-  bird: Bird,
-  birdhouse: Birdhouse,
-  bitcoin: Bitcoin,
-  blend: Blend,
-  blender: Blender,
-  blocks: Blocks,
-  blinds: Blinds,
+  "bike": Bike,
+  "binary": Binary,
+  "binoculars": Binoculars,
+  "biohazard": Biohazard,
+  "bird": Bird,
+  "birdhouse": Birdhouse,
+  "bitcoin": Bitcoin,
+  "blend": Blend,
+  "blender": Blender,
+  "blocks": Blocks,
+  "blinds": Blinds,
   "bluetooth-connected": BluetoothConnected,
   "bluetooth-off": BluetoothOff,
   "bluetooth-searching": BluetoothSearching,
-  bluetooth: Bluetooth,
-  bold: Bold,
-  bolt: Bolt,
+  "bluetooth": Bluetooth,
+  "bold": Bold,
+  "bolt": Bolt,
   "bone-fracture": BoneFracture,
-  bomb: Bomb,
-  bone: Bone,
+  "bomb": Bomb,
+  "bone": Bone,
   "book-a": BookA,
   "book-alert": BookAlert,
   "book-audio": BookAudio,
@@ -3759,53 +1993,53 @@ export const lucideIconMap: Record<
   "book-up2": BookUp2,
   "book-user": BookUser,
   "book-x": BookX,
-  book: Book,
+  "book": Book,
   "bookmark-check": BookmarkCheck,
   "bookmark-minus": BookmarkMinus,
   "bookmark-off": BookmarkOff,
   "bookmark-plus": BookmarkPlus,
   "bookmark-x": BookmarkX,
-  bookmark: Bookmark,
+  "bookmark": Bookmark,
   "boom-box": BoomBox,
   "bot-message-square": BotMessageSquare,
   "bot-off": BotOff,
-  bot: Bot,
+  "bot": Bot,
   "bottle-wine": BottleWine,
   "bow-arrow": BowArrow,
-  box: Box,
-  braces: Braces,
-  boxes: Boxes,
-  brackets: Brackets,
+  "box": Box,
+  "braces": Braces,
+  "boxes": Boxes,
+  "brackets": Brackets,
   "brain-circuit": BrainCircuit,
   "brain-cog": BrainCog,
-  brain: Brain,
+  "brain": Brain,
   "brick-wall-fire": BrickWallFire,
   "brick-wall-shield": BrickWallShield,
   "brick-wall": BrickWall,
   "briefcase-business": BriefcaseBusiness,
   "briefcase-conveyor-belt": BriefcaseConveyorBelt,
-  briefcase: Briefcase,
+  "briefcase": Briefcase,
   "briefcase-medical": BriefcaseMedical,
   "bring-to-front": BringToFront,
-  broccoli: Broccoli,
+  "broccoli": Broccoli,
   "broom-sparkles": BroomSparkles,
-  broom: Broom,
+  "broom": Broom,
   "brush-cleaning": BrushCleaning,
-  brush: Brush,
-  bubbles: Bubbles,
+  "brush": Brush,
+  "bubbles": Bubbles,
   "bug-off": BugOff,
   "bug-play": BugPlay,
-  bug: Bug,
-  building2: Building2,
-  building: Building,
+  "bug": Bug,
+  "building2": Building2,
+  "building": Building,
   "bus-front": BusFront,
-  bus: Bus,
+  "bus": Bus,
   "cable-car": CableCar,
-  cable: Cable,
+  "cable": Cable,
   "cake-slice": CakeSlice,
-  cake: Cake,
-  calculator: Calculator,
-  calendar1: Calendar1,
+  "cake": Cake,
+  "calculator": Calculator,
+  "calendar1": Calendar1,
   "calendar-arrow-up": CalendarArrowUp,
   "calendar-arrow-down": CalendarArrowDown,
   "calendar-check2": CalendarCheck2,
@@ -3825,32 +2059,32 @@ export const lucideIconMap: Record<
   "calendar-sync": CalendarSync,
   "calendar-x2": CalendarX2,
   "calendar-x": CalendarX,
-  calendars: Calendars,
-  calendar: Calendar,
+  "calendars": Calendars,
+  "calendar": Calendar,
   "camera-off": CameraOff,
-  camera: Camera,
+  "camera": Camera,
   "candy-cane": CandyCane,
   "candy-off": CandyOff,
-  candy: Candy,
+  "candy": Candy,
   "cannabis-off": CannabisOff,
-  cannabis: Cannabis,
+  "cannabis": Cannabis,
   "captions-off": CaptionsOff,
-  captions: Captions,
+  "captions": Captions,
   "car-front": CarFront,
   "car-taxi-front": CarTaxiFront,
-  car: Car,
-  caravan: Caravan,
+  "car": Car,
+  "caravan": Caravan,
   "card-sim": CardSim,
-  carrot: Carrot,
+  "carrot": Carrot,
   "case-lower": CaseLower,
   "case-sensitive": CaseSensitive,
   "case-upper": CaseUpper,
   "cassette-tape": CassetteTape,
-  cast: Cast,
-  castle: Castle,
-  cat: Cat,
+  "cast": Cast,
+  "castle": Castle,
+  "cat": Cat,
   "cctv-off": CctvOff,
-  cctv: Cctv,
+  "cctv": Cctv,
   "chart-area": ChartArea,
   "chart-bar-big": ChartBarBig,
   "chart-bar-increasing": ChartBarIncreasing,
@@ -3876,9 +2110,9 @@ export const lucideIconMap: Record<
   "chart-spline": ChartSpline,
   "check-check": CheckCheck,
   "check-line": CheckLine,
-  check: Check,
+  "check": Check,
   "chef-hat": ChefHat,
-  cherry: Cherry,
+  "cherry": Cherry,
   "chess-bishop": ChessBishop,
   "chess-knight": ChessKnight,
   "chess-king": ChessKing,
@@ -3900,8 +2134,8 @@ export const lucideIconMap: Record<
   "chevrons-right": ChevronsRight,
   "chevrons-up-down": ChevronsUpDown,
   "chevrons-up": ChevronsUp,
-  church: Church,
-  cigarette: Cigarette,
+  "church": Church,
+  "cigarette": Cigarette,
   "cigarette-off": CigaretteOff,
   "circle-alert": CircleAlert,
   "circle-arrow-down": CircleArrowDown,
@@ -3949,10 +2183,10 @@ export const lucideIconMap: Record<
   "circle-user-round": CircleUserRound,
   "circle-user": CircleUser,
   "circle-x": CircleX,
-  circle: Circle,
+  "circle": Circle,
   "circuit-board": CircuitBoard,
-  citrus: Citrus,
-  clapperboard: Clapperboard,
+  "citrus": Citrus,
+  "clapperboard": Clapperboard,
   "clipboard-check": ClipboardCheck,
   "clipboard-clock": ClipboardClock,
   "clipboard-list": ClipboardList,
@@ -3964,19 +2198,19 @@ export const lucideIconMap: Record<
   "clipboard-plus": ClipboardPlus,
   "clipboard-type": ClipboardType,
   "clipboard-x": ClipboardX,
-  clipboard: Clipboard,
-  clock1: Clock1,
-  clock10: Clock10,
-  clock11: Clock11,
-  clock12: Clock12,
-  clock2: Clock2,
-  clock3: Clock3,
-  clock4: Clock4,
-  clock6: Clock6,
-  clock5: Clock5,
-  clock7: Clock7,
-  clock8: Clock8,
-  clock9: Clock9,
+  "clipboard": Clipboard,
+  "clock1": Clock1,
+  "clock10": Clock10,
+  "clock11": Clock11,
+  "clock12": Clock12,
+  "clock2": Clock2,
+  "clock3": Clock3,
+  "clock4": Clock4,
+  "clock6": Clock6,
+  "clock5": Clock5,
+  "clock7": Clock7,
+  "clock8": Clock8,
+  "clock9": Clock9,
   "clock-alert": ClockAlert,
   "clock-arrow-down": ClockArrowDown,
   "clock-arrow-right": ClockArrowRight,
@@ -3987,7 +2221,7 @@ export const lucideIconMap: Record<
   "clock-plus": ClockPlus,
   "closed-caption": ClosedCaption,
   "cloud-alert": CloudAlert,
-  clock: Clock,
+  "clock": Clock,
   "cloud-backup": CloudBackup,
   "cloud-check": CloudCheck,
   "cloud-cog": CloudCog,
@@ -4005,42 +2239,42 @@ export const lucideIconMap: Record<
   "cloud-sun-rain": CloudSunRain,
   "cloud-sun": CloudSun,
   "cloud-sync": CloudSync,
-  cloud: Cloud,
+  "cloud": Cloud,
   "cloud-upload": CloudUpload,
-  cloudy: Cloudy,
-  clover: Clover,
-  club: Club,
+  "cloudy": Cloudy,
+  "clover": Clover,
+  "club": Club,
   "code-xml": CodeXml,
-  code: Code,
-  coffee: Coffee,
-  cog: Cog,
-  coins: Coins,
-  columns2: Columns2,
+  "code": Code,
+  "coffee": Coffee,
+  "cog": Cog,
+  "coins": Coins,
+  "columns2": Columns2,
   "columns3-cog": Columns3Cog,
-  columns3: Columns3,
-  columns4: Columns4,
-  combine: Combine,
-  command: Command,
-  compass: Compass,
-  component: Component,
-  computer: Computer,
+  "columns3": Columns3,
+  "columns4": Columns4,
+  "combine": Combine,
+  "command": Command,
+  "compass": Compass,
+  "component": Component,
+  "computer": Computer,
   "concierge-bell": ConciergeBell,
-  cone: Cone,
-  construction: Construction,
+  "cone": Cone,
+  "construction": Construction,
   "contact-round": ContactRound,
-  container: Container,
-  contact: Contact,
-  contrast: Contrast,
-  cookie: Cookie,
+  "container": Container,
+  "contact": Contact,
+  "contrast": Contrast,
+  "cookie": Cookie,
   "cooking-pot": CookingPot,
   "copy-check": CopyCheck,
   "copy-minus": CopyMinus,
   "copy-plus": CopyPlus,
   "copy-slash": CopySlash,
   "copy-x": CopyX,
-  copyleft: Copyleft,
-  copy: Copy,
-  copyright: Copyright,
+  "copyleft": Copyleft,
+  "copy": Copy,
+  "copyright": Copyright,
   "corner-down-left": CornerDownLeft,
   "corner-down-right": CornerDownRight,
   "corner-left-down": CornerLeftDown,
@@ -4049,19 +2283,19 @@ export const lucideIconMap: Record<
   "corner-right-up": CornerRightUp,
   "corner-up-left": CornerUpLeft,
   "corner-up-right": CornerUpRight,
-  cpu: Cpu,
+  "cpu": Cpu,
   "creative-commons": CreativeCommons,
   "credit-card": CreditCard,
-  croissant: Croissant,
-  crop: Crop,
-  cross: Cross,
-  crosshair: Crosshair,
-  crown: Crown,
-  cuboid: Cuboid,
+  "croissant": Croissant,
+  "crop": Crop,
+  "cross": Cross,
+  "crosshair": Crosshair,
+  "crown": Crown,
+  "cuboid": Cuboid,
   "cup-soda": CupSoda,
-  currency: Currency,
-  cylinder: Cylinder,
-  dam: Dam,
+  "currency": Currency,
+  "cylinder": Cylinder,
+  "dam": Dam,
   "database-arrow-down": DatabaseArrowDown,
   "database-arrow-up": DatabaseArrowUp,
   "database-backup": DatabaseBackup,
@@ -4071,74 +2305,74 @@ export const lucideIconMap: Record<
   "database-search": DatabaseSearch,
   "database-x": DatabaseX,
   "database-zap": DatabaseZap,
-  database: Database,
+  "database": Database,
   "decimals-arrow-left": DecimalsArrowLeft,
-  delete: Delete,
+  "delete": Delete,
   "decimals-arrow-right": DecimalsArrowRight,
-  dessert: Dessert,
-  diameter: Diameter,
+  "dessert": Dessert,
+  "diameter": Diameter,
   "diamond-minus": DiamondMinus,
   "diamond-percent": DiamondPercent,
   "diamond-plus": DiamondPlus,
-  diamond: Diamond,
-  dice1: Dice1,
-  dice2: Dice2,
-  dice4: Dice4,
-  dice3: Dice3,
-  dice5: Dice5,
-  dice6: Dice6,
-  dices: Dices,
-  diff: Diff,
-  disc2: Disc2,
-  disc3: Disc3,
+  "diamond": Diamond,
+  "dice1": Dice1,
+  "dice2": Dice2,
+  "dice4": Dice4,
+  "dice3": Dice3,
+  "dice5": Dice5,
+  "dice6": Dice6,
+  "dices": Dices,
+  "diff": Diff,
+  "disc2": Disc2,
+  "disc3": Disc3,
   "disc-album": DiscAlbum,
-  disc: Disc,
-  divide: Divide,
+  "disc": Disc,
+  "divide": Divide,
   "dna-off": DnaOff,
-  dna: Dna,
-  dock: Dock,
-  dog: Dog,
+  "dna": Dna,
+  "dock": Dock,
+  "dog": Dog,
   "dollar-sign": DollarSign,
-  donut: Donut,
+  "donut": Donut,
   "door-closed-locked": DoorClosedLocked,
   "door-closed": DoorClosed,
   "door-open": DoorOpen,
-  dot: Dot,
-  download: Download,
+  "dot": Dot,
+  "download": Download,
   "drafting-compass": DraftingCompass,
-  drill: Drill,
-  drama: Drama,
+  "drill": Drill,
+  "drama": Drama,
   "droplet-off": DropletOff,
-  drone: Drone,
-  droplet: Droplet,
-  droplets: Droplets,
-  drum: Drum,
-  drumstick: Drumstick,
-  dumbbell: Dumbbell,
+  "drone": Drone,
+  "droplet": Droplet,
+  "droplets": Droplets,
+  "drum": Drum,
+  "drumstick": Drumstick,
+  "dumbbell": Dumbbell,
   "ear-off": EarOff,
-  ear: Ear,
-  earth: Earth,
+  "ear": Ear,
+  "earth": Earth,
   "earth-lock": EarthLock,
-  eclipse: Eclipse,
+  "eclipse": Eclipse,
   "egg-fried": EggFried,
   "egg-off": EggOff,
-  egg: Egg,
-  ellipse: Ellipse,
+  "egg": Egg,
+  "ellipse": Ellipse,
   "ellipsis-vertical": EllipsisVertical,
-  ellipsis: Ellipsis,
+  "ellipsis": Ellipsis,
   "equal-approximately": EqualApproximately,
   "equal-not": EqualNot,
-  equal: Equal,
-  eraser: Eraser,
-  euro: Euro,
+  "equal": Equal,
+  "eraser": Eraser,
+  "euro": Euro,
   "ethernet-port": EthernetPort,
   "ev-charger": EvCharger,
-  expand: Expand,
+  "expand": Expand,
   "external-link": ExternalLink,
   "eye-closed": EyeClosed,
   "eye-dashed": EyeDashed,
   "eye-off": EyeOff,
-  eye: Eye,
+  "eye": Eye,
   "face-angry": FaceAngry,
   "face-grinning": FaceGrinning,
   "face-expressionless": FaceExpressionless,
@@ -4146,11 +2380,11 @@ export const lucideIconMap: Record<
   "face-slightly-frowning": FaceSlightlyFrowning,
   "face-slightly-smiling-plus": FaceSlightlySmilingPlus,
   "face-slightly-smiling": FaceSlightlySmiling,
-  factory: Factory,
-  fan: Fan,
+  "factory": Factory,
+  "fan": Fan,
   "fast-forward": FastForward,
-  feather: Feather,
-  fence: Fence,
+  "feather": Feather,
+  "fence": Fence,
   "ferris-wheel": FerrisWheel,
   "file-archive": FileArchive,
   "file-badge": FileBadge,
@@ -4205,35 +2439,35 @@ export const lucideIconMap: Record<
   "file-video-camera": FileVideoCamera,
   "file-volume": FileVolume,
   "file-x-corner": FileXCorner,
-  file: File,
+  "file": File,
   "file-x": FileX,
-  files: Files,
-  film: Film,
+  "files": Files,
+  "film": Film,
   "fingerprint-pattern": FingerprintPattern,
   "fire-extinguisher": FireExtinguisher,
   "fish-off": FishOff,
   "fish-symbol": FishSymbol,
-  fish: Fish,
+  "fish": Fish,
   "fishing-hook": FishingHook,
   "fishing-rod": FishingRod,
   "flag-off": FlagOff,
   "flag-triangle-left": FlagTriangleLeft,
   "flag-triangle-right": FlagTriangleRight,
-  flag: Flag,
+  "flag": Flag,
   "flame-kindling": FlameKindling,
-  flame: Flame,
+  "flame": Flame,
   "flashlight-off": FlashlightOff,
-  flashlight: Flashlight,
+  "flashlight": Flashlight,
   "flask-conical": FlaskConical,
   "flask-conical-off": FlaskConicalOff,
   "flip-horizontal2": FlipHorizontal2,
   "flask-round": FlaskRound,
   "flip-vertical2": FlipVertical2,
-  flower2: Flower2,
-  flower: Flower,
+  "flower2": Flower2,
+  "flower": Flower,
   "fold-vertical": FoldVertical,
   "fold-horizontal": FoldHorizontal,
-  focus: Focus,
+  "focus": Focus,
   "folder-archive": FolderArchive,
   "folder-bookmark": FolderBookmark,
   "folder-check": FolderCheck,
@@ -4264,32 +2498,32 @@ export const lucideIconMap: Record<
   "folder-tree": FolderTree,
   "folder-up": FolderUp,
   "folder-x": FolderX,
-  folders: Folders,
-  folder: Folder,
-  footprints: Footprints,
-  form: Form,
-  forward: Forward,
-  forklift: Forklift,
-  frame: Frame,
-  fuel: Fuel,
+  "folders": Folders,
+  "folder": Folder,
+  "footprints": Footprints,
+  "form": Form,
+  "forward": Forward,
+  "forklift": Forklift,
+  "frame": Frame,
+  "fuel": Fuel,
   "funnel-x": FunnelX,
-  fullscreen: Fullscreen,
+  "fullscreen": Fullscreen,
   "funnel-plus": FunnelPlus,
-  funnel: Funnel,
+  "funnel": Funnel,
   "gallery-horizontal-end": GalleryHorizontalEnd,
   "gallery-horizontal": GalleryHorizontal,
   "gallery-thumbnails": GalleryThumbnails,
   "gallery-vertical-end": GalleryVerticalEnd,
   "gallery-vertical": GalleryVertical,
   "gamepad-directional": GamepadDirectional,
-  gamepad2: Gamepad2,
-  gauge: Gauge,
-  gamepad: Gamepad,
-  gavel: Gavel,
-  gem: Gem,
+  "gamepad2": Gamepad2,
+  "gauge": Gauge,
+  "gamepad": Gamepad,
+  "gavel": Gavel,
+  "gem": Gem,
   "georgian-lari": GeorgianLari,
-  gift: Gift,
-  ghost: Ghost,
+  "gift": Gift,
+  "ghost": Ghost,
   "git-branch-minus": GitBranchMinus,
   "git-branch-plus": GitBranchPlus,
   "git-branch": GitBranch,
@@ -4308,30 +2542,30 @@ export const lucideIconMap: Record<
   "git-pull-request-draft": GitPullRequestDraft,
   "git-pull-request": GitPullRequest,
   "glass-water": GlassWater,
-  glasses: Glasses,
+  "glasses": Glasses,
   "globe-check": GlobeCheck,
   "globe-lock": GlobeLock,
   "globe-off": GlobeOff,
   "globe-x": GlobeX,
-  globe: Globe,
-  goal: Goal,
-  gpu: Gpu,
+  "globe": Globe,
+  "goal": Goal,
+  "gpu": Gpu,
   "graduation-cap": GraduationCap,
-  grape: Grape,
+  "grape": Grape,
   "grid2x2-check": Grid2x2Check,
   "grid2x2-plus": Grid2x2Plus,
   "grid2x2-x": Grid2x2X,
-  grid2x2: Grid2x2,
-  grid3x2: Grid3x2,
+  "grid2x2": Grid2x2,
+  "grid3x2": Grid3x2,
   "grip-horizontal": GripHorizontal,
-  grid3x3: Grid3x3,
-  grip: Grip,
-  group: Group,
+  "grid3x3": Grid3x3,
+  "grip": Grip,
+  "group": Group,
   "grip-vertical": GripVertical,
-  guitar: Guitar,
-  ham: Ham,
-  hamburger: Hamburger,
-  hammer: Hammer,
+  "guitar": Guitar,
+  "ham": Ham,
+  "hamburger": Hamburger,
+  "hammer": Hammer,
   "hand-coins": HandCoins,
   "hand-fist": HandFist,
   "hand-grab": HandGrab,
@@ -4339,28 +2573,28 @@ export const lucideIconMap: Record<
   "hand-helping": HandHelping,
   "hand-metal": HandMetal,
   "hand-platter": HandPlatter,
-  hand: Hand,
-  handbag: Handbag,
-  handshake: Handshake,
+  "hand": Hand,
+  "handbag": Handbag,
+  "handshake": Handshake,
   "hard-drive-download": HardDriveDownload,
   "hard-drive-upload": HardDriveUpload,
   "hard-drive": HardDrive,
   "hard-hat": HardHat,
-  hash: Hash,
+  "hash": Hash,
   "hat-glasses": HatGlasses,
-  hd: Hd,
-  haze: Haze,
+  "hd": Hd,
+  "haze": Haze,
   "hdmi-port": HdmiPort,
-  heading1: Heading1,
-  heading2: Heading2,
-  heading3: Heading3,
-  heading4: Heading4,
-  heading5: Heading5,
-  heading6: Heading6,
-  heading: Heading,
-  headphones: Headphones,
+  "heading1": Heading1,
+  "heading2": Heading2,
+  "heading3": Heading3,
+  "heading4": Heading4,
+  "heading5": Heading5,
+  "heading6": Heading6,
+  "heading": Heading,
+  "headphones": Headphones,
   "headphone-off": HeadphoneOff,
-  headset: Headset,
+  "headset": Headset,
   "heart-crack": HeartCrack,
   "heart-handshake": HeartHandshake,
   "heart-off": HeartOff,
@@ -4368,21 +2602,21 @@ export const lucideIconMap: Record<
   "heart-minus": HeartMinus,
   "heart-pulse": HeartPulse,
   "heart-x": HeartX,
-  heater: Heater,
-  heart: Heart,
-  helicopter: Helicopter,
-  hexagon: Hexagon,
-  highlighter: Highlighter,
+  "heater": Heater,
+  "heart": Heart,
+  "helicopter": Helicopter,
+  "hexagon": Hexagon,
+  "highlighter": Highlighter,
   "hop-off": HopOff,
-  hop: Hop,
-  hospital: Hospital,
-  hourglass: Hourglass,
-  hotel: Hotel,
+  "hop": Hop,
+  "hospital": Hospital,
+  "hourglass": Hourglass,
+  "hotel": Hotel,
   "house-heart": HouseHeart,
   "house-plug": HousePlug,
   "house-plus": HousePlus,
   "house-wifi": HouseWifi,
-  house: House,
+  "house": House,
   "ice-cream-bowl": IceCreamBowl,
   "ice-cream-cone": IceCreamCone,
   "id-card-lanyard": IdCardLanyard,
@@ -4394,49 +2628,49 @@ export const lucideIconMap: Record<
   "image-plus": ImagePlus,
   "image-up": ImageUp,
   "image-upscale": ImageUpscale,
-  image: Image,
-  images: Images,
-  import: Import,
-  inbox: Inbox,
+  "image": Image,
+  "images": Images,
+  "import": Import,
+  "inbox": Inbox,
   "indian-rupee": IndianRupee,
-  infinity: Infinity,
+  "infinity": Infinity,
   "inspection-panel": InspectionPanel,
-  info: Info,
-  italic: Italic,
+  "info": Info,
+  "italic": Italic,
   "iteration-ccw": IterationCcw,
   "iteration-cw": IterationCw,
   "japanese-yen": JapaneseYen,
-  kanban: Kanban,
-  joystick: Joystick,
-  kayak: Kayak,
+  "kanban": Kanban,
+  "joystick": Joystick,
+  "kayak": Kayak,
   "key-round": KeyRound,
   "key-square": KeySquare,
   "keyboard-music": KeyboardMusic,
-  key: Key,
+  "key": Key,
   "keyboard-off": KeyboardOff,
-  keyboard: Keyboard,
+  "keyboard": Keyboard,
   "lamp-ceiling": LampCeiling,
   "lamp-desk": LampDesk,
   "lamp-floor": LampFloor,
   "lamp-wall-down": LampWallDown,
   "lamp-wall-up": LampWallUp,
-  lamp: Lamp,
+  "lamp": Lamp,
   "land-plot": LandPlot,
-  landmark: Landmark,
+  "landmark": Landmark,
   "laptop-minimal-check": LaptopMinimalCheck,
   "laptop-minimal": LaptopMinimal,
-  languages: Languages,
+  "languages": Languages,
   "lasso-select": LassoSelect,
-  laptop: Laptop,
-  lasso: Lasso,
+  "laptop": Laptop,
+  "lasso": Lasso,
   "layer-arrow-down": LayerArrowDown,
   "layer-arrow-up": LayerArrowUp,
-  layers2: Layers2,
+  "layers2": Layers2,
   "layers-arrow-up": LayersArrowUp,
   "layers-arrow-down": LayersArrowDown,
   "layers-minus": LayersMinus,
   "layers-plus": LayersPlus,
-  layers: Layers,
+  "layers": Layers,
   "layout-dashboard": LayoutDashboard,
   "layout-freeform": LayoutFreeform,
   "layout-grid": LayoutGrid,
@@ -4444,24 +2678,24 @@ export const lucideIconMap: Record<
   "layout-panel-left": LayoutPanelLeft,
   "layout-panel-top": LayoutPanelTop,
   "layout-template": LayoutTemplate,
-  leaf: Leaf,
+  "leaf": Leaf,
   "leafy-green": LeafyGreen,
-  lectern: Lectern,
+  "lectern": Lectern,
   "lens-concave": LensConcave,
   "lens-convex": LensConvex,
   "library-big": LibraryBig,
-  library: Library,
+  "library": Library,
   "life-buoy": LifeBuoy,
-  ligature: Ligature,
+  "ligature": Ligature,
   "lightbulb-off": LightbulbOff,
-  lightbulb: Lightbulb,
+  "lightbulb": Lightbulb,
   "line-dot-right-horizontal": LineDotRightHorizontal,
   "line-squiggle": LineSquiggle,
   "line-style": LineStyle,
   "link2-off": Link2Off,
-  link2: Link2,
+  "link2": Link2,
   "list-check": ListCheck,
-  link: Link,
+  "link": Link,
   "list-checks": ListChecks,
   "list-chevrons-down-up": ListChevronsDownUp,
   "list-chevrons-up-down": ListChevronsUpDown,
@@ -4483,23 +2717,23 @@ export const lucideIconMap: Record<
   "list-todo": ListTodo,
   "list-video": ListVideo,
   "list-x": ListX,
-  list: List,
+  "list": List,
   "loader-pinwheel": LoaderPinwheel,
   "loader-circle": LoaderCircle,
-  loader: Loader,
+  "loader": Loader,
   "locate-off": LocateOff,
   "locate-fixed": LocateFixed,
-  locate: Locate,
+  "locate": Locate,
   "lock-keyhole-open": LockKeyholeOpen,
   "lock-open": LockOpen,
-  lock: Lock,
+  "lock": Lock,
   "lock-keyhole": LockKeyhole,
   "log-in": LogIn,
   "log-out": LogOut,
-  logs: Logs,
-  lollipop: Lollipop,
-  magnet: Magnet,
-  luggage: Luggage,
+  "logs": Logs,
+  "lollipop": Lollipop,
+  "magnet": Magnet,
+  "luggage": Luggage,
   "mail-check": MailCheck,
   "mail-minus": MailMinus,
   "mail-plus": MailPlus,
@@ -4508,9 +2742,9 @@ export const lucideIconMap: Record<
   "mail-search": MailSearch,
   "mail-warning": MailWarning,
   "mail-x": MailX,
-  mail: Mail,
-  mailbox: Mailbox,
-  mails: Mails,
+  "mail": Mail,
+  "mailbox": Mailbox,
+  "mails": Mails,
   "map-minus": MapMinus,
   "map-pin-check-inside": MapPinCheckInside,
   "map-pin-check": MapPinCheck,
@@ -4527,18 +2761,18 @@ export const lucideIconMap: Record<
   "map-pin": MapPin,
   "map-pinned": MapPinned,
   "map-plus": MapPlus,
-  map: Map,
-  mars: Mars,
+  "map": Map,
+  "mars": Mars,
   "mars-stroke": MarsStroke,
-  martini: Martini,
-  maximize2: Maximize2,
-  maximize: Maximize,
-  medal: Medal,
+  "martini": Martini,
+  "maximize2": Maximize2,
+  "maximize": Maximize,
+  "medal": Medal,
   "megaphone-off": MegaphoneOff,
-  megaphone: Megaphone,
-  menu: Menu,
+  "megaphone": Megaphone,
+  "menu": Menu,
   "memory-stick": MemoryStick,
-  merge: Merge,
+  "merge": Merge,
   "message-circle-check": MessageCircleCheck,
   "message-circle-dashed": MessageCircleDashed,
   "message-circle-code": MessageCircleCode,
@@ -4568,22 +2802,22 @@ export const lucideIconMap: Record<
   "message-square-warning": MessageSquareWarning,
   "message-square-x": MessageSquareX,
   "message-square": MessageSquare,
-  metronome: Metronome,
+  "metronome": Metronome,
   "messages-square": MessagesSquare,
   "mic-audio-lines": MicAudioLines,
   "mic-off": MicOff,
   "mic-signal": MicSignal,
-  mic: Mic,
-  microchip: Microchip,
+  "mic": Mic,
+  "microchip": Microchip,
   "mic-vocal": MicVocal,
-  microscope: Microscope,
-  microwave: Microwave,
-  milestone: Milestone,
+  "microscope": Microscope,
+  "microwave": Microwave,
+  "milestone": Milestone,
   "milk-off": MilkOff,
-  milk: Milk,
-  minimize: Minimize,
-  minimize2: Minimize2,
-  minus: Minus,
+  "milk": Milk,
+  "minimize": Minimize,
+  "minimize2": Minimize2,
+  "minus": Minus,
   "mirror-rectangular": MirrorRectangular,
   "mirror-round": MirrorRound,
   "monitor-check": MonitorCheck,
@@ -4599,13 +2833,13 @@ export const lucideIconMap: Record<
   "monitor-stop": MonitorStop,
   "monitor-up": MonitorUp,
   "monitor-x": MonitorX,
-  monitor: Monitor,
+  "monitor": Monitor,
   "moon-star": MoonStar,
-  moon: Moon,
-  motorbike: Motorbike,
-  mosque: Mosque,
+  "moon": Moon,
+  "motorbike": Motorbike,
+  "mosque": Mosque,
   "mountain-snow": MountainSnow,
-  mountain: Mountain,
+  "mountain": Mountain,
   "mouse-left": MouseLeft,
   "mouse-off": MouseOff,
   "mouse-pointer2-off": MousePointer2Off,
@@ -4614,8 +2848,8 @@ export const lucideIconMap: Record<
   "mouse-pointer-click": MousePointerClick,
   "mouse-pointer": MousePointer,
   "mouse-right": MouseRight,
-  move3d: Move3d,
-  mouse: Mouse,
+  "move3d": Move3d,
+  "mouse": Mouse,
   "move-diagonal": MoveDiagonal,
   "move-diagonal2": MoveDiagonal2,
   "move-down-right": MoveDownRight,
@@ -4628,50 +2862,50 @@ export const lucideIconMap: Record<
   "move-up-right": MoveUpRight,
   "move-up": MoveUp,
   "move-vertical": MoveVertical,
-  move: Move,
-  music2: Music2,
-  music3: Music3,
-  music4: Music4,
-  music: Music,
+  "move": Move,
+  "music2": Music2,
+  "music3": Music3,
+  "music4": Music4,
+  "music": Music,
   "navigation2-off": Navigation2Off,
-  navigation2: Navigation2,
+  "navigation2": Navigation2,
   "navigation-off": NavigationOff,
-  navigation: Navigation,
-  network: Network,
-  newspaper: Newspaper,
-  nfc: Nfc,
+  "navigation": Navigation,
+  "network": Network,
+  "newspaper": Newspaper,
+  "nfc": Nfc,
   "notebook-pen": NotebookPen,
   "non-binary": NonBinary,
   "notebook-tabs": NotebookTabs,
   "notebook-text": NotebookText,
-  notebook: Notebook,
+  "notebook": Notebook,
   "notepad-text-dashed": NotepadTextDashed,
   "notepad-text": NotepadText,
   "nut-off": NutOff,
-  nut: Nut,
+  "nut": Nut,
   "octagon-alert": OctagonAlert,
   "octagon-minus": OctagonMinus,
   "octagon-pause": OctagonPause,
-  octagon: Octagon,
+  "octagon": Octagon,
   "octagon-x": OctagonX,
-  omega: Omega,
-  option: Option,
-  orbit: Orbit,
-  origami: Origami,
-  package2: Package2,
+  "omega": Omega,
+  "option": Option,
+  "orbit": Orbit,
+  "origami": Origami,
+  "package2": Package2,
   "package-check": PackageCheck,
   "package-minus": PackageMinus,
   "package-open": PackageOpen,
   "package-plus": PackagePlus,
   "package-x": PackageX,
   "package-search": PackageSearch,
-  package: Package,
+  "package": Package,
   "paint-bucket": PaintBucket,
   "paint-roller": PaintRoller,
   "paintbrush-vertical": PaintbrushVertical,
-  paintbrush: Paintbrush,
-  palette: Palette,
-  panda: Panda,
+  "paintbrush": Paintbrush,
+  "palette": Palette,
+  "panda": Panda,
   "panel-bottom-close": PanelBottomClose,
   "panel-bottom-dashed": PanelBottomDashed,
   "panel-bottom-open": PanelBottomOpen,
@@ -4694,26 +2928,26 @@ export const lucideIconMap: Record<
   "panels-right-bottom": PanelsRightBottom,
   "paper-bag": PaperBag,
   "panels-top-left": PanelsTopLeft,
-  paperclip: Paperclip,
-  parasol: Parasol,
+  "paperclip": Paperclip,
+  "parasol": Parasol,
   "parking-meter": ParkingMeter,
   "party-popper": PartyPopper,
-  parentheses: Parentheses,
-  pause: Pause,
+  "parentheses": Parentheses,
+  "pause": Pause,
   "paw-print": PawPrint,
   "pc-case": PcCase,
   "pen-off": PenOff,
   "pen-line": PenLine,
   "pen-tool": PenTool,
-  pen: Pen,
+  "pen": Pen,
   "pencil-line": PencilLine,
   "pencil-off": PencilOff,
   "pencil-ruler": PencilRuler,
   "pencil-sparkles": PencilSparkles,
-  pencil: Pencil,
-  pentagon: Pentagon,
-  percent: Percent,
-  phi: Phi,
+  "pencil": Pencil,
+  "pentagon": Pentagon,
+  "percent": Percent,
+  "phi": Phi,
   "person-standing": PersonStanding,
   "philippine-peso": PhilippinePeso,
   "phone-call": PhoneCall,
@@ -4721,63 +2955,63 @@ export const lucideIconMap: Record<
   "phone-missed": PhoneMissed,
   "phone-incoming": PhoneIncoming,
   "phone-off": PhoneOff,
-  phone: Phone,
+  "phone": Phone,
   "phone-outgoing": PhoneOutgoing,
-  pi: Pi,
-  piano: Piano,
-  pickaxe: Pickaxe,
+  "pi": Pi,
+  "piano": Piano,
+  "pickaxe": Pickaxe,
   "picture-in-picture2": PictureInPicture2,
   "picture-in-picture": PictureInPicture,
   "piggy-bank": PiggyBank,
   "pilcrow-left": PilcrowLeft,
-  pilcrow: Pilcrow,
+  "pilcrow": Pilcrow,
   "pilcrow-right": PilcrowRight,
   "pill-bottle": PillBottle,
-  pill: Pill,
+  "pill": Pill,
   "pin-off": PinOff,
-  pipette: Pipette,
-  pin: Pin,
-  pizza: Pizza,
+  "pipette": Pipette,
+  "pin": Pin,
+  "pizza": Pizza,
   "plane-landing": PlaneLanding,
-  plane: Plane,
+  "plane": Plane,
   "plane-takeoff": PlaneTakeoff,
   "play-off": PlayOff,
-  play: Play,
-  plug2: Plug2,
+  "play": Play,
+  "plug2": Plug2,
   "plug-zap": PlugZap,
-  plug: Plug,
-  plus: Plus,
+  "plug": Plug,
+  "plus": Plus,
   "pocket-knife": PocketKnife,
-  podium: Podium,
+  "podium": Podium,
   "pointer-off": PointerOff,
-  pointer: Pointer,
-  popcorn: Popcorn,
-  popsicle: Popsicle,
+  "pointer": Pointer,
+  "popcorn": Popcorn,
+  "popsicle": Popsicle,
   "pound-sterling": PoundSterling,
   "power-off": PowerOff,
-  power: Power,
-  presentation: Presentation,
+  "power": Power,
+  "presentation": Presentation,
   "printer-check": PrinterCheck,
   "printer-x": PrinterX,
-  printer: Printer,
-  projector: Projector,
-  proportions: Proportions,
-  puzzle: Puzzle,
-  pyramid: Pyramid,
+  "printer": Printer,
+  "projector": Projector,
+  "proportions": Proportions,
+  "puzzle": Puzzle,
+  "pyramid": Pyramid,
   "qr-code": QrCode,
-  quote: Quote,
-  rabbit: Rabbit,
-  radar: Radar,
-  radiation: Radiation,
-  radical: Radical,
+  "quote": Quote,
+  "rabbit": Rabbit,
+  "radar": Radar,
+  "radiation": Radiation,
+  "radical": Radical,
   "radio-off": RadioOff,
   "radio-receiver": RadioReceiver,
   "radio-tower": RadioTower,
-  radio: Radio,
-  radius: Radius,
-  rainbow: Rainbow,
-  rat: Rat,
-  ratio: Ratio,
+  "radio": Radio,
+  "radius": Radius,
+  "rainbow": Rainbow,
+  "rat": Rat,
+  "ratio": Ratio,
   "receipt-cent": ReceiptCent,
   "receipt-euro": ReceiptEuro,
   "receipt-indian-rupee": ReceiptIndianRupee,
@@ -4787,39 +3021,39 @@ export const lucideIconMap: Record<
   "receipt-swiss-franc": ReceiptSwissFranc,
   "receipt-text": ReceiptText,
   "receipt-turkish-lira": ReceiptTurkishLira,
-  receipt: Receipt,
+  "receipt": Receipt,
   "rectangle-circle": RectangleCircle,
   "rectangle-ellipsis": RectangleEllipsis,
   "rectangle-goggles": RectangleGoggles,
   "rectangle-vertical": RectangleVertical,
   "rectangle-horizontal": RectangleHorizontal,
-  recycle: Recycle,
+  "recycle": Recycle,
   "redo-dot": RedoDot,
-  redo2: Redo2,
-  redo: Redo,
+  "redo2": Redo2,
+  "redo": Redo,
   "refresh-ccw-dot": RefreshCcwDot,
   "refresh-ccw": RefreshCcw,
   "refresh-cw-off": RefreshCwOff,
   "refresh-cw": RefreshCw,
-  refrigerator: Refrigerator,
-  regex: Regex,
+  "refrigerator": Refrigerator,
+  "regex": Regex,
   "remove-formatting": RemoveFormatting,
-  repeat1: Repeat1,
-  repeat2: Repeat2,
+  "repeat1": Repeat1,
+  "repeat2": Repeat2,
   "repeat-off": RepeatOff,
-  repeat: Repeat,
+  "repeat": Repeat,
   "replace-all": ReplaceAll,
-  replace: Replace,
+  "replace": Replace,
   "reply-all": ReplyAll,
-  reply: Reply,
-  rewind: Rewind,
-  ribbon: Ribbon,
-  road: Road,
-  rocket: Rocket,
+  "reply": Reply,
+  "rewind": Rewind,
+  "ribbon": Ribbon,
+  "road": Road,
+  "rocket": Rocket,
   "rocking-chair": RockingChair,
   "roller-coaster": RollerCoaster,
-  rose: Rose,
-  rotate3d: Rotate3d,
+  "rose": Rose,
+  "rotate3d": Rotate3d,
   "rotate-ccw-clock": RotateCcwClock,
   "rotate-ccw-key": RotateCcwKey,
   "rotate-ccw-square": RotateCcwSquare,
@@ -4828,30 +3062,30 @@ export const lucideIconMap: Record<
   "rotate-cw-square": RotateCwSquare,
   "rotate-cw": RotateCw,
   "route-off": RouteOff,
-  route: Route,
-  rows2: Rows2,
-  router: Router,
-  rows3: Rows3,
-  rows4: Rows4,
-  rss: Rss,
+  "route": Route,
+  "rows2": Rows2,
+  "router": Router,
+  "rows3": Rows3,
+  "rows4": Rows4,
+  "rss": Rss,
   "ruler-dimension-line": RulerDimensionLine,
-  ruler: Ruler,
+  "ruler": Ruler,
   "russian-ruble": RussianRuble,
-  sailboat: Sailboat,
-  sandwich: Sandwich,
-  salad: Salad,
+  "sailboat": Sailboat,
+  "sandwich": Sandwich,
+  "salad": Salad,
   "satellite-dish": SatelliteDish,
-  satellite: Satellite,
+  "satellite": Satellite,
   "saudi-riyal": SaudiRiyal,
   "save-all": SaveAll,
   "save-check": SaveCheck,
   "save-off": SaveOff,
   "save-pen": SavePen,
   "save-plus": SavePlus,
-  save: Save,
-  scale3d: Scale3d,
-  scale: Scale,
-  scaling: Scaling,
+  "save": Save,
+  "scale3d": Scale3d,
+  "scale": Scale,
+  "scaling": Scaling,
   "scan-barcode": ScanBarcode,
   "scan-box": ScanBox,
   "scan-eye": ScanEye,
@@ -4862,39 +3096,39 @@ export const lucideIconMap: Record<
   "scan-square": ScanSquare,
   "scan-search": ScanSearch,
   "scan-text": ScanText,
-  scan: Scan,
+  "scan": Scan,
   "scissors-line-dashed": ScissorsLineDashed,
-  school: School,
-  scissors: Scissors,
+  "school": School,
+  "scissors": Scissors,
   "screen-share-off": ScreenShareOff,
   "screen-share": ScreenShare,
-  scooter: Scooter,
+  "scooter": Scooter,
   "scroll-text": ScrollText,
-  scroll: Scroll,
+  "scroll": Scroll,
   "search-alert": SearchAlert,
   "search-check": SearchCheck,
   "search-code": SearchCode,
   "search-slash": SearchSlash,
   "search-x": SearchX,
-  section: Section,
-  search: Search,
+  "section": Section,
+  "search": Search,
   "send-horizontal": SendHorizontal,
   "send-to-back": SendToBack,
-  send: Send,
+  "send": Send,
   "separator-horizontal": SeparatorHorizontal,
   "separator-vertical": SeparatorVertical,
   "server-cog": ServerCog,
   "server-crash": ServerCrash,
   "server-off": ServerOff,
   "server-plus": ServerPlus,
-  server: Server,
-  settings2: Settings2,
-  settings: Settings,
-  shapes: Shapes,
-  share2: Share2,
-  share: Share,
-  sheet: Sheet,
-  shell: Shell,
+  "server": Server,
+  "settings2": Settings2,
+  "settings": Settings,
+  "shapes": Shapes,
+  "share2": Share2,
+  "share": Share,
+  "sheet": Sheet,
+  "shell": Shell,
   "shelving-unit": ShelvingUnit,
   "shield-alert": ShieldAlert,
   "shield-ban": ShieldBan,
@@ -4911,62 +3145,62 @@ export const lucideIconMap: Record<
   "shield-question-mark": ShieldQuestionMark,
   "shield-user": ShieldUser,
   "shield-x": ShieldX,
-  shield: Shield,
+  "shield": Shield,
   "ship-wheel": ShipWheel,
-  ship: Ship,
-  shirt: Shirt,
+  "ship": Ship,
+  "shirt": Shirt,
   "shopping-bag": ShoppingBag,
   "shopping-basket": ShoppingBasket,
   "shopping-cart": ShoppingCart,
-  shovel: Shovel,
+  "shovel": Shovel,
   "shower-head": ShowerHead,
-  shrimp: Shrimp,
-  shredder: Shredder,
-  shrink: Shrink,
-  shrub: Shrub,
-  shuffle: Shuffle,
-  sigma: Sigma,
+  "shrimp": Shrimp,
+  "shredder": Shredder,
+  "shrink": Shrink,
+  "shrub": Shrub,
+  "shuffle": Shuffle,
+  "sigma": Sigma,
   "signal-high": SignalHigh,
   "signal-low": SignalLow,
   "signal-medium": SignalMedium,
   "signal-zero": SignalZero,
-  signal: Signal,
-  signature: Signature,
+  "signal": Signal,
+  "signature": Signature,
   "signpost-big": SignpostBig,
-  signpost: Signpost,
-  siren: Siren,
+  "signpost": Signpost,
+  "siren": Siren,
   "skip-back": SkipBack,
   "skip-forward": SkipForward,
-  skull: Skull,
-  slash: Slash,
-  slice: Slice,
+  "skull": Skull,
+  "slash": Slash,
+  "slice": Slice,
   "sliders-horizontal": SlidersHorizontal,
   "sliders-vertical": SlidersVertical,
   "smartphone-charging": SmartphoneCharging,
   "smartphone-nfc": SmartphoneNfc,
-  smartphone: Smartphone,
-  snail: Snail,
-  snowflake: Snowflake,
+  "smartphone": Smartphone,
+  "snail": Snail,
+  "snowflake": Snowflake,
   "soap-dispenser-droplet": SoapDispenserDroplet,
-  sofa: Sofa,
+  "sofa": Sofa,
   "solar-panel": SolarPanel,
-  soup: Soup,
-  space: Space,
-  spade: Spade,
-  sparkle: Sparkle,
-  sparkles: Sparkles,
-  speaker: Speaker,
-  speech: Speech,
+  "soup": Soup,
+  "space": Space,
+  "spade": Spade,
+  "sparkle": Sparkle,
+  "sparkles": Sparkles,
+  "speaker": Speaker,
+  "speech": Speech,
   "spell-check2": SpellCheck2,
   "spell-check": SpellCheck,
   "spline-pointer": SplinePointer,
-  spline: Spline,
-  split: Split,
+  "spline": Spline,
+  "split": Split,
   "sport-shoe": SportShoe,
-  spool: Spool,
-  spotlight: Spotlight,
+  "spool": Spool,
+  "spotlight": Spotlight,
   "spray-can": SprayCan,
-  sprout: Sprout,
+  "sprout": Sprout,
   "square-activity": SquareActivity,
   "square-arrow-down-left": SquareArrowDownLeft,
   "square-arrow-down-right": SquareArrowDownRight,
@@ -5037,26 +3271,26 @@ export const lucideIconMap: Record<
   "square-star": SquareStar,
   "square-user": SquareUser,
   "square-x": SquareX,
-  square: Square,
+  "square": Square,
   "squares-intersect": SquaresIntersect,
   "squares-exclude": SquaresExclude,
   "squares-subtract": SquaresSubtract,
   "squares-unite": SquaresUnite,
   "squircle-dashed": SquircleDashed,
-  squircle: Squircle,
-  squirrel: Squirrel,
-  stamp: Stamp,
+  "squircle": Squircle,
+  "squirrel": Squirrel,
+  "stamp": Stamp,
   "star-check": StarCheck,
   "star-half": StarHalf,
   "star-minus": StarMinus,
   "star-off": StarOff,
   "star-plus": StarPlus,
   "star-x": StarX,
-  star: Star,
+  "star": Star,
   "step-back": StepBack,
   "step-forward": StepForward,
-  sticker: Sticker,
-  stethoscope: Stethoscope,
+  "sticker": Sticker,
+  "stethoscope": Stethoscope,
   "sticky-note-check": StickyNoteCheck,
   "sticky-note-off": StickyNoteOff,
   "sticky-note-minus": StickyNoteMinus,
@@ -5064,53 +3298,53 @@ export const lucideIconMap: Record<
   "sticky-note-x": StickyNoteX,
   "sticky-note": StickyNote,
   "sticky-notes": StickyNotes,
-  store: Store,
-  stone: Stone,
+  "store": Store,
+  "stone": Stone,
   "stretch-horizontal": StretchHorizontal,
   "stretch-vertical": StretchVertical,
-  strikethrough: Strikethrough,
-  subscript: Subscript,
-  summary: Summary,
+  "strikethrough": Strikethrough,
+  "subscript": Subscript,
+  "summary": Summary,
   "sun-dim": SunDim,
   "sun-medium": SunMedium,
   "sun-moon": SunMoon,
   "sun-snow": SunSnow,
-  sun: Sun,
-  sunrise: Sunrise,
-  sunset: Sunset,
+  "sun": Sun,
+  "sunrise": Sunrise,
+  "sunset": Sunset,
   "swatch-book": SwatchBook,
-  superscript: Superscript,
+  "superscript": Superscript,
   "swiss-franc": SwissFranc,
   "switch-camera": SwitchCamera,
-  sword: Sword,
-  swords: Swords,
-  syringe: Syringe,
-  table2: Table2,
+  "sword": Sword,
+  "swords": Swords,
+  "syringe": Syringe,
+  "table2": Table2,
   "table-cells-merge": TableCellsMerge,
   "table-cells-split": TableCellsSplit,
   "table-columns-split": TableColumnsSplit,
   "table-of-contents": TableOfContents,
   "table-properties": TableProperties,
   "table-rows-split": TableRowsSplit,
-  table: Table,
+  "table": Table,
   "tablet-smartphone": TabletSmartphone,
-  tablet: Tablet,
-  tablets: Tablets,
+  "tablet": Tablet,
+  "tablets": Tablets,
   "tag-plus": TagPlus,
   "tag-x": TagX,
-  tag: Tag,
-  tags: Tags,
-  tally1: Tally1,
-  tally2: Tally2,
-  tally3: Tally3,
-  tally5: Tally5,
-  tally4: Tally4,
-  tangent: Tangent,
-  target: Target,
-  telescope: Telescope,
+  "tag": Tag,
+  "tags": Tags,
+  "tally1": Tally1,
+  "tally2": Tally2,
+  "tally3": Tally3,
+  "tally5": Tally5,
+  "tally4": Tally4,
+  "tangent": Tangent,
+  "target": Target,
+  "telescope": Telescope,
   "tent-tree": TentTree,
-  tent: Tent,
-  terminal: Terminal,
+  "tent": Tent,
+  "terminal": Terminal,
   "test-tube-diagonal": TestTubeDiagonal,
   "test-tube": TestTube,
   "test-tubes": TestTubes,
@@ -5124,9 +3358,9 @@ export const lucideIconMap: Record<
   "text-quote": TextQuote,
   "text-search": TextSearch,
   "text-wrap": TextWrap,
-  theater: Theater,
+  "theater": Theater,
   "thermometer-snowflake": ThermometerSnowflake,
-  thermometer: Thermometer,
+  "thermometer": Thermometer,
   "thermometer-sun": ThermometerSun,
   "thumbs-down": ThumbsDown,
   "thumbs-up": ThumbsUp,
@@ -5136,71 +3370,71 @@ export const lucideIconMap: Record<
   "ticket-plus": TicketPlus,
   "ticket-slash": TicketSlash,
   "ticket-x": TicketX,
-  ticket: Ticket,
+  "ticket": Ticket,
   "tickets-plane": TicketsPlane,
-  tickets: Tickets,
-  timeline: Timeline,
+  "tickets": Tickets,
+  "timeline": Timeline,
   "timer-off": TimerOff,
   "timer-reset": TimerReset,
-  timer: Timer,
+  "timer": Timer,
   "toggle-left": ToggleLeft,
   "toggle-right": ToggleRight,
   "tool-case": ToolCase,
-  toilet: Toilet,
-  toolbox: Toolbox,
-  tornado: Tornado,
-  torus: Torus,
-  touchpad: Touchpad,
+  "toilet": Toilet,
+  "toolbox": Toolbox,
+  "tornado": Tornado,
+  "torus": Torus,
+  "touchpad": Touchpad,
   "touchpad-off": TouchpadOff,
   "towel-rack": TowelRack,
   "tower-control": TowerControl,
   "toy-brick": ToyBrick,
-  tractor: Tractor,
+  "tractor": Tractor,
   "traffic-cone": TrafficCone,
   "train-front-tunnel": TrainFrontTunnel,
   "train-front": TrainFront,
   "train-track": TrainTrack,
   "tram-front": TramFront,
-  transgender: Transgender,
-  trash2: Trash2,
-  trash: Trash,
+  "transgender": Transgender,
+  "trash2": Trash2,
+  "trash": Trash,
   "tree-deciduous": TreeDeciduous,
   "tree-palm": TreePalm,
   "tree-pine": TreePine,
-  trees: Trees,
+  "trees": Trees,
   "trending-down": TrendingDown,
   "trending-up-down": TrendingUpDown,
   "trending-up": TrendingUp,
   "triangle-alert": TriangleAlert,
   "triangle-dashed": TriangleDashed,
   "triangle-right": TriangleRight,
-  triangle: Triangle,
-  trophy: Trophy,
+  "triangle": Triangle,
+  "trophy": Trophy,
   "truck-electric": TruckElectric,
   "turkish-lira": TurkishLira,
-  truck: Truck,
-  turntable: Turntable,
-  turtle: Turtle,
+  "truck": Truck,
+  "turntable": Turntable,
+  "turtle": Turtle,
   "tv-minimal-play": TvMinimalPlay,
   "tv-minimal": TvMinimal,
-  tv: Tv,
+  "tv": Tv,
   "type-outline": TypeOutline,
-  type: Type,
+  "type": Type,
   "umbrella-off": UmbrellaOff,
-  umbrella: Umbrella,
-  underline: Underline,
+  "umbrella": Umbrella,
+  "underline": Underline,
   "undo-dot": UndoDot,
-  undo2: Undo2,
-  undo: Undo,
+  "undo2": Undo2,
+  "undo": Undo,
   "unfold-horizontal": UnfoldHorizontal,
   "unfold-vertical": UnfoldVertical,
-  ungroup: Ungroup,
-  university: University,
-  unlink2: Unlink2,
-  unlink: Unlink,
-  upload: Upload,
-  unplug: Unplug,
-  usb: Usb,
+  "ungroup": Ungroup,
+  "university": University,
+  "unlink2": Unlink2,
+  "unlink": Unlink,
+  "upload": Upload,
+  "unplug": Unplug,
+  "usb": Usb,
   "user-check": UserCheck,
   "user-cog": UserCog,
   "user-key": UserKey,
@@ -5222,58 +3456,58 @@ export const lucideIconMap: Record<
   "user-shield": UserShield,
   "user-star": UserStar,
   "user-x": UserX,
-  user: User,
+  "user": User,
   "users-round": UsersRound,
-  users: Users,
+  "users": Users,
   "utensils-crossed": UtensilsCrossed,
-  utensils: Utensils,
+  "utensils": Utensils,
   "utility-pole": UtilityPole,
-  van: Van,
-  variable: Variable,
-  vault: Vault,
+  "van": Van,
+  "variable": Variable,
+  "vault": Vault,
   "vector-square": VectorSquare,
-  vegan: Vegan,
+  "vegan": Vegan,
   "venetian-mask": VenetianMask,
   "venus-and-mars": VenusAndMars,
   "vibrate-off": VibrateOff,
-  venus: Venus,
-  vibrate: Vibrate,
+  "venus": Venus,
+  "vibrate": Vibrate,
   "video-off": VideoOff,
-  video: Video,
-  videotape: Videotape,
-  view: View,
-  voicemail: Voicemail,
-  volleyball: Volleyball,
-  volume1: Volume1,
-  volume2: Volume2,
+  "video": Video,
+  "videotape": Videotape,
+  "view": View,
+  "voicemail": Voicemail,
+  "volleyball": Volleyball,
+  "volume1": Volume1,
+  "volume2": Volume2,
   "volume-off": VolumeOff,
   "volume-x": VolumeX,
-  volume: Volume,
+  "volume": Volume,
   "wallet-cards": WalletCards,
-  vote: Vote,
+  "vote": Vote,
   "wallet-minimal": WalletMinimal,
-  wallet: Wallet,
-  wallpaper: Wallpaper,
+  "wallet": Wallet,
+  "wallpaper": Wallpaper,
   "wand-sparkles": WandSparkles,
-  wand: Wand,
-  warehouse: Warehouse,
+  "wand": Wand,
+  "warehouse": Warehouse,
   "washing-machine": WashingMachine,
-  watch: Watch,
+  "watch": Watch,
   "waves-arrow-up": WavesArrowUp,
   "waves-arrow-down": WavesArrowDown,
   "waves-horizontal": WavesHorizontal,
   "waves-ladder": WavesLadder,
   "waves-vertical": WavesVertical,
-  waypoints: Waypoints,
+  "waypoints": Waypoints,
   "webcam-off": WebcamOff,
-  webcam: Webcam,
-  webhook: Webhook,
+  "webcam": Webcam,
+  "webhook": Webhook,
   "webhook-off": WebhookOff,
   "weight-tilde": WeightTilde,
-  weight: Weight,
+  "weight": Weight,
   "wheat-off": WheatOff,
   "whole-word": WholeWord,
-  wheat: Wheat,
+  "wheat": Wheat,
   "wifi-cog": WifiCog,
   "wifi-high": WifiHigh,
   "wifi-low": WifiLow,
@@ -5281,19 +3515,19 @@ export const lucideIconMap: Record<
   "wifi-pen": WifiPen,
   "wifi-sync": WifiSync,
   "wifi-zero": WifiZero,
-  wifi: Wifi,
+  "wifi": Wifi,
   "wind-arrow-down": WindArrowDown,
-  wind: Wind,
+  "wind": Wind,
   "wine-off": WineOff,
-  wine: Wine,
-  workflow: Workflow,
-  worm: Worm,
+  "wine": Wine,
+  "workflow": Workflow,
+  "worm": Worm,
   "wrench-off": WrenchOff,
-  wrench: Wrench,
+  "wrench": Wrench,
   "x-line-top": XLineTop,
   "zap-off": ZapOff,
   "zodiac-aquarius": ZodiacAquarius,
-  zap: Zap,
+  "zap": Zap,
   "zodiac-aries": ZodiacAries,
   "zodiac-cancer": ZodiacCancer,
   "zodiac-capricorn": ZodiacCapricorn,

@@ -37,9 +37,9 @@ for (const m of sdkSource.matchAll(/"(\/[a-z0-9/-]+)"/g)) sdkPaths.add(m[1]);
 // Template literals with interpolations: capture the static path prefix
 // (e.g. `/audit/logs${qs ? ...}` -> `/audit/logs`, `/oauth/authorize?${qs}` -> `/oauth/authorize?`).
 for (const m of sdkSource.matchAll(/`([^`]*)`/g)) {
-  const withoutInterp = m[1].replace(/\$\{[^}]*\}/g, "");
+  const withoutInterp = m[1].replace(/\$\{[a-zA-Z_][a-zA-Z0-9_]*\}/g, ":id");
   // keep only the leading path segment (up to a space, quote, or ) ).
-  const pathMatch = withoutInterp.match(/^(\/[a-zA-Z0-9/._?{}-]*)/);
+  const pathMatch = withoutInterp.match(/^(\/[a-zA-Z0-9/._?{}:-]*)/);
   if (pathMatch) sdkPaths.add(pathMatch[1]);
 }
 
