@@ -1,6 +1,6 @@
 {
   "name": "@fusorb/facet-emails",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Framework-agnostic email template renderer: render React or plain template trees to email-safe HTML and text, with template primitives and a dev preview server. Zero runtime dependencies.",
   "type": "module",
   "exports": {

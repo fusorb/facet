@@ -1,6 +1,6 @@
 {
   "name": "@fusorb/facet-cli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "facet CLI: scaffold docs + email template sites, add components, generate tree-shaken icon registries, and audit/update your facet setup from the terminal.",
   "type": "module",
   "bin": {

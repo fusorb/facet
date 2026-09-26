@@ -1,6 +1,6 @@
 {
   "name": "@fusorb/facet-native",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "React Native motion driver for @fusorb/facet-motion - subscribes facet motion values to a consumer-provided Animated module (react-native or reanimated v2) via bindAnimated().",
   "type": "module",
   "exports": {
