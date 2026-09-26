@@ -14,7 +14,7 @@
  *
  * Releases are merged by ISO date so that a single workspace-wide release
  * (which touches multiple packages on the same day) becomes one entry —
- * this is what powers the date axis in ChangelogWithDate.
+ * this is what powers the date header shown by ChangelogFeed.
  *
  * Optional enrichments (env-var gated, local-first by default):
  *   GH_TOKEN     — fetch GitHub release + commit metadata

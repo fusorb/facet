@@ -224,6 +224,34 @@ export const changelog: ChangelogRelease[] = [
       },
       {
         kind: "fixed",
+        text: "Added `asChild` prop to `<Motion>`: when set, Motion clones its single child",
+      },
+      {
+        kind: "fixed",
+        text: "Added `setRef` + `useMergeRefs` helpers for stable ref merging.",
+      },
+      {
+        kind: "fixed",
+        text: "Migrated all 10 Radix popover `Content` components from CSS",
+      },
+      {
+        kind: "fixed",
+        text: "dropdown-menu (Content + SubContent), tooltip, popover, hover-card,",
+      },
+      {
+        kind: "fixed",
+        text: "Removed enter animation CSS classes from all Contents (Motion JS spring handles enter).",
+      },
+      {
+        kind: "fixed",
+        text: "Preserved `data-[state=closed]:animate-facet-zoom-out` exit classes on all Contents.",
+      },
+      {
+        kind: "fixed",
+        text: "Left overlays (Dialog/Sheet/AlertDialog) and NavigationMenuIndicator as CSS-only.",
+      },
+      {
+        kind: "fixed",
         text: "**DomainMotionConfig** interface: `defaultTransition`, `allowSpring`,",
       },
       {
@@ -245,6 +273,10 @@ export const changelog: ChangelogRelease[] = [
       {
         kind: "fixed",
         text: "**24 tests** covering preset validation, easing resolution, and family",
+      },
+      {
+        kind: "fixed",
+        text: "## motion: fix first-frame delta causing spring animations to snap",
       },
       {
         kind: "fixed",
@@ -433,10 +465,10 @@ export const changelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.1.2, 1.1.3, 1.2.2",
-    date: "2026-09-25",
+    version: "1.1.6, 1.2.2, 1.3.3, 1.4.3, 1.7.0",
+    date: "2026-09-26",
     tag: "fix",
-    title: "v1.1.2, 1.1.3, 1.2.2",
+    title: "v1.1.6, 1.2.2, 1.3.3, 1.4.3, 1.7.0",
     changes: [
       {
         kind: "changed",
@@ -445,12 +477,23 @@ export const changelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0",
-        href: "https://github.com/fusorb/facet/commit/3554506",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
-        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0",
+        text: "feat: config-driven billing pages, footer variants, and the new @fusorb/facet-emails package",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6\\n- @fusorb/facet-layout@1.3.3",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
     ],
   },
@@ -523,61 +566,11 @@ export const changelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.11.0, 1.2.3, 1.4.2, 1.4.7",
+    version: "1.11.0, 1.4.2, 1.4.7",
     date: "2026-08-23",
     tag: "fix",
-    title: "v1.11.0, 1.2.3, 1.4.2, 1.4.7",
+    title: "v1.11.0, 1.4.2, 1.4.7",
     changes: [
-      {
-        kind: "changed",
-        text: "Swap ShineButton for the shared AnimatedButton component on auth form submit buttons (forgot-password, magic-link, MFA recovery, MFA verify) for visual consistency across the form suite.",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Phase 0 security fix: warn developers when `defaultStorage` (localStorage) is used for tokens, surface the XSS risk prominently, and add an optional `persist` adapter so consumers can plug in a cookie-backed strategy.",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Add an ESM `\"use client\"` banner to the `dist` builds of `@fusorb/facet-components`,\\n- `@fusorb/facet-auth`, and `@fusorb/facet-layout`.",
-        href: "https://github.com/fusorb/facet/commit/cfabae9",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/b1da261",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.11.0\\n- @fusorb/facet-sdk@1.2.0",
-        href: "https://github.com/fusorb/facet/commit/cfabae9",
-      },
       {
         kind: "changed",
         text: "Export individual brand icon components (GithubIcon, LinkedinIcon, InstagramIcon,\\n- FacebookIcon, TiktokIcon, WhatsappIcon, XIcon, TwitterIcon, YoutubeIcon, SlackIcon,\\n- DiscordIcon, TelegramIcon, FigmaIcon, SpotifyIcon) from the main barrel so consuming\\n- apps can import them directly without duplicating the SVGs. These components already\\n- power the icon registry's `brandIcons` map and `LightIcon` - they were simply not\\n- re-exported as named exports from the package entry point.",

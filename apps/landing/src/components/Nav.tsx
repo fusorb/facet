@@ -123,7 +123,7 @@ function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
   const [openGroup, setOpenGroup] = React.useState<string | null>(null);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col lg:px-604">
       {getLinks().map((link) => {
         if (link.children?.length) {
           const isOpen = openGroup === link.href;

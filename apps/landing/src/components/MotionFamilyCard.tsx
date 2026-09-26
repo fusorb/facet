@@ -1,5 +1,5 @@
 import { useState, type CSSProperties } from "react";
-import { cn } from "@fusorb/facet-components";
+import { cn, Button } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { MotionPreview } from "./MotionPreview.js";
 import type { MotionFamily } from "../data/scratchpad.js";
@@ -72,8 +72,8 @@ export function MotionFamilyCard({ family }: MotionFamilyCardProps) {
 
         {/* Interactive controls */}
         <div className="flex items-center gap-0.5">
-          <button
-            type="button"
+          <Button
+            variant="ghost"
             onClick={handlePlay}
             aria-label={`Play ${family.label}`}
             className={cn(
@@ -85,10 +85,10 @@ export function MotionFamilyCard({ family }: MotionFamilyCardProps) {
             title="Play"
           >
             <LightIcon name="play" size={13} />
-          </button>
+          </Button>
 
-          <button
-            type="button"
+          <Button
+            variant="ghost"
             onClick={handleLoop}
             aria-label={
               loop ? `Unloop ${family.label}` : `Loop ${family.label}`
@@ -102,10 +102,10 @@ export function MotionFamilyCard({ family }: MotionFamilyCardProps) {
             title={loop ? "Looping" : "Loop"}
           >
             <LightIcon name="repeat" size={13} />
-          </button>
+          </Button>
 
-          <button
-            type="button"
+          <Button
+            variant="ghost"
             onClick={handlePause}
             aria-label={`Pause ${family.label}`}
             className={cn(
@@ -116,7 +116,7 @@ export function MotionFamilyCard({ family }: MotionFamilyCardProps) {
             title="Pause"
           >
             <LightIcon name="pause" size={13} />
-          </button>
+          </Button>
         </div>
       </div>
     </div>

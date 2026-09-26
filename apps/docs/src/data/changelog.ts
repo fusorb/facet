@@ -221,6 +221,34 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "fixed",
+        text: "Added `asChild` prop to `<Motion>`: when set, Motion clones its single child",
+      },
+      {
+        kind: "fixed",
+        text: "Added `setRef` + `useMergeRefs` helpers for stable ref merging.",
+      },
+      {
+        kind: "fixed",
+        text: "Migrated all 10 Radix popover `Content` components from CSS",
+      },
+      {
+        kind: "fixed",
+        text: "dropdown-menu (Content + SubContent), tooltip, popover, hover-card,",
+      },
+      {
+        kind: "fixed",
+        text: "Removed enter animation CSS classes from all Contents (Motion JS spring handles enter).",
+      },
+      {
+        kind: "fixed",
+        text: "Preserved `data-[state=closed]:animate-facet-zoom-out` exit classes on all Contents.",
+      },
+      {
+        kind: "fixed",
+        text: "Left overlays (Dialog/Sheet/AlertDialog) and NavigationMenuIndicator as CSS-only.",
+      },
+      {
+        kind: "fixed",
         text: "**DomainMotionConfig** interface: `defaultTransition`, `allowSpring`,",
       },
       {
@@ -242,6 +270,10 @@ export const facetChangelog: ChangelogRelease[] = [
       {
         kind: "fixed",
         text: "**24 tests** covering preset validation, easing resolution, and family",
+      },
+      {
+        kind: "fixed",
+        text: "## motion: fix first-frame delta causing spring animations to snap",
       },
       {
         kind: "fixed",
@@ -430,10 +462,10 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.1.2, 1.1.3, 1.2.2",
-    date: "2026-09-25",
+    version: "1.1.6, 1.2.2, 1.3.3, 1.4.3, 1.7.0",
+    date: "2026-09-26",
     tag: "fix",
-    title: "v1.1.2, 1.1.3, 1.2.2",
+    title: "v1.1.6, 1.2.2, 1.3.3, 1.4.3, 1.7.0",
     changes: [
       {
         kind: "changed",
@@ -442,12 +474,23 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0",
-        href: "https://github.com/fusorb/facet/commit/3554506",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
-        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0",
+        text: "feat: config-driven billing pages, footer variants, and the new @fusorb/facet-emails package",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6\\n- @fusorb/facet-layout@1.3.3",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6",
+        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
     ],
   },
@@ -520,61 +563,11 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.11.0, 1.2.3, 1.4.2, 1.4.7",
+    version: "1.11.0, 1.4.2, 1.4.7",
     date: "2026-08-23",
     tag: "fix",
-    title: "v1.11.0, 1.2.3, 1.4.2, 1.4.7",
+    title: "v1.11.0, 1.4.2, 1.4.7",
     changes: [
-      {
-        kind: "changed",
-        text: "Swap ShineButton for the shared AnimatedButton component on auth form submit buttons (forgot-password, magic-link, MFA recovery, MFA verify) for visual consistency across the form suite.",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Phase 0 security fix: warn developers when `defaultStorage` (localStorage) is used for tokens, surface the XSS risk prominently, and add an optional `persist` adapter so consumers can plug in a cookie-backed strategy.",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Add an ESM `\"use client\"` banner to the `dist` builds of `@fusorb/facet-components`,\\n- `@fusorb/facet-auth`, and `@fusorb/facet-layout`.",
-        href: "https://github.com/fusorb/facet/commit/cfabae9",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/b1da261",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.11.0\\n- @fusorb/facet-sdk@1.2.0",
-        href: "https://github.com/fusorb/facet/commit/cfabae9",
-      },
       {
         kind: "changed",
         text: "Export individual brand icon components (GithubIcon, LinkedinIcon, InstagramIcon,\\n- FacebookIcon, TiktokIcon, WhatsappIcon, XIcon, TwitterIcon, YoutubeIcon, SlackIcon,\\n- DiscordIcon, TelegramIcon, FigmaIcon, SpotifyIcon) from the main barrel so consuming\\n- apps can import them directly without duplicating the SVGs. These components already\\n- power the icon registry's `brandIcons` map and `LightIcon` - they were simply not\\n- re-exported as named exports from the package entry point.",
@@ -718,10 +711,68 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "0.8.0, 1.0.0, 1.5.0",
+    version: "1.2.3",
+    date: "2026-08-21",
+    tag: "fix",
+    title: "v1.2.3",
+    changes: [
+      {
+        kind: "changed",
+        text: "Swap ShineButton for the shared AnimatedButton component on auth form submit buttons (forgot-password, magic-link, MFA recovery, MFA verify) for visual consistency across the form suite.",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Phase 0 security fix: warn developers when `defaultStorage` (localStorage) is used for tokens, surface the XSS risk prominently, and add an optional `persist` adapter so consumers can plug in a cookie-backed strategy.",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Add an ESM `\"use client\"` banner to the `dist` builds of `@fusorb/facet-components`,\\n- `@fusorb/facet-auth`, and `@fusorb/facet-layout`.",
+        href: "https://github.com/fusorb/facet/commit/cfabae9",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/b1da261",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.11.0\\n- @fusorb/facet-sdk@1.2.0",
+        href: "https://github.com/fusorb/facet/commit/cfabae9",
+      },
+    ],
+  },
+  {
+    version: "1.0.0",
     date: "2026-08-20",
     tag: "fix",
-    title: "v0.8.0, 1.0.0, 1.5.0",
+    title: "v1.0.0",
     changes: [
       {
         kind: "changed",
@@ -737,16 +788,6 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Add a 3s fetch timeout to `resolveFacetVersions` and `discoverFacetPackages` so the CLI never hangs on an unreachable or slow npm registry. Add a global `testTimeout: 15000` in the CLI vitest config to absorb slow CI and DTS parsing overhead.",
         href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "feat(cli): consumer templates + `--use-template` merge",
-        href: "https://github.com/fusorb/facet/commit/53ca15c",
-      },
-      {
-        kind: "changed",
-        text: "Animated surfaces + page components + full location dataset.",
-        href: "https://github.com/fusorb/facet/commit/3554506",
       },
       {
         kind: "changed",
@@ -779,21 +820,11 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.1.0, 1.1.1, 1.1.4, 1.10.0, 1.3.0, 1.4.0, 1.4.6",
+    version: "1.1.4, 1.10.0, 1.4.0, 1.4.6",
     date: "2026-08-17",
     tag: "fix",
-    title: "v1.1.0, 1.1.1, 1.1.4, 1.10.0, 1.3.0, 1.4.0, 1.4.6",
+    title: "v1.1.4, 1.10.0, 1.4.0, 1.4.6",
     changes: [
-      {
-        kind: "changed",
-        text: "SignIn now supports a controlled `step` + `onStepChange` API: pass `step` to render exactly that step and drive the component from outside (e.g. a live state-machine diagram), and SignIn reports every internal transition via `onStepChange`. Fully backward compatible: when `step` is omitted, SignIn manages its own transitions as before.",
-        href: "https://github.com/fusorb/facet/commit/568497d",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.2.0",
-        href: "https://github.com/fusorb/facet/commit/3de0e04",
-      },
       {
         kind: "changed",
         text: "Polish pass: SpotlightCard default spotlight now uses color-mix for a visible semi-transparent glow (was a flat var(--primary) that was barely visible); BorderBeamCard beam refined with soft entry/exit ramps for a cleaner sweep; AnimatedButton default animation changed from shine to sparkle (consistent with BillingPageConfig's existing default); tokens CSS hides scrollbars globally across all facet apps (code blocks, tables, tabs, etc.) so interfaces look clean on mobile and medium screens.",
@@ -810,90 +841,31 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "- `UserAvatar` gains a `variant` prop (`\"auth\"` default / `\"default\"` plain avatar), plus `settingsHref`/`settingsLabel`/`renderSettingsLink` for a router-aware Settings item.\\n- `AlertDialogContent` accepts a `variant=\"destructive\"` tinted surface; `AlertDialogAction` accepts a `variant` (default/destructive) built on `buttonVariants`; new `AlertDialogIcon` warning-icon component. Alert dialogs now close when the overlay (outside) is clicked.\\n- New `isMac()`/`getModSymbol()` platform helpers and a `mod` prop on `Kbd` for platform-aware shortcut hints (⌘ on macOS, Ctrl elsewhere).\\n- Buttons now render with `cursor-pointer`.\\n- `Pagination` spacing/glyph alignment tightened (`gap-1.5`, `shrink-0` icons).\\n- Icon registry adds `triangleAlert`.",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
-      },
-      {
-        kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0\\n- @fusorb/facet-tokens@1.1.4\\n- @fusorb/facet-auth@1.2.2\\n- @fusorb/facet-layout@1.4.1",
         href: "https://github.com/fusorb/facet/commit/b7accc3",
-      },
-      {
-        kind: "changed",
-        text: "Animated surfaces + page components + full location dataset.",
-        href: "https://github.com/fusorb/facet/commit/3554506",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0\\n- @fusorb/facet-layout@1.3.0\\n- @fusorb/facet-auth@1.1.3",
-        href: "https://github.com/fusorb/facet/commit/3554506",
-      },
-      {
-        kind: "changed",
-        text: "- Initial publish: installable, config-driven docs site engine. Mount `<DocsApp config={...} pages={...} />` with your own brand, nav, content pages, and ecosystem links, without forking.\\n- Ships a searchable sidebar shell (VS Code-style collapsible rail), paginated component gallery with per-component variant pages, per-variant usage tabs, install tabs for pnpm/npm/yarn/bun, and an optional ecosystem links section.\\n- Pages and nav derive from a single pages registry; the component manifest is auto-generated from `packages/components/src/ui`.",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.1.0\\n- @fusorb/facet-layout@1.1.0\\n- @fusorb/facet-auth@1.0.3",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
-      },
-      {
-        kind: "changed",
-        text: "Animated surfaces + page components + full location dataset.",
-        href: "https://github.com/fusorb/facet/commit/3554506",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0\\n- @fusorb/facet-auth@1.1.3",
-        href: "https://github.com/fusorb/facet/commit/3554506",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/3de0e04",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.2.0\\n- @fusorb/facet-auth@1.1.0",
-        href: "https://github.com/fusorb/facet/commit/568497d",
       },
       {
         kind: "changed",
         text: "Polish pass: SpotlightCard default spotlight now uses color-mix for a visible semi-transparent glow (was a flat var(--primary) that was barely visible); BorderBeamCard beam refined with soft entry/exit ramps for a cleaner sweep; AnimatedButton default animation changed from shine to sparkle (consistent with BillingPageConfig's existing default); tokens CSS hides scrollbars globally across all facet apps (code blocks, tables, tabs, etc.) so interfaces look clean on mobile and medium screens.",
         href: "https://github.com/fusorb/facet/commit/b7accc3",
       },
-      {
-        kind: "changed",
-        text: "- Adds the `tw-animate-css` enter/exit animation utility set (animate-in/out, fade, zoom, slide) to the Tailwind v4 theme extension (`tailwind.css`), so facet component class strings resolve for Tailwind consumers.\\n- Adds `facet-marquee` and `caret-blink` keyframes plus `--animate-facet-marquee` / `--animate-caret-blink` theme vars; plain-CSS equivalents live in `tokens.css` for non-Tailwind consumers.",
-        href: "https://github.com/fusorb/facet/commit/3de0e04",
-      },
     ],
   },
   {
-    version: "1.1.3, 1.2.1, 1.4.0, 1.4.5, 1.9.0",
+    version: "0.8.0, 1.1.3, 1.2.1, 1.4.0, 1.4.5, 1.9.0",
     date: "2026-08-16",
     tag: "fix",
-    title: "v1.1.3, 1.2.1, 1.4.0, 1.4.5, 1.9.0",
+    title: "v0.8.0, 1.1.3, 1.2.1, 1.4.0, 1.4.5, 1.9.0",
     changes: [
       {
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.9.0",
         href: "https://github.com/fusorb/facet/commit/18547dc",
+      },
+      {
+        kind: "changed",
+        text: "feat(cli): consumer templates + `--use-template` merge",
+        href: "https://github.com/fusorb/facet/commit/53ca15c",
       },
       {
         kind: "changed",
@@ -933,10 +905,10 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.1.6, 1.2.0, 1.3.3, 1.3.4, 1.4.3, 1.4.4, 1.7.0, 1.8.0",
+    version: "0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.2.0, 1.3.4, 1.4.4, 1.8.0",
     date: "2026-08-15",
     tag: "fix",
-    title: "v0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.1.6, 1.2.0, 1.3.3, 1.3.4, 1.4.3, 1.4.4, 1.7.0, 1.8.0",
+    title: "v0.6.0, 0.7.0, 1.1.0, 1.1.1, 1.1.2, 1.2.0, 1.3.4, 1.4.4, 1.8.0",
     changes: [
       {
         kind: "changed",
@@ -962,11 +934,6 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.8.0",
         href: "https://github.com/fusorb/facet/commit/78b6543",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
@@ -1000,11 +967,6 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "feat: config-driven billing pages, footer variants, and the new @fusorb/facet-emails package",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
-      },
-      {
-        kind: "changed",
         text: "Updated dependencies []",
         href: "https://github.com/fusorb/facet/commit/9360e93",
       },
@@ -1032,11 +994,6 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.0\\n- @fusorb/facet-components@1.8.0\\n- @fusorb/facet-tokens@1.1.2\\n- @fusorb/facet-layout@1.3.4",
         href: "https://github.com/fusorb/facet/commit/78b6543",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6\\n- @fusorb/facet-layout@1.3.3",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
@@ -1077,11 +1034,6 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.0\\n- @fusorb/facet-components@1.8.0",
         href: "https://github.com/fusorb/facet/commit/78b6543",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.7.0\\n- @fusorb/facet-auth@1.1.6",
-        href: "https://github.com/fusorb/facet/commit/d2b43d0",
       },
       {
         kind: "changed",
@@ -1154,11 +1106,20 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "0.3.1, 0.4.0, 1.3.1",
+    version: "0.3.1, 0.4.0, 1.1.2, 1.1.3, 1.3.0, 1.3.1, 1.4.0, 1.5.0",
     date: "2026-08-13",
     tag: "fix",
-    title: "v0.3.1, 0.4.0, 1.3.1",
+    title: "v0.3.1, 0.4.0, 1.1.2, 1.1.3, 1.3.0, 1.3.1, 1.4.0, 1.5.0",
     changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0",
+        href: "https://github.com/fusorb/facet/commit/3554506",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0",
+      },
       {
         kind: "changed",
         text: "feat(cli): facet docs scan -- read the repo and draft documentation",
@@ -1171,6 +1132,21 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
+        text: "Animated surfaces + page components + full location dataset.",
+        href: "https://github.com/fusorb/facet/commit/3554506",
+      },
+      {
+        kind: "changed",
+        text: "Animated surfaces + page components + full location dataset.",
+        href: "https://github.com/fusorb/facet/commit/3554506",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0\\n- @fusorb/facet-layout@1.3.0\\n- @fusorb/facet-auth@1.1.3",
+        href: "https://github.com/fusorb/facet/commit/3554506",
+      },
+      {
+        kind: "changed",
         text: "DataTable: export consolidated into a single Export dropdown (CSV + pluggable exporters), plus a new overflow (⋯) actions menu for bulk row actions (select-all, mark-as-read, delete-all, custom). NavigationMenuLink is now a padded, hover-styled block link (fixes cramped dropdown items) and supports an optional description. NumberInput gains a built-in currency picker: CURRENCIES list, currencyPicker dropdown, currencyOptions override, and onCurrencyChange.",
       },
       {
@@ -1180,6 +1156,16 @@ export const facetChangelog: ChangelogRelease[] = [
       {
         kind: "changed",
         text: "@fusorb/facet-auth@1.1.4",
+      },
+      {
+        kind: "changed",
+        text: "Animated surfaces + page components + full location dataset.",
+        href: "https://github.com/fusorb/facet/commit/3554506",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0\\n- @fusorb/facet-auth@1.1.3",
+        href: "https://github.com/fusorb/facet/commit/3554506",
       },
     ],
   },
@@ -1247,16 +1233,6 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "fix(docs): layout page no longer takes over the shell; back button; marquee",
         href: "https://github.com/fusorb/facet/commit/b878bfd",
-      },
-      {
-        kind: "changed",
-        text: "- `AvatarGroup` gains a subtle hover effect (lift + ring) with a `disableHover` opt-out.\\n- `Dropzone` gains clipboard paste support (`allowPaste`): pasted files are validated against `accept`, and pasted text is wrapped in a text file when the clipboard carries no files.\\n- Adds `tw-animate-css` as a direct dependency so the animation utilities resolve for components consumers.",
-        href: "https://github.com/fusorb/facet/commit/3de0e04",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.1.0",
-        href: "https://github.com/fusorb/facet/commit/3de0e04",
       },
       {
         kind: "changed",
@@ -1329,26 +1305,6 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "- Adds the interactive `AuthDemo` component and `authDemo` docs block: a configurable live `<SignIn>` with method/OAuth toggles that generates the exact `config` code for the selected method.\\n- Adds the reusable `InteractiveDemo` component and `demo` docs block: a variant/method switcher drives a live preview and a copyable code snippet for any manifest slug (auth, layout, and forms guide pages).\\n- Adds the `keyboardShortcuts` docs block (Kbd-chip shortcuts table).\\n- Splits the gallery: base UI components, the auth/layout surfaces, and the \"Ready to Use\" extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form) each get their own sidebar section or guide page with live previews and copyable usage snippets.\\n- All new blocks are exported from the package barrel and documented in the docs package README block table.",
-        href: "https://github.com/fusorb/facet/commit/568497d",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/3de0e04",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/568497d",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.2.0\\n- @fusorb/facet-auth@1.1.0\\n- @fusorb/facet-tokens@1.1.0\\n- @fusorb/facet-layout@1.1.1",
-        href: "https://github.com/fusorb/facet/commit/3de0e04",
-      },
-      {
-        kind: "changed",
         text: "feat(cli): add clean/scripts/prep/up commands + doctor dep detection + alias-aware imports; layout: full/rail sidebar + verified section behavior",
       },
       {
@@ -1389,15 +1345,20 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.0.2, 1.0.3",
+    version: "1.0.2, 1.1.0, 1.1.1, 1.2.0",
     date: "2026-08-11",
     tag: "fix",
-    title: "v1.0.2, 1.0.3",
+    title: "v1.0.2, 1.1.0, 1.1.1, 1.2.0",
     changes: [
       {
         kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.1.0",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
+        text: "SignIn now supports a controlled `step` + `onStepChange` API: pass `step` to render exactly that step and drive the component from outside (e.g. a live state-machine diagram), and SignIn reports every internal transition via `onStepChange`. Fully backward compatible: when `step` is omitted, SignIn manages its own transitions as before.",
+        href: "https://github.com/fusorb/facet/commit/568497d",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.2.0",
+        href: "https://github.com/fusorb/facet/commit/3de0e04",
       },
       {
         kind: "changed",
@@ -1409,11 +1370,56 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
+        text: "- `AvatarGroup` gains a subtle hover effect (lift + ring) with a `disableHover` opt-out.\\n- `Dropzone` gains clipboard paste support (`allowPaste`): pasted files are validated against `accept`, and pasted text is wrapped in a text file when the clipboard carries no files.\\n- Adds `tw-animate-css` as a direct dependency so the animation utilities resolve for components consumers.",
+        href: "https://github.com/fusorb/facet/commit/3de0e04",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.1.0",
+        href: "https://github.com/fusorb/facet/commit/3de0e04",
+      },
+      {
+        kind: "changed",
         text: "feat: wire internal components through the Icon registry; Icon spreads SVG props for pass-through overrides",
       },
       {
         kind: "changed",
         text: "fix: navbar mobile menu closes when an item is tapped (custom mobileMenu included)",
+      },
+      {
+        kind: "changed",
+        text: "- Adds the interactive `AuthDemo` component and `authDemo` docs block: a configurable live `<SignIn>` with method/OAuth toggles that generates the exact `config` code for the selected method.\\n- Adds the reusable `InteractiveDemo` component and `demo` docs block: a variant/method switcher drives a live preview and a copyable code snippet for any manifest slug (auth, layout, and forms guide pages).\\n- Adds the `keyboardShortcuts` docs block (Kbd-chip shortcuts table).\\n- Splits the gallery: base UI components, the auth/layout surfaces, and the \"Ready to Use\" extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form) each get their own sidebar section or guide page with live previews and copyable usage snippets.\\n- All new blocks are exported from the package barrel and documented in the docs package README block table.",
+        href: "https://github.com/fusorb/facet/commit/568497d",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3de0e04",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/568497d",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.2.0\\n- @fusorb/facet-auth@1.1.0\\n- @fusorb/facet-tokens@1.1.0\\n- @fusorb/facet-layout@1.1.1",
+        href: "https://github.com/fusorb/facet/commit/3de0e04",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3de0e04",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.2.0\\n- @fusorb/facet-auth@1.1.0",
+        href: "https://github.com/fusorb/facet/commit/568497d",
+      },
+      {
+        kind: "changed",
+        text: "- Adds the `tw-animate-css` enter/exit animation utility set (animate-in/out, fade, zoom, slide) to the Tailwind v4 theme extension (`tailwind.css`), so facet component class strings resolve for Tailwind consumers.\\n- Adds `facet-marquee` and `caret-blink` keyframes plus `--animate-facet-marquee` / `--animate-caret-blink` theme vars; plain-CSS equivalents live in `tokens.css` for non-Tailwind consumers.",
+        href: "https://github.com/fusorb/facet/commit/3de0e04",
       },
     ],
   },
@@ -1427,6 +1433,48 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "- Adds `facet docs init`: an interactive wizard that scaffolds a docs site\\n- in any repo. The wizard opens with a **\"Decide for me\"** option -- detect\\n- my stack and use the best defaults (also available as `--yes`) -- or lets\\n- the consumer walk through each choice. Asks for the docs site name\\n- (blank falls back to the default `docs`), location (`.`, `docs/`, or\\n- `src/docs/` -- root recommended), language, framework (React+Vite,\\n- Next.js, Remix, plain JS, Python), and template kind.\\n- Detects the consumer's styling setup (facet tokens / Tailwind / plain\\n- CSS) and recommends wiring `@fusorb/facet-tokens` so consumers get the\\n- Alpha Palette theming without restyling every component.\\n- Adds a **barrel export decision** (`--barrel auto|always|never`, or a\\n- wizard prompt): `auto` creates an `index.ts` when it fits the layout,\\n- `always` forces one, `never` leaves the consumer's tree untouched.\\n- Adds **per-framework generators**:\\n- **React+Vite**: a thin consumer app exactly like facet's own `apps/docs`\\n- (config + pages registry + app shell), which doubles as a reference\\n- implementation.\\n- **Next.js**: a real `src/app/docs` route (`\"use client\"` rendering\\n- `DocsApp`) plus `src/lib/docs/config` and `src/lib/docs/pages` -- the\\n- docs site mounts at `/docs` in an existing Next app. Next scaffolds\\n- get `next`/`react` deps and `docs:dev`/`docs:build` scripts.\\n- **Remix**: a real `app/routes/docs` route rendering `DocsApp` plus\\n- `src/lib/docs/config` and `src/lib/docs/pages`, with\\n- `@remix-run/react` deps and `docs:dev`/`docs:build` scripts.\\n- **Plain JS**: a framework-agnostic `pages` registry + markdown content\\n- pipeline with no React shell.\\n- **Python**: a `docs_pipeline.py` markdown → `pages.json` compiler plus\\n- a starter registry, so a Python repo can own its docs content in\\n- markdown and hand the JSON to any React host for rendering.\\n- Adds `facet add <component>`: a shadcn-style copy-into-source workflow,\\n- with a recommendation to import from `@fusorb/facet-components` instead.\\n- Placement is flexible: by default it decides based on what the consumer\\n- already has (flat into the components root when a barrel exists, else a\\n- clean `facet/` subdirectory), with `--dir`, `--ui-dir`, `--flat`,\\n- `--no-barrel`, and `--barrel` for explicit control. An existing barrel\\n- is merged (never overwritten) so the consumer's own exports stay intact,\\n- and the generated subdirectory barrel stays in sync across adds.\\n- Every wizard prompt and CLI option carries a description of what it does\\n- or what the choice represents, so consumers know what each step will\\n- generate before committing.",
         href: "https://github.com/fusorb/facet/commit/79ec07a",
+      },
+    ],
+  },
+  {
+    version: "1.0.3, 1.1.0",
+    date: "2026-08-02",
+    tag: "fix",
+    title: "v1.0.3, 1.1.0",
+    changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.1.0",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
+      },
+      {
+        kind: "changed",
+        text: "- `UserAvatar` gains a `variant` prop (`\"auth\"` default / `\"default\"` plain avatar), plus `settingsHref`/`settingsLabel`/`renderSettingsLink` for a router-aware Settings item.\\n- `AlertDialogContent` accepts a `variant=\"destructive\"` tinted surface; `AlertDialogAction` accepts a `variant` (default/destructive) built on `buttonVariants`; new `AlertDialogIcon` warning-icon component. Alert dialogs now close when the overlay (outside) is clicked.\\n- New `isMac()`/`getModSymbol()` platform helpers and a `mod` prop on `Kbd` for platform-aware shortcut hints (⌘ on macOS, Ctrl elsewhere).\\n- Buttons now render with `cursor-pointer`.\\n- `Pagination` spacing/glyph alignment tightened (`gap-1.5`, `shrink-0` icons).\\n- Icon registry adds `triangleAlert`.",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
+      },
+      {
+        kind: "changed",
+        text: "- Initial publish: installable, config-driven docs site engine. Mount `<DocsApp config={...} pages={...} />` with your own brand, nav, content pages, and ecosystem links, without forking.\\n- Ships a searchable sidebar shell (VS Code-style collapsible rail), paginated component gallery with per-component variant pages, per-variant usage tabs, install tabs for pnpm/npm/yarn/bun, and an optional ecosystem links section.\\n- Pages and nav derive from a single pages registry; the component manifest is auto-generated from `packages/components/src/ui`.",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.1.0\\n- @fusorb/facet-layout@1.1.0\\n- @fusorb/facet-auth@1.0.3",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
       },
     ],
   },
@@ -1470,8 +1518,8 @@ export const facetChangelog: ChangelogRelease[] = [
   },
 ];
 
-export const CHANGELOG_RELEASE_COUNT = 17;
-export const CHANGELOG_CHANGE_COUNT = 289;
+export const CHANGELOG_RELEASE_COUNT = 19;
+export const CHANGELOG_CHANGE_COUNT = 297;
 
 // ── Episodic canon (.agent/episodes.md) ──────────
 // Local-only; may be empty in CI where .agent/ is gitignored.
@@ -1854,9 +1902,19 @@ export const facetEpisodes: FacetEpisode[] = [
     date: "2026-09-23",
     state: "automated. Full-repo grep confirms 0 `focus:ring-*`,\n   `focus-visible:ring-*`, `focus-within:ring-*`, `hover:ring-*`, and\n   `focus:border-primary` tokens remain in source. Static ring classes for\n   selected/active/badge states are intact. Components typecheck +, tsup build +\n   DTS ✓. Changesets staged.",
     summary: "Every component showed a blue border on hover or click — the Tailwind focus\\n   ring classes (`focus:ring-2 focus:ring-ring focus:ring-offset-2`) plus the\\n   global `:focus-visible { outline: 1.5px sol",
-    lesson: "the \"unnecessary\" in design systems is often the invariant nobody wrote\\n   a gate for. The fix isn't \"remove everything\" — it's \"remove the ring/border\\n   tokens while keeping outline-none (suppress browser default) and preserving\\n   the static rings that encode state (selected, active, open).\" A targeted regex\\n   that matches only `focus:ring-*` (not `focus:bg-*` or `focus:text-*`) makes the\\n   distinction mechanical, not manual.\\n\\n   ================================================================================\\n\\n   EP 46 -- Collapsed Sidebar Variant + Repo-Wide Cleanup\\n   ---------------------------------------------------------\\n   Date: 2026-09-24\\n\\n   A. Collapsed sidebar variant (layout package)\\n      - Confirmed: NO prior mechanism collapsed all sidebar sections + the aside\\n        simultaneously. Three separate, un-unified systems existed:\\n          1. Sidebar rail collapse  (sidebarCollapsed in LayoutContext)\\n          2. Section accordion      (collapseAll/expandAll in LayoutContext)\\n          3. Aside toggle           (asideOpen in DocsLayoutContext)\\n      - Added to LayoutContext:\\n          * registerSections(ids)       — ref populated by Sidebar on config change\\n          * collapseAllSidebar()        — collapseAll(registeredIds) + setSidebarCollapsed(true)\\n          * expandAllSidebar()          — expandAll(registeredIds) + setSidebarCollapsed(false)\\n      - Added to DocsLayoutContext:\\n          * collapsedAll (boolean, synced via effect from DocsTopbarControls)\\n          * collapseAllSidebarAndAside()  — refs → ref.collapse?.()\\n          * expandAllSidebarAndAside()    — refs → ref.expand?.()\\n          * toggleCollapseAll()           — delegates to ref (reads ref.collapsedAll)\\n      - DocsTopbarControls component (in docs-layout.tsx):\\n          * Lives inside ConsoleLayoutInner → inside BOTH LayoutProvider + DocsLayoutContext\\n          * Computes collapsedAll = mode === \"rail\" && sidebarCollapsed && !asideOpen\\n          * Populates collapseAllStateRef.current during render (closures are always fresh)\\n          * Syncs collapsedAll → useState via useEffect for external consumers\\n          * Renders: mode toggle, aside toggle, NEW collapse-all button, consumer topbar\\n          * Collapse-all button: mode=\"rail\" + collapseAllSidebar() + setAsideOpen(false)\\n          * Expand-all button: mode=\"full\" + expandAllSidebar() + setAsideOpen(true)\\n          * Keyboard shortcut: Ctrl+Shift+B\\n          * Icons: minimize-2 / maximize-2 (resolved via lazy lucide catalog)\\n      - Sidebar component: calls registerSections(config.navigation ids) in useEffect\\n      - SettingsMenu (docs app): added \"Collapse all sidebar & aside\" / \"Expand all\" item\\n      - All state persists via existing localStorage keys (no new keys)\\n      - Button hidden on mobile (lg:inline-flex) — sidebar is slide-in on mobile\\n      - Build + typecheck ✓ (layout, docs, apps/docs all pass)\\n\\n   B. Repo-wide file cleanup\\n      Deleted 27 tracked files:\\n      - Root debug scripts (10): capture-errors.{js,ps1}, check-{cdp,cdp2,cdp3,full,css,\\n        no-block,page}.{mjs,js,ps1} — all unreferenced, hardcoded debugging tools\\n      - Root build artifact (1): served.css — Vite CSS-as-JS output, unreferenced\\n      - Landing temp file (1): apps/landing/src/tmp.css — unreferenced\\n      - Stale scripts/ tools (14): audit-arcid-consumption, audit-claims,\\n        audit-hardcoded-colors, audit-icons, audit-repo, audit-tokens-parity,\\n        audit-variants, check-location-data, fix-pages-strings, gen-countries,\\n        gen-ng-lgas, gen-pages, gen-regions, rename-arc-ui — all unreferenced\\n      - Stale data (1): scripts/data/countries-states.json — only used by deleted\\n        scripts; the generated location-data.ts is already committed in source\\n      - Empty scripts/data/ directory removed\\n      Deleted 6 gitignored scratchpad temp files (remove-focus.cjs, commit-msg-*.txt,\\n        empty *.output.txt files) for hygiene\\n      Kept: gen-snapshot.js (referenced in CLAUDE.md), scripts/test-setup.ts and\\n        react-test-utils-shim.ts (used by 5 package-level vitest configs),\\n        all CI-referenced scripts (check-docs-inventory, gen-icon-map, etc.)\\n      State: complete. 27 files staged for deletion via git rm -f. Changeset created.\\n\\n   ================================================================",
-    commitHashes: [],
+    lesson: "the \"unnecessary\" in design systems is often the invariant nobody wrote\\n   a gate for. The fix isn't \"remove everything\" — it's \"remove the ring/border\\n   tokens while keeping outline-none (suppress browser default) and preserving\\n   the static rings that encode state (selected, active, open).\" A targeted regex\\n   that matches only `focus:ring-*` (not `focus:bg-*` or `focus:text-*`) makes the\\n   distinction mechanical, not manual.\\n\\n   ================================================================================\\n\\n   EP 46 -- Collapsed Sidebar Variant + Repo-Wide Cleanup\\n   ---------------------------------------------------------\\n   Date: 2026-09-24\\n\\n   A. Collapsed sidebar variant (layout package)\\n      - Confirmed: NO prior mechanism collapsed all sidebar sections + the aside\\n        simultaneously. Three separate, un-unified systems existed:\\n          1. Sidebar rail collapse  (sidebarCollapsed in LayoutContext)\\n          2. Section accordion      (collapseAll/expandAll in LayoutContext)\\n          3. Aside toggle           (asideOpen in DocsLayoutContext)\\n      - Added to LayoutContext:\\n          * registerSections(ids)       — ref populated by Sidebar on config change\\n          * collapseAllSidebar()        — collapseAll(registeredIds) + setSidebarCollapsed(true)\\n          * expandAllSidebar()          — expandAll(registeredIds) + setSidebarCollapsed(false)\\n      - Added to DocsLayoutContext:\\n          * collapsedAll (boolean, synced via effect from DocsTopbarControls)\\n          * collapseAllSidebarAndAside()  — refs → ref.collapse?.()\\n          * expandAllSidebarAndAside()    — refs → ref.expand?.()\\n          * toggleCollapseAll()           — delegates to ref (reads ref.collapsedAll)\\n      - DocsTopbarControls component (in docs-layout.tsx):\\n          * Lives inside ConsoleLayoutInner → inside BOTH LayoutProvider + DocsLayoutContext\\n          * Computes collapsedAll = mode === \"rail\" && sidebarCollapsed && !asideOpen\\n          * Populates collapseAllStateRef.current during render (closures are always fresh)\\n          * Syncs collapsedAll → useState via useEffect for external consumers\\n          * Renders: mode toggle, aside toggle, NEW collapse-all button, consumer topbar\\n          * Collapse-all button: mode=\"rail\" + collapseAllSidebar() + setAsideOpen(false)\\n          * Expand-all button: mode=\"full\" + expandAllSidebar() + setAsideOpen(true)\\n          * Keyboard shortcut: Ctrl+Shift+B\\n          * Icons: minimize-2 / maximize-2 (resolved via lazy lucide catalog)\\n      - Sidebar component: calls registerSections(config.navigation ids) in useEffect\\n      - SettingsMenu (docs app): added \"Collapse all sidebar & aside\" / \"Expand all\" item\\n      - All state persists via existing localStorage keys (no new keys)\\n      - Button hidden on mobile (lg:inline-flex) — sidebar is slide-in on mobile\\n      - Build + typecheck ✓ (layout, docs, apps/docs all pass)\\n\\n   B. Repo-wide file cleanup\\n      Deleted 27 tracked files:\\n      - Root debug scripts (10): capture-errors.{js,ps1}, check-{cdp,cdp2,cdp3,full,css,\\n        no-block,page}.{mjs,js,ps1} — all unreferenced, hardcoded debugging tools\\n      - Root build artifact (1): served.css — Vite CSS-as-JS output, unreferenced\\n      - Landing temp file (1): apps/landing/src/tmp.css — unreferenced\\n      - Stale scripts/ tools (14): audit-arcid-consumption, audit-claims,\\n        audit-hardcoded-colors, audit-icons, audit-repo, audit-tokens-parity,\\n        audit-variants, check-location-data, fix-pages-strings, gen-countries,\\n        gen-ng-lgas, gen-pages, gen-regions, rename-arc-ui — all unreferenced\\n      - Stale data (1): scripts/data/countries-states.json — only used by deleted\\n        scripts; the generated location-data.ts is already committed in source\\n      - Empty scripts/data/ directory removed\\n      Deleted 6 gitignored scratchpad temp files (remove-focus.cjs, commit-msg-*.txt,\\n        empty *.output.txt files) for hygiene\\n      Kept: gen-snapshot.js (referenced in CLAUDE.md), scripts/test-setup.ts and\\n        react-test-utils-shim.ts (used by 5 package-level vitest configs),\\n        all CI-referenced scripts (check-docs-inventory, gen-icon-map, etc.)\\n      State: complete. 27 files staged for deletion via git rm -f. Changeset created.\\n\\n   ================================================================\\n\\nEP 47 -- ChangelogCard / ChangelogFeed Replace Changeset + §18 Hero Rebuild\\nDate: 2026-09-25\\nCommit: 4ecefd6 — \"feat(components,landing): replace Changeset with\\nChangelogCard/ChangelogFeed + §18 hero rebuild\" (21 files, 2095 ins, 746 del)\\n\\nWhat broke:\\n  The `Changeset` component (packages/components/src/ui/changeset.tsx) was a\\n  docs-only `changeset` block type — a date-grouped CONTENT timeline renderer\\n  with nested blocks. No .mdx/.ts/.md content in the repo invoked\\n  `type: \"changeset\"`; only schema (pages.ts), renderer (DocsContentPage case),\\n  import, and the auto-manifest wired it. It was added last session (6cbf23c)\\n  as a stepping stone but was never meant to be the final form: the landing\\n  needed a full changelog UI pair (card + feed), not a single docs-block\\n  renderer. The Changeset component also lacked tests, composability slots, and\\n  the token-faithful styling the canon demands.\\n\\nHow we fixed it:\\n\\nA. ChangelogCard (packages/components/src/ui/changelog-card.tsx)\\n   - ChangelogCard — root; consumes a single ChangelogItem + optional\\n     showDiff state\\n   - ChangelogHeader — date pill (right-side h3 id) + category badge (cvca)\\n   - ChangelogTitle — release title + version\\n   - ChangelogDescription — plain-text description\\n   - ChangelogHighlights — dot-list of key changes (text-success/destructive)\\n   - ChangelogDiffToggle — Button (ghost, sm) toggles diff visibility;\\n     icon swaps (eye / eye-off) via LightIcon\\n   - ChangelogDiffViewer — collapsible diff code block (bg-muted/60, rounded,\\n     monospace, scroll-x, line numbers)\\n   - Tokens only — bg-card, border-border, text-foreground,\\n     text-muted-foreground, bg-muted, bg-primary, bg-success, bg-warning,\\n     bg-destructive, ring-primary, bg-primary/10. NO arbitrary values.\\n   - Badge: cvca variants (default/secondary/outline/success/warning/destructive)\\n   - Button: facets variants (default/secondary/ghost/outline), size sm\\n   - 5 tests: renders, header, highlights, diff toggle, diff viewer\\n\\nB. ChangelogFeed (packages/components/src/ui/changelog-feed.tsx)\\n   - ChangelogFeed — root; renders filtered ChangelogItem[] as a vertical\\n     timeline with staggered entrances\\n   - FilterBar — category filter buttons (all/added/changed/fixed/deprecated)\\n   - Timeline — vertical connector line (border-l, absolute) with child items\\n   - TimelineItem — individual item with stagger() delay (baseDelay 0ms,\\n     count = items.length) via @fusorb/facet-motion\\n   - 4 tests: renders empty, renders items, filter by category, active filter\\n   - Compound API pattern (render-prop-style sub-component composition)\\n\\nC. Migration (blast radius: barrel + docs engine + schema + count)\\n   - Deleted changeset.tsx\\n   - Barrel (index.ts L559-563): Changeset export → ChangelogCard + ChangelogFeed\\n     + ChangelogItem, ReleaseCategory, ReleaseStatus, ChangeCategory types\\n   - DocsContentPage.tsx: removed Changeset import + `case \"changeset\"` (L286-297)\\n   - pages.ts: removed `changeset` from DocsBlock union (L116-128)\\n   - gen-docs-manifest.mjs CATEGORY map: dropped changeset, added\\n     changelog-card + changelog-feed → regenerated manifest.ts\\n   - Count 117→118 propagated: CLAUDE.md, README, package.json,\\n     site-data.generated.ts\\n\\n§18 Chunk 1 — Landing Hero Rebuild (committed together in 4ecefd6):\\n   - HeroSection.tsx rebuilt: dropped domain-cycling 3.2s state machine,\\n     auth-preview card, tech-pill inventory. Kept positioning H1 + supporting\\n     line + Explore(/components) / Read-the-Docs CTAs (facet Button) +\\n     install row. Visual = LayerGraph(SYSTEM_LAYERS). Removed arbitrary\\n     min-h-[60vh]/max-w-[1200px] (LandingLayout shell owns spacing).\\n   - scripts/gen-site-data.mjs extended: detectColorSpace() (scans tokens CSS\\n     for oklch() → \"OKLCH\") + countPresets() → 5. Emits COLOR_SPACE +\\n     DOMAIN_PRESET_COUNT to site-data.generated.ts.\\n   - ArchitectureSection.tsx now consumes both (literals gone).\\n   - apps/landing + apps/docs changelog data updated.\\n   - Changeset fragment: @fusorb/facet-components major (breaking Changeset\\n     removal)\\n\\nVerified:\\n   - tsc(components): EXIT 0\\n   - vitest: changelog-card 5/5 ✓, changelog-feed 4/4 ✓ (9 total)\\n   - check:docs: 118/118 (barrel ↔ manifest ↔ CLAUDE.md synced)\\n   - check:components: 118/118 appearance, 118/118 config,\\n     0 HARD gaps, 0 slot gaps\\n   - check-component-flexibility: 0 SOFT_GAPS\\n\\nLesson: a docs-block renderer (Changeset) and a UI component pair\\n(ChangelogCard/ChangelogFeed) serve different contracts. Replacing the\\nformer with the latter was not a rename — it was a model change: from \"single\\ndocs block type with nested blocks\" to \"composable component pair with\\ncompound API, token-faithful styling, and staggered motion.\" The cascade\\n(barrel → docs engine → schema → manifest → count) was mechanical once the\\ntarget shape was chosen; the substance was in the component pair itself —\\n6 sub-components for the card, 4 for the feed, 9 tests, and a changeset\\nthat properly records the breaking removal.",
+    commitHashes: ["4ecefd6","6cbf23c"],
+  },
+  {
+    number: "EP 48",
+    title: "The Spring That Snapped on First Frame",
+    slug: "the-spring-that-snapped-on-first-frame",
+    date: null,
+    state: "verified. Motion typecheck ✓, components typecheck ✓, motion tests ✓\n   (incl. 2 new scheduler tests), dist rebuilt and confirmed containing\n   `last2===null ? 0 : now-last2`. Working tree has this fix + pre-existing\n   changelog-migration changes (uncommitted, staged for a separate commit).",
+    summary: "The motion asChild fix (9905bd9) resolved the wrapper-div and CSS-duration\\n   issues — but enter animations on popover components were STILL not rendering\\n   the necessary animation. Dropdowns appeare",
+    lesson: "the test environment lied. A scheduler that passes tests in Node\\n   (setInterval fallback) can still be catastrophically wrong in the browser\\n   (rAF first-frame timestamp). The bug only surfaces in rAF path, which no\\n   test exercised. Fix the scheduler boundary — it is the source of truth\\n   for elapsed time, and `elapsed += absolute_timestamp` is always wrong.",
+    commitHashes: ["9905bd9"],
   },
 ];
 
-export const EPISODE_COUNT = 37;
+export const EPISODE_COUNT = 38;
