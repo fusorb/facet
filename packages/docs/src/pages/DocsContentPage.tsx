@@ -11,9 +11,8 @@ import { InteractiveDemo } from "../components/InteractiveDemo.js";
 import { KeyboardShortcuts } from "../components/KeyboardShortcuts.js";
 import {
   cn,
-  ChangelogList,
-  ChangelogWithDate,
-  type ChangelogRelease,
+  ChangelogFeed,
+  toChangelogItem,
 } from "@fusorb/facet-components";
 import type { DocsBlock } from "../lib/pages.js";
 import { useDocsApp } from "../context.js";
@@ -270,18 +269,13 @@ function Block({ block }: { block: DocsBlock }) {
           ]}
         />
       );
-    case "changelog":
-      return block.layout === "date" ? (
-        <ChangelogWithDate
-          releases={block.releases as ChangelogRelease[]}
-          showFilter={block.showFilter ?? true}
-        />
-      ) : (
-        <ChangelogList
-          releases={block.releases as ChangelogRelease[]}
-          showFilter={block.showFilter ?? true}
-        />
+    case "changelog": {
+      const releases = block.releases ?? [];
+      const items = releases.map((release, index) =>
+        toChangelogItem(release, index),
       );
+      return <ChangelogFeed items={items} />;
+    }
     case "playground":
       return (
         <React.Suspense

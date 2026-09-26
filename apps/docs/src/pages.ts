@@ -26,7 +26,7 @@ export const docsPages: DocsPage[] = [
         items: [
           "`@fusorb/facet-tokens`: Alpha Palette design tokens, typography, spacing, CSS variables.",
           "`@fusorb/facet-sdk`: SovGrant API client (pure fetch, typed, 10 domain SDKs).",
-          "`@fusorb/facet-components`: 113 styled UI components (Radix + tailwind-merge + variants), including ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form, Stepper, KanbanBoard, ChangelogList, Pill).",
+          "`@fusorb/facet-components`: 113 styled UI components (Radix + tailwind-merge + variants), including ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form, Stepper, KanbanBoard, ChangelogCard, ChangelogFeed, Pill).",
           "`@fusorb/facet-auth`: auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms.",
           "`@fusorb/facet-layout`: domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets.",
           "`@fusorb/facet-store`: framework-agnostic Zustand state stores - auth session + tenant state, plus `createZustandTokenStorage` bridge for 401 auto-refresh, web + React Native.",
@@ -1839,8 +1839,6 @@ const client = new ArcIdClient({
       {
         type: "changelog",
         releases: facetChangelog,
-        layout: "date",
-        showFilter: true,
       },
     ],
   },

@@ -151,7 +151,6 @@ export interface DomainContent {
     tiers: PricingTier[];
   };
 
-  changelogSection: SectionContent;
   faqSection: SectionContent;
   installSection: SectionContent;
 }
@@ -245,16 +244,6 @@ const SHARED_PRICING: {
       ],
     },
   ],
-};
-
-/** Section content shared identically across all domains. */
-const SHARED_CHANGELOG_SECTION: SectionContent = {
-  label: "Release log",
-  labelIcon: "file-text",
-  title: "What shipped recently",
-  subtitle:
-    "Every release is versioned on npm. The ChangelogList component on this " +
-    "page is the same one consumers drop into their own docs sites.",
 };
 
 const SHARED_FAQ_SECTION: SectionContent = {
@@ -379,7 +368,6 @@ export const domainDefs: Record<DomainId, DomainContent> = {
       secondary: { label: "Star on GitHub", action: "github" },
     },
     pricing: SHARED_PRICING,
-    changelogSection: SHARED_CHANGELOG_SECTION,
     faqSection: SHARED_FAQ_SECTION,
     installSection: SHARED_INSTALL_SECTION,
   },
@@ -495,7 +483,6 @@ export const domainDefs: Record<DomainId, DomainContent> = {
       secondary: { label: "Star on GitHub", action: "github" },
     },
     pricing: SHARED_PRICING,
-    changelogSection: SHARED_CHANGELOG_SECTION,
     faqSection: SHARED_FAQ_SECTION,
     installSection: SHARED_INSTALL_SECTION,
   },
@@ -611,7 +598,6 @@ export const domainDefs: Record<DomainId, DomainContent> = {
       secondary: { label: "Star on GitHub", action: "github" },
     },
     pricing: SHARED_PRICING,
-    changelogSection: SHARED_CHANGELOG_SECTION,
     faqSection: SHARED_FAQ_SECTION,
     installSection: SHARED_INSTALL_SECTION,
   },
@@ -728,7 +714,6 @@ export const domainDefs: Record<DomainId, DomainContent> = {
       secondary: { label: "Star on GitHub", action: "github" },
     },
     pricing: SHARED_PRICING,
-    changelogSection: SHARED_CHANGELOG_SECTION,
     faqSection: SHARED_FAQ_SECTION,
     installSection: SHARED_INSTALL_SECTION,
   },
@@ -845,7 +830,6 @@ export const domainDefs: Record<DomainId, DomainContent> = {
       secondary: { label: "Star on GitHub", action: "github" },
     },
     pricing: SHARED_PRICING,
-    changelogSection: SHARED_CHANGELOG_SECTION,
     faqSection: SHARED_FAQ_SECTION,
     installSection: SHARED_INSTALL_SECTION,
   },

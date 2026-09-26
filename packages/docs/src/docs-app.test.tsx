@@ -53,8 +53,18 @@ vi.mock("@fusorb/facet-components", () => {
     NotFound: () =>
       React.createElement("div", { "data-testid": "not-found" }, "404"),
     cn: (...args: unknown[]) => args.filter(Boolean).join(" "),
-    ChangelogList: stub("changelog-list"),
-    ChangelogWithDate: stub("changelog-with-date"),
+    ChangelogCard: stub("changelog-card"),
+    ChangelogFeed: stub("changelog-feed"),
+    toChangelogItem: (release: any, _index: number) => ({
+      id: release.version,
+      version: release.version,
+      date: release.date,
+      status: null,
+      category: "FIX",
+      title: release.title ?? `v${release.version}`,
+      description: release.changes?.[0]?.text ?? "",
+      highlights: release.changes?.map((c: any) => c.text) ?? [],
+    }),
   };
 });
 

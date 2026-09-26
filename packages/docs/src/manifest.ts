@@ -142,18 +142,6 @@ export const docsManifest: DocsManifestEntry[] = [
     "category": "ready-to-use"
   },
   {
-    "name": "Changelog List",
-    "slug": "changelog-list",
-    "description": "@fusorb/facet-components: ChangelogList",
-    "category": "ready-to-use"
-  },
-  {
-    "name": "Changelog With Date",
-    "slug": "changelog-with-date",
-    "description": "@fusorb/facet-components: ChangelogWithDate",
-    "category": "general"
-  },
-  {
     "name": "Chart",
     "slug": "chart",
     "description": "@fusorb/facet-components: Chart",

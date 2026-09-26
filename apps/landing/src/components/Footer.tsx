@@ -6,7 +6,7 @@ import type {
   FooterColumn,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { site, getDocsUrl } from "../site.config.js";
+import { site, getDocsUrl, getDocsChangelogUrl } from "../site.config.js";
 
 const SOCIALS: FooterSocial[] = site.socials;
 
@@ -42,6 +42,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { label: "FAQ", href: "#faq" },
       { label: "Feedback", href: "/feedback" },
       { label: "Documentation", href: getDocsUrl() },
+      { label: "Changelog", href: getDocsChangelogUrl(), icon: "file-text" },
     ],
   },
   {

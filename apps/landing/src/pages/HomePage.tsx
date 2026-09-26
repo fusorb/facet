@@ -6,7 +6,6 @@ import { FeaturesSection } from "../components/sections/FeaturesSection.js";
 import { DemoShowcaseSection } from "../components/sections/DemoShowcaseSection.js";
 import { AuthShowcaseSection } from "../components/sections/AuthShowcaseSection.js";
 import { PricingTeaserSection } from "../components/sections/PricingTeaserSection.js";
-import { ChangelogSection } from "../components/sections/ChangelogSection.js";
 import { FaqSection } from "../components/sections/FaqSection.js";
 import { InstallSection } from "../components/sections/InstallSection.js";
 import { CTASection } from "../components/sections/CTASection.js";
@@ -23,7 +22,6 @@ export function HomePage() {
       <AuthShowcaseSection />
       <MotionPreviewSection />
       <PricingTeaserSection />
-      <ChangelogSection />
       <FaqSection />
       <TokensExplorerSection />
       <InstallSection />

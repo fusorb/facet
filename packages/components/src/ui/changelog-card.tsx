@@ -56,6 +56,84 @@ export interface ChangelogItem {
   };
 }
 
+/* ── Source data types (from gen-changelog.mjs) ────────────── */
+
+export type ChangelogChangeKind =
+  | "added"
+  | "changed"
+  | "fixed"
+  | "removed"
+  | "deprecated"
+  | "security";
+
+export interface ChangelogChange {
+  kind: ChangelogChangeKind;
+  text: string;
+  href?: string;
+  author?: string;
+}
+
+export interface ChangelogRelease {
+  version: string;
+  date: string;
+  tag?: string;
+  title?: string;
+  changes: ChangelogChange[];
+  pre?: boolean;
+}
+
+/* ── Release tag → ReleaseCategory mapping ─────────────────── */
+
+const TAG_TO_CATEGORY: Record<string, ReleaseCategory> = {
+  breaking: "IMPROVEMENT",
+  feat: "FEATURE",
+  fix: "FIX",
+  perf: "IMPROVEMENT",
+  deps: "IMPROVEMENT",
+  security: "SECURITY",
+  "pre-release": "FEATURE",
+  release: "IMPROVEMENT",
+};
+
+/**
+ * Adapter: convert a generated ChangelogRelease (from gen-changelog.mjs)
+ * into a ChangelogItem consumable by ChangelogCard / ChangelogFeed.
+ *
+ * - tag        → category  (via TAG_TO_CATEGORY, throws on unknown)
+ * - changes[]  → highlights (all change texts)
+ * - description ← synthesized from the first change entry
+ * - status     ← positional: newest release gets a badge
+ * - codeDiff   ← omitted (source data carries no diffs)
+ */
+export function toChangelogItem(
+  release: ChangelogRelease,
+  index: number,
+): ChangelogItem {
+  const category = TAG_TO_CATEGORY[release.tag ?? "release"];
+  if (!category) {
+    throw new Error(
+      `toChangelogItem: unmapped changelog tag "${release.tag}" — ` +
+        `add it to TAG_TO_CATEGORY. Known: ${Object.keys(TAG_TO_CATEGORY).join(", ")}`,
+    );
+  }
+
+  let status: ReleaseStatus = null;
+  if (index === 0) {
+    status = release.pre ? "Current" : "Latest Release";
+  }
+
+  return {
+    id: release.version,
+    version: release.version,
+    date: release.date,
+    status,
+    category,
+    title: release.title ?? `v${release.version}`,
+    description: release.changes[0]?.text ?? "",
+    highlights: release.changes.map((c) => c.text),
+  };
+}
+
 export interface ChangelogCardProps
   extends React.HTMLAttributes<HTMLDivElement> {
   /** The release to render. */

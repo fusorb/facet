@@ -146,7 +146,6 @@ const CATEGORY = {
   "activity-feed": "ready-to-use",
   // Ready-to-use: project & tracking
    "kanban-board": "ready-to-use",
-   "changelog-list": "ready-to-use",
    "changelog-card": "ready-to-use",
    "changelog-feed": "ready-to-use",
    // Headless-first primitives

@@ -82,7 +82,7 @@ export type DocsBlock =
       labels?: string[];
     }
   | {
-      /** Release log block - renders the facet-components ChangelogList. */
+      /** Release log block — renders the facet-components ChangelogFeed. */
       type: "changelog";
       /** Releases to render, newest first. Each entry mirrors ChangelogRelease. */
       releases: Array<{
@@ -104,14 +104,6 @@ export type DocsBlock =
           author?: string;
         }>;
       }>;
-      /** Show the kind filter row. Default: true. */
-      showFilter?: boolean;
-      /**
-       * Visual layout for the release log.
-       * - "list" (default): the standard ChangelogList (kind-filter + version cards)
-       * - "date": ChangelogWithDate — releases grouped by year with a date axis (Lovable-style)
-       */
-      layout?: "list" | "date";
     }
   | {
       /** Centralised live playground: component selector + editable usage code with a live preview. */

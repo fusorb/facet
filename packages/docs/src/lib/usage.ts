@@ -1411,22 +1411,57 @@ function Example() {
   );
 }`,
 
-  "changelog-list": `import { ChangelogList } from "@fusorb/facet-components";
+  "changelog-card": `import {
+  ChangelogCard,
+  toChangelogItem,
+  type ChangelogRelease,
+} from "@fusorb/facet-components";
+
+const releases: ChangelogRelease[] = [
+  {
+    version: "2.5.0",
+    date: "2026-09-12",
+    tag: "feat",
+    changes: [
+      { kind: "added", text: "TypewriterText component" },
+      { kind: "fixed", text: "Card overflow clipping" },
+    ],
+  },
+];
+
+function Example() {
+  return <ChangelogCard item={toChangelogItem(releases[0], 0)} />;
+}`,
+
+  "changelog-feed": `import {
+  ChangelogFeed,
+  toChangelogItem,
+  type ChangelogRelease,
+} from "@fusorb/facet-components";
+
+const releases: ChangelogRelease[] = [
+  {
+    version: "2.5.0",
+    date: "2026-09-12",
+    tag: "feat",
+    changes: [
+      { kind: "added", text: "TypewriterText component" },
+      { kind: "fixed", text: "Card overflow clipping" },
+    ],
+  },
+  {
+    version: "2.4.0",
+    date: "2026-08-28",
+    tag: "fix",
+    changes: [
+      { kind: "fixed", text: "HeroSection scroll height" },
+    ],
+  },
+];
 
 function Example() {
   return (
-    <ChangelogList
-      releases={[
-        {
-          version: "1.2.0",
-          date: "2026-08-12",
-          changes: [
-            { kind: "added", text: "Stepper component" },
-            { kind: "fixed", text: "Navbar hover blink" },
-          ],
-        },
-      ]}
-    />
+    <ChangelogFeed items={releases.map((r, i) => toChangelogItem(r, i))} />
   );
 }`,
 

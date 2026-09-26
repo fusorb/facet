@@ -190,7 +190,10 @@ import {
   useStepper,
   KanbanBoard,
   useKanban,
-  ChangelogList,
+  ChangelogCard,
+  ChangelogFeed,
+  type ChangelogRelease,
+  toChangelogItem,
   Chart,
   ChartRangeSelector,
   ConsentCapture,
@@ -1424,7 +1427,7 @@ export function ComponentPreview({
                 tags: ["components"],
                 assignee: "Ada",
               },
-              { id: "5", title: "ChangelogList", tags: ["components"] },
+              { id: "5", title: "ChangelogCard + Feed", tags: ["components"] },
             ],
             limit: 5,
           },
@@ -1450,12 +1453,13 @@ export function ComponentPreview({
         </div>
       );
     }
-    case "changelog-list": {
-      const releases = [
+    case "changelog-card": {
+      const releases: ChangelogRelease[] = [
         {
           version: "1.11.0",
           date: "2026-08-26",
-          tag: "release",
+          tag: "feat",
+          title: "1.11.0 — Stepper & KanbanBoard",
           changes: [
             {
               kind: "added" as const,
@@ -1465,7 +1469,36 @@ export function ComponentPreview({
               kind: "added" as const,
               text: "KanbanBoard with native HTML5 drag-and-drop",
             },
-            { kind: "added" as const, text: "ChangelogList with filter chips" },
+            { kind: "added" as const, text: "ChangelogCard" },
+            {
+              kind: "fixed" as const,
+              text: "MFA verify form on the SignIn state machine",
+            },
+          ],
+        },
+      ];
+      return (
+        <div className="w-full max-w-lg">
+          <ChangelogCard item={toChangelogItem(releases[0]!, 0)} />
+        </div>
+      );
+    }
+    case "changelog-feed": {
+      const releases: ChangelogRelease[] = [
+        {
+          version: "1.11.0",
+          date: "2026-08-26",
+          tag: "feat",
+          changes: [
+            {
+              kind: "added" as const,
+              text: "Stepper primitive (Phase 1 roadmap item)",
+            },
+            {
+              kind: "added" as const,
+              text: "KanbanBoard with native HTML5 drag-and-drop",
+            },
+            { kind: "added" as const, text: "ChangelogFeed" },
             {
               kind: "fixed" as const,
               text: "MFA verify form on the SignIn state machine",
@@ -1475,7 +1508,7 @@ export function ComponentPreview({
         {
           version: "1.10.0",
           date: "2026-08-18",
-          tag: "release",
+          tag: "fix",
           changes: [
             {
               kind: "added" as const,
@@ -1491,7 +1524,7 @@ export function ComponentPreview({
         {
           version: "1.9.0",
           date: "2026-08-03",
-          tag: "release",
+          tag: "breaking",
           pre: true,
           changes: [
             {
@@ -1505,9 +1538,10 @@ export function ComponentPreview({
           ],
         },
       ];
+      const items = releases.map((r, i) => toChangelogItem(r, i));
       return (
-        <div className="w-full rounded-lg border border-border bg-background p-6">
-          <ChangelogList releases={releases} showFilter />
+        <div className="w-full max-w-lg">
+          <ChangelogFeed items={items} />
         </div>
       );
     }

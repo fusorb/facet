@@ -557,12 +557,17 @@ export {
 } from "./ui/roadmap.js";
 
 export {
+  type ChangelogChangeKind,
+  type ChangelogChange,
+  type ChangelogRelease,
   type ReleaseCategory,
   type ReleaseStatus,
   type ChangelogItem,
   type ChangelogCardProps,
   ChangelogCard,
+  toChangelogItem,
 } from "./ui/changelog-card.js";
+export { type ChangelogRelease as FacetChangelogRelease } from "./ui/changelog-card.js";
 export {
   type ChangeCategory,
   type ChangelogFeedProps,
@@ -903,21 +908,6 @@ export {
   KanbanColumn,
   KanbanBoard,
 } from "./ui/kanban-board.js";
-
-export {
-  type ChangelogChangeKind,
-  type ChangelogChange,
-  type ChangelogRelease,
-  type ChangelogListCopy,
-  type ChangelogListProps,
-  ChangelogList,
-} from "./ui/changelog-list.js";
-export { type ChangelogRelease as FacetChangelogRelease } from "./ui/changelog-list.js";
-
-export {
-  type ChangelogWithDateProps,
-  ChangelogWithDate,
-} from "./ui/changelog-with-date.js";
 
 export {
   type WizardFormStep,

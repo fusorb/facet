@@ -101,7 +101,7 @@ export interface SiteStat {
 
 export const SITE_STATS: SiteStat[] = [
   {
-    "value": "118",
+    "value": "116",
     "label": "components"
   },
   {
@@ -117,7 +117,7 @@ export const SITE_STATS: SiteStat[] = [
     "label": "auth presets"
   },
   {
-    "value": "1190",
+    "value": "1763",
     "label": "icons"
   }
 ];
@@ -126,10 +126,10 @@ export const SITE_STATS: SiteStat[] = [
 export const SITE_PACKAGES_COUNT: number = 13;
 
 /** Number of component files in packages/components (auto-detected). */
-export const COMPONENT_COUNT: number = 118;
+export const COMPONENT_COUNT: number = 116;
 
 /** Number of registered icons (auto-detected from icon-map.ts). */
-export const ICON_COUNT: number = 1190;
+export const ICON_COUNT: number = 1763;
 
 /** Color space the token system is authored in (auto-detected from tokens CSS). */
 export const COLOR_SPACE: string = "OKLCH";

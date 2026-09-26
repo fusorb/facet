@@ -1,8 +1,18 @@
-import { Button, LayerGraph } from "@fusorb/facet-components";
+import {
+  AspectRatio,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Separator,
+  TiltCard,
+  TypewriterText,
+} from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { useNavigate } from "react-router-dom";
 import { getDocsUrl } from "../../site.config.js";
-import { SYSTEM_LAYERS } from "../../data/scratchpad.js";
 import { SITE_VERSION } from "../../data/site-data.generated.js";
 
 export function HeroSection() {
@@ -13,13 +23,13 @@ export function HeroSection() {
     // (max-w-7xl / px-8 / py-16 lg:py-24 + var(--hero-glow) radial gradient)
     // plus the outer <section>; render the value prop here and let the
     // system composition carry the visual.
-    <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-12">
+    <div className="flex items-center justify-center lg:grid lg:grid-cols-2 lg:items-start lg:gap-8">
       {/* Value prop */}
       <div className="lg:mx-0 lg:max-w-none">
         {/* Version badge with a single status pulse (restrained micro-state) */}
-        <div className="mb-4 flex items-center justify-center gap-2.5 text-[11px] font-mono text-text-dim lg:justify-start">
+        <div className="mb-4 flex items-center justify-center gap-2 text-[11px] font-mono text-text-dim lg:justify-start">
           <span
-            className="h-1.5 w-1.5 shrink-0 animate-pulse-dot rounded-full"
+            className="h-1 w-1 shrink-0 animate-pulse-dot rounded-full"
             style={{ background: "var(--green)" }}
           />
           <span>v{SITE_VERSION} · MIT Licensed</span>
@@ -65,11 +75,52 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Visual: the layered Facet architecture, rendered with the same
-          LayerGraph component the System section uses — no second diagram.
-          Hidden on mobile so the value prop stays the focus. */}
-      <div className="hidden lg:block">
-        <LayerGraph nodes={SYSTEM_LAYERS} />
+      {/* Visual: wide glass card (rectangular, not square) — no scroll needed
+          to see the full hero. A typewriter cycles through the package names
+          that compose the four-layer stack, giving a live "import" feel.
+          Swap for a real diagram / LayerGraph once the hero graphic is ready. */}
+      <div className="hidden lg:flex lg:items-center lg:justify-center">
+        <TiltCard maxTilt={12} scale={1.04} glare>
+          <AspectRatio ratio={16 / 9} className="w-full max-w-xl">
+            <Card
+              variant="glass"
+              className="relative h-full w-full overflow-hidden"
+            >
+              <CardHeader>
+                <CardTitle>Four Layers</CardTitle>
+                <CardDescription>
+                  Tokens → Components → Auth · Layout · Motion → Your App
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="mt-3 space-y-3 font-mono">
+                <Separator />
+                <div className="flex items-baseline gap-2 text-xs">
+                  <span className="text-muted-foreground/50">import</span>
+                  <span className="text-foreground">{"{"}</span>
+                  <span className="text-blue-400">Facet</span>
+                  <span className="text-foreground">{"}"}</span>
+                  <span className="text-muted-foreground/50">from</span>
+                  <TypewriterText
+                    phrases={[
+                      "@fusorb/facet-tokens",
+                      "@fusorb/facet-components",
+                      "@fusorb/facet-motion",
+                      "@fusorb/facet-layout",
+                      "@fusorb/facet-sdk",
+                      "@fusorb/facet-utils",
+                    ]}
+                    className="inline-block text-green-400"
+                    caretClassName="border-green-400"
+                    typeSpeed={80}
+                    eraseSpeed={40}
+                    delay={2200}
+                  />
+                </div>
+                <Separator />
+              </CardContent>
+            </Card>
+          </AspectRatio>
+        </TiltCard>
       </div>
     </div>
   );
