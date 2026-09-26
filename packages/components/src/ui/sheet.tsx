@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
+import { Motion } from "@fusorb/facet-motion";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -10,7 +11,7 @@ const SheetClose = SheetPrimitive.Close;
 const SheetPortal = SheetPrimitive.Portal;
 
 const sheetVariants = cva(
-  "fixed z-[70] gap-4 bg-background p-6 shadow-lg data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
+    "fixed z-[70] gap-4 bg-background p-6 shadow-lg data-[state=closed]:animate-facet-zoom-out",
   {
     variants: {
       side: {
@@ -37,17 +38,19 @@ const SheetContent = React.forwardRef<
 >(({ side = "right", className, children, ...props }, ref) => (
   <SheetPortal>
     <SheetOverlay />
-    <SheetPrimitive.Content
-      ref={ref}
-      className={cn(sheetVariants({ side }), className)}
-      {...props}
-    >
-      {children}
-      <SheetPrimitiveClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <Icon name="close" className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </SheetPrimitiveClose>
-    </SheetPrimitive.Content>
+    <Motion asChild effect="zoom" direction="up">
+      <SheetPrimitive.Content
+        ref={ref}
+        className={cn(sheetVariants({ side }), className)}
+        {...props}
+      >
+        {children}
+        <SheetPrimitiveClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-secondary">
+          <Icon name="close" className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </SheetPrimitiveClose>
+      </SheetPrimitive.Content>
+    </Motion>
   </SheetPortal>
 ));
 SheetContent.displayName = SheetPrimitive.Content.displayName;

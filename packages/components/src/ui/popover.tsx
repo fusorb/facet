@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
+import { Motion } from "@fusorb/facet-motion";
 import { cn } from "../utils.js";
 
 export type PopoverProps = React.ComponentPropsWithoutRef<
@@ -24,16 +25,18 @@ const PopoverContent = React.forwardRef<
   PopoverContentProps
 >(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
   <PopoverPrimitive.Portal>
-    <PopoverPrimitive.Content
-      ref={ref}
-      align={align}
-      sideOffset={sideOffset}
-      className={cn(
-        "z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
-        className,
-      )}
-      {...props}
-    />
+    <Motion asChild effect="zoom" direction="up">
+      <PopoverPrimitive.Content
+        ref={ref}
+        align={align}
+        sideOffset={sideOffset}
+        className={cn(
+          "z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=closed]:animate-facet-zoom-out",
+          className,
+        )}
+        {...props}
+      />
+    </Motion>
   </PopoverPrimitive.Portal>
 ));
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;

@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
+import { Motion } from "@fusorb/facet-motion";
 import { cn } from "../utils.js";
 import { buttonVariants } from "./button.js";
 import { Icon } from "../icon/index.js";
@@ -67,15 +68,17 @@ const AlertDialogContent = React.forwardRef<
           close?.(false);
         }}
       />
-      <AlertDialogPrimitive.Content
-        ref={ref}
-        className={cn(
-          "frost fixed left-[50%] top-[50%] z-[70] grid w-[calc(100%-2rem)] max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 p-6 text-foreground data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out sm:w-full sm:rounded-lg",
-          variant === "destructive" && "border-destructive/50 bg-destructive/5",
-          className,
-        )}
-        {...props}
-      />
+      <Motion asChild effect="zoom" direction="up">
+        <AlertDialogPrimitive.Content
+          ref={ref}
+          className={cn(
+            "frost fixed left-[50%] top-[50%] z-[70] grid w-[calc(100%-2rem)] max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 p-6 text-foreground data-[state=closed]:animate-facet-zoom-out sm:w-full sm:rounded-lg",
+            variant === "destructive" && "border-destructive/50 bg-destructive/5",
+            className,
+          )}
+          {...props}
+        />
+      </Motion>
     </AlertDialogPortal>
   );
 });

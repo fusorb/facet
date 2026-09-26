@@ -37,7 +37,7 @@ const DropdownMenuSubContent = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
 >(({ className, ...props }, ref) => (
-  <Motion effect="zoom" direction="up">
+  <Motion asChild effect="zoom" direction="up">
     <DropdownMenuPrimitive.SubContent
       ref={ref}
       className={cn(
@@ -56,7 +56,7 @@ const DropdownMenuContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
 >(({ className, sideOffset = 4, ...props }, ref) => (
   <DropdownMenuPrimitive.Portal>
-    <Motion effect="zoom" direction="up">
+    <Motion asChild effect="zoom" direction="up">
       <DropdownMenuPrimitive.Content
         ref={ref}
         sideOffset={sideOffset}

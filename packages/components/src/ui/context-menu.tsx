@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as ContextMenuPrimitive from "@radix-ui/react-context-menu";
+import { Motion } from "@fusorb/facet-motion";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 
@@ -35,14 +36,16 @@ const ContextMenuSubContent = React.forwardRef<
   React.ComponentRef<typeof ContextMenuPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent>
 >(({ className, ...props }, ref) => (
-  <ContextMenuPrimitive.SubContent
-    ref={ref}
-    className={cn(
-      "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
-      className,
-    )}
-    {...props}
-  />
+  <Motion asChild effect="zoom" direction="up">
+    <ContextMenuPrimitive.SubContent
+      ref={ref}
+      className={cn(
+        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=closed]:animate-facet-zoom-out",
+        className,
+      )}
+      {...props}
+    />
+  </Motion>
 ));
 ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName;
 
@@ -51,14 +54,16 @@ const ContextMenuContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Content>
 >(({ className, ...props }, ref) => (
   <ContextMenuPrimitive.Portal>
-    <ContextMenuPrimitive.Content
-      ref={ref}
-      className={cn(
-        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
-        className,
-      )}
-      {...props}
-    />
+    <Motion asChild effect="zoom" direction="up">
+      <ContextMenuPrimitive.Content
+        ref={ref}
+        className={cn(
+          "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadowmd data-[state=closed]:animate-facet-zoom-out",
+          className,
+        )}
+        {...props}
+      />
+    </Motion>
   </ContextMenuPrimitive.Portal>
 ));
 ContextMenuContent.displayName = ContextMenuPrimitive.Content.displayName;

@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as MenubarPrimitive from "@radix-ui/react-menubar";
+import { Motion } from "@fusorb/facet-motion";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 
@@ -66,14 +67,16 @@ const MenubarSubContent = React.forwardRef<
   React.ComponentRef<typeof MenubarPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubContent>
 >(({ className, ...props }, ref) => (
-  <MenubarPrimitive.SubContent
-    ref={ref}
-    className={cn(
-      "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
-      className,
-    )}
-    {...props}
-  />
+  <Motion asChild effect="zoom" direction="up">
+    <MenubarPrimitive.SubContent
+      ref={ref}
+      className={cn(
+        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=closed]:animate-facet-zoom-out",
+        className,
+      )}
+      {...props}
+    />
+  </Motion>
 ));
 MenubarSubContent.displayName = MenubarPrimitive.SubContent.displayName;
 
@@ -86,17 +89,19 @@ const MenubarContent = React.forwardRef<
     ref,
   ) => (
     <MenubarPrimitive.Portal>
-      <MenubarPrimitive.Content
-        ref={ref}
-        align={align}
-        alignOffset={alignOffset}
-        sideOffset={sideOffset}
-        className={cn(
-          "z-50 min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
-          className,
-        )}
-        {...props}
-      />
+      <Motion asChild effect="zoom" direction="up">
+        <MenubarPrimitive.Content
+          ref={ref}
+          align={align}
+          alignOffset={alignOffset}
+          sideOffset={sideOffset}
+          className={cn(
+            "z-50 min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=closed]:animate-facet-zoom-out",
+            className,
+          )}
+          {...props}
+        />
+      </Motion>
     </MenubarPrimitive.Portal>
   ),
 );

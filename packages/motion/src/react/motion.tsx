@@ -1,7 +1,21 @@
 "use client";
 
-import { useRef, useEffect, useMemo, useContext } from "react";
-import type { HTMLAttributes, CSSProperties } from "react";
+import {
+  useRef,
+  useEffect,
+  useMemo,
+  useContext,
+  Children,
+  cloneElement,
+} from "react";
+import type {
+  HTMLAttributes,
+  CSSProperties,
+  ReactElement,
+  Ref,
+  MutableRefObject,
+  RefAttributes,
+} from "react";
 import { resolveMotion } from "../registry/index.js";
 import { motionValue } from "../values/index.js";
 import { animate } from "../core/index.js";
@@ -35,6 +49,43 @@ export interface MotionProps extends HTMLAttributes<HTMLDivElement> {
   initial?: boolean;
   /** Position in a <Stagger> sequence for delay offset. */
   staggerIndex?: number;
+  /**
+   * Render the animation styles on the child element directly instead of a
+   * wrapper <div>. Required when wrapping Radix popover primitives so the
+   * animated element IS the positioned Content (no extra host node that would
+   * intercept Radix positioning, focus lifecycle, and z-index stacking).
+   */
+  asChild?: boolean;
+}
+
+/** Assign a ref (object or function) to a node. */
+function setRef<T>(ref: Ref<T> | undefined, value: T | null): void {
+  if (typeof ref === "function") {
+    ref(value);
+  } else if (ref != null && "current" in ref) {
+    (ref as MutableRefObject<T | null>).current = value;
+  }
+}
+
+/**
+ * Merge multiple refs into a single stable callback ref.
+ * Mirrors Framer Motion's useMergeRefs so the same animated node can be
+ * owned by both the Motion engine and a forwarded consumer ref.
+ */
+function useMergeRefs<T>(
+  ...refs: (Ref<T> | undefined)[]
+): (node: T | null) => void {
+  const latest = useRef(refs);
+  latest.current = refs;
+  return useMemo(
+    () =>
+      (node: T | null) => {
+        for (const ref of latest.current) {
+          setRef(ref, node);
+        }
+      },
+    [],
+  );
 }
 
 function isSpringType(type: string | undefined): boolean {
@@ -60,17 +111,18 @@ export function Motion({
   className,
   children,
   style,
+  asChild,
   ...rest
 }: MotionProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const staggerDelay = useContext(StaggerContext);
   const staggerOffset =
     staggerIndex !== undefined ? staggerIndex * staggerDelay : 0;
 
   const variant: MotionVariant = { direction, intensity };
   const transition: MotionTransition = {
-    duration,
-    ease,
+    ...(duration != null && { duration }),
+    ...(ease != null && { ease }),
     delay: delay + staggerOffset,
   };
 
@@ -182,6 +234,29 @@ export function Motion({
       el.style.transition = "";
     };
   }, [resolved, delay, staggerDelay, staggerIndex]);
+
+  // For asChild mode: read the single child element (a plain function call,
+  // not a hook, so a conditional read is fine) and prepare a stable merged
+  // ref unconditionally so the Rules of Hooks are never violated.
+  const asChildChild = asChild
+    ? (Children.only(children) as ReactElement<
+        HTMLAttributes<HTMLElement> & RefAttributes<HTMLElement>
+      >)
+    : null;
+  const asChildRef = asChildChild?.props.ref as Ref<HTMLElement> | undefined;
+  const mergedRef = useMergeRefs<HTMLElement>(ref, asChildRef);
+
+  // asChild: apply animation styles directly on the child element (no wrapper
+  // <div>). This is critical for Radix popover primitives — the animated node
+  // must BE the positioned Content so positioning, focus scope, and z-index
+  // are never intercepted by an extra host element.
+  if (asChild && asChildChild) {
+    return cloneElement(asChildChild, {
+      ref: mergedRef,
+      style: { ...asChildChild.props.style, ...initialStyle },
+      className: cn(asChildChild.props.className, className),
+    });
+  }
 
   return (
     <div ref={ref} className={cn(className)} style={initialStyle} {...rest}>
