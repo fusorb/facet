@@ -44,6 +44,8 @@ export interface MotionTransition {
   damping?: number;
   mass?: number;
   repeat?: number | "infinite";
+  /** How to repeat: "loop" (restart) or "reverse" (alternate/ping-pong). */
+  repeatType?: "loop" | "reverse";
 }
 
 export interface MotionVariant {
@@ -120,5 +122,6 @@ export function resolveTransition(
     damping: merged.damping,
     mass: merged.mass,
     repeat: merged.repeat,
+    repeatType: merged.repeatType,
   };
 }

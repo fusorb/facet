@@ -429,6 +429,7 @@ export const spin: MotionEffectDefinition = {
     duration: "cinematic",
     ease: "linear",
     repeat: "infinite",
+    repeatType: "loop",
   },
   resolve: (variant, transition): ResolvedMotion => {
     const dir = getDir(variant);

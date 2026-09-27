@@ -11,10 +11,15 @@ import {
 } from "@fusorb/facet-components";
 import type { NavLink, NavbarRouter } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { site, getDocsUrl, getDocsChangelogUrl } from "../site.config.js";
+import {
+  site,
+  getDocsUrl,
+  getDocsChangelogUrl,
+} from "../site.config.js";
 import { pages } from "../pages.js";
 import { SITE_PACKAGES_COUNT } from "../data/site-data.generated.js";
 import { Wordmark } from "./Brand.js";
+import { DomainToggle } from "./DomainToggle.js";
 import { useCommandPalette } from "./command-palette-context.js";
 
 /**
@@ -24,34 +29,38 @@ import { useCommandPalette } from "./command-palette-context.js";
  * and those components import Nav back.
  */
 function getLinks(): NavLink[] {
+  const productChildren: NavLink["children"] = pages
+    .filter((p) => p.navGroup === "product")
+    .map((p) => ({
+      href: p.path,
+      label: p.title,
+      description: p.description,
+      section: p.path.startsWith("/lab/") ? "Lab" : "Core",
+    }));
+
+  const resourceChildren: NavLink["children"] = pages
+    .filter((p) => p.navGroup === "resources")
+    .map((p) => ({
+      href: p.path,
+      label: p.title,
+      description: p.description,
+    }));
+
   return [
     {
       href: "#product",
       label: "Product",
+      icon: <LightIcon name="layers" size={16} />,
       columns: 2,
       panelWidth: "w-[36rem]",
-      children: [
-        ...pages
-          .filter((p) => p.navGroup === "product")
-          .map((p) => ({
-            href: p.path,
-            label: p.title,
-            description: p.description,
-            section: p.path.startsWith("/lab/") ? "Lab" : "Core",
-          })),
-      ],
+      children: productChildren,
     },
     {
       href: "#resources",
       label: "Resources",
+      icon: <LightIcon name="book-open" size={16} />,
       children: [
-        ...pages
-          .filter((p) => p.navGroup === "resources")
-          .map((p) => ({
-            href: p.path,
-            label: p.title,
-            description: p.description,
-          })),
+        ...resourceChildren,
         {
           href: "#faq",
           label: "FAQ",
@@ -67,6 +76,7 @@ function getLinks(): NavLink[] {
     {
       href: "#developers",
       label: "Developers",
+      icon: <LightIcon name="terminal" size={16} />,
       children: [
         {
           href: "#install",
@@ -76,7 +86,12 @@ function getLinks(): NavLink[] {
         {
           href: "#ecosystem",
           label: "Packages",
-          description: `${SITE_PACKAGES_COUNT} focused packages, one stack`,
+          description: `${SITE_PACKAGES_COUNT} focused packages, one coherent system`,
+        },
+        {
+          href: getDocsUrl(),
+          label: "Documentation",
+          description: "Full API reference and guides",
         },
       ],
     },
@@ -111,19 +126,25 @@ function Brand({ onHome }: { onHome: () => void }) {
   return (
     <div
       onClick={onHome}
-      className="flex cursor-pointer items-center gap-2 text-sm font-medium text-foreground/80 transition-colors"
+      className="flex cursor-pointer items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
     >
       <Wordmark className="h-6 w-auto" />
     </div>
   );
 }
 
-/** Mobile menu: grouped accordion sections + GitHub + docs. */
+/** Mobile menu: domain toggle + grouped accordion sections + quick links. */
 function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
   const [openGroup, setOpenGroup] = React.useState<string | null>(null);
 
   return (
-    <div className="flex flex-col lg:px-604">
+    <div className="flex flex-col">
+      {/* Domain toggle — shows which preset is active at a glance */}
+      <div className="px-4 py-3">
+        <DomainToggle />
+      </div>
+      <hr className="border-border" />
+
       {getLinks().map((link) => {
         if (link.children?.length) {
           const isOpen = openGroup === link.href;
@@ -134,7 +155,10 @@ function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
                 className="flex cursor-pointer items-center justify-between rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/5 hover:text-foreground"
                 aria-expanded={isOpen}
               >
-                <span>{link.label}</span>
+                <span className="flex items-center gap-2">
+                  {link.icon}
+                  <span>{link.label}</span>
+                </span>
                 <LightIcon
                   name="chevron-down"
                   size={14}
@@ -142,12 +166,12 @@ function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
                 />
               </div>
               {isOpen && (
-                <div className="ml-4 flex flex-col gap-1 border-l pl-2">
+                <div className="ml-4 flex flex-col gap-1 border-l pl-3">
                   {link.children.map((child) => (
                     <div
                       key={child.href}
                       onClick={() => onNavigate(child.href)}
-                      className="flex cursor-pointer flex-row items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground"
+                      className="flex cursor-pointer flex-row items-start gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground"
                     >
                       <span className="flex flex-col">
                         <span>{child.label}</span>
@@ -166,23 +190,35 @@ function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
         }
       })}
 
-      <hr className="my-2 border-t border-border" />
+      <hr className="my-2 border-border" />
 
-      <Button
-        variant="ghost"
-        onClick={() => window.open(getDocsUrl())}
-        className="flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-foreground/10 hover:text-foreground"
-      >
-        <GithubIcon size={16} />
-        GitHub
-      </Button>
-      <Button
-        variant="ghost"
-        onClick={() => window.open(getDocsUrl())}
-        className="mt-1 cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-foreground/10 hover:text-foreground"
-      >
-        Browse components
-      </Button>
+      <div className="flex flex-col gap-1">
+        <div
+          onClick={() =>
+            window.open(site.links.github, "_blank", "noopener,noreferrer")
+          }
+          className="flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/5 hover:text-foreground"
+        >
+          <GithubIcon size={16} />
+          GitHub
+        </div>
+        <div
+          onClick={() =>
+            window.open(getDocsUrl(), "_blank", "noopener,noreferrer")
+          }
+          className="flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/5 hover:text-foreground"
+        >
+          <LightIcon name="book-open" size={16} />
+          Documentation
+        </div>
+        <div
+          onClick={() => onNavigate("/components")}
+          className="flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/5 hover:text-foreground"
+        >
+          <LightIcon name="boxes" size={16} />
+          Browse components
+        </div>
+      </div>
     </div>
   );
 }
@@ -190,7 +226,7 @@ function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
 /**
  * Complete landing navbar:
  *   Brand (left) · Product / Resources / Developers dropdowns (center) ·
- *   Search (⌘K) + GitHub + theme toggle (right)
+ *   Domain toggle + Search (⌘K) + GitHub + theme toggle (right)
  */
 export function Nav() {
   const navigate = useNavigate();
@@ -247,8 +283,8 @@ export function Nav() {
       showThemeToggle
       actions={
         <TooltipProvider delayDuration={200}>
-          <div className="flex items-center gap-2">
-            {/* Icon-only GitHub link (right-aligned) */}
+          <div className="flex items-center gap-1">
+            {/* Icon-only GitHub link */}
             <a
               href={site.links.github}
               target="_blank"
@@ -258,6 +294,11 @@ export function Nav() {
             >
               <GithubIcon size={16} />
             </a>
+            {/* Domain toggle — desktop only, collapses in mobile menu */}
+            <div className="hidden lg:flex">
+              <DomainToggle />
+            </div>
+            {/* Search trigger — desktop only */}
             <div className="hidden lg:flex">
               <GlobalSearch />
             </div>

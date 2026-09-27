@@ -2,9 +2,30 @@ import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
-import { Motion } from "@fusorb/facet-motion";
+import { Motion, Presence } from "@fusorb/facet-motion";
+import { OverlayContext, useOverlayOpen } from "./motion-usage.js";
 
-const DropdownMenu = DropdownMenuPrimitive.Root;
+function DropdownMenu({
+  open: openProp,
+  onOpenChange,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root>) {
+  const [open, setOpen] = React.useState(false);
+  const resolvedOpen = openProp ?? open;
+  return (
+    <OverlayContext.Provider value={{ open: resolvedOpen }}>
+      <DropdownMenuPrimitive.Root
+        open={resolvedOpen}
+        onOpenChange={(next: boolean) => {
+          if (openProp === undefined) setOpen(next);
+          onOpenChange?.(next);
+        }}
+        {...props}
+      />
+    </OverlayContext.Provider>
+  );
+}
+DropdownMenu.displayName = DropdownMenuPrimitive.Root.displayName;
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
@@ -37,13 +58,13 @@ const DropdownMenuSubContent = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
 >(({ className, ...props }, ref) => (
-  <Motion asChild effect="zoom" direction="up">
-    <DropdownMenuPrimitive.SubContent
-      ref={ref}
-      className={cn(
-        "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=closed]:animate-facet-zoom-out",
-        className,
-      )}
+    <Motion asChild effect="zoom" direction="up">
+      <DropdownMenuPrimitive.SubContent
+        ref={ref}
+        className={cn(
+          "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg",
+          className,
+        )}
       {...props}
     />
   </Motion>
@@ -54,21 +75,28 @@ DropdownMenuSubContent.displayName =
 const DropdownMenuContent = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
->(({ className, sideOffset = 4, ...props }, ref) => (
-  <DropdownMenuPrimitive.Portal>
-    <Motion asChild effect="zoom" direction="up">
-      <DropdownMenuPrimitive.Content
-        ref={ref}
-        sideOffset={sideOffset}
-        className={cn(
-          "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=closed]:animate-facet-zoom-out",
-          className,
-        )}
-        {...props}
-      />
-    </Motion>
-  </DropdownMenuPrimitive.Portal>
-));
+>(({ className, children, sideOffset = 4, ...props }, ref) => {
+  const open = useOverlayOpen();
+  return (
+    <DropdownMenuPrimitive.Portal forceMount>
+      <Presence present={open}>
+        <Motion asChild effect="zoom" direction="up" exit>
+          <DropdownMenuPrimitive.Content
+            ref={ref}
+            sideOffset={sideOffset}
+            className={cn(
+              "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg",
+              className,
+            )}
+            {...props}
+          >
+            {children}
+          </DropdownMenuPrimitive.Content>
+        </Motion>
+      </Presence>
+    </DropdownMenuPrimitive.Portal>
+  );
+});
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
 
 const DropdownMenuItem = React.forwardRef<

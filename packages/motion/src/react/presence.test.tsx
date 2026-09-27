@@ -23,14 +23,19 @@ describe("Presence", () => {
     expect(value).toBe(true);
   });
 
-  it("provides isPresent = false when present={false}", () => {
+  it("provides isPresent = false when present changes to false", () => {
     let value: boolean | undefined;
     function Probe() {
       const ctx = usePresence();
       value = ctx?.isPresent;
       return null;
     }
-    render(
+    const { rerender } = render(
+      <Presence present={true}>
+        <Probe />
+      </Presence>,
+    );
+    rerender(
       <Presence present={false}>
         <Probe />
       </Presence>,
@@ -46,6 +51,10 @@ describe("Presence", () => {
       return null;
     }
     render(<Probe />);
-    expect(value).toEqual({ isPresent: true });
+    expect(value).toEqual({
+      isPresent: true,
+      hasPresence: false,
+      registerExit: expect.any(Function),
+    });
   });
 });

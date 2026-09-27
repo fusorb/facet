@@ -1,4 +1,5 @@
-import { useState, type CSSProperties } from "react";
+import { useState, type CSSProperties, type ReactElement } from "react";
+import { Motion } from "@fusorb/facet-motion";
 import { MOTION_EFFECTS, MOTION_FAMILIES } from "../data/scratchpad.js";
 import type { MotionFamily } from "../data/scratchpad.js";
 
@@ -39,9 +40,46 @@ function familyOf(id: string): MotionFamily | undefined {
 }
 
 /**
+ * Generative Motion: drives a generative family through @fusorb/facet-motion.
+ *
+ * - `repeat`: "infinite" when looping, 1 for a single play-through.
+ * - `repeatType`: "reverse" (alternate) for smooth breathing on loop,
+ *   except "spin" which needs continuous rotation (registry default "loop").
+ * - `duration`: 2000 ms gives a visible cycle for every family.
+ * - `delay`: staggered start offset (used by ring's expanding rings).
+ */
+function Gm({
+  effect,
+  playing,
+  loop,
+  delay,
+  children,
+}: {
+  effect: string;
+  playing: boolean;
+  loop: boolean;
+  delay?: number;
+  children: ReactElement;
+}) {
+  return (
+    <Motion
+      asChild
+      effect={effect}
+      repeat={loop ? "infinite" : 1}
+      repeatType={loop && effect !== "spin" ? "reverse" : undefined}
+      playing={playing}
+      duration={2000}
+      delay={delay ?? 0}
+    >
+      {children}
+    </Motion>
+  );
+}
+
+/**
  * Animated preview for a single motion effect.
  *
- * Covers both the 11 scratchpad-style authored effects (aurora, beams,
+ * Covers both the scratchpad-style authored effects (aurora, beams,
  * spotlight, …) and the 15 generative families (fade, zoom, pop, …).
  *
  * The `playing` and `loop` props make every preview controllable: a
@@ -68,68 +106,41 @@ export function MotionPreview({
 
   const renderPreview = () => {
     switch (effect) {
-      /* ── Generative families ── */
+      /* ── Generative families (driven by @fusorb/facet-motion) ── */
 
       case "fade":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                width: 48,
-                height: 48,
-                borderRadius: "var(--radius-md)",
-                background: accent,
-                animation: `facet-fade 2s ease-in-out infinite`,
-                opacity: 0.85,
-              })}
-            />
+            <Gm effect="fade" playing={playing} loop={loop}>
+              <div style={{ width: 48, height: 48, borderRadius: "var(--radius-md)", background: accent }} />
+            </Gm>
           </div>
         );
 
       case "zoom":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                width: 48,
-                height: 48,
-                borderRadius: "var(--radius-md)",
-                background: accent,
-                animation: `facet-zoom 2.5s ease-in-out infinite`,
-                opacity: 0.85,
-              })}
-            />
+            <Gm effect="zoom" playing={playing} loop={loop}>
+              <div style={{ width: 48, height: 48, borderRadius: "var(--radius-md)", background: accent }} />
+            </Gm>
           </div>
         );
 
       case "pop":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                width: 44,
-                height: 44,
-                borderRadius: "var(--radius-md)",
-                background: accent,
-                animation: `facet-pop 1.5s ease-out infinite`,
-              })}
-            />
+            <Gm effect="pop" playing={playing} loop={loop}>
+              <div style={{ width: 44, height: 44, borderRadius: "var(--radius-md)", background: accent }} />
+            </Gm>
           </div>
         );
 
       case "slide":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                width: 48,
-                height: 10,
-                borderRadius: "var(--radius-sm)",
-                background: accent,
-                animation: `facet-slide 2.5s ease-in-out infinite`,
-                opacity: 0.85,
-              })}
-            />
+            <Gm effect="slide" playing={playing} loop={loop}>
+              <div style={{ width: 48, height: 10, borderRadius: "var(--radius-sm)", background: accent }} />
+            </Gm>
           </div>
         );
 
@@ -137,18 +148,19 @@ export function MotionPreview({
         return (
           <div style={base}>
             <div style={{ overflow: "hidden", lineHeight: 1 }}>
-              <p
-                style={ac({
-                  fontFamily: "var(--font-heading)",
-                  fontSize: 20,
-                  fontWeight: 700,
-                  color: accent,
-                  animation: `facet-reveal 3s ease-in-out infinite`,
-                  letterSpacing: "-0.02em",
-                })}
-              >
-                Reveal
-              </p>
+              <Gm effect="reveal" playing={playing} loop={loop}>
+                <p
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontSize: 20,
+                    fontWeight: 700,
+                    color: accent,
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  Reveal
+                </p>
+              </Gm>
             </div>
           </div>
         );
@@ -156,32 +168,26 @@ export function MotionPreview({
       case "blur":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                width: 48,
-                height: 48,
-                borderRadius: "50%",
-                background: accent,
-                animation: `facet-blur 3s ease-in-out infinite`,
-                opacity: 0.85,
-              })}
-            />
+            <Gm effect="blur" playing={playing} loop={loop}>
+              <div style={{ width: 48, height: 48, borderRadius: "50%", background: accent }} />
+            </Gm>
           </div>
         );
 
       case "flip":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                width: 40,
-                height: 50,
-                borderRadius: 6,
-                background: accent,
-                animation: `facet-flip 3s ease-in-out infinite`,
-                transformStyle: "preserve-3d",
-              })}
-            />
+            <Gm effect="flip" playing={playing} loop={loop}>
+              <div
+                style={{
+                  width: 40,
+                  height: 50,
+                  borderRadius: 6,
+                  background: accent,
+                  transformStyle: "preserve-3d",
+                }}
+              />
+            </Gm>
           </div>
         );
 
@@ -197,15 +203,9 @@ export function MotionPreview({
                 justifyContent: "center",
               }}
             >
-              <div
-                style={ac({
-                  width: 8,
-                  height: 32,
-                  borderRadius: 2,
-                  background: accent,
-                  animation: `facet-spin 3s linear infinite`,
-                })}
-              />
+              <Gm effect="spin" playing={playing} loop={loop}>
+                <div style={{ width: 8, height: 32, borderRadius: 2, background: accent }} />
+              </Gm>
             </div>
           </div>
         );
@@ -213,54 +213,42 @@ export function MotionPreview({
       case "panel":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                width: 44,
-                height: 44,
-                borderRadius: 6,
-                background: accent,
-                animation: `facet-panel 2s ease-out infinite`,
-              })}
-            />
+            <Gm effect="panel" playing={playing} loop={loop}>
+              <div style={{ width: 44, height: 44, borderRadius: 6, background: accent }} />
+            </Gm>
           </div>
         );
 
       case "lift":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                width: 44,
-                height: 44,
-                borderRadius: 6,
-                background: accent,
-                animation: `facet-lift 2.5s ease-in-out infinite`,
-                boxShadow: "0 0 0 0px rgba(0,0,0,0)",
-              })}
-            />
+            <Gm effect="lift" playing={playing} loop={loop}>
+              <div style={{ width: 44, height: 44, borderRadius: 6, background: accent }} />
+            </Gm>
           </div>
         );
 
       case "press":
         return (
           <div style={base}>
-            <button
-              type="button"
-              style={ac({
-                padding: "10px 22px",
-                borderRadius: 6,
-                border: `1px solid ${BORDER}`,
-                background: accent,
-                color: "var(--primary-foreground)",
-                fontFamily: "var(--font-heading)",
-                fontSize: 12,
-                fontWeight: 600,
-                cursor: "pointer",
-                animation: `facet-press 1.5s ease-in-out infinite`,
-              })}
-            >
-              Press
-            </button>
+            <Gm effect="press" playing={playing} loop={loop}>
+              <button
+                type="button"
+                style={{
+                  padding: "10px 22px",
+                  borderRadius: 6,
+                  border: `1px solid ${BORDER}`,
+                  background: accent,
+                  color: "var(--primary-foreground)",
+                  fontFamily: "var(--font-heading)",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+              >
+                Press
+              </button>
+            </Gm>
           </div>
         );
 
@@ -287,20 +275,25 @@ export function MotionPreview({
                 }}
               />
               {[0, 1].map((i) => (
-                <div
+                <Gm
                   key={i}
-                  style={ac({
-                    position: "absolute",
-                    inset: 0,
-                    margin: "auto",
-                    width: 22,
-                    height: 22,
-                    borderRadius: "50%",
-                    border: `1px solid ${accent}`,
-                    animation: `facet-ring 2s ease-out ${i * 0.7}s infinite`,
-                    opacity: 0.6,
-                  })}
-                />
+                  effect="ring"
+                  playing={playing}
+                  loop={loop}
+                  delay={i * 700}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      margin: "auto",
+                      width: 22,
+                      height: 22,
+                      borderRadius: "50%",
+                      border: `1px solid ${accent}`,
+                    }}
+                  />
+                </Gm>
               ))}
             </div>
           </div>
@@ -309,16 +302,9 @@ export function MotionPreview({
       case "glow":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                width: 48,
-                height: 48,
-                borderRadius: "50%",
-                background: accent,
-                animation: `facet-glow 2s ease-in-out infinite alternate`,
-                opacity: 0.85,
-              })}
-            />
+            <Gm effect="glow" playing={playing} loop={loop}>
+              <div style={{ width: 48, height: 48, borderRadius: "50%", background: accent }} />
+            </Gm>
           </div>
         );
 
@@ -335,14 +321,15 @@ export function MotionPreview({
                 overflow: "hidden",
               }}
             >
-              <div
-                style={ac({
-                  position: "absolute",
-                  inset: 0,
-                  backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 50%, transparent 100%)`,
-                  animation: `facet-shimmer 1.5s ease-in-out infinite`,
-                })}
-              />
+              <Gm effect="shimmer" playing={playing} loop={loop}>
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 50%, transparent 100%)`,
+                  }}
+                />
+              </Gm>
             </div>
           </div>
         );
@@ -350,26 +337,27 @@ export function MotionPreview({
       case "text-reveal":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                fontFamily: "var(--font-heading)",
-                fontSize: 22,
-                fontWeight: 700,
-                backgroundImage: `linear-gradient(90deg, ${accent}, ${accent} 50%, transparent 50%)`,
-                backgroundSize: "200% 100%",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                color: "transparent",
-                animation: `facet-text-reveal 3s ease-in-out infinite`,
-                letterSpacing: "-0.02em",
-              })}
-            >
-              Facet
-            </div>
+            <Gm effect="text-reveal" playing={playing} loop={loop}>
+              <div
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  fontSize: 22,
+                  fontWeight: 700,
+                  backgroundImage: `linear-gradient(90deg, ${accent}, ${accent} 50%, transparent 50%)`,
+                  backgroundSize: "200% 100%",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Facet
+              </div>
+            </Gm>
           </div>
         );
 
-      /* ── Scratchpad-style authored effects (used in Motion Lab) ── */
+      /* ── Scratchpad-style authored effects (stay CSS-only) ── */
 
       case "aurora":
         return (

@@ -11,30 +11,45 @@ import {
   TypewriterText,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { useNavigate } from "react-router-dom";
-import { getDocsUrl } from "../../site.config.js";
+import { useDomain } from "../../lib/domain-context.js";
 import { SITE_VERSION } from "../../data/site-data.generated.js";
 
 export function HeroSection() {
-  const navigate = useNavigate();
+  const { domain, handleCta } = useDomain();
+  const { hero } = domain;
 
   return (
-    // LandingLayout already provides the glow shell
+    // LandingLayout already provides the glow shell:
     // (max-w-7xl / px-8 / py-16 lg:py-24 + var(--hero-glow) radial gradient)
-    // plus the outer <section>; render the value prop here and let the
-    // system composition carry the visual.
+    // plus the outer <section>; render the value prop here.
     <div className="flex items-center justify-center lg:grid lg:grid-cols-2 lg:items-start lg:gap-8">
       {/* Value prop */}
       <div className="lg:mx-0 lg:max-w-none">
-        {/* Version badge with a single status pulse (restrained micro-state) */}
-        <div className="mb-4 flex items-center justify-center gap-2 text-[11px] font-mono text-text-dim lg:justify-start">
-          <span
-            className="h-1 w-1 shrink-0 animate-pulse-dot rounded-full"
-            style={{ background: "var(--green)" }}
-          />
-          <span>v{SITE_VERSION} · MIT Licensed</span>
+        {/* Badge row: version pulse + domain badges */}
+        <div className="mb-5 flex flex-wrap items-center justify-center gap-2 text-[11px] font-mono text-text-dim lg:justify-start">
+          <span className="flex items-center gap-1">
+            <span
+              className="h-1 w-1 shrink-0 animate-pulse-dot rounded-full"
+              style={{ background: "var(--green)" }}
+            />
+            <span>v{SITE_VERSION}</span>
+          </span>
+          {hero.badges.map((badge) => (
+            <span
+              key={badge.label}
+              className="flex items-center gap-1"
+            >
+              <LightIcon
+                name={badge.icon}
+                size={10}
+                className="text-primary"
+              />
+              {badge.label}
+            </span>
+          ))}
         </div>
 
+        {/* Headline */}
         <h1
           className="font-display text-3xl font-extrabold text-balance text-center text-pretty sm:text-5xl lg:text-[56px] lg:text-left"
           style={{
@@ -42,44 +57,51 @@ export function HeroSection() {
             lineHeight: 1.08,
           }}
         >
-          <span>One system. </span>
-          <br className="hidden sm:block" />
-          <span>Every surface.</span>
+          <span>{hero.headline} </span>
+          <span className="text-primary">{hero.headlineAccent}</span>
         </h1>
 
-        <p className="mt-4 max-w-md text-[16px] leading-[1.5] text-center justify-center text-pretty text-muted-foreground lg:text-left">
-          Facet is a ground-up UX system that stitches design tokens,
-          domain-customizable components, auth, layout, and motion into one
-          composable stack. Four layers, every seam an extension point.
+        {/* Subtext */}
+        <p className="mt-4 max-w-md text-[16px] leading-[1.5] text-center text-pretty text-muted-foreground lg:text-left">
+          {hero.subtext}
         </p>
 
-        {/* Two actions: explore the system, or read the docs */}
+        {/* Tagline: domain value props cycling as a typewriter */}
+        <div className="mt-4 text-center text-pretty lg:text-left">
+          <TypewriterText
+            phrases={hero.phrases}
+            className="inline-block text-[15px] font-medium text-primary"
+            caretClassName="border-primary"
+            typeSpeed={60}
+            eraseSpeed={30}
+            delay={2500}
+          />
+        </div>
+
+        {/* CTAs */}
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
           <Button
             variant="default"
             size="lg"
             className="w-full sm:w-auto"
-            onClick={() => navigate("/components")}
+            onClick={() => handleCta(hero.primaryCta.action)}
           >
-            Explore
+            {hero.primaryCta.label}
             <LightIcon name="arrow-right" size={16} />
           </Button>
           <Button
             variant="outline"
             size="lg"
             className="w-full sm:w-auto"
-            onClick={() => (window.location.href = getDocsUrl())}
+            onClick={() => handleCta(hero.secondaryCta.action)}
           >
-            Read the Docs
+            {hero.secondaryCta.label}
           </Button>
         </div>
       </div>
 
-      {/* Visual: wide glass card (rectangular, not square) — no scroll needed
-          to see the full hero. A typewriter cycles through the package names
-          that compose the four-layer stack, giving a live "import" feel.
-          Swap for a real diagram / LayerGraph once the hero graphic is ready. */}
-      <div className="hidden lg:flex lg:items-center lg:justify-center">
+      {/* Visual: four-layer stack in a glass card */}
+      <div className="mt-10 hidden lg:flex lg:items-center lg:justify-center">
         <TiltCard maxTilt={12} scale={1.04} glare>
           <AspectRatio ratio={16 / 9} className="w-full max-w-xl">
             <Card
@@ -87,7 +109,7 @@ export function HeroSection() {
               className="relative h-full w-full overflow-hidden"
             >
               <CardHeader>
-                <CardTitle>Four Layers</CardTitle>
+                <CardTitle className="text-primary">Four Layers</CardTitle>
                 <CardDescription>
                   Tokens → Components → Auth · Layout · Motion → Your App
                 </CardDescription>
@@ -104,19 +126,34 @@ export function HeroSection() {
                     phrases={[
                       "@fusorb/facet-tokens",
                       "@fusorb/facet-components",
-                      "@fusorb/facet-motion",
+                      "@fusorb/facet-auth",
                       "@fusorb/facet-layout",
+                      "@fusorb/facet-motion",
                       "@fusorb/facet-sdk",
-                      "@fusorb/facet-utils",
                     ]}
-                    className="inline-block text-green-400"
-                    caretClassName="border-green-400"
+                    className="inline-block text-cyan-400"
+                    caretClassName="border-cyan-400"
                     typeSpeed={80}
                     eraseSpeed={40}
                     delay={2200}
                   />
                 </div>
                 <Separator />
+                <div className="flex items-center gap-1.5 pt-2 text-[10px] text-muted-foreground/60">
+                  <LightIcon
+                    name="check"
+                    size={10}
+                    className="text-green-400"
+                  />
+                  <TypewriterText
+                    phrases={hero.phrases}
+                    className="inline-block text-green-400"
+                    caretClassName="border-green-400"
+                    typeSpeed={60}
+                    eraseSpeed={30}
+                    delay={3000}
+                  />
+                </div>
               </CardContent>
             </Card>
           </AspectRatio>

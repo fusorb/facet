@@ -21,6 +21,14 @@ import { motionValue } from "../values/index.js";
 import { animate } from "../core/index.js";
 import { cssDriver, resolveDuration, resolveEasing } from "../drivers/index.js";
 import { StaggerContext } from "./stagger.js";
+import { usePresence } from "./presence.js";
+import {
+  animationName,
+  buildKeyframesCSS,
+  injectStyle,
+  buildAnimationProperties,
+  shouldUseCSSAnimation,
+} from "./keyframes.js";
 import type { AnimationController } from "../core/index.js";
 import type {
   Direction,
@@ -56,6 +64,20 @@ export interface MotionProps extends HTMLAttributes<HTMLDivElement> {
    * intercept Radix positioning, focus lifecycle, and z-index stacking).
    */
   asChild?: boolean;
+  /** Whether the animation is playing (not paused). Default: true. */
+  playing?: boolean;
+  /** Override repeat count from the registry transition. */
+  repeat?: number | "infinite";
+  /** Override repeat strategy: "loop" (restart) or "reverse" (ping-pong). */
+  repeatType?: "loop" | "reverse";
+  /** Fires when the enter animation completes. */
+  onEnter?: () => void;
+  /** Fires when the exit animation completes. */
+  onExit?: () => void;
+  /** Fires when any animation (enter or exit) completes. */
+  onComplete?: () => void;
+  /** Enable exit animation when inside <Presence>. Default: true. */
+  exit?: boolean;
 }
 
 /** Assign a ref (object or function) to a node. */
@@ -92,12 +114,19 @@ function isSpringType(type: string | undefined): boolean {
   return type === "spring";
 }
 
+/** Convert a kebab-case CSS property to camelCase for React style objects. */
+function toCamelCase(prop: string): string {
+  return prop.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
+}
+
 /**
  * <Motion> is the main animation primitive.
  *
- * It resolves an effect+variant through the registry, creates motion
- * values, mounts the CSS driver, and drives values with core `animate()`.
- * No animation logic lives here - this is a thin wiring layer.
+ * Resolves an effect+variant through the registry, then drives the element's
+ * style via either a CSS @keyframes animation (when the resolved transition
+ * carries `repeat` or `keyframes`) or the core `animate()` engine for
+ * per-property tween/spring interpolation. Supports enter/exit lifecycle
+ * when placed inside <Presence>.
  */
 export function Motion({
   effect,
@@ -108,6 +137,13 @@ export function Motion({
   delay = 0,
   initial = true,
   staggerIndex,
+  playing = true,
+  repeat,
+  repeatType,
+  onEnter,
+  onExit,
+  onComplete,
+  exit = true,
   className,
   children,
   style,
@@ -118,11 +154,20 @@ export function Motion({
   const staggerDelay = useContext(StaggerContext);
   const staggerOffset =
     staggerIndex !== undefined ? staggerIndex * staggerDelay : 0;
+  const presence = usePresence();
+  const isPresent = presence.isPresent;
+  const hasPresence = presence.hasPresence;
+  const playingRef = useRef(playing);
+  playingRef.current = playing;
+  const callbacksRef = useRef({ onEnter, onExit, onComplete });
+  callbacksRef.current = { onEnter, onExit, onComplete };
 
   const variant: MotionVariant = { direction, intensity };
   const transition: MotionTransition = {
     ...(duration != null && { duration }),
     ...(ease != null && { ease }),
+    ...(repeat != null && { repeat }),
+    ...(repeatType != null && { repeatType }),
     delay: delay + staggerOffset,
   };
 
@@ -137,25 +182,57 @@ export function Motion({
       delay,
       staggerDelay,
       staggerIndex,
+      repeat,
+      repeatType,
     ],
   );
 
-  // SSR / first-paint: apply the "from" state so there's no flash.
+  const effectiveRepeat = repeat ?? resolved?.transition.repeat;
+  const effectiveRepeatType = repeatType ?? resolved?.transition.repeatType;
+  const useCSS = shouldUseCSSAnimation(resolved ?? null, effectiveRepeat);
+  const kfName = useMemo(
+    () => (resolved ? animationName(effect, resolved) : ""),
+    [effect, resolved],
+  );
+
+  // Shared isExiting flag computed during render so both initialStyle (for
+  // SSR / first-paint) and the animation useEffect observe the same value.
+  const isExiting = hasPresence && isPresent === false && exit;
+
+  // SSR / first-paint: render the element in its "from" state so there is no
+  // flash of the final value before the enter animation begins. During exit
+  // we skip this so the element stays at its current (settled) target state
+  // and the reverse animation reads from the correct starting point.
   const initialStyle = useMemo<CSSProperties>(() => {
-    if (!initial || !resolved) return style ?? {};
+    if (isExiting || !initial || !resolved) return style ?? {};
     const fromStyle: CSSProperties = {};
     for (const [prop, value] of Object.entries(resolved.from)) {
-      (fromStyle as Record<string, unknown>)[prop] = value;
+      (fromStyle as Record<string, unknown>)[toCamelCase(prop)] = value;
     }
     return { ...fromStyle, ...style };
-  }, [initial, resolved, style]);
+  }, [initial, resolved, style, isExiting]);
 
+  // Inject @keyframes CSS into <head> when using the CSS animation path.
+  useEffect(() => {
+    if (resolved && useCSS) {
+      injectStyle(kfName, buildKeyframesCSS(kfName, resolved));
+    }
+  }, [kfName, resolved, useCSS]);
+
+  // Separate effect for play-state so toggling `playing` doesn't restart the
+  // animation (only the CSS path uses playState; JS path treats playing=true).
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !useCSS || isPresent === false) return;
+    el.style.animationPlayState = playing ? "running" : "paused";
+  }, [playing, useCSS, isPresent]);
+
+  // --- main animation engine ---
   useEffect(() => {
     const el = ref.current;
     if (!el || !resolved) return;
 
-    const { from, to, transition: resolvedTransition } = resolved;
-    const target = { style: el.style };
+    const { from, to, transition: resTrans } = resolved;
     const isReduced =
       cssDriver.isSupported() && cssDriver.preferReducedMotion();
 
@@ -163,77 +240,227 @@ export function Motion({
       for (const [prop, value] of Object.entries(to)) {
         el.style.setProperty(prop, String(value));
       }
+      callbacksRef.current.onEnter?.();
+      callbacksRef.current.onComplete?.();
       return;
     }
 
-    // Set initial from-state (string props: transforms, filters, etc.)
-    for (const [prop, value] of Object.entries(from)) {
-      if (typeof value === "string") {
-        el.style.setProperty(prop, value);
-      }
+    let active = true;
+
+    if (useCSS) {
+      return runCSSAnimation();
     }
+    return runJSAnimation();
 
-    void el.offsetHeight; // force reflow
-
-    const ms = resolveDuration(resolvedTransition.duration);
-    const easing = resolveEasing(resolvedTransition.ease);
-    const doSpring = isSpringType(resolvedTransition.type);
-
-    // CSS variable references for the CSS transition (string properties).
-    // The registry never hardcodes ms/bezier - these resolve to the
-    // facet-tokens CSS custom properties at runtime.
-    const durCSS =
-      typeof resolvedTransition.duration === "number"
-        ? `${resolvedTransition.duration}ms`
-        : `var(--facet-motion-duration-${resolvedTransition.duration})`;
-    const easeCSS = `var(--facet-motion-ease-${resolvedTransition.ease})`;
-
-    const controllers: AnimationController[] = [];
-    const unsubscribers: (() => void)[] = [];
-
-    // Set CSS transition BEFORE setting string "to" values so the browser
-    // actually transitions (transition property must be present before
-    // the value changes).
-    const stringProps = Object.entries(to).filter(
-      ([, v]) => typeof v !== "number",
-    );
-    if (stringProps.length > 0) {
-      const propList = stringProps.map(([p]) => p).join(", ");
-      el.style.transition = `${propList} ${durCSS} ${easeCSS}`;
-    }
-
-    for (const [prop, toValue] of Object.entries(to)) {
-      if (typeof toValue === "number") {
-        // Numeric prop - JS-driven via motion value + core animate()
-        const fromValue =
-          typeof from[prop] === "number" ? (from[prop] as number) : toValue;
-        const mv = motionValue(fromValue);
-
-        const handle = cssDriver.apply(target, { [prop]: mv });
-        unsubscribers.push(handle.cleanup);
-
-        const controller = animate(mv, toValue, {
-          type: doSpring ? "spring" : "tween",
-          duration: ms,
-          ease: doSpring ? undefined : easing,
-          stiffness: resolvedTransition.stiffness,
-          damping: resolvedTransition.damping,
-          mass: resolvedTransition.mass,
-          delay: resolvedTransition.delay ?? 0,
+    function runCSSAnimation(): (() => void) | undefined {
+      if (!el || !resolved) return undefined;
+      if (isExiting) {
+        const completeExit = presence.registerExit();
+        Object.entries(to).forEach(([p, v]) =>
+          el.style.setProperty(p, String(v)),
+        );
+        void el.offsetHeight;
+        const props = buildAnimationProperties(resolved, kfName, {
+          delay: 0,
+          playing: true,
         });
-        controllers.push(controller);
-      } else {
-        // String prop - CSS transition handles the interpolation
-        el.style.setProperty(prop, String(toValue));
+        props.animationDirection = "reverse";
+        Object.assign(el.style, props);
+
+        const onEnd = () => {
+          if (!active) return;
+          el.removeEventListener("animationend", onEnd);
+          el.style.animation = "";
+          completeExit();
+          callbacksRef.current.onExit?.();
+          callbacksRef.current.onComplete?.();
+        };
+        el.addEventListener("animationend", onEnd);
+        return () => {
+          active = false;
+          el.removeEventListener("animationend", onEnd);
+          el.style.animation = "";
+        };
       }
+
+      // ENTER via CSS animation
+      Object.entries(from).forEach(([p, v]) =>
+        el.style.setProperty(p, String(v)),
+      );
+      void el.offsetHeight;
+      const props = buildAnimationProperties(resolved, kfName, {
+        repeat: effectiveRepeat,
+        repeatType: effectiveRepeatType,
+        delay: resTrans.delay,
+        playing: playingRef.current,
+      });
+      Object.assign(el.style, props);
+
+      const hasRepeat = effectiveRepeat !== undefined && effectiveRepeat !== 0;
+
+      if (hasRepeat) {
+        callbacksRef.current.onEnter?.();
+        return () => {
+          active = false;
+          el.style.animation = "";
+        };
+      }
+
+      const onEnd = () => {
+        if (!active) return;
+        el.removeEventListener("animationend", onEnd);
+        callbacksRef.current.onEnter?.();
+        callbacksRef.current.onComplete?.();
+      };
+      el.addEventListener("animationend", onEnd);
+      return () => {
+        active = false;
+        el.removeEventListener("animationend", onEnd);
+        el.style.animation = "";
+      };
     }
 
-    return () => {
-      controllers.forEach((c) => c.stop());
-      unsubscribers.forEach((fn) => fn());
-      el.style.transition = "";
-    };
-  }, [resolved, delay, staggerDelay, staggerIndex]);
+    function runJSAnimation(): (() => void) | undefined {
+      if (!el || !resolved) return undefined;
+      const ms = resolveDuration(resTrans.duration);
+      const easing = resolveEasing(resTrans.ease);
+      const doSpring = isSpringType(resTrans.type);
+
+      const durCSS =
+        typeof resTrans.duration === "number"
+          ? `${resTrans.duration}ms`
+          : `var(--facet-motion-duration-${resTrans.duration})`;
+      const easeCSS = `var(--facet-motion-ease-${resTrans.ease})`;
+
+      const controllers: AnimationController[] = [];
+      const unsubscribers: (() => void)[] = [];
+      const target = { style: el.style };
+
+      if (isExiting) {
+        const completeExit = presence.registerExit();
+
+        if (playingRef.current !== false) {
+          // Reverse: animate numeric props back to `from`, transition strings back
+          Object.entries(from).forEach(([p, v]) => {
+            if (typeof v === "string") el.style.setProperty(p, String(v));
+          });
+
+          void el.offsetHeight;
+          const stringProps = Object.entries(from).filter(
+            ([, v]) => typeof v !== "number",
+          );
+          if (stringProps.length > 0) {
+            el.style.transition = `${stringProps.map(([p]) => p).join(", ")} ${durCSS} ${easeCSS}`;
+          }
+
+          for (const [prop, fromValue] of Object.entries(from)) {
+            if (typeof fromValue === "number") {
+              const toValue =
+                typeof to[prop] === "number"
+                  ? (to[prop] as number)
+                  : fromValue;
+              const mv = motionValue(toValue);
+              const handle = cssDriver.apply(target, { [prop]: mv });
+              unsubscribers.push(handle.cleanup);
+              const controller = animate(mv, fromValue, {
+                type: doSpring ? "spring" : "tween",
+                duration: ms,
+                ease: doSpring ? undefined : easing,
+                stiffness: resTrans.stiffness,
+                damping: resTrans.damping,
+                mass: resTrans.mass,
+                delay: resTrans.delay ?? 0,
+              });
+              controllers.push(controller);
+            }
+          }
+        }
+
+        Promise.all(controllers.map((c) => c.finished)).then(() => {
+          if (!active) return;
+          completeExit();
+          callbacksRef.current.onExit?.();
+          callbacksRef.current.onComplete?.();
+        });
+
+        return () => {
+          active = false;
+          controllers.forEach((c) => c.stop());
+          unsubscribers.forEach((fn) => fn());
+          el.style.transition = "";
+        };
+      }
+
+      // --- ENTER via JS ---
+      if (playingRef.current === false) {
+        Object.entries(from).forEach(([p, v]) => {
+          if (typeof v === "string") el.style.setProperty(p, String(v));
+        });
+        return () => {
+          active = false;
+        };
+      }
+
+      Object.entries(from).forEach(([p, v]) => {
+        if (typeof v === "string") el.style.setProperty(p, String(v));
+      });
+
+      void el.offsetHeight;
+
+      const stringProps = Object.entries(to).filter(
+        ([, v]) => typeof v !== "number",
+      );
+      if (stringProps.length > 0) {
+        const propList = stringProps.map(([p]) => p).join(", ");
+        el.style.transition = `${propList} ${durCSS} ${easeCSS}`;
+      }
+
+      for (const [prop, toValue] of Object.entries(to)) {
+        if (typeof toValue === "number") {
+          const fromValue =
+            typeof from[prop] === "number" ? (from[prop] as number) : toValue;
+          const mv = motionValue(fromValue);
+          const handle = cssDriver.apply(target, { [prop]: mv });
+          unsubscribers.push(handle.cleanup);
+          const controller = animate(mv, toValue, {
+            type: doSpring ? "spring" : "tween",
+            duration: ms,
+            ease: doSpring ? undefined : easing,
+            stiffness: resTrans.stiffness,
+            damping: resTrans.damping,
+            mass: resTrans.mass,
+            delay: resTrans.delay ?? 0,
+          });
+          controllers.push(controller);
+        } else {
+          el.style.setProperty(prop, String(toValue));
+        }
+      }
+
+      Promise.all(controllers.map((c) => c.finished)).then(() => {
+        if (!active) return;
+        callbacksRef.current.onEnter?.();
+        callbacksRef.current.onComplete?.();
+      });
+
+      return () => {
+        active = false;
+        controllers.forEach((c) => c.stop());
+        unsubscribers.forEach((fn) => fn());
+        el.style.transition = "";
+      };
+    }
+  }, [
+    resolved,
+    isPresent,
+    exit,
+    useCSS,
+    kfName,
+    effectiveRepeat,
+    effectiveRepeatType,
+    hasPresence,
+    presence.registerExit,
+  ]);
 
   // For asChild mode: read the single child element (a plain function call,
   // not a hook, so a conditional read is fine) and prepare a stable merged
@@ -259,7 +486,12 @@ export function Motion({
   }
 
   return (
-    <div ref={ref} className={cn(className)} style={initialStyle} {...rest}>
+    <div
+      ref={ref}
+      className={cn(className)}
+      style={initialStyle}
+      {...rest}
+    >
       {children}
     </div>
   );
