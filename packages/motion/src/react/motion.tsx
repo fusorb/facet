@@ -339,18 +339,29 @@ export function Motion({
       if (isExiting) {
         const completeExit = presence.registerExit();
 
-        if (playingRef.current !== false) {
-          // Reverse: animate numeric props back to `from`, transition strings back
-          Object.entries(from).forEach(([p, v]) => {
-            if (typeof v === "string") el.style.setProperty(p, String(v));
-          });
+        // The element is settled at its `to` state (from enter). Animate it
+        // back to `from`: numeric props via spring, string props (transform,
+        // filter, box-shadow, …) via a CSS transition. The transition MUST be
+        // registered before the string values are driven, otherwise setting
+        // `from` would snap instantly instead of transitioning (to -> from).
+        const stringProps = Object.entries(from).filter(
+          ([, v]) => typeof v !== "number",
+        );
+        const hasStringTransition =
+          playingRef.current !== false && stringProps.length > 0;
+        // Held so the cleanup can detach it even on a forced unmount.
+        let stringEndListener: ((e: TransitionEvent) => void) | null = null;
 
+        if (playingRef.current !== false) {
           void el.offsetHeight;
-          const stringProps = Object.entries(from).filter(
-            ([, v]) => typeof v !== "number",
-          );
-          if (stringProps.length > 0) {
+
+          if (hasStringTransition) {
             el.style.transition = `${stringProps.map(([p]) => p).join(", ")} ${durCSS} ${easeCSS}`;
+            void el.offsetHeight;
+
+            Object.entries(from).forEach(([p, v]) => {
+              if (typeof v === "string") el.style.setProperty(p, String(v));
+            });
           }
 
           for (const [prop, fromValue] of Object.entries(from)) {
@@ -376,18 +387,47 @@ export function Motion({
           }
         }
 
-        Promise.all(controllers.map((c) => c.finished)).then(() => {
+        const finish = () => {
           if (!active) return;
           completeExit();
           callbacksRef.current.onExit?.();
           callbacksRef.current.onComplete?.();
-        });
+        };
+
+        if (playingRef.current === false) {
+          // Paused: no animation to wait for, unmount immediately.
+          finish();
+        } else {
+          // Presence must keep the element mounted until BOTH the numeric
+          // springs AND any CSS string transitions have completed.
+          const numericDone = Promise.all(
+            controllers.map((c) => c.finished),
+          );
+          const transitionDone = hasStringTransition
+            ? new Promise<void>((resolve) => {
+                stringEndListener = (e: TransitionEvent) => {
+                  if (stringProps.some(([p]) => p === e.propertyName)) {
+                    el.removeEventListener("transitionend", stringEndListener!);
+                    stringEndListener = null;
+                    resolve();
+                  }
+                };
+                el.addEventListener("transitionend", stringEndListener);
+              })
+            : Promise.resolve();
+
+          Promise.all([numericDone, transitionDone]).then(finish);
+        }
 
         return () => {
           active = false;
           controllers.forEach((c) => c.stop());
           unsubscribers.forEach((fn) => fn());
           el.style.transition = "";
+          if (stringEndListener) {
+            el.removeEventListener("transitionend", stringEndListener);
+            stringEndListener = null;
+          }
         };
       }
 

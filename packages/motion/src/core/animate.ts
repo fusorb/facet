@@ -132,7 +132,11 @@ export function animate(
     gen = g;
     segDuration = dur;
     segElapsed = 0;
-    value.set(waypoints[idx]!);
+    // Note: the segment start value (== the motion value's current value) is
+    // set on the first scheduler tick via `gen(0)`, NOT here. Setting it here
+    // would synchronously notify subscribers (e.g. React state) before the
+    // animation has a chance to render, which breaks SSR-safe components that
+    // render the target value then animate down to `from` (e.g. CountUpText).
   }
 
   function tick(delta: number) {

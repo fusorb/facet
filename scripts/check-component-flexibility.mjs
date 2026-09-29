@@ -27,11 +27,18 @@ const HARD_GAPS = [];   // missing appearance or config
 const SOFT_GAPS = [];   // composite missing slots (warning)
 const SCORED = [];      // every component, for the summary
 
-// Components that are data/types/stylesheets, not UI components.
+// Internal infrastructure modules that live in ui/ alongside components but
+// are not themselves renderable components (e.g. shared overlay-state context).
+// Excluded from the flexibility audit: they have no className/tokens/HTML-attrs
+// surface, so the three-axis invariant (appearance + config + slots) does not
+// apply. Keeping them out also keeps the count consistent with CLAUDE.md.
+const NON_COMPONENT_FILES = new Set(["motion-usage"]);
+
 const components = fs
   .readdirSync(uiDir)
   .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx"))
   .map((f) => f.replace(/\.tsx$/, ""))
+  .filter((c) => !NON_COMPONENT_FILES.has(c))
   .sort();
 
 const compSet = new Set(components);

@@ -77,6 +77,39 @@ function Gm({
 }
 
 /**
+ * Authored Motion: drives a registry-authored effect (aurora, beams, …)
+ * through @fusorb/facet-motion. No duration or repeatType override is
+ * passed — the registry is authoritative for the cycle timing and repeat
+ * strategy (continuous "loop" for sweeps such as spotlight/shine/ripple/
+ * tilt, and alternating breathing for aurora/beams/grid).
+ */
+function Am({
+  effect,
+  playing,
+  loop,
+  delay,
+  children,
+}: {
+  effect: string;
+  playing: boolean;
+  loop: boolean;
+  delay?: number;
+  children: ReactElement;
+}) {
+  return (
+    <Motion
+      asChild
+      effect={effect}
+      repeat={loop ? "infinite" : 1}
+      playing={playing}
+      delay={delay ?? 0}
+    >
+      {children}
+    </Motion>
+  );
+}
+
+/**
  * Animated preview for a single motion effect.
  *
  * Covers both the scratchpad-style authored effects (aurora, beams,
@@ -96,13 +129,6 @@ export function MotionPreview({
   const h = size === "sm" ? 80 : size === "lg" ? 160 : 120;
   const base: CSSProperties = { ...previewBox, height: h };
   const accent = colorProp ?? "var(--primary)";
-
-  /** Append controllable play-state + iteration-count to an animation style. */
-  const ac = (s: CSSProperties = {}): CSSProperties => ({
-    ...s,
-    animationPlayState: playing ? "running" : "paused",
-    animationIterationCount: loop ? "infinite" : 1,
-  });
 
   const renderPreview = () => {
     switch (effect) {
@@ -357,22 +383,22 @@ export function MotionPreview({
           </div>
         );
 
-      /* ── Scratchpad-style authored effects (stay CSS-only) ── */
+      /* ── Authored effects (driven by @fusorb/facet-motion registry) ── */
 
       case "aurora":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                width: 48,
-                height: 48,
-                borderRadius: "50%",
-                background: `conic-gradient(45deg, ${accent}, transparent 60%)`,
-                animation: `facet-aurora 3s ease-in-out infinite alternate`,
-                opacity: 0.8,
-                filter: "blur(4px)",
-              })}
-            />
+            <Am effect="aurora" playing={playing} loop={loop}>
+              <div
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: "50%",
+                  background: `conic-gradient(45deg, ${accent}, transparent 60%)`,
+                  filter: "blur(4px)",
+                }}
+              />
+            </Am>
           </div>
         );
 
@@ -380,17 +406,22 @@ export function MotionPreview({
         return (
           <div style={base}>
             {[0, 1, 2].map((i) => (
-              <div
+              <Am
                 key={i}
-                style={ac({
-                  position: "absolute",
-                  inset: 0,
-                  borderRadius: "50%",
-                  border: `1px solid ${accent}`,
-                  animation: `facet-ripple 2s ease-out ${i * 0.65}s infinite`,
-                  opacity: 0,
-                })}
-              />
+                effect="ripple"
+                playing={playing}
+                loop={loop}
+                delay={i * 650}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    borderRadius: "50%",
+                    border: `1px solid ${accent}`,
+                  }}
+                />
+              </Am>
             ))}
             <div
               style={{
@@ -408,17 +439,23 @@ export function MotionPreview({
         return (
           <div style={base}>
             {[0, 1, 2, 3, 4].map((i) => (
-              <div
+              <Am
                 key={i}
-                style={ac({
-                  position: "absolute",
-                  width: 1.5,
-                  height: "100%",
-                  left: `${12 + i * 20}%`,
-                  background: `linear-gradient(to bottom, transparent 0%, ${accent}30 50%, transparent 100%)`,
-                  animation: `facet-beams 2.5s ease-in-out ${i * 0.35}s infinite alternate`,
-                })}
-              />
+                effect="beams"
+                playing={playing}
+                loop={loop}
+                delay={i * 350}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    width: 1.5,
+                    height: "100%",
+                    left: `${12 + i * 20}%`,
+                    background: `linear-gradient(to bottom, transparent 0%, ${accent}30 50%, transparent 100%)`,
+                  }}
+                />
+              </Am>
             ))}
             <span
               style={{
@@ -435,16 +472,17 @@ export function MotionPreview({
       case "spotlight":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                position: "absolute",
-                width: 160,
-                height: 160,
-                borderRadius: "50%",
-                background: `radial-gradient(circle, ${accent}20 0%, transparent 70%)`,
-                animation: `facet-spotlight 8s linear infinite`,
-              })}
-            />
+            <Am effect="spotlight" playing={playing} loop={loop}>
+              <div
+                style={{
+                  position: "absolute",
+                  width: 160,
+                  height: 160,
+                  borderRadius: "50%",
+                  background: `radial-gradient(circle, ${accent}20 0%, transparent 70%)`,
+                }}
+              />
+            </Am>
             <span
               style={{
                 position: "relative",
@@ -474,65 +512,68 @@ export function MotionPreview({
               backgroundSize: "28px 28px",
             }}
           >
-            <div
-              style={ac({
-                width: 44,
-                height: 44,
-                background: accent,
-                borderRadius: 6,
-                animation: `facet-grid 3s ease-in-out infinite alternate`,
-                boxShadow: `0 0 24px ${accent}60`,
-              })}
-            />
+            <Am effect="grid" playing={playing} loop={loop}>
+              <div
+                style={{
+                  width: 44,
+                  height: 44,
+                  background: accent,
+                  borderRadius: 6,
+                  boxShadow: `0 0 24px ${accent}60`,
+                }}
+              />
+            </Am>
           </div>
         );
 
       case "tilt":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                padding: "12px 20px",
-                border: `1px solid ${BORDER}`,
-                borderRadius: 6,
-                background: SURFACE,
-                animation: `facet-tilt 4s ease-in-out infinite`,
-              })}
-            >
-              <span
+            <Am effect="tilt" playing={playing} loop={loop}>
+              <div
                 style={{
-                  fontFamily: "var(--font-heading)",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  color: TEXT,
+                  padding: "12px 20px",
+                  border: `1px solid ${BORDER}`,
+                  borderRadius: 6,
+                  background: SURFACE,
                 }}
               >
-                Tilt
-              </span>
-            </div>
+                <span
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: TEXT,
+                  }}
+                >
+                  Tilt
+                </span>
+              </div>
+            </Am>
           </div>
         );
 
       case "shine":
         return (
           <div style={base}>
-            <div
-              style={ac({
-                padding: "10px 20px",
-                borderRadius: 6,
-                cursor: "pointer",
-                fontSize: 12,
-                fontWeight: 600,
-                fontFamily: "var(--font-heading)",
-                color: TEXT,
-                backgroundImage: `linear-gradient(90deg, ${CARD} 0%, ${SURFACE} 30%, rgba(255,255,255,0.08) 50%, ${SURFACE} 70%, ${CARD} 100%)`,
-                backgroundSize: "200% 100%",
-                animation: `facet-shine 2.5s ease-in-out infinite`,
-                border: `1px solid ${BORDER}`,
-              })}
-            >
-              Shine effect
-            </div>
+            <Am effect="shine" playing={playing} loop={loop}>
+              <div
+                style={{
+                  padding: "10px 20px",
+                  borderRadius: 6,
+                  cursor: "pointer",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  fontFamily: "var(--font-heading)",
+                  color: TEXT,
+                  backgroundImage: `linear-gradient(90deg, ${CARD} 0%, ${SURFACE} 30%, rgba(255,255,255,0.08) 50%, ${SURFACE} 70%, ${CARD} 100%)`,
+                  backgroundSize: "200% 100%",
+                  border: `1px solid ${BORDER}`,
+                }}
+              >
+                Shine effect
+              </div>
+            </Am>
           </div>
         );
 

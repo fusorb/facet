@@ -96,11 +96,20 @@ function discoverPackages() {
   return discovered;
 }
 
+// Non-component infrastructure files (shared contexts/hooks) that live in ui/
+// alongside components but aren't renderable components. Excluded from the
+// component count to stay consistent with CLAUDE.md ("116 styled Radix
+// components") and the drift gates in check-component-flexibility.mjs /
+// check-docs-inventory.mjs.
+const NON_COMPONENT_FILES = new Set(["motion-usage"]);
+
 function countComponents() {
   const uiDir = path.join(root, "packages/components/src/ui");
   return fs
     .readdirSync(uiDir)
-    .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx")).length;
+    .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx"))
+    .filter((f) => !NON_COMPONENT_FILES.has(f.replace(/\.tsx$/, "")))
+    .length;
 }
 
 function countSdks() {

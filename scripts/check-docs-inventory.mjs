@@ -21,11 +21,19 @@ const claudePath = path.join(root, "CLAUDE.md");
 const errors = [];
 const ok = [];
 
+// Internal infrastructure modules (shared contexts/hooks) that live in ui/
+// alongside components but are not themselves renderable components. They are
+// intentionally neither barrel-exported nor documented, so they are excluded
+// from every inventory check. This keeps the component count consistent with
+// CLAUDE.md ("116 styled Radix components").
+const NON_COMPONENT_FILES = new Set(["motion-usage"]);
+
 function componentNames(dir) {
   return fs
     .readdirSync(dir)
     .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx"))
-    .map((f) => f.replace(/\.tsx$/, ""));
+    .map((f) => f.replace(/\.tsx$/, ""))
+    .filter((c) => !NON_COMPONENT_FILES.has(c));
 }
 
 // 1. Barrel parity: every component file is re-exported from index.ts.
