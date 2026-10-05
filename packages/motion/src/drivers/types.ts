@@ -49,4 +49,9 @@ export interface MotionDriver {
 
   /** Whether the driver's target API is available in this environment. */
   isSupported(): boolean;
+
+  /** Optional. Returns true when the consumer prefers reduced motion.
+   * The cssDriver always implements this; native drivers may omit it
+   * (callers handle `undefined` via nullish-coalescing). */
+  preferReducedMotion?(): boolean;
 }

@@ -13,9 +13,13 @@ export const ALL_FACET_PACKAGES = [
   "@fusorb/facet-docs",
   "@fusorb/facet-emails",
   "@fusorb/facet-layout",
+  "@fusorb/facet-motion",
+  "@fusorb/facet-native",
+  "@fusorb/facet-sandbox",
   "@fusorb/facet-sdk",
   "@fusorb/facet-store",
   "@fusorb/facet-tokens",
+  "@fusorb/facet-utils",
 ] as const;
 
 /** Discover facet packages dynamically: the npm @fusorb scope (via the

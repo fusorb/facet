@@ -16,7 +16,7 @@
   "files": [
     "dist"
   ],
-  "sideEffects": false,
+  "sideEffects": true,
   "scripts": {
     "build": "tsup",
     "build:analyze": "tsup --metafile",
@@ -45,10 +45,17 @@
     "easing"
   ],
   "devDependencies": {
+    "@fusorb/facet-motion": "workspace:*",
+    "@types/react": "^19",
+    "react": "^19",
     "tsup": "^8.5.1",
     "typescript": "^5"
   },
+  "peerDependencies": {
+    "react": "^19"
+  },
   "dependencies": {
+    "@fusorb/facet-motion": "workspace:*",
     "@fusorb/facet-tokens": "workspace:*"
   },
   "engines": {

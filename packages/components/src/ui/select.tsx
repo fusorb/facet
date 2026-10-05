@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { Motion, Presence } from "@fusorb/facet-motion";
-import { OverlayContext, useOverlayOpen } from "./motion-usage.js";
+import { Motion } from "@fusorb/facet-motion";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 
@@ -37,27 +36,7 @@ export type SelectSeparatorProps = React.ComponentPropsWithoutRef<
 >;
 export type SelectSearchProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-function Select({
-  open: openProp,
-  onOpenChange,
-  ...props
-}: SelectProps) {
-  const [open, setOpen] = React.useState(false);
-  const resolvedOpen = openProp ?? open;
-  return (
-    <OverlayContext.Provider value={{ open: resolvedOpen }}>
-      <SelectPrimitive.Root
-        open={resolvedOpen}
-        onOpenChange={(next: boolean) => {
-          if (openProp === undefined) setOpen(next);
-          onOpenChange?.(next);
-        }}
-        {...props}
-      />
-    </OverlayContext.Provider>
-  );
-}
-Select.displayName = SelectPrimitive.Root.displayName;
+const Select = SelectPrimitive.Root;
 const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
@@ -68,7 +47,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
       className,
     )}
     {...props}
@@ -119,40 +98,35 @@ SelectScrollDownButton.displayName =
 const SelectContent = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Content>,
   SelectContentProps
->(({ className, children, position = "popper", ...props }, ref) => {
-  const open = useOverlayOpen();
-  return (
-    <SelectPrimitive.Portal forceMount>
-      <Presence present={open}>
-        <Motion asChild effect="zoom" direction="up" exit>
-          <SelectPrimitive.Content
-            ref={ref}
-            className={cn(
-              "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md",
-              position === "popper" &&
-                "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
-              className,
-            )}
-            position={position}
-            {...props}
-          >
-            <SelectScrollUpButton />
-            <SelectPrimitive.Viewport
-              className={cn(
-                "p-1",
-                position === "popper" &&
-                  "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
-              )}
-            >
-              {children}
-            </SelectPrimitive.Viewport>
-            <SelectScrollDownButton />
-          </SelectPrimitive.Content>
-        </Motion>
-      </Presence>
-    </SelectPrimitive.Portal>
-  );
-});
+>(({ className, children, position = "popper", ...props }, ref) => (
+  <SelectPrimitive.Portal>
+    <Motion asChild effect="zoom" direction="up">
+      <SelectPrimitive.Content
+        ref={ref}
+        className={cn(
+          "relative z-[70] max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=closed]:animate-facet-zoom-out",
+          position === "popper" &&
+            "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+          className,
+        )}
+        position={position}
+        {...props}
+      >
+        <SelectScrollUpButton />
+        <SelectPrimitive.Viewport
+          className={cn(
+            "p-1",
+            position === "popper" &&
+              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
+          )}
+        >
+          {children}
+        </SelectPrimitive.Viewport>
+        <SelectScrollDownButton />
+      </SelectPrimitive.Content>
+    </Motion>
+  </SelectPrimitive.Portal>
+));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
 const SelectLabel = React.forwardRef<

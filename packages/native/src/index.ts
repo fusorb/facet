@@ -1,23 +1,43 @@
 /**
- * @fusorb/facet-native — React Native motion driver bridge (EXPERIMENTAL, v0.1.0).
+ * @fusorb/facet-native — React Native motion driver bridge for @fusorb/facet-motion.
  *
  * Provides a framework-agnostic RN motion adapter (`bindAnimated`,
  * `unbindAnimated`, `nativeDriver`, `resolveNativeTransition`, `toEasingCurve`,
  * etc.) that subscribes motion values to a consumer-provided Animated module
  * (react-native `Animated` or reanimated v2) via `bindAnimated(...)`.
  *
- * §7 disposition: intentionally NOT wired into @fusorb/facet-motion today.
- * This is a published package intended for the SovGrant/SovPort UI layer to bind
- * (`bindAnimated`) against a consumer-provided Animated API (react-native
- * `Animated` or reanimated v2). The motion→native driver dispatch contract is
- * the deferred intended integration. Kept isolated as its own package — depends
- * only on @fusorb/facet-tokens; the Animated API is consumer-provided — so
- * RN/SovGrant consumers get a native driver without pulling web runtime into RN,
- * and it is absent from the web build path. Not moved under motion: that would
- * bloat the web motion package with a bridge no web consumer uses and erase the
- * package boundary SovGrant/SovPort integration relies on. Tests deferred
- * pending a React Native test environment.
+ * §7 disposition: facetDriver is auto-registered with @fusorb/facet-motion's
+ * driver registry on import. After `bindAnimated()` is called, `resolveDriver()`
+ * in the motion package will return the native driver (because `cssDriver.isSupported()`
+ * is false on React Native). The Motion component in @fusorb/facet-motion uses
+ * `resolveDriver()` to pick the right driver, so it works on both web and native.
+ *
+ * This package is kept separate from @fusorb/facet-motion so web consumers
+ * never pull RN bridge code into their bundle. It depends on both
+ * @fusorb/facet-tokens (token values) and @fusorb/facet-motion (driver registry
+ * + core engine types); the Animated API itself is consumer-provided.
+ *
+ * Usage:
+ *   import { bindAnimated, Motion } from "@fusorb/facet-native";
+ *   import { Animated } from "react-native";
+ *
+ *   bindAnimated({
+ *     createValue: (initial) => new Animated.Value(initial),
+ *   });
+ *
+ *   // Motion uses resolveDriver() → nativeDriver on RN after binding
+ *   <Motion effect="fade" asChild>
+ *     <Animated.View />
+ *   </Motion>
  */
+import { registerDriver } from "@fusorb/facet-motion";
+import { facetDriver } from "./adapter.js";
+
+// Auto-register the native driver with @fusorb/facet-motion's driver registry.
+// This runs on import — harmless in web/Node (nativeDriver.isSupported()
+// returns false until bindAnimated() is called).
+registerDriver(facetDriver);
+
 export { motionValues } from "@fusorb/facet-tokens";
 export type { MotionValues, EasingValue } from "@fusorb/facet-tokens";
 export {
@@ -41,3 +61,9 @@ export type {
   NativeTarget,
   NativeBindings,
 } from "./native-driver.js";
+export { facetDriver } from "./adapter.js";
+
+// Native Motion component (React Native counterpart to web Motion).
+// Uses resolveDriver() → nativeDriver after bindAnimated() is called.
+export { Motion } from "./react/index.js";
+export type { MotionProps } from "./react/index.js";

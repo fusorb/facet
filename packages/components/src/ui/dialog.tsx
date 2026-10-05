@@ -1,40 +1,16 @@
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { Motion, Presence } from "@fusorb/facet-motion";
-import { OverlayContext, useOverlayOpen } from "./motion-usage.js";
+import { Motion } from "@fusorb/facet-motion";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 
-/** Semi-controlled Root: tracks open state internally and publishes it via
- *  <OverlayContext> so Content-side <Presence> + <Motion exit> can fire. */
-function Dialog({
-  open: openProp,
-  onOpenChange,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
-  const [open, setOpen] = React.useState(false);
-  const resolvedOpen = openProp ?? open;
-  return (
-    <OverlayContext.Provider value={{ open: resolvedOpen }}>
-      <DialogPrimitive.Root
-        open={resolvedOpen}
-        onOpenChange={(next: boolean) => {
-          if (openProp === undefined) setOpen(next);
-          onOpenChange?.(next);
-        }}
-        {...props}
-      />
-    </OverlayContext.Provider>
-  );
-}
-Dialog.displayName = DialogPrimitive.Root.displayName;
-
+const Dialog = DialogPrimitive.Root;
 const DialogTrigger = DialogPrimitive.Trigger;
 const DialogPortal = DialogPrimitive.Portal;
 const DialogClose = DialogPrimitive.Close;
 
-const dialogOverlayVariants = cva("fixed inset-0 z-[70]", {
+const dialogOverlayVariants = cva("fixed inset-0 z-[60]", {
   variants: {
     variant: {
       dim: "bg-black/80",
@@ -59,6 +35,7 @@ const DialogOverlay = React.forwardRef<
     ref={ref}
     className={cn(
       dialogOverlayVariants({ variant }),
+      "data-[state=open]:animate-facet-fade-in data-[state=closed]:animate-facet-fade-out",
       className,
     )}
     {...props}
@@ -90,34 +67,28 @@ interface DialogContentProps
 const DialogContent = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Content>,
   DialogContentProps
->(({ className, variant, children, ...props }, ref) => {
-  const open = useOverlayOpen();
-  return (
-    <DialogPrimitive.Portal forceMount>
-      <Presence present={open}>
-        <Motion asChild effect="fade" exit>
-          <DialogOverlay />
-        </Motion>
-        <Motion asChild effect="zoom" direction="up" exit>
-          <DialogPrimitive.Content
-            ref={ref}
-            className={cn(
-              dialogContentVariants({ variant }),
-              className,
-            )}
-            {...props}
-          >
-            {children}
-            <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-              <Icon name="close" className="h-4 w-4" />
-              <span className="sr-only">Close</span>
-            </DialogPrimitive.Close>
-          </DialogPrimitive.Content>
-        </Motion>
-      </Presence>
-    </DialogPrimitive.Portal>
-  );
-});
+>(({ className, variant, children, ...props }, ref) => (
+  <DialogPortal>
+    <DialogOverlay />
+    <Motion asChild effect="zoom" direction="up">
+      <DialogPrimitive.Content
+        ref={ref}
+        className={cn(
+          dialogContentVariants({ variant }),
+          "data-[state=closed]:animate-facet-zoom-out",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+          <Icon name="close" className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </DialogPrimitive.Close>
+      </DialogPrimitive.Content>
+    </Motion>
+  </DialogPortal>
+));
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({

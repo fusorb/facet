@@ -172,7 +172,7 @@
   --motion-delay-stagger: 50ms;
 
   /* Scales (for zoom/pop effects) */
-  --motion-scale-inactive: 0.95;
+  --motion-scale-inactive: 0.85;
   --motion-scale-pop: 1.05;
   --motion-blur-inactive: 4px;
 
@@ -611,12 +611,12 @@ summary {
   from {
     height: 0;
     opacity: 0;
-    transform: translateY(-4px);
+    transform: scale(var(--motion-scale-inactive)) translateY(-4px);
   }
   to {
     height: var(--radix-accordion-content-height);
     opacity: 1;
-    transform: none;
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -624,12 +624,12 @@ summary {
   from {
     height: var(--radix-accordion-content-height);
     opacity: 1;
-    transform: none;
+    transform: scale(1) translateY(0);
   }
   to {
     height: 0;
     opacity: 0;
-    transform: translateY(-4px);
+    transform: scale(var(--motion-scale-inactive)) translateY(-4px);
   }
 }
 

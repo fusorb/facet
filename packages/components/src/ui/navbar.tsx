@@ -39,12 +39,12 @@ export const navbarVariants = cva(
       variant: {
         default: "border-b border-border bg-background",
         sticky:
-          "sticky top-0 z-60     border-border bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/80",
-        glass: "sticky top-0 z-60 border-b border-white/10 glass",
+          "sticky top-0 z-50     border-border bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/80",
+        glass: "sticky top-0 z-50 border-b border-white/10 glass",
         bordered: "border border-border/60 bg-background shadow-sm",
         transparent: "border-b border-transparent bg-transparent",
         pill: [
-          "sticky top-0 z-60 w-full",
+          "sticky top-0 z-50 w-full",
           "border-b border-border/40 bg-background/60 px-4 py-2 backdrop-blur-xl transition-all duration-300",
           "sm:px-4 lg:px-8",
         ].join(" "),
@@ -326,9 +326,9 @@ export function Navbar({
       {/* Mobile menu */}
       {showHamburger && mobileOpen && (
         <div
-          className={cn(
-            `absolute inset-x-0 top-full z-60 border-b border-border bg-background p-4 max-h-[70vh] overflow-y-auto ${bpHide}`,
-          )}
+            className={cn(
+              `absolute inset-x-0 top-full z-[70] border-b border-border bg-background p-4 max-h-[70vh] overflow-y-auto ${bpHide}`,
+            )}
         >
           {mobileMenu ? (
             // mobileMenu is typed as React.ReactElement, whose props don't
@@ -573,7 +573,7 @@ function NavLinkItem({
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
-            className={cn(itemClass, "data-[state=open]:bg-accent/5")}
+            className={cn(itemClass, "data-[state=open]:bg-accent/5 focus-visible:ring-0 focus-visible:ring-offset-0")}
             {...triggerHoverProps}
             onClick={triggerClick}
           >
@@ -602,7 +602,7 @@ function NavLinkItem({
           align="start"
           side="bottom"
           sideOffset={8}
-          className={cn("z-70 p-2", panelWidth)}
+          className={cn("z-[70] p-2", panelWidth)}
           {...contentHoverProps}
         >
           {isMega ? (

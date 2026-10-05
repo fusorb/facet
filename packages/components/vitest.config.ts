@@ -27,5 +27,9 @@ export default defineConfig({
     pool: "vmThreads",
     // React only exposes `act` in its development build.
     env: { NODE_ENV: "test" },
+    // Radix portals / jest-dom keep DOM and spies across tests without this,
+    // which falsely fails interaction tests (stale execCommand spies, etc.).
+    restoreMocks: true,
+    clearMocks: true,
   },
 });

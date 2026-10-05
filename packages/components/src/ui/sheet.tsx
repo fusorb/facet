@@ -1,38 +1,17 @@
 import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
-import { Motion, Presence } from "@fusorb/facet-motion";
-import { OverlayContext, useOverlayOpen } from "./motion-usage.js";
+import { Motion } from "@fusorb/facet-motion";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 import { cva, type VariantProps } from "class-variance-authority";
 
-function Sheet({
-  open: openProp,
-  onOpenChange,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Root>) {
-  const [open, setOpen] = React.useState(false);
-  const resolvedOpen = openProp ?? open;
-  return (
-    <OverlayContext.Provider value={{ open: resolvedOpen }}>
-      <SheetPrimitive.Root
-        open={resolvedOpen}
-        onOpenChange={(next: boolean) => {
-          if (openProp === undefined) setOpen(next);
-          onOpenChange?.(next);
-        }}
-        {...props}
-      />
-    </OverlayContext.Provider>
-  );
-}
-Sheet.displayName = SheetPrimitive.Root.displayName;
+const Sheet = SheetPrimitive.Root;
 const SheetTrigger = SheetPrimitive.Trigger;
 const SheetClose = SheetPrimitive.Close;
 const SheetPortal = SheetPrimitive.Portal;
 
 const sheetVariants = cva(
-    "fixed z-[70] gap-4 bg-background p-6 shadow-lg",
+    "fixed z-[70] gap-4 bg-background p-6 shadow-lg data-[state=closed]:animate-facet-zoom-out",
   {
     variants: {
       side: {
@@ -56,31 +35,24 @@ interface SheetContentProps
 const SheetContent = React.forwardRef<
   React.ComponentRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = "right", className, children, ...props }, ref) => {
-  const open = useOverlayOpen();
-  return (
-    <SheetPortal forceMount>
-      <Presence present={open}>
-        <Motion asChild effect="fade" exit>
-          <SheetOverlay />
-        </Motion>
-        <Motion asChild effect="zoom" direction="up" exit>
-          <SheetPrimitive.Content
-            ref={ref}
-            className={cn(sheetVariants({ side }), className)}
-            {...props}
-          >
-            {children}
-            <SheetPrimitiveClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-secondary">
-              <Icon name="close" className="h-4 w-4" />
-              <span className="sr-only">Close</span>
-            </SheetPrimitiveClose>
-          </SheetPrimitive.Content>
-        </Motion>
-      </Presence>
-    </SheetPortal>
-  );
-});
+>(({ side = "right", className, children, ...props }, ref) => (
+  <SheetPortal>
+    <SheetOverlay />
+    <Motion asChild effect="zoom" direction="up">
+      <SheetPrimitive.Content
+        ref={ref}
+        className={cn(sheetVariants({ side }), className)}
+        {...props}
+      >
+        {children}
+        <SheetPrimitiveClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-secondary">
+          <Icon name="close" className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </SheetPrimitiveClose>
+      </SheetPrimitive.Content>
+    </Motion>
+  </SheetPortal>
+));
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 // SheetOverlay used internally by SheetContent but also exported standalone
@@ -90,7 +62,7 @@ const SheetOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
-      "fixed inset-0 z-[70] bg-black/80",
+      "fixed inset-0 z-[60] bg-black/80 data-[state=open]:animate-facet-fade-in data-[state=closed]:animate-facet-fade-out",
       className,
     )}
     {...props}

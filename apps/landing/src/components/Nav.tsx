@@ -19,7 +19,6 @@ import {
 import { pages } from "../pages.js";
 import { SITE_PACKAGES_COUNT } from "../data/site-data.generated.js";
 import { Wordmark } from "./Brand.js";
-import { DomainToggle } from "./DomainToggle.js";
 import { useCommandPalette } from "./command-palette-context.js";
 
 /**
@@ -35,7 +34,6 @@ function getLinks(): NavLink[] {
       href: p.path,
       label: p.title,
       description: p.description,
-      section: p.path.startsWith("/lab/") ? "Lab" : "Core",
     }));
 
   const resourceChildren: NavLink["children"] = pages
@@ -133,16 +131,12 @@ function Brand({ onHome }: { onHome: () => void }) {
   );
 }
 
-/** Mobile menu: domain toggle + grouped accordion sections + quick links. */
+/** Mobile menu: grouped accordion sections + quick links. */
 function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
   const [openGroup, setOpenGroup] = React.useState<string | null>(null);
 
   return (
     <div className="flex flex-col">
-      {/* Domain toggle — shows which preset is active at a glance */}
-      <div className="px-4 py-3">
-        <DomainToggle />
-      </div>
       <hr className="border-border" />
 
       {getLinks().map((link) => {
@@ -210,13 +204,6 @@ function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
         >
           <LightIcon name="book-open" size={16} />
           Documentation
-        </div>
-        <div
-          onClick={() => onNavigate("/components")}
-          className="flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/5 hover:text-foreground"
-        >
-          <LightIcon name="boxes" size={16} />
-          Browse components
         </div>
       </div>
     </div>
@@ -294,10 +281,6 @@ export function Nav() {
             >
               <GithubIcon size={16} />
             </a>
-            {/* Domain toggle — desktop only, collapses in mobile menu */}
-            <div className="hidden lg:flex">
-              <DomainToggle />
-            </div>
             {/* Search trigger — desktop only */}
             <div className="hidden lg:flex">
               <GlobalSearch />

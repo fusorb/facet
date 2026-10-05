@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
-import { Motion, Presence } from "@fusorb/facet-motion";
-import { OverlayContext, useOverlayOpen } from "./motion-usage.js";
+import { Motion } from "@fusorb/facet-motion";
 import { cn } from "../utils.js";
 import { buttonVariants } from "./button.js";
 import { Icon } from "../icon/index.js";
@@ -25,21 +24,10 @@ export interface AlertDialogProps extends React.ComponentPropsWithoutRef<
   typeof AlertDialogPrimitive.Root
 > {}
 
-function AlertDialog({ open: openProp, onOpenChange, ...props }: AlertDialogProps) {
-  const [open, setOpen] = React.useState(false);
-  const resolvedOpen = openProp ?? open;
+function AlertDialog({ onOpenChange, ...props }: AlertDialogProps) {
   return (
     <AlertDialogCloseContext.Provider value={onOpenChange}>
-      <OverlayContext.Provider value={{ open: resolvedOpen }}>
-        <AlertDialogPrimitiveRoot
-          open={resolvedOpen}
-          onOpenChange={(next: boolean) => {
-            if (openProp === undefined) setOpen(next);
-            onOpenChange?.(next);
-          }}
-          {...props}
-        />
-      </OverlayContext.Provider>
+      <AlertDialogPrimitiveRoot onOpenChange={onOpenChange} {...props} />
     </AlertDialogCloseContext.Provider>
   );
 }
@@ -52,7 +40,7 @@ const AlertDialogOverlay = React.forwardRef<
   <AlertDialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-[70] bg-black/80",
+      "fixed inset-0 z-[60] bg-black/80 data-[state=open]:animate-facet-fade-in data-[state=closed]:animate-facet-fade-out",
       className,
     )}
     {...props}
@@ -70,35 +58,28 @@ export interface AlertDialogContentProps extends React.ComponentPropsWithoutRef<
 const AlertDialogContent = React.forwardRef<
   React.ComponentRef<typeof AlertDialogPrimitive.Content>,
   AlertDialogContentProps
->(({ className, children, variant = "default", ...props }, ref) => {
+>(({ className, variant = "default", ...props }, ref) => {
   const close = React.useContext(AlertDialogCloseContext);
-  const open = useOverlayOpen();
   return (
-    <AlertDialogPrimitive.Portal forceMount>
-      <Presence present={open}>
-        <Motion asChild effect="fade" exit>
-          <AlertDialogOverlay
-            onClick={() => {
-              // Clicking the overlay = outside click: close the dialog.
-              close?.(false);
-            }}
-          />
-        </Motion>
-        <Motion asChild effect="zoom" direction="up" exit>
-          <AlertDialogPrimitive.Content
-            ref={ref}
-            className={cn(
-              "frost fixed left-[50%] top-[50%] z-[70] grid w-[calc(100%-2rem)] max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 p-6 text-foreground sm:w-full sm:rounded-lg",
-              variant === "destructive" && "border-destructive/50 bg-destructive/5",
-              className,
-            )}
-            {...props}
-          >
-            {children}
-          </AlertDialogPrimitive.Content>
-        </Motion>
-      </Presence>
-    </AlertDialogPrimitive.Portal>
+    <AlertDialogPortal>
+      <AlertDialogOverlay
+        onClick={() => {
+          // Clicking the overlay = outside click: close the dialog.
+          close?.(false);
+        }}
+      />
+      <Motion asChild effect="zoom" direction="up">
+        <AlertDialogPrimitive.Content
+          ref={ref}
+          className={cn(
+            "frost fixed left-[50%] top-[50%] z-[70] grid w-[calc(100%-2rem)] max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 p-6 text-foreground data-[state=closed]:animate-facet-zoom-out sm:w-full sm:rounded-lg",
+            variant === "destructive" && "border-destructive/50 bg-destructive/5",
+            className,
+          )}
+          {...props}
+        />
+      </Motion>
+    </AlertDialogPortal>
   );
 });
 AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;

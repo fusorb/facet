@@ -5,8 +5,10 @@
  *  1. Acyclic: the @fusorb/* dependency graph has no cycles.
  *  2. Native-isolated: @fusorb/facet-native is its OWN package
  *     (packages/native with its own package.json, NOT nested under
- *     packages/motion) and depends only on @fusorb/facet-tokens. It stays a
- *     SovGrant/SovPort leaf that consumers bind via `bindAnimated` — never
+ *     packages/motion) and depends only on @fusorb/facet-tokens and
+ *     @fusorb/facet-motion (the host runtime it auto-registers its driver
+ *     into; the Animated API itself is consumer-provided via 'bindAnimated').
+ *     It stays a SovGrant/SovPort leaf — never
  *     merged into motion's src or bundled into the web build.
  *
  * Zero runtime deps; exits non-zero on drift so CI (check:boundaries) catches
@@ -54,11 +56,12 @@ if (!fs.existsSync(path.join(nativeDir, "package.json"))) {
   violations.push("@fusorb/facet-native is nested under motion (packages/motion/native). It must be its own package so SovGrant/SovPort consumers can bind it.");
 } else {
   const npj = JSON.parse(fs.readFileSync(path.join(nativeDir, "package.json"), "utf8"));
+  const ALLOWED_NATIVE_DEPS = new Set(["@fusorb/facet-tokens", "@fusorb/facet-motion"]);
   const illegal = [];
   for (const field of ["dependencies", "peerDependencies"]) {
-    if (npj[field]) for (const k of Object.keys(npj[field]).filter((x) => x.startsWith("@fusorb/"))) if (k !== "@fusorb/facet-tokens") illegal.push(k);
+    if (npj[field]) for (const k of Object.keys(npj[field]).filter((x) => x.startsWith("@fusorb/"))) if (!ALLOWED_NATIVE_DEPS.has(k)) illegal.push(k);
   }
-  if (illegal.length) violations.push(`${NATIVE_NAME} depends on ${illegal.join(", ")} — allowed: @fusorb/facet-tokens only.`);
+  if (illegal.length) violations.push(`${NATIVE_NAME} depends on ${illegal.join(", ")} — allowed: @fusorb/facet-tokens + @fusorb/facet-motion (driver registry + core engine types; the Animated API itself is consumer-provided via 'bindAnimated').`);
 }
 
 if (cyclic || violations.length) {
@@ -69,4 +72,4 @@ if (cyclic || violations.length) {
   }
   process.exit(1);
 }
-console.log(`Boundaries OK (§21): ${scopes.size} packages; acyclic graph; ${NATIVE_NAME} is a separate package (packages/native) depending only on @fusorb/facet-tokens.`);
+console.log(`Boundaries OK (§21): ${scopes.size} packages; acyclic graph; ${NATIVE_NAME} is a separate package (packages/native) depending on @fusorb/facet-tokens (+ @fusorb/facet-motion for driver registration).`);

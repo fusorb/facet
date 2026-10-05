@@ -1,4 +1,13 @@
 import "@testing-library/jest-dom";
+import { afterEach } from "vitest";
+import { cleanup } from "@testing-library/react";
+
+// Reset the DOM + mocks between every test. Without this, rendered markup
+// (e.g. Radix portals from Drawer/Dialog/Select) leaks across tests and
+// produces "Found multiple elements" + stale-spy false failures.
+afterEach(() => {
+  cleanup();
+});
 
 // jsdom doesn't implement ResizeObserver / scrollIntoView / matchMedia: // Radix primitives (ScrollArea, Dialog, DropdownMenu) rely on them.
 class ResizeObserverMock {

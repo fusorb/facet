@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as MenubarPrimitive from "@radix-ui/react-menubar";
-import { Motion, Presence } from "@fusorb/facet-motion";
-import { OverlayContext, useOverlayOpen } from "./motion-usage.js";
+import { Motion } from "@fusorb/facet-motion";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 
@@ -13,39 +12,19 @@ const MenubarPortal = MenubarPrimitive.Portal;
 const MenubarSub = MenubarPrimitive.Sub;
 const MenubarRadioGroup = MenubarPrimitive.RadioGroup;
 
-interface MenubarRootProps
-  extends React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Root> {
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-}
-
-function Menubar({
-  open: openProp,
-  onOpenChange,
-  className,
-  ...props
-}: MenubarRootProps) {
-  const [open, setOpen] = React.useState(false);
-  const resolvedOpen = openProp ?? open;
-  return (
-    <OverlayContext.Provider value={{ open: resolvedOpen }}>
-      <MenubarPrimitive.Root
-        className={cn(
-          "flex h-9 items-center gap-1 rounded-md border bg-background p-1 shadow-sm",
-          className,
-        )}
-        {...props}
-        {...({
-          open: resolvedOpen,
-          onOpenChange: (next: boolean) => {
-            if (openProp === undefined) setOpen(next);
-            onOpenChange?.(next);
-          },
-        } as Record<string, unknown>)}
-      />
-    </OverlayContext.Provider>
-  );
-}
+const Menubar = React.forwardRef<
+  React.ComponentRef<typeof MenubarPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <MenubarPrimitive.Root
+    ref={ref}
+    className={cn(
+      "flex h-9 items-center gap-1 rounded-md border bg-background p-1 shadow-sm",
+      className,
+    )}
+    {...props}
+  />
+));
 Menubar.displayName = MenubarPrimitive.Root.displayName;
 
 const MenubarTrigger = React.forwardRef<
@@ -87,23 +66,18 @@ MenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName;
 const MenubarSubContent = React.forwardRef<
   React.ComponentRef<typeof MenubarPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubContent>
->(({ className, ...props }, ref) => {
-  const open = useOverlayOpen();
-  return (
-    <Presence present={open}>
-      <Motion asChild effect="zoom" direction="up" exit>
-        <MenubarPrimitive.SubContent
-          ref={ref}
-          className={cn(
-            "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg",
-            className,
-          )}
-          {...props}
-        />
-      </Motion>
-    </Presence>
-  );
-});
+>(({ className, ...props }, ref) => (
+  <Motion asChild effect="zoom" direction="up">
+    <MenubarPrimitive.SubContent
+      ref={ref}
+      className={cn(
+        "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=closed]:animate-facet-zoom-out",
+        className,
+      )}
+      {...props}
+    />
+  </Motion>
+));
 MenubarSubContent.displayName = MenubarPrimitive.SubContent.displayName;
 
 const MenubarContent = React.forwardRef<
@@ -113,28 +87,23 @@ const MenubarContent = React.forwardRef<
   (
     { className, align = "start", alignOffset = -4, sideOffset = 8, ...props },
     ref,
-  ) => {
-    const open = useOverlayOpen();
-    return (
-      <MenubarPrimitive.Portal forceMount>
-        <Presence present={open}>
-          <Motion asChild effect="zoom" direction="up" exit>
-            <MenubarPrimitive.Content
-              ref={ref}
-              align={align}
-              alignOffset={alignOffset}
-              sideOffset={sideOffset}
-              className={cn(
-                "z-50 min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
-                className,
-              )}
-              {...props}
-            />
-          </Motion>
-        </Presence>
-      </MenubarPrimitive.Portal>
-    );
-  },
+  ) => (
+    <MenubarPrimitive.Portal>
+      <Motion asChild effect="zoom" direction="up">
+        <MenubarPrimitive.Content
+          ref={ref}
+          align={align}
+          alignOffset={alignOffset}
+          sideOffset={sideOffset}
+          className={cn(
+            "z-[70] min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=closed]:animate-facet-zoom-out",
+            className,
+          )}
+          {...props}
+        />
+      </Motion>
+    </MenubarPrimitive.Portal>
+  ),
 );
 MenubarContent.displayName = MenubarPrimitive.Content.displayName;
 

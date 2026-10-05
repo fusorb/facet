@@ -28,6 +28,25 @@ It overrides/supplements CLAUDE.md for AI agents.
 - Every package exports from `src/index.ts` as barrel
 - Re-export types alongside implementations
 
+## Styling
+
+- Focus rings are keyboard-only: Button / Input / Select / Dialog / Tabs carry
+  `focus-visible:ring-2 focus-visible:ring-[var(--ring)]` so the cyan focus
+  indicator (`#38bdf8`, the `--ring` token) appears only on Tab/programmatic
+  focus and never on mouse click. (Navbar has no `outline-none`; it delegates to
+  Button + DropdownMenu items which already expose `focus:bg-accent`.)
+- Overlay exit lifecycle is CSS-driven: overlays exit via
+  `data-[state=closed]:animate-facet-*` (keyframes live in `tokens.css`),
+  not via Motion `Presence` / `forceMount`. `motion-usage.tsx`
+  (`OverlayContext` + `useOverlayOpen`) is deleted.
+- Z-index scale (valid Tailwind v4 values only — plain `z-60`/`z-70` are
+  no-ops since the default v4 scale tops out at `z-50`, so bracketed values are
+  required):
+  - `z-50` — persistent page chrome (navbar container, cookie banner).
+  - `z-[60]` — modal backdrops (Dialog / Sheet / Drawer / AlertDialog).
+  - `z-[70]` — floating content (modal content; Popover / Select / Tooltip /
+    HoverCard / Menubar / ContextMenu portals; navbar mobile menu, NavLinkItem).
+
 ## Current Build Status
 
 See `CLAUDE.md` and the README for the verified build/test/typecheck state.
