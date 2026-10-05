@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
-import { Motion } from "@fusorb/facet-motion";
 import { Icon } from "../icon/index.js";
 import { cva } from "class-variance-authority";
 import { cn } from "../utils.js";
@@ -67,17 +66,15 @@ const NavigationMenuContent = React.forwardRef<
   React.ComponentRef<typeof NavigationMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Content>
 >(({ className, ...props }, ref) => (
-  <Motion asChild effect="zoom" direction="up">
-    <NavigationMenuPrimitive.Content
-      ref={ref}
-      className={cn(
-        "left-0 top-0 w-full md:absolute md:w-auto",
-        "data-[state=closed]:animate-facet-zoom-out",
-        className,
-      )}
-      {...props}
-    />
-  </Motion>
+  <NavigationMenuPrimitive.Content
+    ref={ref}
+    className={cn(
+      "left-0 top-0 w-full md:absolute md:w-auto",
+      "data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
+      className,
+    )}
+    {...props}
+  />
 ));
 NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 
@@ -115,16 +112,15 @@ const NavigationMenuViewport = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport>
 >(({ className, ...props }, ref) => (
   <div className={cn("absolute left-0 top-full flex justify-center")}>
-    <Motion asChild effect="zoom" direction="up">
-      <NavigationMenuPrimitive.Viewport
-        className={cn(
-          "origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border bg-popover text-popover-foreground shadow md:w-[var(--radix-navigation-menu-viewport-width)]",
-          className,
-        )}
-        ref={ref}
-        {...props}
-      />
-    </Motion>
+    <NavigationMenuPrimitive.Viewport
+      className={cn(
+        "origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border bg-popover text-popover-foreground shadow md:w-[var(--radix-navigation-menu-viewport-width)]",
+        "data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
+        className,
+      )}
+      ref={ref}
+      {...props}
+    />
   </div>
 ));
 NavigationMenuViewport.displayName =

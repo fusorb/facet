@@ -2,7 +2,6 @@ import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
-import { Motion } from "@fusorb/facet-motion";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
@@ -37,16 +36,14 @@ const DropdownMenuSubContent = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
 >(({ className, ...props }, ref) => (
-  <Motion asChild effect="zoom" direction="up">
-    <DropdownMenuPrimitive.SubContent
-      ref={ref}
-      className={cn(
-        "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=closed]:animate-facet-zoom-out",
-        className,
-      )}
-      {...props}
-    />
-  </Motion>
+  <DropdownMenuPrimitive.SubContent
+    ref={ref}
+    className={cn(
+      "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
+      className,
+    )}
+    {...props}
+  />
 ));
 DropdownMenuSubContent.displayName =
   DropdownMenuPrimitive.SubContent.displayName;
@@ -56,17 +53,15 @@ const DropdownMenuContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
 >(({ className, sideOffset = 4, ...props }, ref) => (
   <DropdownMenuPrimitive.Portal>
-    <Motion asChild effect="zoom" direction="up">
-      <DropdownMenuPrimitive.Content
-        ref={ref}
-        sideOffset={sideOffset}
-        className={cn(
-          "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=closed]:animate-facet-zoom-out",
-          className,
-        )}
-        {...props}
-      />
-    </Motion>
+    <DropdownMenuPrimitive.Content
+      ref={ref}
+      sideOffset={sideOffset}
+      className={cn(
+        "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
+        className,
+      )}
+      {...props}
+    />
   </DropdownMenuPrimitive.Portal>
 ));
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;

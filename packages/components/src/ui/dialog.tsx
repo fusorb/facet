@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { Motion } from "@fusorb/facet-motion";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
@@ -70,23 +69,21 @@ const DialogContent = React.forwardRef<
 >(({ className, variant, children, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
-    <Motion asChild effect="zoom" direction="up">
-      <DialogPrimitive.Content
-        ref={ref}
-        className={cn(
-          dialogContentVariants({ variant }),
-          "data-[state=closed]:animate-facet-zoom-out",
-          className,
-        )}
-        {...props}
-      >
-        {children}
-        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-          <Icon name="close" className="h-4 w-4" />
-          <span className="sr-only">Close</span>
-        </DialogPrimitive.Close>
-      </DialogPrimitive.Content>
-    </Motion>
+    <DialogPrimitive.Content
+      ref={ref}
+      className={cn(
+        dialogContentVariants({ variant }),
+        "data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+      <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+        <Icon name="close" className="h-4 w-4" />
+        <span className="sr-only">Close</span>
+      </DialogPrimitive.Close>
+    </DialogPrimitive.Content>
   </DialogPortal>
 ));
 DialogContent.displayName = DialogPrimitive.Content.displayName;
