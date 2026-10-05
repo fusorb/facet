@@ -12,7 +12,13 @@
 
 import * as React from "react";
 import { cn } from "../utils.js";
-import { stagger, motionValue, animate } from "@fusorb/facet-motion";
+import {
+  stagger,
+  motionValue,
+  animate,
+  resolveDuration,
+  type Duration,
+} from "@fusorb/facet-motion";
 
 /* ── Shared helpers ────────────────────────────────────────── */
 
@@ -22,7 +28,7 @@ function splitChars(
   baseDelay: number,
   step: number,
   className: string,
-  duration?: number,
+  duration?: Duration,
 ): React.ReactNode[] {
   const delays = stagger(step, { count: text.length });
   return text.split("").map((ch, i) => (
@@ -32,7 +38,7 @@ function splitChars(
       className={cn("inline-block will-change-transform", className)}
       style={{
         animationDelay: `${baseDelay + (delays[i] ?? 0)}ms`,
-        ...(duration != null ? { animationDuration: `${duration}ms` } : {}),
+        ...(duration != null ? { animationDuration: `${resolveDuration(duration)}ms` } : {}),
       }}
     >
       {ch === " " ? "\u00A0" : ch}
@@ -46,7 +52,7 @@ function splitWords(
   baseDelay: number,
   step: number,
   className: string,
-  duration?: number,
+  duration?: Duration,
 ): React.ReactNode[] {
   const words = text.split(" ");
   const delays = stagger(step, { count: words.length });
@@ -56,7 +62,7 @@ function splitWords(
       className={cn("inline-block will-change-transform", className)}
       style={{
         animationDelay: `${baseDelay + (delays[i] ?? 0)}ms`,
-        ...(duration != null ? { animationDuration: `${duration}ms` } : {}),
+        ...(duration != null ? { animationDuration: `${resolveDuration(duration)}ms` } : {}),
       }}
     >
       {word}
@@ -83,7 +89,7 @@ export interface BlurTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** Stagger between chars, in ms. Default: 40. */
   stagger?: number;
   /** Animation duration, in ms. Default: 500. */
-  duration?: number;
+  duration?: Duration;
 }
 
 /** Each character fades in from a blur to sharp, staggered. */
@@ -116,7 +122,7 @@ export function BlurText({
 export interface WaveTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   text?: string;
   /** Loop duration, in ms. Default: 1200. */
-  duration?: number;
+  duration?: Duration;
   /** Stagger between chars, in ms. Default: 60. */
   stagger?: number;
   /** Pause between loops, in ms. Default: 600. */
@@ -157,7 +163,7 @@ export interface FlipTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   text?: string;
   delay?: number;
   stagger?: number;
-  duration?: number;
+  duration?: Duration;
 }
 
 /** Characters flip in sequentially (rotateX). */
@@ -197,7 +203,7 @@ export interface SplitTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   by?: "words" | "chars";
   delay?: number;
   stagger?: number;
-  duration?: number;
+  duration?: Duration;
 }
 
 /** Words (or chars) rise into place from below. */
@@ -228,7 +234,7 @@ export function SplitText({
 export interface FadeUpTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   text?: string;
   delay?: number;
-  duration?: number;
+  duration?: Duration;
 }
 
 /** The whole block fades and slides up on mount. */
@@ -246,7 +252,7 @@ export function FadeUpText({
       className={cn("inline-block animate-facet-fade-up", className)}
       style={{
         animationDelay: `${delay}ms`,
-        animationDuration: `${duration}ms`,
+        animationDuration: `${resolveDuration(duration)}ms`,
       }}
       {...props}
     >
@@ -262,7 +268,7 @@ export interface ShimmerTextProps extends React.HTMLAttributes<HTMLSpanElement> 
   /** Shimmer color overlay. Default: white at 60%. */
   shimmerColor?: string;
   /** Animation duration, in ms. Default: 2200. */
-  duration?: number;
+  duration?: Duration;
 }
 
 /** A light sheen sweeps across the text. Best on bold/heading text. */
@@ -294,7 +300,7 @@ export function ShimmerText({
           ...style,
           backgroundImage: `linear-gradient(110deg, var(--tw-shimmer-base) 0%, var(--tw-shimmer-base) 35%, ${shimmerColor ?? "var(--tw-shimmer-hl)"} 50%, var(--tw-shimmer-base) 65%, var(--tw-shimmer-base) 100%)`,
           backgroundSize: "200% 100%",
-          animationDuration: `${duration}ms`,
+          animationDuration: `${resolveDuration(duration)}ms`,
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
         } as React.CSSProperties
@@ -313,7 +319,7 @@ export interface GradientTextProps extends React.HTMLAttributes<HTMLSpanElement>
   /** Gradient stops. Default: primary -> fuchsia -> cyan. */
   colors?: string[];
   /** Animation duration, in ms. Default: 4000. */
-  duration?: number;
+  duration?: Duration;
 }
 
 /** An animated gradient fills the text. */
@@ -321,7 +327,7 @@ export function GradientText({
   text,
   colors = [
     "var(--primary)",
-    "#d946ef",
+    "var(--accent-fuchsia)",
     "var(--alpha-electric-cyan)",
     "var(--primary)",
   ],
@@ -344,7 +350,7 @@ export function GradientText({
           ...style,
           backgroundImage: `linear-gradient(90deg, ${colors.join(", ")})`,
           backgroundSize: "300% 100%",
-          animationDuration: `${duration}ms`,
+          animationDuration: `${resolveDuration(duration)}ms`,
           WebkitBackgroundClip: "text",
         } as React.CSSProperties
       }
@@ -364,7 +370,7 @@ export interface LetterSpacingTextProps extends React.HTMLAttributes<HTMLSpanEle
   /** Track at rest. Default: -0.02em. */
   closed?: string;
   /** Transition duration, in ms. Default: 400. */
-  duration?: number;
+  duration?: Duration;
   /** Loop instead of on-hover. */
   loop?: boolean;
 }
@@ -393,7 +399,7 @@ export function LetterSpacingText({
       style={{
         ...style,
         letterSpacing: track,
-        transitionDuration: `${duration}ms`,
+        transitionDuration: `${resolveDuration(duration)}ms`,
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -415,7 +421,7 @@ export interface CountUpTextProps extends Omit<
   /** Start value. Default: 0. */
   from?: number;
   /** Duration, in ms. Default: 1200. */
-  duration?: number;
+  duration?: Duration;
   /** Decimals to show. Default: 0. */
   decimals?: number;
   /** Thousands separator. Default: false. */
@@ -446,7 +452,7 @@ export function CountUpText({
     const unsubscribe = mv.subscribe(setValue);
     const controller = animate(mv, to, {
       type: "tween",
-      duration: duration / 1000,
+      duration: resolveDuration(duration) / 1000,
       ease: (t: number) => 1 - Math.pow(1 - t, ease),
     });
     return () => {
@@ -478,7 +484,7 @@ export interface DissolveTextProps extends React.HTMLAttributes<HTMLSpanElement>
   /** Stagger between chars, in ms. Default: 40. */
   stagger?: number;
   /** Animation duration, in ms. Default: 500. */
-  duration?: number;
+  duration?: Duration;
 }
 
 /** Each character fades in with a subtle dissolve effect, staggered.

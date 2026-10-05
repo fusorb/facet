@@ -91,6 +91,11 @@
   --red: #f87171;
   --purple: #a78bfa;
 
+  /* Fuchsia accent: third stop in the brand gradient used by the animation
+   * components (Aurora, GradientText, GradientBorderCard). Centralised here
+   * so no animation component hardcodes a hex literal. */
+  --accent-fuchsia: #d946ef;
+
   /* Charts */
   --chart-1: #38bdf8;
   --chart-2: #2dd36f;
@@ -150,6 +155,13 @@
   --motion-duration-500: 500ms;
   --motion-duration-700: 700ms;
   --motion-duration-1000: 1000ms;
+
+  /* Ambient loop durations (long-running decorative loops - aurora, beams,
+   * marquee). Separate from the interaction ladder above so the slow
+   * marketing motion is themeable without distorting UI timings. */
+  --motion-duration-beam: 7s;
+  --motion-duration-aurora: 18s;
+  --motion-duration-marquee: 20s;
 
   /* Easings */
   --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
@@ -272,6 +284,7 @@
   --amber: #d97706;
   --red: #dc2626;
   --purple: #7c3aed;
+  --accent-fuchsia: #d946ef;
 
   /* Charts */
   --chart-1: #0284c7;
