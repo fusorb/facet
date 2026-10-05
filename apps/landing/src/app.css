@@ -9,16 +9,10 @@
 /* Tailwind v4 theme extension (maps CSS vars to utilities) */
 @import "../../../packages/tokens/src/tailwind.css";
 
-/* Brand palette — Alpha Palette (deep-space + electric-cyan). Imported after
-   tokens.css so it wins the cascade; components read semantic tokens only, so
-   this one line retints the whole app. */
-@import "../../../packages/tokens/src/palettes/alpha.css";
-
 /* Scanner hints: tell Tailwind to crawl workspace packages */
 @source "../../../packages/components/src";
 @source "../../../packages/layout/src";
 
 :root {
-  /* Follows the active palette (Alpha → electric-cyan). */
-  --domain-accent: var(--primary);
+  --domain-accent: #38bdf8;
 }
