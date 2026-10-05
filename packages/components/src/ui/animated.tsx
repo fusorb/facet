@@ -49,8 +49,9 @@ export const Spotlight = React.forwardRef<HTMLDivElement, SpotlightProps>(
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 transition-opacity duration-500"
+          className="pointer-events-none absolute inset-0 transition-opacity"
           style={{
+            transitionDuration: "var(--motion-duration-500)",
             opacity: visible ? 1 : 0,
             background: `radial-gradient(${blur}px circle at ${pos.x}px ${pos.y}px, ${color}, transparent 70%)`,
           }}
@@ -76,7 +77,11 @@ export const Aurora = React.forwardRef<HTMLDivElement, AuroraProps>(
   (
     {
       className,
-      colors = ["var(--primary)", "#d946ef", "var(--alpha-electric-cyan)"],
+      colors = [
+        "var(--primary)",
+        "var(--accent-fuchsia)",
+        "var(--alpha-electric-cyan)",
+      ],
       opacity = 0.5,
       ...props
     },

@@ -122,6 +122,7 @@
   --color-amber: var(--amber);
   --color-red: var(--red);
   --color-purple: var(--purple);
+  --color-accent-fuchsia: var(--accent-fuchsia);
 
   /* ── Extra brand palette (SovGrant compatibility) ──────────── */
   --color-navy-900: oklch(0.18 0.03 234);
@@ -135,15 +136,18 @@
     var(--facet-motion-ease-spring) both;
   --animate-pulse-ring: pulse-ring var(--facet-motion-duration-cinematic)
     cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-facet-marquee: facet-marquee 20s linear infinite;
+  --animate-facet-marquee: facet-marquee var(--motion-duration-marquee)
+    var(--facet-motion-ease-linear) infinite;
   --animate-caret-blink: caret-blink var(--motion-duration-1000) step-end
     infinite;
   --animate-facet-ripple: facet-ripple var(--motion-duration-500)
     var(--motion-ease-standard-decelerate);
   --animate-facet-ripple-forwards: facet-ripple var(--motion-duration-500)
     var(--motion-ease-standard-decelerate) forwards;
-  --animate-facet-aurora: facet-aurora 18s ease-in-out infinite alternate;
-  --animate-facet-beam: facet-beam 7s ease-in-out infinite;
+  --animate-facet-aurora: facet-aurora var(--motion-duration-aurora)
+    var(--facet-motion-ease-smooth) infinite alternate;
+  --animate-facet-beam: facet-beam var(--motion-duration-beam)
+    var(--facet-motion-ease-smooth) infinite;
   --animate-facet-sparkle: facet-sparkle var(--motion-duration-700)
     var(--motion-ease-standard-decelerate);
   --animate-facet-dissolve: facet-dissolve var(--motion-duration-500)

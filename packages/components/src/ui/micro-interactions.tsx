@@ -12,7 +12,8 @@ import { cn } from "../utils.js";
 import {
   resolveMotion,
   preferReducedMotion,
-  resolveEasing,
+  resolveDuration,
+  type Duration,
 } from "@fusorb/facet-motion";
 
 /* ── TiltCard ──────────────────────────────────────────────── */
@@ -57,12 +58,13 @@ export function TiltCard({
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       className={cn(
-        "relative transition-transform duration-200 will-change-transform",
+        "relative transition-transform will-change-transform",
         className,
       )}
       style={
         {
           ...style,
+          transitionDuration: "var(--motion-duration-200)",
           transform,
           transformStyle: "preserve-3d",
         } as React.CSSProperties
@@ -73,7 +75,8 @@ export function TiltCard({
       {glare && (
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-200 [background:radial-gradient(600px_circle_at_var(--gx,50%)_var(--gy,50%),rgba(255,255,255,0.12),transparent_45%)]"
+          className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity [background:radial-gradient(600px_circle_at_var(--gx,50%)_var(--gy,50%),rgba(255,255,255,0.12),transparent_45%)]"
+          style={{ transitionDuration: "var(--motion-duration-200)" }}
           onMouseMove={(e) => {
             const el = ref.current;
             if (!el) return;
@@ -138,8 +141,9 @@ export function GlowCard({
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 transition-opacity duration-300"
+        className="pointer-events-none absolute inset-0 transition-opacity"
         style={{
+          transitionDuration: "var(--motion-duration-300)",
           opacity: glow.o,
           background: `radial-gradient(circle ${blur}px at ${glow.x}px ${glow.y}px, ${color}, transparent 70%)`,
         }}
@@ -232,10 +236,10 @@ export function MagneticButton({
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       className={cn(
-        "transition-transform duration-200 will-change-transform",
+        "transition-transform will-change-transform",
         className,
       )}
-      style={style}
+      style={{ ...style, transitionDuration: "var(--motion-duration-200)" }}
       {...props}
     >
       {children}
@@ -264,7 +268,10 @@ export function ShineButton({
       style={style}
       {...props}
     >
-      <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+      <span
+        className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform group-hover:translate-x-full"
+        style={{ transitionDuration: "var(--motion-duration-700)" }}
+      />
       <span className="relative inline-flex items-center gap-2">
         {children}
       </span>
@@ -277,8 +284,8 @@ export function ShineButton({
 export interface ScrollRevealProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Delay before revealing, in ms. Default: 0. */
   delay?: number;
-  /** Animation duration, in ms. Default: 600. */
-  duration?: number;
+  /** Animation duration: ms or a motion duration token. Default: 600. */
+  duration?: Duration;
   /** Trigger once and stay revealed. Default: true. */
   once?: boolean;
 }
@@ -340,7 +347,7 @@ export function ScrollReveal({
         ...(visible ? resolved?.to : resolved?.from),
         transition: reduce
           ? "none"
-          : `opacity, transform ${duration}ms ${resolveEasing("standard")}`,
+          : `opacity, transform ${resolveDuration(duration)}ms var(--motion-ease-standard)`,
         transitionDelay: `${delay}ms`,
       }}
       {...props}

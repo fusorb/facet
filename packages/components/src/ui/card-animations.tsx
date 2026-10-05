@@ -18,7 +18,8 @@ import { Icon, type IconName } from "../icon/index.js";
 import {
   resolveMotion,
   preferReducedMotion,
-  resolveEasing,
+  resolveDuration,
+  type Duration,
 } from "@fusorb/facet-motion";
 
 /* ── FlipCard ─────────────────────────────────────────────── */
@@ -31,7 +32,7 @@ export interface FlipCardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Flip direction. Default: "horizontal". */
   direction?: "horizontal" | "vertical";
   /** Flip duration, in ms. Default: 600. */
-  duration?: number;
+  duration?: Duration;
   /** Flip on hover instead of click. Default: false. */
   hover?: boolean;
   /** Aspect ratio of the card. Default: "aspect-[4/3]". */
@@ -98,7 +99,7 @@ export function FlipCard({
           style={{
             transformStyle: "preserve-3d",
             transform: flipped ? rotate : "none",
-            transitionDuration: `${duration}ms`,
+            transitionDuration: `${resolveDuration(duration)}ms`,
           }}
         >
           {/* Front face: renders the `front` content prop (or fallback label). */}
@@ -150,7 +151,7 @@ export interface ShineCardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Highlight color. Default: white at 60% (visible on both light and dark surfaces). */
   shineColor?: string;
   /** Sweep duration, in ms. Default: 700. */
-  duration?: number;
+  duration?: Duration;
   /** Trigger on hover only (default) or loop continuously. */
   loop?: boolean;
 }
@@ -188,7 +189,7 @@ export function ShineCard({
           style={{
             backgroundImage: gradient,
             backgroundSize: "200% 100%",
-            animation: `facet-shimmer ${duration}ms linear infinite`,
+            animation: `facet-shimmer ${resolveDuration(duration)}ms linear infinite`,
           }}
         />
       ) : (
@@ -197,7 +198,7 @@ export function ShineCard({
           className="pointer-events-none absolute inset-0 -translate-x-full transition-transform group-hover:translate-x-full"
           style={{
             backgroundImage: gradient,
-            transitionDuration: `${duration}ms`,
+            transitionDuration: `${resolveDuration(duration)}ms`,
           }}
         />
       )}
@@ -219,7 +220,11 @@ export interface GradientBorderCardProps extends React.HTMLAttributes<HTMLDivEle
 
 /** A card with a static gradient border and a solid content surface. */
 export function GradientBorderCard({
-  colors = ["var(--primary)", "#d946ef", "var(--alpha-electric-cyan)"],
+  colors = [
+    "var(--primary)",
+    "var(--accent-fuchsia)",
+    "var(--alpha-electric-cyan)",
+  ],
   thickness = 1.5,
   className,
   children,
@@ -253,7 +258,7 @@ export interface RevealCardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Delay before reveal, in ms. Default: 0. */
   delay?: number;
   /** Reveal duration, in ms. Default: 600. */
-  duration?: number;
+  duration?: Duration;
   /** Y offset before reveal, in px. Default: 24. */
   y?: number;
 }
@@ -309,7 +314,7 @@ export function RevealCard({
           ...(visible ? resolved?.to : resolved?.from),
           transition: reduce
             ? "none"
-            : `opacity, transform ${duration}ms ${resolveEasing("standard")}`,
+            : `opacity, transform ${resolveDuration(duration)}ms var(--motion-ease-standard)`,
           transitionDelay: `${delay}ms`,
         } as React.CSSProperties
       }
@@ -328,7 +333,7 @@ export interface HoverScaleCardProps extends React.HTMLAttributes<HTMLDivElement
   /** Hover scale. Default: 1.03. */
   scale?: number;
   /** Transition duration, in ms. Default: 200. */
-  duration?: number;
+  duration?: Duration;
   /** Shadow lift on hover. Default: true. */
   lift?: boolean;
 }
@@ -352,7 +357,7 @@ export function HoverScaleCard({
         transform: hovered ? `scale(${scale})` : "none",
         boxShadow:
           hovered && lift ? "0 12px 32px -12px rgb(0 0 0 / 0.25)" : undefined,
-        transitionDuration: `${duration}ms`,
+        transitionDuration: `${resolveDuration(duration)}ms`,
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -405,10 +410,14 @@ export function MagneticCard({
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       className={cn(
-        "w-full transition-transform duration-200 will-change-transform",
+        "w-full transition-transform will-change-transform",
         className,
       )}
-      style={{ ...style, transform: `translate(${offset.x}px, ${offset.y}px)` }}
+      style={{
+        ...style,
+        transitionDuration: "var(--motion-duration-200)",
+        transform: `translate(${offset.x}px, ${offset.y}px)`,
+      }}
       {...props}
     >
       {children}
