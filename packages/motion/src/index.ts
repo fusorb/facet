@@ -46,6 +46,10 @@ export type { MotionValue, MotionValueSubscriber } from "./values/index.js";
 export {
   cssDriver,
   preferReducedMotion,
+  resolveDriver,
+  registerDriver,
+  unregisterDriver,
+  clearDriverRegistry,
   resolveDuration,
   resolveEasing,
 } from "./drivers/index.js";

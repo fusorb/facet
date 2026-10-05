@@ -3,7 +3,13 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "declarationDir": "dist"
+    "declarationDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@fusorb/facet-motion": ["../../packages/motion/dist"],
+      "@fusorb/facet-tokens": ["../../packages/tokens/dist"],
+      "@fusorb/facet-utils": ["../../packages/utils/dist"]
+    }
   },
   "include": ["src"]
 }

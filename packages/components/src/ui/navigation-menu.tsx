@@ -67,11 +67,17 @@ const NavigationMenuContent = React.forwardRef<
   React.ComponentRef<typeof NavigationMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Content>
 >(({ className, ...props }, ref) => (
-  <NavigationMenuPrimitive.Content
-    ref={ref}
-    className={cn("left-0 top-0 w-full md:absolute md:w-auto", className)}
-    {...props}
-  />
+  <Motion asChild effect="zoom" direction="up">
+    <NavigationMenuPrimitive.Content
+      ref={ref}
+      className={cn(
+        "left-0 top-0 w-full md:absolute md:w-auto",
+        "data-[state=closed]:animate-facet-zoom-out",
+        className,
+      )}
+      {...props}
+    />
+  </Motion>
 ));
 NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 
@@ -130,8 +136,8 @@ const NavigationMenuIndicator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <NavigationMenuPrimitive.Indicator
     ref={ref}
-      className={cn(
-      "top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden data-[state=visible]:animate-facet-fade-in data-[state=hidden]:animate-facet-fade-out",
+    className={cn(
+      "top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden transition-opacity duration-150 data-[state=hidden]:opacity-0",
       className,
     )}
     {...props}
@@ -153,3 +159,4 @@ export {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 };
+

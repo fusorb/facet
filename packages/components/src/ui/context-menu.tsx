@@ -1,31 +1,10 @@
 import * as React from "react";
 import * as ContextMenuPrimitive from "@radix-ui/react-context-menu";
-import { Motion, Presence } from "@fusorb/facet-motion";
-import { OverlayContext, useOverlayOpen } from "./motion-usage.js";
+import { Motion } from "@fusorb/facet-motion";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
 
-function ContextMenu({
-  open: openProp,
-  onOpenChange,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Root>) {
-  const [open, setOpen] = React.useState(false);
-  const resolvedOpen = openProp ?? open;
-  return (
-    <OverlayContext.Provider value={{ open: resolvedOpen }}>
-      <ContextMenuPrimitive.Root
-        open={resolvedOpen}
-        onOpenChange={(next: boolean) => {
-          if (openProp === undefined) setOpen(next);
-          onOpenChange?.(next);
-        }}
-        {...props}
-      />
-    </OverlayContext.Provider>
-  );
-}
-ContextMenu.displayName = ContextMenuPrimitive.Root.displayName;
+const ContextMenu = ContextMenuPrimitive.Root;
 const ContextMenuTrigger = ContextMenuPrimitive.Trigger;
 const ContextMenuGroup = ContextMenuPrimitive.Group;
 const ContextMenuPortal = ContextMenuPrimitive.Portal;
@@ -57,13 +36,13 @@ const ContextMenuSubContent = React.forwardRef<
   React.ComponentRef<typeof ContextMenuPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent>
 >(({ className, ...props }, ref) => (
-    <Motion asChild effect="zoom" direction="up">
-      <ContextMenuPrimitive.SubContent
-        ref={ref}
-        className={cn(
-          "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
-          className,
-        )}
+  <Motion asChild effect="zoom" direction="up">
+    <ContextMenuPrimitive.SubContent
+      ref={ref}
+      className={cn(
+        "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=closed]:animate-facet-zoom-out",
+        className,
+      )}
       {...props}
     />
   </Motion>
@@ -73,27 +52,20 @@ ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName;
 const ContextMenuContent = React.forwardRef<
   React.ComponentRef<typeof ContextMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Content>
->(({ className, children, ...props }, ref) => {
-  const open = useOverlayOpen();
-  return (
-    <ContextMenuPrimitive.Portal forceMount>
-      <Presence present={open}>
-        <Motion asChild effect="zoom" direction="up" exit>
-          <ContextMenuPrimitive.Content
-            ref={ref}
-            className={cn(
-              "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
-              className,
-            )}
-            {...props}
-          >
-            {children}
-          </ContextMenuPrimitive.Content>
-        </Motion>
-      </Presence>
-    </ContextMenuPrimitive.Portal>
-  );
-});
+>(({ className, ...props }, ref) => (
+  <ContextMenuPrimitive.Portal>
+    <Motion asChild effect="zoom" direction="up">
+      <ContextMenuPrimitive.Content
+        ref={ref}
+        className={cn(
+          "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=closed]:animate-facet-zoom-out",
+          className,
+        )}
+        {...props}
+      />
+    </Motion>
+  </ContextMenuPrimitive.Portal>
+));
 ContextMenuContent.displayName = ContextMenuPrimitive.Content.displayName;
 
 const ContextMenuItem = React.forwardRef<

@@ -130,9 +130,9 @@
 
   /* ── Animations (for Radix accordion etc.) ───────────────── */
   --animate-accordion-down: accordion-down var(--facet-motion-duration-base)
-    var(--facet-motion-ease-emphasized) both;
+    var(--facet-motion-ease-spring) both;
   --animate-accordion-up: accordion-up var(--facet-motion-duration-base)
-    var(--facet-motion-ease-emphasized) both;
+    var(--facet-motion-ease-spring) both;
   --animate-pulse-ring: pulse-ring var(--facet-motion-duration-cinematic)
     cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-facet-marquee: facet-marquee 20s linear infinite;
@@ -186,8 +186,8 @@
     var(--motion-ease-standard) both;
   --animate-facet-zoom-in: facet-zoom-in var(--motion-duration-200)
     var(--motion-ease-spring) both;
-  --animate-facet-zoom-out: facet-zoom-out var(--motion-duration-150)
-    var(--motion-ease-standard-accelerate) both;
+  --animate-facet-zoom-out: facet-zoom-out var(--motion-duration-200)
+    var(--motion-ease-spring) both;
   --animate-facet-flip-x: facet-flip-x var(--motion-duration-400)
     var(--motion-ease-standard) both;
   --animate-facet-bounce: facet-bounce var(--motion-duration-350)

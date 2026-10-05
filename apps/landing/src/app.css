@@ -12,3 +12,7 @@
 /* Scanner hints: tell Tailwind to crawl workspace packages */
 @source "../../../packages/components/src";
 @source "../../../packages/layout/src";
+
+:root {
+  --domain-accent: #38bdf8;
+}

@@ -46,14 +46,5 @@ export const landingSearchConfig: LayoutConfig = {
         },
       ],
     },
-    {
-      title: "Labs",
-      id: "labs",
-      items: [
-        { href: "/auth", label: "Auth Lab" },
-        { href: "/motion", label: "Motion Lab" },
-        { href: "/tokens", label: "Tokens Lab" },
-      ],
-    },
   ],
 };

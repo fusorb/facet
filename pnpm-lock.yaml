@@ -736,10 +736,19 @@ importers:
 
   packages/native:
     dependencies:
+      '@fusorb/facet-motion':
+        specifier: workspace:*
+        version: link:../motion
       '@fusorb/facet-tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:
+      '@types/react':
+        specifier: ^19
+        version: 19.2.17
+      react:
+        specifier: ^19
+        version: 19.2.8
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(jiti@2.7.0)(postcss@8.5.24)(supports-color@7.2.0)(typescript@5.9.3)(yaml@2.9.1)

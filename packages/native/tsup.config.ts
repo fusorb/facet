@@ -9,5 +9,5 @@ export default defineConfig({
   format: "esm",
   dts: true,
   clean: true,
-  external: ["@fusorb/facet-tokens"],
+  external: ["@fusorb/facet-tokens", "@fusorb/facet-motion"],
 });

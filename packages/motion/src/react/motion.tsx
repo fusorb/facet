@@ -19,7 +19,7 @@ import type {
 import { resolveMotion } from "../registry/index.js";
 import { motionValue } from "../values/index.js";
 import { animate } from "../core/index.js";
-import { cssDriver, resolveDuration, resolveEasing } from "../drivers/index.js";
+import { resolveDriver, resolveDuration, resolveEasing } from "../drivers/index.js";
 import { StaggerContext } from "./stagger.js";
 import { usePresence } from "./presence.js";
 import {
@@ -232,9 +232,10 @@ export function Motion({
     const el = ref.current;
     if (!el || !resolved) return;
 
+    const driver = resolveDriver();
     const { from, to, transition: resTrans } = resolved;
     const isReduced =
-      cssDriver.isSupported() && cssDriver.preferReducedMotion();
+      driver.isSupported() && (driver.preferReducedMotion?.() ?? false);
 
     if (isReduced) {
       for (const [prop, value] of Object.entries(to)) {
@@ -371,7 +372,7 @@ export function Motion({
                   ? (to[prop] as number)
                   : fromValue;
               const mv = motionValue(toValue);
-              const handle = cssDriver.apply(target, { [prop]: mv });
+              const handle = driver.apply(target, { [prop]: mv });
               unsubscribers.push(handle.cleanup);
               const controller = animate(mv, fromValue, {
                 type: doSpring ? "spring" : "tween",
@@ -460,7 +461,7 @@ export function Motion({
           const fromValue =
             typeof from[prop] === "number" ? (from[prop] as number) : toValue;
           const mv = motionValue(fromValue);
-          const handle = cssDriver.apply(target, { [prop]: mv });
+          const handle = driver.apply(target, { [prop]: mv });
           unsubscribers.push(handle.cleanup);
           const controller = animate(mv, toValue, {
             type: doSpring ? "spring" : "tween",

@@ -158,6 +158,15 @@ export function resolveNativeTransition(
 export interface NativeValue {
   /** Imperatively write a number to the animated node. */
   setValue(value: number): void;
+  /**
+   * Interpolate this value to a string or number range.
+   * Provided by react-native's `Animated.Value` (and reanimated v2).
+   * Used for rotate/skew transforms that need degree-string output.
+   */
+  interpolate?: (config: {
+    inputRange: number[];
+    outputRange: string[] | number[];
+  }) => unknown;
 }
 
 /** The consumer-provided Animated API. Bound via `bindAnimated()`. */
