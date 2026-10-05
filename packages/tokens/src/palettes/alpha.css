@@ -1,0 +1,131 @@
+/* =================================================================
+ * @fusorb/facet-tokens "Alpha" palette
+ *
+ * Re-brands the semantic token layer with the Alpha Palette
+ * (deep-space / electric-cyan / mist-gray / logic-gold / base-white).
+ *
+ * Import AFTER tokens.css so the override wins the cascade:
+ *
+ *   @import "@fusorb/facet-tokens/tokens.css";
+ *   @import "@fusorb/facet-tokens/palettes/alpha.css";
+ *   @import "@fusorb/facet-tokens/tailwind.css";
+ *
+ * Every facet component reads semantic tokens (never a raw colour), so
+ * swapping this single file retints the whole surface with zero component
+ * changes. The palette itself is composed from the Alpha Palette vars, so
+ * a change to `--alpha-*` propagates through the entire ramp.
+ *
+ * Used by: apps/landing, apps/docs.
+ * ================================================================= */
+
+:root {
+  /* ── Brand ─────────────────────────────────────────────────── */
+  --primary: var(--alpha-electric-cyan);
+  --primary-foreground: var(--alpha-deep-space);
+  --accent: var(--alpha-electric-cyan);
+  --accent-foreground: var(--alpha-deep-space);
+  --ring: var(--alpha-electric-cyan);
+  --border-focus: color-mix(in oklab, var(--alpha-electric-cyan) 50%, transparent);
+  --brand-glow: var(--alpha-electric-cyan);
+  --sub-brand-accent: var(--alpha-electric-cyan);
+  --sub-brand-accent-foreground: var(--alpha-deep-space);
+  --hero-glow: color-mix(in oklab, var(--alpha-electric-cyan) 35%, transparent);
+  --accent-dim: color-mix(in oklab, var(--alpha-electric-cyan) 12%, transparent);
+
+  /* ── Surfaces — deep-space navy ramp ──────────────────────── */
+  --background: var(--alpha-deep-space);
+  --bg: var(--alpha-deep-space);
+  --foreground: var(--alpha-mist-gray);
+  --text: var(--alpha-mist-gray);
+  --card: color-mix(in oklab, var(--alpha-deep-space) 84%, var(--alpha-base-white));
+  --card-foreground: var(--alpha-mist-gray);
+  --popover: color-mix(in oklab, var(--alpha-deep-space) 92%, var(--alpha-base-white));
+  --popover-foreground: var(--alpha-mist-gray);
+  --secondary: color-mix(in oklab, var(--alpha-deep-space) 90%, var(--alpha-base-white));
+  --secondary-foreground: color-mix(in oklab, var(--alpha-mist-gray) 70%, var(--alpha-deep-space));
+  --muted: color-mix(in oklab, var(--alpha-deep-space) 90%, var(--alpha-base-white));
+  --muted-foreground: color-mix(in oklab, var(--alpha-mist-gray) 60%, var(--alpha-deep-space));
+  --surface: color-mix(in oklab, var(--alpha-deep-space) 92%, var(--alpha-base-white));
+  --panel: color-mix(in oklab, var(--alpha-deep-space) 84%, var(--alpha-base-white));
+  --panel-hover: color-mix(in oklab, var(--alpha-deep-space) 78%, var(--alpha-base-white));
+  --text-muted: color-mix(in oklab, var(--alpha-mist-gray) 60%, var(--alpha-deep-space));
+  --text-dim: color-mix(in oklab, var(--alpha-mist-gray) 28%, var(--alpha-deep-space));
+
+  /* ── Lines ─────────────────────────────────────────────────── */
+  --border: color-mix(in oklab, var(--alpha-mist-gray) 14%, transparent);
+  --border-bright: color-mix(in oklab, var(--alpha-mist-gray) 24%, transparent);
+  --input: color-mix(in oklab, var(--alpha-mist-gray) 14%, transparent);
+
+  /* ── Charts — brand cyan with logic-gold secondary ────────── */
+  --chart-1: var(--alpha-electric-cyan);
+  --chart-2: color-mix(in oklab, var(--alpha-electric-cyan) 60%, var(--alpha-base-white));
+  --chart-3: var(--alpha-logic-gold);
+  --chart-4: color-mix(in oklab, var(--alpha-logic-gold) 68%, var(--alpha-deep-space));
+  --chart-5: color-mix(in oklab, var(--alpha-mist-gray) 78%, var(--alpha-deep-space));
+
+  /* ── Sidebar ───────────────────────────────────────────────── */
+  --sidebar: var(--alpha-deep-space);
+  --sidebar-foreground: color-mix(in oklab, var(--alpha-mist-gray) 70%, var(--alpha-deep-space));
+  --sidebar-primary: var(--alpha-electric-cyan);
+  --sidebar-primary-foreground: var(--alpha-deep-space);
+  --sidebar-accent: color-mix(in oklab, var(--alpha-deep-space) 90%, var(--alpha-base-white));
+  --sidebar-accent-foreground: var(--alpha-mist-gray);
+  --sidebar-border: color-mix(in oklab, var(--alpha-mist-gray) 14%, transparent);
+  --sidebar-ring: var(--alpha-electric-cyan);
+}
+
+[data-theme="light"] {
+  /* ── Brand — darkened electric-cyan for contrast on light ─── */
+  --primary: color-mix(in oklab, var(--alpha-electric-cyan) 68%, var(--alpha-deep-space));
+  --primary-foreground: var(--alpha-base-white);
+  --accent: color-mix(in oklab, var(--alpha-electric-cyan) 68%, var(--alpha-deep-space));
+  --accent-foreground: var(--alpha-base-white);
+  --ring: color-mix(in oklab, var(--alpha-electric-cyan) 68%, var(--alpha-deep-space));
+  --border-focus: color-mix(in oklab, var(--alpha-electric-cyan) 60%, transparent);
+  --brand-glow: color-mix(in oklab, var(--alpha-electric-cyan) 68%, var(--alpha-deep-space));
+  --sub-brand-accent: color-mix(in oklab, var(--alpha-electric-cyan) 68%, var(--alpha-deep-space));
+  --sub-brand-accent-foreground: var(--alpha-base-white);
+  --hero-glow: color-mix(in oklab, var(--alpha-electric-cyan) 28%, transparent);
+  --accent-dim: color-mix(in oklab, var(--alpha-electric-cyan) 16%, transparent);
+
+  /* ── Surfaces — mist-gray tinted white ────────────────────── */
+  --background: color-mix(in oklab, var(--alpha-base-white) 96%, var(--alpha-mist-gray));
+  --bg: color-mix(in oklab, var(--alpha-base-white) 96%, var(--alpha-mist-gray));
+  --foreground: var(--alpha-deep-space);
+  --text: var(--alpha-deep-space);
+  --card: var(--alpha-base-white);
+  --card-foreground: var(--alpha-deep-space);
+  --popover: color-mix(in oklab, var(--alpha-base-white) 92%, var(--alpha-mist-gray));
+  --popover-foreground: var(--alpha-deep-space);
+  --secondary: color-mix(in oklab, var(--alpha-base-white) 92%, var(--alpha-mist-gray));
+  --secondary-foreground: color-mix(in oklab, var(--alpha-deep-space) 72%, var(--alpha-base-white));
+  --muted: color-mix(in oklab, var(--alpha-base-white) 92%, var(--alpha-mist-gray));
+  --muted-foreground: color-mix(in oklab, var(--alpha-deep-space) 60%, var(--alpha-base-white));
+  --surface: color-mix(in oklab, var(--alpha-base-white) 92%, var(--alpha-mist-gray));
+  --panel: var(--alpha-base-white);
+  --panel-hover: color-mix(in oklab, var(--alpha-base-white) 90%, var(--alpha-mist-gray));
+  --text-muted: color-mix(in oklab, var(--alpha-deep-space) 60%, var(--alpha-base-white));
+  --text-dim: color-mix(in oklab, var(--alpha-deep-space) 30%, var(--alpha-base-white));
+
+  /* ── Lines ─────────────────────────────────────────────────── */
+  --border: color-mix(in oklab, var(--alpha-deep-space) 12%, transparent);
+  --border-bright: color-mix(in oklab, var(--alpha-deep-space) 20%, transparent);
+  --input: color-mix(in oklab, var(--alpha-deep-space) 12%, transparent);
+
+  /* ── Charts ────────────────────────────────────────────────── */
+  --chart-1: color-mix(in oklab, var(--alpha-electric-cyan) 68%, var(--alpha-deep-space));
+  --chart-2: color-mix(in oklab, var(--alpha-electric-cyan) 45%, var(--alpha-base-white));
+  --chart-3: color-mix(in oklab, var(--alpha-logic-gold) 80%, var(--alpha-deep-space));
+  --chart-4: color-mix(in oklab, var(--alpha-logic-gold) 60%, var(--alpha-base-white));
+  --chart-5: color-mix(in oklab, var(--alpha-deep-space) 55%, var(--alpha-base-white));
+
+  /* ── Sidebar ───────────────────────────────────────────────── */
+  --sidebar: color-mix(in oklab, var(--alpha-base-white) 96%, var(--alpha-mist-gray));
+  --sidebar-foreground: color-mix(in oklab, var(--alpha-deep-space) 72%, var(--alpha-base-white));
+  --sidebar-primary: color-mix(in oklab, var(--alpha-electric-cyan) 68%, var(--alpha-deep-space));
+  --sidebar-primary-foreground: var(--alpha-base-white);
+  --sidebar-accent: color-mix(in oklab, var(--alpha-base-white) 92%, var(--alpha-mist-gray));
+  --sidebar-accent-foreground: var(--alpha-deep-space);
+  --sidebar-border: color-mix(in oklab, var(--alpha-deep-space) 12%, transparent);
+  --sidebar-ring: color-mix(in oklab, var(--alpha-electric-cyan) 68%, var(--alpha-deep-space));
+}

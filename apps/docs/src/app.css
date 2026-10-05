@@ -10,6 +10,9 @@
 /* ── Tailwind v4 theme extension (maps CSS vars → utilities) ─ */
 @import "../../../packages/tokens/src/tailwind.css";
 
+/* ── Brand palette — Alpha Palette (deep-space + electric-cyan) ─ */
+@import "../../../packages/tokens/src/palettes/alpha.css";
+
 /* ── Scanner hints: tell Tailwind to crawl workspace packages: */
 @source "../../../packages/components/src";
 @source "../../../packages/layout/src";

@@ -10,6 +10,11 @@
 /* Tailwind v4 theme extension (maps CSS vars → utilities) */
 @import "../../../packages/tokens/src/tailwind.css";
 
+/* Brand palette — "Ember" (warm orange/rose), deliberately different from the
+   Alpha palette used by landing + docs. Same components, same semantic tokens;
+   only this file changes. */
+@import "../../../packages/tokens/src/palettes/ember.css";
+
 /* Scanner hints: tell Tailwind to crawl workspace packages so utility
    classes used in the component library and layout package are generated. */
 @source "../../../packages/components/src";

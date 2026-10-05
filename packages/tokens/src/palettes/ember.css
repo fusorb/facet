@@ -1,0 +1,128 @@
+/* =================================================================
+ * @fusorb/facet-tokens "Ember" palette
+ *
+ * A deliberately different brand from the default cyan: a warm
+ * orange/rose ramp on a charcoal-plum base. Ships the same semantic token
+ * contract as every other palette, so the identical components render
+ * unchanged — only the CSS custom properties differ.
+ *
+ * Import AFTER tokens.css:
+ *
+ *   @import "@fusorb/facet-tokens/tokens.css";
+ *   @import "@fusorb/facet-tokens/palettes/ember.css";
+ *   @import "@fusorb/facet-tokens/tailwind.css";
+ *
+ * Used by: apps/playground.
+ * ================================================================= */
+
+:root {
+  /* ── Brand ─────────────────────────────────────────────────── */
+  --primary: #f97316;
+  --primary-foreground: #1a0c03;
+  --accent: #fb7185;
+  --accent-foreground: #210a10;
+  --ring: #f97316;
+  --border-focus: rgba(249, 115, 22, 0.5);
+  --brand-glow: #f97316;
+  --sub-brand-accent: #f97316;
+  --sub-brand-accent-foreground: #1a0c03;
+  --hero-glow: rgba(249, 115, 22, 0.35);
+  --accent-dim: rgba(249, 115, 22, 0.12);
+
+  /* ── Surfaces — warm charcoal ramp ────────────────────────── */
+  --background: #17100b;
+  --bg: #17100b;
+  --foreground: #f6ece3;
+  --text: #f6ece3;
+  --card: #221711;
+  --card-foreground: #f6ece3;
+  --popover: #1c130d;
+  --popover-foreground: #f6ece3;
+  --secondary: #2a1c12;
+  --secondary-foreground: #d9c4b5;
+  --muted: #2a1c12;
+  --muted-foreground: #b39a89;
+  --surface: #1c130d;
+  --panel: #221711;
+  --panel-hover: #2a1c12;
+  --text-muted: #b39a89;
+  --text-dim: #6b5445;
+
+  /* ── Lines ─────────────────────────────────────────────────── */
+  --border: rgba(255, 255, 255, 0.1);
+  --border-bright: rgba(255, 255, 255, 0.18);
+  --input: rgba(255, 255, 255, 0.1);
+
+  /* ── Charts ────────────────────────────────────────────────── */
+  --chart-1: #f97316;
+  --chart-2: #fb7185;
+  --chart-3: #fbbf24;
+  --chart-4: #34d399;
+  --chart-5: #f43f5e;
+
+  /* ── Sidebar ───────────────────────────────────────────────── */
+  --sidebar: #17100b;
+  --sidebar-foreground: #d9c4b5;
+  --sidebar-primary: #f97316;
+  --sidebar-primary-foreground: #1a0c03;
+  --sidebar-accent: #2a1c12;
+  --sidebar-accent-foreground: #f6ece3;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #f97316;
+}
+
+[data-theme="light"] {
+  /* ── Brand ─────────────────────────────────────────────────── */
+  --primary: #c2410c;
+  --primary-foreground: #ffffff;
+  --accent: #e11d48;
+  --accent-foreground: #ffffff;
+  --ring: #c2410c;
+  --border-focus: rgba(194, 65, 12, 0.4);
+  --brand-glow: #c2410c;
+  --sub-brand-accent: #c2410c;
+  --sub-brand-accent-foreground: #ffffff;
+  --hero-glow: rgba(194, 65, 12, 0.25);
+  --accent-dim: rgba(194, 65, 12, 0.1);
+
+  /* ── Surfaces — warm paper ramp ───────────────────────────── */
+  --background: #fdf7f2;
+  --bg: #fdf7f2;
+  --foreground: #21130b;
+  --text: #21130b;
+  --card: #ffffff;
+  --card-foreground: #21130b;
+  --popover: #f7ede5;
+  --popover-foreground: #21130b;
+  --secondary: #f7ede5;
+  --secondary-foreground: #6b5445;
+  --muted: #f7ede5;
+  --muted-foreground: #6b5445;
+  --surface: #f7ede5;
+  --panel: #ffffff;
+  --panel-hover: #f2e5da;
+  --text-muted: #6b5445;
+  --text-dim: #b9a595;
+
+  /* ── Lines ─────────────────────────────────────────────────── */
+  --border: rgba(0, 0, 0, 0.1);
+  --border-bright: rgba(0, 0, 0, 0.18);
+  --input: rgba(0, 0, 0, 0.1);
+
+  /* ── Charts ────────────────────────────────────────────────── */
+  --chart-1: #c2410c;
+  --chart-2: #e11d48;
+  --chart-3: #d97706;
+  --chart-4: #059669;
+  --chart-5: #dc2626;
+
+  /* ── Sidebar ───────────────────────────────────────────────── */
+  --sidebar: #fdf7f2;
+  --sidebar-foreground: #6b5445;
+  --sidebar-primary: #c2410c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f7ede5;
+  --sidebar-accent-foreground: #6b5445;
+  --sidebar-border: rgba(0, 0, 0, 0.1);
+  --sidebar-ring: #c2410c;
+}
