@@ -370,6 +370,9 @@ export function Motion({
       controllers.forEach((c) => c.stop());
       cleanups.forEach((c) => c());
     };
+    // Keyed on presence/playing only; reading the callbacks at run time avoids
+    // restarting an in-flight animation when they change identity.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resolved, isPresent, playing]);
 
   if (!asChild || !children) return null;

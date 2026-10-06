@@ -297,13 +297,14 @@ function Block({ block }: { block: DocsBlock }) {
 export function DocsContentPage() {
   const { pages, pageActions } = useDocsApp();
   const { pathname } = useLocation();
-  const page = pages.find((p) => p.path === pathname);
-  if (!page) return <Navigate to="/" replace />;
 
   // Unified prev/next across the whole docs site (content pages +
   // components), so Alt+Up/Down works on every page.
   const { prev, next } = useDocsNavigation();
   useDocsKeyboardNav();
+
+  const page = pages.find((p) => p.path === pathname);
+  if (!page) return <Navigate to="/" replace />;
 
   return (
     <GuidePage

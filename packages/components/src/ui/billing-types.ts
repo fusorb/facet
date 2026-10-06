@@ -94,7 +94,7 @@ export interface BillingPageConfig {
   footer?: React.ReactNode;
   /** Per-plan badge slot (rendered above the price). */
   badge?: (plan: BillingPlan) => React.ReactNode;
-  /** Animated CTA button options. Default animation: "sparkle". */
+  /** Animated CTA button options. Default animation: "shine". */
   ctaButton?: {
     animation?: AnimatedButtonVariant;
     renderButton?: (props: AnimatedButtonRenderProps) => React.ReactNode;

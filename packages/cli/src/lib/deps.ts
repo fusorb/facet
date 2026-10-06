@@ -183,10 +183,6 @@ export const BUNDLED_DEPS: { name: string; why: string }[] = [
     why: "bundled by @fusorb/facet-components (DropdownMenu)",
   },
   {
-    name: "@radix-ui/react-hover-card",
-    why: "bundled by @fusorb/facet-components (HoverCard)",
-  },
-  {
     name: "@radix-ui/react-label",
     why: "bundled by @fusorb/facet-components (Label)",
   },
@@ -266,7 +262,6 @@ export const BUNDLED_DEPS: { name: string; why: string }[] = [
     why: "bundled by @fusorb/facet-components (Resizable)",
   },
   { name: "sonner", why: "bundled by @fusorb/facet-components (Toast)" },
-  { name: "vaul", why: "bundled by @fusorb/facet-components (Drawer)" },
   {
     name: "class-variance-authority",
     why: "bundled by @fusorb/facet-components",

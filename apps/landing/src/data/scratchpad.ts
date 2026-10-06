@@ -44,7 +44,7 @@ export const SYSTEM_LAYERS: SystemNode[] = [
             label: "Components",
             sub: "@fusorb/facet-components",
             pkg: "@fusorb/facet-components",
-            desc: "116 primitives, composed surfaces, and ready-to-use pages. Every component is independently versionable.",
+            desc: "113 primitives, composed surfaces, and ready-to-use pages. Every component is independently versionable.",
             icon: "boxes",
             color: "var(--chart-2)",
             children: [
@@ -152,7 +152,7 @@ const PACKAGE_COLOR: Record<string, string> = {
 const PACKAGE_DESCRIPTIONS: Record<string, string> = {
   tokens: "Design tokens - color, spacing, radius, motion",
   utils: "Shared helpers - className composition, guards",
-  components: "116 production-ready UI surfaces",
+  components: "113 production-ready UI surfaces",
   auth: "Domain-customizable auth state machine",
   layout: "ConsoleLayout, AuthLayout, LandingLayout + router",
   motion: "Composable animation engine with domain presets",

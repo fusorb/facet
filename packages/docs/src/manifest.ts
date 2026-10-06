@@ -244,12 +244,6 @@ export const docsManifest: DocsManifestEntry[] = [
     "category": "feedback"
   },
   {
-    "name": "Drawer",
-    "slug": "drawer",
-    "description": "Drawer: vaul-based bottom sheet, ideal for mobile-first detail panels",
-    "category": "feedback"
-  },
-  {
     "name": "Dropdown Menu",
     "slug": "dropdown-menu",
     "description": "",
@@ -296,18 +290,6 @@ export const docsManifest: DocsManifestEntry[] = [
     "slug": "form",
     "description": "Form: lightweight react-hook-form + zod field wrapper.",
     "category": "inputs"
-  },
-  {
-    "name": "Glow Border Card",
-    "slug": "glow-border-card",
-    "description": "@fusorb/facet-components: GlowBorderCard",
-    "category": "animation"
-  },
-  {
-    "name": "Hover Card",
-    "slug": "hover-card",
-    "description": "",
-    "category": "feedback"
   },
   {
     "name": "Infinite Scroll",

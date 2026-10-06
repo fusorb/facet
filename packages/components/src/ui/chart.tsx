@@ -1968,6 +1968,7 @@ export function Chart({
         }
         onMouseMove={handlePointerMove}
         onMouseLeave={handlePointerLeave}
+        onPointerLeave={handlePointerLeave}
       >
         {isRadial ? renderRadial() : renderCartesian()}
       </svg>

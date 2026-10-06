@@ -121,9 +121,6 @@ import {
   CommandEmpty,
   CommandGroup,
   CommandItem,
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
   ScrollArea,
   ContextMenu,
   ContextMenuTrigger,
@@ -173,12 +170,6 @@ import {
   CarouselNext,
   CarouselDots,
   CarouselPrevious,
-  Drawer,
-  DrawerTrigger,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerDescription,
   InputGroup,
   InputGroupAddon,
   ResizablePanelGroup,
@@ -201,7 +192,6 @@ import {
   DataTable,
   DateRangePicker,
   EmptyStatePage,
-  GlowBorderCard,
   MentionInput,
   MultiCombobox,
   OtpInput,
@@ -298,6 +288,103 @@ function SheetPreview() {
           </SheetHeader>
         </SheetContent>
       </Sheet>
+    </div>
+  );
+}
+
+/** Stepper demo — its own component so the hook runs unconditionally. */
+function StepperPreview() {
+  const stepper = useStepper({
+    steps: [
+      { id: "account", title: "Account", description: "Pick your workspace" },
+      { id: "profile", title: "Profile", description: "Name, email, locale" },
+      { id: "verify", title: "Verify", description: "Email + 2FA" },
+      { id: "finish", title: "Finish", description: "Review and ship" },
+    ],
+  });
+  return (
+    <div className="flex w-full items-start justify-center rounded-lg border border-border bg-background p-6">
+      <div className="w-full max-w-2xl">
+        <StepperProvider value={stepper}>
+          <StepperNav />
+          <div className="mt-6 min-h-24 rounded-md border border-dashed border-border bg-muted/20 p-6 text-center text-sm text-muted-foreground">
+            Step content for{" "}
+            <span className="font-medium text-foreground">
+              {stepper.current.title}
+            </span>
+          </div>
+          <StepperFooter />
+        </StepperProvider>
+      </div>
+    </div>
+  );
+}
+
+/** Kanban demo — its own component so the hook runs unconditionally. */
+function KanbanPreview() {
+  const board = useKanban({
+    columns: [
+      {
+        id: "todo",
+        title: "Todo",
+        icon: "inbox",
+        accent: "#06b6d4",
+        cards: [
+          {
+            id: "1",
+            title: "Audit SDK coverage",
+            description: "Re-run scripts/audit-sdk-coverage.cjs",
+            tags: ["sdk"],
+            assignee: "Ada",
+          },
+          {
+            id: "2",
+            title: "Wire docs engine for changelog",
+            tags: ["docs"],
+          },
+          {
+            id: "3",
+            title: "Migrate tokens to electric cyan",
+            tags: ["tokens", "design"],
+          },
+        ],
+      },
+      {
+        id: "doing",
+        title: "In progress",
+        icon: "loader-circle",
+        accent: "#a855f7",
+        cards: [
+          {
+            id: "4",
+            title: "Stepper primitive",
+            description: "Headless useStepper hook + renderers",
+            tags: ["components"],
+            assignee: "Ada",
+          },
+          { id: "5", title: "ChangelogCard + Feed", tags: ["components"] },
+        ],
+        limit: 5,
+      },
+      {
+        id: "done",
+        title: "Done",
+        icon: "circle-check",
+        accent: "#10b981",
+        cards: [
+          {
+            id: "6",
+            title: "BillingPage quarterly interval",
+            tags: ["components"],
+            assignee: "Kenny",
+          },
+        ],
+      },
+    ],
+  });
+  return (
+    <div className="w-full overflow-x-auto rounded-lg border border-border bg-background p-4">
+      <KanbanBoard board={board} />
     </div>
   );
 }
@@ -714,15 +801,6 @@ export function ComponentPreview({
             </CommandGroup>
           </CommandList>
         </Command>
-      );
-    case "hover-card":
-      return (
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <Button variant="link">Hover</Button>
-          </HoverCardTrigger>
-          <HoverCardContent>Hover card content</HoverCardContent>
-        </HoverCard>
       );
     case "scroll-area":
       return (
@@ -1296,22 +1374,6 @@ export function ComponentPreview({
           <CarouselDots />
         </Carousel>
       );
-    case "drawer":
-      return (
-        <Drawer>
-          <DrawerTrigger asChild>
-            <Button variant="outline">Open Drawer</Button>
-          </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>Drawer Title</DrawerTitle>
-              <DrawerDescription>
-                A vaul-based bottom sheet drawer.
-              </DrawerDescription>
-            </DrawerHeader>
-          </DrawerContent>
-        </Drawer>
-      );
     case "input-group":
       return (
         <div className="w-full max-w-xs space-y-3">
@@ -1352,107 +1414,10 @@ export function ComponentPreview({
         </div>
       );
     }
-    case "stepper": {
-      const stepper = useStepper({
-        steps: [
-          {
-            id: "account",
-            title: "Account",
-            description: "Pick your workspace",
-          },
-          {
-            id: "profile",
-            title: "Profile",
-            description: "Name, email, locale",
-          },
-          { id: "verify", title: "Verify", description: "Email + 2FA" },
-          { id: "finish", title: "Finish", description: "Review and ship" },
-        ],
-      });
-      return (
-        <div className="flex w-full items-start justify-center rounded-lg border border-border bg-background p-6">
-          <div className="w-full max-w-2xl">
-            <StepperProvider value={stepper}>
-              <StepperNav />
-              <div className="mt-6 min-h-24 rounded-md border border-dashed border-border bg-muted/20 p-6 text-center text-sm text-muted-foreground">
-                Step content for{" "}
-                <span className="font-medium text-foreground">
-                  {stepper.current.title}
-                </span>
-              </div>
-              <StepperFooter />
-            </StepperProvider>
-          </div>
-        </div>
-      );
-    }
-    case "kanban-board": {
-      const board = useKanban({
-        columns: [
-          {
-            id: "todo",
-            title: "Todo",
-            icon: "inbox",
-            accent: "#06b6d4",
-            cards: [
-              {
-                id: "1",
-                title: "Audit SDK coverage",
-                description: "Re-run scripts/audit-sdk-coverage.cjs",
-                tags: ["sdk"],
-                assignee: "Ada",
-              },
-              {
-                id: "2",
-                title: "Wire docs engine for changelog",
-                tags: ["docs"],
-              },
-              {
-                id: "3",
-                title: "Migrate tokens to electric cyan",
-                tags: ["tokens", "design"],
-              },
-            ],
-          },
-          {
-            id: "doing",
-            title: "In progress",
-            icon: "loader-circle",
-            accent: "#a855f7",
-            cards: [
-              {
-                id: "4",
-                title: "Stepper primitive",
-                description: "Headless useStepper hook + renderers",
-                tags: ["components"],
-                assignee: "Ada",
-              },
-              { id: "5", title: "ChangelogCard + Feed", tags: ["components"] },
-            ],
-            limit: 5,
-          },
-          {
-            id: "done",
-            title: "Done",
-            icon: "circle-check",
-            accent: "#10b981",
-            cards: [
-              {
-                id: "6",
-                title: "BillingPage quarterly interval",
-                tags: ["components"],
-                assignee: "Kenny",
-              },
-            ],
-          },
-        ],
-      });
-      return (
-        <div className="w-full overflow-x-auto rounded-lg border border-border bg-background p-4">
-          <KanbanBoard board={board} />
-        </div>
-      );
-    }
+    case "stepper":
+      return <StepperPreview />;
+    case "kanban-board":
+      return <KanbanPreview />;
     case "changelog-card": {
       const releases: ChangelogRelease[] = [
         {
@@ -1651,19 +1616,6 @@ export function ComponentPreview({
               href: "https://example.com/docs",
             }}
           />
-        </div>
-      );
-    case "glow-border-card":
-      return (
-        <div className="w-full max-w-sm">
-          <GlowBorderCard>
-            <div className="p-6">
-              <h3 className="font-medium">GlowBorderCard</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                A card with a pulsing glow around its border.
-              </p>
-            </div>
-          </GlowBorderCard>
         </div>
       );
     case "mention-input":

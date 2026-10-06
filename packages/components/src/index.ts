@@ -160,17 +160,6 @@ export {
   ContextMenuRadioGroup,
 } from "./ui/context-menu.js";
 
-export {
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-} from "./ui/hover-card.js";
-export type {
-  HoverCardProps,
-  HoverCardTriggerProps,
-  HoverCardContentProps,
-} from "./ui/hover-card.js";
-
 export { type KbdProps, Kbd } from "./ui/kbd.js";
 
 export { type SpinnerProps, Spinner, spinnerVariants } from "./ui/spinner.js";
@@ -266,29 +255,6 @@ export {
   dialogContentVariants,
 } from "./ui/dialog.js";
 export type { DialogOverlayProps, DialogContentProps } from "./ui/dialog.js";
-
-export {
-  Drawer,
-  DrawerTrigger,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerTitle,
-  DrawerDescription,
-  DrawerClose,
-} from "./ui/drawer.js";
-export type {
-  DrawerProps,
-  DrawerTriggerProps,
-  DrawerOverlayProps,
-  DrawerContentProps,
-  DrawerHeaderProps,
-  DrawerFooterProps,
-  DrawerTitleProps,
-  DrawerDescriptionProps,
-  DrawerCloseProps,
-} from "./ui/drawer.js";
 
 export {
   Select,
@@ -564,13 +530,23 @@ export {
   type ReleaseStatus,
   type ChangelogItem,
   type ChangelogCardProps,
+  type ChangelogCategoryMeta,
+  type ChangelogCategoryConfig,
+  type ChangelogCardLabels,
+  type ChangelogCardClassNames,
   ChangelogCard,
+  DEFAULT_CHANGELOG_CATEGORY_CONFIG,
+  resolveChangelogCategoryConfig,
   toChangelogItem,
 } from "./ui/changelog-card.js";
 export { type ChangelogRelease as FacetChangelogRelease } from "./ui/changelog-card.js";
 export {
   type ChangeCategory,
   type ChangelogFeedProps,
+  type ChangelogFeedLabels,
+  type ChangelogFeedClassNames,
+  type ChangelogTimelineProps,
+  type ChangelogFeedFilterBarProps,
   ChangelogFeed,
 } from "./ui/changelog-feed.js";
 
@@ -1011,11 +987,6 @@ export {
   type ShineBorderCardProps,
   ShineBorderCard,
 } from "./ui/shine-border-card.js";
-
-export {
-  type GlowBorderCardProps,
-  GlowBorderCard,
-} from "./ui/glow-border-card.js";
 
 /* ── Motion: declarative animation primitives ──
  * Re-exported from @fusorb/facet-motion so consumers can import

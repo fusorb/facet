@@ -81,24 +81,26 @@ export function demoControls(slug: string): Control[] | undefined {
 
 export function ComponentPage() {
   const { slug } = useParams();
-  if (!slug) return <Navigate to="/components" replace />;
-  const entry = extendedManifest.find((e) => e.slug === slug);
-  if (!entry) return <Navigate to="/components" replace />;
 
   // Live controls for parameterized previews (Button/Badge).
-  const controls = demoControls(slug);
   const [variant, setVariant] = React.useState("default");
   const [size, setSize] = React.useState("default");
-  const liveControls = controls?.map((c) =>
-    c.label === "Variant"
-      ? { ...c, value: variant, onChange: setVariant }
-      : { ...c, value: size, onChange: setSize },
-  );
 
   // Unified prev/next across the whole docs site (content pages +
   // components), so Alt+Up/Down works regardless of sidebar state.
   const { prev, next } = useDocsNavigation();
   useDocsKeyboardNav();
+
+  if (!slug) return <Navigate to="/components" replace />;
+  const entry = extendedManifest.find((e) => e.slug === slug);
+  if (!entry) return <Navigate to="/components" replace />;
+
+  const controls = demoControls(slug);
+  const liveControls = controls?.map((c) =>
+    c.label === "Variant"
+      ? { ...c, value: variant, onChange: setVariant }
+      : { ...c, value: size, onChange: setSize },
+  );
 
   return (
     <article>

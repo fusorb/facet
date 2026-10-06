@@ -43,9 +43,9 @@ It overrides/supplements CLAUDE.md for AI agents.
   no-ops since the default v4 scale tops out at `z-50`, so bracketed values are
   required):
   - `z-50` — persistent page chrome (navbar container, cookie banner).
-  - `z-[60]` — modal backdrops (Dialog / Sheet / Drawer / AlertDialog).
+  - `z-[60]` — modal backdrops (Dialog / Sheet / AlertDialog).
   - `z-[70]` — floating content (modal content; Popover / Select / Tooltip /
-    HoverCard / Menubar / ContextMenu portals; navbar mobile menu, NavLinkItem).
+    Menubar / ContextMenu portals; navbar mobile menu, NavLinkItem).
 
 ## Current Build Status
 

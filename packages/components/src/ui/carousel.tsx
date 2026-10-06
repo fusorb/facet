@@ -16,10 +16,17 @@ type CarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 type CarouselPlugin = Parameters<typeof useEmblaCarousel>[1];
 type CarouselApi = ReturnType<typeof useEmblaCarousel>[1];
 
+/** Default autoplay interval when `autoplay` is `true`. */
+const DEFAULT_AUTOPLAY_DELAY = 5000;
+
 interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   opts?: CarouselOptions;
   plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
+  /** Autoplay the carousel, advancing one slide on an interval. Pass a
+   *  boolean (default delay `DEFAULT_AUTOPLAY_DELAY`) or a number of ms.
+   *  Pauses while the pointer is over the track and resumes on leave. */
+  autoplay?: boolean | number;
 }
 
 type CarouselContextValue = {
@@ -69,8 +76,11 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       opts,
       plugins,
       orientation = "horizontal",
+      autoplay = false,
       className,
       children,
+      onMouseEnter: onPointerEnter,
+      onMouseLeave: onPointerLeave,
       ...props
     },
     forwardedRef,
@@ -93,6 +103,30 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     const [scrollSnapList, setScrollSnapList] = React.useState<number[]>(
       slidesCount > 0 ? Array.from({ length: slidesCount }, (_, i) => i) : [],
     );
+
+    // Autoplay: advance one slide on a timer; pause on hover / pointer leave.
+    const autoplayTimerRef = React.useRef<number | null>(null);
+    const pausedRef = React.useRef(false);
+    React.useEffect(() => {
+      if (!api) return;
+      const delay =
+        typeof autoplay === "number"
+          ? autoplay
+          : autoplay
+            ? DEFAULT_AUTOPLAY_DELAY
+            : 0;
+      if (!delay) return;
+      autoplayTimerRef.current = window.setInterval(() => {
+        if (pausedRef.current) return;
+        api.scrollNext();
+      }, delay);
+      return () => {
+        if (autoplayTimerRef.current) {
+          window.clearInterval(autoplayTimerRef.current);
+          autoplayTimerRef.current = null;
+        }
+      };
+    }, [api, autoplay]);
 
     React.useEffect(() => {
       if (!api) return;
@@ -136,6 +170,14 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         <div
           ref={forwardedRef}
           className={cn("relative mx-auto", className)}
+          onMouseEnter={(e) => {
+            pausedRef.current = true;
+            onPointerEnter?.(e);
+          }}
+          onMouseLeave={(e) => {
+            pausedRef.current = false;
+            onPointerLeave?.(e);
+          }}
           {...props}
         >
           <div ref={carouselRef} className="overflow-hidden">

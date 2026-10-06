@@ -1,4 +1,5 @@
 import { defineConfig } from "eslint/config";
+import reactHooks from "eslint-plugin-react-hooks";
 import tseslint from "typescript-eslint";
 
 export default defineConfig([
@@ -27,6 +28,15 @@ export default defineConfig([
     files: ["**/*.cjs"],
     rules: {
       "@typescript-eslint/no-require-imports": "off",
+    },
+  },
+  {
+    // React Hooks: catch hook-order violations (the class of bug that a
+    // "renders fine" smoke test misses) and stale dependency arrays.
+    plugins: { "react-hooks": reactHooks },
+    rules: {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
     },
   },
 ]);

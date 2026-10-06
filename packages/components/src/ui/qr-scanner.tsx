@@ -198,6 +198,9 @@ export function QrScanner({
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
       streamRef.current?.getTracks().forEach((t) => t.stop());
     };
+    // Start/stop only when autoStart flips; the props read inside are read at
+    // start time on purpose (re-running would restart the camera stream).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoStart]);
 
   function loop(detector: BarcodeDetectorInstance | undefined) {

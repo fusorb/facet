@@ -37,7 +37,6 @@ const CATEGORY = {
   dialog: "feedback",
   "dropdown-menu": "feedback",
   "empty-state": "feedback",
-  "hover-card": "feedback",
   popover: "feedback",
   progress: "feedback",
   skeleton: "feedback",
@@ -109,12 +108,10 @@ const CATEGORY = {
   "micro-interactions": "animation",
   "animated-button": "animation",
   "card-animations": "animation",
-  "glow-border-card": "animation",
   "shine-border-card": "animation",
   // Composable building blocks
   "aspect-ratio": "layout",
   carousel: "data-display",
-  drawer: "feedback",
   "input-group": "inputs",
   resizable: "layout",
   // Full page components (new "Pages" section)

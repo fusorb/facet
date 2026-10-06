@@ -6,7 +6,11 @@
  * animation variant, disable it with "none", or fully replace it with
  * your own component via `renderButton`.
  *
+ * Default animation is "shine" (a light sweep) — the burst/sparkle effect
+ * is opt-in. Use "sparkle" when a marketing CTA benefits from it.
+ *
  * Usage:
+ *   <AnimatedButton>Get started</AnimatedButton>
  *   <AnimatedButton animation="sparkle">Get started</AnimatedButton>
  *   <AnimatedButton animation="none">Plain button</AnimatedButton>
  *   <AnimatedButton renderButton={(props) => <MyButton {...props} />}>
@@ -15,7 +19,7 @@
  */
 
 import * as React from "react";
-import { Button } from "./button.js";
+import { Button, buttonVariants } from "./button.js";
 import { SparkleButton } from "./animated.js";
 import {
   RippleButton,
@@ -23,9 +27,15 @@ import {
   ShineButton,
   DissolveButton,
 } from "./micro-interactions.js";
+import { cn } from "../utils.js";
 
 export type AnimatedButtonVariant =
-  "sparkle" | "ripple" | "magnetic" | "shine" | "dissolve" | "none";
+  | "sparkle"
+  | "ripple"
+  | "magnetic"
+  | "shine"
+  | "dissolve"
+  | "none";
 
 export interface AnimatedButtonRenderProps {
   children?: React.ReactNode;
@@ -36,14 +46,14 @@ export interface AnimatedButtonRenderProps {
 }
 
 export interface AnimatedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Animation variant. Default: "sparkle". */
+  /** Animation variant. Default: "shine". */
   animation?: AnimatedButtonVariant;
   /** Fully replace the built-in button with your own component. */
   renderButton?: (props: AnimatedButtonRenderProps) => React.ReactNode;
 }
 
 export function AnimatedButton({
-  animation = "sparkle",
+  animation = "shine",
   renderButton,
   children,
   className,
@@ -53,6 +63,9 @@ export function AnimatedButton({
   ...props
 }: AnimatedButtonProps) {
   const shared = { children, className, type, disabled, onClick };
+  // Ripple / magnetic / shine are unstyled effect wrappers, so give them the
+  // full Button surface; sparkle / dissolve bake their own styling in.
+  const styled = { ...shared, className: cn(buttonVariants(), className) };
 
   if (renderButton) {
     return <>{renderButton(shared)}</>;
@@ -62,15 +75,15 @@ export function AnimatedButton({
     case "sparkle":
       return <SparkleButton {...shared} {...props} />;
     case "ripple":
-      return <RippleButton {...shared} {...props} />;
+      return <RippleButton {...styled} {...props} />;
     case "magnetic":
-      return <MagneticButton {...shared} {...props} />;
+      return <MagneticButton {...styled} {...props} />;
     case "dissolve":
       return <DissolveButton {...shared} {...props} />;
     case "none":
       return <Button {...shared} {...props} />;
     default:
-      return <ShineButton {...shared} {...props} />;
+      return <ShineButton {...styled} {...props} />;
   }
 }
 

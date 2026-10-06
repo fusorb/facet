@@ -62,11 +62,6 @@ import {
   ContextMenuContent,
   ContextMenuItem,
 } from "./ui/context-menu.js";
-import {
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-} from "./ui/hover-card.js";
 import { Kbd } from "./ui/kbd.js";
 import { Spinner } from "./ui/spinner.js";
 import { EmptyState } from "./ui/empty-state.js";
@@ -92,13 +87,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel.js";
-import {
-  Drawer,
-  DrawerTrigger,
-  DrawerContent,
-  DrawerTitle,
-  DrawerDescription,
-} from "./ui/drawer.js";
 import { InputGroup, InputGroupAddon } from "./ui/input-group.js";
 import { Input } from "./ui/input.js";
 import {
@@ -752,20 +740,6 @@ describe("ContextMenu", () => {
   });
 });
 
-describe("HoverCard", () => {
-  it("renders trigger and content on hover", async () => {
-    render(
-      <HoverCard>
-        <HoverCardTrigger>@jane</HoverCardTrigger>
-        <HoverCardContent>Jane Doe</HoverCardContent>
-      </HoverCard>,
-    );
-    expect(screen.getByText("@jane")).toBeInTheDocument();
-    await userEvent.hover(screen.getByText("@jane"));
-    expect(await screen.findByText("Jane Doe")).toBeInTheDocument();
-  });
-});
-
 describe("Kbd", () => {
   it("renders a kbd element with font-mono", () => {
     const { container } = render(<Kbd>Ctrl</Kbd>);
@@ -1137,37 +1111,6 @@ describe("Carousel", () => {
     const dots = container.querySelectorAll('[aria-label^="Go to slide"]');
     expect(dots).toHaveLength(2);
     await user.click(dots[1]!);
-  });
-});
-
-/* ── Drawer ── */
-
-describe("Drawer", () => {
-  it("renders trigger; content is closed by default", () => {
-    render(
-      <Drawer>
-        <DrawerTrigger>Open</DrawerTrigger>
-        <DrawerContent>
-          <DrawerTitle>Drawer title</DrawerTitle>
-          <DrawerDescription>Drawer description</DrawerDescription>
-        </DrawerContent>
-      </Drawer>,
-    );
-    expect(screen.getByRole("button", { name: /open/i })).toBeInTheDocument();
-    expect(screen.queryByText("Drawer title")).not.toBeInTheDocument();
-  });
-
-  it("opens drawer on trigger click", async () => {
-    render(
-      <Drawer>
-        <DrawerTrigger>Open</DrawerTrigger>
-        <DrawerContent>
-          <DrawerTitle>Drawer title</DrawerTitle>
-        </DrawerContent>
-      </Drawer>,
-    );
-    await userEvent.click(screen.getByRole("button", { name: /open/i }));
-    expect(await screen.findByText("Drawer title")).toBeInTheDocument();
   });
 });
 

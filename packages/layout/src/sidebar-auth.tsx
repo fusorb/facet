@@ -64,10 +64,19 @@ export function SidebarAuth({
 }: SidebarAuthProps) {
   const auth = useOptionalAuth();
 
+  const logout = auth?.logout;
+  const handleSignOut = React.useCallback(async () => {
+    try {
+      await logout?.();
+    } catch {
+      // Ignore — auth may be optional or handled by the consumer.
+    }
+  }, [logout]);
+
   // No auth context: hide the panel entirely (docs/static sites).
   if (!auth) return null;
 
-  const { user, logout, isLoading } = auth;
+  const { user, isLoading } = auth;
 
   // Still loading — show a placeholder.
   if (isLoading) {
@@ -86,14 +95,6 @@ export function SidebarAuth({
   const items: UserAvatarMenuItem[] = [
     ...actions.map((a) => toMenuItem(a)),
   ];
-
-  const handleSignOut = React.useCallback(async () => {
-    try {
-      await logout();
-    } catch {
-      // Ignore — auth may be optional or handled by the consumer.
-    }
-  }, [logout]);
 
   return (
     <div className="border-t border-sidebar-border p-3">

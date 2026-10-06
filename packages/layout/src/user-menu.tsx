@@ -27,17 +27,18 @@ export function UserMenu({
   const auth = useOptionalAuth();
   const { router } = useLayout();
 
-  // No auth context: hide the user menu (docs/static sites).
-  if (!auth) return null;
-  const { user, logout, isLoading } = auth;
-
+  const logout = auth?.logout;
   const handleSignOut = React.useCallback(async () => {
     if (onSignOut) {
       onSignOut();
-    } else {
+    } else if (logout) {
       await logout();
     }
   }, [logout, onSignOut]);
+
+  // No auth context: hide the user menu (docs/static sites).
+  if (!auth) return null;
+  const { user, isLoading } = auth;
 
   if (isLoading) {
     return (

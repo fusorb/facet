@@ -16,7 +16,7 @@ export interface SitePackage {
 export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-components",
-    "desc": "Radix-based UI component library: 116 accessible, styled components using the Alpha Palette design tokens",
+    "desc": "Radix-based UI component library: 113 accessible, styled components using the Alpha Palette design tokens",
     "version": "2.0.3",
     "icon": "boxes"
   },
@@ -101,7 +101,7 @@ export interface SiteStat {
 
 export const SITE_STATS: SiteStat[] = [
   {
-    "value": "116",
+    "value": "113",
     "label": "components"
   },
   {
@@ -126,7 +126,7 @@ export const SITE_STATS: SiteStat[] = [
 export const SITE_PACKAGES_COUNT: number = 13;
 
 /** Number of component files in packages/components (auto-detected). */
-export const COMPONENT_COUNT: number = 116;
+export const COMPONENT_COUNT: number = 113;
 
 /** Number of registered icons (auto-detected from icon-map.ts). */
 export const ICON_COUNT: number = 1763;

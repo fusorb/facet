@@ -25,7 +25,6 @@ function importName(slug: string): string {
     "scroll-area": "ScrollArea",
     "button-group": "ButtonGroup",
     "radio-group": "RadioGroup",
-    "hover-card": "HoverCard",
     "color-picker": "ColorPicker",
     "country-code-input": "CountryCodeInput",
     "date-picker": "DatePicker",
@@ -410,22 +409,6 @@ function Example() {
       description="Create your first document to get started."
       action={<Button size="sm">New document</Button>}
     />
-  );
-}`,
-  "hover-card": `import { HoverCard, HoverCardTrigger, HoverCardContent } from "@fusorb/facet-components";
-import { Button } from "@fusorb/facet-components";
-
-function Example() {
-  return (
-    <HoverCard>
-      <HoverCardTrigger asChild>
-        <Button variant="link">@ada</Button>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-64">
-        <p className="text-sm font-semibold">Ada Lovelace</p>
-        <p className="text-sm text-muted-foreground">Mathematician and writer.</p>
-      </HoverCardContent>
-    </HoverCard>
   );
 }`,
   kbd: `import { Kbd, getModSymbol } from "@fusorb/facet-components";
@@ -1340,33 +1323,6 @@ function Example() {
 /* Composed: each series gets its own type="line" | "bar" | "area" */
 /* Stacked: stacked prop */`,
 
-  drawer: `import {
-  Drawer,
-  DrawerTrigger,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerDescription,
-  DrawerFooter,
-} from "@fusorb/facet-components";
-
-function Example() {
-  return (
-    <Drawer>
-      <DrawerTrigger>Open drawer</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Are you sure?</DrawerTitle>
-          <DrawerDescription>This action cannot be undone.</DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
-          <button>Confirm</button>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  );
-}`,
-
   stepper: `import {
   StepperProvider,
   StepperNav,
@@ -1518,16 +1474,6 @@ function Example() {
       title="No projects yet"
       description="Get started by creating your first project."
     />
-  );
-}`,
-
-  "glow-border-card": `import { GlowBorderCard } from "@fusorb/facet-components";
-
-function Example() {
-  return (
-    <GlowBorderCard className="p-6">
-      <p>Glow Border Card</p>
-    </GlowBorderCard>
   );
 }`,
 
@@ -2555,25 +2501,6 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     </DropdownMenuItem>
   </DropdownMenuContent>
 </DropdownMenu>`,
-  },
-  "hover-card": {
-    Default: `<HoverCard>
-  <HoverCardTrigger asChild>
-    <Button variant="link">Hover</Button>
-  </HoverCardTrigger>
-  <HoverCardContent>Hover card content</HoverCardContent>
-</HoverCard>`,
-    "With content": `<HoverCard>
-  <HoverCardTrigger asChild>
-    <Button variant="link">@ada</Button>
-  </HoverCardTrigger>
-  <HoverCardContent className="w-64">
-    <div className="space-y-1">
-      <h4 className="text-sm font-semibold">Ada Lovelace</h4>
-      <p className="text-sm text-muted-foreground">Mathematician and writer.</p>
-    </div>
-  </HoverCardContent>
-</HoverCard>`,
   },
   popover: {
     Default: `<Popover>

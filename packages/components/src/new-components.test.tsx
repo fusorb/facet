@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 
 import { AspectRatio } from "./ui/aspect-ratio.js";
 import {
@@ -10,13 +9,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel.js";
-import {
-  Drawer,
-  DrawerTrigger,
-  DrawerContent,
-  DrawerTitle,
-  DrawerDescription,
-} from "./ui/drawer.js";
 import { InputGroup, InputGroupAddon } from "./ui/input-group.js";
 import { Input } from "./ui/input.js";
 import {
@@ -32,10 +24,9 @@ import type {
 } from "./ui/resizable.js";
 
 describe("New component imports", () => {
-  it("all five new components load without errors", () => {
+  it("all new components load without errors", () => {
     expect(AspectRatio).toBeDefined();
     expect(Carousel).toBeDefined();
-    expect(Drawer).toBeDefined();
     expect(InputGroup).toBeDefined();
     expect(ResizablePanelGroup).toBeDefined();
   });
@@ -67,37 +58,6 @@ describe("Carousel", () => {
     expect(screen.getByText("Slide 1")).toBeInTheDocument();
     expect(screen.getByText("Slide 2")).toBeInTheDocument();
     expect(screen.getAllByRole("button").length).toBeGreaterThanOrEqual(2);
-  });
-});
-
-describe("Drawer", () => {
-  it("renders trigger (closed by default)", () => {
-    render(
-      <Drawer>
-        <DrawerTrigger>Open</DrawerTrigger>
-        <DrawerContent>
-          <DrawerTitle>Drawer title</DrawerTitle>
-          <DrawerDescription>Drawer description</DrawerDescription>
-        </DrawerContent>
-      </Drawer>,
-    );
-    expect(screen.getByRole("button", { name: /open/i })).toBeInTheDocument();
-    expect(screen.queryByText("Drawer title")).not.toBeInTheDocument();
-  });
-
-  it("opens drawer on trigger click", async () => {
-    render(
-      <Drawer>
-        <DrawerTrigger>Open</DrawerTrigger>
-        <DrawerContent>
-          <DrawerTitle>Drawer title</DrawerTitle>
-        </DrawerContent>
-      </Drawer>,
-    );
-    await userEvent.click(screen.getByRole("button", { name: /open/i }));
-    expect(
-      await screen.findByText("Drawer title", {}, { timeout: 2000 }),
-    ).toBeInTheDocument();
   });
 });
 

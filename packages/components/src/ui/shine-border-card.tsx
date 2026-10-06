@@ -1,10 +1,8 @@
 /**
  * @fusorb/facet-components: ShineBorderCard
  *
- * A card with an animated shine that travels around the border. A
- * distinct surface from `BorderBeamCard` (which uses a conic beam)
- * and `GlowBorderCard` (which pulses a glow). Hosts pass children +
- * optional color / duration.
+ * A card with an animated shine that travels around the border.
+ * Hosts pass children + optional color / duration.
  */
 
 import * as React from "react";

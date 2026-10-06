@@ -499,25 +499,26 @@ function NavLinkItem({
       : "text-foreground/70 hover:bg-foreground/5 hover:text-foreground",
   );
 
+  // Hover-dropdown helpers (shared timer lifted to Navbar so moving between
+  // links cancels the previous close and opens the next). Declared before the
+  // conditional dropdown branch so the hook order stays stable.
+  const clearCloseTimer = React.useCallback(() => {
+    if (closeTimerRef?.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }, [closeTimerRef]);
+  const scheduleClose = React.useCallback(() => {
+    clearCloseTimer();
+    if (closeTimerRef) {
+      closeTimerRef.current = setTimeout(() => setOpenDropdown?.(null), 250);
+    }
+  }, [closeTimerRef, clearCloseTimer, setOpenDropdown]);
+
   // Link with sub-links → render a dropdown (OpenAI-style)
   if (link.children?.length) {
     const isMega = (link.columns ?? 1) > 1;
     const panelWidth = link.panelWidth ?? (isMega ? "w-[32rem]" : "w-64");
-
-    // Hover-dropdown helpers (shared timer lifted to Navbar so moving
-    // between links cancels the previous close and opens the next).
-    const clearCloseTimer = React.useCallback(() => {
-      if (closeTimerRef?.current) {
-        clearTimeout(closeTimerRef.current);
-        closeTimerRef.current = null;
-      }
-    }, [closeTimerRef]);
-    const scheduleClose = React.useCallback(() => {
-      clearCloseTimer();
-      if (closeTimerRef) {
-        closeTimerRef.current = setTimeout(() => setOpenDropdown?.(null), 250);
-      }
-    }, [closeTimerRef, clearCloseTimer, setOpenDropdown]);
 
     const dropdownOpen = hoverDropdowns
       ? openDropdown === link.href

@@ -10,14 +10,14 @@ const SheetClose = SheetPrimitive.Close;
 const SheetPortal = SheetPrimitive.Portal;
 
 const sheetVariants = cva(
-    "fixed z-[70] gap-4 bg-background p-6 shadow-lg data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
+  "fixed z-[70] gap-4 bg-background p-6 shadow-lg outline-none",
   {
     variants: {
       side: {
-        top: "inset-x-0 top-0 border-b",
-        bottom: "inset-x-0 bottom-0 border-t",
-        left: "inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",
-        right: "inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
+        top: "inset-x-0 top-0 border-b data-[state=open]:animate-facet-slide-in-from-top data-[state=closed]:animate-facet-slide-out-to-top",
+        bottom: "inset-x-0 bottom-0 border-t data-[state=open]:animate-facet-slide-in-from-bottom data-[state=closed]:animate-facet-slide-out-to-bottom",
+        left: "inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm data-[state=open]:animate-facet-slide-in-from-left data-[state=closed]:animate-facet-slide-out-to-left",
+        right: "inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm data-[state=open]:animate-facet-slide-in-from-right data-[state=closed]:animate-facet-slide-out-to-right",
       },
     },
     defaultVariants: {

@@ -87,7 +87,7 @@ export interface FeedbackPageProps extends React.HTMLAttributes<HTMLDivElement> 
   showEmailChannel?: boolean;
   /** Replace the default form entirely (e.g. a real API submit). */
   form?: React.ReactNode;
-  /** Animated submit button options. Default animation: "sparkle". */
+  /** Animated submit button options. Default animation: "shine". */
   submitButton?: {
     animation?: AnimatedButtonVariant;
     renderButton?: (props: AnimatedButtonRenderProps) => React.ReactNode;
@@ -213,7 +213,7 @@ export function FeedbackPage({
               </div>
               <AnimatedButton
                 type="submit"
-                animation={submitButton?.animation ?? "sparkle"}
+                animation={submitButton?.animation ?? "shine"}
                 renderButton={submitButton?.renderButton}
               >
                 {c.submitLabel}

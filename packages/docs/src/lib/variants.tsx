@@ -84,9 +84,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   EmptyState,
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
   Input,
   InputOTP,
   InputOTPGroup,
@@ -568,17 +565,6 @@ function PopoverDemo() {
       </PopoverTrigger>
       <PopoverContent>Popover content</PopoverContent>
     </Popover>
-  );
-}
-
-function HoverCardDemo() {
-  return (
-    <HoverCard>
-      <HoverCardTrigger asChild>
-        <Button variant="link">Hover</Button>
-      </HoverCardTrigger>
-      <HoverCardContent>Hover card content</HoverCardContent>
-    </HoverCard>
   );
 }
 
@@ -2182,28 +2168,6 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ),
-        },
-      ];
-    case "hover-card":
-      return [
-        { label: "Default", node: <HoverCardDemo /> },
-        {
-          label: "With content",
-          node: (
-            <HoverCard>
-              <HoverCardTrigger asChild>
-                <Button variant="link">@ada</Button>
-              </HoverCardTrigger>
-              <HoverCardContent className="w-64">
-                <div className="space-y-1">
-                  <h4 className="text-sm font-semibold">Ada Lovelace</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Mathematician and writer.
-                  </p>
-                </div>
-              </HoverCardContent>
-            </HoverCard>
           ),
         },
       ];

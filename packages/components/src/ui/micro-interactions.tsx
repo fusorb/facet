@@ -250,13 +250,17 @@ export function MagneticButton({
 /* ── ShineButton ───────────────────────────────────────────── */
 
 export interface ShineButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Shine color. Default: rgba(255,255,255,0.4). */
+  /** Shine color. Default: var(--shine-color). */
   shineColor?: string;
+  /** Sweep duration: ms or a motion duration token. Default: 700. */
+  duration?: Duration;
 }
 
-/** A button with a light sweep across on hover. */
+/** A button with a light sweep across on hover, timed from the motion
+ *  duration tokens and themed from `--shine-color`. */
 export function ShineButton({
-  shineColor = "rgba(255,255,255,0.4)",
+  shineColor = "var(--shine-color)",
+  duration = 700,
   className,
   children,
   style,
@@ -269,8 +273,13 @@ export function ShineButton({
       {...props}
     >
       <span
-        className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform group-hover:translate-x-full"
-        style={{ transitionDuration: "var(--motion-duration-700)" }}
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -translate-x-full transition-transform group-hover:translate-x-full"
+        style={{
+          transitionDuration: `${resolveDuration(duration)}ms`,
+          transitionTimingFunction: "var(--motion-ease-standard)",
+          background: `linear-gradient(to right, transparent, ${shineColor}, transparent)`,
+        }}
       />
       <span className="relative inline-flex items-center gap-2">
         {children}

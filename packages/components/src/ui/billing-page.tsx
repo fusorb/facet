@@ -143,7 +143,7 @@ function PlanCta({
   if (ctaButton?.renderButton) {
     return (
       <AnimatedButton
-        animation={ctaButton.animation ?? "sparkle"}
+        animation={ctaButton.animation ?? "shine"}
         renderButton={ctaButton.renderButton}
         className="w-full"
       >
