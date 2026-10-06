@@ -11,7 +11,7 @@
  */
 
 import * as React from "react";
-import { useLayout, DEFAULT_SIDEBAR_WIDTH } from "./layout-context.js";
+import { useLayout, DEFAULT_SIDEBAR_WIDTH, SIDEBAR_RAIL_WIDTH, TOPBAR_HEIGHT } from "./layout-context.js";
 import {
   ScrollArea,
   Skeleton,
@@ -31,7 +31,7 @@ export interface SidebarProps {
   isLoading?: boolean;
   /** Rail mode: render icon-only with tooltip labels. Default: false */
   collapsed?: boolean;
-  /** Current expanded sidebar width in px. Default: 260 */
+  /** Current expanded sidebar width in px. Default: 240 */
   width?: number;
   /** Accordion mode: opening a section collapses the others, and collapsible
    *  child groups within an open section also behave as accordion (opening
@@ -101,7 +101,7 @@ export function Sidebar({
     setSidebarOpen(false);
   }, [setSidebarOpen]);
 
-  const sidebarWidth = collapsed ? 68 : width;
+  const sidebarWidth = collapsed ? SIDEBAR_RAIL_WIDTH : width;
 
   // VS Code style resize: dragging the right edge resizes the sidebar.
   // Dragging below the min width collapses it to the rail; dragging the
@@ -136,10 +136,14 @@ export function Sidebar({
   return (
     <aside
       data-sidebar
-      className={`fixed left-0 top-14 z-30 flex h-[calc(100vh-56px)] flex-col border-r bg-sidebar transition-[width] duration-200 pointer-events-auto ${
+      className={`fixed left-0 z-30 flex flex-col border-r bg-sidebar transition-[width] duration-200 pointer-events-auto ${
         collapsed ? "w-[68px]" : ""
       }`}
-      style={collapsed ? undefined : { width: `${sidebarWidth}px` }}
+      style={{
+        top: `${TOPBAR_HEIGHT}px`,
+        height: `calc(100vh - ${TOPBAR_HEIGHT}px)`,
+        ...(collapsed ? {} : { width: `${sidebarWidth}px` }),
+      }}
       // Track hover across the sidebar content so the hamburger's close timer
       // is cancelled while the mouse is inside the sidebar - the user can
       // open sections/subsections without the sidebar snapping shut.
@@ -217,18 +221,6 @@ export function Sidebar({
         <div className="border-t border-sidebar-border p-3">{sidebarBottom}</div>
       )}
 
-      {/* Footer */}
-      <div className="p-4">
-        {collapsed ? (
-          <p className="text-center text-xs text-sidebar-foreground/40">
-            {config.brand.name.slice(0, 1).toUpperCase()}
-          </p>
-        ) : (
-          <p className="text-center text-xs text-sidebar-foreground/40">
-            {config.brand.name} v1.0.0
-          </p>
-        )}
-      </div>
     </aside>
   );
 }
@@ -270,13 +262,14 @@ function NavSectionRenderer({
   sectionIds: string[];
   renderNavItem?: SidebarProps["renderNavItem"];
 }) {
-  // Storybook-style section: the header toggles the whole group.
+  // Collapsible section: the header toggles the whole group.
   // Open by default; collapse state is persisted via layout context.
   const { collapsedSections, toggleSection, openSection } = useLayout();
   const sectionKey = section.id ?? section.title;
   const isActive = router
     ? router.isActive
-    : (href: string) => href === window.location.pathname;
+    : (href: string) =>
+        typeof window !== "undefined" && href === window.location.pathname;
   const hasActive = sectionHasActiveItem(section, isActive);
   // Section open state is driven solely by the persisted collapse map.
   // An active section auto-expands via the route-change effect above
@@ -450,7 +443,8 @@ function NavItemRenderer({
   const hasChildren = children?.length;
   const getActive = router
     ? router.isActive
-    : (href: string) => href === window.location.pathname;
+    : (href: string) =>
+        typeof window !== "undefined" && href === window.location.pathname;
   // Auto-expand a collapsible group when one of its children is the
   // active page, so the current location is always visible.
   const childActive = hasChildren

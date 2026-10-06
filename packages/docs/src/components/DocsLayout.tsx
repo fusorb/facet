@@ -144,7 +144,6 @@ export function DocsLayout() {
           />
         </>
       }
-      links={links}
     >
       <Outlet />
     </LayoutDocsLayout>

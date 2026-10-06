@@ -69,8 +69,8 @@ export { type ConsoleLayoutProps, ConsoleLayout } from "./console-layout.js";
 
 /* ── Docs layout (console + aside + sidebar search/auth) ─────── */
 export { type DocsLayoutProps, DocsLayout, type DocsLayoutContextValue, useDocsLayout } from "./docs-layout.js";
-export { type DocsAsideProps, DocsAside } from "./docs-aside.js";
-export { type SidebarAuthProps, SidebarAuth } from "./sidebar-auth.js";
+export { type DocsAsideProps, type DocsAsideHeading, DocsAside } from "./docs-aside.js";
+export { type SidebarAuthProps, type SidebarAuthAction, SidebarAuth } from "./sidebar-auth.js";
 
 export { type LandingLayoutProps, LandingLayout } from "./landing-layout.js";
 

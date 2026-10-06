@@ -13,10 +13,9 @@
  *   - Collapsed variant: one button collapses the sidebar rail, every nav
  *     section, AND the aside at once (Ctrl/Cmd+Shift+B). Toggling restores
  *     all three (full rail + expanded sections + aside).
- *   - SettingsMenu with ecosystem links
  *
  * The DocsLayoutContext exposes mode + aside + collapse-all state so that
- * docs-specific topbar controls (SettingsMenu, dropdown, keyboard) can read
+ * docs-specific topbar controls (settings menu, dropdown, keyboard) can read
  * or mutate them.
  */
 
@@ -46,10 +45,10 @@ export interface DocsLayoutProps {
   asideWidth?: number;
   /** Auth quick-action panel at the bottom of the sidebar. */
   sidebarBottom?: React.ReactNode;
-  /** Extra docs-specific controls in the topbar (GitHub link, SettingsMenu, …). */
+  /** Extra docs-specific controls in the topbar (GitHub link, settings menu, …). */
   topbar?: React.ReactNode;
-  /** Ecosystem / quick links for the settings menu. */
-  links?: Array<{ label: string; href: string; icon?: string }>;
+  /** Extra classes merged onto the root shell element. */
+  className?: string;
   /** Main routed content (typically <Outlet />). */
   children: React.ReactNode;
 }
@@ -117,10 +116,16 @@ export function DocsLayout({
   asideWidth,
   sidebarBottom,
   topbar,
+  className,
   children,
 }: DocsLayoutProps) {
   const [modeState, setModeState] = React.useState<ConsoleLayoutMode>(mode);
   const [asideOpen, setAsideOpen] = React.useState(true);
+
+  // Persist effects skip their first post-mount run so a hydration write can
+  // never clobber storage with the pre-hydration default.
+  const modePersistReady = React.useRef(false);
+  const asidePersistReady = React.useRef(false);
 
   // Hydrate from localStorage (client-only).
   React.useEffect(() => {
@@ -138,11 +143,19 @@ export function DocsLayout({
   // Persist changes.
   React.useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!modePersistReady.current) {
+      modePersistReady.current = true;
+      return;
+    }
     window.localStorage.setItem(MODE_STORAGE_KEY, modeState);
   }, [modeState]);
 
   React.useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!asidePersistReady.current) {
+      asidePersistReady.current = true;
+      return;
+    }
     window.localStorage.setItem(ASIDE_STORAGE_KEY, String(asideOpen));
   }, [asideOpen]);
 
@@ -189,6 +202,7 @@ export function DocsLayout({
       <ConsoleLayout
         config={config}
         router={router}
+        className={className}
         mode={modeState}
         singleOpen={singleOpen}
         navbar={navbar}
@@ -263,7 +277,7 @@ function DocsTopbarControls({
     },
   };
 
-  // Sync display state for external consumers (e.g. SettingsMenu).
+  // Sync display state for external consumers (e.g. a settings menu).
   React.useEffect(() => {
     setCollapsedAll(computedCollapsedAll);
   }, [computedCollapsedAll, setCollapsedAll]);
@@ -276,6 +290,16 @@ function DocsTopbarControls({
         event.shiftKey &&
         event.key.toLowerCase() === "b"
       ) {
+        const el = event.target as HTMLElement | null;
+        if (
+          el &&
+          (el.tagName === "INPUT" ||
+            el.tagName === "TEXTAREA" ||
+            el.tagName === "SELECT" ||
+            el.isContentEditable)
+        ) {
+          return;
+        }
         event.preventDefault();
         if (computedCollapsedAll) {
           setMode("full");
@@ -365,7 +389,7 @@ function DocsTopbarControls({
         )}
       </button>
 
-      {/* Docs-specific extra controls (GitHub, SettingsMenu, …) */}
+      {/* Docs-specific extra controls (GitHub, settings menu, …) */}
       {topbar}
     </>
   );

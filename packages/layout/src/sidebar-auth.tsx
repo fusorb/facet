@@ -41,7 +41,15 @@ function toMenuItem(action: SidebarAuthAction): UserAvatarMenuItem {
     label: action.label,
     icon: action.icon as any,
     destructive: action.destructive,
-    onSelect: action.onClick,
+    onSelect:
+      action.onClick ??
+      (action.href
+        ? () => {
+            if (typeof window !== "undefined") {
+              window.location.href = action.href!;
+            }
+          }
+        : undefined),
   };
 }
 

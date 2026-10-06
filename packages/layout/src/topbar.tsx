@@ -72,6 +72,12 @@ export interface TopbarProps {
     settingsPath?: string;
     onSignOut?: () => void;
   }) => React.ReactNode;
+  /**
+   * Whether to render a user menu. Default: true — the built-in UserMenu
+   * renders nothing when there is no auth context, so docs/static sites are
+   * unaffected. Set false to suppress it entirely.
+   */
+  showUserMenu?: boolean;
 }
 
 /** Default tenant switcher: delegates to the built-in TenantSwitcher. */
@@ -119,6 +125,7 @@ export function Topbar({
   showSidebarToggle = true,
   renderTenantSwitcher,
   renderUserMenu,
+  showUserMenu = true,
 }: TopbarProps) {
   const {
     sidebarOpen,
@@ -131,12 +138,10 @@ export function Topbar({
 
   const handleTenantSwitch = onTenantSwitch ?? (() => {});
 
-  const showTenantSwitcher = tenants.length > 0 || renderTenantSwitcher;
-  const showUserMenu =
-    !!renderUserMenu || !!onSignOut || !!settingsPath;
+  const showTenantSwitcher = tenants.length > 0 || !!renderTenantSwitcher;
 
   return (
-    <header className="sticky top-0 z-60 flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
+    <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
       <div className="flex items-center gap-3">
         {brand}
 
@@ -201,6 +206,7 @@ export function Topbar({
         {/* Rail-mode collapse toggle (desktop) */}
         {showSidebarToggle && mode === "rail" && (
           <button
+            type="button"
             onClick={toggleSidebarCollapsed}
             className="hidden rounded-md p-1 text-foreground/60 hover:bg-foreground/5 lg:inline-flex"
             aria-label={

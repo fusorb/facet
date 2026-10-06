@@ -7,6 +7,7 @@
  */
 
 import type { ReactNode } from "react";
+import { cn } from "@fusorb/facet-components";
 
 export interface LandingLayoutProps {
   /** Hero section content */
@@ -17,6 +18,8 @@ export interface LandingLayoutProps {
   nav?: ReactNode;
   /** Footer content */
   footer?: ReactNode;
+  /** Extra classes merged onto the root element. */
+  className?: string;
 }
 
 export function LandingLayout({
@@ -24,9 +27,10 @@ export function LandingLayout({
   children,
   nav,
   footer,
+  className,
 }: LandingLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className={cn("flex min-h-screen flex-col bg-background", className)}>
       {/* Top nav. Rendered as-is so the consumer owns positioning:
           the Navbar component's sticky/pill variants handle their own
           top offset, width, and backdrop. */}

@@ -14,6 +14,8 @@ import * as React from "react";
 import { useOptionalAuth } from "@fusorb/facet-auth";
 import { LayoutProvider, useLayout } from "./layout-context.js";
 import { Sidebar } from "./sidebar.js";
+import { useIsDesktop } from "./use-is-desktop.js";
+import { cn } from "@fusorb/facet-components";
 import type { LayoutConfig } from "./types.js";
 import type { RouterAdapter } from "./router.js";
 
@@ -46,6 +48,8 @@ export interface ChatLayoutProps {
   inputPlaceholder?: string;
   /** Framework-aware sidebar navigation links. */
   router?: RouterAdapter;
+  /** Extra classes merged onto the root shell element. */
+  className?: string;
 }
 
 /* ── Default chat input ──────────────────────────────────── */
@@ -129,24 +133,16 @@ function ChatSidebar({ config, onNewChat, isLoading }: ChatSidebarProps) {
         )}
       </div>
       <div className="flex-1 overflow-y-auto">
-        <Sidebar config={config} isLoading={isLoading} />
+        {/* ChatSidebar owns the brand header above, so suppress Sidebar's
+            default brand block to avoid rendering the name twice. */}
+        <Sidebar
+          config={config}
+          isLoading={isLoading}
+          renderBrand={() => null}
+        />
       </div>
     </div>
   );
-}
-
-/* ── Responsivity ─────────────────────────────────────────── */
-
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = React.useState(false);
-  React.useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsDesktop(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-  return isDesktop;
 }
 
 /* ── Shell ───────────────────────────────────────────────── */
@@ -160,6 +156,7 @@ function ChatLayoutInner({
   topbar,
   inputDisabled,
   inputPlaceholder,
+  className,
 }: ChatLayoutProps) {
   const { sidebarOpen, setSidebarOpen } = useLayout();
   const isDesktop = useIsDesktop();
@@ -212,7 +209,7 @@ function ChatLayoutInner({
   }
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className={cn("flex min-h-screen bg-background", className)}>
       {/* Mobile hamburger */}
       {!isDesktop && (
         <button
@@ -227,7 +224,7 @@ function ChatLayoutInner({
 
       {/* Desktop persistent sidebar */}
       {isDesktop && (
-        <div className="hidden w-64 border-r border-border bg-sidebar lg:block">
+        <div className="hidden w-[260px] border-r border-border bg-sidebar lg:block">
           <ChatSidebar config={config} onNewChat={onNewChat} isLoading={isLoading} />
         </div>
       )}
@@ -235,7 +232,7 @@ function ChatLayoutInner({
       {/* Mobile slide-in sidebar */}
       {!isDesktop && (
         <div
-          className={`fixed inset-y-0 left-0 z-[80] flex h-screen w-64 transform flex-col border-r bg-sidebar transition-transform duration-200 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+          className={`fixed inset-y-0 left-0 z-[80] flex h-screen w-[260px] transform flex-col border-r bg-sidebar transition-transform duration-200 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
           data-sidebar
         >
           <ChatSidebar config={config} onNewChat={onNewChat} isLoading={isLoading} />

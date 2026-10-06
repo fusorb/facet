@@ -10,23 +10,29 @@
 
 import * as React from "react";
 import { useOptionalAuth } from "@fusorb/facet-auth";
-import { useLayout, LayoutProvider } from "./layout-context.js";
+import { cn } from "@fusorb/facet-components";
+import {
+  useLayout,
+  LayoutProvider,
+  SIDEBAR_RAIL_WIDTH,
+  TOPBAR_HEIGHT,
+} from "./layout-context.js";
 import { Sidebar, BrandLogo } from "./sidebar.js";
 import { Topbar } from "./topbar.js";
+import { useIsDesktop } from "./use-is-desktop.js";
 import type { ConsoleLayoutMode, LayoutConfig, TenantReference } from "./types.js";
 import type { RouterAdapter } from "./router.js";
 
-/** True when the viewport is at the desktop (lg) breakpoint or wider. */
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = React.useState(false);
-  React.useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsDesktop(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-  return isDesktop;
+/** True when a keyboard event originated inside a text-editable control. */
+function isEditableTarget(target: EventTarget | null): boolean {
+  const el = target as HTMLElement | null;
+  if (!el) return false;
+  return (
+    el.tagName === "INPUT" ||
+    el.tagName === "TEXTAREA" ||
+    el.tagName === "SELECT" ||
+    el.isContentEditable
+  );
 }
 
 export interface ConsoleLayoutProps {
@@ -40,7 +46,10 @@ export interface ConsoleLayoutProps {
   router?: RouterAdapter;
   /** Extra content rendered at the right side of the topbar (links, toggles). */
   topbar?: React.ReactNode;
-  /** Render the built-in theme toggle in the topbar (needs a ThemeProvider ancestor). */
+  /**
+   * Render the built-in theme toggle in the topbar (needs a ThemeProvider
+   * ancestor). Falls back to `config.features.themeToggle`.
+   */
   themeToggle?: boolean;
   /**
    * Accordion mode: opening a sidebar section closes the others. Default: false
@@ -68,6 +77,8 @@ export interface ConsoleLayoutProps {
   /** Inherited landing navbar rendered above the docs-specific topbar
    *  (full-width within the main content area). */
   navbar?: React.ReactNode;
+  /** Extra classes merged onto the root shell element. */
+  className?: string;
   children: React.ReactNode;
 }
 
@@ -78,7 +89,7 @@ function ConsoleLayoutInner({
   onTenantSwitch,
   mode = "full",
   topbar,
-  themeToggle = false,
+  themeToggle,
   singleOpen = false,
   aside,
   asideWidth = 260,
@@ -86,6 +97,7 @@ function ConsoleLayoutInner({
   sidebarSearch,
   sidebarBottom,
   navbar,
+  className,
   children,
 }: ConsoleLayoutProps) {
   const {
@@ -97,22 +109,22 @@ function ConsoleLayoutInner({
   } = useLayout();
   const isDesktop = useIsDesktop();
 
+  // Every hook is declared before any conditional return so the hook order
+  // stays stable across auth transitions (loading → authenticated →
+  // unauthenticated). Rules of Hooks.
+
   // Ctrl/Cmd+B toggles the rail sidebar collapse (VS Code style). Ignored
-  // while the user is typing in an input, textarea, or contenteditable.
+  // while typing in an input/textarea/contenteditable, and when Shift is held
+  // (Ctrl/Cmd+Shift+B is DocsLayout's "collapse everything" shortcut).
   React.useEffect(() => {
     if (mode !== "rail") return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "b") {
-        const target = event.target as HTMLElement | null;
-        if (
-          target &&
-          (target.tagName === "INPUT" ||
-            target.tagName === "TEXTAREA" ||
-            target.tagName === "SELECT" ||
-            target.isContentEditable)
-        ) {
-          return;
-        }
+      if (
+        (event.metaKey || event.ctrlKey) &&
+        !event.shiftKey &&
+        event.key.toLowerCase() === "b"
+      ) {
+        if (isEditableTarget(event.target)) return;
         event.preventDefault();
         toggleSidebarCollapsed();
       }
@@ -128,30 +140,13 @@ function ConsoleLayoutInner({
   const isAuthenticated = auth?.isAuthenticated ?? true;
   const isLoading = auth?.isLoading ?? false;
 
-  // Show loading state while auth resolves
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-      </div>
-    );
-  }
-
-  // Not authenticated: render children directly (let Guard or SignIn handle it)
-  if (!isAuthenticated) {
-    return <>{children}</>;
-  }
-
-  const sidebarWidthPx =
-    mode === "rail" && sidebarCollapsed ? 68 : sidebarWidth;
-
-  // Click-outside (and Escape) closes the mobile sidebar.
-  // The hamburger button is excluded via [data-mobile-trigger] so that
-  // click-to-pin works even while the sidebar is open on hover.
+  // Click-outside (and Escape) closes the mobile sidebar. The hamburger is
+  // excluded via [data-mobile-trigger] so click-to-pin works even while the
+  // sidebar is open on hover.
   const setSidebarOpenRef = React.useRef(setSidebarOpen);
   setSidebarOpenRef.current = setSidebarOpen;
   React.useEffect(() => {
-    if (!sidebarOpen) return;
+    if (!sidebarOpen || isLoading || !isAuthenticated) return;
     const close = () => setSidebarOpenRef.current(false);
     const onPointerDown = (event: PointerEvent) => {
       const target = event.target as HTMLElement | null;
@@ -171,32 +166,48 @@ function ConsoleLayoutInner({
       document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [sidebarOpen]);
+  }, [sidebarOpen, isLoading, isAuthenticated]);
+
+  // Show loading state while auth resolves
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    );
+  }
+
+  // Not authenticated: render children directly (let Guard or SignIn handle it)
+  if (!isAuthenticated) {
+    return <>{children}</>;
+  }
+
+  // config.features supplies defaults; explicit props win.
+  const features = config.features ?? {};
+  const showTenantSwitcher = features.tenantSwitcher !== false;
+  const resolvedThemeToggle = themeToggle ?? features.themeToggle === true;
+
+  // Rail mode shrinks the sidebar to an icon-only rail.
+  const sidebarWidthPx =
+    mode === "rail" && sidebarCollapsed ? SIDEBAR_RAIL_WIDTH : sidebarWidth;
 
   // Classic mode: the sidebar is persistent and pushes content (full/rail).
   const classicDesktop = isDesktop;
   const showAside = classicDesktop && aside && !asideCollapsed;
-  // Rail mode: sidebar 68px rail; full mode: sidebar 260px.
-  // Per the docs layout spec, the aside is NOT compacted in full mode —
-  // it stays its given width in both rail and full.
   const padLeft = classicDesktop ? sidebarWidthPx : 0;
   // Offset main content by the aside width when it is shown.
   const padRight = showAside ? asideWidth : 0;
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className={cn("flex min-h-screen flex-col bg-background", className)}>
       {/* Topbar — full width, above all splits (navbar + docs topbar) */}
-      {navbar && (
-        <div className="border-b border-sidebar-border">
-          {navbar}
-        </div>
-      )}
+      {navbar && <div className="border-b border-sidebar-border">{navbar}</div>}
       <Topbar
-        tenants={tenants}
+        tenants={showTenantSwitcher ? tenants : []}
         activeTenant={activeTenant}
         onTenantSwitch={onTenantSwitch}
         mode={mode}
-        themeToggle={themeToggle}
+        themeToggle={resolvedThemeToggle}
         brand={
           config.brand ? (
             <span className="hidden lg:inline-flex items-center gap-2 font-semibold text-foreground">
@@ -238,20 +249,37 @@ function ConsoleLayoutInner({
         {showAside && (
           <aside
             data-docs-aside
-            className="fixed top-14 right-0 z-20 hidden h-[calc(100vh-56px)] flex-col border-l bg-background opacity-100 transition-[width] duration-200 lg:flex"
-            style={{ width: `${asideWidth}px` }}
+            className="fixed right-0 z-20 hidden flex-col border-l bg-background opacity-100 transition-[width] duration-200 lg:flex"
+            style={{
+              top: `${TOPBAR_HEIGHT}px`,
+              height: `calc(100vh - ${TOPBAR_HEIGHT}px)`,
+              width: `${asideWidth}px`,
+            }}
           >
             {aside}
           </aside>
         )}
 
-        {/* Mobile: slide-in sidebar — below the topbar */}
+        {/* Mobile: slide-in sidebar — below the topbar. pointer-events are
+            enabled only while open so the closed drawer never swallows taps. */}
         {!isDesktop && (
           <div
-             className={`fixed inset-y-0 left-0 z-[80] flex h-screen w-[260px] transform flex-col transition-transform duration-200 pointer-events-none ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
-             data-sidebar
-           >
-             <Sidebar config={config} width={260} singleOpen={singleOpen} sidebarSearch={sidebarSearch} sidebarBottom={sidebarBottom} renderBrand={() => null} />
+            className={cn(
+              "fixed inset-y-0 left-0 z-[80] flex h-screen w-[260px] transform flex-col transition-transform duration-200",
+              sidebarOpen
+                ? "translate-x-0 pointer-events-auto"
+                : "-translate-x-full pointer-events-none",
+            )}
+            data-sidebar
+          >
+            <Sidebar
+              config={config}
+              width={260}
+              singleOpen={singleOpen}
+              sidebarSearch={sidebarSearch}
+              sidebarBottom={sidebarBottom}
+              renderBrand={() => null}
+            />
           </div>
         )}
 

@@ -109,7 +109,7 @@ export interface LayoutContextValue {
   sidebarCollapsed: boolean;
   setSidebarCollapsed: (collapsed: boolean) => void;
   toggleSidebarCollapsed: () => void;
-  /** Rail mode: current expanded sidebar width in px (resizable). Default: 260 */
+  /** Rail mode: current expanded sidebar width in px (resizable). Default: 240 */
   sidebarWidth: number;
   setSidebarWidth: (width: number) => void;
   /** Per-section collapse state keyed by section id (or title). */
@@ -137,6 +137,7 @@ export interface LayoutContextValue {
 /* ── Component props ──────────────────────────────────────── */
 
 export interface LayoutProviderProps {
-  config: LayoutConfig;
   children: ReactNode;
+  /** Framework-aware navigation. Defaults to window.location + plain <a>. */
+  router?: RouterAdapter;
 }

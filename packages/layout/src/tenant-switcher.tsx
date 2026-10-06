@@ -35,6 +35,7 @@ function DefaultTenant({
 }) {
   return (
     <button
+      type="button"
       onClick={() => selectTenant(tenant)}
       className={`flex w-full items-center gap-2 rounded-sm px-2 py-2 text-sm ${
         tenant.id === activeTenant?.id
@@ -61,6 +62,17 @@ export function TenantSwitcher({
 }: TenantSwitcherProps) {
   const [open, setOpen] = React.useState(false);
 
+  // Escape closes the menu. Declared before the early return so hook order
+  // stays stable when the tenant list shrinks to <= 1.
+  React.useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   // Auto-hide when there's 0 or 1 tenants
   if (tenants.length <= 1) return null;
 
@@ -72,7 +84,10 @@ export function TenantSwitcher({
   return (
     <div className="relative">
       <button
+        type="button"
         onClick={() => setOpen(!open)}
+        aria-haspopup="menu"
+        aria-expanded={open}
         className="flex h-8 items-center gap-2 rounded-md border border-input bg-transparent px-3 text-sm text-foreground/80 hover:bg-foreground/5"
       >
         <span className="size-1.5 rounded-full bg-primary" />
@@ -96,8 +111,8 @@ export function TenantSwitcher({
 
       {open && (
         <>
-          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute left-0 top-10 z-50 w-[200px] rounded-lg border bg-popover p-1 shadow-lg">
+          <div className="fixed inset-0 z-40" aria-hidden="true" onClick={() => setOpen(false)} />
+          <div role="menu" className="absolute left-0 top-10 z-50 w-[200px] rounded-lg border bg-popover p-1 shadow-lg">
             {tenants.map((t) => {
               const item = renderTenant
                 ? renderTenant(t, selectTenant)

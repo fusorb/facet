@@ -11,6 +11,7 @@
  */
 
 import * as React from "react";
+import { cn } from "@fusorb/facet-components";
 import type { LayoutConfig } from "./types.js";
 
 export interface AuthLayoutProps {
@@ -23,8 +24,10 @@ export interface AuthLayoutProps {
    * config-driven layout (logo + tagline + benefits from `config.brand`).
    */
   brandPanel?: React.ReactNode;
-  /** Class applied to the left panel wrapper (custom bg/image, etc.). */
+  /** Extra classes merged onto the left panel wrapper (added to the defaults). */
   brandPanelClassName?: string;
+  /** Extra classes merged onto the root element. */
+  className?: string;
 }
 
 export function AuthLayout({
@@ -32,19 +35,20 @@ export function AuthLayout({
   children,
   brandPanel,
   brandPanelClassName,
+  className,
 }: AuthLayoutProps) {
   const { brand } = config;
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className={cn("flex min-h-screen bg-background", className)}>
       {/* Left panel: hidden below lg. Theme-token driven by default
           (bg-primary + text-primary-foreground), fully overridable via
           brandPanelClassName / brandPanel. */}
       <div
-        className={
-          brandPanelClassName ??
-          "hidden flex-col justify-between bg-primary p-8 lg:flex lg:w-1/2"
-        }
+        className={cn(
+          "hidden flex-col justify-between bg-primary p-8 lg:flex lg:w-1/2",
+          brandPanelClassName,
+        )}
       >
         {brandPanel ? (
           brandPanel

@@ -6,8 +6,8 @@
  * Reads a list of headings (h2/h3) and renders anchor links with
  * IntersectionObserver-based active-link tracking.  The panel is
  * scrollable when headings overflow, collapsible via a header toggle,
- * and styled with the light-blue (`--primary`) palette:
- *   - active link: left border + text at full blue, bg at ~10 % opacity.
+ * and styled with the `--primary` palette:
+ *   - active link: left border + text at full primary, bg at ~10 % opacity.
  *
  * This component is generic — it does NOT know about DocsBlock.
  * The docs package extracts h2/h3 from DocsBlock[] (using `slug()`)
@@ -52,6 +52,11 @@ export function DocsAside({
   const [internalCollapsed, setInternalCollapsed] = React.useState(defaultCollapsed);
   const collapsed = controlledCollapsed ?? internalCollapsed;
 
+  // Skip the first persist/notify run so the post-hydration value is what
+  // gets stored — never the pre-hydration default.
+  const persistReady = React.useRef(false);
+
+  // Hydrate once from localStorage (client-only).
   React.useEffect(() => {
     if (typeof window === "undefined") return;
     try {
@@ -60,17 +65,28 @@ export function DocsAside({
     } catch {}
   }, []);
 
+  // Persist state, and notify the consumer when the panel is uncontrolled.
   React.useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!persistReady.current) {
+      persistReady.current = true;
+      return;
+    }
     try {
       localStorage.setItem(ASIDE_STORAGE_KEY, String(collapsed));
     } catch {}
-    onToggle?.(collapsed);
-  }, [collapsed, onToggle]);
+    if (controlledCollapsed === undefined) onToggle?.(collapsed);
+  }, [collapsed, onToggle, controlledCollapsed]);
 
+  // Controlled mode: report the requested state to the parent. Uncontrolled:
+  // flip internal state (the effect above persists + notifies).
   const handleToggle = React.useCallback(() => {
-    setInternalCollapsed((prev) => !prev);
-  }, []);
+    if (controlledCollapsed !== undefined) {
+      onToggle?.(!controlledCollapsed);
+    } else {
+      setInternalCollapsed((prev) => !prev);
+    }
+  }, [controlledCollapsed, onToggle]);
 
   const [activeId, setActiveId] = React.useState<string | null>(null);
 
@@ -118,6 +134,7 @@ export function DocsAside({
         <button
           type="button"
           onClick={handleToggle}
+          aria-label={collapsed ? "Expand on this page" : "Collapse on this page"}
           aria-expanded={!collapsed}
           aria-controls="docs-aside-content"
           className="rounded p-1 text-muted-foreground/60 hover:text-foreground"
@@ -148,7 +165,7 @@ export function DocsAside({
                 className={cn(
                   "block rounded-sm border-l-2 border-transparent px-2 py-1 text-muted-foreground",
                   "transition-all hover:border-primary hover:text-foreground hover:underline decoration-primary/50",
-                  // Light-blue palette: full-blue border + text, bg at ~10 % opacity
+                  // Primary palette: full-primary border + text, bg at ~10 % opacity
                   activeId === h.id &&
                     "border-primary bg-primary/10 font-medium text-primary",
                   h.level === 3 && "pl-6",

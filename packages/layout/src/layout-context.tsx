@@ -24,6 +24,12 @@ const STORAGE_KEY_SECTIONS = "facet:sidebar-sections";
 /** Default expanded sidebar width. */
 export const DEFAULT_SIDEBAR_WIDTH = 240;
 
+/** Icon-only rail width (px) used when the sidebar is collapsed. */
+export const SIDEBAR_RAIL_WIDTH = 68;
+
+/** Fixed topbar height (px). Kept in sync with the `h-14` class. */
+export const TOPBAR_HEIGHT = 56;
+
 export function LayoutProvider({
   children,
   router,

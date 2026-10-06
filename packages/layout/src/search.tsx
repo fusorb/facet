@@ -218,6 +218,16 @@ export function CommandPalette({
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        const el = event.target as HTMLElement | null;
+        if (
+          el &&
+          (el.tagName === "INPUT" ||
+            el.tagName === "TEXTAREA" ||
+            el.tagName === "SELECT" ||
+            el.isContentEditable)
+        ) {
+          return;
+        }
         event.preventDefault();
         setOpen(true);
       }
