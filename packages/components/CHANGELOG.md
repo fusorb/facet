@@ -1,5 +1,91 @@
 # @fusorb/facet-components
 
+## 2.0.3
+
+### Patch Changes
+
+- 3920b90: Animation flexibility pass - remove hardcoded values from the animation surfaces.
+
+  - **New tokens**: `--accent-fuchsia` (third stop of the brand gradient used by
+    Aurora / GradientText / GradientBorderCard) and ambient loop durations
+    `--motion-duration-beam` / `--motion-duration-aurora` / `--motion-duration-marquee`.
+    Mapped into the Tailwind theme as `--color-accent-fuchsia`.
+  - **Components**: the animation components (`card-animations`, `micro-interactions`,
+    `text-animations`, `animated`) now accept `@fusorb/facet-motion`'s `Duration`
+    tokens in every `duration` prop (plain numbers still work), so timing is
+    themeable per domain instead of hardcoded in milliseconds. Replaced the last
+    inline `#d946ef` literals with `var(--accent-fuchsia)` and converted the
+    remaining `duration-*` utility classes on these surfaces to token-driven
+    durations.
+  - **Fix**: `RevealCard` / `ScrollReveal` interpolated `resolveEasing("standard")`
+    (a JS easing function) into a CSS `transition` string, which stringified the
+    function source and produced an invalid timing function; both now use
+    `var(--motion-ease-standard)`.
+  - `--animate-facet-{marquee,aurora,beam}` now resolve their durations and
+    easings from tokens instead of literal `20s` / `18s` / `7s`.
+
+- 90c1637: Overlay exit animations: drop the JS wrapper so the CSS exit actually runs.
+
+  Every popover-family component (dropdown-menu, context-menu, menubar, select,
+  popover, hover-card, tooltip, navigation-menu, dialog, alert-dialog, sheet)
+  wrapped its Radix content in `<Motion asChild effect="zoom">` for the enter
+  animation while relying on `data-[state=closed]:animate-facet-zoom-out` for the
+  exit. In this tree the wrapper stopped Radix's `Presence` from seeing the exit
+  animation: on close the node went `data-state="open" → "closed"` and was
+  detached in the same task, so **exit never animated** (verified live over CDP —
+  no `data-state="closed"` frame, no `facet-zoom-out`).
+
+  The content is now a plain Radix element with both halves driven by CSS, the
+  pattern shadcn/ui ships and Radix's Presence handles natively:
+
+  ```
+  data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out
+  ```
+
+  Enter is now a token-driven CSS spring zoom (was a JS spring with a translateY);
+  exit finally plays. The `@fusorb/facet-motion` dependency is no longer imported
+  by these overlays (`stepper` keeps its standalone `<Motion>` content transition).
+
+- ba81b34: Stage 3 of the component-library cleanup:
+
+  - **Overlay lifecycle revert**: reverted dialog, sheet, drawer, alert-dialog,
+    popover, select, tooltip, hover-card, menubar, and context-menu from the
+    JS-driven exit lifecycle (`Presence` + `Motion` exit + `forceMount` +
+    `useOverlayOpen`) back to CSS-driven exit via `data-[state=closed]:animate-facet-*`
+    with a plain `<DialogPortal>`. Overlays now import only `{ Motion }` (no
+    `Presence`).
+  - **Removed dead code**: deleted `src/ui/motion-usage.tsx` (`OverlayContext` +
+    `useOverlayOpen`, imported only by the 10 overlays) and removed its
+    `NON_COMPONENT_FILES` exclusion from the three drift-gate scripts.
+  - **Focus restore**: restored visible, keyboard-only focus rings on Button,
+    Input, Select, Dialog, and Tabs using `focus-visible:ring-2
+focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2
+focus-visible:ring-offset-background`. Because these use `:focus-visible`,
+    mouse clicks do **not** show a ring/border (keyboard-only). `ring` colour
+    resolves to `--ring: #38bdf8` via the Tailwind `@theme` in `tailwind.css`.
+    Navbar dropdown-trigger buttons (the "mother navlinks") now carry
+    `focus-visible:ring-0` so keyboard Tab focus on the trigger itself is
+    suppressed — the ring is delegated to the menu items instead.
+    Navbar already shows focus via `focus:bg-accent` on delegated items.
+  - **z-index normalization**: modal backdrops are now `z-[60]` (below their
+    floating content) and floating content/overlays/menus are `z-[70]`, using
+    bracketed arbitrary values. Plain `z-60`/`z-70` are no-ops under Tailwind v4's
+    default scale (0,1,10,20,30,40,50,auto) and were corrected where introduced;
+    the navbar's pre-existing `z-60`/`z-70` no-op classes were also corrected
+    to bracketed arbitrary values (`z-[60]`/`z-[70]`) in the same pass.
+  - **Tests**: added `focus-ring.test.tsx` asserting the `focus-visible:` ring
+    classes are present on Button and Input.
+
+  Deviations flagged in AGENTS: the overlay revert used a blunt `git checkout
+deb6ad0` of each file instead of the originally proposed shared
+  overlay-wrapper abstraction.
+
+- Updated dependencies [3920b90]
+- Updated dependencies [ba81b34]
+- Updated dependencies [f76a519]
+  - @fusorb/facet-tokens@1.4.0
+  - @fusorb/facet-motion@1.2.0
+
 ## 2.0.2
 
 ### Patch Changes

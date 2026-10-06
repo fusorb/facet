@@ -1,5 +1,40 @@
 # @fusorb/facet-tokens
 
+## 1.4.0
+
+### Minor Changes
+
+- 3920b90: Animation flexibility pass - remove hardcoded values from the animation surfaces.
+
+  - **New tokens**: `--accent-fuchsia` (third stop of the brand gradient used by
+    Aurora / GradientText / GradientBorderCard) and ambient loop durations
+    `--motion-duration-beam` / `--motion-duration-aurora` / `--motion-duration-marquee`.
+    Mapped into the Tailwind theme as `--color-accent-fuchsia`.
+  - **Components**: the animation components (`card-animations`, `micro-interactions`,
+    `text-animations`, `animated`) now accept `@fusorb/facet-motion`'s `Duration`
+    tokens in every `duration` prop (plain numbers still work), so timing is
+    themeable per domain instead of hardcoded in milliseconds. Replaced the last
+    inline `#d946ef` literals with `var(--accent-fuchsia)` and converted the
+    remaining `duration-*` utility classes on these surfaces to token-driven
+    durations.
+  - **Fix**: `RevealCard` / `ScrollReveal` interpolated `resolveEasing("standard")`
+    (a JS easing function) into a CSS `transition` string, which stringified the
+    function source and produced an invalid timing function; both now use
+    `var(--motion-ease-standard)`.
+  - `--animate-facet-{marquee,aurora,beam}` now resolve their durations and
+    easings from tokens instead of literal `20s` / `18s` / `7s`.
+
+- f76a519: Composable brand palettes. Ship `@fusorb/facet-tokens/palettes/alpha.css` and
+  `@fusorb/facet-tokens/palettes/ember.css` (built + minified into
+  `dist/palettes/`, and exported from the package).
+
+  Each palette re-maps the full semantic token contract (`--primary`,
+  `--background`, `--card`, `--ring`, charts, sidebar, …) for both dark and light
+  themes, so the same components render under a completely different brand by
+  swapping a single `@import` — no component changes. Landing + docs now use the
+  Alpha palette (deep-space + electric-cyan); the playground uses the Ember
+  palette (warm orange/rose) as the counter-example.
+
 ## 1.3.0
 
 ### Minor Changes
