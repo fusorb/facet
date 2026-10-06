@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { Pill, Button } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
+import { getDocsUrl } from "../../site.config.js";
 
 export function TokensExplorerSection() {
   return (
@@ -57,12 +57,12 @@ export function TokensExplorerSection() {
       </div>
 
       <div className="mt-10 flex justify-center">
-        <Link to="/lab/tokens">
+        <a href={`${getDocsUrl()}/tokens`} target="_blank" rel="noreferrer">
           <Button color="primary" size="sm">
             Explore all tokens
             <LightIcon name="arrow-right" size={12} />
           </Button>
-        </Link>
+        </a>
       </div>
     </section>
   );

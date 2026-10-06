@@ -14,6 +14,7 @@
     { "path": "packages/cli" },
     { "path": "packages/emails" },
     { "path": "packages/sandbox" },
+    { "path": "packages/utils" },
     { "path": "apps/docs" },
     { "path": "apps/landing" },
     { "path": "apps/playground" }

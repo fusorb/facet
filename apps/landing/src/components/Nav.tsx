@@ -82,7 +82,7 @@ function getLinks(): NavLink[] {
           description: "Get started in minutes",
         },
         {
-          href: "#ecosystem",
+          href: "/ecosystem",
           label: "Packages",
           description: `${SITE_PACKAGES_COUNT} focused packages, one coherent system`,
         },
@@ -105,11 +105,11 @@ function GlobalSearch() {
         <Button
           variant="ghost"
           onClick={() => setOpen(true)}
-          className="flex h-8 items-center gap-2 rounded-md border border-border w-[212px] justify-start bg-panel px-3 text-sm text-text-muted transition-colors hover:bg-panel-hover hover:text-foreground"
+          className="flex h-8 items-center gap-2 rounded-md border border-border w-[212px] justify-start bg-card px-3 text-sm text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
         >
           <LightIcon name="search" size={14} />
           <span className="truncate text-left">Search</span>
-          <kbd className="text-xs text-text-dim">⌘K</kbd>
+          <kbd className="text-xs text-muted-foreground/60">⌘K</kbd>
         </Button>
       </TooltipTrigger>
       <TooltipContent side="bottom" className="text-xs">

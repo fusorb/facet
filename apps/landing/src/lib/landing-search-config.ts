@@ -13,7 +13,7 @@ export const landingSearchConfig: LayoutConfig = {
       title: "Components",
       id: "components",
       items: ALL_COMPONENTS.map((c) => ({
-        href: `/components/${c.name}`,
+        href: `${getDocsUrl()}/components/${c.name}`,
         label: c.name,
         keywords: [
           c.name.toLowerCase(),

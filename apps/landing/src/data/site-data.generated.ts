@@ -16,7 +16,7 @@ export interface SitePackage {
 export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-components",
-    "desc": "Radix-based UI component library: 118 accessible, styled components using the Alpha Palette design tokens",
+    "desc": "Radix-based UI component library: 116 accessible, styled components using the Alpha Palette design tokens",
     "version": "2.0.3",
     "icon": "boxes"
   },
@@ -136,7 +136,3 @@ export const COLOR_SPACE: string = "OKLCH";
 
 /** Number of domain presets (auto-detected from @fusorb/facet-auth presets). */
 export const DOMAIN_PRESET_COUNT: number = 5;
-
-// Root workspace version, resolved from the repo package.json at generation
-// time.  Consumers: HeroSection version badge, changelog, etc.
-export const SITE_VERSION: string = "2.0.0";

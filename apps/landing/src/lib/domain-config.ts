@@ -838,13 +838,3 @@ export const domainDefs: Record<DomainId, DomainContent> = {
     installSection: SHARED_INSTALL_SECTION,
   },
 };
-
-/** Convenience: ordered list of all domain configs for the toggle. */
-export const domainList: DomainContent[] = DOMAIN_IDS.map(
-  (id) => domainDefs[id],
-);
-
-/** Resolve a domain by id, falling back to the default domain. */
-export function resolveDomain(id: string): DomainContent {
-  return domainDefs[id as DomainId] ?? domainDefs.default;
-}

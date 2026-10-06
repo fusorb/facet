@@ -10,11 +10,11 @@ export interface FaqItem {
 export const FAQ: FaqItem[] = [
   {
     q: "Is facet free and open source?",
-    a: "Yes. Every package is MIT-licensed and published to npm under @fusorb: components, auth, layout, docs, tokens, sdk, emails, cli, and store.",
+    a: "Yes. Every package is MIT-licensed and published to npm under @fusorb: components, auth, layout, docs, tokens, sdk, store, emails, cli, motion, native, sandbox, and utils.",
   },
   {
     q: "Which React version does facet require?",
-    a: "React 18 or 19. All packages list `react` and `react-dom` as peer dependencies.",
+    a: "React 19. All packages list `react` and `react-dom` as peer dependencies.",
   },
   {
     q: "Does facet work with Tailwind v4?",

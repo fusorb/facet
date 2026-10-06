@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import { Pill, Button } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { MOTION_FAMILIES } from "../../data/scratchpad.js";
 import { MotionFamilyCard } from "../MotionFamilyCard.js";
+import { getPlaygroundUrl } from "../../site.config.js";
 
 export function MotionPreviewSection() {
   return (
@@ -74,12 +74,12 @@ export function MotionPreviewSection() {
           />
         </div>
         <div className="mt-4 flex justify-end">
-          <Link to="/lab/motion">
+          <a href={getPlaygroundUrl()} target="_blank" rel="noreferrer">
             <Button color="primary" size="sm">
-              Explore in Motion Lab
+              Open the Motion playground
               <LightIcon name="arrow-right" size={12} />
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

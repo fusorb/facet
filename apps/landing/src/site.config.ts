@@ -26,7 +26,7 @@ export function getDocsChangelogUrl(): string {
 /** Resolves the facet playground URL for the current environment. */
 export function getPlaygroundUrl(): string {
   return import.meta.env.DEV
-    ? "http://localhost:5174"
+    ? "http://localhost:5175"
     : "https://facet.so/playground";
 }
 
@@ -52,7 +52,7 @@ export const site = {
   },
   feedbackEmail: "feedback@facet.dev",
   socials,
-  techBadges: ["React 18/19", "TypeScript", "Radix UI", "Tailwind CSS v4"],
+  techBadges: ["React 19", "TypeScript", "Radix UI", "Tailwind CSS v4"],
 } as const;
 
 export type SiteConfig = typeof site;
