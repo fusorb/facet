@@ -99,7 +99,7 @@ export function CopyButton({
       className={cn(
         "inline-flex items-center gap-1.5 font-mono transition-colors",
         "text-muted-foreground/60 hover:text-foreground",
-        copied && "text-green-400",
+        copied && "text-success",
         size === "xs" ? "text-[10px]" : "text-xs",
       )}
     >

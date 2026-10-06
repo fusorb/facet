@@ -50,7 +50,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
       "Tenant acme-prod - credential issued for ada.lovelace@acme.dev",
     timestamp: MINS_AGO(3),
     icon: "badge-check",
-    accent: "#10b981",
+    accent: "var(--success)",
   },
   {
     id: "evt-2",
@@ -59,7 +59,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
       "grace.hopper@acme.dev added a WebAuthn passkey on Chrome / macOS",
     timestamp: MINS_AGO(11),
     icon: "fingerprint-pattern",
-    accent: "#06b6d4",
+    accent: "var(--chart-1)",
   },
   {
     id: "evt-3",
@@ -67,7 +67,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
     description: "Token TTL changed to 15 min for tenant fintech-pilot-04",
     timestamp: MINS_AGO(34),
     icon: "settings",
-    accent: "#a855f7",
+    accent: "var(--chart-3)",
   },
   {
     id: "evt-4",
@@ -76,7 +76,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
       "Three failed TOTP attempts from 102.89.32.x - rate limit engaged",
     timestamp: HOURS_AGO(2),
     icon: "circle-alert",
-    accent: "#ef4444",
+    accent: "var(--destructive)",
   },
   {
     id: "evt-5",
@@ -85,7 +85,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
       "credential.issued → https://api.example.com/hooks/arcid (200, 92ms)",
     timestamp: HOURS_AGO(4),
     icon: "webhook",
-    accent: "#22d3ee",
+    accent: "var(--chart-1)",
   },
   {
     id: "evt-6",
@@ -93,7 +93,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
     description: "SovGrant-prod-app - scopes: openid, profile, email, vc.issue",
     timestamp: HOURS_AGO(6),
     icon: "key-round",
-    accent: "#f59e0b",
+    accent: "var(--warning)",
   },
   {
     id: "evt-7",
@@ -101,7 +101,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
     description: "demo_live_a82f…31bd - manual revoke by ada.lovelace@acme.dev",
     timestamp: DAYS_AGO(1),
     icon: "shield-x",
-    accent: "#ef4444",
+    accent: "var(--destructive)",
   },
   {
     id: "evt-8",
@@ -109,7 +109,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
     description: "Monthly audit log export ready (24 MB, 124,802 events)",
     timestamp: DAYS_AGO(1),
     icon: "file-down",
-    accent: "#10b981",
+    accent: "var(--success)",
   },
   {
     id: "evt-9",
@@ -117,7 +117,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
     description: "acme-edu - education preset, passkey-first, 24-hour TTL",
     timestamp: DAYS_AGO(2),
     icon: "building",
-    accent: "#06b6d4",
+    accent: "var(--chart-1)",
   },
 ];
 

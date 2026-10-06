@@ -221,7 +221,11 @@ const SHARED_PRICING: {
       name: "Open source",
       price: "Free",
       description: "Every package, MIT-licensed. npm-install, ship.",
-      bullets: ["All 12 packages on npm", "MIT license", "Community-driven"],
+      bullets: [
+        `All ${SITE_PACKAGES_COUNT} packages on npm`,
+        "MIT license",
+        "Community-driven",
+      ],
     },
     {
       id: "components",

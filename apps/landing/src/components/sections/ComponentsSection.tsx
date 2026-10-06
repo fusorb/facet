@@ -9,13 +9,13 @@ import type { ComponentEntry } from "../../data/scratchpad.js";
 
 const SEARCH_PLACEHOLDER = "Search components…";
 const CATEGORY_COLORS: Record<string, string> = {
-  Foundations: "text-emerald-400",
-  Inputs: "text-sky-400",
-  "Data Display": "text-blue-400",
-  Feedback: "text-violet-400",
-  Layout: "text-amber-400",
-  "Ready-to-use": "text-pink-400",
-  Motion: "text-green-400",
+  Foundations: "text-chart-3",
+  Inputs: "text-chart-1",
+  "Data Display": "text-chart-4",
+  Feedback: "text-chart-2",
+  Layout: "text-warning",
+  "Ready-to-use": "text-accent-fuchsia",
+  Motion: "text-success",
 };
 
 export function ComponentsSection() {

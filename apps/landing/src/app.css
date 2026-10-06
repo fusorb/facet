@@ -6,6 +6,9 @@
 /* facet design tokens (CSS custom properties) */
 @import "../../../packages/tokens/src/tokens.css";
 
+/* Alpha Palette — re-brands the semantic tokens for the landing surface */
+@import "../../../packages/tokens/src/palettes/alpha.css";
+
 /* Tailwind v4 theme extension (maps CSS vars to utilities) */
 @import "../../../packages/tokens/src/tailwind.css";
 
@@ -14,5 +17,5 @@
 @source "../../../packages/layout/src";
 
 :root {
-  --domain-accent: #38bdf8;
+  --domain-accent: var(--primary);
 }

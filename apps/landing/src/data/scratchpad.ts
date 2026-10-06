@@ -27,7 +27,7 @@ export const SYSTEM_LAYERS: SystemNode[] = [
       "Built with facet. Owned by you - configure tokens, swap presets, " +
       "and override slots without touching upstream source.",
     icon: "layout-dashboard",
-    color: "oklch(0.82 0.13 220)",
+    color: "var(--chart-1)",
     children: [
       {
         id: "domain",
@@ -37,16 +37,16 @@ export const SYSTEM_LAYERS: SystemNode[] = [
           "Domain-customizable product surfaces and shells. Presets for " +
           "fintech, healthcare, and education - or bring your own.",
         icon: "layers",
-        color: "oklch(0.65 0.2 160)",
+        color: "var(--success)",
         children: [
           {
             id: "components",
             label: "Components",
             sub: "@fusorb/facet-components",
             pkg: "@fusorb/facet-components",
-            desc: "114+ primitives, composed surfaces, and ready-to-use pages. Every component is independently versionable.",
+            desc: "116 primitives, composed surfaces, and ready-to-use pages. Every component is independently versionable.",
             icon: "boxes",
-            color: "oklch(0.72 0.18 270)",
+            color: "var(--chart-2)",
             children: [
               {
                 id: "tokens",
@@ -55,7 +55,7 @@ export const SYSTEM_LAYERS: SystemNode[] = [
                 pkg: "@fusorb/facet-tokens",
                 desc: "Color, typography, spacing, radius, motion - the source of truth.",
                 icon: "palette",
-                color: "oklch(0.78 0.16 75)",
+                color: "var(--warning)",
               },
             ],
           },
@@ -71,19 +71,19 @@ export const CUSTOMIZATION_AXES = [
     axis: "appearance",
     label: "Styling",
     desc: "Swap the Alpha Palette, fonts, and surface colors via CSS custom properties.",
-    color: "oklch(0.75 0.15 230)",
+    color: "var(--primary)",
   },
   {
     axis: "config",
     label: "Behavior",
     desc: "Pass domain presets (fintech, med, edu) to change motion and auth behavior.",
-    color: "oklch(0.72 0.18 140)",
+    color: "var(--success)",
   },
   {
     axis: "slots",
     label: "Structure",
     desc: "Override individual component sub-elements through render slots and props.",
-    color: "oklch(0.78 0.18 290)",
+    color: "var(--chart-3)",
   },
 ];
 
@@ -109,6 +109,7 @@ const LAYER_LABELS = [
 
 const PACKAGE_LAYER: Record<string, number> = {
   tokens: 0,
+  utils: 0,
   components: 1,
   auth: 2,
   layout: 2,
@@ -127,25 +128,31 @@ const PACKAGE_STATUS: Record<string, "stable" | "experimental"> = {
   native: "experimental",
 };
 
-/** Color used to tint each package's badge in the ecosystem view. */
+/**
+ * Color used to tint each package's badge in the ecosystem view.
+ * References facet design tokens (never raw palette classes) so the badges
+ * retint with the active palette alongside everything else.
+ */
 const PACKAGE_COLOR: Record<string, string> = {
-  tokens: "text-emerald-400",
-  components: "text-sky-400",
-  auth: "text-violet-400",
-  layout: "text-blue-400",
-  motion: "text-pink-400",
-  sdk: "text-amber-400",
-  store: "text-orange-400",
-  docs: "text-slate-400",
-  emails: "text-slate-400",
-  cli: "text-slate-400",
-  sandbox: "text-slate-400",
-  native: "text-slate-400",
+  tokens: "text-chart-3",
+  utils: "text-muted-foreground",
+  components: "text-chart-1",
+  auth: "text-chart-2",
+  layout: "text-chart-4",
+  motion: "text-accent-fuchsia",
+  sdk: "text-warning",
+  store: "text-destructive",
+  docs: "text-muted-foreground",
+  emails: "text-muted-foreground",
+  cli: "text-muted-foreground",
+  sandbox: "text-muted-foreground",
+  native: "text-muted-foreground",
 };
 
 const PACKAGE_DESCRIPTIONS: Record<string, string> = {
   tokens: "Design tokens - color, spacing, radius, motion",
-  components: "114+ production-ready UI surfaces",
+  utils: "Shared helpers - className composition, guards",
+  components: "116 production-ready UI surfaces",
   auth: "Domain-customizable auth state machine",
   layout: "ConsoleLayout, AuthLayout, LandingLayout + router",
   motion: "Composable animation engine with domain presets",
@@ -176,7 +183,7 @@ export const PACKAGES: PackageInfo[] = (() => {
     layer: PACKAGE_LAYER[short] ?? 4,
     status: PACKAGE_STATUS[short] ?? "stable",
     version: byShort[short] ?? "0.0.0",
-    colorClass: PACKAGE_COLOR[short] ?? "text-slate-400",
+    colorClass: PACKAGE_COLOR[short] ?? "text-muted-foreground",
   }));
 })();
 
@@ -210,49 +217,49 @@ export const AUTH_MACHINE: AuthState[] = [
     id: "check-session",
     label: "Check Session",
     desc: "Validating an existing token against the API.",
-    colorClass: "text-sky-400",
+    colorClass: "text-chart-1",
   },
   {
     id: "select-method",
     label: "Select Method",
     desc: "User chooses: password, magic link, passkey, or SSO.",
-    colorClass: "text-violet-400",
+    colorClass: "text-chart-2",
   },
   {
     id: "login-form",
     label: "Login Form",
     desc: "Email + password entry with inline validation.",
-    colorClass: "text-blue-400",
+    colorClass: "text-chart-4",
   },
   {
     id: "magic-link",
     label: "Magic Link",
     desc: "Verification email dispatched, awaiting click.",
-    colorClass: "text-blue-400",
+    colorClass: "text-chart-4",
   },
   {
     id: "passkey",
     label: "Passkey",
     desc: "WebAuthn credential creation or sign-in challenge.",
-    colorClass: "text-blue-400",
+    colorClass: "text-chart-4",
   },
   {
     id: "check-mfa",
     label: "Check MFA",
     desc: "Evaluating whether the tenant requires MFA.",
-    colorClass: "text-amber-400",
+    colorClass: "text-warning",
   },
   {
     id: "mfa-challenge",
     label: "MFA Challenge",
     desc: "TOTP code, SMS code, or recovery-code entry.",
-    colorClass: "text-amber-400",
+    colorClass: "text-warning",
   },
   {
     id: "complete",
     label: "Complete",
     desc: "Session established. Auth context populated with profile.",
-    colorClass: "text-green-400",
+    colorClass: "text-success",
   },
   {
     id: "error",
@@ -297,14 +304,15 @@ export interface MotionEffectSpec {
  * The 15 generative animation families: single source of truth for the
  * Motion Preview section on the landing page, the Motion Lab page, and
  * any consumer that wants to enumerate family metadata.  Each entry
- * carries its own OKLCH accent color (so cards on the landing are
- * diverse, not monochrome), its direction set, and its intensity tiers.
+ * references a facet design token for its accent (so cards stay diverse
+ * while still retinting with the active palette), its direction set, and
+ * its intensity tiers.
  */
 export interface MotionFamily {
   id: string;
   label: string;
   desc: string;
-  /** OKLCH color string: tints the card accent and the preview element. */
+  /** facet token reference (e.g. `var(--chart-1)`): tints the card accent and the preview element. */
   color: string;
   directions: MotionDirection[];
   intensities: MotionIntensity[];
@@ -315,7 +323,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "fade",
     label: "Fade",
     desc: "Fade in/out, overlay in/out",
-    color: "oklch(0.82 0.13 220)",
+    color: "var(--chart-1)",
     directions: ["in", "out", "up", "down", "left", "right"],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -323,7 +331,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "zoom",
     label: "Zoom",
     desc: "Zoom in/out with spring easing",
-    color: "oklch(0.68 0.2 320)",
+    color: "var(--chart-2)",
     directions: ["in", "out", "up", "down", "left", "right"],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -331,7 +339,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "pop",
     label: "Pop",
     desc: "Pop with spring physics",
-    color: "oklch(0.72 0.2 20)",
+    color: "var(--destructive)",
     directions: ["in", "out"],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -339,7 +347,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "slide",
     label: "Slide",
     desc: "Slide in four directions",
-    color: "oklch(0.78 0.15 180)",
+    color: "var(--chart-4)",
     directions: ["up", "down", "left", "right"],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -347,7 +355,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "reveal",
     label: "Reveal",
     desc: "Content slides into frame",
-    color: "oklch(0.84 0.16 45)",
+    color: "var(--warning)",
     directions: ["up", "down"],
     intensities: [],
   },
@@ -355,7 +363,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "blur",
     label: "Blur",
     desc: "Blur in/out",
-    color: "oklch(0.75 0.14 250)",
+    color: "var(--chart-5)",
     directions: ["in", "out"],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -363,7 +371,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "flip",
     label: "Flip",
     desc: "3D flip with spring",
-    color: "oklch(0.76 0.18 340)",
+    color: "var(--chart-3)",
     directions: ["x", "y", "top-left", "bottom-right"],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -371,7 +379,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "spin",
     label: "Spin",
     desc: "Rotate by degrees",
-    color: "oklch(0.7 0.2 290)",
+    color: "var(--accent)",
     directions: ["clockwise", "counterclockwise"],
     intensities: [],
   },
@@ -379,7 +387,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "panel",
     label: "Panel",
     desc: "Accordion-style expand",
-    color: "oklch(0.78 0.13 150)",
+    color: "var(--success)",
     directions: ["up", "down", "left", "right", "top-left", "top-right"],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -387,7 +395,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "lift",
     label: "Lift",
     desc: "Float up with shadow",
-    color: "oklch(0.82 0.14 195)",
+    color: "var(--primary)",
     directions: [],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -395,7 +403,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "press",
     label: "Press",
     desc: "Press-down micro-effect",
-    color: "oklch(0.85 0.15 35)",
+    color: "var(--accent-fuchsia)",
     directions: ["in", "out"],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -403,7 +411,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "ring",
     label: "Ring",
     desc: "Ripple ring",
-    color: "oklch(0.8 0.16 205)",
+    color: "var(--chart-1)",
     directions: [],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -411,7 +419,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "glow",
     label: "Glow",
     desc: "Pulsing glow",
-    color: "oklch(0.9 0.12 80)",
+    color: "var(--warning)",
     directions: [],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -419,7 +427,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "shimmer",
     label: "Shimmer",
     desc: "Gradient sweep",
-    color: "oklch(0.83 0.14 110)",
+    color: "var(--chart-3)",
     directions: ["left", "right"],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -427,7 +435,7 @@ export const MOTION_FAMILIES: MotionFamily[] = [
     id: "text-reveal",
     label: "Text Reveal",
     desc: "Reveal by words or chars",
-    color: "oklch(0.78 0.18 270)",
+    color: "var(--chart-2)",
     directions: ["up", "down", "tracking"],
     intensities: ["subtle", "soft", "medium", "strong", "dramatic"],
   },
@@ -499,139 +507,6 @@ export const MOTION_EFFECTS: MotionEffectSpec[] = [
     label: "Shine",
     category: "authored",
     desc: "Sweeping highlight across a surface.",
-  },
-];
-
-// ─── Token Categories ────────────────────────────────────────────────────────
-
-export interface TokenSpec {
-  name: string;
-  cssVar: string;
-  value: string;
-}
-
-export interface TokenCategory {
-  label: string;
-  tokens: TokenSpec[];
-}
-
-/**
- * Token groups that surface in the token explorer.  Variable names and
- * sample values mirror the real @fusorb/facet-tokens CSS custom properties.
- */
-export const TOKEN_CATEGORIES: TokenCategory[] = [
-  {
-    label: "Color",
-    tokens: [
-      {
-        name: "background",
-        cssVar: "--background",
-        value: "oklch(0.12 0.02 240)",
-      },
-      {
-        name: "foreground",
-        cssVar: "--foreground",
-        value: "oklch(0.95 0.01 240)",
-      },
-      { name: "primary", cssVar: "--primary", value: "oklch(0.82 0.13 220)" },
-      {
-        name: "primary-foreground",
-        cssVar: "--primary-foreground",
-        value: "oklch(0.17 0.03 240)",
-      },
-      {
-        name: "secondary",
-        cssVar: "--secondary",
-        value: "oklch(0.19 0.02 240)",
-      },
-      { name: "muted", cssVar: "--muted", value: "oklch(0.19 0.02 240)" },
-      {
-        name: "muted-foreground",
-        cssVar: "--muted-foreground",
-        value: "oklch(0.65 0.02 240)",
-      },
-      { name: "accent", cssVar: "--accent", value: "oklch(0.22 0.03 240)" },
-      { name: "border", cssVar: "--border", value: "oklch(0.22 0.02 240)" },
-      {
-        name: "destructive",
-        cssVar: "--destructive",
-        value: "oklch(0.577 0.245 27.325)",
-      },
-      { name: "success", cssVar: "--success", value: "oklch(0.527 0.154 150)" },
-      { name: "card", cssVar: "--card", value: "oklch(0.155 0.02 240)" },
-    ],
-  },
-  {
-    label: "Typography",
-    tokens: [
-      { name: "font-heading", cssVar: "--font-heading", value: '"Montserrat"' },
-      { name: "font-body", cssVar: "--font-body", value: '"Inter"' },
-      { name: "font-mono", cssVar: "--font-mono", value: '"JetBrains Mono"' },
-      {
-        name: "font-technical",
-        cssVar: "--font-technical",
-        value: '"Rajdhani"',
-      },
-    ],
-  },
-  {
-    label: "Spacing",
-    tokens: [
-      { name: "space-1", cssVar: "--space-1", value: "0.25rem" },
-      { name: "space-2", cssVar: "--space-2", value: "0.5rem" },
-      { name: "space-4", cssVar: "--space-4", value: "1rem" },
-      { name: "space-8", cssVar: "--space-8", value: "2rem" },
-      { name: "space-16", cssVar: "--space-16", value: "4rem" },
-      { name: "space-24", cssVar: "--space-24", value: "6rem" },
-      { name: "space-32", cssVar: "--space-32", value: "8rem" },
-    ],
-  },
-  {
-    label: "Radius",
-    tokens: [
-      { name: "radius", cssVar: "--radius", value: "0.5rem" },
-      { name: "radius-sm", cssVar: "--radius-sm", value: "0.3rem" },
-      { name: "radius-md", cssVar: "--radius-md", value: "0.4rem" },
-      { name: "radius-lg", cssVar: "--radius-lg", value: "0.5rem" },
-      { name: "radius-xl", cssVar: "--radius-xl", value: "0.7rem" },
-      { name: "radius-2xl", cssVar: "--radius-2xl", value: "0.9rem" },
-      { name: "radius-3xl", cssVar: "--radius-3xl", value: "1.1rem" },
-    ],
-  },
-  {
-    label: "Motion",
-    tokens: [
-      {
-        name: "duration-fast",
-        cssVar: "--facet-motion-duration-fast",
-        value: "150ms",
-      },
-      {
-        name: "duration-base",
-        cssVar: "--facet-motion-duration-base",
-        value: "250ms",
-      },
-      {
-        name: "duration-slow",
-        cssVar: "--facet-motion-duration-slow",
-        value: "500ms",
-      },
-      {
-        name: "ease-standard",
-        cssVar: "--motion-ease-standard",
-        value: "cubic-bezier(0.2, 0, 0, 1)",
-      },
-      {
-        name: "ease-spring",
-        cssVar: "--motion-ease-spring",
-        value: "cubic-bezier(0.34, 1.56, 0.64, 1)",
-      },
-      {
-        name: "ease-emphasized",
-        cssVar: "--motion-ease-emphasized",
-        value: "cubic-bezier(0.2, 0, 0, 1)",
-      },
-    ],
   },
 ];
 
