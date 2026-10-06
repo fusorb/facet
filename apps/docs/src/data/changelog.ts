@@ -5,84 +5,11 @@ import type { ChangelogRelease } from "@fusorb/facet-components";
 
 export const facetChangelog: ChangelogRelease[] = [
   {
-    version: "Unreleased",
-    date: "Unreleased",
-    tag: "feat",
-    title: "Animation flexibility pass - remove hardcoded values from the animation surfaces.",
-    pre: true,
-    changes: [
-      {
-        kind: "added",
-        text: "`dist/palettes/`, and exported from the package).",
-      },
-      {
-        kind: "fixed",
-        text: "**New tokens**: `--accent-fuchsia` (third stop of the brand gradient used by",
-      },
-      {
-        kind: "fixed",
-        text: "**Components**: the animation components (`card-animations`, `micro-interactions`,",
-      },
-      {
-        kind: "fixed",
-        text: "**Fix**: `RevealCard` / `ScrollReveal` interpolated `resolveEasing(\"standard\")`",
-      },
-      {
-        kind: "fixed",
-        text: "`--animate-facet-{marquee,aurora,beam}` now resolve their durations and",
-      },
-      {
-        kind: "fixed",
-        text: "**facet-motion**: Added an extensible driver registry (`registerDriver`,",
-      },
-      {
-        kind: "fixed",
-        text: "**facet-native**: The native driver (`facetDriver`) is now auto-registered",
-      },
-      {
-        kind: "fixed",
-        text: "**facet-cli**: Added `@fusorb/facet-motion`, `@fusorb/facet-native`,",
-      },
-      {
-        kind: "fixed",
-        text: "**check-boundaries**: Updated `@fusorb/facet-native` allowed-dependency set",
-      },
-      {
-        kind: "fixed",
-        text: "Overlay exit animations: drop the JS wrapper so the CSS exit actually runs.",
-      },
-      {
-        kind: "fixed",
-        text: "**Overlay lifecycle revert**: reverted dialog, sheet, drawer, alert-dialog,",
-      },
-      {
-        kind: "fixed",
-        text: "**Removed dead code**: deleted `src/ui/motion-usage.tsx` (`OverlayContext` +",
-      },
-      {
-        kind: "fixed",
-        text: "**Focus restore**: restored visible, keyboard-only focus rings on Button,",
-      },
-      {
-        kind: "fixed",
-        text: "**z-index normalization**: modal backdrops are now `z-[60]` (below their",
-      },
-      {
-        kind: "fixed",
-        text: "**Tests**: added `focus-ring.test.tsx` asserting the `focus-visible:` ring",
-      },
-    ],
-  },
-  {
-    version: "1.3.1, 1.5.1",
+    version: "1.5.1",
     date: "2026-10-06",
     tag: "fix",
-    title: "v1.3.1, 1.5.1",
+    title: "v1.5.1",
     changes: [
-      {
-        kind: "changed",
-        text: "@fusorb/facet-components@2.0.1",
-      },
       {
         kind: "changed",
         text: "@fusorb/facet-components@2.0.1\\n- @fusorb/facet-auth@1.3.1\\n- @fusorb/facet-layout@1.5.1",
@@ -94,11 +21,26 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.1.0, 1.1.1, 1.3.0, 1.3.2, 1.5.2, 2.0.2",
+    version: "1.1.0, 1.1.1, 1.1.2, 1.2.0, 1.3.0, 1.3.2, 1.3.3, 1.4.0, 1.5.2, 1.5.3, 2.0.2, 2.0.3",
     date: "2026-10-05",
     tag: "fix",
-    title: "v1.1.0, 1.1.1, 1.3.0, 1.3.2, 1.5.2, 2.0.2",
+    title: "v1.1.0, 1.1.1, 1.1.2, 1.2.0, 1.3.0, 1.3.2, 1.3.3, 1.4.0, 1.5.2, 1.5.3, 2.0.2, 2.0.3",
     changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/90c1637",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@2.0.3",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
       {
         kind: "changed",
         text: "Updated dependencies []",
@@ -113,6 +55,41 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Native Motion Component — Stage 1 integration:",
         href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Native Motion Component — Stage 1 integration:",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Animation flexibility pass - remove hardcoded values from the animation surfaces.",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Overlay exit animations: drop the JS wrapper so the CSS exit actually runs.",
+        href: "https://github.com/fusorb/facet/commit/90c1637",
+      },
+      {
+        kind: "changed",
+        text: "Stage 3 of the component-library cleanup:",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.4.0\\n- @fusorb/facet-motion@1.2.0",
+        href: "https://github.com/fusorb/facet/commit/f76a519",
       },
       {
         kind: "changed",
@@ -141,7 +118,42 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/90c1637",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.4.0\\n- @fusorb/facet-components@2.0.3\\n- @fusorb/facet-auth@1.3.3\\n- @fusorb/facet-layout@1.5.3",
+        href: "https://github.com/fusorb/facet/commit/f76a519",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.3.0\\n- @fusorb/facet-components@2.0.2\\n- @fusorb/facet-auth@1.3.2\\n- @fusorb/facet-layout@1.5.2",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/90c1637",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@2.0.3\\n- @fusorb/facet-auth@1.3.3",
         href: "https://github.com/fusorb/facet/commit/ba81b34",
       },
       {
@@ -153,6 +165,21 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@2.0.2\\n- @fusorb/facet-auth@1.3.2",
         href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Native Motion Component — Stage 1 integration:",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.4.0",
+        href: "https://github.com/fusorb/facet/commit/f76a519",
       },
       {
         kind: "changed",
@@ -176,8 +203,38 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.4.0\\n- @fusorb/facet-motion@1.2.0",
+        href: "https://github.com/fusorb/facet/commit/f76a519",
+      },
+      {
+        kind: "changed",
+        text: "Native Motion Component — Stage 1 integration:",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.3.0\\n- @fusorb/facet-motion@1.1.0",
         href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Animation flexibility pass - remove hardcoded values from the animation surfaces.",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Composable brand palettes. Ship `@fusorb/facet-tokens/palettes/alpha.css` and\\n- `@fusorb/facet-tokens/palettes/ember.css` (built + minified into\\n- `dist/palettes/`, and exported from the package).",
+        href: "https://github.com/fusorb/facet/commit/f76a519",
       },
       {
         kind: "changed",
@@ -1414,6 +1471,10 @@ export const facetChangelog: ChangelogRelease[] = [
     changes: [
       {
         kind: "changed",
+        text: "@fusorb/facet-components@2.0.1",
+      },
+      {
+        kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0",
         href: "https://github.com/fusorb/facet/commit/3554506",
       },
@@ -1649,16 +1710,6 @@ export const facetChangelog: ChangelogRelease[] = [
     changes: [
       {
         kind: "changed",
-        text: "SignIn now supports a controlled `step` + `onStepChange` API: pass `step` to render exactly that step and drive the component from outside (e.g. a live state-machine diagram), and SignIn reports every internal transition via `onStepChange`. Fully backward compatible: when `step` is omitted, SignIn manages its own transitions as before.",
-        href: "https://github.com/fusorb/facet/commit/568497d",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.2.0",
-        href: "https://github.com/fusorb/facet/commit/3de0e04",
-      },
-      {
-        kind: "changed",
         text: "Updated dependencies",
       },
       {
@@ -1682,26 +1733,6 @@ export const facetChangelog: ChangelogRelease[] = [
       {
         kind: "changed",
         text: "fix: navbar mobile menu closes when an item is tapped (custom mobileMenu included)",
-      },
-      {
-        kind: "changed",
-        text: "- Adds the interactive `AuthDemo` component and `authDemo` docs block: a configurable live `<SignIn>` with method/OAuth toggles that generates the exact `config` code for the selected method.\\n- Adds the reusable `InteractiveDemo` component and `demo` docs block: a variant/method switcher drives a live preview and a copyable code snippet for any manifest slug (auth, layout, and forms guide pages).\\n- Adds the `keyboardShortcuts` docs block (Kbd-chip shortcuts table).\\n- Splits the gallery: base UI components, the auth/layout surfaces, and the \"Ready to Use\" extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form) each get their own sidebar section or guide page with live previews and copyable usage snippets.\\n- All new blocks are exported from the package barrel and documented in the docs package README block table.",
-        href: "https://github.com/fusorb/facet/commit/568497d",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/3de0e04",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/568497d",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.2.0\\n- @fusorb/facet-auth@1.1.0\\n- @fusorb/facet-tokens@1.1.0\\n- @fusorb/facet-layout@1.1.1",
-        href: "https://github.com/fusorb/facet/commit/3de0e04",
       },
       {
         kind: "changed",
@@ -1730,6 +1761,44 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "- Adds `facet docs init`: an interactive wizard that scaffolds a docs site\\n- in any repo. The wizard opens with a **\"Decide for me\"** option -- detect\\n- my stack and use the best defaults (also available as `--yes`) -- or lets\\n- the consumer walk through each choice. Asks for the docs site name\\n- (blank falls back to the default `docs`), location (`.`, `docs/`, or\\n- `src/docs/` -- root recommended), language, framework (React+Vite,\\n- Next.js, Remix, plain JS, Python), and template kind.\\n- Detects the consumer's styling setup (facet tokens / Tailwind / plain\\n- CSS) and recommends wiring `@fusorb/facet-tokens` so consumers get the\\n- Alpha Palette theming without restyling every component.\\n- Adds a **barrel export decision** (`--barrel auto|always|never`, or a\\n- wizard prompt): `auto` creates an `index.ts` when it fits the layout,\\n- `always` forces one, `never` leaves the consumer's tree untouched.\\n- Adds **per-framework generators**:\\n- **React+Vite**: a thin consumer app exactly like facet's own `apps/docs`\\n- (config + pages registry + app shell), which doubles as a reference\\n- implementation.\\n- **Next.js**: a real `src/app/docs` route (`\"use client\"` rendering\\n- `DocsApp`) plus `src/lib/docs/config` and `src/lib/docs/pages` -- the\\n- docs site mounts at `/docs` in an existing Next app. Next scaffolds\\n- get `next`/`react` deps and `docs:dev`/`docs:build` scripts.\\n- **Remix**: a real `app/routes/docs` route rendering `DocsApp` plus\\n- `src/lib/docs/config` and `src/lib/docs/pages`, with\\n- `@remix-run/react` deps and `docs:dev`/`docs:build` scripts.\\n- **Plain JS**: a framework-agnostic `pages` registry + markdown content\\n- pipeline with no React shell.\\n- **Python**: a `docs_pipeline.py` markdown → `pages.json` compiler plus\\n- a starter registry, so a Python repo can own its docs content in\\n- markdown and hand the JSON to any React host for rendering.\\n- Adds `facet add <component>`: a shadcn-style copy-into-source workflow,\\n- with a recommendation to import from `@fusorb/facet-components` instead.\\n- Placement is flexible: by default it decides based on what the consumer\\n- already has (flat into the components root when a barrel exists, else a\\n- clean `facet/` subdirectory), with `--dir`, `--ui-dir`, `--flat`,\\n- `--no-barrel`, and `--barrel` for explicit control. An existing barrel\\n- is merged (never overwritten) so the consumer's own exports stay intact,\\n- and the generated subdirectory barrel stays in sync across adds.\\n- Every wizard prompt and CLI option carries a description of what it does\\n- or what the choice represents, so consumers know what each step will\\n- generate before committing.",
         href: "https://github.com/fusorb/facet/commit/79ec07a",
+      },
+    ],
+  },
+  {
+    version: "1.1.0, 1.2.0",
+    date: "2026-08-04",
+    tag: "fix",
+    title: "v1.1.0, 1.2.0",
+    changes: [
+      {
+        kind: "changed",
+        text: "SignIn now supports a controlled `step` + `onStepChange` API: pass `step` to render exactly that step and drive the component from outside (e.g. a live state-machine diagram), and SignIn reports every internal transition via `onStepChange`. Fully backward compatible: when `step` is omitted, SignIn manages its own transitions as before.",
+        href: "https://github.com/fusorb/facet/commit/568497d",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.2.0",
+        href: "https://github.com/fusorb/facet/commit/3de0e04",
+      },
+      {
+        kind: "changed",
+        text: "- Adds the interactive `AuthDemo` component and `authDemo` docs block: a configurable live `<SignIn>` with method/OAuth toggles that generates the exact `config` code for the selected method.\\n- Adds the reusable `InteractiveDemo` component and `demo` docs block: a variant/method switcher drives a live preview and a copyable code snippet for any manifest slug (auth, layout, and forms guide pages).\\n- Adds the `keyboardShortcuts` docs block (Kbd-chip shortcuts table).\\n- Splits the gallery: base UI components, the auth/layout surfaces, and the \"Ready to Use\" extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form) each get their own sidebar section or guide page with live previews and copyable usage snippets.\\n- All new blocks are exported from the package barrel and documented in the docs package README block table.",
+        href: "https://github.com/fusorb/facet/commit/568497d",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3de0e04",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/568497d",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.2.0\\n- @fusorb/facet-auth@1.1.0\\n- @fusorb/facet-tokens@1.1.0\\n- @fusorb/facet-layout@1.1.1",
+        href: "https://github.com/fusorb/facet/commit/3de0e04",
       },
     ],
   },
@@ -1816,7 +1885,7 @@ export const facetChangelog: ChangelogRelease[] = [
 ];
 
 export const CHANGELOG_RELEASE_COUNT = 25;
-export const CHANGELOG_CHANGE_COUNT = 328;
+export const CHANGELOG_CHANGE_COUNT = 339;
 
 // ── Episodic canon (.agent/episodes.md) ──────────
 // Local-only; may be empty in CI where .agent/ is gitignored.
@@ -2277,10 +2346,10 @@ export const facetEpisodes: FacetEpisode[] = [
     title: "Landing Audit: Palettes That Don't Follow the Palette",
     slug: "landing-audit-palettes-that-dont-follow-the-palette",
     date: null,
-    state: "not fixed -- recorded for the landing pass.",
+    state: "FIXED in EP 57 (commit 2fa7844).",
     summary: "Landing Audit: Palettes That Don't Follow the Palette",
     lesson: "a marketing surface that hardcodes colours cannot demonstrate that the\\n   tokens are dynamic. The landing should be the first consumer that proves it.",
-    commitHashes: [],
+    commitHashes: ["2fa7844"],
   },
   {
     number: "EP 56",
@@ -2292,6 +2361,16 @@ export const facetEpisodes: FacetEpisode[] = [
     lesson: "\"unverified\" is a debt with a named creditor. Here it was the store; once\\n   repaired, the very trace that proved the bug proved the fix. Keep the script\\n   (scratchpad/verify-exit-fix.mjs) so the claim stays re-runnable.",
     commitHashes: [],
   },
+  {
+    number: "EP 57",
+    title: "The Landing Finally Reads Its Own Tokens",
+    slug: "the-landing-finally-reads-its-own-tokens",
+    date: null,
+    state: null,
+    summary: "The Landing Finally Reads Its Own Tokens",
+    lesson: "\"we shipped a palette\" is only true for the apps that import it. Audit\\n   the import graph, not the intent - docs had it, the landing did not, and the\\n   landing is the surface advertising the palette.",
+    commitHashes: ["2fa7844","81e24be"],
+  },
 ];
 
-export const EPISODE_COUNT = 46;
+export const EPISODE_COUNT = 47;
