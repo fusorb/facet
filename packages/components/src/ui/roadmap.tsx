@@ -5,6 +5,10 @@
  *    (default).
  *  - "timeline": a lighter look with a status dot, a mono phase/date
  *    label and no card chrome, for landing-page sections.
+ *
+ * The timeline chrome (connector line, connector dot, stagger) is
+ * customizable: pass `renderItem` to replace only the content slot while
+ * keeping the chrome, and `item.dotClassName` to recolour a single dot.
  */
 import * as React from "react";
 import { cn } from "../utils.js";
@@ -18,6 +22,11 @@ export interface RoadmapItem {
   status: RoadmapStatus;
   /** Optional label shown next to the status, e.g. a target date or phase. */
   date?: string;
+  /**
+   * Override the connector-dot class for this item (e.g. a category colour).
+   * Falls back to the status-derived dot when unset.
+   */
+  dotClassName?: string;
 }
 
 export interface RoadmapProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -31,6 +40,11 @@ export interface RoadmapProps extends React.HTMLAttributes<HTMLDivElement> {
    * overflows (useful when the roadmap grows past the viewport). Pass a Tailwind
    * height class, e.g. `"max-h-96"`. Default: unset (natural height). */
   maxHeight?: string;
+  /**
+   * Replace the content slot of each item while keeping the timeline chrome
+   * (connector line, dot, stagger). Return the node to render for the item.
+   */
+  renderItem?: (item: RoadmapItem, index: number) => React.ReactNode;
 }
 
 const STATUS_STYLES: Record<RoadmapStatus, string> = {
@@ -63,6 +77,7 @@ const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
       showLine = true,
       variant = "card",
       maxHeight,
+      renderItem,
       className,
       ...props
     },
@@ -82,12 +97,18 @@ const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
       >
         {items.map((item, i) => {
           const isLast = i === items.length - 1;
+          const dot = item.dotClassName ?? STATUS_DOT[item.status];
+          const delay = itemStaggerDelays[i] ?? 0;
+          const content = renderItem ? (
+            <div className="min-w-0 flex-1">{renderItem(item, i)}</div>
+          ) : null;
+
           if (variant === "timeline") {
             return (
               <div
                 key={`${item.title}-${i}`}
                 className="relative flex gap-5 pb-8 last:pb-0 animate-facet-fade-up"
-                style={{ animationDelay: `${itemStaggerDelays[i] ?? 0}ms` }}
+                style={{ animationDelay: `${delay}ms` }}
               >
                 {showLine && (
                   <span
@@ -102,34 +123,36 @@ const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
                   aria-hidden="true"
                   className={cn(
                     "relative mt-1.5 size-[23px] shrink-0 rounded-full border-4 border-background",
-                    STATUS_DOT[item.status],
+                    dot,
                   )}
                 />
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    {item.date && (
-                      <span className="font-mono text-xs uppercase tracking-wide text-muted-foreground">
-                        {item.date}
-                      </span>
-                    )}
-                    <span
-                      className={cn(
-                        "rounded-full border px-2 py-0.5 text-[11px] font-medium",
-                        STATUS_STYLES[item.status],
+                {content ?? (
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      {item.date && (
+                        <span className="font-mono text-xs uppercase tracking-wide text-muted-foreground">
+                          {item.date}
+                        </span>
                       )}
-                    >
-                      {STATUS_LABEL[item.status]}
-                    </span>
+                      <span
+                        className={cn(
+                          "rounded-full border px-2 py-0.5 text-[11px] font-medium",
+                          STATUS_STYLES[item.status],
+                        )}
+                      >
+                        {STATUS_LABEL[item.status]}
+                      </span>
+                    </div>
+                    <h3 className="mt-1 font-semibold text-foreground">
+                      {item.title}
+                    </h3>
+                    {item.description && (
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {item.description}
+                      </p>
+                    )}
                   </div>
-                  <h3 className="mt-1 font-semibold text-foreground">
-                    {item.title}
-                  </h3>
-                  {item.description && (
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {item.description}
-                    </p>
-                  )}
-                </div>
+                )}
               </div>
             );
           }
@@ -137,7 +160,7 @@ const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
             <div
               key={`${item.title}-${i}`}
               className="relative flex gap-4 pb-6 last:pb-0 animate-facet-fade-up"
-              style={{ animationDelay: `${itemStaggerDelays[i] ?? 0}ms` }}
+              style={{ animationDelay: `${delay}ms` }}
             >
               {showLine && (
                 <span
@@ -152,31 +175,33 @@ const Roadmap = React.forwardRef<HTMLDivElement, RoadmapProps>(
                 aria-hidden="true"
                 className={cn(
                   "relative mt-1.5 size-[19px] shrink-0 rounded-full border-4 border-background",
-                  STATUS_DOT[item.status],
+                  dot,
                 )}
               />
-              <div className="min-w-0 flex-1 rounded-lg border border-border bg-card p-3">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-semibold text-foreground">
-                    {item.title}
-                  </span>
-                  <span
-                    className={cn(
-                      "rounded-full border px-2 py-0.5 text-[11px] font-medium",
-                      STATUS_STYLES[item.status],
-                    )}
-                  >
-                    {item.date
-                      ? `${STATUS_LABEL[item.status]} · ${item.date}`
-                      : STATUS_LABEL[item.status]}
-                  </span>
+              {content ?? (
+                <div className="min-w-0 flex-1 rounded-lg border border-border bg-card p-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="font-semibold text-foreground">
+                      {item.title}
+                    </span>
+                    <span
+                      className={cn(
+                        "rounded-full border px-2 py-0.5 text-[11px] font-medium",
+                        STATUS_STYLES[item.status],
+                      )}
+                    >
+                      {item.date
+                        ? `${STATUS_LABEL[item.status]} · ${item.date}`
+                        : STATUS_LABEL[item.status]}
+                    </span>
+                  </div>
+                  {item.description && (
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {item.description}
+                    </p>
+                  )}
                 </div>
-                {item.description && (
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {item.description}
-                  </p>
-                )}
-              </div>
+              )}
             </div>
           );
         })}

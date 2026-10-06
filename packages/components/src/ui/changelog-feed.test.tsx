@@ -53,4 +53,27 @@ describe("ChangelogFeed", () => {
     render(<ChangelogFeed items={items} defaultSearch="no match" />);
     expect(screen.getByText("No matching releases.")).toBeInTheDocument();
   });
+
+  it("accepts label overrides", () => {
+    render(
+      <ChangelogFeed
+        items={items}
+        labels={{ all: "Everything", empty: "Nothing here." }}
+      />,
+    );
+    expect(
+      screen.getByRole("button", { name: "Everything" }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByText("v2.5.0")[0]).toBeInTheDocument();
+  });
+
+  it("accepts category presentation overrides", () => {
+    render(
+      <ChangelogFeed
+        items={items}
+        categoryConfig={{ FEATURE: { label: "New" } }}
+      />,
+    );
+    expect(screen.getByText("New")).toBeInTheDocument();
+  });
 });

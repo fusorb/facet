@@ -31,10 +31,44 @@ describe("ChangelogCard", () => {
     expect(screen.getByText("Removed domain-cycling card")).toBeInTheDocument();
   });
 
-  it("renders the status and category badges", () => {
+  it("renders the category badge", () => {
     render(<ChangelogCard item={item} />);
-    expect(screen.getByText("Current")).toBeInTheDocument();
     expect(screen.getByText("Feature")).toBeInTheDocument();
+  });
+
+  it("omits the in-card dot and status badge by default", () => {
+    const { container } = render(<ChangelogCard item={item} />);
+    expect(screen.queryByText("Current")).not.toBeInTheDocument();
+    expect(container.querySelector(".h-2.w-2")).toBeNull();
+  });
+
+  it("renders the dot and status badge when opted in", () => {
+    const { container } = render(
+      <ChangelogCard item={item} showCategoryDot showStatus />,
+    );
+    expect(screen.getByText("Current")).toBeInTheDocument();
+    expect(container.querySelector(".h-2.w-2")).not.toBeNull();
+  });
+
+  it("accepts category presentation overrides", () => {
+    render(
+      <ChangelogCard
+        item={item}
+        categoryConfig={{ FEATURE: { label: "New" } }}
+      />,
+    );
+    expect(screen.getByText("New")).toBeInTheDocument();
+    expect(screen.queryByText("Feature")).not.toBeInTheDocument();
+  });
+
+  it("accepts copy overrides", () => {
+    render(
+      <ChangelogCard
+        item={item}
+        labels={{ showDiff: "View patch", hideDiff: "Hide patch" }}
+      />,
+    );
+    expect(screen.getByRole("button", { name: /view patch/i })).toBeInTheDocument();
   });
 
   it("reveals the diff panel on toggle", () => {
@@ -46,7 +80,7 @@ describe("ChangelogCard", () => {
   });
 
   it("omits the status badge when status is null", () => {
-    render(<ChangelogCard item={{ ...item, status: null }} />);
+    render(<ChangelogCard item={{ ...item, status: null }} showStatus />);
     expect(screen.queryByText("Current")).not.toBeInTheDocument();
   });
 
