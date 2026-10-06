@@ -19,9 +19,9 @@ const AlertDialogCloseContext = React.createContext<
   ((open: boolean) => void) | undefined
 >(undefined);
 
-export interface AlertDialogProps extends React.ComponentPropsWithoutRef<
+export type AlertDialogProps = React.ComponentPropsWithoutRef<
   typeof AlertDialogPrimitive.Root
-> {}
+>;
 
 function AlertDialog({ onOpenChange, ...props }: AlertDialogProps) {
   return (

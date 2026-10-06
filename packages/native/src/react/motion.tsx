@@ -370,7 +370,7 @@ export function Motion({
       controllers.forEach((c) => c.stop());
       cleanups.forEach((c) => c());
     };
-  }, [resolved, isPresent, playing]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [resolved, isPresent, playing]);
 
   if (!asChild || !children) return null;
 

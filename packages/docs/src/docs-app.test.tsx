@@ -108,8 +108,8 @@ vi.mock("@fusorb/facet-components/light", () => {
 // require("react-router/dom") and Vite/Node cannot resolve that to .mjs,
 // causing a SyntaxError.  Replace the entire module with a lightweight
 // in-memory router that resolves routes against window.location.pathname.
-vi.mock("react-router-dom", () => {
-  const React = require("react") as typeof import("react");
+vi.mock("react-router-dom", async () => {
+  const React = await import("react");
   const {
     createContext,
     useContext,

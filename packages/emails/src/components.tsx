@@ -754,7 +754,7 @@ export const EmailLayout = wrap<
 export const EmailButton = wrap<EmailButtonProps>(emailButton);
 export const EmailText = wrap<EmailTextProps>(emailText);
 export const EmailCodeBlock = wrap<EmailCodeBlockProps>(emailCodeBlock);
-export const EmailDivider = wrap<{}>(() => emailDivider());
+export const EmailDivider = wrap<Record<string, never>>(() => emailDivider());
 export const EmailLink = wrap<EmailLinkProps>(emailLink);
 export const EmailSecurityNotice =
   wrap<EmailSecurityNoticeProps>(emailSecurityNotice);

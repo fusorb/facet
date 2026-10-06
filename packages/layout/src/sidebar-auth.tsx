@@ -15,7 +15,11 @@
 import * as React from "react";
 import { useOptionalAuth } from "@fusorb/facet-auth";
 import { UserAvatar } from "@fusorb/facet-components";
-import type { UserAvatarUser, UserAvatarMenuItem } from "@fusorb/facet-components";
+import type {
+  UserAvatarUser,
+  UserAvatarMenuItem,
+  IconName,
+} from "@fusorb/facet-components";
 
 export interface SidebarAuthAction {
   label: string;
@@ -39,7 +43,7 @@ export interface SidebarAuthProps {
 function toMenuItem(action: SidebarAuthAction): UserAvatarMenuItem {
   return {
     label: action.label,
-    icon: action.icon as any,
+    icon: action.icon ? (action.icon as IconName) : undefined,
     destructive: action.destructive,
     onSelect:
       action.onClick ??

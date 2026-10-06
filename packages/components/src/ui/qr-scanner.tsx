@@ -198,7 +198,6 @@ export function QrScanner({
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
       streamRef.current?.getTracks().forEach((t) => t.stop());
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoStart]);
 
   function loop(detector: BarcodeDetectorInstance | undefined) {

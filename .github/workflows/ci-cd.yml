@@ -33,6 +33,7 @@ jobs:
       - run: pnpm check:sdk-coverage
       - run: pnpm check:motion-drift
       - run: pnpm audit:motion-parity
+      - run: pnpm lint
       - run: pnpm -r typecheck
       - run: pnpm test
       - run: pnpm sandbox:e2e

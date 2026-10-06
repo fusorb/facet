@@ -28,7 +28,7 @@
     "check:motion-drift": "node packages/motion/scripts/check-motion-drift.mjs",
     "check:boundaries": "node scripts/check-boundaries.mjs",
     "audit:motion-parity": "node scripts/audit-motion-parity.mjs",
-    "check:all": "pnpm check:components && pnpm check:docs && pnpm check:icons && pnpm check:sdk-coverage && pnpm check:sdk-drift && pnpm check:motion-drift && pnpm check:boundaries && pnpm audit:motion-parity && pnpm build && pnpm typecheck && pnpm test",
+    "check:all": "pnpm check:components && pnpm check:docs && pnpm check:icons && pnpm check:sdk-coverage && pnpm check:sdk-drift && pnpm check:motion-drift && pnpm check:boundaries && pnpm audit:motion-parity && pnpm lint && pnpm build && pnpm typecheck && pnpm test",
     "build:turbo": "turbo run build",
     "test:turbo": "turbo run test",
     "typecheck:turbo": "turbo run typecheck",

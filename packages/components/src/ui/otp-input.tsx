@@ -62,9 +62,9 @@ export function OtpInput({
   const chars = value.padEnd(maxLength, " ").split("");
 
   const setCharAt = (idx: number, char: string) => {
-    let next = value.split("");
+    const next = value.split("");
     next[idx] = char;
-    let nextStr = next.join("").slice(0, maxLength);
+    const nextStr = next.join("").slice(0, maxLength);
     onChange(nextStr);
     if (char && idx < maxLength - 1) {
       refs.current[idx + 1]?.focus();
