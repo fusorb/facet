@@ -16,8 +16,12 @@ Harden the app shells and their layout surfaces:
   already renders the brand) so the name is not shown twice.
 - **Shortcuts**: Ctrl/Cmd+K (palette) and Ctrl/Cmd+Shift+B (collapse all) are
   ignored while typing; Ctrl/Cmd+B no longer also fires when Shift is held.
-- **LayoutFeatures**: `tenantSwitcher` and `themeToggle` are now honored by
-  ConsoleLayout, so the domain presets take effect.
+- **LayoutFeatures**: `tenantSwitcher`, `themeToggle`, and `search` are now
+  honored by ConsoleLayout, so the domain presets take effect.
+- **Types / dead code**: `LayoutContextValue.router` is now non-optional (the
+  provider always injects an adapter), so the unreachable no-adapter fallbacks
+  in Sidebar are removed. `className` passthrough added to Sidebar, Topbar,
+  PageHeader, and TenantSwitcher. 19 new shell regression tests.
 - **Consistency**: `className` passthrough on AuthLayout / ConsoleLayout /
   DocsLayout / LandingLayout / ChatLayout; `AuthLayout.brandPanelClassName` is
   additive (keeps the responsive defaults); Topbar gains `showUserMenu`;

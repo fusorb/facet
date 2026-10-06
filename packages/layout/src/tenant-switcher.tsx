@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import { cn } from "@fusorb/facet-components";
 import type { TenantReference } from "./types.js";
 
 export interface TenantSwitcherProps {
@@ -21,6 +22,8 @@ export interface TenantSwitcherProps {
     tenant: TenantReference,
     selectTenant: (tenant: TenantReference) => void,
   ) => React.ReactNode;
+  /** Extra classes merged onto the switcher wrapper. */
+  className?: string;
 }
 
 /** Default tenant item: built-in button with name + optional plan badge. */
@@ -59,6 +62,7 @@ export function TenantSwitcher({
   activeTenant,
   onSwitch,
   renderTenant,
+  className,
 }: TenantSwitcherProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -82,7 +86,7 @@ export function TenantSwitcher({
   };
 
   return (
-    <div className="relative">
+    <div className={cn("relative", className)}>
       <button
         type="button"
         onClick={() => setOpen(!open)}

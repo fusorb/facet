@@ -5,6 +5,7 @@
  */
 
 import type { ReactNode } from "react";
+import { cn } from "@fusorb/facet-components";
 
 export interface PageHeaderProps {
   title: string;
@@ -14,6 +15,8 @@ export interface PageHeaderProps {
   renderTitle?: (title: string) => ReactNode;
   /** Customize the description element. Receives the description; defaults to a <p>. */
   renderDescription?: (description: string) => ReactNode;
+  /** Extra classes merged onto the header wrapper. */
+  className?: string;
 }
 
 /** Default title: a styled <h1>. */
@@ -38,9 +41,10 @@ export function PageHeader({
   actions,
   renderTitle,
   renderDescription,
+  className,
 }: PageHeaderProps) {
   return (
-    <div className="mb-8 flex items-center justify-between">
+    <div className={cn("mb-8 flex items-center justify-between", className)}>
       <div>
         {renderTitle ? renderTitle(title) : <DefaultTitle title={title} />}
         {description &&

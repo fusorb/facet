@@ -50,8 +50,8 @@ export function UserMenu({
 
   if (!user) return null;
 
-  // Settings item navigates via the layout router adapter when available.
-  const SettingsLink = router?.Link ?? "a";
+  // Settings item navigates via the layout router adapter.
+  const SettingsLink = router.Link;
 
   return (
     <div className="flex items-center gap-2">

@@ -19,7 +19,7 @@
  */
 
 import * as React from "react";
-import { ThemeToggle } from "@fusorb/facet-components";
+import { cn, ThemeToggle } from "@fusorb/facet-components";
 import { useLayout } from "./layout-context.js";
 import { UserMenu } from "./user-menu.js";
 import { TenantSwitcher } from "./tenant-switcher.js";
@@ -78,6 +78,8 @@ export interface TopbarProps {
    * unaffected. Set false to suppress it entirely.
    */
   showUserMenu?: boolean;
+  /** Extra classes merged onto the header element. */
+  className?: string;
 }
 
 /** Default tenant switcher: delegates to the built-in TenantSwitcher. */
@@ -126,6 +128,7 @@ export function Topbar({
   renderTenantSwitcher,
   renderUserMenu,
   showUserMenu = true,
+  className,
 }: TopbarProps) {
   const {
     sidebarOpen,
@@ -141,7 +144,12 @@ export function Topbar({
   const showTenantSwitcher = tenants.length > 0 || !!renderTenantSwitcher;
 
   return (
-    <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
+    <header
+      className={cn(
+        "sticky top-0 z-50 flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm md:px-6",
+        className,
+      )}
+    >
       <div className="flex items-center gap-3">
         {brand}
 

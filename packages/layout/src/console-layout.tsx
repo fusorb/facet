@@ -19,6 +19,7 @@ import {
 } from "./layout-context.js";
 import { Sidebar, BrandLogo } from "./sidebar.js";
 import { Topbar } from "./topbar.js";
+import { CommandPalette } from "./search.js";
 import { useIsDesktop } from "./use-is-desktop.js";
 import type { ConsoleLayoutMode, LayoutConfig, TenantReference } from "./types.js";
 import type { RouterAdapter } from "./router.js";
@@ -186,6 +187,9 @@ function ConsoleLayoutInner({
   const features = config.features ?? {};
   const showTenantSwitcher = features.tenantSwitcher !== false;
   const resolvedThemeToggle = themeToggle ?? features.themeToggle === true;
+  // Built-in command-palette trigger, unless the consumer wired their own
+  // sidebar search slot.
+  const showSearch = features.search === true && !sidebarSearch;
 
   // Rail mode shrinks the sidebar to an icon-only rail.
   const sidebarWidthPx =
@@ -223,6 +227,7 @@ function ConsoleLayoutInner({
             ? config.brand.logo ?? <BrandLogo className="h-5 w-5 text-primary" />
             : undefined
         }
+        nav={showSearch ? <CommandPalette config={config} /> : undefined}
       >
         {topbar}
       </Topbar>

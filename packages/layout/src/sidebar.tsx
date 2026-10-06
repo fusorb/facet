@@ -13,6 +13,7 @@
 import * as React from "react";
 import { useLayout, DEFAULT_SIDEBAR_WIDTH, SIDEBAR_RAIL_WIDTH, TOPBAR_HEIGHT } from "./layout-context.js";
 import {
+  cn,
   ScrollArea,
   Skeleton,
   Tooltip,
@@ -64,6 +65,8 @@ export interface SidebarProps {
   /** Content rendered at the very bottom of the sidebar, below the nav
    *  and above the footer — e.g. auth quick-action panel. */
   sidebarBottom?: React.ReactNode;
+  /** Extra classes merged onto the sidebar element. */
+  className?: string;
 }
 
 /* ── Component ────────────────────────────────────────────── */
@@ -78,6 +81,7 @@ export function Sidebar({
   renderNavItem,
   sidebarSearch,
   sidebarBottom,
+  className,
 }: SidebarProps) {
   const {
     setSidebarOpen,
@@ -136,9 +140,11 @@ export function Sidebar({
   return (
     <aside
       data-sidebar
-      className={`fixed left-0 z-30 flex flex-col border-r bg-sidebar transition-[width] duration-200 pointer-events-auto ${
-        collapsed ? "w-[68px]" : ""
-      }`}
+      className={cn(
+        "fixed left-0 z-30 flex flex-col border-r bg-sidebar transition-[width] duration-200 pointer-events-auto",
+        collapsed && "w-[68px]",
+        className,
+      )}
       style={{
         top: `${TOPBAR_HEIGHT}px`,
         height: `calc(100vh - ${TOPBAR_HEIGHT}px)`,
@@ -254,7 +260,7 @@ function NavSectionRenderer({
   renderNavItem,
 }: {
   section: NavSection;
-  router: RouterAdapter | undefined;
+  router: RouterAdapter;
   onNav: () => void;
   collapsed: boolean;
   onExpand: () => void;
@@ -266,10 +272,7 @@ function NavSectionRenderer({
   // Open by default; collapse state is persisted via layout context.
   const { collapsedSections, toggleSection, openSection } = useLayout();
   const sectionKey = section.id ?? section.title;
-  const isActive = router
-    ? router.isActive
-    : (href: string) =>
-        typeof window !== "undefined" && href === window.location.pathname;
+  const isActive = router.isActive;
   const hasActive = sectionHasActiveItem(section, isActive);
   // Section open state is driven solely by the persisted collapse map.
   // An active section auto-expands via the route-change effect above
@@ -423,7 +426,7 @@ function NavItemRenderer({
   renderNavItem,
 }: {
   item: NavItem;
-  router: RouterAdapter | undefined;
+  router: RouterAdapter;
   onNav: () => void;
   onExpand: () => void;
   depth: number;
@@ -441,10 +444,7 @@ function NavItemRenderer({
   const [localOpenItem, setLocalOpenItem] = React.useState<string | null>(null);
   const children = item.children;
   const hasChildren = children?.length;
-  const getActive = router
-    ? router.isActive
-    : (href: string) =>
-        typeof window !== "undefined" && href === window.location.pathname;
+  const getActive = router.isActive;
   // Auto-expand a collapsible group when one of its children is the
   // active page, so the current location is always visible.
   const childActive = hasChildren
@@ -562,11 +562,9 @@ function NavItemRenderer({
     );
   }
 
-  // Leaf item: framework-aware link when an adapter is provided.
-  const isActive = router
-    ? router.isActive(item.href)
-    : defaultIsActive(item.href);
-  const Link = router?.Link ?? DefaultAnchor;
+  // Leaf item: framework-aware link via the (always-present) router adapter.
+  const isActive = router.isActive(item.href);
+  const Link = router.Link;
   if (renderNavItem) {
     return renderNavItem(item, {
       depth,
@@ -716,32 +714,6 @@ function DefaultBrand({
         </span>
       )}
     </div>
-  );
-}
-
-/* ── Default (no adapter) behavior ────────────────────────── */
-
-function defaultIsActive(href: string): boolean {
-  if (typeof window === "undefined") return false;
-  const path = window.location.pathname;
-  return path === href || path.startsWith(href + "/");
-}
-
-function DefaultAnchor({
-  href,
-  className,
-  onClick,
-  children,
-}: {
-  href: string;
-  className?: string;
-  onClick?: (event: React.MouseEvent) => void;
-  children?: React.ReactNode;
-}) {
-  return (
-    <a href={href} className={className} onClick={onClick}>
-      {children}
-    </a>
   );
 }
 

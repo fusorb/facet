@@ -63,7 +63,7 @@ export interface LayoutFeatures {
   tenantSwitcher?: boolean;
   /** Show a theme toggle in the topbar. Default: false */
   themeToggle?: boolean;
-  /** Show a search trigger in the topbar. Default: false */
+  /** Show a command-palette search trigger in the topbar. Default: false */
   search?: boolean;
 }
 
@@ -130,8 +130,8 @@ export interface LayoutContextValue {
   collapseAllSidebar: () => void;
   /** Reverse of collapseAllSidebar: expand the rail AND unfold every section. */
   expandAllSidebar: () => void;
-  /** Framework-aware navigation. Defaults to window.location + plain <a>. */
-  router?: RouterAdapter;
+  /** Framework-aware navigation. Always provided by LayoutProvider. */
+  router: RouterAdapter;
 }
 
 /* ── Component props ──────────────────────────────────────── */
