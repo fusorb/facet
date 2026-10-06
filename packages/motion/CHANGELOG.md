@@ -1,5 +1,12 @@
 # @fusorb/facet-motion
 
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies [8fe62cc]
+  - @fusorb/facet-tokens@1.5.0
+
 ## 1.2.0
 
 ### Minor Changes
