@@ -68,6 +68,75 @@ export function formatDate(date: Date): string {
   });
 }
 
+/** Token-based display formats supported by the date inputs. */
+export type DateFormat = "yyyy-mm-dd" | "mm/dd/yyyy" | "dd/mm/yyyy" | "yyyy/mm-dd";
+
+/** Format a Date (or null) with a token pattern. null/empty → "". */
+export function formatDateString(
+  date: Date | null,
+  format: DateFormat = "yyyy-mm-dd",
+): string {
+  if (!date) return "";
+  const y = date.getFullYear();
+  const m = date.getMonth() + 1;
+  const d = date.getDate();
+  const pad = (n: number) => String(n).padStart(2, "0");
+  switch (format) {
+    case "mm/dd/yyyy":
+      return `${pad(m)}/${pad(d)}/${y}`;
+    case "dd/mm/yyyy":
+      return `${pad(d)}/${pad(m)}/${y}`;
+    case "yyyy/mm/dd":
+      return `${y}/${pad(m)}/${pad(d)}`;
+    case "yyyy-mm-dd":
+    default:
+      return `${y}-${pad(m)}-${pad(d)}`;
+  }
+}
+
+const DATE_FORMAT_REGEX: Record<DateFormat, RegExp> = {
+  "yyyy-mm-dd": /^(\d{4})-(\d{2})-(\d{2})$/,
+  "mm/dd/yyyy": /^(\d{2})\/(\d{2})\/(\d{4})$/,
+  "dd/mm/yyyy": /^(\d{2})\/(\d{2})\/(\d{4})$/,
+  "yyyy/mm-dd": /^(\d{4})\/(\d{2})\/(\d{2})$/,
+};
+
+/** Parse a token-formatted date string into a local Date, or null if invalid. */
+export function parseDateString(
+  value: string,
+  format: DateFormat = "yyyy-mm-dd",
+): Date | null {
+  const match = DATE_FORMAT_REGEX[format].exec(value);
+  if (!match) return null;
+  let y = match[1];
+  let m = match[2];
+  let d = match[3];
+  if (format === "mm/dd/yyyy") {
+    [m, d, y] = [match[1], match[2], match[3]];
+  } else if (format === "dd/mm/yyyy") {
+    [d, m, y] = [match[1], match[2], match[3]];
+  }
+  const year = Number(y);
+  const month = Number(m) - 1;
+  const day = Number(d);
+  const date = new Date(year, month, day);
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month ||
+    date.getDate() !== day
+  ) {
+    return null;
+  }
+  return date;
+}
+
+export const DATE_FORMAT_PLACEHOLDER: Record<DateFormat, string> = {
+  "yyyy-mm-dd": "YYYY-MM-DD",
+  "mm/dd/yyyy": "MM/DD/YYYY",
+  "dd/mm/yyyy": "DD/MM/YYYY",
+  "yyyy/mm-dd": "YYYY/MM/DD",
+};
+
 function buildMonthGrid(month: Date): (Date | null)[] {
   const first = startOfMonth(month);
   const leading = first.getDay();

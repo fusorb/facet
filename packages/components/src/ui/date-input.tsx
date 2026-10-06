@@ -8,6 +8,14 @@
 
 import * as React from "react";
 import { cn } from "../utils.js";
+import {
+  DATE_FORMAT_PLACEHOLDER,
+  type DateFormat,
+  formatDateString,
+  parseIsoDate,
+  parseDateString,
+  toIsoDate,
+} from "./date-picker.js";
 
 export interface DateInputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -19,13 +27,18 @@ export interface DateInputProps extends Omit<
   onValueChange?: (value: string | null) => void;
   /** Use a native date input. Default: false (text input with validation). */
   native?: boolean;
+  /**
+   * Text display/parse format. Default: "yyyy-mm-dd".
+   * Has no effect on native date inputs (the browser manages locale).
+   */
+  dateFormat?: DateFormat;
   /** Show a label above the input. */
   label?: string;
 }
 
 const ISO_DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
 
-/** Validate an ISO date string; returns the normalized string or null. */
+/** Validate an ISO date string (YYYY-MM-DD); returns the normalized string or null. */
 export function validateIsoDate(value: string): string | null {
   const m = ISO_DATE_RE.exec(value);
   if (!m) return null;
@@ -43,16 +56,32 @@ export function validateIsoDate(value: string): string | null {
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
   (
-    { value, onValueChange, native = false, label, className, ...props },
+    {
+      value,
+      onValueChange,
+      native = false,
+      dateFormat = "yyyy-mm-dd",
+      label,
+      className,
+      ...props
+    },
     ref,
   ) => {
-    const [draft, setDraft] = React.useState<string>(value ?? "");
     const inputId = React.useId();
 
-    // Sync external value changes into the draft.
+    const display = (v: string | null | undefined): string => {
+      if (!v) return "";
+      return formatDateString(parseIsoDate(v) ?? null, dateFormat);
+    };
+
+    const [draft, setDraft] = React.useState<string>(
+      native ? (value ?? "") : display(value),
+    );
+
+    // Keep the draft in sync with external value/format changes.
     React.useEffect(() => {
-      setDraft(value ?? "");
-    }, [value]);
+      setDraft(native ? (value ?? "") : display(value));
+    }, [value, dateFormat, native]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const raw = e.target.value;
@@ -62,15 +91,14 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       } else if (native) {
         onValueChange?.(raw);
       } else {
-        const validated = validateIsoDate(raw);
-        if (validated) onValueChange?.(validated);
+        const date = parseDateString(raw, dateFormat);
+        if (date) onValueChange?.(toIsoDate(date));
       }
     };
 
     const handleBlur = () => {
-      if (!native && draft !== "") {
-        const validated = validateIsoDate(draft);
-        if (!validated) setDraft(value ?? ""); // revert invalid input
+      if (!native && draft !== "" && !parseDateString(draft, dateFormat)) {
+        setDraft(display(value)); // revert invalid input
       }
     };
 
@@ -89,7 +117,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           id={inputId}
           type={native ? "date" : "text"}
           inputMode={native ? undefined : "numeric"}
-          placeholder={native ? undefined : "YYYY-MM-DD"}
+          placeholder={
+            native ? undefined : DATE_FORMAT_PLACEHOLDER[dateFormat]
+          }
           value={native ? (value ?? "") : draft}
           onChange={handleChange}
           onBlur={handleBlur}
