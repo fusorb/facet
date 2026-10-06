@@ -131,6 +131,30 @@
   --elevation-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
   --elevation-inset: inset 0 0 0 1px rgba(255, 255, 255, 4%);
 
+  /* ── Glass / frost surfaces (token-driven, overridable per theme) ──
+   * `.glass` is the decorative translucent surface, `.glass-card` the
+   * elevated glassmorphic card, and `.frost` the more opaque readable
+   * surface for text. Every value is a variable (with the utilities
+   * reading the var directly, not redefining it) so consumers can retune
+   * opacity / blur / border / shadow — globally or on a subtree. */
+  --glass-bg: color-mix(in oklab, var(--panel) 80%, transparent);
+  --glass-blur: 12px;
+  --glass-border: 0;
+  --glass-shadow: none;
+
+  --glass-card-bg: color-mix(in oklab, var(--panel) 72%, transparent);
+  --glass-card-blur: 16px;
+  --glass-card-border: 1px solid var(--border-bright);
+  --glass-card-shadow: var(--elevation-md), var(--elevation-inset);
+
+  --frost-bg: color-mix(in oklab, var(--panel) 82%, transparent);
+  --frost-blur: 16px;
+  --frost-border: 1px solid var(--border-bright);
+  --frost-shadow: var(--elevation-md), inset 0 0 0 1px var(--border);
+
+  /* Shine sweep highlight used by the animated button surfaces. */
+  --shine-color: rgba(255, 255, 255, 0.4);
+
   /* ── Hero glow (marketing surfaces) ─────────────────────────── */
   --hero-glow: rgba(56, 189, 248, 0.35);
 
@@ -310,6 +334,26 @@
   --radius-2xl: 16px;
   --radius-3xl: 24px;
 
+  /* Glass / frost surfaces: raise opacity and add a hairline border +
+     shadow so translucent surfaces stay legible on light backgrounds
+     (white-on-white otherwise reads as invisible). */
+  --glass-bg: color-mix(in oklab, var(--panel) 72%, transparent);
+  --glass-blur: 12px;
+  --glass-border: 0;
+  --glass-shadow: none;
+
+  --glass-card-bg: color-mix(in oklab, var(--panel) 82%, transparent);
+  --glass-card-blur: 16px;
+  --glass-card-border: 1px solid rgba(0, 0, 0, 0.08);
+  --glass-card-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+
+  --frost-bg: color-mix(in oklab, var(--panel) 88%, transparent);
+  --frost-blur: 16px;
+  --frost-border: 1px solid rgba(0, 0, 0, 0.1);
+  --frost-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12), inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+
   /* Sub-brand accent override (set via JS at runtime) */
   --sub-brand-accent: var(--primary);
   --sub-brand-accent-foreground: var(--primary-foreground);
@@ -327,11 +371,6 @@
       0 0 10px -6px color-mix(in oklab, var(--primary) 15%, transparent);
   }
 
-  .glass {
-    background: oklch(0.97 0.01 240 / 70%);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
 }
 
 /* ── Base reset (opt-in via @layer base) ──────────────────────── */
@@ -427,18 +466,20 @@ summary {
 }
 
 .glass {
-  background: color-mix(in oklab, var(--panel) 80%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
 
 /* Glass card: elevated glassmorphic surface for hero sections */
 .glass-card {
-  background: color-mix(in oklab, var(--panel) 60%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-bright);
-  box-shadow: var(--elevation-md), var(--elevation-inset);
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(var(--glass-card-blur));
+  -webkit-backdrop-filter: blur(var(--glass-card-blur));
+  border: var(--glass-card-border);
+  box-shadow: var(--glass-card-shadow);
 }
 
 /* ── Animation keyframes ────────────────────────────────────────
@@ -578,23 +619,11 @@ summary {
 }
 
 .frost {
-  --frost-bg: color-mix(in oklab, var(--panel) 82%, transparent);
-  --frost-blur: 16px;
-  --frost-border: 1px solid var(--border-bright);
-  --frost-shadow: var(--elevation-md), inset 0 0 0 1px var(--border);
-
   background: var(--frost-bg);
   backdrop-filter: blur(var(--frost-blur));
   -webkit-backdrop-filter: blur(var(--frost-blur));
   border: var(--frost-border);
   box-shadow: var(--frost-shadow);
-}
-
-[data-theme="light"] .frost {
-  --frost-bg: color-mix(in oklab, var(--panel) 88%, transparent);
-  --frost-border: 1px solid rgba(0, 0, 0, 0.1);
-  --frost-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.12%), inset 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
 .text-gradient {
@@ -880,6 +909,118 @@ summary {
   to {
     opacity: 0;
     transform: scale(var(--motion-scale-inactive));
+  }
+}
+
+/* Popper-anchored overlay zoom. Animates the individual `scale` property
+ * (not `transform`) so it never fights the popper wrapper's positioning
+ * transform, and a subtle ratio reads better on small anchored surfaces
+ * than the larger dialog zoom. Radix supplies `transform-origin` so the
+ * scale grows from the trigger. */
+@keyframes facet-pop-in {
+  from {
+    opacity: 0;
+    scale: 0.96;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes facet-pop-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0.96;
+  }
+}
+
+/* Directional slide for edge-anchored overlays (Sheet, NotificationDrawer).
+ * Uses the `translate` property so it composes with Radix's positioning
+ * transform without conflict. Enter = slide in from the edge; exit = slide
+ * back out the same edge. */
+@keyframes facet-slide-in-from-top {
+  from {
+    opacity: 0;
+    translate: 0 calc(-1 * var(--motion-distance-lg));
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes facet-slide-out-to-top {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+  to {
+    opacity: 0;
+    translate: 0 calc(-1 * var(--motion-distance-lg));
+  }
+}
+@keyframes facet-slide-in-from-bottom {
+  from {
+    opacity: 0;
+    translate: 0 var(--motion-distance-lg);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes facet-slide-out-to-bottom {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+  to {
+    opacity: 0;
+    translate: 0 var(--motion-distance-lg);
+  }
+}
+@keyframes facet-slide-in-from-left {
+  from {
+    opacity: 0;
+    translate: calc(-1 * var(--motion-distance-lg)) 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes facet-slide-out-to-left {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+  to {
+    opacity: 0;
+    translate: calc(-1 * var(--motion-distance-lg)) 0;
+  }
+}
+@keyframes facet-slide-in-from-right {
+  from {
+    opacity: 0;
+    translate: var(--motion-distance-lg) 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes facet-slide-out-to-right {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+  to {
+    opacity: 0;
+    translate: var(--motion-distance-lg) 0;
   }
 }
 

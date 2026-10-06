@@ -192,6 +192,26 @@
     var(--motion-ease-spring) both;
   --animate-facet-zoom-out: facet-zoom-out var(--motion-duration-200)
     var(--motion-ease-spring) both;
+  --animate-facet-pop-in: facet-pop-in var(--motion-duration-150)
+    var(--motion-ease-standard-decelerate) both;
+  --animate-facet-pop-out: facet-pop-out var(--motion-duration-150)
+    var(--motion-ease-standard-accelerate) both;
+  --animate-facet-slide-in-from-top: facet-slide-in-from-top
+    var(--motion-duration-200) var(--motion-ease-standard-decelerate) both;
+  --animate-facet-slide-in-from-bottom: facet-slide-in-from-bottom
+    var(--motion-duration-200) var(--motion-ease-standard-decelerate) both;
+  --animate-facet-slide-in-from-left: facet-slide-in-from-left
+    var(--motion-duration-200) var(--motion-ease-standard-decelerate) both;
+  --animate-facet-slide-in-from-right: facet-slide-in-from-right
+    var(--motion-duration-200) var(--motion-ease-standard-decelerate) both;
+  --animate-facet-slide-out-to-top: facet-slide-out-to-top var(--motion-duration-200)
+    var(--motion-ease-standard-accelerate) both;
+  --animate-facet-slide-out-to-bottom: facet-slide-out-to-bottom
+    var(--motion-duration-200) var(--motion-ease-standard-accelerate) both;
+  --animate-facet-slide-out-to-left: facet-slide-out-to-left var(--motion-duration-200)
+    var(--motion-ease-standard-accelerate) both;
+  --animate-facet-slide-out-to-right: facet-slide-out-to-right
+    var(--motion-duration-200) var(--motion-ease-standard-accelerate) both;
   --animate-facet-flip-x: facet-flip-x var(--motion-duration-400)
     var(--motion-ease-standard) both;
   --animate-facet-bounce: facet-bounce var(--motion-duration-350)
