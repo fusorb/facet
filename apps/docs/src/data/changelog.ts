@@ -7,10 +7,30 @@ export const facetChangelog: ChangelogRelease[] = [
   {
     version: "Unreleased",
     date: "Unreleased",
-    tag: "fix",
-    title: "Native Motion Component — Stage 1 integration:",
+    tag: "feat",
+    title: "Animation flexibility pass - remove hardcoded values from the animation surfaces.",
     pre: true,
     changes: [
+      {
+        kind: "added",
+        text: "`dist/palettes/`, and exported from the package).",
+      },
+      {
+        kind: "fixed",
+        text: "**New tokens**: `--accent-fuchsia` (third stop of the brand gradient used by",
+      },
+      {
+        kind: "fixed",
+        text: "**Components**: the animation components (`card-animations`, `micro-interactions`,",
+      },
+      {
+        kind: "fixed",
+        text: "**Fix**: `RevealCard` / `ScrollReveal` interpolated `resolveEasing(\"standard\")`",
+      },
+      {
+        kind: "fixed",
+        text: "`--animate-facet-{marquee,aurora,beam}` now resolve their durations and",
+      },
       {
         kind: "fixed",
         text: "**facet-motion**: Added an extensible driver registry (`registerDriver`,",
@@ -26,6 +46,10 @@ export const facetChangelog: ChangelogRelease[] = [
       {
         kind: "fixed",
         text: "**check-boundaries**: Updated `@fusorb/facet-native` allowed-dependency set",
+      },
+      {
+        kind: "fixed",
+        text: "Overlay exit animations: drop the JS wrapper so the CSS exit actually runs.",
       },
       {
         kind: "fixed",
@@ -50,14 +74,74 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.2.2, 1.3.1, 1.5.1",
-    date: "2026-10-05",
+    version: "1.2.2, 1.2.3, 1.3.1, 1.3.2, 1.4.2, 1.4.7, 1.5.1, 1.5.2, 2.0.2",
+    date: "2026-10-06",
     tag: "fix",
-    title: "v1.2.2, 1.3.1, 1.5.1",
+    title: "v1.2.2, 1.2.3, 1.3.1, 1.3.2, 1.4.2, 1.4.7, 1.5.1, 1.5.2, 2.0.2",
     changes: [
       {
         kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@2.0.2",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
         text: "@fusorb/facet-components@2.0.1",
+      },
+      {
+        kind: "changed",
+        text: "Swap ShineButton for the shared AnimatedButton component on auth form submit buttons (forgot-password, magic-link, MFA recovery, MFA verify) for visual consistency across the form suite.",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Phase 0 security fix: warn developers when `defaultStorage` (localStorage) is used for tokens, surface the XSS risk prominently, and add an optional `persist` adapter so consumers can plug in a cookie-backed strategy.",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Add an ESM `\"use client\"` banner to the `dist` builds of `@fusorb/facet-components`,\\n- `@fusorb/facet-auth`, and `@fusorb/facet-layout`.",
+        href: "https://github.com/fusorb/facet/commit/cfabae9",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/b1da261",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.11.0\\n- @fusorb/facet-sdk@1.2.0",
+        href: "https://github.com/fusorb/facet/commit/cfabae9",
       },
       {
         kind: "changed",
@@ -66,11 +150,156 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
+        text: "Animation flexibility pass - remove hardcoded values from the animation surfaces.",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Stage 3 of the component-library cleanup:",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.3.0\\n- @fusorb/facet-motion@1.1.0",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.3.0\\n- @fusorb/facet-components@2.0.2\\n- @fusorb/facet-auth@1.3.2\\n- @fusorb/facet-layout@1.5.2",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
         text: "@fusorb/facet-components@2.0.1\\n- @fusorb/facet-auth@1.3.1\\n- @fusorb/facet-layout@1.5.1",
       },
       {
         kind: "changed",
+        text: "Remove the collapsible/vertical-collapsible docs gallery variants for Resizable (were never wired to the variants.tsx list, leaving dead code in previews.tsx and usage.ts). Make the horizontal variant as polished as the vertical by adding the same height constraint and proper border separation.",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/b1da261",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.3\\n- @fusorb/facet-components@1.11.0\\n- @fusorb/facet-sdk@1.2.0\\n- @fusorb/facet-layout@1.4.2",
+        href: "https://github.com/fusorb/facet/commit/cfabae9",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@2.0.2\\n- @fusorb/facet-auth@1.3.2",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
         text: "@fusorb/facet-components@2.0.1\\n- @fusorb/facet-auth@1.3.1",
+      },
+      {
+        kind: "changed",
+        text: "Fix sidebar accordion (singleOpen) collapse, auto-infer ResizableHandle orientation, and export brand icons from the components barrel.",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Add an ESM `\"use client\"` banner to the `dist` builds of `@fusorb/facet-components`,\\n- `@fusorb/facet-auth`, and `@fusorb/facet-layout`.",
+        href: "https://github.com/fusorb/facet/commit/cfabae9",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/b1da261",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/205d83b",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/1bf5de5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.3\\n- @fusorb/facet-components@1.11.0",
+        href: "https://github.com/fusorb/facet/commit/cfabae9",
       },
     ],
   },
@@ -92,10 +321,10 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.0.0, 1.0.1, 2.0.1",
+    version: "1.0.1, 2.0.1",
     date: "2026-09-26",
     tag: "fix",
-    title: "v1.0.0, 1.0.1, 2.0.1",
+    title: "v1.0.1, 2.0.1",
     changes: [
       {
         kind: "changed",
@@ -106,64 +335,6 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "## motion: fix first-frame delta causing spring animations to snap",
         href: "https://github.com/fusorb/facet/commit/e0b3053",
-      },
-      {
-        kind: "changed",
-        text: "Evolve the facet workspace.",
-        href: "https://github.com/fusorb/facet/commit/8891898",
-      },
-      {
-        kind: "changed",
-        text: "## facet-motion - initial release (0.1.0)",
-        href: "https://github.com/fusorb/facet/commit/3fefa64",
-      },
-      {
-        kind: "changed",
-        text: "## motion: asChild mode + dropdown render fix",
-        href: "https://github.com/fusorb/facet/commit/9905bd9",
-      },
-      {
-        kind: "changed",
-        text: "## Domain Motion Presets",
-        href: "https://github.com/fusorb/facet/commit/f4ca95a",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/db287b3",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/3fefa64",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.2.0",
-        href: "https://github.com/fusorb/facet/commit/6591426",
-      },
-    ],
-  },
-  {
-    version: "1.2.0",
-    date: "2026-09-24",
-    tag: "fix",
-    title: "v1.2.0",
-    changes: [
-      {
-        kind: "changed",
-        text: "De-brand and production hardening:",
-        href: "https://github.com/fusorb/facet/commit/db287b3",
-      },
-      {
-        kind: "changed",
-        text: "## Motion System - Animation Tokens & Consolidated Keyframes",
-        href: "https://github.com/fusorb/facet/commit/3fefa64",
-      },
-      {
-        kind: "changed",
-        text: "Removed all focus-ring (blue border) styles from components, combobox, and ready-to-use components. Removed `focus:ring-*`, `focus-visible:ring-*`, `focus-within:ring-*`, `hover:ring-*`, and `focus:border-primary` Tailwind classes across 48 component/app/layout/doc files. Removed the global `:focus-visible` outline rule from `tokens.css` and the `.lab :focus-visible` outline rule from `labs.css`. Static ring classes for selected/active/badge states (e.g., pill selected, stepper active, input-otp active slot) are preserved — only focus-triggered ring/border styles were removed. `outline-none` is retained to suppress the browser's default blue outline, so clicking a component shows no border.",
-        href: "https://github.com/fusorb/facet/commit/6591426",
       },
     ],
   },
@@ -286,10 +457,68 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.3.0, 2.0.0",
+    version: "1.0.0, 1.2.0",
+    date: "2026-09-16",
+    tag: "fix",
+    title: "v1.0.0, 1.2.0",
+    changes: [
+      {
+        kind: "changed",
+        text: "Evolve the facet workspace.",
+        href: "https://github.com/fusorb/facet/commit/8891898",
+      },
+      {
+        kind: "changed",
+        text: "## facet-motion - initial release (0.1.0)",
+        href: "https://github.com/fusorb/facet/commit/3fefa64",
+      },
+      {
+        kind: "changed",
+        text: "## motion: asChild mode + dropdown render fix",
+        href: "https://github.com/fusorb/facet/commit/9905bd9",
+      },
+      {
+        kind: "changed",
+        text: "## Domain Motion Presets",
+        href: "https://github.com/fusorb/facet/commit/f4ca95a",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/db287b3",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3fefa64",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.2.0",
+        href: "https://github.com/fusorb/facet/commit/6591426",
+      },
+      {
+        kind: "changed",
+        text: "De-brand and production hardening:",
+        href: "https://github.com/fusorb/facet/commit/db287b3",
+      },
+      {
+        kind: "changed",
+        text: "## Motion System - Animation Tokens & Consolidated Keyframes",
+        href: "https://github.com/fusorb/facet/commit/3fefa64",
+      },
+      {
+        kind: "changed",
+        text: "Removed all focus-ring (blue border) styles from components, combobox, and ready-to-use components. Removed `focus:ring-*`, `focus-visible:ring-*`, `focus-within:ring-*`, `hover:ring-*`, and `focus:border-primary` Tailwind classes across 48 component/app/layout/doc files. Removed the global `:focus-visible` outline rule from `tokens.css` and the `.lab :focus-visible` outline rule from `labs.css`. Static ring classes for selected/active/badge states (e.g., pill selected, stepper active, input-otp active slot) are preserved — only focus-triggered ring/border styles were removed. `outline-none` is retained to suppress the browser's default blue outline, so clicking a component shows no border.",
+        href: "https://github.com/fusorb/facet/commit/6591426",
+      },
+    ],
+  },
+  {
+    version: "1.3.0, 1.5.0, 2.0.0",
     date: "2026-09-13",
     tag: "fix",
-    title: "v1.3.0, 2.0.0",
+    title: "v1.3.0, 1.5.0, 2.0.0",
     changes: [
       {
         kind: "changed",
@@ -496,14 +725,6 @@ export const facetChangelog: ChangelogRelease[] = [
         text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.2.0\\n- @fusorb/facet-motion@1.0.0",
         href: "https://github.com/fusorb/facet/commit/6591426",
       },
-    ],
-  },
-  {
-    version: "1.5.0",
-    date: "2026-09-08",
-    tag: "fix",
-    title: "v1.5.0",
-    changes: [
       {
         kind: "changed",
         text: "# Ready-to-use pages: Stepper, KanbanBoard, ChangelogList",
@@ -717,61 +938,11 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.11.0, 1.2.3, 1.4.2, 1.4.7",
-    date: "2026-08-23",
+    version: "1.11.0",
+    date: "2026-09-09",
     tag: "fix",
-    title: "v1.11.0, 1.2.3, 1.4.2, 1.4.7",
+    title: "v1.11.0",
     changes: [
-      {
-        kind: "changed",
-        text: "Swap ShineButton for the shared AnimatedButton component on auth form submit buttons (forgot-password, magic-link, MFA recovery, MFA verify) for visual consistency across the form suite.",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Phase 0 security fix: warn developers when `defaultStorage` (localStorage) is used for tokens, surface the XSS risk prominently, and add an optional `persist` adapter so consumers can plug in a cookie-backed strategy.",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Add an ESM `\"use client\"` banner to the `dist` builds of `@fusorb/facet-components`,\\n- `@fusorb/facet-auth`, and `@fusorb/facet-layout`.",
-        href: "https://github.com/fusorb/facet/commit/cfabae9",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/b1da261",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.11.0\\n- @fusorb/facet-sdk@1.2.0",
-        href: "https://github.com/fusorb/facet/commit/cfabae9",
-      },
       {
         kind: "changed",
         text: "Export individual brand icon components (GithubIcon, LinkedinIcon, InstagramIcon,\\n- FacebookIcon, TiktokIcon, WhatsappIcon, XIcon, TwitterIcon, YoutubeIcon, SlackIcon,\\n- DiscordIcon, TelegramIcon, FigmaIcon, SpotifyIcon) from the main barrel so consuming\\n- apps can import them directly without duplicating the SVGs. These components already\\n- power the icon registry's `brandIcons` map and `LightIcon` - they were simply not\\n- re-exported as named exports from the package entry point.",
@@ -805,111 +976,6 @@ export const facetChangelog: ChangelogRelease[] = [
       {
         kind: "changed",
         text: "Add an ESM `\"use client\"` banner to the `dist` builds of `@fusorb/facet-components`,\\n- `@fusorb/facet-auth`, and `@fusorb/facet-layout`.",
-        href: "https://github.com/fusorb/facet/commit/cfabae9",
-      },
-      {
-        kind: "changed",
-        text: "Remove the collapsible/vertical-collapsible docs gallery variants for Resizable (were never wired to the variants.tsx list, leaving dead code in previews.tsx and usage.ts). Make the horizontal variant as polished as the vertical by adding the same height constraint and proper border separation.",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/b1da261",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.3\\n- @fusorb/facet-components@1.11.0\\n- @fusorb/facet-sdk@1.2.0\\n- @fusorb/facet-layout@1.4.2",
-        href: "https://github.com/fusorb/facet/commit/cfabae9",
-      },
-      {
-        kind: "changed",
-        text: "Fix sidebar accordion (singleOpen) collapse, auto-infer ResizableHandle orientation, and export brand icons from the components barrel.",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Add an ESM `\"use client\"` banner to the `dist` builds of `@fusorb/facet-components`,\\n- `@fusorb/facet-auth`, and `@fusorb/facet-layout`.",
-        href: "https://github.com/fusorb/facet/commit/cfabae9",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/b1da261",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/205d83b",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/1bf5de5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-auth@1.2.3\\n- @fusorb/facet-components@1.11.0",
         href: "https://github.com/fusorb/facet/commit/cfabae9",
       },
     ],
@@ -953,11 +1019,16 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.1.0, 1.1.4, 1.10.0, 1.4.0, 1.4.6",
+    version: "1.1.0, 1.1.1, 1.1.4, 1.10.0, 1.3.0, 1.4.0, 1.4.6",
     date: "2026-08-17",
     tag: "fix",
-    title: "v1.1.0, 1.1.4, 1.10.0, 1.4.0, 1.4.6",
+    title: "v1.1.0, 1.1.1, 1.1.4, 1.10.0, 1.3.0, 1.4.0, 1.4.6",
     changes: [
+      {
+        kind: "changed",
+        text: "Native Motion Component — Stage 1 integration:",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
       {
         kind: "changed",
         text: "# Ready-to-use pages: Stepper, KanbanBoard, ChangelogList",
@@ -984,8 +1055,67 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
+        text: "- `UserAvatar` gains a `variant` prop (`\"auth\"` default / `\"default\"` plain avatar), plus `settingsHref`/`settingsLabel`/`renderSettingsLink` for a router-aware Settings item.\\n- `AlertDialogContent` accepts a `variant=\"destructive\"` tinted surface; `AlertDialogAction` accepts a `variant` (default/destructive) built on `buttonVariants`; new `AlertDialogIcon` warning-icon component. Alert dialogs now close when the overlay (outside) is clicked.\\n- New `isMac()`/`getModSymbol()` platform helpers and a `mod` prop on `Kbd` for platform-aware shortcut hints (⌘ on macOS, Ctrl elsewhere).\\n- Buttons now render with `cursor-pointer`.\\n- `Pagination` spacing/glyph alignment tightened (`gap-1.5`, `shrink-0` icons).\\n- Icon registry adds `triangleAlert`.",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
+      },
+      {
+        kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0\\n- @fusorb/facet-tokens@1.1.4\\n- @fusorb/facet-auth@1.2.2\\n- @fusorb/facet-layout@1.4.1",
         href: "https://github.com/fusorb/facet/commit/b7accc3",
+      },
+      {
+        kind: "changed",
+        text: "- Initial publish: installable, config-driven docs site engine. Mount `<DocsApp config={...} pages={...} />` with your own brand, nav, content pages, and ecosystem links, without forking.\\n- Ships a searchable sidebar shell (VS Code-style collapsible rail), paginated component gallery with per-component variant pages, per-variant usage tabs, install tabs for pnpm/npm/yarn/bun, and an optional ecosystem links section.\\n- Pages and nav derive from a single pages registry; the component manifest is auto-generated from `packages/components/src/ui`.",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.1.0\\n- @fusorb/facet-layout@1.1.0\\n- @fusorb/facet-auth@1.0.3",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
+      },
+      {
+        kind: "changed",
+        text: "Native Motion Component — Stage 1 integration:",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.3.0",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Native Motion Component — Stage 1 integration:",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.3.0\\n- @fusorb/facet-motion@1.1.0",
+        href: "https://github.com/fusorb/facet/commit/ba81b34",
+      },
+      {
+        kind: "changed",
+        text: "Animation flexibility pass - remove hardcoded values from the animation surfaces.",
+        href: "https://github.com/fusorb/facet/commit/3920b90",
       },
       {
         kind: "changed",
@@ -1509,10 +1639,10 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.0.2, 1.1.0, 1.1.1, 1.2.0",
+    version: "1.0.2, 1.0.3, 1.1.0, 1.1.1, 1.2.0",
     date: "2026-08-11",
     tag: "fix",
-    title: "v1.0.2, 1.1.0, 1.1.1, 1.2.0",
+    title: "v1.0.2, 1.0.3, 1.1.0, 1.1.1, 1.2.0",
     changes: [
       {
         kind: "changed",
@@ -1523,6 +1653,11 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.2.0",
         href: "https://github.com/fusorb/facet/commit/3de0e04",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.1.0",
+        href: "https://github.com/fusorb/facet/commit/3752a98",
       },
       {
         kind: "changed",
@@ -1601,48 +1736,6 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.0.3, 1.1.0",
-    date: "2026-08-02",
-    tag: "fix",
-    title: "v1.0.3, 1.1.0",
-    changes: [
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.1.0",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
-      },
-      {
-        kind: "changed",
-        text: "- `UserAvatar` gains a `variant` prop (`\"auth\"` default / `\"default\"` plain avatar), plus `settingsHref`/`settingsLabel`/`renderSettingsLink` for a router-aware Settings item.\\n- `AlertDialogContent` accepts a `variant=\"destructive\"` tinted surface; `AlertDialogAction` accepts a `variant` (default/destructive) built on `buttonVariants`; new `AlertDialogIcon` warning-icon component. Alert dialogs now close when the overlay (outside) is clicked.\\n- New `isMac()`/`getModSymbol()` platform helpers and a `mod` prop on `Kbd` for platform-aware shortcut hints (⌘ on macOS, Ctrl elsewhere).\\n- Buttons now render with `cursor-pointer`.\\n- `Pagination` spacing/glyph alignment tightened (`gap-1.5`, `shrink-0` icons).\\n- Icon registry adds `triangleAlert`.",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
-      },
-      {
-        kind: "changed",
-        text: "- Initial publish: installable, config-driven docs site engine. Mount `<DocsApp config={...} pages={...} />` with your own brand, nav, content pages, and ecosystem links, without forking.\\n- Ships a searchable sidebar shell (VS Code-style collapsible rail), paginated component gallery with per-component variant pages, per-variant usage tabs, install tabs for pnpm/npm/yarn/bun, and an optional ecosystem links section.\\n- Pages and nav derive from a single pages registry; the component manifest is auto-generated from `packages/components/src/ui`.",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.1.0\\n- @fusorb/facet-layout@1.1.0\\n- @fusorb/facet-auth@1.0.3",
-        href: "https://github.com/fusorb/facet/commit/3752a98",
-      },
-    ],
-  },
-  {
     version: "1.0.1",
     date: "2026-08-01",
     tag: "fix",
@@ -1682,8 +1775,8 @@ export const facetChangelog: ChangelogRelease[] = [
   },
 ];
 
-export const CHANGELOG_RELEASE_COUNT = 22;
-export const CHANGELOG_CHANGE_COUNT = 305;
+export const CHANGELOG_RELEASE_COUNT = 20;
+export const CHANGELOG_CHANGE_COUNT = 328;
 
 // ── Episodic canon (.agent/episodes.md) ──────────
 // Local-only; may be empty in CI where .agent/ is gitignored.
@@ -2079,6 +2172,76 @@ export const facetEpisodes: FacetEpisode[] = [
     lesson: "the test environment lied. A scheduler that passes tests in Node\\n   (setInterval fallback) can still be catastrophically wrong in the browser\\n   (rAF first-frame timestamp). The bug only surfaces in rAF path, which no\\n   test exercised. Fix the scheduler boundary — it is the source of truth\\n   for elapsed time, and `elapsed += absolute_timestamp` is always wrong.",
     commitHashes: ["9905bd9","1df5aef","5992631"],
   },
+  {
+    number: "EP 49",
+    title: "The Animation That Hardcoded Itself",
+    slug: "the-animation-that-hardcoded-itself",
+    date: null,
+    state: "verified. tsc(components) EXIT 0. Committed 5974aae (animation\n   flexibility, 10 files). Full gate pass + triad run by the user.",
+    summary: "The animation surfaces of @fusorb/facet-components were only loosely wired\\n   to the motion system they ship with. A repo-wide audit surfaced three\\n   classes of \"hardcoded\" drift and one real bug:\\n  ",
+    lesson: "a design system is only as tokenized as its furthest-out call site.\\n   The engine was clean; the components were the leak. And when a helper's\\n   return type moves from \"CSS string\" to \"function\", the compiler stays quiet\\n   -- the guard is using the token, not re-deriving the value.",
+    commitHashes: ["5974aae"],
+  },
+  {
+    number: "EP 50",
+    title: "Two Change Sets in One Tree",
+    slug: "two-change-sets-in-one-tree",
+    date: null,
+    state: "working tree clean at 5974aae on fix/overlay-lifecycle-revert.",
+    summary: "The working tree held two unrelated change sets at once on\\n   fix/overlay-lifecycle-revert: the Phase 3 overlay-lifecycle revert (staged)\\n   and the native-package + motion + landing-lab work (unstage",
+    lesson: "two change sets in one tree are fine to *hold*, dangerous to *ship*.\\n   Stage, split by concern, and let each changeset describe its own delta --\\n   the generated changelog data and lockfile ride along with the batch they\\n   belong to, not with an unrelated one.",
+    commitHashes: ["a1b35b0","5974aae"],
+  },
+  {
+    number: "EP 51",
+    title: "The Palette That Proved It",
+    slug: "the-palette-that-proved-it",
+    date: null,
+    state: "committed. f76a519 (palettes, 8 files) + 4ba2ab7 (regenerated app\n   changelog data). Working tree clean.",
+    summary: "The Palette That Proved It",
+    lesson: "a design system only earns \"dynamically composable\" when a rebrand is a\\n   one-line @import and NO component edit. If swapping the palette touches a\\n   component, the token leaked. Keep palettes composed from other tokens\\n   (color-mix over --alpha-*), never from duplicated hex.",
+    commitHashes: ["f76a519","4ba2ab7"],
+  },
+  {
+    number: "EP 52",
+    title: "The Exit That Never Fired",
+    slug: "the-exit-that-never-fired",
+    date: null,
+    state: null,
+    summary: "Asked to visually confirm the popover-family animations, I drove the running\\n   dev servers over CDP (the repo's own scratchpad harness -- `agent-browser`\\n   is not installed). Result:\\n\\n   • ENTER ✓ -",
+    lesson: "\"no dangling references\" is a static check; it says nothing about\\n   whether the animation still RUNS. Overlay enter/exit must be verified in a\\n   real browser per primitive -- never inferred from the class names existing.",
+    commitHashes: [],
+  },
+  {
+    number: "EP 53",
+    title: "The Exit, Fixed by Subtraction",
+    slug: "the-exit-fixed-by-subtraction",
+    date: null,
+    state: "committed 90c1637 on `main`. UNVERIFIED -- see EP 54.",
+    summary: "The Exit, Fixed by Subtraction",
+    lesson: "when a Radix primitive's exit animation \"doesn't fire\", suspect a\\n   wrapper between Presence and the animated node before blaming the CSS. The\\n   class was always correct; the node Presence observed was not.",
+    commitHashes: ["90c1637"],
+  },
+  {
+    number: "EP 54",
+    title: "The Store That Went Missing",
+    slug: "the-store-that-went-missing",
+    date: null,
+    state: null,
+    summary: "Mid-session the toolchain stopped working. `tsup` failed with\\n   \"@esbuild/win32-x64 could not be found\", then \"Cannot find module 'fdir'\",\\n   then components `tsc` reported hundreds of `Cannot find m",
+    lesson: "a package-manager store shared across concurrent sessions is a shared\\n   mutable resource. Diagnose with the store intact; repair with a single owner.",
+    commitHashes: [],
+  },
+  {
+    number: "EP 55",
+    title: "Landing Audit: Palettes That Don't Follow the Palette",
+    slug: "landing-audit-palettes-that-dont-follow-the-palette",
+    date: null,
+    state: "not fixed -- recorded for the landing pass.",
+    summary: "Landing Audit: Palettes That Don't Follow the Palette",
+    lesson: "a marketing surface that hardcodes colours cannot demonstrate that the\\n   tokens are dynamic. The landing should be the first consumer that proves it.",
+    commitHashes: [],
+  },
 ];
 
-export const EPISODE_COUNT = 38;
+export const EPISODE_COUNT = 45;
