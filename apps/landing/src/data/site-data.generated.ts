@@ -17,25 +17,25 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-components",
     "desc": "Radix-based UI component library: 113 accessible, styled components using the Alpha Palette design tokens",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "icon": "boxes"
   },
   {
     "name": "@fusorb/facet-docs",
     "desc": "Installable, config-driven documentation site engine: component gallery with variant pages, per-variant usage tabs, install tabs, and an optional ecosystem links section. Mount <DocsApp config={...} /> with your own brand, pages, and nav.",
-    "version": "1.5.5",
+    "version": "1.5.7",
     "icon": "book-open"
   },
   {
     "name": "@fusorb/facet-auth",
     "desc": "Domain-customizable auth components: ArcProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
-    "version": "1.3.5",
+    "version": "1.3.7",
     "icon": "shield-check"
   },
   {
     "name": "@fusorb/facet-layout",
     "desc": "Domain-configurable app shell: Sidebar, Topbar, AuthLayout, ConsoleLayout, LandingLayout, PageHeader, TenantSwitcher, and 5 domain presets (fintech, med, edu, enterprise, default).",
-    "version": "1.5.5",
+    "version": "1.5.7",
     "icon": "building"
   },
   {
@@ -59,7 +59,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-cli",
     "desc": "facet CLI: scaffold docs + email template sites, add components, generate tree-shaken icon registries, and audit/update your facet setup from the terminal.",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "icon": "terminal"
   },
   {

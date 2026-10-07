@@ -47,7 +47,7 @@ import { Button, Input, Card, ThemeProvider } from "@fusorb/facet-components";
 | **Ready-to-use pages** | BillingPage, FeedbackPage, NotFound, PageHeader, EmptyStatePage, etc. |
 
 See the [component gallery](https://facet.dev/components) for live demos of all
-116 components.
+113 components.
 
 ## Theming
 

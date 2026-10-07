@@ -14,17 +14,17 @@ design manual (Alpha Palette), and your auth requirements differ per sector
 | `@fusorb/facet-sdk`        | SovGrant API client (pure fetch, typed, 10 domain SDKs)                                                                                                                                    | ✅ 1.2.1  |
 | `@fusorb/facet-motion`     | Declarative animation system: core (animate/sequence/stagger), CSS + React Native drivers, 15 generative families + 27 authored effects, <Motion>/<Presence>/<Reveal>/<Stagger>            | ✅ 1.2.1  |
 | `@fusorb/facet-native`     | React Native motion driver for @fusorb/facet-motion (motion values + native driver bindings)                                                                                               | ✅ 1.2.1  |
-| `@fusorb/facet-components` | 113 styled UI components (Radix + tailwind-merge + variants) + motion grammar (animate-facet-*)                                                                                            | ✅ 3.0.0  |
-| `@fusorb/facet-auth`       | Auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms                                                                                                                  | ✅ 1.3.5  |
-| `@fusorb/facet-layout`     | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets                                                                                        | ✅ 1.5.5  |
+| `@fusorb/facet-components` | 113 styled UI components (Radix + tailwind-merge + variants) + motion grammar (animate-facet-*)                                                                                            | ✅ 3.1.0  |
+| `@fusorb/facet-auth`       | Auth components + domain presets: ArcProvider, SignIn, SignUp, UserButton, Guard, MfaDialog, 7 standalone forms                                                                                                                  | ✅ 1.3.7  |
+| `@fusorb/facet-layout`     | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets                                                                                        | ✅ 1.5.7  |
 | `@fusorb/facet-store`      | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native                                                                 | ✅ 1.0.1  |
-| `@fusorb/facet-docs`       | Installable docs engine: mount `<DocsApp>` with your own brand, nav, pages                                                                                                                 | ✅ 1.5.5  |
-| `@fusorb/facet-cli`        | Scaffold docs (`facet docs init` + `facet docs scan`), audit/update (`facet pkg/up/doctor`), copy components (`facet copy`), generate a tree-shaken icon registry (`facet icons generate`) | ✅ 1.1.2  |
+| `@fusorb/facet-docs`       | Installable docs engine: mount `<DocsApp>` with your own brand, nav, pages                                                                                                                 | ✅ 1.5.7  |
+| `@fusorb/facet-cli`        | Scaffold docs (`facet docs init` + `facet docs scan`), audit/update (`facet pkg/up/doctor`), copy components (`facet copy`), generate a tree-shaken icon registry (`facet icons generate`) | ✅ 1.1.3  |
 | `@fusorb/facet-emails`     | Framework-agnostic email builder + React bridge (`renderEmail`, `emailLayout`, `EmailLayout`)                                                                                              | ✅ 1.1.3  |
 | `@fusorb/facet-sandbox`    | Framework-agnostic live-preview host: block registry, adapter seam + React JSX adapter (no eval)                                                                                           | ✅ 2.0.0  |
 | `@fusorb/facet-utils`      | Shared styling utilities (`cn`) consumed by components + motion                                                                                                                            | ✅ 0.1.0  |
 
-Current versions: tokens 1.5.0, sdk 1.2.1, motion 1.2.1, native 1.2.1, components 3.0.0, auth 1.3.5, layout 1.5.5, store 1.0.1, docs 1.5.5, cli 1.1.2, emails 1.1.3, sandbox 2.0.0, utils 0.1.0.
+Current versions: tokens 1.5.0, sdk 1.2.1, motion 1.2.1, native 1.2.1, components 3.1.0, auth 1.3.7, layout 1.5.7, store 1.0.1, docs 1.5.7, cli 1.1.3, emails 1.1.3, sandbox 2.0.0, utils 0.1.0.
 
 ## Sites
 

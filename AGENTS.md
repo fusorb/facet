@@ -68,7 +68,9 @@ driven by GitHub Actions (`.github/workflows/ci-cd.yml`). The workflow runs
 three jobs:
 
 1. **ci** -- validation gate: `pnpm install`, `pnpm build`, `pnpm check:docs`,
-   `pnpm check:icons`, `pnpm check:sdk-drift`, `pnpm -r typecheck`, `pnpm test`,
+   `pnpm check:icons`, `pnpm check:components`, `pnpm check:boundaries`,
+   `pnpm check:sdk-drift`, `pnpm check:sdk-coverage`, `pnpm check:motion-drift`,
+   `pnpm audit:motion-parity`, `pnpm lint`, `pnpm -r typecheck`, `pnpm test`,
    `pnpm sandbox:e2e`.
 2. **changeset** -- auto-opens/updates a "Version Packages" PR on `main`
    whenever changesets land. It only versions (bumps `package.json` +
