@@ -108,7 +108,7 @@ function SearchableSelect({
         className={cn("h-9 w-full text-sm", triggerClassName)}
       >
         {prefix ? (
-          <span className="inline-flex items-center gap-1.5 truncate">
+          <span className="inline-flex items-center gap-2 truncate">
             {prefix}
           </span>
         ) : (

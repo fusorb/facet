@@ -112,7 +112,7 @@ export function OtpInput({
     <div
       role="group"
       aria-label={ariaLabel}
-      className={cn("flex items-center gap-1.5", className)}
+       className={cn("flex items-center gap-2", className)}
     >
       {chars.map((c, i) => (
         <input
