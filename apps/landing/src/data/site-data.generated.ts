@@ -17,25 +17,25 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-components",
     "desc": "Radix-based UI component library: 113 accessible, styled components using the Alpha Palette design tokens",
-    "version": "2.0.3",
+    "version": "3.0.0",
     "icon": "boxes"
   },
   {
     "name": "@fusorb/facet-docs",
     "desc": "Installable, config-driven documentation site engine: component gallery with variant pages, per-variant usage tabs, install tabs, and an optional ecosystem links section. Mount <DocsApp config={...} /> with your own brand, pages, and nav.",
-    "version": "1.5.3",
+    "version": "1.5.5",
     "icon": "book-open"
   },
   {
     "name": "@fusorb/facet-auth",
     "desc": "Domain-customizable auth components: ArcProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
-    "version": "1.3.3",
+    "version": "1.3.5",
     "icon": "shield-check"
   },
   {
     "name": "@fusorb/facet-layout",
     "desc": "Domain-configurable app shell: Sidebar, Topbar, AuthLayout, ConsoleLayout, LandingLayout, PageHeader, TenantSwitcher, and 5 domain presets (fintech, med, edu, enterprise, default).",
-    "version": "1.5.3",
+    "version": "1.5.5",
     "icon": "building"
   },
   {
@@ -47,13 +47,13 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-tokens",
     "desc": "Design tokens: Alpha Palette colors, typography, spacing, surfaces, and sub-brand accents in OKLCH, as CSS variables and a Tailwind v4 theme.",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "icon": "palette"
   },
   {
     "name": "@fusorb/facet-emails",
     "desc": "Framework-agnostic email template renderer: render React or plain template trees to email-safe HTML and text, with template primitives and a dev preview server. Zero runtime dependencies.",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "icon": "mail"
   },
   {
@@ -71,13 +71,13 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-motion",
     "desc": "Domain-customizable animation engine: generator-driven core (tween + spring), observable motion values, CSS driver with prefers-reduced-motion, a 15-family generative registry, and thin React bindings. Wired to @fusorb/facet-tokens CSS custom properties.",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "icon": "sparkle"
   },
   {
     "name": "@fusorb/facet-native",
     "desc": "React Native motion driver for @fusorb/facet-motion - subscribes facet motion values to a consumer-provided Animated module (react-native or reanimated v2) via bindAnimated().",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "icon": "phone"
   },
   {

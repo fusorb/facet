@@ -1,6 +1,6 @@
 import { Button, Pill, SparkleButton } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { useDomain } from "../../lib/domain-context.js";
+import { domain, handleCta } from "../../lib/domain-context.js";
 
 /**
  * Call-to-action section - header text and button labels come from the
@@ -8,7 +8,6 @@ import { useDomain } from "../../lib/domain-context.js";
  * so docs/install/github are resolved in one place.
  */
 export function CTASection() {
-  const { domain, handleCta } = useDomain();
   const { ctaSection, ctaButtons } = domain;
 
   return (

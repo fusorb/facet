@@ -11,14 +11,13 @@ import {
   Separator,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { useDomain } from "../../lib/domain-context.js";
+import { domain } from "../../lib/domain-context.js";
 
 /**
  * Pricing teaser - every label, tier name, bullet, and link flows from the
- * active DomainContent via useDomain(). Nothing is hardcoded in JSX.
+ * active DomainContent. Nothing is hardcoded in JSX.
  */
 export function PricingTeaserSection() {
-  const { domain } = useDomain();
   const { pricing } = domain;
 
   return (

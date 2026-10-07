@@ -90,7 +90,7 @@ const DEVICE = [
 
 type Device = (typeof DEVICE)[number]["id"];
 
-export default function App() {
+export function App() {
   const tab = useHashTab();
   const [preset, setPreset] = useState<string>(PRESETS[0]);
   const [device, setDevice] = useState<Device>(DEVICE[0].id);

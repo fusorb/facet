@@ -17,7 +17,7 @@ import {
   Pill,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { useDomain } from "../../lib/domain-context.js";
+import { domain } from "../../lib/domain-context.js";
 
 /**
  * Live auth surfaces from the ready-to-use auth components. Switches
@@ -29,7 +29,6 @@ import { useDomain } from "../../lib/domain-context.js";
 export function AuthShowcaseSection() {
   const [tab, setTab] = React.useState("password");
   const [password, setPassword] = React.useState("");
-  const { domain } = useDomain();
 
   return (
     <section id="auth" className="mx-auto max-w-5xl px-8 py-24">

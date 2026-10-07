@@ -24,7 +24,7 @@ import {
 import { LightIcon } from "@fusorb/facet-components/light";
 import { site } from "../../site.config.js";
 import { BUTTON_VARIANTS, BADGE_VARIANTS } from "../../data/features.js";
-import { useDomain } from "../../lib/domain-context.js";
+import { domain } from "../../lib/domain-context.js";
 
 /**
  * Live demo section. Each tab is a working slice of the library: real
@@ -271,7 +271,6 @@ const DEMO_REGISTRY: Record<string, React.ReactNode> = {
 
 export function DemoShowcaseSection() {
   const [tab, setTab] = useState("buttons");
-  const { domain } = useDomain();
 
   // Surface only the demos this domain advertises, resolved through the
   // registry. Order comes from the domain config.

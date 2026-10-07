@@ -1,11 +1,10 @@
 import { Pill } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { useDomain } from "../../lib/domain-context.js";
+import { domain } from "../../lib/domain-context.js";
 
 /** Feature grid: calm hover-lift cards (no reveal/glow motion).
  *  Every label, icon, and feature text flows from the active DomainContent. */
 export function FeaturesSection() {
-  const { domain } = useDomain();
   const { featuresSection, features } = domain;
 
   return (

@@ -7,10 +7,9 @@ import {
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { INSTALL_STEPS } from "../../data/features.js";
-import { useDomain } from "../../lib/domain-context.js";
+import { domain } from "../../lib/domain-context.js";
 
 export function InstallSection() {
-  const { domain } = useDomain();
   const { installSection } = domain;
 
   return (

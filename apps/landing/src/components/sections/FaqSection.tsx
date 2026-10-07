@@ -3,10 +3,9 @@ import { FaqSection as FacetFaqSection, Pill } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
 import { FAQ } from "../../data/faq.js";
 import { getDocsUrl } from "../../site.config.js";
-import { useDomain } from "../../lib/domain-context.js";
+import { domain } from "../../lib/domain-context.js";
 
 export function FaqSection() {
-  const { domain } = useDomain();
   const { faqSection } = domain;
 
   return (

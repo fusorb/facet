@@ -42,7 +42,7 @@ function AppRoutes() {
   );
 }
 
-export default function App() {
+export function App() {
   return (
     <ThemeProvider defaultTheme="system">
       {/* Customization proof: consumers retheme the whole surface without a
