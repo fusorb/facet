@@ -1,5 +1,11 @@
 # @fusorb/facet-components
 
+## 3.0.1
+
+### Patch Changes
+
+- db20fb5: Spacing: otp-input + location-picker sibling gaps on the 4/8 grid (gap-1.5 -> gap-2) so adjacent rounded corners no longer near-merge; otp-input.test.tsx adds coverage.
+
 ## 3.0.0
 
 ### Major Changes
