@@ -286,7 +286,7 @@ export function NotificationDrawer({
             <div className="relative">
               <Icon
                 name="search"
-                className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground size-3.5"
+                className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground size-4"
                 aria-hidden="true"
               />
               <input

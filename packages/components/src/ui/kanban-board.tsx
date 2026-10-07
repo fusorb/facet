@@ -547,7 +547,7 @@ export const KanbanCard = React.forwardRef<HTMLDivElement, KanbanCardProps>(
                   onClick={(e) => e.stopPropagation()}
                   aria-label="Card actions"
                 >
-                  <Icon name="ellipsis-vertical" className="size-3.5" />
+                  <Icon name="ellipsis-vertical" className="size-4" />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-40">
@@ -808,7 +808,7 @@ export const KanbanColumn = React.forwardRef<HTMLDivElement, KanbanColumnProps>(
                   color: column.accent ?? "var(--primary)",
                 }}
               >
-                <Icon name={column.icon} className="size-3.5" />
+                <Icon name={column.icon} className="size-4" />
               </span>
             )}
             <h3 className="truncate text-sm font-semibold text-foreground">

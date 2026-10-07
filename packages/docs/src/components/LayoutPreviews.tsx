@@ -74,7 +74,7 @@ import { SignIn, fintechPreset } from "@fusorb/facet-auth";
 
       <CodeShell
         title="LandingLayout"
-        description="Full-bleed marketing shell with a glassmorphic hero. Pair with the Navbar pill variant for a flush, scroll-aware glass header."
+        description="Full-bleed marketing shell with a glassmorphic hero. Pair with the Navbar pill variant for a flush, scroll-aware glass header. (pill variant is temporarily deferred — see .agent/output.txt)"
         code={`import { LandingLayout } from "@fusorb/facet-layout";
 import { Navbar } from "@fusorb/facet-components";
 
@@ -89,7 +89,7 @@ import { Navbar } from "@fusorb/facet-components";
 
       <CodeShell
         title="Navbar pill"
-        description="The pill navbar variant is the landing shell's top nav: a floating rounded bar with brand, links, and actions."
+        description="The pill navbar variant is the landing shell's top nav: a floating rounded bar with brand, links, and actions. (Temporarily deferred — pending rebuild decision.)"
         code={`import { Navbar } from "@fusorb/facet-components";
 
 <Navbar

@@ -10,21 +10,21 @@ design manual (Alpha Palette), and your auth requirements differ per sector
 
 | Package                    | Description                                                                                                                                                                                | Status    |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- |
-| `@fusorb/facet-tokens`     | Design tokens: Alpha Palette, typography, spacing, CSS vars + motion tokens                                                                                                                | ✅ 1.4.0  |
+| `@fusorb/facet-tokens`     | Design tokens: Alpha Palette, typography, spacing, CSS vars + motion tokens                                                                                                                | ✅ 1.5.0  |
 | `@fusorb/facet-sdk`        | SovGrant API client (pure fetch, typed, 10 domain SDKs)                                                                                                                                    | ✅ 1.2.1  |
-| `@fusorb/facet-motion`     | Declarative animation system: core (animate/sequence/stagger), CSS + React Native drivers, 15 generative families + 27 authored effects, <Motion>/<Presence>/<Reveal>/<Stagger>            | ✅ 1.2.0  |
-| `@fusorb/facet-native`     | React Native motion driver for @fusorb/facet-motion (motion values + native driver bindings)                                                                                               | ✅ 1.2.0  |
-| `@fusorb/facet-components` | 113 styled UI components (Radix + tailwind-merge + variants) + motion grammar (animate-facet-*)                                                                                            | ✅ 2.0.3  |
-| `@fusorb/facet-auth`       | Auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms                                                                                                                  | ✅ 1.3.3  |
-| `@fusorb/facet-layout`     | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets                                                                                        | ✅ 1.5.3  |
+| `@fusorb/facet-motion`     | Declarative animation system: core (animate/sequence/stagger), CSS + React Native drivers, 15 generative families + 27 authored effects, <Motion>/<Presence>/<Reveal>/<Stagger>            | ✅ 1.2.1  |
+| `@fusorb/facet-native`     | React Native motion driver for @fusorb/facet-motion (motion values + native driver bindings)                                                                                               | ✅ 1.2.1  |
+| `@fusorb/facet-components` | 113 styled UI components (Radix + tailwind-merge + variants) + motion grammar (animate-facet-*)                                                                                            | ✅ 3.0.0  |
+| `@fusorb/facet-auth`       | Auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms                                                                                                                  | ✅ 1.3.5  |
+| `@fusorb/facet-layout`     | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets                                                                                        | ✅ 1.5.5  |
 | `@fusorb/facet-store`      | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native                                                                 | ✅ 1.0.1  |
-| `@fusorb/facet-docs`       | Installable docs engine: mount `<DocsApp>` with your own brand, nav, pages                                                                                                                 | ✅ 1.5.3  |
+| `@fusorb/facet-docs`       | Installable docs engine: mount `<DocsApp>` with your own brand, nav, pages                                                                                                                 | ✅ 1.5.5  |
 | `@fusorb/facet-cli`        | Scaffold docs (`facet docs init` + `facet docs scan`), audit/update (`facet pkg/up/doctor`), copy components (`facet copy`), generate a tree-shaken icon registry (`facet icons generate`) | ✅ 1.1.2  |
-| `@fusorb/facet-emails`     | Framework-agnostic email builder + React bridge (`renderEmail`, `emailLayout`, `EmailLayout`)                                                                                              | ✅ 1.1.2  |
+| `@fusorb/facet-emails`     | Framework-agnostic email builder + React bridge (`renderEmail`, `emailLayout`, `EmailLayout`)                                                                                              | ✅ 1.1.3  |
 | `@fusorb/facet-sandbox`    | Framework-agnostic live-preview host: block registry, adapter seam + React JSX adapter (no eval)                                                                                           | ✅ 2.0.0  |
 | `@fusorb/facet-utils`      | Shared styling utilities (`cn`) consumed by components + motion                                                                                                                            | ✅ 0.1.0  |
 
-Current versions: tokens 1.4.0, sdk 1.2.1, motion 1.2.0, native 1.2.0, components 2.0.3, auth 1.3.3, layout 1.5.3, store 1.0.1, docs 1.5.3, cli 1.1.2, emails 1.1.2, sandbox 2.0.0, utils 0.1.0.
+Current versions: tokens 1.5.0, sdk 1.2.1, motion 1.2.1, native 1.2.1, components 3.0.0, auth 1.3.5, layout 1.5.5, store 1.0.1, docs 1.5.5, cli 1.1.2, emails 1.1.3, sandbox 2.0.0, utils 0.1.0.
 
 ## Sites
 
@@ -121,7 +121,7 @@ import { SignIn, fintechPreset } from "@fusorb/facet-auth";
 ```
 
 Forms are independently importable: `LoginForm`, `MagicLinkForm`, `ForgotPasswordForm`,
-`MfaVerifyForm`, `MfaSetupForm`, `MfaRecoveryForm`.
+`ResetPasswordForm`, `MfaVerifyForm`, `MfaSetupForm`, `MfaRecoveryCodesForm`, `MfaRecoveryForm`.
 
 ## Publishing
 
@@ -129,10 +129,11 @@ Packages publish to npm under the `@fusorb/facet-*` scope via Changesets,
 driven by GitHub Actions (`.github/workflows/ci-cd.yml`). The workflow runs
 three jobs:
 
-1. **ci** -- validation gate: `pnpm install`, `pnpm build`, `pnpm check:docs`,
-   `pnpm check:icons`, `pnpm check:components`, `pnpm check:sdk-drift`,
-   `pnpm check:motion-drift`, `pnpm -r typecheck`, `pnpm test`,
-   `pnpm sandbox:e2e`.
+1. **ci** -- validation gate: `pnpm install --frozen-lockfile`, `pnpm build`,
+   `pnpm check:docs`, `pnpm check:icons`, `pnpm check:components`,
+   `pnpm check:boundaries`, `pnpm check:sdk-drift`, `pnpm check:sdk-coverage`,
+   `pnpm check:motion-drift`, `pnpm audit:motion-parity`, `pnpm lint`,
+   `pnpm -r typecheck`, `pnpm test`, `pnpm sandbox:e2e`.
 2. **changeset** -- auto-opens/updates a "Version Packages" PR on `main`
    whenever changesets land. It only versions (bumps `package.json` +
    `CHANGELOG`, opens a PR) -- never publishes. Requires

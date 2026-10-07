@@ -328,7 +328,7 @@ export function CommandPalette({
                 }}
                 className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer rounded p-1 text-muted-foreground opacity-60 transition-opacity hover:bg-foreground/5 hover:text-foreground hover:opacity-100"
               >
-                <Icon name="trash" className="size-3.5" />
+                <Icon name="trash" className="size-4" />
               </Button>
             </CommandItem>
           ))}

@@ -282,7 +282,7 @@ export function DateRangePicker({
                 setDraft(null);
               }}
             >
-              <Icon name="x" className="size-3.5" />
+              <Icon name="x" className="size-4" />
             </button>
           )}
         </Button>

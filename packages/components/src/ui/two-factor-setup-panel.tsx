@@ -143,7 +143,7 @@ export function TwoFactorSetupPanel({
                     !isActive && !isDone && "text-muted-foreground",
                   )}
                 >
-                  <Icon name={isDone ? "check" : s.icon} className="size-3.5" />
+                  <Icon name={isDone ? "check" : s.icon} className="size-4" />
                   <span className="hidden sm:inline">{s.label}</span>
                 </div>
               </React.Fragment>
@@ -183,7 +183,7 @@ export function TwoFactorSetupPanel({
             </div>
             <div className="space-y-1">
               <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-                <Icon name="key-round" className="size-3.5" />
+                <Icon name="key-round" className="size-4" />
                 {copy.manualTitle ?? "Can't scan? Enter this code manually."}
               </p>
               <Input
@@ -229,7 +229,7 @@ export function TwoFactorSetupPanel({
                 role="alert"
                 className="flex items-center justify-center gap-1.5 text-center text-sm text-destructive"
               >
-                <Icon name="circle-alert" className="size-3.5" />
+                <Icon name="circle-alert" className="size-4" />
                 {error}
               </p>
             )}

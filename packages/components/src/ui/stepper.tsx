@@ -286,7 +286,7 @@ function StepDot({ status }: { status: "past" | "current" | "future" }) {
         color,
       )}
     >
-      <Icon name={status === "past" ? "check" : "dot"} className="size-3.5" />
+      <Icon name={status === "past" ? "check" : "dot"} className="size-4" />
     </span>
   );
 }
@@ -313,7 +313,7 @@ function StepNumber({
       )}
     >
       {status === "past" ? (
-        <Icon name="check" className="size-3.5" />
+        <Icon name="check" className="size-4" />
       ) : (
         index + 1
       )}

@@ -196,7 +196,7 @@ const TreeItem: React.FC<TreeItemProps> = ({
           >
             <Icon
               name={expanded ? "chevron-down" : "chevron-right"}
-              className="size-3.5"
+              className="size-4"
             />
           </button>
         ) : (

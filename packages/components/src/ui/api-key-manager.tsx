@@ -256,12 +256,12 @@ export function ApiKeyManager({
               >
                 {copied ? (
                   <span className="inline-flex items-center gap-1.5">
-                    <Icon name="check" className="size-3.5" />
+                    <Icon name="check" className="size-4" />
                     {copy.secretCopied ?? "Copied"}
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5">
-                    <Icon name="copy" className="size-3.5" />
+                    <Icon name="copy" className="size-4" />
                     {copy.copy ?? "Copy"}
                   </span>
                 )}

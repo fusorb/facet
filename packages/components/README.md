@@ -1,6 +1,6 @@
 # @fusorb/facet-components
 
-116 styled Radix UI components — shadcn-style: Radix primitives + Alpha Palette
+113 styled Radix UI components — shadcn-style: Radix primitives + Alpha Palette
 styling + `tailwind-merge`. No business logic, just polished, accessible UI.
 Motion primitives are re-exported from `@fusorb/facet-motion`.
 

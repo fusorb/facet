@@ -43,11 +43,9 @@ export const navbarVariants = cva(
         glass: "sticky top-0 z-50 border-b border-white/10 glass",
         bordered: "border border-border/60 bg-background shadow-sm",
         transparent: "border-b border-transparent bg-transparent",
-        pill: [
-          "sticky top-0 z-50 w-full",
-          "border-b border-border/40 bg-background/60 px-4 py-2 backdrop-blur-xl transition-all duration-300",
-          "sm:px-4 lg:px-8",
-        ].join(" "),
+        // pill variant commented out — pending rebuild decision (rebuild vs remove).
+        // TODO: perfect scroll-aware glass header + rounded links before re-enabling.
+        pill: "",
       },
       size: {
         default: "h-16",
@@ -187,11 +185,10 @@ export function Navbar({
   const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
     null,
   );
-  const isPill = variant === "pill";
+  // Pill variant deferred — styles emptied pending rebuild decision (see cva).
   // Variants that define their own sticky positioning must not be overridden
   // by the trailing "relative" (tailwind-merge keeps the last position class).
-  const hasOwnPosition =
-    variant === "pill" || variant === "sticky" || variant === "glass";
+  const hasOwnPosition = variant === "sticky" || variant === "glass";
 
   const hasMobileMenu = mobileMenu !== undefined || links.length > 0;
   const showHamburger = showMobileMenu ?? hasMobileMenu;
@@ -200,14 +197,15 @@ export function Navbar({
   // so the header reads as part of the body while never letting page content
   // bleed through. Exposed as `data-stuck` so consumers can style the two
   // states themselves.
-  const [stuck, setStuck] = React.useState(false);
-  React.useEffect(() => {
-    if (variant !== "pill") return;
-    const onScroll = () => setStuck(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [variant]);
+  // TODO: re-enable scroll-aware stuck state when pill variant is rebuilt.
+  const [stuck] = React.useState(false);
+  // React.useEffect(() => {
+  //   if (variant !== "pill") return;
+  //   const onScroll = () => setStuck(window.scrollY > 8);
+  //   onScroll();
+  //   window.addEventListener("scroll", onScroll, { passive: true });
+  //   return () => window.removeEventListener("scroll", onScroll);
+  // }, [variant]);
 
   const bpHide = BREAKPOINT_DISPLAY[mobileBreakpoint].hide;
   const bpFlex = BREAKPOINT_DISPLAY[mobileBreakpoint].flex;
@@ -268,9 +266,10 @@ export function Navbar({
       className={cn(
         navbarVariants({ variant, size }),
         hasOwnPosition ? "" : "relative",
-        stuck &&
-          variant === "pill" &&
-          "border-b border-border/60 bg-background/85 shadow-md backdrop-blur-xl",
+        // stuck styling deferred — re-enable with pill variant rebuild
+        // stuck &&
+        //   variant === "pill" &&
+        //   "border-b border-border/60 bg-background/85 shadow-md backdrop-blur-xl",
         className,
       )}
       {...props}
@@ -287,7 +286,6 @@ export function Navbar({
               link={link}
               router={router}
               onNavigate={handleNav}
-              isPill={isPill}
               hoverDropdowns={hoverDropdowns}
               openDropdown={openDropdown}
               setOpenDropdown={setOpenDropdown}
@@ -463,7 +461,6 @@ function NavLinkItem({
   link,
   router,
   onNavigate,
-  isPill = false,
   hoverDropdowns = false,
   openDropdown = null,
   setOpenDropdown,
@@ -472,7 +469,6 @@ function NavLinkItem({
   link: NavLink;
   router: NavbarRouter | undefined;
   onNavigate: (href: string) => void;
-  isPill?: boolean;
   hoverDropdowns?: boolean;
   openDropdown?: string | null;
   setOpenDropdown?: React.Dispatch<React.SetStateAction<string | null>>;
@@ -493,7 +489,7 @@ function NavLinkItem({
     : localOpen;
   const itemClass = cn(
     "flex items-center gap-2 text-sm font-medium transition-colors",
-    isPill ? "rounded-full px-4 py-1.5" : "rounded-md px-4 py-2",
+    "rounded-md px-4 py-2",
     isActive
       ? "bg-accent text-accent-foreground"
       : "text-foreground/70 hover:bg-foreground/5 hover:text-foreground",

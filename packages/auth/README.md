@@ -20,7 +20,7 @@ import { ArcIdClient } from "@fusorb/facet-sdk";
 
 const arc = new ArcIdClient({ baseUrl: "...", apiKey: "..." });
 
-<ArcProvider sdk={arc}>
+<ArcProvider client={arc}>
   <App />
 </ArcProvider>
 ```
@@ -58,6 +58,39 @@ import { MfaDialog, TwoFactorSetupPanel } from "@fusorb/facet-auth";
 <TwoFactorSetupPanel userId={user.id} />
 ```
 
+### Standalone forms
+
+Each auth flow step is independently importable as a form component:
+
+```tsx
+import {
+  LoginForm,
+  MagicLinkForm,
+  ForgotPasswordForm,
+  ResetPasswordForm,
+  MfaVerifyForm,
+  MfaSetupForm,
+  MfaRecoveryCodesForm,
+  MfaRecoveryForm,
+} from "@fusorb/facet-auth";
+
+<LoginForm
+  onSubmit={async (email, password) => {
+    // Call your auth backend and return an error string or null.
+    return null;
+  }}
+  onForgotPassword={() => router.push("/forgot")}
+/>
+```
+
+### User button
+
+```tsx
+import { UserButton } from "@fusorb/facet-auth";
+
+<UserButton onSignOut={() => router.push("/")} />
+```
+
 ## Domain presets
 
 Five domain-specific auth presets ship with the package. Each configures
@@ -72,10 +105,11 @@ and the token-refresh cadence:
 | `enterprisePreset` | B2B SaaS | TOTP + WebAuthn | Enterprise-ready |
 | `defaultPreset` | General purpose | Optional | Neutral |
 
-```ts
-import { fintechPreset } from "@fusorb/facet-auth";
-<ArcProvider sdk={arc} preset={fintechPreset}>
-  <App />
+```tsx
+import { ArcProvider, SignIn, fintechPreset } from "@fusorb/facet-auth";
+
+<ArcProvider client={arc}>
+  <SignIn config={fintechPreset} />
 </ArcProvider>
 ```
 
@@ -90,7 +124,7 @@ the `@fusorb/facet-sdk` automatically refreshes tokens on 401.
 
 | Export | Type | Description |
 |--------|------|-------------|
-| `ArcProvider` | component | Top-level provider (wraps `ArcProviderProvider` from layout). |
+| `ArcProvider` | component | Top-level provider; initializes the `ArcIdClient`, manages auth state via `@fusorb/facet-store`. |
 | `SignIn` | component | Full sign-in form (email, password, social, passwordless). |
 | `SignUp` | component | Full sign-up form (with domain-specific fields). |
 | `Guard` | component | Client-side route guard with fallback. |
@@ -99,8 +133,19 @@ the `@fusorb/facet-sdk` automatically refreshes tokens on 401.
 | `PasswordStrengthMeter` | component | Real-time password scoring (zxcvbn-style). |
 | `ApiKeyManager` | component | API key list + create/revoke management surface. |
 | `InviteTeamForm` | component | Team invitation form with email + role. |
-| `fintechPreset` / `medPreset` / `eduPreset` / `enterprisePreset` / `defaultPreset` | `AuthPreset` | Domain presets. |
+| `LoginForm` | component | Standalone sign-in form (email + password). |
+| `MagicLinkForm` | component | Standalone passwordless email link form. |
+| `ForgotPasswordForm` | component | Standalone "forgot password" email form. |
+| `ResetPasswordForm` | component | Standalone new-password entry form. |
+| `MfaVerifyForm` | component | Standalone MFA challenge form (TOTP + push). |
+| `MfaSetupForm` | component | Standalone MFA enrollment form. |
+| `MfaRecoveryCodesForm` | component | Standalone recovery-code display/verification form. |
+| `MfaRecoveryForm` | component | Standalone recovery-code entry form. |
+| `UserButton` | component | Account dropdown button (profile, settings, sign-out). |
+| `fintechPreset` / `medPreset` / `eduPreset` / `enterprisePreset` / `defaultPreset` | `AuthConfig` | Domain-specific auth configurations. |
 | `PresetName` | type | Union of preset names. |
+| `TokenStorage` | interface | Storage adapter protocol for token persistence. |
+| `defaultStorage` | `TokenStorage` | In-memory token storage adapter (swap for KV/IndexedDB). |
 
 ## License
 

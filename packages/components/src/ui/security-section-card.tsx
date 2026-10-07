@@ -73,7 +73,7 @@ export function SecuritySectionCard({
               <CardDescription>{f.description}</CardDescription>
               {f.badge && (
                 <span className="mt-1 inline-flex w-fit items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
-                  <Icon name="badge-check" className="size-3.5" />
+                  <Icon name="badge-check" className="size-4" />
                   {f.badge}
                 </span>
               )}

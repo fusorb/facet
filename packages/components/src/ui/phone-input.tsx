@@ -167,7 +167,7 @@ export function PhoneInput({
       >
         <span aria-hidden>{country.flag}</span>
         <span className="font-medium tabular-nums">{country.dial}</span>
-        <Icon name="chevron-down" className="size-3.5 text-muted-foreground" />
+        <Icon name="chevron-down" className="size-4 text-muted-foreground" />
       </button>
 
       <input

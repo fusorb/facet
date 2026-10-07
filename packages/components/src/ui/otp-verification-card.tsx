@@ -180,7 +180,7 @@ export function OtpVerificationCard({
               >
                 <Icon
                   name={icons.error ?? "circle-alert"}
-                  className="size-3.5"
+                  className="size-4"
                 />
                 {error}
               </p>
@@ -189,7 +189,7 @@ export function OtpVerificationCard({
               <p className="flex items-center justify-center gap-1.5 text-center text-sm text-success">
                 <Icon
                   name={icons.success ?? "circle-check"}
-                  className="size-3.5"
+                  className="size-4"
                 />
                 {copy.success ?? "Code verified."}
               </p>
@@ -202,7 +202,7 @@ export function OtpVerificationCard({
         <CardFooter className="flex items-center justify-center">
           {cooldown > 0 ? (
             <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
-              <Icon name={icons.timer ?? "timer"} className="size-3.5" />
+              <Icon name={icons.timer ?? "timer"} className="size-4" />
               {copy.resendActive ?? `Resend code in ${cooldown}s`}
             </p>
           ) : (
@@ -214,7 +214,7 @@ export function OtpVerificationCard({
             >
               <Icon
                 name={icons.resend ?? "rotate-ccw"}
-                className="mr-1.5 size-3.5"
+                className="mr-1.5 size-4"
               />
               {copy.resend ?? "Resend code"}
             </Button>

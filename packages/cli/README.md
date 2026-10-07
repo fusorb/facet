@@ -38,7 +38,8 @@ The scaffold never pins hardcoded versions. At `docs init` time the CLI:
 ## Commands
 
 Run `facet --help` (or `facet -h`) to list the available commands and flags
-from the terminal. For deeper guides, examples, and the full reference, visit
+from the terminal. Common shortcuts: `-v` (version), `-l` (verbose log),
+`-n` (dry-run). For deeper guides, examples, and the full reference, visit
 the CLI documentation in the repository at
 <https://github.com/fusorb/facet/tree/main/packages/cli>.
 
@@ -62,7 +63,7 @@ facet packages are used, and best-practice suggestions (e.g. wire
 Apply updates for the facet packages that have newer published versions:
 installs the outdated `@fusorb/facet-*` packages at their latest published
 versions using the detected package manager, with a confirmation prompt
-(skip it with `-y`). Pass `--dry-run` to only print the exact install
+(skip it with `-y`). Pass `--dry-run` (`-n`) to only print the exact install
 command. In a monorepo it detects the workspace layout and includes the
 root/workspace flag.
 
@@ -71,7 +72,7 @@ root/workspace flag.
 Apply the facet package updates (the always-apply variant of `facet
 update`): installs the outdated `@fusorb/facet-*` packages at their latest
 published versions using the detected package manager without prompting.
-Pass `--dry-run` to only print the command.
+Pass `--dry-run` (`-n`) to only print the command.
 
 ### `facet clean`
 
@@ -85,7 +86,7 @@ radix/lucide imports) to `@fusorb/facet-components`, and deletes dead local
 
 Safe by default:
 
-- `--dry-run` shows the full plan without touching anything.
+- `--dry-run` (`-n`) shows the full plan without touching anything.
 - Without `--dry-run` it prompts for confirmation (or `-y`).
 - It prints the exact remove command (`pnpm remove ...` / `npm uninstall ...`)
   instead of auto-running it, so you control the lockfile change.

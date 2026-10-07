@@ -188,7 +188,7 @@ export function TagInput({
                 inputRef.current?.focus();
               }}
             >
-              <Icon name="plus" className="size-3.5 text-muted-foreground" />
+              <Icon name="plus" className="size-4 text-muted-foreground" />
               <span>{s}</span>
             </li>
           ))}

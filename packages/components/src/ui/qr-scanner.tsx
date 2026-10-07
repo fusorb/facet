@@ -321,7 +321,7 @@ function StatusDot({ status }: { status: QrScannerStatus }) {
   return (
     <span className="flex items-center gap-1.5">
       <span className={cn("size-2 rounded-full", tone)} />
-      <Icon name={STATUS_ICON[status]} className="size-3.5" />
+      <Icon name={STATUS_ICON[status]} className="size-4" />
     </span>
   );
 }

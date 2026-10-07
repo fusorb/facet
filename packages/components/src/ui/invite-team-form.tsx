@@ -91,7 +91,7 @@ function DefaultInviteeRow({
         className="shrink-0 text-muted-foreground hover:text-destructive"
         onClick={onRemove}
       >
-        <Icon name="trash-2" className="mr-1.5 size-3.5" />
+        <Icon name="trash-2" className="mr-1.5 size-4" />
         {copy?.remove ?? "Remove"}
       </Button>
     </>
@@ -211,7 +211,7 @@ export function InviteTeamForm({
             </div>
           </div>
           <Button type="button" variant="outline" size="sm" onClick={addEmail}>
-            <Icon name="plus" className="mr-1.5 size-3.5" />
+            <Icon name="plus" className="mr-1.5 size-4" />
             {copy.add ?? "Add email"}
           </Button>
           {error && (
@@ -219,7 +219,7 @@ export function InviteTeamForm({
               role="alert"
               className="flex items-center gap-1.5 text-sm text-destructive"
             >
-              <Icon name="circle-alert" className="size-3.5" />
+              <Icon name="circle-alert" className="size-4" />
               {error}
             </p>
           )}
@@ -249,7 +249,7 @@ export function InviteTeamForm({
 
         {sent && (
           <p className="flex items-center gap-1.5 text-sm text-success">
-            <Icon name="circle-check" className="size-3.5" />
+            <Icon name="circle-check" className="size-4" />
             {copy.added ?? "Invites sent."}
           </p>
         )}

@@ -69,7 +69,7 @@ export function formatDate(date: Date): string {
 }
 
 /** Token-based display formats supported by the date inputs. */
-export type DateFormat = "yyyy-mm-dd" | "mm/dd/yyyy" | "dd/mm/yyyy" | "yyyy/mm-dd";
+export type DateFormat = "yyyy-mm-dd" | "mm/dd/yyyy" | "dd/mm/yyyy" | "yyyy/mm/dd";
 
 /** Format a Date (or null) with a token pattern. null/empty → "". */
 export function formatDateString(
@@ -98,7 +98,7 @@ const DATE_FORMAT_REGEX: Record<DateFormat, RegExp> = {
   "yyyy-mm-dd": /^(\d{4})-(\d{2})-(\d{2})$/,
   "mm/dd/yyyy": /^(\d{2})\/(\d{2})\/(\d{4})$/,
   "dd/mm/yyyy": /^(\d{2})\/(\d{2})\/(\d{4})$/,
-  "yyyy/mm-dd": /^(\d{4})\/(\d{2})\/(\d{2})$/,
+  "yyyy/mm/dd": /^(\d{4})\/(\d{2})\/(\d{2})$/,
 };
 
 /** Parse a token-formatted date string into a local Date, or null if invalid. */
@@ -134,7 +134,7 @@ export const DATE_FORMAT_PLACEHOLDER: Record<DateFormat, string> = {
   "yyyy-mm-dd": "YYYY-MM-DD",
   "mm/dd/yyyy": "MM/DD/YYYY",
   "dd/mm/yyyy": "DD/MM/YYYY",
-  "yyyy/mm-dd": "YYYY/MM/DD",
+  "yyyy/mm/dd": "YYYY/MM/DD",
 };
 
 function buildMonthGrid(month: Date): (Date | null)[] {

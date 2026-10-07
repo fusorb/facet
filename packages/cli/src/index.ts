@@ -67,8 +67,8 @@ program
   .description(
     "Scaffold docs, manage facet packages, add components, generate icons, and more. Framework/language-agnostic.",
   )
-  .version(version)
-  .option("--log", "Verbose output: show internal steps and debug info")
+  .version(version, "-v, --version")
+  .option("-l, --log", "Verbose output: show internal steps and debug info")
   .option("--no-update-check", "Skip the startup check for facet-cli updates")
   .addHelpText(
     "after",
@@ -680,7 +680,8 @@ templatesCommand
 
 /** Verbose log helper -- only prints when --log is active. */
 function vlog(msg: string) {
-  if (process.argv.includes("--log")) console.log(`  · ${msg}`);
+  if (process.argv.includes("--log") || process.argv.includes("-l"))
+    console.log(`  · ${msg}`);
 }
 
 program
@@ -970,7 +971,7 @@ program
     "Apply updates for installed facet packages (use --dry-run to only print)",
   )
   .option(
-    "--dry-run",
+    "-n, --dry-run",
     "Only print the update commands without running anything",
   )
   .option("-y, --yes", "Apply updates without prompting")
@@ -1039,7 +1040,7 @@ program
     "Update installed @fusorb/facet-* packages to the latest published versions",
   )
   .option(
-    "--dry-run",
+    "-n, --dry-run",
     "Only print the update commands without running anything",
   )
   .action(async (opts: { dryRun?: boolean }) => {
@@ -1092,7 +1093,7 @@ program
   .description(
     "Remove deps bundled by @fusorb/facet-components and rewrite shadcn/ui-style imports to the facet package",
   )
-  .option("--dry-run", "Show what would change without touching files")
+  .option("-n, --dry-run", "Show what would change without touching files")
   .option("-y, --yes", "Skip confirmation prompts")
   .option(
     "--delete-local",
@@ -1338,7 +1339,10 @@ program
   .description(
     "Update the global facet-cli installation to the latest published version",
   )
-  .option("--dry-run", "Only print the command without running it")
+  .option(
+    "-n, --dry-run",
+    "Only print the command without running it"
+  )
   .action(async (opts: { dryRun?: boolean }) => {
     // In CI / restricted environments, global install is not appropriate.
     if (isCiEnvironment()) {
@@ -1419,7 +1423,7 @@ if (!process.argv.includes("--no-update-check")) {
   checkForCliUpdate()
     .then((state) => {
       if (state && state.outdated) {
-        if (process.argv.includes("--log"))
+        if (process.argv.includes("--log") || process.argv.includes("-l"))
           vlog(`Update found: ${state.current} -> ${state.latest}`);
         printUpdateNotification(state);
       }

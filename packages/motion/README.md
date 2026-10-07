@@ -44,7 +44,7 @@ sequence(async (next) => {
 | **core** | `animate`, `sequence`, `stagger`, `tween`, `spring` | Framework-agnostic animation generators + orchestration scheduler. Pure logic, no DOM access. |
 | **values** | `motionValue` | Observable motion value with `get()`/`set()`/`subscribe()`. |
 | **drivers** | `cssDriver`, `preferReducedMotion`, `resolveDriver` | The only layer that touches real DOM/CSS. Auto-registers a CSS driver. |
-| **registry** | `resolveMotion`, `registry`, `generativeFamilies`, `authoredRegistry` | Data-driven effect resolution. 15 generative families + 18 authored effects. |
+| **registry** | `resolveMotion`, `registry`, `generativeFamilies`, `authoredRegistry` | Data-driven effect resolution. 15 generative families + 27 authored effects. |
 | **react** | `Motion`, `Presence`, `Reveal`, `Stagger` | Thin JSX bindings — no animation logic. |
 
 Duration and easing tokens resolve against `@fusorb/facet-tokens` CSS custom properties —

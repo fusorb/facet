@@ -645,7 +645,7 @@ function SidebarToolbar({
               aria-label="Collapse all sections"
               className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-sidebar-foreground/60 transition-colors hover:bg-foreground/5 hover:text-sidebar-foreground"
             >
-              <Icon name="chevrons-up" className="size-3.5 shrink-0" />
+              <Icon name="chevrons-up" className="size-4 shrink-0" />
               <span>Collapse all</span>
             </button>
           </TooltipTrigger>
@@ -661,7 +661,7 @@ function SidebarToolbar({
               aria-label="Expand all sections"
               className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-sidebar-foreground/60 transition-colors hover:bg-foreground/5 hover:text-sidebar-foreground"
             >
-              <Icon name="chevrons-down" className="size-3.5 shrink-0" />
+              <Icon name="chevrons-down" className="size-4 shrink-0" />
               <span>Expand all</span>
             </button>
           </TooltipTrigger>

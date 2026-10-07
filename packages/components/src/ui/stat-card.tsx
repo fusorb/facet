@@ -72,11 +72,11 @@ export function StatCard({
                 dir === "neutral" && "bg-muted text-muted-foreground",
               )}
             >
-              {dir === "up" && <Icon name="trending-up" className="size-3.5" />}
+              {dir === "up" && <Icon name="trending-up" className="size-4" />}
               {dir === "down" && (
-                <Icon name="trending-down" className="size-3.5" />
+                <Icon name="trending-down" className="size-4" />
               )}
-              {dir === "neutral" && <Icon name="minus" className="size-3.5" />}
+              {dir === "neutral" && <Icon name="minus" className="size-4" />}
               {deltaText}
             </span>
           )}
