@@ -1,5 +1,13 @@
 # @fusorb/facet-layout
 
+## 1.5.6
+
+### Patch Changes
+
+- Updated dependencies [db20fb5]
+  - @fusorb/facet-components@3.0.1
+  - @fusorb/facet-auth@1.3.6
+
 ## 1.5.5
 
 ### Patch Changes
