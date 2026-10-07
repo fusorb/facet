@@ -138,7 +138,7 @@ When SovGrant adopts facet as its frontend, these need resolution:
 12. ✅ **Docs inventory gate**: `node scripts/check-docs-inventory.mjs` verifies every `ui/` component is barrel-exported and present in the docs manifest (Storybook fixtures removed).
 13. ✅ **Icon library registry**: `IconRegistry` shipped in 1.0.2 (`icon/registry.tsx`): `IconProvider`/`Icon`/`registerIcon`/`getIcon` with lucide-react as the default set and domain overrides supported.
 
-**Still open (not blockers):** 1. **No Tailwind config**: No `tailwind.config.*`. Relies on CSS variables. Consumers need `tailwindcss-animate` plugin. 2. **Bundle optimization**: tsup uses CLI flags, not config files; no code-splitting or tree-shake analysis. 3. ~~**CSS build pipeline**~~: fixed 2026-09-13, tokens dist CSS is minified at build time (esbuild). 4. **Turbo validation**: `turbo.json` exists but hasn't been validated with a real run. 5. ✅ **Component a11y audit** (2026-10-07): Added `role="alert"` to all auth error messages, `aria-describedby` linking form inputs to errors, `aria-invalid` on OTP fields, fixed `Label htmlFor` mismatch in MfaSetupForm, added `aria-label` to recovery input, and `aria-busy` on MfaDialog during submission. Radix primitives provide baseline keyboard navigation. 6. ✅ **Storybook fully removed**: the repo no longer runs Storybook and has zero `@storybook/*` deps; the docs inventory drift gate (`node scripts/check-docs-inventory.mjs`) verifies barrel exports + manifest coverage instead. 7. ✅ **check-docs-inventory.mjs rewritten**: the three P0 breakages from `.agent/analysis-current-state.md` are fixed (see item 13 above). 8. ✅ **Slot gaps** (resolved): all 4 data-driven composites now expose render-prop slots — api-key-manager (`renderKey`), invite-team-form (`renderInvitee`), testimonial-showcase (`renderTestimonial`), two-factor-setup-panel (`renderQRCode`). check:components §P14 enforces slots on all composites as a hard gate; currently 23/23 pass. 9. **npm Trusted Publishing**: publish job is OIDC-ready (`id-token: write`) but still falls back to NPM_TOKEN until npm provenance is configured on the package.
+**Still open (not blockers):** 1. **No Tailwind config**: No `tailwind.config.*`. Relies on CSS variables. Consumers need `tailwindcss-animate` plugin. 2. **Bundle optimization**: tsup uses CLI flags, not config files; no code-splitting or tree-shake analysis. 3. ~~**CSS build pipeline**~~: fixed 2026-09-13, tokens dist CSS is minified at build time (esbuild). 4. ✅ **Turbo validation** (2026-10-07): `turbo run build --dry=json` validated the task graph across all 16 workspaces. Topological build order verified (tokens → utils/sdk → motion → native → components → auth → layout → docs/playground). Framework inference (tsup/vite), package detection, and acyclic dependency graph all correct. 5. ✅ **Component a11y audit** (2026-10-07): Added `role="alert"` to all auth error messages, `aria-describedby` linking form inputs to errors, `aria-invalid` on OTP fields, fixed `Label htmlFor` mismatch in MfaSetupForm, added `aria-label` to recovery input, and `aria-busy` on MfaDialog during submission. Radix primitives provide baseline keyboard navigation. 6. ✅ **Storybook fully removed**: the repo no longer runs Storybook and has zero `@storybook/*` deps; the docs inventory drift gate (`node scripts/check-docs-inventory.mjs`) verifies barrel exports + manifest coverage instead. 7. ✅ **check-docs-inventory.mjs rewritten**: the three P0 breakages from `.agent/analysis-current-state.md` are fixed (see item 13 above). 8. ✅ **Slot gaps** (resolved): all 4 data-driven composites now expose render-prop slots — api-key-manager (`renderKey`), invite-team-form (`renderInvitee`), testimonial-showcase (`renderTestimonial`), two-factor-setup-panel (`renderQRCode`). check:components §P14 enforces slots on all composites as a hard gate; currently 23/23 pass. 9. **npm Trusted Publishing**: publish job is OIDC-ready (`id-token: write`) but still falls back to NPM_TOKEN until npm provenance is configured on the package.
 
 ## Consumption Target
 
@@ -162,12 +162,34 @@ pnpm dev:docs-site      # Start docs demo site (Vite, port 5173)
 pnpm dev:landing        # Start landing page (Vite, port 5174)
 pnpm typecheck            # TypeScript check all packages
 pnpm lint                 # ESLint all packages
+pnpm test                 # Run all vitest tests (11 projects, 980 tests)
+pnpm check:all            # Full CI gate pipeline (all gates + build + typecheck + test)
 pnpm format               # Prettier format all files
-node gen-snapshot.js              # Regenerate ui_codebase_snapshot.txt (local/agent use)
+
+# Drift gates (also run individually for faster iteration)
+pnpm check:components     # Component flexibility/composability audit (P13/P14 gates)
+pnpm check:docs           # Docs inventory: barrel exports + manifest coverage
+pnpm check:icons          # Icon-map drift gate (1,763 icons)
+pnpm check:sdk-coverage   # SovGrant route coverage audit (62/62 routes)
+pnpm check:sdk-drift      # SDK table ↔ barrel drift gate (10 classes)
+pnpm check:motion-drift   # Motion barrel/registry drift gate (15+27 effects)
+pnpm check:boundaries     # Package boundary (§21) acyclicity check
+pnpm audit:motion-parity  # Motion token parity check (local-only)
+pnpm sandbox:e2e          # End-to-end sandbox validation
+
+# Turbo variants (parallel)
+pnpm build:turbo          # turbo run build
+pnpm test:turbo           # turbo run test
+pnpm typecheck:turbo      # turbo run typecheck
+pnpm lint:turbo           # turbo run lint
+
+# Code generation (run after changing source files)
+node scripts/gen-site-data.mjs   # Regenerate site data (versions, presets, features)
+node scripts/gen-changelog.mjs   # Regenerate changelog.ts from git log
+node scripts/gen-changeset.mjs   # Regenerate .changeset/ entries from git log
 node scripts/gen-docs-manifest.mjs # Regenerate packages/docs/src/manifest.ts
-node scripts/check-docs-inventory.mjs # Drift gate (pnpm check:docs)
-pnpm check:icons            # Icon-map drift gate
-pnpm check:sdk-drift        # Docs SDK table ↔ barrel drift gate
+node scripts/gen-icon-map.mjs    # (Re)generate icon-map.ts from lucide
+node gen-snapshot.js              # Regenerate ui_codebase_snapshot.txt (local/agent use)
 ```
 
 ## AGENTS.md
