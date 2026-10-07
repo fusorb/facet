@@ -156,12 +156,27 @@ export function ForgotPasswordForm({
               required
               {...emailFieldProps}
               aria-invalid={emailError ? true : undefined}
+              aria-describedby={emailError ? "forgot-email-error" : undefined}
             />
             {emailError && (
-              <p className="text-sm text-destructive">{emailError}</p>
+              <p
+                id="forgot-email-error"
+                role="alert"
+                className="text-sm text-destructive"
+              >
+                {emailError}
+              </p>
             )}
           </div>
-          {error && <p className="text-sm text-destructive">{error}</p>}
+          {error && (
+            <p
+              id="forgot-form-error"
+              role="alert"
+              className="text-sm text-destructive"
+            >
+              {error}
+            </p>
+          )}
           <AnimatedButton
             type="submit"
             disabled={isSubmitting}

@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { LayoutProvider } from "./layout-context.js";
 import { ConsoleLayout } from "./console-layout.js";
+import { CommandPalette } from "./search.js";
 import { Topbar } from "./topbar.js";
 import { ChatLayout, ChatInput } from "./chat-layout.js";
 import { PageHeader } from "./page-header.js";
@@ -179,5 +180,38 @@ describe("ConsoleLayout features wiring", () => {
       </ConsoleLayout>,
     );
     expect(screen.queryByText("Search docs...")).toBeNull();
+  });
+
+  it("search trigger uses adaptive width so it fits inside the sidebar", () => {
+    render(
+      <ConsoleLayout
+        config={{ ...defaultLayoutPreset, features: { search: true } }}
+      >
+        <div>content</div>
+      </ConsoleLayout>,
+    );
+    const trigger = screen.getByText("Search docs...").closest("button");
+    // w-full fills the sidebar's content area; max-w-* caps it so it never
+    // overflows at small sidebar widths (e.g. the 176 px minimum clamp).
+    expect(trigger).toHaveClass("w-full");
+    expect(trigger).toHaveClass("max-w-[200px]");
+    expect(trigger).toHaveClass("sm:max-w-[256px]");
+    // The old fixed sm:w-64 (256 px) is gone — it overflowed the 240 px
+    // default sidebar.
+    expect(trigger).not.toHaveClass("sm:w-64");
+  });
+
+  it("renders the sidebar search slot inside the sidebar", () => {
+    render(
+      <ConsoleLayout
+        config={defaultLayoutPreset}
+        sidebarSearch={<CommandPalette config={defaultLayoutPreset} />}
+      >
+        <div>content</div>
+      </ConsoleLayout>,
+    );
+    const trigger = screen.getByText("Search docs...").closest("button");
+    expect(trigger).toHaveClass("w-full");
+    expect(trigger).toHaveClass("max-w-[200px]");
   });
 });

@@ -64,9 +64,12 @@ export function MfaSetupForm({
         <div className="flex w-full flex-col gap-2">
           <Label htmlFor="mfa-setup-code">Enter the code from your app</Label>
           <InputOTP
+            id="mfa-setup-code"
             maxLength={6}
             onComplete={onConfirm}
             disabled={isSubmitting}
+            aria-invalid={error ? true : undefined}
+            aria-describedby={error ? "mfa-setup-error" : undefined}
           >
             <InputOTPGroup>
               <InputOTPSlot index={0} />
@@ -77,7 +80,15 @@ export function MfaSetupForm({
               <InputOTPSlot index={5} />
             </InputOTPGroup>
           </InputOTP>
-          {error && <p className="text-sm text-destructive">{error}</p>}
+          {error && (
+            <p
+              id="mfa-setup-error"
+              role="alert"
+              className="text-sm text-destructive"
+            >
+              {error}
+            </p>
+          )}
         </div>
       </div>
     </>

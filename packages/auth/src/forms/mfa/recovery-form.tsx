@@ -44,14 +44,25 @@ export function MfaRecoveryForm({
       </DialogHeader>
       <div className="flex flex-col gap-4 py-4">
         <Input
+          aria-label="Recovery code"
           placeholder="XXXXX-XXXXX"
           value={recoveryCode}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setRecoveryCode(e.target.value)
           }
           disabled={isSubmitting}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? "recovery-form-error" : undefined}
         />
-        {error && <p className="text-sm text-destructive">{error}</p>}
+        {error && (
+          <p
+            id="recovery-form-error"
+            role="alert"
+            className="text-sm text-destructive"
+          >
+            {error}
+          </p>
+        )}
         <ShineButton
           className={cn(buttonVariants({ variant: "default" }), "w-full")}
           disabled={!recoveryCode || isSubmitting}

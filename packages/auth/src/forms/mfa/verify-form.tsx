@@ -62,6 +62,8 @@ export function MfaVerifyForm({
           onChange={setOtp}
           onComplete={onVerify}
           disabled={isSubmitting}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? "mfa-verify-error" : undefined}
         >
           <InputOTPGroup>
             <InputOTPSlot index={0} />
@@ -75,7 +77,15 @@ export function MfaVerifyForm({
             <InputOTPSlot index={5} />
           </InputOTPGroup>
         </InputOTP>
-        {error && <p className="text-sm text-destructive">{error}</p>}
+        {error && (
+          <p
+            id="mfa-verify-error"
+            role="alert"
+            className="text-sm text-destructive"
+          >
+            {error}
+          </p>
+        )}
       </div>
       <div className="flex flex-col gap-2">
         {onRecovery && (

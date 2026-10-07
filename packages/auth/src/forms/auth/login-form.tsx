@@ -142,9 +142,16 @@ export function LoginForm({
               required
               {...emailFieldProps}
               aria-invalid={emailError ? true : undefined}
+              aria-describedby={emailError ? "signin-email-error" : undefined}
             />
             {emailError && (
-              <p className="text-sm text-destructive">{emailError}</p>
+              <p
+                id="signin-email-error"
+                role="alert"
+                className="text-sm text-destructive"
+              >
+                {emailError}
+              </p>
             )}
           </div>
           <div className="flex flex-col gap-2">
@@ -168,12 +175,27 @@ export function LoginForm({
               required
               {...passwordFieldProps}
               aria-invalid={passwordError ? true : undefined}
+              aria-describedby={passwordError ? "signin-password-error" : undefined}
             />
             {passwordError && (
-              <p className="text-sm text-destructive">{passwordError}</p>
+              <p
+                id="signin-password-error"
+                role="alert"
+                className="text-sm text-destructive"
+              >
+                {passwordError}
+              </p>
             )}
           </div>
-          {error && <p className="text-sm text-destructive">{error}</p>}
+          {error && (
+            <p
+              id="signin-form-error"
+              role="alert"
+              className="text-sm text-destructive"
+            >
+              {error}
+            </p>
+          )}
           <AnimatedButton
             type="submit"
             disabled={isSubmitting}

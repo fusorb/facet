@@ -164,7 +164,11 @@ export function MfaDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={appearance?.className}>
+      <DialogContent
+        className={appearance?.className}
+        aria-label="Two-factor authentication"
+        aria-busy={isSubmitting}
+      >
         {renderPhase()}
       </DialogContent>
     </Dialog>

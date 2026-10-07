@@ -157,12 +157,27 @@ export function MagicLinkForm({
               required
               {...emailFieldProps}
               aria-invalid={emailError ? true : undefined}
+              aria-describedby={emailError ? "signin-ml-email-error" : undefined}
             />
             {emailError && (
-              <p className="text-sm text-destructive">{emailError}</p>
+              <p
+                id="signin-ml-email-error"
+                role="alert"
+                className="text-sm text-destructive"
+              >
+                {emailError}
+              </p>
             )}
           </div>
-          {error && <p className="text-sm text-destructive">{error}</p>}
+          {error && (
+            <p
+              id="signin-ml-form-error"
+              role="alert"
+              className="text-sm text-destructive"
+            >
+              {error}
+            </p>
+          )}
           <AnimatedButton
             type="submit"
             disabled={isSubmitting}
