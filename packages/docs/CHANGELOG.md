@@ -1,5 +1,14 @@
 # @fusorb/facet-docs
 
+## 1.5.7
+
+### Patch Changes
+
+- Updated dependencies [aede944]
+  - @fusorb/facet-components@3.1.0
+  - @fusorb/facet-auth@1.3.7
+  - @fusorb/facet-layout@1.5.7
+
 ## 1.5.6
 
 ### Patch Changes
