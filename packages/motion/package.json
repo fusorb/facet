@@ -75,5 +75,11 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "facet": {
+    "category": "foundation",
+    "icon": "sparkle",
+    "order": 10,
+    "summary": "Declarative animation system with semantic families"
   }
 }

@@ -80,8 +80,8 @@ export const INSTALL_STEPS: InstallStep[] = [
 ];
 
 export const BUTTON_VARIANTS: Array<
-  "default" | "outline" | "secondary" | "ghost" | "glass" | "glow"
-> = ["default", "outline", "secondary", "ghost", "glass", "glow"];
+  "default" | "outline" | "secondary" | "ghost" | "glass"
+> = ["default", "outline", "secondary", "ghost", "glass"];
 
 export const BADGE_VARIANTS: Array<
   "default" | "secondary" | "outline" | "success" | "warning" | "destructive"

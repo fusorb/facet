@@ -69,5 +69,11 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "facet": {
+    "category": "ui",
+    "icon": "shield-check",
+    "order": 3,
+    "summary": "Auth domain: context, flows, 7 form-based components"
   }
 }

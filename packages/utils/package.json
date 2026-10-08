@@ -46,5 +46,11 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "facet": {
+    "category": "foundation",
+    "icon": "wrench",
+    "order": 0,
+    "summary": "Zero-dependency utility primitives"
   }
 }

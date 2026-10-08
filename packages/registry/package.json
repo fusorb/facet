@@ -1,0 +1,11 @@
+{
+  "name": "@fusorb/facet-registry",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Workspace scanner that indexes all packages, components, layouts, motion, tokens, and examples into a single registry.json + typed accessors. Private workspace-only — not published.",
+  "scripts": {
+    "scan": "node src/scan.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {}
+}

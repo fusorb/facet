@@ -68,5 +68,11 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "facet": {
+    "category": "ui",
+    "icon": "mail",
+    "order": 7,
+    "summary": "Type-safe email template components"
   }
 }

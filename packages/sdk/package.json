@@ -52,5 +52,11 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "facet": {
+    "category": "data",
+    "icon": "zap",
+    "order": 5,
+    "summary": "Pure-fetch SDK: 62 routes, 10 domain classes"
   }
 }

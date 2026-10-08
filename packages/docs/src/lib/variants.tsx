@@ -808,7 +808,6 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           "ghost",
           "link",
           "glass",
-          "glow",
         ] as const
       ).map((variant) => ({
         label: variant,
@@ -1190,7 +1189,6 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             "glass",
             "bordered",
             "transparent",
-            "pill",
           ] as const
         ).map((variant) => ({
           label: variant,
@@ -1586,7 +1584,6 @@ export function variantCells(slug: string): VariantCell[] | undefined {
             "default",
             "glass",
             "frost",
-            "glow",
             "ghost",
             "outline",
             "elevated",
@@ -2665,10 +2662,10 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           ),
         },
         {
-          label: "Sparkle",
+          label: "Shine",
           node: (
             <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-              <AnimatedButton animation="sparkle">Get started</AnimatedButton>
+              <AnimatedButton animation="shine">Get started</AnimatedButton>
             </div>
           ),
         },
@@ -3412,7 +3409,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
               <LandingLayout
                 nav={
                   <Navbar
-                    variant="pill"
+                    variant="glass"
                     brand={<span className="font-semibold">facet</span>}
                     links={[{ href: "#", label: "Features" }]}
                   />
@@ -3425,7 +3422,7 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                     <p className="max-w-md text-muted-foreground">
                       A glassmorphic hero.
                     </p>
-                    <Button className="glow-primary">Get started</Button>
+                    <Button className="shadow-lg shadow-primary/30">Get started</Button>
                   </div>
                 }
               >

@@ -1006,7 +1006,7 @@ export function ComponentPreview({
           <LandingLayout
             nav={
               <Navbar
-                variant="pill"
+                variant="glass"
                 brand={<span className="font-semibold">facet</span>}
                 links={[
                   { href: "#", label: "Features" },
@@ -1101,7 +1101,7 @@ export function ComponentPreview({
     case "animated-button":
       return (
         <div className="flex min-h-24 w-full items-center justify-center rounded-lg border border-border bg-background">
-          <AnimatedButton animation="sparkle">Get started</AnimatedButton>
+          <AnimatedButton animation="shine">Get started</AnimatedButton>
         </div>
       );
     case "card-animations":

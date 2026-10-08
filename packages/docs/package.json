@@ -75,5 +75,11 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "facet": {
+    "category": "tooling",
+    "icon": "book-open",
+    "order": 2,
+    "summary": "Router-agnostic docs engine with content compiler"
   }
 }

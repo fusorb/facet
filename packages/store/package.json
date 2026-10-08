@@ -63,5 +63,11 @@
   },
   "engines": {
     "node": ">=22"
+  },
+  "facet": {
+    "category": "ui",
+    "icon": "store",
+    "order": 9,
+    "summary": "Zustand-backed state management keyed on SDK session"
   }
 }

@@ -60,5 +60,11 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "facet": {
+    "category": "foundation",
+    "icon": "phone",
+    "order": 11,
+    "summary": "React Native driver for facet-motion"
   }
 }

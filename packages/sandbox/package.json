@@ -67,5 +67,11 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "facet": {
+    "category": "tooling",
+    "icon": "play",
+    "order": 12,
+    "summary": "Interactive lab kit: live JSX runtime + stage/inspector"
   }
 }

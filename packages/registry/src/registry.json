@@ -1,0 +1,2098 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": {
+    "commit": "77db5e995523964e605343cc8fb55cca8dba1b05",
+    "at": "2026-10-08T13:38:23.761Z"
+  },
+  "packages": [
+    {
+      "name": "@fusorb/facet-utils",
+      "version": "0.1.0",
+      "summary": "Zero-dependency utility primitives",
+      "description": "Shared styling utilities for Facet packages (cn).",
+      "category": "foundation",
+      "icon": "wrench",
+      "order": 0,
+      "private": false,
+      "deps": [],
+      "devDeps": [],
+      "peers": [],
+      "exports": [
+        "."
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-utils"
+    },
+    {
+      "name": "@fusorb/facet-components",
+      "version": "3.1.0",
+      "summary": "112 styled UI components on Radix primitives",
+      "description": "Radix-based UI component library: 113 accessible, styled components using the Alpha Palette design tokens",
+      "category": "ui",
+      "icon": "boxes",
+      "order": 1,
+      "private": false,
+      "deps": [
+        "@fusorb/facet-motion",
+        "@fusorb/facet-tokens",
+        "@fusorb/facet-utils"
+      ],
+      "devDeps": [],
+      "peers": [
+        "react",
+        "react-dom"
+      ],
+      "exports": [
+        ".",
+        "./icons",
+        "./light",
+        "./theme",
+        "./tokens.css",
+        "./tailwind.css",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-components"
+    },
+    {
+      "name": "@fusorb/facet-docs",
+      "version": "1.5.7",
+      "summary": "Router-agnostic docs engine with content compiler",
+      "description": "Installable, config-driven documentation site engine: component gallery with variant pages, per-variant usage tabs, install tabs, and an optional ecosystem links section. Mount <DocsApp config={...} /> with your own brand, pages, and nav.",
+      "category": "tooling",
+      "icon": "book-open",
+      "order": 2,
+      "private": false,
+      "deps": [
+        "@fusorb/facet-auth",
+        "@fusorb/facet-components",
+        "@fusorb/facet-layout",
+        "@fusorb/facet-sdk",
+        "@fusorb/facet-tokens"
+      ],
+      "devDeps": [],
+      "peers": [
+        "react",
+        "react-dom",
+        "react-router-dom"
+      ],
+      "exports": [
+        ".",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-docs"
+    },
+    {
+      "name": "@fusorb/facet-auth",
+      "version": "1.3.7",
+      "summary": "Auth domain: context, flows, 7 form-based components",
+      "description": "Domain-customizable auth components: ArcProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
+      "category": "ui",
+      "icon": "shield-check",
+      "order": 3,
+      "private": false,
+      "deps": [
+        "@fusorb/facet-components",
+        "@fusorb/facet-sdk"
+      ],
+      "devDeps": [],
+      "peers": [
+        "react",
+        "react-dom"
+      ],
+      "exports": [
+        ".",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-auth"
+    },
+    {
+      "name": "@fusorb/facet-layout",
+      "version": "1.5.7",
+      "summary": "Data-driven layout shells with 5 presets",
+      "description": "Domain-configurable app shell: Sidebar, Topbar, AuthLayout, ConsoleLayout, LandingLayout, PageHeader, TenantSwitcher, and 5 domain presets (fintech, med, edu, enterprise, default).",
+      "category": "ui",
+      "icon": "building",
+      "order": 4,
+      "private": false,
+      "deps": [
+        "@fusorb/facet-auth",
+        "@fusorb/facet-components"
+      ],
+      "devDeps": [],
+      "peers": [
+        "react",
+        "react-dom"
+      ],
+      "exports": [
+        ".",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-layout"
+    },
+    {
+      "name": "@fusorb/facet-sdk",
+      "version": "1.2.1",
+      "summary": "Pure-fetch SDK: 62 routes, 10 domain classes",
+      "description": "SovGrant API client: framework-agnostic fetch SDK. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
+      "category": "data",
+      "icon": "zap",
+      "order": 5,
+      "private": false,
+      "deps": [],
+      "devDeps": [],
+      "peers": [],
+      "exports": [
+        ".",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-sdk"
+    },
+    {
+      "name": "@fusorb/facet-tokens",
+      "version": "1.5.0",
+      "summary": "Design tokens: CSS custom properties + Tailwind theme",
+      "description": "Design tokens: Alpha Palette colors, typography, spacing, surfaces, and sub-brand accents in OKLCH, as CSS variables and a Tailwind v4 theme.",
+      "category": "foundation",
+      "icon": "palette",
+      "order": 6,
+      "private": false,
+      "deps": [],
+      "devDeps": [],
+      "peers": [],
+      "exports": [
+        ".",
+        "./index.css",
+        "./tokens.css",
+        "./tailwind.css",
+        "./palettes/alpha.css",
+        "./palettes/ember.css",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-tokens"
+    },
+    {
+      "name": "@fusorb/facet-emails",
+      "version": "1.1.3",
+      "summary": "Type-safe email template components",
+      "description": "Framework-agnostic email template renderer: render React or plain template trees to email-safe HTML and text, with template primitives and a dev preview server. Zero runtime dependencies.",
+      "category": "ui",
+      "icon": "mail",
+      "order": 7,
+      "private": false,
+      "deps": [],
+      "devDeps": [],
+      "peers": [
+        "react"
+      ],
+      "exports": [
+        ".",
+        "./server",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-emails"
+    },
+    {
+      "name": "@fusorb/facet-cli",
+      "version": "1.1.3",
+      "summary": "CLI tooling: scaffold, audit, generate",
+      "description": "facet CLI: scaffold docs + email template sites, add components, generate tree-shaken icon registries, and audit/update your facet setup from the terminal.",
+      "category": "tooling",
+      "icon": "terminal",
+      "order": 8,
+      "private": false,
+      "deps": [],
+      "devDeps": [],
+      "peers": [],
+      "exports": [
+        ".",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-cli"
+    },
+    {
+      "name": "@fusorb/facet-store",
+      "version": "1.0.1",
+      "summary": "Zustand-backed state management keyed on SDK session",
+      "description": "Framework-agnostic state stores for SovGrant auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
+      "category": "ui",
+      "icon": "store",
+      "order": 9,
+      "private": false,
+      "deps": [],
+      "devDeps": [
+        "@fusorb/facet-sdk"
+      ],
+      "peers": [
+        "@fusorb/facet-sdk"
+      ],
+      "exports": [
+        ".",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-store"
+    },
+    {
+      "name": "@fusorb/facet-motion",
+      "version": "1.2.1",
+      "summary": "Declarative animation system with semantic families",
+      "description": "Domain-customizable animation engine: generator-driven core (tween + spring), observable motion values, CSS driver with prefers-reduced-motion, a 15-family generative registry, and thin React bindings. Wired to @fusorb/facet-tokens CSS custom properties.",
+      "category": "foundation",
+      "icon": "sparkle",
+      "order": 10,
+      "private": false,
+      "deps": [
+        "@fusorb/facet-tokens",
+        "@fusorb/facet-utils"
+      ],
+      "devDeps": [],
+      "peers": [
+        "react",
+        "react-dom"
+      ],
+      "exports": [
+        ".",
+        "./react",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-motion"
+    },
+    {
+      "name": "@fusorb/facet-native",
+      "version": "1.2.1",
+      "summary": "React Native driver for facet-motion",
+      "description": "React Native motion driver for @fusorb/facet-motion - subscribes facet motion values to a consumer-provided Animated module (react-native or reanimated v2) via bindAnimated().",
+      "category": "foundation",
+      "icon": "phone",
+      "order": 11,
+      "private": false,
+      "deps": [
+        "@fusorb/facet-motion",
+        "@fusorb/facet-tokens"
+      ],
+      "devDeps": [
+        "@fusorb/facet-motion"
+      ],
+      "peers": [
+        "react"
+      ],
+      "exports": [
+        ".",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-native"
+    },
+    {
+      "name": "@fusorb/facet-sandbox",
+      "version": "2.0.0",
+      "summary": "Interactive lab kit: live JSX runtime + stage/inspector",
+      "description": "Framework-agnostic live-preview sandbox host: block registry, adapter seam, security helpers. Ships no framework code; the React adapter ships under /react.",
+      "category": "tooling",
+      "icon": "play",
+      "order": 12,
+      "private": false,
+      "deps": [],
+      "devDeps": [],
+      "peers": [
+        "react"
+      ],
+      "exports": [
+        ".",
+        "./react",
+        "./package.json"
+      ],
+      "mainExport": ".",
+      "installCommand": "pnpm add @fusorb/facet-sandbox"
+    }
+  ],
+  "components": [
+    {
+      "slug": "accordion",
+      "name": "Accordion",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "accordion",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "account-settings-panel",
+      "name": "AccountSettingsPanel",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "account-settings-panel",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "activity-feed",
+      "name": "ActivityFeed",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "activity-feed",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "alert-dialog",
+      "name": "AlertDialog",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "alert-dialog",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "alert",
+      "name": "Alert",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "alert",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "animated-button",
+      "name": "AnimatedButton",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "animated-button",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "animated",
+      "name": "Animated",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "animated",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "announcement-bar",
+      "name": "AnnouncementBar",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "announcement-bar",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "api-key-manager",
+      "name": "ApiKeyManager",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "api-key-manager",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "aspect-ratio",
+      "name": "AspectRatio",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "aspect-ratio",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "avatar-group",
+      "name": "AvatarGroup",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "avatar-group",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "avatar",
+      "name": "Avatar",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "avatar",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "badge",
+      "name": "Badge",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "badge",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "billing-page",
+      "name": "BillingPage",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "billing-page",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "breadcrumb",
+      "name": "Breadcrumb",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "breadcrumb",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "button-group",
+      "name": "ButtonGroup",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "button-group",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "button",
+      "name": "Button",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "button",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "card-animations",
+      "name": "CardAnimations",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "card-animations",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "card",
+      "name": "Card",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "card",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "carousel",
+      "name": "Carousel",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "carousel",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "changelog-card",
+      "name": "ChangelogCard",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "changelog-card",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "changelog-feed",
+      "name": "ChangelogFeed",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "changelog-feed",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "chart-range-selector",
+      "name": "ChartRangeSelector",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "chart-range-selector",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "chart",
+      "name": "Chart",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "chart",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "checkbox",
+      "name": "Checkbox",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "checkbox",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "collapsible",
+      "name": "Collapsible",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "collapsible",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "color-picker",
+      "name": "ColorPicker",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "color-picker",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "combobox",
+      "name": "Combobox",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "combobox",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "command",
+      "name": "Command",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "command",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "consent-capture",
+      "name": "ConsentCapture",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "consent-capture",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "context-menu",
+      "name": "ContextMenu",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "context-menu",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "cookie-banner",
+      "name": "CookieBanner",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "cookie-banner",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "cookie-consent",
+      "name": "CookieConsent",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "cookie-consent",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "country-code-input",
+      "name": "CountryCodeInput",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "country-code-input",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "data-table",
+      "name": "DataTable",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "data-table",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "date-input",
+      "name": "DateInput",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "date-input",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "date-picker",
+      "name": "DatePicker",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "date-picker",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "date-range-picker",
+      "name": "DateRangePicker",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "date-range-picker",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "dialog",
+      "name": "Dialog",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "dialog",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "dropdown-menu",
+      "name": "DropdownMenu",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "dropdown-menu",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "dropzone",
+      "name": "Dropzone",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "dropzone",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "empty-state-page",
+      "name": "EmptyStatePage",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "empty-state-page",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "empty-state",
+      "name": "EmptyState",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "empty-state",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "faq-section",
+      "name": "FaqSection",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "faq-section",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "feedback-page",
+      "name": "FeedbackPage",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "feedback-page",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "footer",
+      "name": "Footer",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "footer",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "form",
+      "name": "Form",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "form",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "infinite-scroll",
+      "name": "InfiniteScroll",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "infinite-scroll",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "input-group",
+      "name": "InputGroup",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "input-group",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "input-otp",
+      "name": "InputOtp",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "input-otp",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "input",
+      "name": "Input",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "input",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "invite-team-form",
+      "name": "InviteTeamForm",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "invite-team-form",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "kanban-board",
+      "name": "KanbanBoard",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "kanban-board",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "kbd",
+      "name": "Kbd",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "kbd",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "label",
+      "name": "Label",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "label",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "layer-graph",
+      "name": "LayerGraph",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "layer-graph",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "location-picker",
+      "name": "LocationPicker",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "location-picker",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "mail-input",
+      "name": "MailInput",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "mail-input",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "marquee",
+      "name": "Marquee",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "marquee",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "mention-input",
+      "name": "MentionInput",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "mention-input",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "menubar",
+      "name": "Menubar",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "menubar",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "micro-interactions",
+      "name": "MicroInteractions",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "micro-interactions",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "multi-combobox",
+      "name": "MultiCombobox",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "multi-combobox",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "navbar",
+      "name": "Navbar",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "navbar",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "navigation-menu",
+      "name": "NavigationMenu",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "navigation-menu",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "not-found",
+      "name": "NotFound",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "not-found",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "notification-drawer",
+      "name": "NotificationDrawer",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "notification-drawer",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "number-input",
+      "name": "NumberInput",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "number-input",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "otp-input",
+      "name": "OtpInput",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "otp-input",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "otp-verification-card",
+      "name": "OtpVerificationCard",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "otp-verification-card",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "page-header",
+      "name": "PageHeader",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "page-header",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "pagination",
+      "name": "Pagination",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "pagination",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "password-input",
+      "name": "PasswordInput",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "password-input",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "password-strength-meter",
+      "name": "PasswordStrengthMeter",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "password-strength-meter",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "phone-input",
+      "name": "PhoneInput",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "phone-input",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "pill",
+      "name": "Pill",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "pill",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "popover",
+      "name": "Popover",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "popover",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "pricing-comparison",
+      "name": "PricingComparison",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "pricing-comparison",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "progress",
+      "name": "Progress",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "progress",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "qr-scanner",
+      "name": "QrScanner",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "qr-scanner",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "qrcode",
+      "name": "Qrcode",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "qrcode",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "radio-group",
+      "name": "RadioGroup",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "radio-group",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "range-slider",
+      "name": "RangeSlider",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "range-slider",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "rating-input",
+      "name": "RatingInput",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "rating-input",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "resizable",
+      "name": "Resizable",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "resizable",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "rich-text-editor",
+      "name": "RichTextEditor",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "rich-text-editor",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "roadmap",
+      "name": "Roadmap",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "roadmap",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "scroll-area",
+      "name": "ScrollArea",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "scroll-area",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "security-section-card",
+      "name": "SecuritySectionCard",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "security-section-card",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "select",
+      "name": "Select",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "select",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "separator",
+      "name": "Separator",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "separator",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "sheet",
+      "name": "Sheet",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "sheet",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "shine-border-card",
+      "name": "ShineBorderCard",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "shine-border-card",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "skeleton",
+      "name": "Skeleton",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "skeleton",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "slider",
+      "name": "Slider",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "slider",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "sonner",
+      "name": "Sonner",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "sonner",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "stat-card",
+      "name": "StatCard",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "stat-card",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "stepper",
+      "name": "Stepper",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "stepper",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "switch",
+      "name": "Switch",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "switch",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "table",
+      "name": "Table",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "table",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "tabs",
+      "name": "Tabs",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "tabs",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "tag-input",
+      "name": "TagInput",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "tag-input",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "testimonial-showcase",
+      "name": "TestimonialShowcase",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "testimonial-showcase",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "text-animations",
+      "name": "TextAnimations",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "text-animations",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "textarea",
+      "name": "Textarea",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "textarea",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "toggle-group",
+      "name": "ToggleGroup",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "toggle-group",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "toggle",
+      "name": "Toggle",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "toggle",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "tooltip",
+      "name": "Tooltip",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "tooltip",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "tree",
+      "name": "Tree",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "tree",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "two-factor-setup-panel",
+      "name": "TwoFactorSetupPanel",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "two-factor-setup-panel",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "wizard-form-page",
+      "name": "WizardFormPage",
+      "package": "@fusorb/facet-components",
+      "category": "uncategorized",
+      "summary": "wizard-form-page",
+      "props": [],
+      "examples": []
+    }
+  ],
+  "layouts": [
+    {
+      "id": "auth",
+      "name": "AuthLayout",
+      "package": "@fusorb/facet-layout",
+      "summary": "Auth layout shell",
+      "presets": [
+        "fintechLayoutPreset",
+        "medLayoutPreset",
+        "eduLayoutPreset",
+        "enterpriseLayoutPreset",
+        "defaultLayoutPreset"
+      ],
+      "regions": [
+        "header",
+        "sidebar",
+        "content",
+        "footer"
+      ],
+      "modes": [],
+      "props": []
+    },
+    {
+      "id": "chat",
+      "name": "ChatLayout",
+      "package": "@fusorb/facet-layout",
+      "summary": "Chat layout shell",
+      "presets": [
+        "fintechLayoutPreset",
+        "medLayoutPreset",
+        "eduLayoutPreset",
+        "enterpriseLayoutPreset",
+        "defaultLayoutPreset"
+      ],
+      "regions": [
+        "header",
+        "sidebar",
+        "content",
+        "footer"
+      ],
+      "modes": [],
+      "props": []
+    },
+    {
+      "id": "console",
+      "name": "ConsoleLayout",
+      "package": "@fusorb/facet-layout",
+      "summary": "Console layout shell",
+      "presets": [
+        "fintechLayoutPreset",
+        "medLayoutPreset",
+        "eduLayoutPreset",
+        "enterpriseLayoutPreset",
+        "defaultLayoutPreset"
+      ],
+      "regions": [
+        "header",
+        "sidebar",
+        "content",
+        "footer"
+      ],
+      "modes": [],
+      "props": []
+    },
+    {
+      "id": "docs",
+      "name": "DocsLayout",
+      "package": "@fusorb/facet-layout",
+      "summary": "Docs layout shell",
+      "presets": [
+        "fintechLayoutPreset",
+        "medLayoutPreset",
+        "eduLayoutPreset",
+        "enterpriseLayoutPreset",
+        "defaultLayoutPreset"
+      ],
+      "regions": [
+        "header",
+        "sidebar",
+        "content",
+        "footer"
+      ],
+      "modes": [],
+      "props": []
+    },
+    {
+      "id": "landing",
+      "name": "LandingLayout",
+      "package": "@fusorb/facet-layout",
+      "summary": "Landing layout shell",
+      "presets": [
+        "fintechLayoutPreset",
+        "medLayoutPreset",
+        "eduLayoutPreset",
+        "enterpriseLayoutPreset",
+        "defaultLayoutPreset"
+      ],
+      "regions": [
+        "header",
+        "sidebar",
+        "content",
+        "footer"
+      ],
+      "modes": [],
+      "props": []
+    }
+  ],
+  "motion": {
+    "families": [
+      {
+        "id": "fade",
+        "label": "fade",
+        "count": 0
+      },
+      {
+        "id": "zoom",
+        "label": "zoom",
+        "count": 0
+      },
+      {
+        "id": "pop",
+        "label": "pop",
+        "count": 0
+      },
+      {
+        "id": "slide",
+        "label": "slide",
+        "count": 0
+      },
+      {
+        "id": "reveal",
+        "label": "reveal",
+        "count": 0
+      },
+      {
+        "id": "blur",
+        "label": "blur",
+        "count": 0
+      },
+      {
+        "id": "flip",
+        "label": "flip",
+        "count": 0
+      },
+      {
+        "id": "spin",
+        "label": "spin",
+        "count": 0
+      },
+      {
+        "id": "panel",
+        "label": "panel",
+        "count": 0
+      },
+      {
+        "id": "lift",
+        "label": "lift",
+        "count": 0
+      },
+      {
+        "id": "press",
+        "label": "press",
+        "count": 0
+      },
+      {
+        "id": "ring",
+        "label": "ring",
+        "count": 0
+      },
+      {
+        "id": "glow",
+        "label": "glow",
+        "count": 0
+      },
+      {
+        "id": "shimmer",
+        "label": "shimmer",
+        "count": 0
+      },
+      {
+        "id": "text-reveal",
+        "label": "text-reveal",
+        "count": 0
+      }
+    ],
+    "authored": [
+      {
+        "id": "shake",
+        "label": "shake",
+        "family": "authored"
+      },
+      {
+        "id": "wobble",
+        "label": "wobble",
+        "family": "authored"
+      },
+      {
+        "id": "jello",
+        "label": "jello",
+        "family": "authored"
+      },
+      {
+        "id": "rubber-band",
+        "label": "rubber-band",
+        "family": "authored"
+      },
+      {
+        "id": "tada",
+        "label": "tada",
+        "family": "authored"
+      },
+      {
+        "id": "heartbeat",
+        "label": "heartbeat",
+        "family": "authored"
+      },
+      {
+        "id": "swing",
+        "label": "swing",
+        "family": "authored"
+      },
+      {
+        "id": "bounce-in",
+        "label": "bounce-in",
+        "family": "authored"
+      },
+      {
+        "id": "flash",
+        "label": "flash",
+        "family": "authored"
+      },
+      {
+        "id": "pulse-radar",
+        "label": "pulse-radar",
+        "family": "authored"
+      },
+      {
+        "id": "text-glitch",
+        "label": "text-glitch",
+        "family": "authored"
+      },
+      {
+        "id": "text-gradient-flow",
+        "label": "text-gradient-flow",
+        "family": "authored"
+      },
+      {
+        "id": "svg-draw",
+        "label": "svg-draw",
+        "family": "authored"
+      },
+      {
+        "id": "blob-morph",
+        "label": "blob-morph",
+        "family": "authored"
+      },
+      {
+        "id": "magnetic-hover",
+        "label": "magnetic-hover",
+        "family": "authored"
+      },
+      {
+        "id": "isometric-lift",
+        "label": "isometric-lift",
+        "family": "authored"
+      },
+      {
+        "id": "fold-unfold",
+        "label": "fold-unfold",
+        "family": "authored"
+      },
+      {
+        "id": "typing-wave",
+        "label": "typing-wave",
+        "family": "authored"
+      },
+      {
+        "id": "aurora",
+        "label": "aurora",
+        "family": "authored"
+      },
+      {
+        "id": "beams",
+        "label": "beams",
+        "family": "authored"
+      },
+      {
+        "id": "spotlight",
+        "label": "spotlight",
+        "family": "authored"
+      },
+      {
+        "id": "grid",
+        "label": "grid",
+        "family": "authored"
+      },
+      {
+        "id": "ripple",
+        "label": "ripple",
+        "family": "authored"
+      },
+      {
+        "id": "tilt",
+        "label": "tilt",
+        "family": "authored"
+      },
+      {
+        "id": "shine",
+        "label": "shine",
+        "family": "authored"
+      },
+      {
+        "id": "typewriter",
+        "label": "typewriter",
+        "family": "authored"
+      },
+      {
+        "id": "magnetic",
+        "label": "magnetic",
+        "family": "authored"
+      }
+    ],
+    "domains": [
+      {
+        "name": "fintech",
+        "preset": "fintechMotion"
+      },
+      {
+        "name": "med",
+        "preset": "medMotion"
+      },
+      {
+        "name": "edu",
+        "preset": "eduMotion"
+      },
+      {
+        "name": "enterprise",
+        "preset": "enterpriseMotion"
+      },
+      {
+        "name": "default",
+        "preset": "defaultMotion"
+      }
+    ],
+    "total": 42
+  },
+  "tokens": {
+    "groups": [
+      {
+        "name": "index",
+        "vars": [
+          "--background",
+          "--primary",
+          "--color-"
+        ]
+      },
+      {
+        "name": "tailwind",
+        "vars": [
+          "--color-background",
+          "--background",
+          "--color-foreground",
+          "--foreground",
+          "--color-card",
+          "--card",
+          "--color-card-foreground",
+          "--card-foreground",
+          "--color-popover",
+          "--popover",
+          "--color-popover-foreground",
+          "--popover-foreground",
+          "--color-primary",
+          "--primary",
+          "--color-primary-foreground",
+          "--primary-foreground",
+          "--color-secondary",
+          "--secondary",
+          "--color-secondary-foreground",
+          "--secondary-foreground",
+          "--color-muted",
+          "--muted",
+          "--color-muted-foreground",
+          "--muted-foreground",
+          "--color-accent",
+          "--accent",
+          "--color-accent-foreground",
+          "--accent-foreground",
+          "--color-destructive",
+          "--destructive",
+          "--color-destructive-foreground",
+          "--destructive-foreground",
+          "--color-success",
+          "--success",
+          "--color-success-foreground",
+          "--success-foreground",
+          "--color-warning",
+          "--warning",
+          "--color-warning-foreground",
+          "--warning-foreground",
+          "--color-border",
+          "--border",
+          "--color-input",
+          "--input",
+          "--color-ring",
+          "--ring",
+          "--color-sidebar",
+          "--sidebar",
+          "--color-sidebar-foreground",
+          "--sidebar-foreground",
+          "--color-sidebar-primary",
+          "--sidebar-primary",
+          "--color-sidebar-primary-foreground",
+          "--sidebar-primary-foreground",
+          "--color-sidebar-accent",
+          "--sidebar-accent",
+          "--color-sidebar-accent-foreground",
+          "--sidebar-accent-foreground",
+          "--color-sidebar-border",
+          "--sidebar-border",
+          "--color-sidebar-ring",
+          "--sidebar-ring",
+          "--color-chart-1",
+          "--chart-1",
+          "--color-chart-2",
+          "--chart-2",
+          "--color-chart-3",
+          "--chart-3",
+          "--color-chart-4",
+          "--chart-4",
+          "--color-chart-5",
+          "--chart-5",
+          "--color-alpha-deep-space",
+          "--alpha-deep-space",
+          "--color-alpha-electric-cyan",
+          "--alpha-electric-cyan",
+          "--color-alpha-mist-gray",
+          "--alpha-mist-gray",
+          "--color-alpha-logic-gold",
+          "--alpha-logic-gold",
+          "--color-alpha-base-white",
+          "--alpha-base-white",
+          "--radius-sm",
+          "--radius-md",
+          "--radius-lg",
+          "--radius-xl",
+          "--radius-2xl",
+          "--radius-3xl",
+          "--font-sans",
+          "--font-body",
+          "--font-mono",
+          "--font-display",
+          "--font-heading",
+          "--font-technical",
+          "--color-bg",
+          "--bg",
+          "--color-surface",
+          "--surface",
+          "--color-panel",
+          "--panel",
+          "--color-panel-hover",
+          "--panel-hover",
+          "--color-text",
+          "--text",
+          "--color-text-muted",
+          "--text-muted",
+          "--color-text-dim",
+          "--text-dim",
+          "--color-border-bright",
+          "--border-bright",
+          "--color-border-focus",
+          "--border-focus",
+          "--color-accent-dim",
+          "--accent-dim",
+          "--color-green",
+          "--green",
+          "--color-amber",
+          "--amber",
+          "--color-red",
+          "--red",
+          "--color-purple",
+          "--purple",
+          "--color-accent-fuchsia",
+          "--accent-fuchsia",
+          "--color-navy-900",
+          "--color-navy-950",
+          "--color-brand-glow",
+          "--animate-accordion-down",
+          "--facet-motion-duration-base",
+          "--facet-motion-ease-spring",
+          "--animate-accordion-up",
+          "--animate-pulse-ring",
+          "--facet-motion-duration-cinematic",
+          "--animate-facet-marquee",
+          "--motion-duration-marquee",
+          "--facet-motion-ease-linear",
+          "--animate-caret-blink",
+          "--motion-duration-1000",
+          "--animate-facet-ripple",
+          "--motion-duration-500",
+          "--motion-ease-standard-decelerate",
+          "--animate-facet-ripple-forwards",
+          "--animate-facet-aurora",
+          "--motion-duration-aurora",
+          "--facet-motion-ease-smooth",
+          "--animate-facet-beam",
+          "--motion-duration-beam",
+          "--animate-facet-sparkle",
+          "--motion-duration-700",
+          "--animate-facet-dissolve",
+          "--animate-facet-dissolve-reverse",
+          "--animate-facet-glow-pulse",
+          "--facet-motion-duration-slow",
+          "--animate-facet-spin",
+          "--animate-facet-fade-up",
+          "--motion-duration-300",
+          "--facet-motion-ease-standard",
+          "--animate-facet-overlay-in",
+          "--motion-duration-150",
+          "--animate-facet-overlay-out",
+          "--motion-ease-standard-accelerate",
+          "--animate-facet-text-blur",
+          "--animate-facet-text-wave",
+          "--animate-facet-flip",
+          "--animate-facet-shimmer",
+          "--animate-facet-gradient-shift",
+          "--animate-facet-fade-in",
+          "--animate-facet-fade-out",
+          "--motion-duration-100",
+          "--animate-facet-slide-down",
+          "--motion-ease-standard",
+          "--animate-facet-slide-left",
+          "--animate-facet-slide-right",
+          "--animate-facet-zoom-in",
+          "--motion-duration-200",
+          "--motion-ease-spring",
+          "--animate-facet-zoom-out",
+          "--animate-facet-pop-in",
+          "--animate-facet-pop-out",
+          "--animate-facet-slide-in-from-top",
+          "--animate-facet-slide-in-from-bottom",
+          "--animate-facet-slide-in-from-left",
+          "--animate-facet-slide-in-from-right",
+          "--animate-facet-slide-out-to-top",
+          "--animate-facet-slide-out-to-bottom",
+          "--animate-facet-slide-out-to-left",
+          "--animate-facet-slide-out-to-right",
+          "--animate-facet-flip-x",
+          "--motion-duration-400",
+          "--animate-facet-bounce",
+          "--motion-duration-350",
+          "--motion-ease-bounce",
+          "--animate-facet-shake",
+          "--animate-aurora-shift",
+          "--animate-glow-pulse",
+          "--animate-ripple-expand",
+          "--animate-beam-move",
+          "--animate-reveal-up",
+          "--animate-grid-move",
+          "--animate-typewriter-blink",
+          "--animate-shine-sweep",
+          "--animate-fade-up",
+          "--animate-spotlight-rotate",
+          "--animate-pulse-dot",
+          "--animate-tilt-rock"
+        ]
+      },
+      {
+        "name": "tokens",
+        "vars": [
+          "--alpha-deep-space",
+          "--alpha-electric-cyan",
+          "--alpha-mist-gray",
+          "--alpha-logic-gold",
+          "--alpha-base-white",
+          "--font-display",
+          "--font-heading",
+          "--font-body",
+          "--font-mono",
+          "--font-technical",
+          "--background",
+          "--foreground",
+          "--card",
+          "--card-foreground",
+          "--popover",
+          "--popover-foreground",
+          "--primary",
+          "--primary-foreground",
+          "--secondary",
+          "--secondary-foreground",
+          "--muted",
+          "--muted-foreground",
+          "--accent",
+          "--accent-foreground",
+          "--destructive",
+          "--destructive-foreground",
+          "--success",
+          "--success-foreground",
+          "--warning",
+          "--warning-foreground",
+          "--border",
+          "--border-bright",
+          "--border-focus",
+          "--input",
+          "--ring",
+          "--radius",
+          "--bg",
+          "--surface",
+          "--panel",
+          "--panel-hover",
+          "--text",
+          "--text-muted",
+          "--text-dim",
+          "--accent-dim",
+          "--green",
+          "--amber",
+          "--red",
+          "--purple",
+          "--accent-fuchsia",
+          "--chart-1",
+          "--chart-2",
+          "--chart-3",
+          "--chart-4",
+          "--chart-5",
+          "--sidebar",
+          "--sidebar-foreground",
+          "--sidebar-primary",
+          "--sidebar-primary-foreground",
+          "--sidebar-accent",
+          "--sidebar-accent-foreground",
+          "--sidebar-border",
+          "--sidebar-ring",
+          "--radius-sm",
+          "--radius-md",
+          "--radius-lg",
+          "--radius-xl",
+          "--radius-2xl",
+          "--radius-3xl",
+          "--sub-brand-accent",
+          "--sub-brand-accent-foreground",
+          "--elevation-sm",
+          "--elevation-md",
+          "--elevation-lg",
+          "--elevation-inset",
+          "--glass-bg",
+          "--glass-blur",
+          "--glass-border",
+          "--glass-shadow",
+          "--glass-card-bg",
+          "--glass-card-blur",
+          "--glass-card-border",
+          "--glass-card-shadow",
+          "--frost-bg",
+          "--frost-blur",
+          "--frost-border",
+          "--frost-shadow",
+          "--shine-color",
+          "--hero-glow",
+          "--animate-facet-",
+          "--motion-duration-0",
+          "--motion-duration-50",
+          "--motion-duration-100",
+          "--motion-duration-150",
+          "--motion-duration-200",
+          "--motion-duration-250",
+          "--motion-duration-300",
+          "--motion-duration-350",
+          "--motion-duration-500",
+          "--motion-duration-700",
+          "--motion-duration-1000",
+          "--motion-duration-beam",
+          "--motion-duration-aurora",
+          "--motion-duration-marquee",
+          "--motion-ease-standard",
+          "--motion-ease-standard-decelerate",
+          "--motion-ease-standard-accelerate",
+          "--motion-ease-emphasized",
+          "--motion-ease-emphasized-decelerate",
+          "--motion-ease-emphasized-accelerate",
+          "--motion-ease-spring",
+          "--motion-ease-bounce",
+          "--motion-distance-sm",
+          "--motion-distance-md",
+          "--motion-distance-lg",
+          "--motion-distance-xl",
+          "--motion-distance-2xl",
+          "--motion-delay-stagger",
+          "--motion-scale-inactive",
+          "--motion-scale-pop",
+          "--motion-blur-inactive",
+          "--motion-",
+          "--facet-motion-duration-instant",
+          "--facet-motion-duration-fast",
+          "--facet-motion-duration-base",
+          "--facet-motion-duration-slow",
+          "--facet-motion-duration-cinematic",
+          "--facet-motion-ease-linear",
+          "--facet-motion-ease-standard",
+          "--facet-motion-ease-smooth",
+          "--facet-motion-ease-emphasized",
+          "--facet-motion-ease-spring",
+          "--facet-motion-ease-elastic",
+          "--font-sans",
+          "--radix-accordion-content-height",
+          "--dx",
+          "--dy"
+        ]
+      }
+    ],
+    "colorSpace": "OKLCH",
+    "totalVars": 251
+  },
+  "presets": [
+    {
+      "id": "fintech",
+      "label": "fintech",
+      "package": "@fusorb/facet-auth",
+      "category": "domain",
+      "summary": "fintechPreset authentication configuration"
+    },
+    {
+      "id": "med",
+      "label": "med",
+      "package": "@fusorb/facet-auth",
+      "category": "domain",
+      "summary": "medPreset authentication configuration"
+    },
+    {
+      "id": "edu",
+      "label": "edu",
+      "package": "@fusorb/facet-auth",
+      "category": "domain",
+      "summary": "eduPreset authentication configuration"
+    },
+    {
+      "id": "enterprise",
+      "label": "enterprise",
+      "package": "@fusorb/facet-auth",
+      "category": "domain",
+      "summary": "enterprisePreset authentication configuration"
+    },
+    {
+      "id": "default",
+      "label": "default",
+      "package": "@fusorb/facet-auth",
+      "category": "domain",
+      "summary": "defaultPreset authentication configuration"
+    }
+  ],
+  "examples": [],
+  "facts": {
+    "packages.count": 13,
+    "packages.total": 13,
+    "components.count": 112,
+    "sdkClasses.count": 10,
+    "layoutShells.count": 5,
+    "authPresets.count": 5,
+    "motionGenerative.count": 15,
+    "motionAuthored.count": 27,
+    "motionTotal.count": 42,
+    "icons.count": 1763,
+    "tokens.colorSpace": "OKLCH",
+    "tokens.totalVars": 251
+  },
+  "surfaces": {
+    "landing": {
+      "dev": "http://localhost:5173",
+      "prod": "https://facet.so"
+    },
+    "playground": {
+      "dev": "http://localhost:5175",
+      "prod": "https://play.facet.so"
+    },
+    "docs": {
+      "dev": "http://localhost:5173/docs",
+      "prod": "https://facet.so/docs"
+    },
+    "github": "https://github.com/fusorb/facet",
+    "npm": "https://www.npmjs.com/package"
+  }
+}

@@ -62,5 +62,11 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "facet": {
+    "category": "tooling",
+    "icon": "terminal",
+    "order": 8,
+    "summary": "CLI tooling: scaffold, audit, generate"
   }
 }

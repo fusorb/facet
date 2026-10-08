@@ -59,5 +59,11 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "facet": {
+    "category": "foundation",
+    "icon": "palette",
+    "order": 6,
+    "summary": "Design tokens: CSS custom properties + Tailwind theme"
   }
 }

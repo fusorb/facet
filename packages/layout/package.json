@@ -66,5 +66,11 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "facet": {
+    "category": "ui",
+    "icon": "building",
+    "order": 4,
+    "summary": "Data-driven layout shells with 5 presets"
   }
 }
