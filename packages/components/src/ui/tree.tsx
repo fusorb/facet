@@ -19,7 +19,10 @@ import { Icon, type IconName } from "../icon/index.js";
 export interface TreeNode {
   id: string;
   label: React.ReactNode;
-  icon?: IconName;
+  /** Optional icon — an IconName string (e.g. "folder") or any React node. */
+  icon?: React.ReactNode;
+  /** Secondary text rendered after the label (VS Code-style metadata). */
+  meta?: React.ReactNode;
   disabled?: boolean;
   children?: TreeNode[];
 }
@@ -43,12 +46,16 @@ export interface TreeProps {
   defaultSelectedIds?: string[];
   /** Render the node label (overrides the default). */
   renderLabel?: (node: TreeNode) => React.ReactNode;
+  /** Render a custom icon for a node (overrides `node.icon`). */
+  renderIcon?: (node: TreeNode) => React.ReactNode;
   /** Indent per level in px. Default: 16. */
   indent?: number;
   /** Show a connecting line for child levels. Default: true. */
   showLines?: boolean;
   /** Extra className for the wrapper. */
   className?: string;
+  /** Slot-level className overrides. */
+  classNames?: { tree?: string; item?: string };
   /** ARIA label for the tree. */
   ariaLabel?: string;
 }
@@ -69,6 +76,8 @@ export function Tree({
   selectionMode = "single",
   defaultSelectedIds,
   renderLabel,
+  renderIcon,
+  classNames,
   indent = 16,
   showLines = true,
   className,
@@ -111,26 +120,28 @@ export function Tree({
   };
 
   return (
-    <ul
-      role="tree"
-      aria-label={ariaLabel}
-      className={cn("space-y-0.5 text-sm", className)}
-    >
-      {nodes.map((node) => (
-        <TreeItem
-          key={node.id}
-          node={node}
-          level={0}
-          indent={indent}
-          showLines={showLines}
-          isExpanded={isExpanded}
-          isSelected={isSelected}
-          onToggleExpand={toggleExpand}
-          onToggleSelect={toggleSelect}
-          selectionMode={selectionMode}
-          renderLabel={renderLabel}
-        />
-      ))}
+      <ul
+       role="tree"
+       aria-label={ariaLabel}
+       className={cn("space-y-1 text-sm", className, classNames?.tree)}
+     >
+       {nodes.map((node) => (
+         <TreeItem
+           key={node.id}
+           node={node}
+           level={0}
+           indent={indent}
+           showLines={showLines}
+           isExpanded={isExpanded}
+           isSelected={isSelected}
+           onToggleExpand={toggleExpand}
+           onToggleSelect={toggleSelect}
+           selectionMode={selectionMode}
+           renderLabel={renderLabel}
+           renderIcon={renderIcon}
+           classNames={classNames}
+         />
+       ))}
     </ul>
   );
 }
@@ -148,6 +159,8 @@ interface TreeItemProps {
   onToggleSelect: (id: string) => void;
   selectionMode: "single" | "multiple" | "none";
   renderLabel?: (node: TreeNode) => React.ReactNode;
+  renderIcon?: (node: TreeNode) => React.ReactNode;
+  classNames?: { tree?: string; item?: string };
 }
 
 const TreeItem: React.FC<TreeItemProps> = ({
@@ -161,6 +174,8 @@ const TreeItem: React.FC<TreeItemProps> = ({
   onToggleSelect,
   selectionMode,
   renderLabel,
+  renderIcon,
+  classNames,
 }) => {
   const hasChildren = !!node.children?.length;
   const expanded = isExpanded(node.id);
@@ -174,12 +189,13 @@ const TreeItem: React.FC<TreeItemProps> = ({
     >
       <div
         className={cn(
-          "group flex items-center gap-1 rounded-md py-1 pr-2",
+          "group flex items-center gap-2 rounded-md py-1 pr-2",
           !node.disabled &&
             selectionMode !== "none" &&
             "hover:bg-secondary/60 cursor-pointer",
           node.disabled && "cursor-not-allowed opacity-50",
           selected && "bg-primary/10 text-primary",
+          classNames?.item,
         )}
         style={{ paddingLeft: level * indent + 8 }}
         onClick={() => !node.disabled && onToggleSelect(node.id)}
@@ -209,17 +225,31 @@ const TreeItem: React.FC<TreeItemProps> = ({
           />
         )}
 
-        {node.icon && (
-          <Icon name={node.icon} className="size-4 text-muted-foreground" />
-        )}
+        {renderIcon
+          ? renderIcon(node)
+          : node.icon && (
+              <span className="flex size-4 items-center justify-center text-muted-foreground">
+                {typeof node.icon === "string" ? (
+                  <Icon name={node.icon as IconName} className="size-4" />
+                ) : (
+                  node.icon
+                )}
+              </span>
+            )}
 
         <span className="truncate">
           {renderLabel ? renderLabel(node) : node.label}
         </span>
+
+        {node.meta && (
+          <span className="ml-auto truncate text-xs text-muted-foreground">
+            {node.meta}
+          </span>
+        )}
       </div>
 
       {hasChildren && expanded && (
-        <ul role="group" className="space-y-0.5">
+        <ul role="group" className="space-y-1">
           {node.children!.map((child) => (
             <TreeItem
               key={child.id}
@@ -233,6 +263,8 @@ const TreeItem: React.FC<TreeItemProps> = ({
               onToggleSelect={onToggleSelect}
               selectionMode={selectionMode}
               renderLabel={renderLabel}
+              renderIcon={renderIcon}
+              classNames={classNames}
             />
           ))}
         </ul>

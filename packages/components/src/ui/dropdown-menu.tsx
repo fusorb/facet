@@ -39,7 +39,7 @@ const DropdownMenuSubContent = React.forwardRef<
   <DropdownMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-pop-in data-[state=closed]:animate-facet-pop-out",
+      "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-slide-in-from-top data-[state=closed]:animate-facet-fade-out data-[side=bottom]:animate-facet-slide-in-from-top data-[side=top]:animate-facet-slide-in-from-bottom data-[side=right]:animate-facet-slide-in-from-left data-[side=left]:animate-facet-slide-in-from-right",
       className,
     )}
     {...props}
@@ -57,7 +57,7 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-pop-in data-[state=closed]:animate-facet-pop-out",
+        "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-slide-in-from-top data-[state=closed]:animate-facet-fade-out data-[side=bottom]:animate-facet-slide-in-from-top data-[side=top]:animate-facet-slide-in-from-bottom data-[side=right]:animate-facet-slide-in-from-left data-[side=left]:animate-facet-slide-in-from-right",
         className,
       )}
       {...props}

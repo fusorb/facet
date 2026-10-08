@@ -19,7 +19,7 @@ import {
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./input-otp.js";
 import { Button } from "./button.js";
 import { Icon, type IconName } from "../icon/index.js";
-import { Spinner } from "./spinner.js";
+import { Skeleton } from "./skeleton.js";
 
 export interface OtpVerificationCardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Called with the entered code when the user submits. */
@@ -130,7 +130,7 @@ export function OtpVerificationCard({
     >
       {submitting ? (
         <span className="inline-flex items-center gap-2">
-          <Spinner className="size-4" />
+          <Skeleton className="size-4 rounded-full" />
           {copy.submitting ?? "Verifying..."}
         </span>
       ) : (

@@ -162,8 +162,6 @@ export {
 
 export { type KbdProps, Kbd } from "./ui/kbd.js";
 
-export { type SpinnerProps, Spinner, spinnerVariants } from "./ui/spinner.js";
-
 export { type EmptyStateProps, EmptyState } from "./ui/empty-state.js";
 
 export { type ButtonGroupProps, ButtonGroup } from "./ui/button-group.js";
@@ -691,8 +689,6 @@ export {
 export {
   type TiltCardProps,
   TiltCard,
-  type GlowCardProps,
-  GlowCard,
   type RippleButtonProps,
   RippleButton,
   type MagneticButtonProps,

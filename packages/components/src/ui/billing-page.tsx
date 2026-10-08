@@ -217,7 +217,7 @@ export function BillingPage({ config, className }: BillingPageProps) {
         {plans.map((plan) => (
           <Card
             key={plan.id}
-            variant={plan.highlight ? "glow" : "default"}
+            variant={plan.highlight ? "glass" : "default"}
             className={cn(
               "flex flex-col",
               plan.highlight && "relative border-primary/40 shadow-lg",
@@ -448,7 +448,7 @@ export function BillingPageFreemium({
         {/* Featured paid plan */}
         {hero && hero.price > 0 && (
           <Card
-            variant="glow"
+            variant="glass"
             className="relative flex flex-col border-primary/40 shadow-lg"
           >
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">

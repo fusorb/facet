@@ -3,12 +3,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../utils.js";
 
 const buttonVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "bg-primary text-primary-foreground shadow hover:bg-accent",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
@@ -18,13 +18,12 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         glass: "glass text-foreground hover:bg-accent/50",
-        glow: "bg-primary text-primary-foreground glow-primary hover:bg-primary/90",
         /** Light sweeps across the button on hover (pure CSS). */
         shine:
-          "group relative overflow-hidden bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "group relative overflow-hidden bg-primary text-primary-foreground shadow hover:bg-accent",
         /** Click ink-burst at the pointer position (pointer handler). */
         ripple:
-          "group relative overflow-hidden bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "group relative overflow-hidden bg-primary text-primary-foreground shadow hover:bg-accent",
       },
       size: {
         default: "h-9 px-4 py-2",
@@ -45,7 +44,7 @@ export interface ButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
-  /** Magnetic: button gravitates toward the cursor (shine/ripple/glow). */
+  /** Magnetic: button gravitates toward the cursor (shine/ripple). */
   magnetic?: boolean;
 }
 

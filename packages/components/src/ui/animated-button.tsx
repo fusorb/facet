@@ -6,12 +6,11 @@
  * animation variant, disable it with "none", or fully replace it with
  * your own component via `renderButton`.
  *
- * Default animation is "shine" (a light sweep) — the burst/sparkle effect
- * is opt-in. Use "sparkle" when a marketing CTA benefits from it.
+ * Default animation is "shine" (a light sweep). The burst/sparkle effect
+ * remains available as the standalone `SparkleButton`.
  *
  * Usage:
  *   <AnimatedButton>Get started</AnimatedButton>
- *   <AnimatedButton animation="sparkle">Get started</AnimatedButton>
  *   <AnimatedButton animation="none">Plain button</AnimatedButton>
  *   <AnimatedButton renderButton={(props) => <MyButton {...props} />}>
  *     Custom
@@ -20,7 +19,6 @@
 
 import * as React from "react";
 import { Button, buttonVariants } from "./button.js";
-import { SparkleButton } from "./animated.js";
 import {
   RippleButton,
   MagneticButton,
@@ -30,7 +28,6 @@ import {
 import { cn } from "../utils.js";
 
 export type AnimatedButtonVariant =
-  | "sparkle"
   | "ripple"
   | "magnetic"
   | "shine"
@@ -64,7 +61,7 @@ export function AnimatedButton({
 }: AnimatedButtonProps) {
   const shared = { children, className, type, disabled, onClick };
   // Ripple / magnetic / shine are unstyled effect wrappers, so give them the
-  // full Button surface; sparkle / dissolve bake their own styling in.
+  // full Button surface; dissolve bakes its own styling in.
   const styled = { ...shared, className: cn(buttonVariants(), className) };
 
   if (renderButton) {
@@ -72,8 +69,6 @@ export function AnimatedButton({
   }
 
   switch (animation) {
-    case "sparkle":
-      return <SparkleButton {...shared} {...props} />;
     case "ripple":
       return <RippleButton {...styled} {...props} />;
     case "magnetic":

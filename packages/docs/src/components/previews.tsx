@@ -50,7 +50,6 @@ import {
   Separator,
   Skeleton,
   Slider,
-  Spinner,
   Switch,
   Table,
   TableHeader,
@@ -624,8 +623,6 @@ export function ComponentPreview({
       );
     case "slider":
       return <Slider defaultValue={[50]} max={100} step={1} className="w-72" />;
-    case "spinner":
-      return <Spinner />;
     case "switch":
       return (
         <div className="flex items-center gap-2">

@@ -42,7 +42,7 @@ import { Button, Input, Card, ThemeProvider } from "@fusorb/facet-components";
 | **Marketing** | HeroSection, FaqSection, TestimonialShowcase, AnnouncementBar, CookieConsent, PricingComparison, etc. |
 | **Auth & security** | SignIn, SignUp, Guard, MfaDialog, OtpVerificationCard, TwoFactorSetupPanel, PasswordStrengthMeter, ApiKeyManager, AccountSettingsPanel, SecuritySectionCard, InviteTeamForm, etc. |
 | **Input** | PhoneNumber, LocationPicker, CountryCodeInput, ColorPicker, QRCode, Marquee, DateRangePicker, TagInput, RatingInput, RichTextEditor, MentionInput, etc. |
-| **Surfaces** | FlipCard, GlowCard, HoverScaleCard, MagneticCard, TiltCard, RippleButton, ShineBorderCard, AnimatedButton, etc. |
+| **Surfaces** | FlipCard, HoverScaleCard, MagneticCard, TiltCard, RippleButton, ShineBorderCard, AnimatedButton, etc. |
 | **Animations** | Motion, Reveal, Stagger, Presence, Spotlight, Aurora, Beams, GridPattern, SparkleButton, TypewriterText, BlurText, WaveText, FlipText, etc. |
 | **Ready-to-use pages** | BillingPage, FeedbackPage, NotFound, PageHeader, EmptyStatePage, etc. |
 

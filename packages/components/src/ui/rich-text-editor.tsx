@@ -40,6 +40,12 @@ export interface RichTextEditorProps extends Omit<
   minHeight?: number;
   /** Override user-visible text strings (toolbar aria-labels, dialog buttons). */
   copy?: Partial<RichTextEditorCopy>;
+  /** Custom toolbar tools. Defaults to DEFAULT_TOOLS. */
+  tools?: ToolDef[];
+  /** Full custom toolbar replacement. Receives the resolved tools array. */
+  renderToolbar?: (tools: ToolDef[]) => React.ReactNode;
+  /** Optional className for the `::before` placeholder element. */
+  placeholderClassName?: string;
 }
 
 export interface RichTextEditorCopy {
@@ -62,7 +68,7 @@ const defaultRichTextEditorCopy: RichTextEditorCopy = {
 
 /* ── Helpers ───────────────────────────────────────────────── */
 
-interface ToolDef {
+export interface ToolDef {
   id: string;
   label: string;
   icon: IconName;
@@ -70,7 +76,7 @@ interface ToolDef {
   value?: string;
 }
 
-const TOOLS: ToolDef[] = [
+export const DEFAULT_TOOLS: ToolDef[] = [
   { id: "bold", label: "Bold", icon: "bold", command: "bold" },
   { id: "italic", label: "Italic", icon: "italic", command: "italic" },
   {
@@ -236,9 +242,13 @@ export function RichTextEditor({
   ariaLabel = "Rich text editor",
   minHeight = 160,
   copy,
+  tools,
+  renderToolbar,
+  placeholderClassName,
   ...props
 }: RichTextEditorProps) {
   const c = { ...defaultRichTextEditorCopy, ...copy };
+  const resolvedTools = tools ?? DEFAULT_TOOLS;
   const editorRef = React.useRef<HTMLDivElement>(null);
   const [linkPromptOpen, setLinkPromptOpen] = React.useState(false);
   const [linkUrl, setLinkUrl] = React.useState("");
@@ -298,22 +308,26 @@ export function RichTextEditor({
       )}
     >
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-1 border-b border-border bg-secondary/30 p-1.5">
-        {TOOLS.map((tool) => (
-          <Button
-            key={tool.id}
-            type="button"
-            variant="ghost"
-            size="icon"
-            disabled={disabled}
-            aria-label={c.toolLabels[tool.id] ?? tool.label}
-            title={c.toolLabels[tool.id] ?? tool.label}
-            onClick={() => runCommand(tool)}
-          >
-            <Icon name={tool.icon} className="size-4" />
-          </Button>
-        ))}
-      </div>
+      {renderToolbar ? (
+        renderToolbar(resolvedTools)
+      ) : (
+        <div className="flex flex-wrap items-center gap-1 border-b border-border bg-secondary/30 p-1.5">
+          {resolvedTools.map((tool) => (
+            <Button
+              key={tool.id}
+              type="button"
+              variant="ghost"
+              size="icon"
+              disabled={disabled}
+              aria-label={c.toolLabels[tool.id] ?? tool.label}
+              title={c.toolLabels[tool.id] ?? tool.label}
+              onClick={() => runCommand(tool)}
+            >
+              <Icon name={tool.icon} className="size-4" />
+            </Button>
+          ))}
+        </div>
+      )}
 
       {/* Editor surface */}
       <div
@@ -328,6 +342,7 @@ export function RichTextEditor({
         className={cn(
           "prose prose-sm max-w-none px-4 py-3 outline-none",
           "[&:empty]:before:content-[attr(data-placeholder)] [&:empty]:before:text-muted-foreground/60",
+          placeholderClassName,
           contentClassName,
         )}
         style={{ minHeight }}

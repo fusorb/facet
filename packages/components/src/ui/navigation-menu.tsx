@@ -70,7 +70,7 @@ const NavigationMenuContent = React.forwardRef<
     ref={ref}
     className={cn(
       "left-0 top-0 w-full md:absolute md:w-auto",
-      "data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
+      "data-[state=open]:animate-facet-slide-in-from-top data-[state=closed]:animate-facet-fade-out",
       className,
     )}
     {...props}
@@ -115,7 +115,7 @@ const NavigationMenuViewport = React.forwardRef<
     <NavigationMenuPrimitive.Viewport
       className={cn(
         "origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border bg-popover text-popover-foreground shadow md:w-[var(--radix-navigation-menu-viewport-width)]",
-        "data-[state=open]:animate-facet-zoom-in data-[state=closed]:animate-facet-zoom-out",
+        "data-[state=open]:animate-facet-slide-in-from-top data-[state=closed]:animate-facet-fade-out",
         className,
       )}
       ref={ref}

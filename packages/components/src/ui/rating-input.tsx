@@ -31,6 +31,8 @@ export interface RatingInputProps {
   iconSize?: string;
   /** Extra className for the wrapper. */
   className?: string;
+  /** Extra className for each star icon (e.g. to override fill color). */
+  starClassName?: string;
 }
 
 /* ── Component ─────────────────────────────────────────────── */
@@ -52,6 +54,7 @@ export function RatingInput({
   disabled,
   iconSize = "size-5",
   className,
+  starClassName,
 }: RatingInputProps) {
   const [hover, setHover] = React.useState<number | null>(null);
   const display = hover ?? value;
@@ -107,7 +110,7 @@ export function RatingInput({
               key={idx}
               type="button"
               role="radio"
-              aria-checked={value === idx || (allowHalf && value === idx - 0.5)}
+              aria-checked={display >= idx}
               aria-label={`${idx} ${max === 1 ? "star" : "stars"}`}
               tabIndex={readOnly || disabled ? -1 : 0}
               onClick={(e) => setAt(e, idx)}
@@ -131,11 +134,12 @@ export function RatingInput({
                 name="star"
                 className={cn(
                   iconSize,
-                  isActive
-                    ? "fill-warning text-warning"
-                    : isHalfActive
-                      ? "fill-warning/50 text-warning"
-                      : "text-muted-foreground/30",
+                   isActive
+                      ? "fill-warning text-warning"
+                      : isHalfActive
+                        ? "fill-warning/50 text-warning"
+                        : "text-muted-foreground/30",
+                    starClassName,
                 )}
               />
             </button>

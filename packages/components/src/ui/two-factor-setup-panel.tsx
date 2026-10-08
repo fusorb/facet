@@ -26,7 +26,7 @@ import { Button } from "./button.js";
 import { QRCode } from "./qrcode.js";
 import { Input } from "./input.js";
 import { Icon, type IconName } from "../icon/index.js";
-import { Spinner } from "./spinner.js";
+import { Skeleton } from "./skeleton.js";
 
 export interface TwoFactorSetupPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   /** otpauth:// URI for the QR code (or any string to encode). */
@@ -240,7 +240,7 @@ export function TwoFactorSetupPanel({
             >
               {verifying ? (
                 <span className="inline-flex items-center gap-2">
-                  <Spinner className="size-4" />
+                  <Skeleton className="size-4 rounded-full" />
                   {copy.verifying ?? "Verifying..."}
                 </span>
               ) : (

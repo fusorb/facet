@@ -586,12 +586,6 @@ export const docsManifest: DocsManifestEntry[] = [
     "category": "feedback"
   },
   {
-    "name": "Spinner",
-    "slug": "spinner",
-    "description": "",
-    "category": "feedback"
-  },
-  {
     "name": "Stat Card",
     "slug": "stat-card",
     "description": "@fusorb/facet-components: StatCard",

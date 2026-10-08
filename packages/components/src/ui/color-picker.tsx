@@ -57,7 +57,6 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
     ref,
   ) => {
     const [draft, setDraft] = React.useState(value);
-    const valid = isValidHex(value);
     const draftValid = isValidHex(draft);
 
     return (
@@ -76,7 +75,7 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
           <input
             type="color"
             aria-label={label}
-            value={valid ? value : "#000000"}
+            value={draftValid ? normalizeHex(draft) : "#000000"}
             disabled={disabled}
             onChange={(event) => {
               const normalized = normalizeHex(event.target.value);
@@ -88,7 +87,7 @@ const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(
           <span
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
-            style={{ backgroundColor: valid ? value : "transparent" }}
+            style={{ backgroundColor: draftValid ? normalizeHex(draft) : "transparent" }}
           />
         </span>
         {!compact && (

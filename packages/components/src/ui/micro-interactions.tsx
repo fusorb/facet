@@ -1,9 +1,9 @@
 /**
  * @fusorb/facet-components: card & button micro-interactions
  *
- * Subtle, dependency-free interactive surfaces: 3D tilt cards, cursor
- * glow, ripple/magnetic/shine buttons, and a generic scroll-reveal
- * wrapper. All SSR-safe (initial render is static; effects run after
+ * Subtle, dependency-free interactive surfaces: 3D tilt cards,
+ * ripple/magnetic/shine buttons, and a generic scroll-reveal wrapper.
+ * All SSR-safe (initial render is static; effects run after
  * mount / on interaction).
  */
 
@@ -94,61 +94,6 @@ export function TiltCard({
           onMouseLeave={(e) => (e.currentTarget.style.opacity = "0")}
         />
       )}
-    </div>
-  );
-}
-
-/* ── GlowCard ──────────────────────────────────────────────── */
-
-export interface GlowCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Glow color. Default: var(--primary). */
-  color?: string;
-  /** Glow blur radius in px. Default: 80. */
-  blur?: number;
-}
-
-/** A card with a cursor-following radial glow on its surface. */
-export function GlowCard({
-  color = "var(--primary)",
-  blur = 80,
-  className,
-  children,
-  style,
-  ...props
-}: GlowCardProps) {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [glow, setGlow] = React.useState<{ x: number; y: number; o: number }>({
-    x: 0,
-    y: 0,
-    o: 0,
-  });
-
-  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    setGlow({ x: e.clientX - r.left, y: e.clientY - r.top, o: 1 });
-  };
-
-  return (
-    <div
-      ref={ref}
-      onMouseMove={onMove}
-      onMouseLeave={() => setGlow((g) => ({ ...g, o: 0 }))}
-      className={cn("relative overflow-hidden", className)}
-      style={style}
-      {...props}
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 transition-opacity"
-        style={{
-          transitionDuration: "var(--motion-duration-300)",
-          opacity: glow.o,
-          background: `radial-gradient(circle ${blur}px at ${glow.x}px ${glow.y}px, ${color}, transparent 70%)`,
-        }}
-      />
-      <div className="relative">{children}</div>
     </div>
   );
 }

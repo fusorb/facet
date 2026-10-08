@@ -63,7 +63,6 @@ import {
   ContextMenuItem,
 } from "./ui/context-menu.js";
 import { Kbd } from "./ui/kbd.js";
-import { Spinner } from "./ui/spinner.js";
 import { EmptyState } from "./ui/empty-state.js";
 import { ButtonGroup } from "./ui/button-group.js";
 import { AvatarGroup } from "./ui/avatar-group.js";
@@ -421,11 +420,10 @@ describe("Navbar", () => {
     expect(demo).toHaveAttribute("aria-current", "page");
   });
 
-  it("renders pill with actions, badges, and sub-links together", async () => {
+  it("renders with actions, badges, and sub-links together", async () => {
     const onNavigate = vi.fn();
     render(
       <Navbar
-        variant="pill"
         brand="Acme"
         links={[
           { href: "/dashboard", label: "Dashboard" },
@@ -444,7 +442,7 @@ describe("Navbar", () => {
       />,
     );
 
-    // Actions render in the pill bar
+    // Actions render in the header bar
     expect(
       screen.getByRole("button", { name: /sign in/i }),
     ).toBeInTheDocument();
@@ -733,22 +731,6 @@ describe("Kbd", () => {
     const kbd = container.querySelector("kbd");
     expect(kbd).toBeInTheDocument();
     expect(kbd?.className).toContain("font-mono");
-  });
-});
-
-describe("Spinner", () => {
-  it("renders with animate-spin and default size", () => {
-    const { container } = render(<Spinner />);
-    const spinner = container.querySelector("[role=status]");
-    expect(spinner?.className).toContain("animate-spin");
-    expect(spinner?.className).toContain("size-6");
-  });
-
-  it("applies size + variant classes", () => {
-    const { container } = render(<Spinner size="sm" variant="primary" />);
-    const spinner = container.querySelector("[role=status]");
-    expect(spinner?.className).toContain("size-4");
-    expect(spinner?.className).toContain("text-primary");
   });
 });
 

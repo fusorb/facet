@@ -30,7 +30,7 @@ import {
   SelectItem,
 } from "./select.js";
 import { Icon } from "../icon/index.js";
-import { Spinner } from "./spinner.js";
+import { Skeleton } from "./skeleton.js";
 
 export interface Invitee {
   email: string;
@@ -261,7 +261,7 @@ export function InviteTeamForm({
         >
           {sending ? (
             <span className="inline-flex items-center gap-2">
-              <Spinner className="size-4" />
+              <Skeleton className="size-4 rounded-full" />
               {copy.sending ?? "Sending..."}
             </span>
           ) : (

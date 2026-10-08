@@ -18,7 +18,7 @@ const TooltipContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-[70] overflow-hidden rounded-md px-3 py-1.5 text-xs [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-pop-in data-[state=closed]:animate-facet-pop-out",
+        "z-[70] overflow-hidden rounded-md px-3 py-1.5 text-xs [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-slide-in-from-top data-[state=closed]:animate-facet-fade-out data-[side=bottom]:animate-facet-slide-in-from-top data-[side=top]:animate-facet-slide-in-from-bottom data-[side=right]:animate-facet-slide-in-from-left data-[side=left]:animate-facet-slide-in-from-right",
         variant === "brand"
           ? "bg-primary text-primary-foreground"
           : "bg-popover text-popover-foreground",

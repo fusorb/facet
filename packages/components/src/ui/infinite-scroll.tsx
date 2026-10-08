@@ -1,6 +1,6 @@
 /**
  * InfiniteScroll: an auto-loading container that fires `onLoadMore` when the
- * user reaches the end (vertical) or right edge (horizontal) of the content.
+ * user reaches the edge(s) of the content.
  *
  * Usage:
  *   <InfiniteScroll hasMore={hasMore} onLoadMore={loadMore} loading={loading} className="max-h-64">
@@ -10,10 +10,12 @@
  * Direction:
  *   - "vertical": a scrollable viewport with a bottom sentinel.
  *   - "horizontal": a scrollable row with a right-edge sentinel.
+ *   - "diagonal": a 2-D scroll area with sentinels on all four edges
+ *     (top, bottom, left, right) so loading triggers from any direction.
  *
  * The consumer controls the scrollable height/width via className
  * (e.g. max-h-64); the component adds the overflow scrolling. An
- * IntersectionObserver watches a sentinel INSIDE the scroll container
+ * IntersectionObserver watches the sentinel(s) INSIDE the scroll container
  * (container as root), so it fires exactly when the sentinel scrolls into
  * the container's visible area.
  */
@@ -24,7 +26,7 @@ import { cn } from "../utils.js";
 export interface InfiniteScrollProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Whether more content is available to load. When false, no sentinel fires. */
   hasMore: boolean;
-  /** Called when the sentinel becomes visible. */
+  /** Called when a sentinel becomes visible. */
   onLoadMore: () => void;
   /** Show a loading indicator in the sentinel area. */
   loading?: boolean;
@@ -33,7 +35,7 @@ export interface InfiniteScrollProps extends React.HTMLAttributes<HTMLDivElement
   /** End-of-list content. Default: "You're all caught up". */
   endMessage?: React.ReactNode;
   /** Scroll direction. Default: "vertical". */
-  direction?: "vertical" | "horizontal";
+  direction?: "vertical" | "horizontal" | "diagonal";
   /** Pixel distance from the edge that triggers a load. Default: 200 */
   threshold?: number;
   /** Render the scroll container (overflow + flex). Default: true. */
@@ -50,10 +52,10 @@ const DEFAULT_LOADER = (
 );
 
 /**
- * Uses an IntersectionObserver on a sentinel element INSIDE the scroll
- * container (container as `root`), so it fires exactly when the sentinel
- * scrolls into the container's visible area. A negative rootMargin extends
- * the trigger zone by `threshold` px before the edge.
+ * Uses an IntersectionObserver on sentinel element(s) INSIDE the scroll
+ * container (container as `root`), so it fires exactly when the sentinel(s)
+ * scroll into the container's visible area. A rootMargin extends the trigger
+ * zone by `threshold` px before the edge.
  */
 const InfiniteScroll = React.forwardRef<HTMLDivElement, InfiniteScrollProps>(
   (
@@ -74,35 +76,65 @@ const InfiniteScroll = React.forwardRef<HTMLDivElement, InfiniteScrollProps>(
   ) => {
     const containerRef = React.useRef<HTMLDivElement | null>(null);
     const sentinelRef = React.useRef<HTMLDivElement | null>(null);
+    const topSentinelRef = React.useRef<HTMLDivElement | null>(null);
+    const bottomSentinelRef = React.useRef<HTMLDivElement | null>(null);
+    const leftSentinelRef = React.useRef<HTMLDivElement | null>(null);
+    const rightSentinelRef = React.useRef<HTMLDivElement | null>(null);
+
     const [inView, setInView] = React.useState(false);
+
+    // Tracks how many sentinels are currently intersecting. For
+    // "diagonal" mode four sentinels share one inView flag so that the
+    // load-once guard resets only when *none* of them are visible.
+    const inViewCountRef = React.useRef(0);
+
+    const firedRef = React.useRef(false);
 
     React.useEffect(() => {
       const container = containerRef.current;
-      const node = sentinelRef.current;
-      if (!container || !node || typeof IntersectionObserver === "undefined")
-        return;
+      if (!container || typeof IntersectionObserver === "undefined") return;
 
-      // root = the scroll container; rootMargin pulls the boundary inward by
-      // `threshold` px so loading starts before the exact edge.
-      const margin =
-        direction === "vertical"
-          ? `0px 0px ${threshold}px 0px`
-          : `0px ${threshold}px 0px 0px`;
+      const observers: IntersectionObserver[] = [];
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          const entry = entries[0];
-          if (entry?.isIntersecting) setInView(true);
-          else setInView(false);
-        },
-        { root: container, rootMargin: margin },
-      );
-      observer.observe(node);
-      return () => observer.disconnect();
+      const watch = (node: HTMLDivElement | null, rootMargin: string) => {
+        if (!node) return;
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const entry = entries[0];
+            if (entry?.isIntersecting) {
+              inViewCountRef.current++;
+              setInView(true);
+            } else {
+              inViewCountRef.current = Math.max(0, inViewCountRef.current - 1);
+              if (inViewCountRef.current === 0) setInView(false);
+            }
+          },
+          { root: container, rootMargin },
+        );
+        observer.observe(node);
+        observers.push(observer);
+      };
+
+      if (direction === "diagonal") {
+        watch(topSentinelRef.current, `${threshold}px 0px 0px 0px`);
+        watch(bottomSentinelRef.current, `0px 0px ${threshold}px 0px`);
+        watch(leftSentinelRef.current, `0px ${threshold}px 0px 0px`);
+        watch(rightSentinelRef.current, `0px ${threshold}px 0px 0px`);
+      } else {
+        const margin =
+          direction === "vertical"
+            ? `0px 0px ${threshold}px 0px`
+            : `0px ${threshold}px 0px 0px`;
+        watch(sentinelRef.current, margin);
+      }
+
+      return () => {
+        observers.forEach((o) => o.disconnect());
+        inViewCountRef.current = 0;
+      };
     }, [direction, threshold]);
 
     // Fire when the sentinel is visible and more content is available.
-    const firedRef = React.useRef(false);
     React.useEffect(() => {
       if (inView && hasMore && !loading) {
         if (!firedRef.current) {
@@ -114,20 +146,37 @@ const InfiniteScroll = React.forwardRef<HTMLDivElement, InfiniteScrollProps>(
       }
     }, [inView, hasMore, loading, onLoadMore]);
 
-    const inner = (
+    const isDiagonal = direction === "diagonal";
+
+    const Sentinel = isDiagonal ? (
       <>
-        {children}
-        {/* A sentinel with real height so the observer can see it cross the
-            container's visible area reliably. */}
         <div
-          ref={sentinelRef}
+          ref={topSentinelRef}
           aria-hidden="true"
-          className={cn(
-            "shrink-0",
-            direction === "vertical" ? "h-1 w-full" : "h-full w-px",
-          )}
+          className="absolute top-0 left-0 h-px w-full"
+        />
+        <div
+          ref={bottomSentinelRef}
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 h-px w-full"
+        />
+        <div
+          ref={leftSentinelRef}
+          aria-hidden="true"
+          className="absolute top-0 left-0 h-full w-px"
+        />
+        <div
+          ref={rightSentinelRef}
+          aria-hidden="true"
+          className="absolute top-0 right-0 h-full w-px"
         />
       </>
+    ) : (
+      <div
+        ref={sentinelRef}
+        aria-hidden="true"
+        className={cn("shrink-0", direction === "vertical" ? "h-1 w-full" : "h-full w-px")}
+      />
     );
 
     return (
@@ -141,15 +190,17 @@ const InfiniteScroll = React.forwardRef<HTMLDivElement, InfiniteScrollProps>(
           direction === "horizontal"
             ? "flex items-stretch gap-3"
             : "flex flex-col gap-3",
-          // The CONSUMER controls the max height (e.g. max-h-64) so the
-          // container can actually scroll; this component adds the overflow.
+          isDiagonal && "flex-wrap",
           scrollable && direction === "vertical" && "overflow-y-auto",
           scrollable && direction === "horizontal" && "overflow-x-auto",
+          scrollable && isDiagonal && "overflow-x-auto overflow-y-auto",
+          isDiagonal && "relative",
           className,
         )}
         {...props}
       >
-        {inner}
+        {children}
+        {Sentinel}
         <div
           className={cn(
             "flex w-full shrink-0 items-center justify-center",

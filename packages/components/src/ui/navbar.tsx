@@ -40,12 +40,9 @@ export const navbarVariants = cva(
         default: "border-b border-border bg-background",
         sticky:
           "sticky top-0 z-50     border-border bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/80",
-        glass: "sticky top-0 z-50 border-b border-white/10 glass",
+        glass: "sticky top-0 z-50 border-b border-border/30 glass",
         bordered: "border border-border/60 bg-background shadow-sm",
         transparent: "border-b border-transparent bg-transparent",
-        // pill variant commented out — pending rebuild decision (rebuild vs remove).
-        // TODO: perfect scroll-aware glass header + rounded links before re-enabling.
-        pill: "",
       },
       size: {
         default: "h-16",
@@ -185,7 +182,6 @@ export function Navbar({
   const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
     null,
   );
-  // Pill variant deferred — styles emptied pending rebuild decision (see cva).
   // Variants that define their own sticky positioning must not be overridden
   // by the trailing "relative" (tailwind-merge keeps the last position class).
   const hasOwnPosition = variant === "sticky" || variant === "glass";
@@ -197,7 +193,7 @@ export function Navbar({
   // so the header reads as part of the body while never letting page content
   // bleed through. Exposed as `data-stuck` so consumers can style the two
   // states themselves.
-  // TODO: re-enable scroll-aware stuck state when pill variant is rebuilt.
+  // TODO: re-enable the scroll-aware stuck effect for glass/sticky variants.
   const [stuck] = React.useState(false);
   // React.useEffect(() => {
   //   if (variant !== "pill") return;

@@ -63,7 +63,6 @@ export interface ChangelogFeedClassNames extends ChangelogCardClassNames {
   filters?: string;
   filterPill?: string;
   filterPillActive?: string;
-  filterDot?: string;
   timeline?: string;
   timelineDot?: string;
   card?: string;
@@ -104,14 +103,6 @@ const CATEGORY_OPTIONS: ChangeCategory[] = [
   "security",
   "fix",
 ];
-
-const FILTER_TO_RELEASE: Record<Exclude<ChangeCategory, "all">, ReleaseCategory> =
-  {
-    feature: "FEATURE",
-    improvement: "IMPROVEMENT",
-    security: "SECURITY",
-    fix: "FIX",
-  };
 
 const DEFAULT_FILTER_LABELS: Record<
   Exclude<ChangeCategory, "all">,
@@ -158,7 +149,6 @@ const ChangelogFeedFilterBar = React.forwardRef<
     },
     ref,
   ) => {
-    const meta = resolveChangelogCategoryConfig(categoryConfig);
     const copy = { ...DEFAULT_LABELS, ...labels };
     const categoryLabels = { ...DEFAULT_FILTER_LABELS, ...labels?.categories };
 
@@ -178,21 +168,19 @@ const ChangelogFeedFilterBar = React.forwardRef<
         />
         <div
           className={cn(
-            "flex flex-wrap items-center gap-1.5",
+            "flex flex-wrap items-center gap-2",
             classNames?.filters,
           )}
         >
           {categories.map((category) => {
             const selected = selectedCategory === category;
-            const release =
-              category === "all" ? null : FILTER_TO_RELEASE[category];
             return (
               <button
                 key={category}
                 type="button"
                 onClick={() => onSelectCategory(category)}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-xs font-medium",
+                  "inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs font-medium",
                   "transition-colors focus-visible:outline-none",
                   selected
                     ? "border-transparent bg-primary/10 text-primary ring-1 ring-primary"
@@ -202,16 +190,6 @@ const ChangelogFeedFilterBar = React.forwardRef<
                 )}
               >
                 {category === "all" ? copy.all : categoryLabels[category]}
-                {release ? (
-                  <span
-                    className={cn(
-                      "h-1.5 w-1.5 shrink-0 rounded-full",
-                      meta[release].dot,
-                      classNames?.filterDot,
-                    )}
-                    aria-hidden="true"
-                  />
-                ) : null}
               </button>
             );
           })}

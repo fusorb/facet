@@ -220,11 +220,6 @@ function Example() {
 function Example() {
   return <Progress value={60} />;
 }`,
-  spinner: `import { Spinner } from "@fusorb/facet-components";
-
-function Example() {
-  return <Spinner variant="primary" />;
-}`,
   select: `import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@fusorb/facet-components";
 
 function Example() {
@@ -959,17 +954,12 @@ import { Navbar } from "@fusorb/facet-components";
 
 // Each character dissolves in, staggered.
 <DissolveText text="Dissolve in" className="font-heading text-2xl font-bold" />`,
-  "micro-interactions": `import { TiltCard, GlowCard, RippleButton, MagneticButton, ShineButton, ScrollReveal, DissolveButton } from "@fusorb/facet-components";
+  "micro-interactions": `import { TiltCard, RippleButton, MagneticButton, ShineButton, ScrollReveal, DissolveButton } from "@fusorb/facet-components";
 
 // A card that tilts toward the cursor in 3D.
 <TiltCard maxTilt={10} className="w-64 rounded-xl border p-6">
   Move your cursor over me
 </TiltCard>
-
-// A card with a cursor-following glow.
-<GlowCard color="var(--primary)" className="w-64 rounded-xl border p-6">
-  A glow follows your cursor
-</GlowCard>
 
 // A button that ripples on click.
 <RippleButton className="rounded-md bg-primary px-6 py-2 text-primary-foreground">
@@ -1773,7 +1763,6 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     ghost: `<Button variant="ghost">Button</Button>`,
     link: `<Button variant="link">Link</Button>`,
     glass: `<Button variant="glass">Glass</Button>`,
-    glow: `<Button variant="glow">Glow</Button>`,
   },
   badge: {
     default: `<Badge>Default</Badge>`,
@@ -1836,13 +1825,6 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
   </CardHeader>
   <CardContent>Content</CardContent>
 </Card>`,
-    glow: `<Card variant="glow">
-  <CardHeader>
-    <CardTitle>Glow</CardTitle>
-    <CardDescription>Glowing surface.</CardDescription>
-  </CardHeader>
-  <CardContent>Content</CardContent>
-</Card>`,
     ghost: `<Card variant="ghost">
   <CardHeader>
     <CardTitle>Ghost</CardTitle>
@@ -1867,13 +1849,6 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
   </CardHeader>
   <CardContent>Content</CardContent>
 </Card>`,
-  },
-  spinner: {
-    Default: `<Spinner />`,
-    Primary: `<Spinner variant="primary" />`,
-    Muted: `<Spinner variant="muted" />`,
-    Small: `<Spinner size="sm" />`,
-    Large: `<Spinner size="lg" />`,
   },
   switch: {
     Off: `<Switch />`,
@@ -3014,9 +2989,6 @@ const VARIANT_USAGE: Record<string, Record<string, string>> = {
     "Tilt card": `<TiltCard className="w-64 rounded-xl border border-border bg-background p-6 shadow-sm">
   <p className="text-sm font-semibold text-foreground">Move your cursor over me</p>
 </TiltCard>`,
-    "Glow card": `<GlowCard className="w-64 rounded-xl border border-border bg-background p-6 shadow-sm">
-  <p className="text-sm font-semibold text-foreground">A glow follows your cursor</p>
-</GlowCard>`,
     "Ripple button": `<RippleButton className="rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground">
   Click me
 </RippleButton>`,

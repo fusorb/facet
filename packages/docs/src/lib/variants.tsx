@@ -16,7 +16,6 @@ import {
   CardFlipBack,
   Pill,
   Progress,
-  Spinner,
   Switch,
   Toggle,
   ToggleGroup,
@@ -193,7 +192,6 @@ import {
   CountUpText,
   DissolveText,
   TiltCard,
-  GlowCard,
   RippleButton,
   MagneticButton,
   ShineButton,
@@ -1007,19 +1005,6 @@ export function variantCells(slug: string): VariantCell[] | undefined {
       return [0, 25, 50, 85, 100].map((value) => ({
         label: value === 0 ? "Empty" : value === 100 ? "Complete" : `${value}%`,
         node: <Progress value={value} className="w-56" />,
-      }));
-    case "spinner":
-      return (
-        [
-          { label: "Default", variant: "default" },
-          { label: "Primary", variant: "primary" },
-          { label: "Muted", variant: "muted" },
-          { label: "Small", variant: "default", size: "sm" },
-          { label: "Large", variant: "default", size: "lg" },
-        ] as const
-      ).map(({ label, ...props }) => ({
-        label,
-        node: <Spinner {...props} />,
       }));
     case "sonner":
       return [
@@ -2613,18 +2598,6 @@ export function variantCells(slug: string): VariantCell[] | undefined {
                   Move your cursor over me
                 </p>
               </TiltCard>
-            </div>
-          ),
-        },
-        {
-          label: "Glow card",
-          node: (
-            <div className="flex min-h-48 w-full items-center justify-center rounded-lg border border-border bg-background p-6">
-              <GlowCard className="w-64 rounded-xl border border-border bg-background p-6 shadow-sm">
-                <p className="text-sm font-semibold text-foreground">
-                  A glow follows your cursor
-                </p>
-              </GlowCard>
             </div>
           ),
         },

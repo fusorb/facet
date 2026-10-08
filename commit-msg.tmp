@@ -1,0 +1,26 @@
+refactor: complete component library refinement (component-library-refinement plan)
+
+- Fix broken Spinner test block in components.test.tsx (Spinner was deleted,
+  import removed but test block still referenced <Spinner>)
+- Remove all Spinner references from docs package (variants.tsx, usage.ts,
+  previews.tsx) -- was breaking docs typecheck
+- Fix tree.tsx type errors from prior session's incomplete composability:
+  renderIcon/classNames not destructured, onToggleExpand/onToggleSelect
+  passed undefined instead of local functions
+- Remove unused vars from changelog-feed.tsx (meta, release, FILTER_TO_RELEASE)
+  and color-picker.tsx (valid) left over from filter dot / swatch fixes
+- Animation swap: overlay family (tooltip, popover, dropdown-menu, menubar,
+  select, context-menu, navigation-menu) enter uses direction-aware
+  slide-in-from-* with data-[side=*] variants; exit stays fade-out;
+  Dialog/AlertDialog/Sheet unaffected
+- P2 5.1: Input ring-2 -> ring-1
+- P2 5.2: Button hover bg-primary/80 -> bg-accent (default, shine, ripple)
+  + ring-2 -> ring-1
+- P2 5.9: Badge py-0.5 -> py-1
+- P1 4.3: RichTextEditor renderToolbar slot prop + placeholderClassName
+- CLAUDE.md: fix component gate count drift (113/113 -> 112/112)
+
+Verification: pnpm -r typecheck (0 errors), check:components (112/112),
+check:docs (111/111). Lint/tests unavailable on Windows per CLAUDE.md.
+
+Co-authored-by: CommandCodeBot <noreply@commandcode.ai>
