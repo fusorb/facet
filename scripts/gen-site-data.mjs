@@ -26,39 +26,8 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const outFile = path.join(root, "apps/landing/src/data/site-data.generated.ts");
 
-// Presentation metadata overlay — only `icon` is editorial (icons are a
-// branding choice, not derivable from package.json). Descriptions and
-// versions are read from each package.json at generation time.
-// Order here controls the display order on the landing "Packages" section.
-const PACKAGE_ORDER = [
-  "@fusorb/facet-components",
-  "@fusorb/facet-docs",
-  "@fusorb/facet-auth",
-  "@fusorb/facet-layout",
-  "@fusorb/facet-sdk",
-  "@fusorb/facet-tokens",
-  "@fusorb/facet-emails",
-  "@fusorb/facet-cli",
-  "@fusorb/facet-store",
-  "@fusorb/facet-motion",
-  "@fusorb/facet-native",
-  "@fusorb/facet-sandbox",
-];
-
-const PACKAGE_ICONS = {
-  "@fusorb/facet-tokens": "palette",
-  "@fusorb/facet-sdk": "zap",
-  "@fusorb/facet-components": "boxes",
-  "@fusorb/facet-auth": "shield-check",
-  "@fusorb/facet-layout": "building",
-  "@fusorb/facet-store": "store",
-  "@fusorb/facet-emails": "mail",
-  "@fusorb/facet-docs": "book-open",
-  "@fusorb/facet-cli": "terminal",
-  "@fusorb/facet-motion": "sparkle",
-  "@fusorb/facet-native": "phone",
-  "@fusorb/facet-sandbox": "play",
-};
+// Package display order and icon come from each package.json `facet` field
+// (ADR-006 single source of truth) — no editorial overlay here.
 
 /**
  * Auto-discover all packages in the workspace by scanning the packages
@@ -80,16 +49,15 @@ function discoverPackages() {
       name: pkg.name,
       version: pkg.version,
       description: pkg.description ?? "",
+      icon: pkg.facet?.icon ?? "package",
+      order: pkg.facet?.order ?? 99,
     });
   }
 
-  // Sort by the preferred display order; any packages not in the order
-  // list sort after, alphabetically.
-  const orderIndex = new Map(PACKAGE_ORDER.map((name, i) => [name, i]));
+  // Sort by the facet.order metadata (ADR-006 single source of truth);
+  // packages without an order sort last, alphabetically.
   discovered.sort((a, b) => {
-    const ai = orderIndex.get(a.name) ?? Infinity;
-    const bi = orderIndex.get(b.name) ?? Infinity;
-    if (ai !== bi) return ai - bi;
+    if (a.order !== b.order) return a.order - b.order;
     return a.name.localeCompare(b.name);
   });
 
@@ -157,7 +125,7 @@ const packages = discoveredPackages.map((pkg) => ({
   name: pkg.name,
   desc: pkg.description,
   version: pkg.version,
-  icon: PACKAGE_ICONS[pkg.name] ?? "package",
+  icon: pkg.icon,
 }));
 
 const stats = [

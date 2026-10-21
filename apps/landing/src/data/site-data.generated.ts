@@ -15,6 +15,12 @@ export interface SitePackage {
 
 export const SITE_PACKAGES: SitePackage[] = [
   {
+    "name": "@fusorb/facet-utils",
+    "desc": "Shared styling utilities for Facet packages (cn).",
+    "version": "0.1.0",
+    "icon": "wrench"
+  },
+  {
     "name": "@fusorb/facet-components",
     "desc": "Radix-based UI component library: 113 accessible, styled components using the Alpha Palette design tokens",
     "version": "3.1.0",
@@ -85,12 +91,6 @@ export const SITE_PACKAGES: SitePackage[] = [
     "desc": "Framework-agnostic live-preview sandbox host: block registry, adapter seam, security helpers. Ships no framework code; the React adapter ships under /react.",
     "version": "2.0.0",
     "icon": "play"
-  },
-  {
-    "name": "@fusorb/facet-utils",
-    "desc": "Shared styling utilities for Facet packages (cn).",
-    "version": "0.1.0",
-    "icon": "package"
   }
 ];
 
