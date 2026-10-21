@@ -52,13 +52,7 @@ const FALLBACK_ICONS = {
   "@fusorb/facet-sandbox": "play",
 };
 
-const SURFACES = {
-  landing: { dev: "http://localhost:5173", prod: "https://facet.so" },
-  playground: { dev: "http://localhost:5175", prod: "https://play.facet.so" },
-  docs: { dev: "http://localhost:5173/docs", prod: "https://facet.so/docs" },
-  github: "https://github.com/fusorb/facet",
-  npm: "https://www.npmjs.com/package",
-};
+// Surfaces now come from ../../../surfaces.config.mjs (single source of truth, L6).
 
 /* ── Helpers ─────────────────────────────────────────────────────── */
 
@@ -379,6 +373,8 @@ function buildRegistry() {
   };
 }
 
+export { buildRegistry };
+
 /* ── Main ──────────────────────────────────────────────────────── */
 
 function main() {
@@ -394,4 +390,7 @@ function main() {
   console.log(`  components: ${registry.components.length}`);
   console.log(`  layouts: ${registry.layouts.length}`);
   console.log(`  motion: ${registry.motion.total} effects (${registry.motion.families.length} generative + ${registry.motion.authored.length} authored)`);
-  conso
+  console.log(`  facts: ${Object.keys(registry.facts).length}`);
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) main();

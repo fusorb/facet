@@ -26,9 +26,7 @@ export const surfaces = {
   },
   github: "https://github.com/fusorb/facet",
   npm: "https://www.npmjs.com/org/fusorb",
-  npmPackage(name) {
-    return `https://www.npmjs.com/package/${name}`;
-  },
+  npmPackageScope: "https://www.npmjs.com/package",
 };
 
 export const domains = ["default", "fintech", "med", "edu", "enterprise"];
