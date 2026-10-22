@@ -62,8 +62,8 @@ const Marquee = React.forwardRef<HTMLDivElement, MarqueeProps>(
     const track = React.useMemo(() => [...items, ...items], [items]);
     const [paused, setPaused] = React.useState(false);
 
-    // Pause-on-hover is opt-in via the pauseOnHover prop (default: false).
-    const hover = pauseOnHover ?? false;
+    // Pause-on-hover defaults to true for "loop", false for "strip".
+    const hover = pauseOnHover ?? variant === "loop";
 
     // Normalize gap: numeric px (clamped to a safe 4-32px band so spacing
     // never collapses or explodes), or a passthrough CSS length string.
