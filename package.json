@@ -48,6 +48,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6.0.4",
+    "@vitest/expect": "4.1.12",
     "eslint": "^9",
     "eslint-plugin-react-hooks": "^7.1.1",
     "jsdom": "^30.0.0",

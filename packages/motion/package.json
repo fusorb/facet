@@ -67,12 +67,12 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6.0.4",
-    "@vitest/expect": "^4.1.10",
+    "@vitest/expect": "4.1.12",
     "react": "^19",
     "react-dom": "^19",
     "tsup": "^8.5.1",
     "typescript": "^5",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.12"
   },
   "engines": {
     "node": ">=20"
