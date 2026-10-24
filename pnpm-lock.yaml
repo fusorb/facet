@@ -727,6 +727,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^6.0.4
         version: 6.0.4(vite@8.1.5(@types/node@20.19.43)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
+      '@vitest/expect':
+        specifier: ^4.1.10
+        version: 4.1.12
       react:
         specifier: ^19
         version: 19.2.8
