@@ -3,7 +3,7 @@
  *
  * Select dropdown for switching between organisations/tenants.
  * Auto-hidden when there's only one tenant.
- * Consumer provides the data (typically loaded via ArcProvider onSessionRestore).
+ * Consumer provides the data (typically loaded via SgProvider onSessionRestore).
  */
 
 import * as React from "react";

@@ -6,10 +6,10 @@ describe("defaultStorage (localStorage)", () => {
     window.localStorage.clear();
   });
 
-  it("persists tokens under arcid_ keys", () => {
+  it("persists tokens under sg_ keys", () => {
     defaultStorage.setTokens("at-1", "rt-1");
-    expect(window.localStorage.getItem("arcid_access_token")).toBe("at-1");
-    expect(window.localStorage.getItem("arcid_refresh_token")).toBe("rt-1");
+    expect(window.localStorage.getItem("sg_access_token")).toBe("at-1");
+    expect(window.localStorage.getItem("sg_refresh_token")).toBe("rt-1");
   });
 
   it("reads back tokens", () => {

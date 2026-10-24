@@ -13,28 +13,28 @@ pnpm add @fusorb/facet-sdk
 ## Usage
 
 ```ts
-import { ArcIdClient, AuthSdk, TenantSdk } from "@fusorb/facet-sdk";
+import { SgClient, AuthSdk, TenantSdk } from "@fusorb/facet-sdk";
 
-const arc = new ArcIdClient({
+const sg = new SgClient({
   baseUrl: "https://api.sovgrant.com",
   apiKey: process.env.SOVGRANT_API_KEY,
 });
 
-const { data: tenant } = await arc.tenant.get("acme-corp");
+const { data: tenant } = await sg.tenant.get("acme-corp");
 
-const auth = new AuthSdk(arc);
+const auth = new AuthSdk(sg);
 const { data: session } = await auth.getSession();
 ```
 
 ## Architecture
 
-Every domain SDK is a thin, typed wrapper around `ArcIdClient.fetch()`. No
+Every domain SDK is a thin, typed wrapper around `SgClient.fetch()`. No
 business logic lives here — just request serialization, response parsing, error
 types, and ergonomic method chaining.
 
 | Module | Export | Surface |
 |--------|--------|---------|
-| `ArcIdClient` | class | Core HTTP client (fetch + retry + typed errors). |
+| `SgClient` | class | Core HTTP client (fetch + retry + typed errors). |
 | `AuthSdk` | class | Session, token refresh, sign-in/sign-up lifecycle. |
 | `PasskeySdk` | class | Passkey registration + assertion flow. |
 | `IdentitySdk` | class | DID resolution, credential presentation. |

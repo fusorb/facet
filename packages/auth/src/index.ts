@@ -2,19 +2,19 @@
  * @fusorb/facet-auth: domain-customizable auth components wired to SovGrant SDK.
  *
  * Usage:
- *   import { ArcProvider, SignIn, Guard } from "@fusorb/facet-auth";
+ *   import { SgProvider, SignIn, Guard } from "@fusorb/facet-auth";
  *
- *   <ArcProvider client={arcIdClient}>
+ *   <SgProvider client={sgClient}>
  *     <Guard fallback={<SignIn />}>
  *       <App />
  *     </Guard>
- *   </ArcProvider>
+ *   </SgProvider>
  */
 
 /* ── Provider ──────────────────────────────────────────────── */
 export {
-  type ArcProviderProps,
-  ArcProvider,
+  type SgProviderProps,
+  SgProvider,
   useAuth,
   useOptionalAuth,
 } from "./provider.js";

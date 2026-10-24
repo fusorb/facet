@@ -6,8 +6,8 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ArcIdClient } from "@fusorb/facet-sdk";
-import { ArcProvider, useAuth } from "./provider.js";
+import { SgClient } from "@fusorb/facet-sdk";
+import { SgProvider, useAuth } from "./provider.js";
 import { createMemoryStorage } from "./test-storage.js";
 import type { AuthUser } from "./types.js";
 
@@ -61,7 +61,7 @@ function mockJson(body: unknown, status = 200): Response {
   });
 }
 
-describe("ArcProvider", () => {
+describe("SgProvider", () => {
   let fetchMock: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
@@ -74,16 +74,16 @@ describe("ArcProvider", () => {
   });
 
   function makeClient() {
-    return new ArcIdClient({ baseUrl: "https://auth.example.dev/api/v1" });
+    return new SgClient({ baseUrl: "https://auth.example.dev/api/v1" });
   }
 
   it("boots unauthenticated when no token is stored", async () => {
     const storage = createMemoryStorage();
     const { result } = renderHook(() => useAuth(), {
       wrapper: ({ children }) => (
-        <ArcProvider client={makeClient()} storage={storage}>
+        <SgProvider client={makeClient()} storage={storage}>
           {children}
-        </ArcProvider>
+        </SgProvider>
       ),
     });
 
@@ -102,13 +102,13 @@ describe("ArcProvider", () => {
     const client = makeClient();
     const { result } = renderHook(() => useAuth(), {
       wrapper: ({ children }) => (
-        <ArcProvider
+        <SgProvider
           client={client}
           storage={storage}
           onSessionRestore={onSessionRestore}
         >
           {children}
-        </ArcProvider>
+        </SgProvider>
       ),
     });
 
@@ -134,9 +134,9 @@ describe("ArcProvider", () => {
 
     const { result } = renderHook(() => useAuth(), {
       wrapper: ({ children }) => (
-        <ArcProvider client={makeClient()} storage={storage}>
+        <SgProvider client={makeClient()} storage={storage}>
           {children}
-        </ArcProvider>
+        </SgProvider>
       ),
     });
 
@@ -169,9 +169,9 @@ describe("ArcProvider", () => {
 
     const { result } = renderHook(() => useAuth(), {
       wrapper: ({ children }) => (
-        <ArcProvider client={makeClient()} storage={storage}>
+        <SgProvider client={makeClient()} storage={storage}>
           {children}
-        </ArcProvider>
+        </SgProvider>
       ),
     });
 
@@ -188,9 +188,9 @@ describe("ArcProvider", () => {
 
     const { result } = renderHook(() => useAuth(), {
       wrapper: ({ children }) => (
-        <ArcProvider client={makeClient()} storage={storage}>
+        <SgProvider client={makeClient()} storage={storage}>
           {children}
-        </ArcProvider>
+        </SgProvider>
       ),
     });
 
@@ -215,9 +215,9 @@ describe("ArcProvider", () => {
 
     const { result } = renderHook(() => useAuth(), {
       wrapper: ({ children }) => (
-        <ArcProvider client={makeClient()} storage={storage}>
+        <SgProvider client={makeClient()} storage={storage}>
           {children}
-        </ArcProvider>
+        </SgProvider>
       ),
     });
 
@@ -261,9 +261,9 @@ describe("ArcProvider", () => {
 
     const { result } = renderHook(() => useAuth(), {
       wrapper: ({ children }) => (
-        <ArcProvider client={makeClient()} storage={storage}>
+        <SgProvider client={makeClient()} storage={storage}>
           {children}
-        </ArcProvider>
+        </SgProvider>
       ),
     });
 
@@ -286,9 +286,9 @@ describe("ArcProvider", () => {
 
     const { result } = renderHook(() => useAuth(), {
       wrapper: ({ children }) => (
-        <ArcProvider client={makeClient()} storage={storage}>
+        <SgProvider client={makeClient()} storage={storage}>
           {children}
-        </ArcProvider>
+        </SgProvider>
       ),
     });
 
@@ -310,13 +310,13 @@ describe("ArcProvider", () => {
     fetchMock.mockResolvedValue(mockJson(envelope(loginNoMfa)));
 
     render(
-      <ArcProvider
+      <SgProvider
         client={makeClient()}
         storage={storage}
         onAuthChange={onAuthChange}
       >
         <ConsumerProbe />
-      </ArcProvider>,
+      </SgProvider>,
     );
 
     const loginButton = await screen.findByRole("button", { name: /login/i });

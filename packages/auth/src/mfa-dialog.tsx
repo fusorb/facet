@@ -11,7 +11,7 @@
 import * as React from "react";
 import { AuthSdk } from "@fusorb/facet-sdk";
 import type {
-  ArcIdClient,
+  SgClient,
   MfaVerifyResult,
   MfaSetupResult,
 } from "@fusorb/facet-sdk";
@@ -27,7 +27,7 @@ import type { Appearance } from "./types.js";
 export interface MfaDialogProps {
   open: boolean;
   onOpenChange?: (open: boolean) => void;
-  client: ArcIdClient;
+  client: SgClient;
   sessionId: string;
   onComplete: (result: MfaVerifyResult) => void;
   onCancel?: () => void;

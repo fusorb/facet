@@ -161,7 +161,7 @@ function ChatLayoutInner({
   const { sidebarOpen, setSidebarOpen } = useLayout();
   const isDesktop = useIsDesktop();
 
-  // Auth is optional. Without an <ArcProvider>, treat the user as
+  // Auth is optional. Without an <SgProvider>, treat the user as
   // authenticated so the shell works for static/docs chat sites too.
   const auth = useOptionalAuth();
   const isAuthenticated = auth?.isAuthenticated ?? true;

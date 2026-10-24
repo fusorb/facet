@@ -33,7 +33,7 @@ const ok = [];
  *
  * Matches `export { Name }` / `export { A, B }` value exports only - `export
  * type { ... }` is excluded because the regex requires `{` immediately after
- * `export`. Non-SDK exports (e.g. `ArcIdClient`) are dropped by the `Sdk`
+ * `export`. Non-SDK exports (e.g. `SgClient`) are dropped by the `Sdk`
  * suffix filter. Handles `export { A as B }` renames by stripping the alias.
  */
 function sdkExportsFromBarrel(src) {

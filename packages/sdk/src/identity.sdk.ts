@@ -5,7 +5,7 @@
  * SovGrant paths: /identity/*
  */
 
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 import type { ApiResponse } from "./client.js";
 import type {
   Delegation,
@@ -21,7 +21,7 @@ import type {
 /* ── SDK Module ────────────────────────────────────────────── */
 
 export class IdentitySdk {
-  constructor(private client: ArcIdClient) {}
+  constructor(private client: SgClient) {}
 
   /* ── Admin ─────────────────────────────────────────────── */
 

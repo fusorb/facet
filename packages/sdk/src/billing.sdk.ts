@@ -6,14 +6,14 @@
  * (POST /subscription/upgrade returns 410 Gone).
  */
 
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 import type { ApiResponse } from "./client.js";
 import type { Subscription } from "./types.js";
 
 /* ── SDK Module ────────────────────────────────────────────── */
 
 export class BillingSdk {
-  constructor(private client: ArcIdClient) {}
+  constructor(private client: SgClient) {}
 
   getSubscription(): Promise<ApiResponse<Subscription>> {
     return this.client.get<Subscription>("/subscription");

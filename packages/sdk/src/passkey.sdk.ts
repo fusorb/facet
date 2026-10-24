@@ -6,7 +6,7 @@
  * endpoints take { response, challengeId }.
  */
 
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 import type { ApiResponse } from "./client.js";
 import type { TokenPair } from "./auth.sdk.js";
 import type { Passkey, TokenBundle, User } from "./types.js";
@@ -58,7 +58,7 @@ export type PasskeyAuthenticateResult = TokenPair | TokenBundle;
 /* ── SDK Module ────────────────────────────────────────────── */
 
 export class PasskeySdk {
-  constructor(private client: ArcIdClient) {}
+  constructor(private client: SgClient) {}
 
   list(): Promise<ApiResponse<Passkey[]>> {
     return this.client.get<Passkey[]>("/auth/passkey");

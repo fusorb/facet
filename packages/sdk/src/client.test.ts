@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 
-describe("ArcIdClient", () => {
+describe("SgClient", () => {
   const baseUrl = "https://auth.example.dev/api/v1";
 
   let fetchMock: ReturnType<typeof vi.fn>;
@@ -34,7 +34,7 @@ describe("ArcIdClient", () => {
         jsonResponse({ success: true, data: { ok: true } }),
       );
 
-      const client = new ArcIdClient({ baseUrl });
+      const client = new SgClient({ baseUrl });
       client.setAccessToken("secret");
       await client.get("/ping");
 
@@ -50,7 +50,7 @@ describe("ArcIdClient", () => {
     it("sends no Authorization header when no token is set", async () => {
       fetchMock.mockResolvedValue(jsonResponse({ success: true, data: null }));
 
-      const client = new ArcIdClient({ baseUrl });
+      const client = new SgClient({ baseUrl });
       await client.get("/public");
 
       const [, init] = callAt(0);
@@ -63,7 +63,7 @@ describe("ArcIdClient", () => {
     it("sends JSON body on POST", async () => {
       fetchMock.mockResolvedValue(jsonResponse({ success: true, data: "ok" }));
 
-      const client = new ArcIdClient({ baseUrl });
+      const client = new SgClient({ baseUrl });
       await client.post("/auth/login", { email: "a@b.c", password: "pw" });
 
       const [url, init] = callAt(0);
@@ -80,7 +80,7 @@ describe("ArcIdClient", () => {
         jsonResponse({ success: true, data: { accessToken: "t" } }),
       );
 
-      const client = new ArcIdClient({ baseUrl });
+      const client = new SgClient({ baseUrl });
       const res = await client.get<{ accessToken: string }>("/me");
 
       expect(res).toEqual({ data: { accessToken: "t" }, error: null });
@@ -91,7 +91,7 @@ describe("ArcIdClient", () => {
         jsonResponse({ access_token: "t", token_type: "Bearer" }),
       );
 
-      const client = new ArcIdClient({ baseUrl });
+      const client = new SgClient({ baseUrl });
       const res = await client.post<{ access_token: string }>(
         "/oauth/token",
         { grant_type: "refresh_token", refresh_token: "rt" },
@@ -104,7 +104,7 @@ describe("ArcIdClient", () => {
     it("normalizes a trailing slash on baseUrl", async () => {
       fetchMock.mockResolvedValue(jsonResponse({ success: true, data: null }));
 
-      const client = new ArcIdClient({ baseUrl: `${baseUrl}/` });
+      const client = new SgClient({ baseUrl: `${baseUrl}/` });
       await client.get("/ping");
 
       expect(callAt(0)[0]).toBe(`${baseUrl}/ping`);
@@ -113,7 +113,7 @@ describe("ArcIdClient", () => {
     it("returns undefined data on 204", async () => {
       fetchMock.mockResolvedValue(new Response(null, { status: 204 }));
 
-      const client = new ArcIdClient({ baseUrl });
+      const client = new SgClient({ baseUrl });
       const res = await client.post<void>("/auth/logout");
 
       expect(res.error).toBeNull();
@@ -127,7 +127,7 @@ describe("ArcIdClient", () => {
         jsonResponse({ error: "UNAUTHORIZED", message: "Bad creds" }, 401),
       );
 
-      const client = new ArcIdClient({ baseUrl });
+      const client = new SgClient({ baseUrl });
       const res = await client.get("/me");
 
       expect(res.data).toBeNull();
@@ -151,7 +151,7 @@ describe("ArcIdClient", () => {
         ),
       );
 
-      const client = new ArcIdClient({ baseUrl });
+      const client = new SgClient({ baseUrl });
       const res = await client.get("/billing");
 
       expect(res.error).toMatchObject({
@@ -165,7 +165,7 @@ describe("ArcIdClient", () => {
     it("falls back to statusText when body is not JSON", async () => {
       fetchMock.mockResolvedValue(new Response("plain text", { status: 500 }));
 
-      const client = new ArcIdClient({ baseUrl });
+      const client = new SgClient({ baseUrl });
       const res = await client.get("/boom");
 
       expect(res.error).toMatchObject({ statusCode: 500 });
@@ -174,7 +174,7 @@ describe("ArcIdClient", () => {
     it("maps network failures to NETWORK_ERROR", async () => {
       fetchMock.mockRejectedValue(new TypeError("Failed to fetch"));
 
-      const client = new ArcIdClient({ baseUrl });
+      const client = new SgClient({ baseUrl });
       const res = await client.get("/offline");
 
       expect(res.data).toBeNull();
@@ -197,7 +197,7 @@ describe("ArcIdClient", () => {
           jsonResponse({ success: true, data: { ok: true } }),
         );
 
-      const client = new ArcIdClient({
+      const client = new SgClient({
         baseUrl,
         onTokenRefresh,
       });
@@ -221,7 +221,7 @@ describe("ArcIdClient", () => {
         jsonResponse({ error: "UNAUTHORIZED", message: "expired" }, 401),
       );
 
-      const client = new ArcIdClient({
+      const client = new SgClient({
         baseUrl,
         onTokenRefresh,
       });
@@ -239,7 +239,7 @@ describe("ArcIdClient", () => {
         jsonResponse({ error: "UNAUTHORIZED", message: "expired" }, 401),
       );
 
-      const client = new ArcIdClient({ baseUrl, onTokenRefresh });
+      const client = new SgClient({ baseUrl, onTokenRefresh });
       const res = await client.get("/protected");
 
       expect(onTokenRefresh).not.toHaveBeenCalled();
@@ -255,7 +255,7 @@ describe("ArcIdClient", () => {
         jsonResponse({ error: "UNAUTHORIZED", message: "expired" }, 401),
       );
 
-      const client = new ArcIdClient({
+      const client = new SgClient({
         baseUrl,
         onTokenRefresh,
         onAuthCleared,
@@ -277,7 +277,7 @@ describe("ArcIdClient", () => {
         jsonResponse({ success: true, data: { ok: true } }),
       );
 
-      const client = new ArcIdClient({ baseUrl });
+      const client = new SgClient({ baseUrl });
       await client[verb]("/thing", { a: 1 } as never);
 
       const [, init] = callAt(0);
@@ -290,7 +290,7 @@ describe("ArcIdClient", () => {
       jsonResponse({ success: true, data: { ok: true } }),
     );
 
-    const client = new ArcIdClient({ baseUrl, apiKey: "one" });
+    const client = new SgClient({ baseUrl, apiKey: "one" });
     client.setAccessToken("two");
     await client.get("/me");
 

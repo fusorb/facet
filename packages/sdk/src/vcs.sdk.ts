@@ -6,7 +6,7 @@
  * /credentials/verify/present return bare payloads (no envelope).
  */
 
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 import type { ApiResponse } from "./client.js";
 import type {
   Credential,
@@ -20,7 +20,7 @@ import type {
 /* ── SDK Module ────────────────────────────────────────────── */
 
 export class VcSdk {
-  constructor(private client: ArcIdClient) {}
+  constructor(private client: SgClient) {}
 
   /** GET /credentials: list credentials held by the authenticated identity. */
   list(): Promise<ApiResponse<Credential[]>> {

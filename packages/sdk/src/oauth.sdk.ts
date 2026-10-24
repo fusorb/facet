@@ -4,7 +4,7 @@
  * SovGrant paths: /oauth/*
  */
 
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 import type { ApiResponse } from "./client.js";
 import type {
   Consent,
@@ -44,7 +44,7 @@ export type GrantConsentParams = {
 /* ── SDK Module ────────────────────────────────────────────── */
 
 export class OAuthSdk {
-  constructor(private client: ArcIdClient) {}
+  constructor(private client: SgClient) {}
 
   /* ── Clients ──────────────────────────────────────────────── */
 

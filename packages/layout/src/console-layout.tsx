@@ -134,7 +134,7 @@ function ConsoleLayoutInner({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mode, toggleSidebarCollapsed]);
 
-  // Auth is optional. Without an <ArcProvider>, treat the user as
+  // Auth is optional. Without an <SgProvider>, treat the user as
   // authenticated so the shell works for docs/static sites that have
   // no auth context.
   const auth = useOptionalAuth();

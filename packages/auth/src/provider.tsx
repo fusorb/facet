@@ -1,5 +1,5 @@
 /**
- * ArcProvider: React context provider for auth state.
+ * SgProvider: React context provider for auth state.
  *
  * Wraps the app with authentication state, login/logout/register actions,
  * and automatic session refresh on mount.
@@ -14,13 +14,13 @@
  *     tokens; the caller completes with verifyMfa() / mfaRecovery().
  *
  * Usage:
- *   <ArcProvider client={arcIdClient} storage={myStorage}>
+ *   <SgProvider client={sgClient} storage={myStorage}>
  *     <App />
- *   </ArcProvider>
+ *   </SgProvider>
  */
 
 import * as React from "react";
-import { type ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
+import { type SgClient, AuthSdk } from "@fusorb/facet-sdk";
 import type { LoginResult, TokenBundle } from "@fusorb/facet-sdk";
 import type {
   AuthContextValue,
@@ -37,8 +37,8 @@ const AuthContext = React.createContext<AuthContextValue | null>(null);
 
 /* ── Provider Props ────────────────────────────────────────── */
 
-export interface ArcProviderProps {
-  client: ArcIdClient;
+export interface SgProviderProps {
+  client: SgClient;
   storage?: TokenStorage;
   children: React.ReactNode;
   /** Called after session restore succeeds (user was rehydrated from stored tokens).
@@ -70,13 +70,13 @@ const SIGNED_OUT_STATE: Omit<AuthState, "isAuthenticated"> = {
 
 /* ── Provider ──────────────────────────────────────────────── */
 
-export function ArcProvider({
+export function SgProvider({
   client,
   storage = defaultStorage,
   children,
   onSessionRestore,
   onAuthChange,
-}: ArcProviderProps) {
+}: SgProviderProps) {
   // Dev-time warning: defaultStorage uses localStorage for tokens, which is
   // vulnerable to XSS.  Fires once per page-load when no explicit storage is
   // provided.  Consumers should pass a cookie-backed or in-memory adapter.
@@ -90,7 +90,7 @@ export function ArcProvider({
     warnedRef.current = true;
     // eslint-disable-next-line no-console
     console.warn(
-      "[@fusorb/facet-auth] ArcProvider is using defaultStorage (localStorage). " +
+      "[@fusorb/facet-auth] SgProvider is using defaultStorage (localStorage). " +
         "localStorage is vulnerable to XSS - refresh tokens stored here can be " +
         "stolen. For production, pass an explicit `storage` prop backed by " +
         "httpOnly cookies. This warning is shown once per page-load.",
@@ -391,13 +391,13 @@ export function ArcProvider({
 export function useAuth(): AuthContextValue {
   const ctx = React.useContext(AuthContext);
   if (!ctx) {
-    throw new Error("useAuth must be used within an <ArcProvider>");
+    throw new Error("useAuth must be used within an <SgProvider>");
   }
   return ctx;
 }
 
 /**
- * Same as useAuth, but returns null when no <ArcProvider> is present.
+ * Same as useAuth, but returns null when no <SgProvider> is present.
  * Useful for layout shells that render with or without auth context
  * (e.g. ConsoleLayout used by docs/static sites).
  */
@@ -409,7 +409,7 @@ export function useOptionalAuth(): AuthContextValue | null {
 
 async function refreshAccessToken(
   authSdk: AuthSdk,
-  client: ArcIdClient,
+  client: SgClient,
   storage: TokenStorage,
 ): Promise<string | null> {
   const refreshToken = storage.getRefreshToken();

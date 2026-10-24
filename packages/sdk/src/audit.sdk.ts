@@ -4,7 +4,7 @@
  * SovGrant paths: /audit/logs
  */
 
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 import type { ApiResponse } from "./client.js";
 import type { AuditLogEntry, Paginated } from "./types.js";
 
@@ -23,7 +23,7 @@ export type AuditListParams = {
 /* ── SDK Module ────────────────────────────────────────────── */
 
 export class AuditSdk {
-  constructor(private client: ArcIdClient) {}
+  constructor(private client: SgClient) {}
 
   list(
     params?: AuditListParams,

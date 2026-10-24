@@ -38,7 +38,7 @@ export interface RequestOptions {
   fetchInit?: RequestInit;
 }
 
-export interface ArcIdClientConfig {
+export interface SgClientConfig {
   baseUrl: string;
   apiKey?: string;
   /**
@@ -68,11 +68,11 @@ export interface ArcIdClientConfig {
   onAuthCleared?: () => void;
 }
 
-export class ArcIdClient {
-  private config: ArcIdClientConfig;
+export class SgClient {
+  private config: SgClientConfig;
   private accessToken: string | null;
 
-  constructor(config: ArcIdClientConfig) {
+  constructor(config: SgClientConfig) {
     this.config = { ...config, baseUrl: config.baseUrl.replace(/\/+$/, "") };
     this.accessToken = config.apiKey ?? null;
   }

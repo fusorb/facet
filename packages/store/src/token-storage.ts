@@ -23,7 +23,7 @@ export interface TokenRefresher {
 }
 
 /**
- * Bridge between a Zustand auth store and the ArcIdClient's token-refresh hooks.
+ * Bridge between a Zustand auth store and the SgClient's token-refresh hooks.
  *
  * - Reads refresh/access tokens from the store via `getState()`
  * - On a 401, calls `sdk.refresh()` → updates the store with the new token bundle

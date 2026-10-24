@@ -12,17 +12,17 @@ pnpm add @fusorb/facet-auth @fusorb/facet-sdk @fusorb/facet-store
 
 ## Usage
 
-### ArcProvider (top-level)
+### SgProvider (top-level)
 
 ```tsx
-import { ArcProvider } from "@fusorb/facet-auth";
-import { ArcIdClient } from "@fusorb/facet-sdk";
+import { SgProvider } from "@fusorb/facet-auth";
+import { SgClient } from "@fusorb/facet-sdk";
 
-const arc = new ArcIdClient({ baseUrl: "...", apiKey: "..." });
+const sg = new SgClient({ baseUrl: "...", apiKey: "..." });
 
-<ArcProvider client={arc}>
+<SgProvider client={sg}>
   <App />
-</ArcProvider>
+</SgProvider>
 ```
 
 ### Sign-in form
@@ -106,11 +106,11 @@ and the token-refresh cadence:
 | `defaultPreset` | General purpose | Optional | Neutral |
 
 ```tsx
-import { ArcProvider, SignIn, fintechPreset } from "@fusorb/facet-auth";
+import { SgProvider, SignIn, fintechPreset } from "@fusorb/facet-auth";
 
-<ArcProvider client={arc}>
+<SgProvider client={sg}>
   <SignIn config={fintechPreset} />
-</ArcProvider>
+</SgProvider>
 ```
 
 ## Token management
@@ -124,7 +124,7 @@ the `@fusorb/facet-sdk` automatically refreshes tokens on 401.
 
 | Export | Type | Description |
 |--------|------|-------------|
-| `ArcProvider` | component | Top-level provider; initializes the `ArcIdClient`, manages auth state via `@fusorb/facet-store`. |
+| `SgProvider` | component | Top-level provider; initializes the `SgClient`, manages auth state via `@fusorb/facet-store`. |
 | `SignIn` | component | Full sign-in form (email, password, social, passwordless). |
 | `SignUp` | component | Full sign-up form (with domain-specific fields). |
 | `Guard` | component | Client-side route guard with fallback. |

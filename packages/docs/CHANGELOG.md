@@ -452,7 +452,7 @@ all` toolbar buttons; active section scrolls into view.
 - df7c8f6: fix(docs): auth pages render again; remove crashing live demos
 
   The SignUp, MFA, and Guard pages rendered a blank screen because their live
-  demos wrapped auth forms in ArcProvider with a dead demo endpoint, which
+  demos wrapped auth forms in SgProvider with a dead demo endpoint, which
   suspended the render without an error. Converted those pages to code-first
   documentation (accurate importable snippets + full prose) and removed the
   crashing sign-up/mfa-dialog/guard entries from the gallery manifest,

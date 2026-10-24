@@ -5,7 +5,7 @@
  * SovGrant src/modules/auth/routes/* + src/lib/api/routes/index.ts).
  */
 
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 import type { ApiResponse } from "./client.js";
 import type {
   LoginResult,
@@ -110,7 +110,7 @@ export type AuthorizeResult = {
 /* ── SDK Module ────────────────────────────────────────────── */
 
 export class AuthSdk {
-  constructor(private client: ArcIdClient) {}
+  constructor(private client: SgClient) {}
 
   /**
    * POST /auth/login.

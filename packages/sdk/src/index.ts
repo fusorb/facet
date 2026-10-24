@@ -4,14 +4,14 @@
  * Pure fetch. No framework dependencies.
  *
  * First-party app (own SovGrant backend - session-based auth):
- *   import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
+ *   import { SgClient, AuthSdk } from "@fusorb/facet-sdk";
  *
- *   const client = new ArcIdClient({ baseUrl: "https://auth.example.dev/api/v1" });
+ *   const client = new SgClient({ baseUrl: "https://auth.example.dev/api/v1" });
  *   const auth = new AuthSdk(client);
  *   const { data, error } = await auth.login("email", "password");
  *
  * Third-party / external integration (shared SovGrant instance - OAuth2/OIDC):
- *   const client = new ArcIdClient({
+ *   const client = new SgClient({
  *     baseUrl: "https://auth.example.dev/api/v1",
  *     clientId: "my-app-id",          // registered OAuth client
  *     clientSecret: "…",              // only for confidential clients
@@ -34,12 +34,12 @@
  *   const next = await auth.refresh(data.refreshToken!);
  */
 
-export { ArcIdClient } from "./client.js";
+export { SgClient } from "./client.js";
 export type {
   ApiError,
   ApiEnvelope,
   ApiResponse,
-  ArcIdClientConfig,
+  SgClientConfig,
   RequestOptions,
 } from "./client.js";
 

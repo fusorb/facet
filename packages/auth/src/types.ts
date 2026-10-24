@@ -10,7 +10,7 @@ import type {
   TokenBundle,
   UserProfile,
 } from "@fusorb/facet-sdk";
-import type { ArcIdClient } from "@fusorb/facet-sdk";
+import type { SgClient } from "@fusorb/facet-sdk";
 
 /* ── Identity ──────────────────────────────────────────────── */
 
@@ -39,7 +39,7 @@ export type RegisterParams = {
 };
 
 export type AuthContextValue = AuthState & {
-  client: ArcIdClient;
+  client: SgClient;
   /**
    * Login is two-phase with SovGrant:
    *  - No MFA required: returns a LoginResult with accessToken/refreshToken.

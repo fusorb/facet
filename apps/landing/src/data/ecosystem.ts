@@ -123,9 +123,9 @@ export const ECOSYSTEM: EcosystemEntry[] = [
       {
         lang: "ts",
         code: `// Pure TS / non-React usage
-import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
+import { SgClient, AuthSdk } from "@fusorb/facet-sdk";
 
-const client = new ArcIdClient({ baseUrl: "https://auth.example.com/api/v1" });
+const client = new SgClient({ baseUrl: "https://auth.example.com/api/v1" });
 const auth = new AuthSdk(client);
 const { data } = await auth.me();`,
       },
@@ -230,9 +230,9 @@ const html = renderEmail(
     example: [
       {
         lang: "ts",
-        code: `import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
+        code: `import { SgClient, AuthSdk } from "@fusorb/facet-sdk";
 
-const client = new ArcIdClient({ baseUrl: "https://auth.example.com/api/v1" });
+const client = new SgClient({ baseUrl: "https://auth.example.com/api/v1" });
 const auth = new AuthSdk(client);
 
 const { data, error } = await auth.login("user@example.com", "pw");
@@ -252,7 +252,7 @@ const { data, error } = await auth.login("user@example.com", "pw");
       "Framework-agnostic Zustand state stores for SovGrant sessions + tenant state, with a token-refresh bridge for 401 auto-recovery.",
     analysis: [
       "The store package provides two Zustand stores on top of the SDK: useAuthStore (user, accessToken, refreshToken, isAuthenticated, isAuthenticated, isLoading) and useTenantStore (activeTenant, tenants, isLoading). The store logic itself has zero React - React hooks are a consumer layer. Non-React code calls store.getState() imperatively.",
-      "The createZustandTokenStorage bridge is the key integration point. It wires the auth store and an AuthSdk into the ArcIdClient callbacks: on 401, it reads the current refresh token from the store, calls sdk.refresh(), updates the store with the new token bundle, and clears auth on permanent failure. A re-entrancy guard prevents infinite refresh loops.",
+      "The createZustandTokenStorage bridge is the key integration point. It wires the auth store and an AuthSdk into the SgClient callbacks: on 401, it reads the current refresh token from the store, calls sdk.refresh(), updates the store with the new token bundle, and clears auth on permanent failure. A re-entrancy guard prevents infinite refresh loops.",
       "Because the bridge only depends on a TokenStoreLike and TokenRefresher contract (not on facet's own store), you can swap in any state management (Redux, Valtio, Jotai) by providing compatible interfaces. This is the stack-agnosticism principle in practice: store + SDK bridge is pure TS, the React hooks are an optional layer on top.",
     ],
     features: [
@@ -267,9 +267,9 @@ const { data, error } = await auth.login("user@example.com", "pw");
       {
         lang: "ts",
         code: `import { createZustandTokenStorage } from "@fusorb/facet-store";
-import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
+import { SgClient, AuthSdk } from "@fusorb/facet-sdk";
 
-const client = new ArcIdClient({
+const client = new SgClient({
   baseUrl,
   onTokenRefresh: createZustandTokenStorage({
     authStore: useAuthStore,
@@ -334,13 +334,13 @@ const client = new ArcIdClient({
     icon: "shield-check",
     short: "Sign-in state machine with domain presets",
     description:
-      "ArcProvider, SignIn, SignUp, Guard, MfaDialog, UserButton, and seven standalone forms.",
+      "SgProvider, SignIn, SignUp, Guard, MfaDialog, UserButton, and seven standalone forms.",
     analysis: [
       "The auth package is a configurable, controlled state machine for sign-in and sign-up flows. The SignIn component is a fully typed IDLE → CHECK_SESSION → SELECT_METHOD → LOGIN_FORM / MAGIC_LINK_FORM / SOCIAL_LOGIN / PASSKEY_AUTH → CHECK_MFA → MFA_CHALLENGE → COMPLETE → STEP_UP machine. The host application can subscribe to step changes via the controlled `step` / `onStepChange` props and render whatever custom UI it needs at any stage.",
       "Three customization axes make it domain-customizable: `appearance` (style overrides), `config` (behavior flags like which methods are enabled, MFA requirement, session TTL), and `slots` (render props for form fields, action buttons, redirect target). This is why a fintech deployment can wire step-up MFA on every session, a healthcare deployment can plug HIPAA-aware session TTL into the same SignIn, and an education deployment can default to passkeys and social login.",
       "Domain presets ship out of the box: fintech (MFA required, 15-minute TTL, magic link enabled), med (MFA required, 30-minute TTL, magic link disabled), edu (passkeys enabled, 24-hour TTL, magic link enabled), enterprise (MFA required, optional passkeys, 8-hour TTL). Each preset is a plain AuthConfig object you can start from and override.",
       "Eight standalone forms (LoginForm, MagicLinkForm, ForgotPasswordForm, ResetPasswordForm, MfaVerifyForm, MfaSetupForm, MfaRecoveryCodesForm, MfaRecoveryForm) let consumers compose their own flow without inheriting the full SignIn machine. All forms wire react-hook-form + Zod for inline validation; no plumbing code required on the consumer side.",
-      "Token storage is pluggable: pass any TokenStorage implementation to <ArcProvider storage={...}>. The default uses localStorage in development with a clear, once-fired console.warn (added in the Phase 0 security fix); production deployments are expected to wire an httpOnly cookie adapter or an in-memory store.",
+      "Token storage is pluggable: pass any TokenStorage implementation to <SgProvider storage={...}>. The default uses localStorage in development with a clear, once-fired console.warn (added in the Phase 0 security fix); production deployments are expected to wire an httpOnly cookie adapter or an in-memory store.",
     ],
     features: [
       "SignIn: configurable state machine, controlled step/onStepChange API",
@@ -353,14 +353,14 @@ const client = new ArcIdClient({
     example: [
       {
         lang: "tsx",
-        code: `import { ArcProvider, SignIn, fintechPreset } from "@fusorb/facet-auth";
+        code: `import { SgProvider, SignIn, fintechPreset } from "@fusorb/facet-auth";
 
-<ArcProvider config={fintechPreset} client={arcIdClient}>
+<SgProvider config={fintechPreset} client={sgClient}>
   <SignIn
     onSuccess={() => navigate("/dashboard")}
     appearance={{ accent: "primary" }}
   />
-</ArcProvider>`,
+</SgProvider>`,
       },
     ],
     docsPath: "/auth",

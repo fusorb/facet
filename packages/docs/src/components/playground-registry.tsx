@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as FacetComponents from "@fusorb/facet-components";
 import * as FacetAuth from "@fusorb/facet-auth";
-import { ArcIdClient } from "@fusorb/facet-sdk";
+import { SgClient } from "@fusorb/facet-sdk";
 import * as FacetLayout from "@fusorb/facet-layout";
 import { defaultLayoutPreset, fintechLayoutPreset } from "@fusorb/facet-layout";
 
@@ -14,7 +14,7 @@ import { defaultLayoutPreset, fintechLayoutPreset } from "@fusorb/facet-layout";
  * The playground can't execute JS, so this registry makes every referenced tag
  * resolve to something that renders:
  *
- *  - auth components render behind a demo ArcIdClient (no network),
+ *  - auth components render behind a demo SgClient (no network),
  *  - layout components fall back to a default preset,
  *  - doc placeholders (`<YourContent/>`, `<ProfileForm/>` …) render a labelled box,
  *  - data-heavy components get demo props so the preview fills in instead of blanking.
@@ -22,16 +22,16 @@ import { defaultLayoutPreset, fintechLayoutPreset } from "@fusorb/facet-layout";
 
 // Signed-out, no-network demo client. Usage snippets pass `client` as an
 // ambient identifier; when it resolves to undefined we inject this.
-const DEMO_CLIENT = new ArcIdClient({ baseUrl: "https://demo.invalid" });
+const DEMO_CLIENT = new SgClient({ baseUrl: "https://demo.invalid" });
 const noOp = () => {};
 
 /* ── Auth ────────────────────────────────────────────── */
 
-function ArcProviderWithDemo({ client, children, ...rest }: any) {
+function SgProviderWithDemo({ client, children, ...rest }: any) {
   return (
-    <FacetAuth.ArcProvider client={client ?? DEMO_CLIENT} {...rest}>
+    <FacetAuth.SgProvider client={client ?? DEMO_CLIENT} {...rest}>
       {children}
-    </FacetAuth.ArcProvider>
+    </FacetAuth.SgProvider>
   );
 }
 
@@ -40,9 +40,9 @@ function AuthComponentWithDemo(
   configDefault: any,
 ) {
   const Wrapped: React.FC<any> = ({ config, ...rest }) => (
-    <FacetAuth.ArcProvider client={DEMO_CLIENT}>
+    <FacetAuth.SgProvider client={DEMO_CLIENT}>
       {React.createElement(C, { config: config ?? configDefault, ...rest })}
-    </FacetAuth.ArcProvider>
+    </FacetAuth.SgProvider>
   );
   const name = (C as any)?.displayName || (C as any)?.name || "AuthComponent";
   Wrapped.displayName = name;
@@ -255,7 +255,7 @@ export const playgroundComponents: Record<string, React.ComponentType<any>> = {
   ...(FacetComponents as unknown as Record<string, React.ComponentType<any>>),
 
   // auth
-  ArcProvider: ArcProviderWithDemo,
+  SgProvider: SgProviderWithDemo,
   SignIn,
   SignUp,
   Guard,

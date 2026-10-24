@@ -26,7 +26,7 @@ export const docsPages: DocsPage[] = [
         items: [
           "`@fusorb/facet-tokens`: Alpha Palette design tokens, typography, spacing, CSS variables.",
           "`@fusorb/facet-sdk`: SovGrant API client (pure fetch, typed, 10 domain SDKs).",
-          "`@fusorb/facet-components`: 113 styled UI components (Radix + tailwind-merge + variants), including ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form, Stepper, KanbanBoard, ChangelogCard, ChangelogFeed, Pill).",
+          "`@fusorb/facet-components`: 112 styled UI components (Radix + tailwind-merge + variants), including ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form, Stepper, KanbanBoard, ChangelogCard, ChangelogFeed, Pill).",
           "`@fusorb/facet-auth`: auth components + domain presets: SignIn, SignUp, Guard, MfaDialog, forms.",
           "`@fusorb/facet-layout`: domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets.",
           "`@fusorb/facet-store`: framework-agnostic Zustand state stores - auth session + tenant state, plus `createZustandTokenStorage` bridge for 401 auto-refresh, web + React Native.",
@@ -45,7 +45,7 @@ export const docsPages: DocsPage[] = [
         type: "code",
         text: `pnpm install
 pnpm build
-pnpm test      # 961 tests across 75 files (vitest workspace)
+pnpm test      # 980 tests across 78 files (vitest workspace)
 pnpm typecheck # all projects`,
       },
       { type: "p", text: "Consume in your app:" },
@@ -136,11 +136,11 @@ function App() {
       },
       {
         type: "code",
-        text: `import { ArcProvider, SignIn, fintechPreset } from "@fusorb/facet-auth";
+        text: `import { SgProvider, SignIn, fintechPreset } from "@fusorb/facet-auth";
 
-<ArcProvider client={client}>
+<SgProvider client={client}>
   <SignIn config={fintechPreset} />
-</ArcProvider>`,
+</SgProvider>`,
       },
       {
         type: "p",
@@ -218,7 +218,7 @@ export function App() {
       },
       {
         type: "p",
-        text: "**Your first facet app:** install the packages → import tokens → wrap in `ThemeProvider` → render a component → drop in `ArcProvider` + `SignIn` → wrap in a `ConsoleLayout` shell. Each step is a section above.",
+        text: "**Your first facet app:** install the packages → import tokens → wrap in `ThemeProvider` → render a component → drop in `SgProvider` + `SignIn` → wrap in a `ConsoleLayout` shell. Each step is a section above.",
       },
     ],
   },
@@ -1595,9 +1595,9 @@ startEmailPreviewServer({
       { type: "h2", text: "First-party app (own SovGrant backend)" },
       {
         type: "code",
-        text: `import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
+        text: `import { SgClient, AuthSdk } from "@fusorb/facet-sdk";
 
-const client = new ArcIdClient({ baseUrl: "https://auth.example.com/api/v1" });
+const client = new SgClient({ baseUrl: "https://auth.example.com/api/v1" });
 const auth = new AuthSdk(client);
 
 const { data, error } = await auth.login("user@example.com", "pw");
@@ -1614,7 +1614,7 @@ const { data, error } = await auth.login("user@example.com", "pw");
       },
       {
         type: "code",
-        text: `const client = new ArcIdClient({
+        text: `const client = new SgClient({
   baseUrl: "https://auth.example.com/api/v1",
   clientId: "my-app-id",
   clientSecret: "…", // confidential clients only
@@ -1651,7 +1651,7 @@ const next = await auth.refresh(tokens.data.refreshToken!);`,
       },
       {
         type: "code",
-        text: `const client = new ArcIdClient({
+        text: `const client = new SgClient({
   baseUrl,
   onTokenRefresh: async () => (await auth.refresh(refreshToken)).data?.accessToken ?? null,
   onAuthCleared: () => redirectToLogin(),
@@ -1667,7 +1667,7 @@ const next = await auth.refresh(tokens.data.refreshToken!);`,
 
 const storage = createZustandTokenStorage({ authStore: useAuthStore, sdk: auth });
 
-const client = new ArcIdClient({
+const client = new SgClient({
   baseUrl,
   onTokenRefresh: storage.onTokenRefresh,
   onAuthCleared: () => {
@@ -1751,7 +1751,7 @@ const client = new ArcIdClient({
     blocks: [
       {
         type: "p",
-        text: "`@fusorb/facet-store` provides framework-agnostic state stores built on Zustand. It ships two stores (`useAuthStore` for session/auth state, `useTenantStore` for tenant selection) and a `createZustandTokenStorage` bridge that connects them to the SDK's `ArcIdClient` 401 auto-refresh hooks. The stores are pure Zustand - no React in the store logic itself - and the bridge is fully framework-agnostic, so it works identically in React, React Native, or any environment that can call `getState()`.",
+        text: "`@fusorb/facet-store` provides framework-agnostic state stores built on Zustand. It ships two stores (`useAuthStore` for session/auth state, `useTenantStore` for tenant selection) and a `createZustandTokenStorage` bridge that connects them to the SDK's `SgClient` 401 auto-refresh hooks. The stores are pure Zustand - no React in the store logic itself - and the bridge is fully framework-agnostic, so it works identically in React, React Native, or any environment that can call `getState()`.",
       },
       { type: "h2", text: "Install" },
       {
@@ -1797,14 +1797,14 @@ function SessionBadge() {
       { type: "h2", text: "Token-refresh bridge" },
       {
         type: "p",
-        text: "`createZustandTokenStorage` wires the auth store and an `AuthSdk` into the `ArcIdClient` callbacks. It reads the current refresh token from the store, calls `sdk.refresh()` on 401, updates the store with the new token bundle, and clears auth on permanent failure - including a re-entrancy guard so a refresh request that itself 401s doesn't recurse infinitely:",
+        text: "`createZustandTokenStorage` wires the auth store and an `AuthSdk` into the `SgClient` callbacks. It reads the current refresh token from the store, calls `sdk.refresh()` on 401, updates the store with the new token bundle, and clears auth on permanent failure - including a re-entrancy guard so a refresh request that itself 401s doesn't recurse infinitely:",
       },
       {
         type: "code",
         text: `import { createZustandTokenStorage } from "@fusorb/facet-store";
-import { ArcIdClient, AuthSdk } from "@fusorb/facet-sdk";
+import { SgClient, AuthSdk } from "@fusorb/facet-sdk";
 
-const client = new ArcIdClient({
+const client = new SgClient({
   baseUrl,
   onTokenRefresh: createZustandTokenStorage({
     authStore: useAuthStore,

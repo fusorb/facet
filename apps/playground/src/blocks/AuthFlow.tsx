@@ -9,7 +9,7 @@ import { Button } from "@fusorb/facet-components";
  *   sign-in → access token → 401 (expired) → auto-refresh → session
  *   restored → tenant switch → re-authenticate.
  *
- * In a real deployment this plugs onto `@fusorb/facet-auth` (ArcProvider / useAuth),
+ * In a real deployment this plugs onto `@fusorb/facet-auth` (SgProvider / useAuth),
  * whose 401→refresh→tenant wiring mirrors what is animated here.
  */
 const STEPS = [
@@ -96,7 +96,7 @@ export function AuthFlow() {
       </pre>
       <p className="text-xs text-muted-foreground">
         Simulated. Swap the stub for <code>@fusorb/facet-auth</code>{" "}
-        (ArcProvider + useAuth) to drive a real OAuth/SovGrant backend - the
+        (SgProvider + useAuth) to drive a real OAuth/SovGrant backend - the
         401→refresh→tenant path is identical.
       </p>
     </div>

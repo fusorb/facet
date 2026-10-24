@@ -85,7 +85,7 @@ Why is this a package and not a module? A package is justified when:
 | Field | Value |
 |---|---|
 | **Purpose** | Pure-fetch, type-safe client for the Facet API surface. 62 routes across 10 domain SDKs (auth, identity, oauth, tenants, credentials, billing, audit, webhooks, idp). |
-| **Audience** | auth (ArcIdClient), store (session state), apps, consumers backend. |
+| **Audience** | auth (SgClient), store (session state), apps, consumers backend. |
 | **Positioning** | "Type-safe SDK client for every backend route. No UI, no facet deps." |
 | **Surface** | `src/index.ts` (barrel, 10 SDK class exports), generated route index. |
 | **Why a package** | Pure data layer — no UI, no @fusorb dependencies. Can be used without auth/components/layout. Separating it enables the docs package to not depend on it (F2) and enables SDK drift gates. |
@@ -98,7 +98,7 @@ Why is this a package and not a module? A package is justified when:
 |---|---|
 | **Purpose** | Authentication domain: context provider, auth flow orchestrator, Sign In / Sign Up cards, OTP verification, two-factor setup, optional auth hook (`useOptionalAuth`). |
 | **Audience** | Apps and layouts that need authentication UI; docs engine (currently, F2). |
-| **Positioning** | "Auth UI + context wired to ArcIdClient SDK. Drop-in or inject your own client." |
+| **Positioning** | "Auth UI + context wired to SgClient SDK. Drop-in or inject your own client." |
 | **Surface** | `src/index.ts`, `src/auth-context.tsx`, `src/auth-flow.tsx`, `src/sign-in-card.tsx`, `src/sign-up-card.tsx`, `src/otp-verification-card.tsx`, `src/two-factor-setup-panel.tsx`, `src/use-optional-auth.tsx`. |
 | **Why a package** | Auth is a cross-cutting concern with form-validation deps (zod, react-hook-form, otplib, qrcode). Components shouldn't carry auth dependencies. But layout hard-depends on it (F5) — to be fixed by injecting a session seam. |
 | **Disposition** | KEEP — exports `useOptionalAuth` (used by layout, F5) and will export `useAuthSession()` helper (per spec §3). |

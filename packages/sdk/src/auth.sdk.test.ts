@@ -1,16 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 import { AuthSdk } from "./auth.sdk.js";
 
 describe("AuthSdk", () => {
   let fetchMock: ReturnType<typeof vi.fn>;
-  let client: ArcIdClient;
+  let client: SgClient;
   let auth: AuthSdk;
 
   beforeEach(() => {
     fetchMock = vi.fn();
     globalThis.fetch = fetchMock as unknown as typeof fetch;
-    client = new ArcIdClient({ baseUrl: "https://auth.example.dev/api/v1" });
+    client = new SgClient({ baseUrl: "https://auth.example.dev/api/v1" });
     auth = new AuthSdk(client);
   });
 
@@ -153,7 +153,7 @@ describe("AuthSdk", () => {
       expires_in: 900,
       token_type: "Bearer",
     });
-    const configured = new ArcIdClient({
+    const configured = new SgClient({
       baseUrl: "https://auth.example.dev/api/v1",
       clientId: "my-app",
       clientSecret: "s3cret",
@@ -178,7 +178,7 @@ describe("AuthSdk", () => {
       expires_in: 900,
       token_type: "Bearer",
     });
-    const configured = new ArcIdClient({
+    const configured = new SgClient({
       baseUrl: "https://auth.example.dev/api/v1",
       clientId: "my-app",
     });
@@ -208,7 +208,7 @@ describe("AuthSdk", () => {
       expires_in: 3600,
       token_type: "Bearer",
     });
-    const configured = new ArcIdClient({
+    const configured = new SgClient({
       baseUrl: "https://auth.example.dev/api/v1",
       clientId: "svc-client",
       clientSecret: "svc-secret",
@@ -231,7 +231,7 @@ describe("AuthSdk", () => {
       success: true,
       data: { code: "auth-code-123", state: "xyz", consentRequired: false },
     });
-    const configured = new ArcIdClient({
+    const configured = new SgClient({
       baseUrl: "https://auth.example.dev/api/v1",
       clientId: "my-app",
     });

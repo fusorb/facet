@@ -1,11 +1,11 @@
 import * as React from "react";
-import { ArcProvider, SignIn, SignUp, Guard } from "@fusorb/facet-auth";
+import { SgProvider, SignIn, SignUp, Guard } from "@fusorb/facet-auth";
 import { LoginForm, MfaVerifyForm } from "@fusorb/facet-auth";
-import { ArcIdClient } from "@fusorb/facet-sdk";
+import { SgClient } from "@fusorb/facet-sdk";
 import { CodeBlock } from "./CodeBlock.js";
 
 /** No network: bootstrap stays signed out because no token is stored. */
-const DEMO_CLIENT = new ArcIdClient({ baseUrl: "https://demo.invalid" });
+const DEMO_CLIENT = new SgClient({ baseUrl: "https://demo.invalid" });
 
 function PreviewShell({
   title,
@@ -51,7 +51,7 @@ function PreviewShell({
 }
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  return <ArcProvider client={DEMO_CLIENT}>{children}</ArcProvider>;
+  return <SgProvider client={DEMO_CLIENT}>{children}</SgProvider>;
 }
 
 /** Auth preview blocks for the /auth/* docs pages. */

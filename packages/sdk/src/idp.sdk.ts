@@ -4,7 +4,7 @@
  * SovGrant paths: /idp/connections/*
  */
 
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 import type { ApiResponse } from "./client.js";
 import type { IdpConnection } from "./types.js";
 
@@ -25,7 +25,7 @@ export type CreateConnectionParams = {
 /* ── SDK Module ────────────────────────────────────────────── */
 
 export class IdpSdk {
-  constructor(private client: ArcIdClient) {}
+  constructor(private client: SgClient) {}
 
   listConnections(): Promise<ApiResponse<IdpConnection[]>> {
     return this.client.get<IdpConnection[]>("/idp/connections");

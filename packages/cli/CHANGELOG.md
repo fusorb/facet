@@ -343,7 +343,7 @@
 
   These are the foundation of a shared command core: the registry resolver,
   monorepo/workspace detection, and dependency scanning live in reusable lib
-  modules so future product CLIs (e.g. an arcid CLI) can build on them.
+  modules so future product CLIs (e.g. an sg CLI) can build on them.
 
   Also: `-y` shorthand for `--yes` on `facet docs init`, and a docs link
   (https://docs.facet.arcevocirqle.com.ng/cli) in `facet --help`.

@@ -146,7 +146,7 @@ export function getInitials(
  * A circular avatar (image or initials fallback) that opens a dropdown
  * with the user's name/email, optional menu items, organizations, and a
  * sign-out action. Pass the user object straight from the facet SDK's
- * `useAuth()` / `ArcIdClient.me()` (the `User` shape): the component
+ * `useAuth()` / `SgClient.me()` (the `User` shape): the component
  * only needs name/email/picture/memberships.
  *
  * Usage:

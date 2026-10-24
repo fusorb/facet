@@ -1,19 +1,19 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
-import { ArcProvider } from "./provider.js";
-import { ArcIdClient } from "@fusorb/facet-sdk";
+import { SgProvider } from "./provider.js";
+import { SgClient } from "@fusorb/facet-sdk";
 import { createMemoryStorage } from "./test-storage.js";
 import { SignUp } from "./sign-up.js";
 import { LoginForm } from "./forms/auth/login-form.js";
 
 afterEach(() => cleanup());
 
-const client = new ArcIdClient({ baseUrl: "https://auth.example.dev/api/v1" });
+const client = new SgClient({ baseUrl: "https://auth.example.dev/api/v1" });
 
 describe("auth form copy overrides", () => {
   it("SignUp renders custom copy when provided", () => {
     render(
-      <ArcProvider client={client} storage={createMemoryStorage()}>
+      <SgProvider client={client} storage={createMemoryStorage()}>
         <SignUp
           copy={{
             title: "Join the platform",
@@ -26,7 +26,7 @@ describe("auth form copy overrides", () => {
             signInLink: "Log in",
           }}
         />
-      </ArcProvider>,
+      </SgProvider>,
     );
     expect(screen.getByText("Join the platform")).toBeInTheDocument();
     expect(screen.getByText("Your name")).toBeInTheDocument();
@@ -42,9 +42,9 @@ describe("auth form copy overrides", () => {
 
   it("SignUp falls back to default copy when no override", () => {
     render(
-      <ArcProvider client={client} storage={createMemoryStorage()}>
+      <SgProvider client={client} storage={createMemoryStorage()}>
         <SignUp />
-      </ArcProvider>,
+      </SgProvider>,
     );
     expect(screen.getByText("Create an Account")).toBeInTheDocument();
     expect(screen.getByText("Full Name")).toBeInTheDocument();

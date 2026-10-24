@@ -12,7 +12,6 @@ import type {
   LayoutEntry,
   TokenGroup,
   PresetEntry,
-  ExampleEntry,
   SurfaceMap,
 } from "./types.js";
 import data from "./registry.json" with { type: "json" };

@@ -82,7 +82,7 @@ export const DASHBOARD_ACTIVITY: ActivityItem[] = [
     id: "evt-5",
     title: "Webhook delivery",
     description:
-      "credential.issued → https://api.example.com/hooks/arcid (200, 92ms)",
+      "credential.issued → https://api.example.com/hooks/sg (200, 92ms)",
     timestamp: HOURS_AGO(4),
     icon: "webhook",
     accent: "var(--chart-1)",

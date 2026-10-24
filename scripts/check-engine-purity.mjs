@@ -8,7 +8,7 @@
  *
  * Allow-list (explicit, reviewed per spec):
  *   - *.test.{ts,tsx} files
- *   - JSDoc comment lines (// or * or /** ... */ blocks)
+ *   - JSDoc comment lines (line, star-prefixed, or block comments)
  *   - Type-only references to facet types in .d.ts files
  */
 import fs from "node:fs";
@@ -34,7 +34,7 @@ const FACET_IMPORTS = [
 ];
 
 const FACET_NAMES = [
-  "ArcIdClient",
+  "SgClient",
   "DEMO_CLIENT",
   "AuthDemo",
   "AuthPreviews",

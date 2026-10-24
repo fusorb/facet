@@ -2,8 +2,8 @@ import { describe, expect, it, vi, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SignIn } from "./sign-in.js";
-import { ArcProvider } from "./provider.js";
-import { ArcIdClient } from "@fusorb/facet-sdk";
+import { SgProvider } from "./provider.js";
+import { SgClient } from "@fusorb/facet-sdk";
 import { createMemoryStorage } from "./test-storage.js";
 import { defaultConfig } from "./types.js";
 // RTL's auto-cleanup doesn't fire under this setup (shared setup has no RTL),
@@ -14,7 +14,7 @@ afterEach(() => {
 
 describe("SignIn OAuth providers", () => {
   it("renders provider buttons from config and calls onOAuth", async () => {
-    const client = new ArcIdClient({
+    const client = new SgClient({
       baseUrl: "https://auth.example.dev/api/v1",
     });
     const onOAuth = vi.fn();
@@ -26,9 +26,9 @@ describe("SignIn OAuth providers", () => {
     };
 
     render(
-      <ArcProvider client={client} storage={createMemoryStorage()}>
+      <SgProvider client={client} storage={createMemoryStorage()}>
         <SignIn config={config} onOAuth={onOAuth} />
-      </ArcProvider>,
+      </SgProvider>,
     );
 
     // Provider buttons render on the default login form
@@ -47,13 +47,13 @@ describe("SignIn OAuth providers", () => {
 
 describe("SignIn initialStep", () => {
   it("defaults to the login form with embedded methods", async () => {
-    const client = new ArcIdClient({
+    const client = new SgClient({
       baseUrl: "https://auth.example.dev/api/v1",
     });
     render(
-      <ArcProvider client={client} storage={createMemoryStorage()}>
+      <SgProvider client={client} storage={createMemoryStorage()}>
         <SignIn />
-      </ArcProvider>,
+      </SgProvider>,
     );
 
     expect(await screen.findByLabelText(/email/i)).toBeInTheDocument();
@@ -71,13 +71,13 @@ describe("SignIn initialStep", () => {
   });
 
   it('renders the method picker when initialStep="select_method"', async () => {
-    const client = new ArcIdClient({
+    const client = new SgClient({
       baseUrl: "https://auth.example.dev/api/v1",
     });
     render(
-      <ArcProvider client={client} storage={createMemoryStorage()}>
+      <SgProvider client={client} storage={createMemoryStorage()}>
         <SignIn initialStep="select_method" />
-      </ArcProvider>,
+      </SgProvider>,
     );
 
     expect(
@@ -88,13 +88,13 @@ describe("SignIn initialStep", () => {
   });
 
   it('renders the login form when initialStep="login_form"', async () => {
-    const client = new ArcIdClient({
+    const client = new SgClient({
       baseUrl: "https://auth.example.dev/api/v1",
     });
     render(
-      <ArcProvider client={client} storage={createMemoryStorage()}>
+      <SgProvider client={client} storage={createMemoryStorage()}>
         <SignIn initialStep="login_form" />
-      </ArcProvider>,
+      </SgProvider>,
     );
 
     expect(await screen.findByLabelText(/email/i)).toBeInTheDocument();
@@ -104,15 +104,15 @@ describe("SignIn initialStep", () => {
 
 describe("SignIn controlled step", () => {
   it("renders the given step and reports internal transitions via onStepChange", async () => {
-    const client = new ArcIdClient({
+    const client = new SgClient({
       baseUrl: "https://auth.example.dev/api/v1",
     });
     const onStepChange = vi.fn();
 
     const { rerender } = render(
-      <ArcProvider client={client} storage={createMemoryStorage()}>
+      <SgProvider client={client} storage={createMemoryStorage()}>
         <SignIn step="login_form" onStepChange={onStepChange} />
-      </ArcProvider>,
+      </SgProvider>,
     );
 
     // Renders the controlled step.
@@ -127,9 +127,9 @@ describe("SignIn controlled step", () => {
 
     // The parent re-renders with the new step -> SignIn follows it.
     rerender(
-      <ArcProvider client={client} storage={createMemoryStorage()}>
+      <SgProvider client={client} storage={createMemoryStorage()}>
         <SignIn step="magic_link_form" onStepChange={onStepChange} />
-      </ArcProvider>,
+      </SgProvider>,
     );
     expect(await screen.findByLabelText(/email/i)).toBeInTheDocument();
   });

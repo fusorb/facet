@@ -35,7 +35,7 @@ root/
 │   ├── motion/           # Declarative animation system
 │   ├── native/           # Native driver (isolated package)
 │   ├── components/       # 112 UI components + theme system
-│   ├── auth/             # Auth domain components + ArcIdClient
+│   ├── auth/             # Auth domain components + SgClient
 │   ├── sdk/              # Pure-fetch SDK (62 routes, 10 classes)
 │   ├── store/            # Zustand store
 │   ├── emails/           # Email templates
@@ -153,7 +153,7 @@ cli          → components, emails, motion, native, sdk, store, utils
 
 **Boundary violations:**
 - F5: `layout` depends on `@fusorb/facet-auth` (4 source files import `useOptionalAuth`)
-- F2: `docs` depends on `@fusorb/facet-auth` and `@fusorb/facet-sdk` (SDK dep exists only for the gallery's `ArcIdClient` demo)
+- F2: `docs` depends on `@fusorb/facet-auth` and `@fusorb/facet-sdk` (SDK dep exists only for the gallery's `SgClient` demo)
 
 ---
 
@@ -263,7 +263,7 @@ cli          → components, emails, motion, native, sdk, store, utils
   - `lib/variants.tsx` — 4,285 lines: facet-specific variant usage snippets
   - `lib/usage.ts` — 3,162 lines: facet-specific usage code blocks
   - `components/previews.tsx` — 1,813 lines: facet-specific preview configurations
-  - `components/playground-registry.tsx` — 312 lines: facet-specific, creates `DEMO_CLIENT = new ArcIdClient({ baseUrl: "https://demo.invalid" })` — this is why docs depends on sdk (F2)
+  - `components/playground-registry.tsx` — 312 lines: facet-specific, creates `DEMO_CLIENT = new SgClient({ baseUrl: "https://demo.invalid" })` — this is why docs depends on sdk (F2)
   - `components/AuthDemo.tsx`, `components/AuthPreviews.tsx`, `components/LayoutPreviews.tsx`, `components/ReadyToUseDemos.tsx` — facet-specific demo content
   - `components/Playground.tsx`, `components/PlaygroundPage.tsx` — facet-specific playground pages
   - `components/InteractiveDemo.tsx` — facet-specific (uses playground-registry/usage/variants)
@@ -354,7 +354,7 @@ cli          → components, emails, motion, native, sdk, store, utils
   - `public/favicon.svg` — hard-coded colors `#4ad3f5`, `#2db8e0`, `#0a1a2f`
   - `index.html` — Google Fonts `<link>` URL
   - `app.css` — potentially raw color literals (needs check)
-  - `data/dashboard-demo.ts` — `https://api.example.com/hooks/arcid` (example URL)
+  - `data/dashboard-demo.ts` — `https://api.example.com/hooks/sg` (example URL)
   - `data/ecosystem.ts` — `https://auth.example.com/api/v1`, `https://acme.dev/dashboard` (example URLs)
 
 ### 6.2 `apps/playground` — REBUILD
@@ -401,7 +401,7 @@ cli          → components, emails, motion, native, sdk, store, utils
 | # | Finding | Status | Evidence |
 |---|---|---|---|
 | F1 | Docs engine contains facet-specific gallery | **CONFIRMED** | `lib/variants.tsx` (4,285 lines), `lib/usage.ts` (3,162), `components/previews.tsx` (1,813), `components/playground-registry.tsx` (312), `lib/manifest.ts` (`extendedEntries`: 6 hand-written auth/layout entries), `components/AuthDemo.tsx`, `components/AuthPreviews.tsx`, `components/LayoutPreviews.tsx`, `components/ReadyToUseDemos.tsx`, `components/Playground.tsx`, `components/PlaygroundPage.tsx`, `components/InteractiveDemo.tsx`, `pages/ComponentPage.tsx`, `pages/ComponentsPage.tsx`, `pages/PagesPage.tsx`, `pages/ReadyToUsePage.tsx`, `docs-app.test.tsx` (SovGrant fixtures + facet URLs). Docs barrel (`index.ts`) exports `extendedManifest`, `extendedEntries`, `LiveCodePlayground`, `PlaygroundPage`. |
-| F2 | Engine hard-depends on ecosystem | **CONFIRMED** | `packages/docs/package.json` deps: `@fusorb/facet-auth`, `@fusorb/facet-components`, `@fusorb/facet-layout`, `@fusorb/facet-sdk`, `@fusorb/facet-tokens`, `lucide-react`, `prettier`. SDK dep exists because `playground-registry.tsx` builds `DEMO_CLIENT = new ArcIdClient({ baseUrl: "https://demo.invalid" })`. |
+| F2 | Engine hard-depends on ecosystem | **CONFIRMED** | `packages/docs/package.json` deps: `@fusorb/facet-auth`, `@fusorb/facet-components`, `@fusorb/facet-layout`, `@fusorb/facet-sdk`, `@fusorb/facet-tokens`, `lucide-react`, `prettier`. SDK dep exists because `playground-registry.tsx` builds `DEMO_CLIENT = new SgClient({ baseUrl: "https://demo.invalid" })`. |
 | F3 | Router hard-wired | **CONFIRMED** | `docs-app.tsx:114`: `import { BrowserRouter, Routes, Route } from "react-router-dom"` — `DocsApp` renders `BrowserRouter` directly. `tsup.config.ts` has `"use client"` banner workaround. |
 | F4 | Facet vocabulary hard-coded | **CONFIRMED** | `lib/nav.tsx` — `ORDER = ["guides", "auth", "components", "ready-to-use", "pages", "animation", "foundations", "ecosystem"]`; `SECTION_TITLES` map. `DocsContentPage.tsx` — `sectionLabels = ["getting-started", "auth", "components", "ready-to-use"]`. `scripts/gen-docs-manifest.mjs` — `CATEGORY` map. Comment in `manifest.ts` line 4: "covers the ~90 UI components" (F8). |
 | F5 | Layout hard-depends on auth | **CONFIRMED** | `packages/layout/package.json` deps include `@fusorb/facet-auth`. Four files import `useOptionalAuth`: `console-layout.tsx`, `chat-layout.tsx`, `user-menu.tsx`, `sidebar-auth.tsx`. |
@@ -467,8 +467,8 @@ cli          → components, emails, motion, native, sdk, store, utils
 | `apps/docs/src/app.tsx` | `https://github.com/fusorb/facet/discussions` |
 | `apps/docs/src/app.tsx` | `https://github.com/fusorb/facet` |
 | `apps/docs/src/pages.ts` | `https://github.com/fusorb/facet` (in page content) |
-| `packages/docs/src/components/playground-registry.tsx` | `https://demo.invalid` (ArcIdClient base URL — causes F2) |
-| `apps/landing/src/data/dashboard-demo.ts` | `https://api.example.com/hooks/arcid` (example) |
+| `packages/docs/src/components/playground-registry.tsx` | `https://demo.invalid` (SgClient base URL — causes F2) |
+| `apps/landing/src/data/dashboard-demo.ts` | `https://api.example.com/hooks/sg` (example) |
 | `apps/landing/src/data/ecosystem.ts` | `https://auth.example.com/api/v1` (example) |
 | `apps/landing/src/data/ecosystem.ts` | `https://acme.dev/dashboard` (example) |
 | `apps/docs/src/pages.ts` | `https://acme.dev/dashboard` (example) |

@@ -4,7 +4,7 @@
  * SovGrant paths: /webhooks/endpoints/*, /webhooks/events/*
  */
 
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 import type { ApiResponse } from "./client.js";
 import type { WebhookEndpoint, WebhookEvent } from "./types.js";
 
@@ -32,7 +32,7 @@ export type ListEventsParams = {
 /* ── SDK Module ────────────────────────────────────────────── */
 
 export class WebhooksSdk {
-  constructor(private client: ArcIdClient) {}
+  constructor(private client: SgClient) {}
 
   list(): Promise<ApiResponse<WebhookEndpoint[]>> {
     return this.client.get<WebhookEndpoint[]>("/webhooks/endpoints");

@@ -70,7 +70,7 @@ export const INSTALL_STEPS: InstallStep[] = [
   {
     num: "04",
     label: "Wire auth",
-    code: "<ArcProvider client={client}>...</ArcProvider>",
+    code: "<SgProvider client={client}>...</SgProvider>",
   },
   {
     num: "05",

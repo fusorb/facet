@@ -5,7 +5,7 @@
  * SovGrant paths: /tenants/*, /auth/switch-context, /tenants/invites/accept
  */
 
-import { ArcIdClient } from "./client.js";
+import { SgClient } from "./client.js";
 import type { ApiResponse } from "./client.js";
 import type { SwitchContextResult } from "./auth.sdk.js";
 import type {
@@ -23,7 +23,7 @@ import type {
 /* ── SDK Module ────────────────────────────────────────────── */
 
 export class TenantSdk {
-  constructor(private client: ArcIdClient) {}
+  constructor(private client: SgClient) {}
 
   /* ── Tenant CRUD ──────────────────────────────────────────── */
 

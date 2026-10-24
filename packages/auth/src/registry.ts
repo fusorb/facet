@@ -15,7 +15,7 @@
  *     ...
  *   });
  *
- *   <ArcProvider client={client} config={resolvePreset("gov")}>
+ *   <SgProvider client={client} config={resolvePreset("gov")}>
  *   <SignIn config={getPreset("gov")} />
  */
 

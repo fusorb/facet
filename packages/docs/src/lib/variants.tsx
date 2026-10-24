@@ -232,8 +232,8 @@ import {
   type DataTableColumn,
   type BillingPlan,
 } from "@fusorb/facet-components";
-import { ArcProvider, SignIn } from "@fusorb/facet-auth";
-import { ArcIdClient } from "@fusorb/facet-sdk";
+import { SgProvider, SignIn } from "@fusorb/facet-auth";
+import { SgClient } from "@fusorb/facet-sdk";
 import {
   ConsoleLayout,
   AuthLayout,
@@ -246,7 +246,7 @@ import {
 } from "@fusorb/facet-layout";
 
 /** No network: bootstrap stays signed out because no token is stored. */
-const DEMO_CLIENT = new ArcIdClient({ baseUrl: "https://demo.invalid" });
+const DEMO_CLIENT = new SgClient({ baseUrl: "https://demo.invalid" });
 
 /** One cell in the variant gallery: a label plus the rendered example. */
 export interface VariantCell {
@@ -3246,9 +3246,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Email + password",
           node: (
             <div className="w-full max-w-md">
-              <ArcProvider client={DEMO_CLIENT}>
+              <SgProvider client={DEMO_CLIENT}>
                 <SignIn config={{}} step="login_form" />
-              </ArcProvider>
+              </SgProvider>
             </div>
           ),
         },
@@ -3256,12 +3256,12 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Magic link",
           node: (
             <div className="w-full max-w-md">
-              <ArcProvider client={DEMO_CLIENT}>
+              <SgProvider client={DEMO_CLIENT}>
                 <SignIn
                   config={{ allowMagicLink: true }}
                   step="magic_link_form"
                 />
-              </ArcProvider>
+              </SgProvider>
             </div>
           ),
         },
@@ -3269,9 +3269,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Passkey",
           node: (
             <div className="w-full max-w-md">
-              <ArcProvider client={DEMO_CLIENT}>
+              <SgProvider client={DEMO_CLIENT}>
                 <SignIn config={{ allowPasskey: true }} step="passkey_auth" />
-              </ArcProvider>
+              </SgProvider>
             </div>
           ),
         },
@@ -3279,12 +3279,12 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "OAuth",
           node: (
             <div className="w-full max-w-md">
-              <ArcProvider client={DEMO_CLIENT}>
+              <SgProvider client={DEMO_CLIENT}>
                 <SignIn
                   config={{ oauthProviders: ["google", "github"] }}
                   step="login_form"
                 />
-              </ArcProvider>
+              </SgProvider>
             </div>
           ),
         },
@@ -3292,9 +3292,9 @@ export function variantCells(slug: string): VariantCell[] | undefined {
           label: "Forgot password",
           node: (
             <div className="w-full max-w-md">
-              <ArcProvider client={DEMO_CLIENT}>
+              <SgProvider client={DEMO_CLIENT}>
                 <SignIn config={{}} step="forgot_password" />
-              </ArcProvider>
+              </SgProvider>
             </div>
           ),
         },

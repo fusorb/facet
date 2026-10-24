@@ -222,14 +222,14 @@ import {
   InfiniteScrollDemo,
 } from "./ReadyToUseDemos.js";
 import {
-  ArcProvider,
+  SgProvider,
   SignIn,
   SignUp,
   Guard,
   LoginForm,
   MfaVerifyForm,
 } from "@fusorb/facet-auth";
-import { ArcIdClient } from "@fusorb/facet-sdk";
+import { SgClient } from "@fusorb/facet-sdk";
 import {
   ConsoleLayout,
   AuthLayout,
@@ -242,7 +242,7 @@ import {
 } from "@fusorb/facet-layout";
 
 /** No network: bootstrap stays signed out because no token is stored. */
-const DEMO_CLIENT = new ArcIdClient({ baseUrl: "https://demo.invalid" });
+const DEMO_CLIENT = new SgClient({ baseUrl: "https://demo.invalid" });
 
 const IMG =
   "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=faces";
@@ -917,47 +917,47 @@ export function ComponentPreview({
     case "sign-in":
       return (
         <div className="w-full max-w-md">
-          <ArcProvider client={DEMO_CLIENT}>
+          <SgProvider client={DEMO_CLIENT}>
             <SignIn config={{ allowMagicLink: true, allowPasskey: true }} />
-          </ArcProvider>
+          </SgProvider>
         </div>
       );
     case "sign-up":
       return (
         <div className="w-full max-w-md">
-          <ArcProvider client={DEMO_CLIENT}>
+          <SgProvider client={DEMO_CLIENT}>
             <SignUp config={{ allowPasskey: true, allowMagicLink: true }} />
-          </ArcProvider>
+          </SgProvider>
         </div>
       );
     case "mfa-dialog":
       return (
-        <ArcProvider client={DEMO_CLIENT}>
+        <SgProvider client={DEMO_CLIENT}>
           <MfaVerifyForm
             onVerify={async () => {}}
             onRecovery={() => {}}
             onCancel={() => {}}
           />
-        </ArcProvider>
+        </SgProvider>
       );
     case "guard":
       return (
         <div className="w-full max-w-md">
-          <ArcProvider client={DEMO_CLIENT}>
+          <SgProvider client={DEMO_CLIENT}>
             <Guard fallback={<SignIn />}>
               <div className="rounded-lg border border-border p-4 text-sm text-muted-foreground">
                 Signed in content would render here.
               </div>
             </Guard>
-          </ArcProvider>
+          </SgProvider>
         </div>
       );
     case "login-form":
       return (
         <div className="w-full max-w-md">
-          <ArcProvider client={DEMO_CLIENT}>
+          <SgProvider client={DEMO_CLIENT}>
             <LoginForm onSubmit={async () => null} validate />
-          </ArcProvider>
+          </SgProvider>
         </div>
       );
     case "console-layout":
@@ -1495,7 +1495,7 @@ export function ComponentPreview({
             },
             {
               kind: "security" as const,
-              text: "ArcProvider dev-time warning on defaultStorage",
+              text: "SgProvider dev-time warning on defaultStorage",
             },
           ],
         },

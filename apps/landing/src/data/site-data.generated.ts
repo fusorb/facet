@@ -22,7 +22,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   },
   {
     "name": "@fusorb/facet-components",
-    "desc": "Radix-based UI component library: 113 accessible, styled components using the Alpha Palette design tokens",
+    "desc": "Radix-based UI component library: 112 accessible, styled components using the Alpha Palette design tokens",
     "version": "3.1.0",
     "icon": "boxes"
   },
@@ -34,7 +34,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   },
   {
     "name": "@fusorb/facet-auth",
-    "desc": "Domain-customizable auth components: ArcProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
+    "desc": "Domain-customizable auth components: SgProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
     "version": "1.3.7",
     "icon": "shield-check"
   },

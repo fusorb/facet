@@ -68,8 +68,8 @@
   The SDK is now a proper OAuth2/OIDC client for third-party integrations,
   not just a first-party session client:
 
-  - `ArcIdClientConfig` gains `clientId` + `clientSecret` (optional), and
-    `ArcIdClient.setClientCredentials()` for dynamic integration.
+  - `SgClientConfig` gains `clientId` + `clientSecret` (optional), and
+    `SgClient.setClientCredentials()` for dynamic integration.
   - `AuthSdk.refresh()` now sends `client_id` (and `client_secret`) when
     configured -- required by SovGrant's TokenExchangeSchema for all clients
     (the backend defaults only cover the first-party direct client).

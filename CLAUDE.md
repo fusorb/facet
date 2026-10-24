@@ -51,11 +51,11 @@ apps/landing/          ← Landing page
 ## SDK Architecture
 
 `@fusorb/facet-sdk` is a pure fetch client. No React, no axios. Each API domain
-gets its own class that takes `ArcIdClient` in its constructor. Consumers
+gets its own class that takes `SgClient` in its constructor. Consumers
 instantiate the modules they need:
 
 ```ts
-const client = new ArcIdClient({ baseUrl });
+const client = new SgClient({ baseUrl });
 const auth = new AuthSdk(client);
 const { data, error } = await auth.signIn({ email, password });
 ```
@@ -100,7 +100,7 @@ COMPLETE → (onSuccess callback) → redirect
 1. ✅ `packages/tokens/`: Complete
 2. ✅ `packages/sdk/`: Complete, strict domain types (`sdk/src/types.ts`)
 3. ✅ `packages/components/`: 112 styled Radix components + theme system + IconRegistry (Stepper, KanbanBoard, ChangelogCard + ChangelogFeed are the canonical changelog surface (ChangelogList, ChangelogWithDate removed); WizardFormPage, DateRangePicker, Chart, EmptyStatePage, QrScanner, ConsentCapture, PricingComparison, Tree, MultiCombobox, TagInput, RangeSlider, RatingInput, CookieBanner, OtpInput, RichTextEditor, PhoneInput, MentionInput, ShineBorderCard, Pill added in 1.12.0)
-4. ✅ `packages/auth/`: ArcProvider, SignIn (controlled `step`/`onStepChange` API), SignUp, UserButton, Guard, MfaDialog, 7 standalone forms
+4. ✅ `packages/auth/`: SgProvider, SignIn (controlled `step`/`onStepChange` API), SignUp, UserButton, Guard, MfaDialog, 7 standalone forms
 5. ✅ `packages/layout/`: ConsoleLayout (full + rail modes), AuthLayout (renamed from AppLayout, alias kept), LandingLayout, DocsLayout (collapsed sidebar variant: one-button collapse-all for sidebar rail + all nav sections + aside), 5 presets
 6. ✅ `packages/docs/`: installable config-driven docs engine (`@fusorb/facet-docs`) + thin demo consumer at `apps/docs/` (`@fusorb/facet-docs-site`)
 7. ✅ Changesets + npm publish pipeline
@@ -124,7 +124,7 @@ When SovGrant adopts facet as its frontend, these need resolution:
 
 **Resolved blockers (were blockers, now fixed):**
 
-1. ✅ **SDK 401 auto-refresh**: Added `onTokenRefresh` callback to `ArcIdClient` (`client.ts:113-124`). Automatic retry on 401.
+1. ✅ **SDK 401 auto-refresh**: Added `onTokenRefresh` callback to `SgClient` (`client.ts:113-124`). Automatic retry on 401.
 2. ✅ **Placeholder handlers**: `handlePasskeyAuth` now calls `passkeySdk.authenticationOptions()` → `navigator.credentials.get()` → `passkeySdk.authenticate()`. `handleForgotPasswordSubmit` calls `authSdk.forgotPassword()`. No longer stubs.
 3. ✅ **Test infrastructure**: Vitest workspace, 980 tests across 78 files (11 projects: sdk, store, components, auth, layout, cli, motion, native, sandbox, docs, emails).
 4. ✅ **SignIn MFA challenge**: Wired to `MfaVerifyForm` (2026-07-31).

@@ -840,11 +840,11 @@ function Example() {
   );
 }`,
   "sign-in": `import { SignIn } from "@fusorb/facet-auth";
-import { ArcProvider } from "@fusorb/facet-auth";
+import { SgProvider } from "@fusorb/facet-auth";
 
-<ArcProvider client={client}>
+<SgProvider client={client}>
   <SignIn config={fintechPreset} />
-</ArcProvider>`,
+</SgProvider>`,
   "console-layout": `import { ConsoleLayout, defaultLayoutPreset } from "@fusorb/facet-layout";
 
 <ConsoleLayout config={defaultLayoutPreset} mode="full">

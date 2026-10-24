@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ArcProvider, SignIn } from "@fusorb/facet-auth";
+import { SgProvider, SignIn } from "@fusorb/facet-auth";
 import type { SignInStep } from "@fusorb/facet-auth";
-import { ArcIdClient } from "@fusorb/facet-sdk";
+import { SgClient } from "@fusorb/facet-sdk";
 import {
   Checkbox,
   Label,
@@ -70,9 +70,9 @@ function methodEnabled(
  * lockstep. On large screens the method switcher and live preview sit
  * side-by-side with the copyable code below.
  *
- * The demo is intentionally client-free: <ArcProvider> bootstraps signed
+ * The demo is intentionally client-free: <SgProvider> bootstraps signed
  * out (no stored token -> no network call), and <SignIn> renders its
- * method forms purely from `config`. Consumers wiring a real ArcIdClient
+ * method forms purely from `config`. Consumers wiring a real SgClient
  * get the full login/MFA flow.
  */
 export function AuthDemo({ initialConfig }: AuthDemoProps) {
@@ -84,9 +84,9 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
   const [step, setStep] = React.useState<AuthDemoStep>("login_form");
 
   // No network: bootstrap stays signed out because no token is stored.
-  // A real consumer passes their own ArcIdClient here.
+  // A real consumer passes their own SgClient here.
   const client = React.useMemo(
-    () => new ArcIdClient({ baseUrl: "https://demo.invalid" }),
+    () => new SgClient({ baseUrl: "https://demo.invalid" }),
     [],
   );
 
@@ -289,7 +289,7 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ArcProvider client={client}>
+            <SgProvider client={client}>
               <SignIn
                 config={config}
                 step={step}
@@ -298,7 +298,7 @@ export function AuthDemo({ initialConfig }: AuthDemoProps) {
                   complete: <p className="text-sm text-success">Signed in!</p>,
                 }}
               />
-            </ArcProvider>
+            </SgProvider>
           </CardContent>
         </Card>
       </div>

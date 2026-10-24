@@ -10,7 +10,7 @@
  * hijacking, including long-lived refresh tokens.
  *
  * For production, either:
- * 1. Pass an explicit `storage` prop to `<ArcProvider>` backed by httpOnly
+ * 1. Pass an explicit `storage` prop to `<SgProvider>` backed by httpOnly
  *    cookies (refresh token in cookie, access token in memory), or
  * 2. Use a custom `TokenStorage` that encrypts or avoids persisting the
  *    refresh token.
@@ -23,8 +23,8 @@ export interface TokenStorage {
   clearTokens: () => void;
 }
 
-const ACCESS_KEY = "arcid_access_token";
-const REFRESH_KEY = "arcid_refresh_token";
+const ACCESS_KEY = "sg_access_token";
+const REFRESH_KEY = "sg_refresh_token";
 
 function hasWindow(): boolean {
   return (
@@ -41,7 +41,7 @@ function warnDefaultStorage(): void {
   console.warn(
     "[@fusorb/facet-auth] `defaultStorage` writes tokens to localStorage, which is " +
       "vulnerable to XSS. For production, pass an explicit `storage` prop to " +
-      "<ArcProvider> backed by httpOnly cookies. This warning is shown once.",
+      "<SgProvider> backed by httpOnly cookies. This warning is shown once.",
   );
 }
 
