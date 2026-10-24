@@ -23,8 +23,9 @@ design manual (Alpha Palette), and your auth requirements differ per sector
 | `@fusorb/facet-emails`     | Framework-agnostic email builder + React bridge (`renderEmail`, `emailLayout`, `EmailLayout`)                                                                                              | ✅ 1.1.3  |
 | `@fusorb/facet-sandbox`    | Framework-agnostic live-preview host: block registry, adapter seam + React JSX adapter (no eval)                                                                                           | ✅ 2.0.0  |
 | `@fusorb/facet-utils`      | Shared styling utilities (`cn`) consumed by components + motion                                                                                                                            | ✅ 0.1.0  |
+| `@fusorb/facet-registry`   | Workspace scanner → `registry.json` + typed accessors (packages, components, layouts, motion, tokens, presets, surfaces)                                                                  | 🔒 private |
 
-Current versions: tokens 1.5.0, sdk 1.2.1, motion 1.2.1, native 1.2.1, components 3.1.0, auth 1.3.7, layout 1.5.7, store 1.0.1, docs 1.5.7, cli 1.1.3, emails 1.1.3, sandbox 2.0.0, utils 0.1.0.
+Current versions: tokens 1.5.0, sdk 1.2.1, motion 1.2.1, native 1.2.1, components 3.1.0, auth 1.3.7, layout 1.5.7, store 1.0.1, docs 1.5.7, cli 1.1.3, emails 1.1.3, sandbox 2.0.0, utils 0.1.0 (`registry` 0.1.0 is private/workspace-only).
 
 ## Sites
 
@@ -38,7 +39,7 @@ Run locally:
 The docs site (`apps/docs`) is a thin consumer of the installable
 `@fusorb/facet-docs` engine, the same package any project can mount with its
 own brand, nav, and pages. Guides cover getting started, auth, layout, themes,
-tokens, and the docs package itself; the component gallery shows all 113 components with live demos and usage tabs.
+tokens, and the docs package itself; the component gallery shows all 112 components with live demos and usage tabs.
 
 ```sh
 pnpm dev:docs-site  # run the docs site locally (Vite, port 5173)
@@ -67,7 +68,7 @@ existing `package.json` rather than overwriting it. See
 pnpm install
 pnpm build
 pnpm test      # vitest workspace (11 projects: sdk, store, components, auth, layout, cli, motion, native, sandbox, docs, emails)
-pnpm typecheck # all 13 packages + 3 apps (16 workspaces)
+pnpm typecheck # all 14 packages + 3 apps (17 workspaces)
 ```
 
 Consume in your app:
