@@ -11,12 +11,11 @@
  */
 
 import * as React from "react";
-import { useOptionalAuth } from "@fusorb/facet-auth";
 import { LayoutProvider, useLayout } from "./layout-context.js";
 import { Sidebar } from "./sidebar.js";
 import { useIsDesktop } from "./use-is-desktop.js";
 import { cn } from "@fusorb/facet-components";
-import type { LayoutConfig } from "./types.js";
+import type { LayoutConfig, LayoutSession } from "./types.js";
 import type { RouterAdapter } from "./router.js";
 
 /* ── Props ────────────────────────────────────────────────── */
@@ -48,6 +47,8 @@ export interface ChatLayoutProps {
   inputPlaceholder?: string;
   /** Framework-aware sidebar navigation links. */
   router?: RouterAdapter;
+  /** Injected auth session. When omitted, the shell renders as signed-out (no user) but authenticated. */
+  session?: LayoutSession;
   /** Extra classes merged onto the root shell element. */
   className?: string;
 }
@@ -158,14 +159,13 @@ function ChatLayoutInner({
   inputPlaceholder,
   className,
 }: ChatLayoutProps) {
-  const { sidebarOpen, setSidebarOpen } = useLayout();
+  const { sidebarOpen, setSidebarOpen, session } = useLayout();
   const isDesktop = useIsDesktop();
 
-  // Auth is optional. Without an <SgProvider>, treat the user as
-  // authenticated so the shell works for static/docs chat sites too.
-  const auth = useOptionalAuth();
-  const isAuthenticated = auth?.isAuthenticated ?? true;
-  const isLoading = auth?.isLoading ?? false;
+  // Auth comes from the injected session (defaults to signed-out-but-
+  // authenticated so the shell works for static/docs chat sites too).
+  const isAuthenticated = session.isAuthenticated;
+  const isLoading = session.isLoading;
 
   // Click-outside (and Escape) closes the mobile sidebar. Declared before the
   // conditional returns so hook order stays stable across loading/auth
@@ -284,7 +284,7 @@ function MenuIcon() {
 
 export function ChatLayout(props: ChatLayoutProps) {
   return (
-    <LayoutProvider router={props.router}>
+    <LayoutProvider router={props.router} session={props.session}>
       <ChatLayoutInner {...props} />
     </LayoutProvider>
   );

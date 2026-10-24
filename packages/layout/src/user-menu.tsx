@@ -2,18 +2,18 @@
  * @fusorb/facet-layout: User Menu
  *
  * Avatar + dropdown with user info, settings link, and sign out.
- * Uses useAuth() from @fusorb/facet-auth and UserAvatar from @fusorb/facet-components.
+ * Uses the injected layout session (via useLayout) and UserAvatar from
+ * @fusorb/facet-components.
  */
 
 import * as React from "react";
-import { useOptionalAuth } from "@fusorb/facet-auth";
 import { UserAvatar, Skeleton } from "@fusorb/facet-components";
 import { useLayout } from "./layout-context.js";
 
 export interface UserMenuProps {
   /** Path to settings page. Default: "/settings/profile" */
   settingsPath?: string;
-  /** Callback when "Sign out" is clicked. Default: calls logout() from useAuth */
+  /** Callback when "Sign out" is clicked. Default: calls signOut() from the injected session */
   onSignOut?: () => void;
   /** Additional topbar actions (notifications, theme toggle, etc.) */
   children?: React.ReactNode;
@@ -24,21 +24,18 @@ export function UserMenu({
   onSignOut,
   children,
 }: UserMenuProps) {
-  const auth = useOptionalAuth();
-  const { router } = useLayout();
+  const { router, session } = useLayout();
 
-  const logout = auth?.logout;
+  const signOut = session.signOut;
   const handleSignOut = React.useCallback(async () => {
     if (onSignOut) {
       onSignOut();
-    } else if (logout) {
-      await logout();
+    } else {
+      await signOut();
     }
-  }, [logout, onSignOut]);
+  }, [signOut, onSignOut]);
 
-  // No auth context: hide the user menu (docs/static sites).
-  if (!auth) return null;
-  const { user, isLoading } = auth;
+  const { user, isLoading } = session;
 
   if (isLoading) {
     return (

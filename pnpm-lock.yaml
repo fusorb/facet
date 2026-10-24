@@ -671,9 +671,6 @@ importers:
 
   packages/layout:
     dependencies:
-      '@fusorb/facet-auth':
-        specifier: workspace:*
-        version: link:../auth
       '@fusorb/facet-components':
         specifier: workspace:*
         version: link:../components

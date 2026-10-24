@@ -9,7 +9,6 @@
  */
 
 import * as React from "react";
-import { useOptionalAuth } from "@fusorb/facet-auth";
 import { cn } from "@fusorb/facet-components";
 import {
   useLayout,
@@ -21,7 +20,7 @@ import { Sidebar, BrandLogo } from "./sidebar.js";
 import { Topbar } from "./topbar.js";
 import { CommandPalette } from "./search.js";
 import { useIsDesktop } from "./use-is-desktop.js";
-import type { ConsoleLayoutMode, LayoutConfig, TenantReference } from "./types.js";
+import type { ConsoleLayoutMode, LayoutConfig, TenantReference, LayoutSession } from "./types.js";
 import type { RouterAdapter } from "./router.js";
 
 /** True when a keyboard event originated inside a text-editable control. */
@@ -45,6 +44,8 @@ export interface ConsoleLayoutProps {
   mode?: ConsoleLayoutMode;
   /** Framework-aware navigation (Next <Link>, react-router <Link>, ...). */
   router?: RouterAdapter;
+  /** Injected auth session. When omitted, the shell renders as signed-out (no user) but authenticated. */
+  session?: LayoutSession;
   /** Extra content rendered at the right side of the topbar (links, toggles). */
   topbar?: React.ReactNode;
   /**
@@ -107,6 +108,7 @@ function ConsoleLayoutInner({
     sidebarCollapsed,
     sidebarWidth,
     toggleSidebarCollapsed,
+    session,
   } = useLayout();
   const isDesktop = useIsDesktop();
 
@@ -134,12 +136,10 @@ function ConsoleLayoutInner({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mode, toggleSidebarCollapsed]);
 
-  // Auth is optional. Without an <SgProvider>, treat the user as
-  // authenticated so the shell works for docs/static sites that have
-  // no auth context.
-  const auth = useOptionalAuth();
-  const isAuthenticated = auth?.isAuthenticated ?? true;
-  const isLoading = auth?.isLoading ?? false;
+  // Auth comes from the injected session (defaults to signed-out-but-
+  // authenticated so the shell works for docs/static sites).
+  const isAuthenticated = session.isAuthenticated;
+  const isLoading = session.isLoading;
 
   // Click-outside (and Escape) closes the mobile sidebar. The hamburger is
   // excluded via [data-mobile-trigger] so click-to-pin works even while the
@@ -310,7 +310,7 @@ function ConsoleLayoutInner({
 
 export function ConsoleLayout(props: ConsoleLayoutProps) {
   return (
-    <LayoutProvider router={props.router}>
+    <LayoutProvider router={props.router} session={props.session}>
       <ConsoleLayoutInner {...props} />
     </LayoutProvider>
   );

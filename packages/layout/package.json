@@ -47,7 +47,6 @@
     "dashboard"
   ],
   "dependencies": {
-    "@fusorb/facet-auth": "workspace:*",
     "@fusorb/facet-components": "workspace:*"
   },
   "peerDependencies": {

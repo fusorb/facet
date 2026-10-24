@@ -8,13 +8,13 @@
  * docs quick links, etc.).  A direct "Sign out" button is rendered below
  * in red so it's always accessible without opening the dropdown.
  *
- * Uses useOptionalAuth() from @fusorb/facet-auth — when no auth context
- * is present (static/docs-only sites) the component renders nothing.
+ * Uses the injected layout session (via useLayout) — when no user is
+ * present (static/docs-only sites) the component renders nothing.
  */
 
 import * as React from "react";
-import { useOptionalAuth } from "@fusorb/facet-auth";
 import { UserAvatar } from "@fusorb/facet-components";
+import { useLayout } from "./layout-context.js";
 import type {
   UserAvatarUser,
   UserAvatarMenuItem,
@@ -62,21 +62,18 @@ export function SidebarAuth({
   settingsHref,
   renderSettingsLink,
 }: SidebarAuthProps) {
-  const auth = useOptionalAuth();
+  const { session } = useLayout();
 
-  const logout = auth?.logout;
+  const signOut = session.signOut;
   const handleSignOut = React.useCallback(async () => {
     try {
-      await logout?.();
+      await signOut();
     } catch {
-      // Ignore — auth may be optional or handled by the consumer.
+      // Ignore — sign out may be handled by the consumer or a no-op.
     }
-  }, [logout]);
+  }, [signOut]);
 
-  // No auth context: hide the panel entirely (docs/static sites).
-  if (!auth) return null;
-
-  const { user, isLoading } = auth;
+  const { user, isLoading } = session;
 
   // Still loading — show a placeholder.
   if (isLoading) {

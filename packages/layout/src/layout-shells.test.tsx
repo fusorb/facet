@@ -85,7 +85,7 @@ describe("PageHeader", () => {
 });
 
 describe("UserMenu", () => {
-  it("renders nothing without an auth context", () => {
+  it("renders nothing without an injected session (no user)", () => {
     const { container } = render(
       <LayoutProvider>
         <UserMenu />
