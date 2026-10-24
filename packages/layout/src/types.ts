@@ -7,6 +7,7 @@
  */
 
 import type { ReactNode } from "react";
+import type { UserAvatarUser } from "@fusorb/facet-components";
 import type { RouterAdapter } from "./router.js";
 
 /* ── Nav shape (mirrors SovGrant's navConfig structure) ──────── */
@@ -89,6 +90,24 @@ export interface TenantReference {
 /** ConsoleLayout sidebar mode. "full" = always-labeled sidebar, "rail" = collapsible icon-only sidebar. */
 export type ConsoleLayoutMode = "full" | "rail";
 
+/* ── Layout session (injected auth seam) ─────────────────── */
+
+/**
+ * Minimal auth state a layout shell needs. Injected via `LayoutProvider`
+ * `session` so layout never depends on `@fusorb/facet-auth` directly.
+ * Consumers wire their own auth (e.g. `useAuthSession()` from facet-auth).
+ */
+export interface LayoutSession {
+  /** The authenticated user, or null when signed out / no session. */
+  user: UserAvatarUser | null;
+  /** Whether the user is currently authenticated. */
+  isAuthenticated: boolean;
+  /** Whether the session is still being restored/hydrated. */
+  isLoading: boolean;
+  /** Signs the current user out. */
+  signOut: () => void | Promise<void>;
+}
+
 /* ── Layout context value ─────────────────────────────────── */
 
 export interface LayoutContextValue {
@@ -132,6 +151,8 @@ export interface LayoutContextValue {
   expandAllSidebar: () => void;
   /** Framework-aware navigation. Always provided by LayoutProvider. */
   router: RouterAdapter;
+  /** Injected auth session. Defaults to an unauthenticated no-user session. */
+  session: LayoutSession;
 }
 
 /* ── Component props ──────────────────────────────────────── */
@@ -140,4 +161,7 @@ export interface LayoutProviderProps {
   children: ReactNode;
   /** Framework-aware navigation. Defaults to window.location + plain <a>. */
   router?: RouterAdapter;
+  /** Injected auth session. When omitted, the shell renders as signed-out
+   *  (no user) but authenticated, so static/docs sites work without auth. */
+  session?: LayoutSession;
 }

@@ -19,6 +19,7 @@ export type {
   LayoutFeatures,
   LayoutConfig,
   TenantReference,
+  LayoutSession,
   LayoutContextValue,
   LayoutProviderProps,
   ConsoleLayoutMode,

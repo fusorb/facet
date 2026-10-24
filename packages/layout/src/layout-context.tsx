@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import type { LayoutContextValue } from "./types.js";
+import type { LayoutContextValue, LayoutSession } from "./types.js";
 import { createDefaultAdapter, type RouterAdapter } from "./router.js";
 
 const LayoutContext = React.createContext<LayoutContextValue | null>(null);
@@ -30,13 +30,24 @@ export const SIDEBAR_RAIL_WIDTH = 68;
 /** Fixed topbar height (px). Kept in sync with the `h-14` class. */
 export const TOPBAR_HEIGHT = 56;
 
+/** Signed-out-but-not-loading session used when no session is injected. */
+const DEFAULT_SESSION: LayoutSession = {
+  user: null,
+  isAuthenticated: true,
+  isLoading: false,
+  signOut: async () => {},
+};
+
 export function LayoutProvider({
   children,
   router,
+  session = DEFAULT_SESSION,
 }: {
   children: React.ReactNode;
   /** Framework-aware navigation. Defaults to window.location + plain <a>. */
   router?: RouterAdapter;
+  /** Injected auth session. Defaults to a signed-out no-user session. */
+  session?: LayoutSession;
 }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
   const [sidebarPinned, setSidebarPinned] = React.useState(false);
@@ -283,6 +294,7 @@ export function LayoutProvider({
       collapseAllSidebar,
       expandAllSidebar,
       router: activeRouter,
+      session,
     }),
     [
       sidebarOpen,
@@ -307,6 +319,7 @@ export function LayoutProvider({
       collapseAllSidebar,
       expandAllSidebar,
       activeRouter,
+      session,
     ],
   );
 
