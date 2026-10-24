@@ -24,6 +24,17 @@ export default defineConfig([
     },
   },
   {
+    // Declaration files legitimately use empty interfaces to augment third-party
+    // module types (e.g. merging jest-dom matchers into @vitest/expect).
+    files: ["**/*.d.ts"],
+    rules: {
+      "@typescript-eslint/no-empty-object-type": [
+        "error",
+        { allowInterfaces: "with-single-extends" },
+      ],
+    },
+  },
+  {
     // CommonJS scripts legitimately use require().
     files: ["**/*.cjs"],
     rules: {
