@@ -18,6 +18,11 @@ const committedPath = path.join(root, "packages/registry/src/registry.json");
 const committed = JSON.parse(fs.readFileSync(committedPath, "utf-8"));
 const fresh = buildRegistry();
 
+// `generatedFrom.at` is a wall-clock timestamp, not a reproducible scan
+// fact — exclude it so the gate detects real drift only.
+delete committed.generatedFrom.at;
+delete fresh.generatedFrom.at;
+
 const committedJson = JSON.stringify(committed, null, 2) + "\n";
 const freshJson = JSON.stringify(fresh, null, 2) + "\n";
 

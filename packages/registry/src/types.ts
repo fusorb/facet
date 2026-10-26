@@ -70,10 +70,27 @@ export interface LayoutEntry {
   props: string[];
 }
 
+export interface MotionFamilyEntry {
+  id: string;
+  label: string;
+  count: number;
+}
+
+export interface MotionAuthoredEntry {
+  id: string;
+  label: string;
+  family: string;
+}
+
+export interface MotionDomainEntry {
+  name: string;
+  preset: string;
+}
+
 export interface MotionRegistryEntry {
-  families: string[];
-  authored: string[];
-  domains: string[];
+  families: MotionFamilyEntry[];
+  authored: MotionAuthoredEntry[];
+  domains: MotionDomainEntry[];
   total: number;
 }
 

@@ -13,6 +13,9 @@ import type {
   TokenGroup,
   PresetEntry,
   SurfaceMap,
+  MotionFamilyEntry,
+  MotionAuthoredEntry,
+  MotionDomainEntry,
 } from "./types.js";
 import data from "./registry.json" with { type: "json" };
 
@@ -31,6 +34,9 @@ export type {
   ExampleEntry,
   SurfaceMap,
   ViewportSpec,
+  MotionFamilyEntry,
+  MotionAuthoredEntry,
+  MotionDomainEntry,
 } from "./types.js";
 
 /* ── Packages ───────────────────────────────────────────── */
@@ -72,15 +78,15 @@ export function listLayouts(): LayoutEntry[] {
 
 /* ── Motion ─────────────────────────────────────────────── */
 
-export function listMotionFamilies(): string[] {
+export function listMotionFamilies(): MotionFamilyEntry[] {
   return registry.motion.families;
 }
 
-export function listMotionAuthored(): string[] {
+export function listMotionAuthored(): MotionAuthoredEntry[] {
   return registry.motion.authored;
 }
 
-export function listMotionDomains(): string[] {
+export function listMotionDomains(): MotionDomainEntry[] {
   return registry.motion.domains;
 }
 

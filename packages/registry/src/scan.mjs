@@ -283,6 +283,7 @@ function scanTokens() {
     groups,
     colorSpace,
     totalVars: vars.size,
+    vars: [...vars],
   };
 }
 
