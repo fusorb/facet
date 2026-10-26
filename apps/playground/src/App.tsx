@@ -6,8 +6,7 @@ import {
   PageHeader,
   createDefaultAdapter,
 } from "@fusorb/facet-layout";
-import type { SandboxConfig } from "@fusorb/facet-sandbox";
-import { Sandbox, reactAdapter } from "@fusorb/facet-sandbox/react";
+import { LivePlayground } from "@fusorb/facet-sandbox/live";
 import { MotionDemo } from "./blocks/MotionDemo.js";
 import { AuthFlow } from "./blocks/AuthFlow.js";
 import { StackAgnosticism } from "./blocks/StackAgnosticism.js";
@@ -96,8 +95,8 @@ export function App() {
   const [device, setDevice] = useState<Device>(DEVICE[0].id);
 
   // Re-create the preview component whenever the preset changes so the
-  // Sandbox parser picks up the new motion profile. The parser invokes
-  // `<Demo />` with no attributes, so no props are forwarded.
+  // live-JSX interpreter picks up the new motion profile. The interpreter
+  // invokes `<Demo />` with no attributes, so no props are forwarded.
   const components = useMemo(
     () => ({
       Demo: () => <MotionDemo preset={preset} />,
@@ -105,14 +104,7 @@ export function App() {
     [preset],
   );
 
-  const sandboxConfig: SandboxConfig = useMemo(
-    () => ({
-      defaultCode: "return <Demo />",
-      title: `${preset} motion preview`,
-      adapter: "react",
-    }),
-    [preset],
-  );
+  const [code, setCode] = useState("return <Demo />");
 
   // Reuse the framework-agnostic anchor from the default adapter, but match
   // against the hash so sidebar clicks toggle SPA tabs (not page reloads).
@@ -181,15 +173,22 @@ export function App() {
           description={TAB_DESCRIPTIONS[tab]}
           actions={actions}
         />
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center gap-4">
           {tab === "motion" && (
-            <Sandbox
-              config={sandboxConfig}
-              components={components}
-              adapter={reactAdapter}
-              classNames={{ preview: `preview-device-${device}` }}
-              className="max-w-full"
-            />
+            <div className="w-full max-w-full">
+              <textarea
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                className="w-full max-w-full font-mono text-xs"
+                rows={3}
+              />
+              <LivePlayground
+                code={code}
+                components={components}
+                className={`preview-device-${device}`}
+                onError={(err) => console.error("[sandbox]", err)}
+              />
+            </div>
           )}
           {tab === "auth" && <AuthFlow />}
           {tab === "stack" && <StackAgnosticism />}

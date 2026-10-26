@@ -8,7 +8,12 @@ import { defineConfig } from "tsup";
  * harmless under plain <script> usage and keeps the library usable in RSC trees.
  */
 export default defineConfig({
-  entry: ["src/index.ts", "src/react/index.tsx"],
+  entry: [
+    "src/index.ts",
+    "src/core/index.ts",
+    "src/react/index.tsx",
+    "src/live/index.tsx",
+  ],
   format: "esm",
   dts: true,
   clean: true,
