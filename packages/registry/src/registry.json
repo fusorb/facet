@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "d916f5dde4c9181a03d9e0dd75e40df1329acc8f",
-    "at": "2026-10-25T09:58:16.709Z"
+    "commit": "ea01750122d80cdcecdcd8ab7e2feba2fc6bd1f0",
+    "at": "2026-10-27T03:15:45.448Z"
   },
   "packages": [
     {
@@ -127,6 +127,7 @@
       ],
       "exports": [
         ".",
+        "./skeleton",
         "./package.json"
       ],
       "mainExport": ".",
@@ -295,7 +296,7 @@
       "name": "@fusorb/facet-sandbox",
       "version": "2.0.0",
       "summary": "Interactive lab kit: live JSX runtime + stage/inspector",
-      "description": "Framework-agnostic live-preview sandbox host: block registry, adapter seam, security helpers. Ships no framework code; the React adapter ships under /react.",
+      "description": "Framework-agnostic artifact model + live-JSX runtime. Zero-dep /core, React lab kit under /react, no-eval JSX interpreter + URL sanitizer under /live.",
       "category": "tooling",
       "icon": "play",
       "order": 12,
@@ -307,7 +308,9 @@
       ],
       "exports": [
         ".",
+        "./core",
         "./react",
+        "./live",
         "./package.json"
       ],
       "mainExport": ".",
