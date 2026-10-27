@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { render } from "@testing-library/react";
-import { LayoutSkeleton } from "./index.tsx";
+import { LayoutSkeleton } from "./index";
 
 describe("LayoutSkeleton", () => {
   it("renders each kind without crashing", () => {
@@ -73,6 +73,18 @@ describe("LayoutSkeleton", () => {
       <LayoutSkeleton kind="console" density="spacious" />,
     );
     expect(spacious.querySelector(".gap-4.md\\:gap-8")).not.toBeNull();
+  });
+
+  it("density adjusts main content padding (compact vs spacious)", () => {
+    const { container: compact } = render(
+      <LayoutSkeleton kind="console" density="compact" />,
+    );
+    expect(compact.querySelector(".p-3.md\\:p-4")).not.toBeNull();
+
+    const { container: spacious } = render(
+      <LayoutSkeleton kind="console" density="spacious" />,
+    );
+    expect(spacious.querySelector(".p-6.md\\:p-8")).not.toBeNull();
   });
 
   it("merges className onto root", () => {

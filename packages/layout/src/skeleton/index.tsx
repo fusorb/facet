@@ -64,15 +64,16 @@ interface BarsProps {
   count: number;
   className?: string;
   lastWidth?: string;
+  barHeight?: string;
 }
 
-function Bars({ count, className, lastWidth = "w-4/5" }: BarsProps) {
+function Bars({ count, className, lastWidth = "w-4/5", barHeight = "h-4" }: BarsProps) {
   return (
     <div className={cn("space-y-2", className)}>
       {Array.from({ length: count }).map((_, i) => (
         <Skeleton
           key={i}
-          className={cn("h-4 w-full rounded", i === count - 1 && lastWidth)}
+          className={cn(barHeight, "w-full rounded", i === count - 1 && lastWidth)}
         />
       ))}
     </div>
@@ -137,11 +138,12 @@ function MainContentSkeleton({
   density,
   barCount = 3,
 }: { density: string; barCount?: number }) {
+  const barHeight = DENSITY_BAR[density as keyof typeof DENSITY_BAR];
   return (
-    <main className="flex-1 p-6">
-      <Bars count={barCount} className="mb-4" />
+    <main className={cn("flex-1", DENSITY_PAD[density as keyof typeof DENSITY_PAD])}>
+      <Bars count={barCount} className="mb-4" barHeight={barHeight} />
       <Skeleton className="mb-4 h-64 w-full rounded" />
-      <Bars count={2} />
+      <Bars count={2} barHeight={barHeight} />
     </main>
   );
 }
@@ -262,7 +264,7 @@ function ChatSkeleton({ density, header }: RendererProps) {
         )}
 
         <div className="flex-1 overflow-y-auto p-4">
-          <div className="space-y-3">
+          <div className={cn("space-y-3", DENSITY_GAP[density as keyof typeof DENSITY_GAP])}>
             {Array.from({ length: 5 }).map((_, i) => (
               <div key={i} className="flex items-start gap-2">
                 <Skeleton className="h-8 w-8 shrink-0 rounded-full" />
@@ -274,7 +276,7 @@ function ChatSkeleton({ density, header }: RendererProps) {
             </div>
           </div>
         </div>
-        <footer className="flex items-center gap-2 border-t p-3">
+        <footer className={cn("flex items-center gap-2 border-t", DENSITY_PAD[density as keyof typeof DENSITY_PAD])}>
           <Skeleton className="h-10 w-full rounded-full" />
         </footer>
       </div>
