@@ -89,3 +89,11 @@ export {
   type CommandResult,
   CommandPalette,
 } from "./search.js";
+
+/* ── Skeleton (loading placeholder) ───────────────────────── */
+export {
+  type LayoutSkeletonProps,
+  type LayoutSkeletonSpec,
+  type SkeletonKind,
+  LayoutSkeleton,
+} from "./skeleton/index.js";

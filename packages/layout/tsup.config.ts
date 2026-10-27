@@ -6,7 +6,7 @@ import { defineConfig } from "tsup";
  * trees by resolving its React/client imports against the browser entry.
  */
 export default defineConfig({
-  entry: ["src/index.ts"],
+  entry: ["src/index.ts", "src/skeleton/index.tsx"],
   format: "esm",
   dts: true,
   clean: true,
