@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "870dbc6887594a89ae4f81a30a32742f795460ca",
-    "at": "2026-10-31T20:15:35.753Z"
+    "commit": "d6f78f85bc1752b4feccc62a4f793f3add3eee0b",
+    "at": "2026-10-31T21:14:39.680Z"
   },
   "packages": [
     {
@@ -60,7 +60,7 @@
     },
     {
       "name": "@fusorb/facet-docs",
-      "version": "1.5.8",
+      "version": "1.5.9",
       "summary": "Router-agnostic docs engine with content compiler",
       "description": "Installable, config-driven documentation site engine: component gallery with variant pages, per-variant usage tabs, install tabs, and an optional ecosystem links section. Mount <DocsApp config={...} /> with your own brand, pages, and nav.",
       "category": "tooling",
@@ -114,7 +114,7 @@
     },
     {
       "name": "@fusorb/facet-layout",
-      "version": "1.6.0",
+      "version": "1.7.0",
       "summary": "Data-driven layout shells with 5 presets",
       "description": "Domain-configurable app shell: Sidebar, Topbar, AuthLayout, ConsoleLayout, LandingLayout, PageHeader, TenantSwitcher, and 5 domain presets (fintech, med, edu, enterprise, default).",
       "category": "ui",
@@ -298,7 +298,7 @@
     },
     {
       "name": "@fusorb/facet-sandbox",
-      "version": "2.0.0",
+      "version": "3.0.0",
       "summary": "Interactive lab kit: live JSX runtime + stage/inspector",
       "description": "Framework-agnostic artifact model + live-JSX runtime. Zero-dep /core, React lab kit under /react, no-eval JSX interpreter + URL sanitizer under /live.",
       "category": "tooling",

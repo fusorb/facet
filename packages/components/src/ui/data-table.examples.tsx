@@ -2,7 +2,6 @@
  * @category data-display
  * @summary DataTable
  */
-import * as React from "react";
 import type { Example } from "@fusorb/facet-sandbox/core";
 import {
   DataTable,

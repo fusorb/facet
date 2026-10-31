@@ -2,7 +2,6 @@
  * @category feedback
  * @summary Dialog
  */
-import * as React from "react";
 import type { Example } from "@fusorb/facet-sandbox/core";
 import { Button } from "./button.js";
 import {

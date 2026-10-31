@@ -2,7 +2,6 @@
  * @category data-display
  * @summary Button
  */
-import * as React from "react";
 import type { Example } from "@fusorb/facet-sandbox/core";
 import { Button, type ButtonProps } from "./button.js";
 import { Icon } from "../icon/index.js";
