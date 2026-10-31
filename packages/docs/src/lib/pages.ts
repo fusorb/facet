@@ -28,6 +28,19 @@ export type DocsBlock =
   | { type: "table"; headers: string[]; rows: string[][] }
   | { type: "link"; label: string; href: string }
   | {
+      /** Callout block (info/warning/note/success). */
+      type: "callout";
+      tone?: "note" | "warning" | "error" | "success";
+      text: string;
+    }
+  | {
+      /** Reference block (generated API/props table placeholder). */
+      type: "reference";
+      kind?: string;
+      id: string;
+      text?: string;
+    }
+  | {
       /** Inline or full-bleed image with an optional caption. */
       type: "image";
       src: string;
@@ -132,8 +145,16 @@ export interface DocsPage {
   parent?: string;
   /** Optional one-line description under the title. */
   description?: string;
+  /** Sort order within its section (lower first). */
+  order?: number;
   /** Structured content blocks rendered in order. */
   blocks: DocsBlock[];
+  /**
+   * Optional lazy loader for code-splitting per page (ADR-003/005). When
+   * present and `blocks` is empty, the engine awaits `load()` to obtain
+   * the blocks.
+   */
+  load?: () => Promise<DocsBlock[]>;
 }
 
 /** Convert a page title to a URL-safe slug ("Getting Started" -> "getting-started"). */

@@ -92,14 +92,37 @@ function Block({ block }: { block: DocsBlock }) {
     case "table":
       return <DocsTable headers={block.headers} rows={block.rows} />;
     case "link":
-      return (
-        <Link
-          to={block.href}
-          className="text-primary underline-offset-4 hover:underline"
-        >
-          {block.label}
-        </Link>
-      );
+     return (
+       <Link
+         to={block.href}
+         className="text-primary underline-offset-4 hover:underline"
+       >
+         {block.label}
+       </Link>
+     );
+    case "callout": {
+     const tone = block.tone ?? "note";
+     return (
+       <div
+         className={cn(
+           "rounded-lg border p-4 text-sm",
+           tone === "note" && "border-border bg-muted/40",
+           tone === "warning" && "border-amber-300 bg-amber-50 text-amber-900",
+           tone === "error" && "border-red-300 bg-red-50 text-red-900",
+           tone === "success" && "border-green-300 bg-green-50 text-green-900",
+         )}
+       >
+         {block.text}
+       </div>
+     );
+    }
+    case "reference":
+     return (
+       <div className="rounded-lg border border-dashed border-border p-4 text-sm text-muted-foreground">
+         Reference: {block.kind ?? "item"} {block.id}
+         {block.text ? ` — ${block.text}` : ""}
+       </div>
+     );
     case "image":
       return (
         <figure className="my-8">
@@ -304,7 +327,32 @@ export function DocsContentPage() {
   useDocsKeyboardNav();
 
   const page = pages.find((p) => p.path === pathname);
+
+  // Per-page code-splitting (ADR-003/005): when a page declares `load`
+  // and has no inline blocks, fetch them lazily and cache on the page.
+  // Hooks must be called unconditionally (rules-of-hooks), so they run even
+  // when `page` is undefined; the early return below handles the 404 case.
+  const [loadedBlocks, setLoadedBlocks] = React.useState<DocsBlock[] | null>(
+    page && page.blocks && page.blocks.length ? page.blocks : null,
+  );
+  React.useEffect(() => {
+    if (!page) return;
+    if (loadedBlocks) return;
+    if (!page.load) return;
+    let cancelled = false;
+    page.load().then((blocks) => {
+      if (cancelled) return;
+      page.blocks = blocks;
+      setLoadedBlocks(blocks);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [page, loadedBlocks]);
+
   if (!page) return <Navigate to="/" replace />;
+
+  const blocks = loadedBlocks ?? page.blocks ?? [];
 
   return (
     <GuidePage
@@ -314,7 +362,7 @@ export function DocsContentPage() {
       pageActions={<PageActionBar actions={pageActions} />}
     >
       <div className="space-y-5">
-        {page.blocks.map((block, i) => (
+        {blocks.map((block, i) => (
           <Block key={i} block={block} />
         ))}
         <PageNav

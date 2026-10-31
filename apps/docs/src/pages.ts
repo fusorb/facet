@@ -1676,6 +1676,77 @@ const client = new SgClient({
   },
 });`,
       },
+      { type: "h2", text: "Third-party client credentials" },
+      {
+        type: "p",
+        text: "For external integrations, configure the registered OAuth client. You can pass credentials at construction time or set them later at runtime (useful when the client is resolved dynamically):",
+      },
+      {
+        type: "code",
+        text: `// At construction time:
+const client = new SgClient({
+  baseUrl: "https://auth.example.com/api/v1",
+  clientId: "my-app-id",
+  clientSecret: "…", // confidential clients only
+});
+
+// Or at runtime (e.g. when the client is resolved after construction):
+client.setClientCredentials("my-app-id", "…");
+
+// Then use the OIDC flow:
+const auth = new AuthSdk(client);
+const { data } = await auth.authorize({ redirectUri, scope: "openid profile email", codeChallenge });
+const tokens = await auth.exchangeCode({ code: data.code, redirectUri, codeVerifier });`,
+      },
+      {
+        type: "p",
+        text: "Use `setClientCredentials` for dynamically configured integrations (sg CLI `--oauth-client` mode, multi-tenant SaaS). For a fixed app, prefer constructor config so credentials are present before any request.",
+      },
+      { type: "h2", text: "Response shape & the `bare` option" },
+      {
+        type: "p",
+        text: "`SgClient` normalizes SovGrant's `{ success, data }` envelope so SDK methods return the inner payload directly. Every method resolves to `ApiResponse<T>`:",
+      },
+      {
+        type: "code",
+        text: `type ApiResponse<T> =
+  | { data: T; error: null }
+  | { data: null; error: ApiError };
+
+const { data, error } = await auth.login("user@example.com", "pw");
+if (error) {
+  // error.statusCode, error.error, error.message, error.details, ...
+} else {
+  // data is the unwrapped payload
+}`,
+      },
+      {
+        type: "p",
+        text: "Protocol/public endpoints respond bare (no envelope). Pass `{ bare: true }` for those so the client skips unwrapping:",
+      },
+      {
+        type: "table",
+        headers: ["Endpoint", "Why bare", "SDK usage"],
+        rows: [
+          ["`POST /oauth/token`", "RFC 6749 token response", "`auth.refresh`, `exchangeCode`, `clientCredentials` (bare by default)"],
+          ["`GET /oauth/jwks`", "JWKS key set", "`oauth.jwks({ bare: true })`"],
+          ["`GET /oauth/userinfo`", "OIDC UserInfo", "`oauth.userinfo({ bare: true })`"],
+          ["`POST /credentials/verify`", "Verification result", "`vcs.verify(cred)` (bare by default)"],
+          ["`POST /credentials/verify/session`", "Session payload", "`vcs.createVerificationSession` (bare by default)"],
+          ["`POST /credentials/verify/present`", "Verification result", "`vcs.presentForVerification` (bare by default)"],
+          ["`GET /credentials/status-lists/:id`", "Status list", "`vcs.getStatusList` (bare by default)"],
+          ["`GET /credentials/tenants/:slug/did.json`", "DID document", "`vcs.resolveTenantDidDoc` (bare by default)"],
+          ["`GET /tenants/:slug/jwks`", "Tenant JWKS", "`tenant.getJwksBySlug` (bare by default)"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Endpoints that already use `bare` internally (refresh, exchangeCode, clientCredentials, verify, etc.) do not require the option from callers. Use `bare: true` only when calling `client.get/post/...` directly for a protocol endpoint.",
+      },
+      {
+        type: "p",
+        text: "Note on coverage: `IdentitySdk.registerWalletDid` exposes `/identity/wallet/did`. API-key management is not yet exposed in the SDK (planned).",
+      },
       { type: "h2", text: "Modules" },
       {
         type: "table",

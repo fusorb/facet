@@ -11,8 +11,17 @@ import { extendedManifest } from "./manifest.js";
  * lockstep: add a page to the registry and it appears in the sidebar and in
  * the search palette automatically.
  */
-export interface DocsSiteConfig {
-  brand: LayoutConfig["brand"];
+export interface DocsConfig {
+  /** Top-level sections (id/label/order/icon). Drives nav section metadata. */
+  sections?: { id: string; label: string; order: number; icon?: string }[];
+  brand: LayoutConfig["brand"] & {
+    url?: string;
+    github?: string;
+    npmScope?: string;
+  };
+}
+
+export interface DocsSiteConfig extends DocsConfig {
   /** Extra nav sections rendered in the sidebar (e.g. a Components section). */
   navigation: LayoutConfig["navigation"];
   /** Optional ecosystem links, rendered as a final "Ecosystem" section. */
@@ -27,14 +36,6 @@ const SECTION_TITLES: Record<string, string> = {
   ecosystem: "Ecosystem",
 };
 
-/** Display title for a page section id ("ready-to-use" -> "Ready to Use"). */
-function titleFor(section: string): string {
-  if (SECTION_TITLES[section]) return SECTION_TITLES[section]!;
-  return section
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
 
 /**
  * Build the full LayoutConfig for a DocsApp instance: the passed
@@ -51,6 +52,19 @@ export function buildDocsLayoutConfig(
   showComponents: boolean,
 ): LayoutConfig {
   const navigation = [...config.navigation];
+
+  // Resolve a section id to its display label, preferring config.sections.
+  const sectionLabelMap = new Map(
+    (config.sections ?? []).map((s) => [s.id, s.label]),
+  );
+  const resolveTitle = (section: string): string => {
+    if (sectionLabelMap.has(section)) return sectionLabelMap.get(section)!;
+    if (SECTION_TITLES[section]) return SECTION_TITLES[section]!;
+    return section
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
 
   const bySection = (section: DocsPage["section"]) =>
     pages.filter((page) => page.section === section);
@@ -139,7 +153,7 @@ export function buildDocsLayoutConfig(
       });
     }
 
-    navigation.push({ title: titleFor(section), id: section, items });
+    navigation.push({ title: resolveTitle(section), id: section, items });
   }
 
   if (config.ecosystem && config.ecosystem.length > 0) {

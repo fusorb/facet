@@ -28,8 +28,10 @@ sovgrant pins `@fusorb/facet-sdk@2.0.0`; facet package.json declares 2.0.0.
 Verify the published npm version matches; bump + changeset if drift.
 
 ### G4 — New backend routes (api-key, wallet-did) (medium)
-SovGrant added api-key CRUD and wallet-did registration. Confirm these routes
-are represented in the SDK (or document as "not yet exposed" with a plan).
+SovGrant's wallet-did registration is exposed via `IdentitySdk.registerWalletDid`
+(`/identity/wallet/did`). API-key CRUD is not present in SovGrant's ROUTES index
+(62/62 covered) and is not yet exposed in the SDK — tracked as planned work;
+documented as "not yet exposed" in the SDK docs page.
 
 ### G5 — Naming finalization (low)
 `SgClient` (renamed from `ArcIdClient`) and `SgProvider` (from `ArcProvider`)

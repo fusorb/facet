@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom";
 import type { IconName } from "@fusorb/facet-components";
 import type { PageActionItem } from "./components/PageActionBar.js";
 import { ThemeProvider } from "@fusorb/facet-components/light";
@@ -46,6 +46,8 @@ const NotFound = React.lazy(() =>
 
 import type { DocsSiteConfig } from "./lib/nav.js";
 import type { DocsPage } from "./lib/pages.js";
+import type { DocsDataSource } from "./lib/data-source.js";
+import type { RouterAdapter } from "@fusorb/facet-layout";
 
 /** Suspense fallback shown while a lazy route chunk loads. Mimics the shape
  *  of a docs content page so the shell doesn't blank out while it loads. */
@@ -79,6 +81,12 @@ export interface DocsAppProps {
   pageActions?: PageActionItem[];
   /** Initial theme for ThemeProvider. */
   defaultTheme?: "light" | "dark" | "system";
+  /** Optional data source driving the component gallery / examples / API refs. */
+  dataSource?: DocsDataSource | null;
+  /** Which router the batteries own. Ignored by `DocsRoutes`. */
+  routerKind?: "browser" | "hash";
+  /** Optional router adapter for host-owned routing/link rendering. */
+  router?: RouterAdapter;
 }
 
 /**
@@ -90,7 +98,7 @@ export interface DocsAppProps {
  * top-level app (Vite entry) or nested under an existing router with
  * <HashRouter> where needed.
  */
-export function DocsApp({
+export function DocsRoutes({
   config,
   pages,
   showComponents = true,
@@ -99,6 +107,8 @@ export function DocsApp({
   links,
   pageActions,
   defaultTheme = "system",
+  dataSource = null,
+  router,
 }: DocsAppProps) {
   const value: DocsAppValue = {
     config,
@@ -108,43 +118,61 @@ export function DocsApp({
     topbar,
     links,
     pageActions,
+    dataSource,
+    router,
   };
   return (
     <ThemeProvider defaultTheme={defaultTheme}>
-      <BrowserRouter>
-        <DocsAppProvider value={value}>
-          <PackageManagerProvider>
-            <React.Suspense fallback={<PageLoader />}>
-              <Routes>
-                <Route element={<DocsLayout />}>
-                  {pages.map((page) => (
+      <DocsAppProvider value={value}>
+        <PackageManagerProvider>
+          <React.Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route element={<DocsLayout />}>
+                {pages.map((page) => (
+                  <Route
+                    key={page.path}
+                    path={page.path}
+                    element={<DocsContentPage />}
+                  />
+                ))}
+                {showComponents && (
+                  <>
+                    <Route path="/components" element={<ComponentsPage />} />
                     <Route
-                      key={page.path}
-                      path={page.path}
-                      element={<DocsContentPage />}
+                      path="/components/:slug"
+                      element={<ComponentPage />}
                     />
-                  ))}
-                  {showComponents && (
-                    <>
-                      <Route path="/components" element={<ComponentsPage />} />
-                      <Route
-                        path="/components/:slug"
-                        element={<ComponentPage />}
-                      />
-                      <Route
-                        path="/ready-to-use"
-                        element={<ReadyToUsePage />}
-                      />
-                      <Route path="/pages" element={<PagesPage />} />
-                    </>
-                  )}
-                  <Route path="*" element={<NotFound />} />
-                </Route>
-              </Routes>
-            </React.Suspense>
-          </PackageManagerProvider>
-        </DocsAppProvider>
-      </BrowserRouter>
+                    <Route
+                      path="/ready-to-use"
+                      element={<ReadyToUsePage />}
+                    />
+                    <Route path="/pages" element={<PagesPage />} />
+                  </>
+                )}
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </React.Suspense>
+        </PackageManagerProvider>
+      </DocsAppProvider>
     </ThemeProvider>
+  );
+}
+
+export function DocsApp({
+  routerKind = "browser",
+  ...rest
+}: DocsAppProps) {
+  if (routerKind === "hash") {
+    return (
+      <HashRouter>
+        <DocsRoutes {...rest} />
+      </HashRouter>
+    );
+  }
+  return (
+    <BrowserRouter>
+      <DocsRoutes {...rest} />
+    </BrowserRouter>
   );
 }

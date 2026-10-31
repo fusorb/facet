@@ -2,6 +2,8 @@ import * as React from "react";
 import type { IconName } from "@fusorb/facet-components";
 import type { DocsPage } from "./lib/pages.js";
 import type { DocsSiteConfig } from "./lib/nav.js";
+import type { DocsDataSource } from "./lib/data-source.js";
+import type { RouterAdapter } from "@fusorb/facet-layout";
 import type { PageActionItem } from "./components/PageActionBar.js";
 
 export interface DocsAppValue {
@@ -19,6 +21,10 @@ export interface DocsAppValue {
   links?: { label: string; href: string; icon?: IconName }[];
   /** Additional page-level actions appended to the PageActionBar dropdown. */
   pageActions?: PageActionItem[];
+  /** Optional data source driving the component gallery / examples / API refs. */
+  dataSource?: DocsDataSource | null;
+  /** Optional router adapter for host-owned routing/link rendering. */
+  router?: RouterAdapter;
 }
 
 const DocsAppContext = React.createContext<DocsAppValue | null>(null);
@@ -90,4 +96,10 @@ export function usePackageManager() {
       "usePackageManager must be used within <PackageManagerProvider>",
     );
   return ctx;
+}
+
+/** Access the active DocsDataSource (or null) from any engine component. */
+export function useDocsDataSource(): DocsDataSource | null {
+  const ctx = React.useContext(DocsAppContext);
+  return ctx?.dataSource ?? null;
 }

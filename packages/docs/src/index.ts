@@ -11,7 +11,7 @@
  */
 
 // Mountable app
-export { DocsApp } from "./docs-app.js";
+export { DocsApp, DocsRoutes } from "./docs-app.js";
 export type { DocsAppProps } from "./docs-app.js";
 
 // Config + context
@@ -20,6 +20,7 @@ export {
   useDocsApp,
   PackageManagerProvider,
   usePackageManager,
+  useDocsDataSource,
 } from "./context.js";
 export type { DocsAppValue } from "./context.js";
 
@@ -27,8 +28,19 @@ export type { DocsAppValue } from "./context.js";
 export type { DocsPage, DocsBlock, DocsLink } from "./lib/pages.js";
 export { slugify } from "./lib/pages.js";
 
+// Data source seam (ADR-003)
+export type {
+  DocsDataSource,
+  ReferenceEntry,
+  ReferenceEntryKind,
+  ApiDoc,
+  ApiDocProp,
+  ApiDocSlot,
+  Example,
+} from "./lib/data-source.js";
+
 // Nav config
-export type { DocsSiteConfig } from "./lib/nav.js";
+export type { DocsSiteConfig, DocsConfig } from "./lib/nav.js";
 export { buildDocsLayoutConfig } from "./lib/nav.js";
 export type { NavItem, NavSection } from "./lib/nav.js";
 
