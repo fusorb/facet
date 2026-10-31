@@ -64,6 +64,7 @@ const auth = new AuthSdk(client);
 const { data, error } = await auth.signIn({ email, password });
 ```
 
+Canonical SDK fix plan (coverage, naming, gaps): `docs/planning/sdk-canonical-fix-plan.md`.
 ## Auth State Machine
 
 The `SignIn` component is a configurable state machine:
