@@ -122,12 +122,13 @@ function GlobalSearch() {
 /** Clickable brand mark (wordmark) that returns to the landing home. */
 function Brand({ onHome }: { onHome: () => void }) {
   return (
-    <div
+    <button
+      type="button"
       onClick={onHome}
-      className="flex cursor-pointer items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+      className="flex cursor-pointer items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
     >
       <Wordmark className="h-6 w-auto" />
-    </div>
+    </button>
   );
 }
 
@@ -146,8 +147,16 @@ function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
             <div key={link.href} className="flex flex-col">
               <div
                 onClick={() => setOpenGroup(isOpen ? null : link.href)}
-                className="flex cursor-pointer items-center justify-between rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/5 hover:text-foreground"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setOpenGroup(isOpen ? null : link.href);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
                 aria-expanded={isOpen}
+                className="flex cursor-pointer items-center justify-between rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/5 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 <span className="flex items-center gap-2">
                   {link.icon}
@@ -165,7 +174,15 @@ function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
                     <div
                       key={child.href}
                       onClick={() => onNavigate(child.href)}
-                      className="flex cursor-pointer flex-row items-start gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          onNavigate(child.href);
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      className="flex cursor-pointer flex-row items-start gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     >
                       <span className="flex flex-col">
                         <span>{child.label}</span>
@@ -191,7 +208,15 @@ function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
           onClick={() =>
             window.open(site.links.github, "_blank", "noopener,noreferrer")
           }
-          className="flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/5 hover:text-foreground"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              window.open(site.links.github, "_blank", "noopener,noreferrer");
+            }
+          }}
+          role="button"
+          tabIndex={0}
+          className="flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/5 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           <GithubIcon size={16} />
           GitHub
@@ -200,7 +225,15 @@ function MobileMenu({ onNavigate }: { onNavigate: (href: string) => void }) {
           onClick={() =>
             window.open(getDocsUrl(), "_blank", "noopener,noreferrer")
           }
-          className="flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/5 hover:text-foreground"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              window.open(getDocsUrl(), "_blank", "noopener,noreferrer");
+            }
+          }}
+          role="button"
+          tabIndex={0}
+          className="flex cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent/5 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           <LightIcon name="book-open" size={16} />
           Documentation

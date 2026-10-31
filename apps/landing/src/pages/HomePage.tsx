@@ -16,15 +16,15 @@ import { TokensExplorerSection } from "../components/sections/TokensExplorerSect
 export function HomePage() {
   return (
     <LandingLayout nav={<Nav />} hero={<HeroSection />} footer={<Footer />}>
-      <ArchitectureSection />
-      <FeaturesSection />
+      <InstallSection />
       <DemoShowcaseSection />
+      <FeaturesSection />
       <AuthShowcaseSection />
       <MotionPreviewSection />
       <PricingTeaserSection />
       <FaqSection />
       <TokensExplorerSection />
-      <InstallSection />
+      <ArchitectureSection />
       <CTASection />
     </LandingLayout>
   );
