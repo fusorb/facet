@@ -42,7 +42,7 @@ const ContextMenuSubContent = React.forwardRef<
   <ContextMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-slide-in-from-top data-[state=closed]:animate-facet-fade-out data-[side=bottom]:animate-facet-slide-in-from-top data-[side=top]:animate-facet-slide-in-from-bottom data-[side=right]:animate-facet-slide-in-from-left data-[side=left]:animate-facet-slide-in-from-right",
+      "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-fade-in data-[state=closed]:animate-facet-fade-out data-[side=bottom]:animate-facet-slide-in-from-bottom data-[side=top]:animate-facet-slide-in-from-top data-[side=right]:animate-facet-slide-in-from-right data-[side=left]:animate-facet-slide-in-from-left",
       className,
     )}
     {...props}
@@ -58,7 +58,7 @@ const ContextMenuContent = React.forwardRef<
     <ContextMenuPrimitive.Content
       ref={ref}
       className={cn(
-        "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-slide-in-from-top data-[state=closed]:animate-facet-fade-out data-[side=bottom]:animate-facet-slide-in-from-top data-[side=top]:animate-facet-slide-in-from-bottom data-[side=right]:animate-facet-slide-in-from-left data-[side=left]:animate-facet-slide-in-from-right",
+        "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-fade-in data-[state=closed]:animate-facet-fade-out data-[side=bottom]:animate-facet-slide-in-from-bottom data-[side=top]:animate-facet-slide-in-from-top data-[side=right]:animate-facet-slide-in-from-right data-[side=left]:animate-facet-slide-in-from-left",
         className,
       )}
       {...props}
