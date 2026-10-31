@@ -1,5 +1,12 @@
 # @fusorb/facet-auth
 
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies [2f0a6e4]
+  - @fusorb/facet-components@3.2.0
+
 ## 2.0.0
 
 ### Major Changes
