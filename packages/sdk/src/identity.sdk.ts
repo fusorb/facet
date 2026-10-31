@@ -187,4 +187,32 @@ export class IdentitySdk {
       `/identity/paired-devices/${deviceId}`,
     );
   }
+
+  createDeviceApproval(data?: {
+    type?: "login" | "mfa" | "step-up";
+    context?: any;
+  }): Promise<ApiResponse<{ challenge: string; expiresAt: string; pairedDevices: any[] }>> {
+    return this.client.post<{ challenge: string; expiresAt: string; pairedDevices: any[] }>(
+      "/identity/device-approvals",
+      data ?? {},
+    );
+  }
+
+  pollDeviceApproval(challenge: string): Promise<ApiResponse<any>> {
+    return this.client.get<any>(`/identity/device-approvals/${challenge}`);
+  }
+
+  approveDeviceApproval(data: { challenge: string; signature?: string }): Promise<ApiResponse<{ success: boolean }>> {
+    return this.client.post<{ success: boolean }>(
+      `/identity/device-approvals/${data.challenge}/approve`,
+      { signature: data.signature },
+    );
+  }
+
+  rejectDeviceApproval(challenge: string): Promise<ApiResponse<{ success: boolean }>> {
+    return this.client.post<{ success: boolean }>(
+      `/identity/device-approvals/${challenge}/reject`,
+      {},
+    );
+  }
 }
