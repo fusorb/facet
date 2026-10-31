@@ -24,6 +24,11 @@
       "import": "./dist/theme/index.js",
       "default": "./dist/theme/index.js"
     },
+    "./examples": {
+      "types": "./dist/examples.d.ts",
+      "import": "./dist/examples.js",
+      "default": "./dist/examples.js"
+    },
     "./tokens.css": "./dist/tokens.css",
     "./tailwind.css": "./dist/tailwind.css",
     "./package.json": "./package.json"
@@ -105,9 +110,16 @@
   },
   "peerDependencies": {
     "react": "^19",
-    "react-dom": "^19"
+    "react-dom": "^19",
+    "@fusorb/facet-sandbox": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@fusorb/facet-sandbox": {
+      "optional": true
+    }
   },
   "devDependencies": {
+    "@fusorb/facet-sandbox": "workspace:*",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19",

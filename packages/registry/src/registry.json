@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "e0f8e91c0b5ef4a4297c310528f1b6fdae199d56",
-    "at": "2026-10-31T19:36:34.099Z"
+    "commit": "870dbc6887594a89ae4f81a30a32742f795460ca",
+    "at": "2026-10-31T20:15:35.753Z"
   },
   "packages": [
     {
@@ -37,16 +37,20 @@
         "@fusorb/facet-tokens",
         "@fusorb/facet-utils"
       ],
-      "devDeps": [],
+      "devDeps": [
+        "@fusorb/facet-sandbox"
+      ],
       "peers": [
         "react",
-        "react-dom"
+        "react-dom",
+        "@fusorb/facet-sandbox"
       ],
       "exports": [
         ".",
         "./icons",
         "./light",
         "./theme",
+        "./examples",
         "./tokens.css",
         "./tailwind.css",
         "./package.json"
@@ -469,7 +473,20 @@
       "category": "data-display",
       "summary": "Button",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default"
+        },
+        {
+          "id": "with-icon",
+          "title": "With leading icon"
+        },
+        {
+          "id": "icon-button",
+          "title": "Icon button"
+        }
+      ]
     },
     {
       "slug": "card-animations",
@@ -631,7 +648,16 @@
       "category": "data-display",
       "summary": "Data Table",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default"
+        },
+        {
+          "id": "paginated",
+          "title": "Paginated + selectable"
+        }
+      ]
     },
     {
       "slug": "date-input",
@@ -667,7 +693,16 @@
       "category": "feedback",
       "summary": "Dialog",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default"
+        },
+        {
+          "id": "compact",
+          "title": "Delete this item?"
+        }
+      ]
     },
     {
       "slug": "dropdown-menu",
@@ -2332,7 +2367,8 @@
     "motionTotal.count": 42,
     "icons.count": 1763,
     "tokens.colorSpace": "OKLCH",
-    "tokens.totalVars": 251
+    "tokens.totalVars": 251,
+    "examples.count": 7
   },
   "surfaces": {
     "landing": {

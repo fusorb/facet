@@ -176,7 +176,7 @@ function humanize(slug) {
 
 const components = fs
   .readdirSync(uiDir)
-  .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx"))
+  .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx") && !f.endsWith(".examples.tsx"))
   .filter((f) => !EXCLUDED.has(f.replace(/\.tsx$/, "")))
   .map((f) => f.replace(/\.tsx$/, ""))
   .sort()

@@ -11,6 +11,7 @@
  *   - packages/<pkg>/package.json           (name, version, deps, facet metadata)
  *   - packages/components/src/index.ts      (barrel exports)
  *   - packages/components/src/ui/<name>.tsx  (JSDoc @category/@summary)
+ *   - packages/components/src/ui/<name>.examples.tsx (colocated examples, Phase 5)
  *   - packages/layout/src/<name>-layout.tsx  (layout shells)
  *   - packages/layout/src/presets.ts         (domain presets)
  *   - packages/motion/src/registry/          (generative families + authored effects)
@@ -93,6 +94,38 @@ function extractJSDocTags(source) {
   return tags;
 }
 
+/**
+ * Read a colocated `<slug>.examples.tsx` sibling (Phase 5 convention) and
+ * return its Example refs [{id, title}]. Validates: ids unique within the
+ * file, and every `artifact` equals the component slug. Throws with an
+ * actionable message on violation (the scanner doubles as the drift signal).
+ */
+function scanExamples(uiDir, slug) {
+  const src = readIfExists(path.join(uiDir, `${slug}.examples.tsx`));
+  if (!src) return [];
+  // Line-anchored: example objects are multi-line (id/artifact/title on their
+  // own lines); inline data rows like `{ id: "m1", name: ... }` must not match.
+  const ids = [...src.matchAll(/^\s*id:\s*"([^"]+)"/gm)].map((m) => m[1]);
+  const titles = [...src.matchAll(/^\s*title:\s*"([^"]+)"/gm)].map((m) => m[1]);
+  const artifacts = [...src.matchAll(/^\s*artifact:\s*"([^"]+)"/gm)].map((m) => m[1]);
+  if (artifacts.length !== ids.length) {
+    throw new Error(`[registry] ui/${slug}.examples.tsx has ${ids.length} example(s) but ${artifacts.length} artifact declaration(s) - every example needs an artifact`);
+  }
+  const seen = new Set();
+  for (const id of ids) {
+    if (seen.has(id)) {
+      throw new Error(`[registry] duplicate example id "${id}" in ui/${slug}.examples.tsx`);
+    }
+    seen.add(id);
+  }
+  for (const artifact of artifacts) {
+    if (artifact !== slug) {
+      throw new Error(`[registry] ui/${slug}.examples.tsx declares artifact "${artifact}" but the colocated component slug is "${slug}"`);
+    }
+  }
+  return ids.map((id, i) => ({ id, title: titles[i] ?? id }));
+}
+
 /* ── Scanners ────────────────────────────────────────────────────── */
 
 function scanPackages() {
@@ -152,7 +185,7 @@ function scanComponents() {
   const entryMap = new Map(exportedNames.map((e) => [e.alias, e.name]));
   const files = fs
     .readdirSync(uiDir)
-    .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx"));
+    .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx") && !f.endsWith(".examples.tsx"));
 
   const EXCLUDED = new Set(["typewriter-text"]);
 
@@ -174,7 +207,7 @@ function scanComponents() {
         category: tags.category ?? "uncategorized",
         summary: tags.summary ?? slug,
         props: [],
-        examples: [],
+        examples: scanExamples(uiDir, slug),
       };
     })
     .filter(Boolean);
@@ -311,7 +344,7 @@ function countIcons() {
 function countComponents() {
   const uiDir = path.join(root, "packages/components/src/ui");
   const files = fs.readdirSync(uiDir);
-  return files.filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx")).length;
+  return files.filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx") && !f.endsWith(".examples.tsx")).length;
 }
 
 function countLayoutShells() {
@@ -332,6 +365,7 @@ function buildRegistry() {
   const iconCount = countIcons();
   const componentCount = countComponents();
   const layoutShellCount = countLayoutShells();
+  const examplesCount = components.reduce((n, c) => n + c.examples.length, 0);
 
   const commit = getGitCommit();
   const now = new Date().toISOString();
@@ -349,6 +383,7 @@ function buildRegistry() {
     "icons.count": iconCount,
     "tokens.colorSpace": tokens.colorSpace,
     "tokens.totalVars": tokens.totalVars,
+    "examples.count": examplesCount,
   };
 
   const presets = authPresets.map((name) => ({
@@ -391,6 +426,7 @@ function main() {
   console.log(`  components: ${registry.components.length}`);
   console.log(`  layouts: ${registry.layouts.length}`);
   console.log(`  motion: ${registry.motion.total} effects (${registry.motion.families.length} generative + ${registry.motion.authored.length} authored)`);
+  console.log(`  examples: ${registry.facts["examples.count"]} across ${registry.components.filter((c) => c.examples.length > 0).length} components`);
   console.log(`  facts: ${Object.keys(registry.facts).length}`);
 }
 

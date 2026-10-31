@@ -29,7 +29,7 @@ const SCORED = [];      // every component, for the summary
 
 const components = fs
   .readdirSync(uiDir)
-  .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx"))
+  .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx") && !f.endsWith(".examples.tsx"))
   .map((f) => f.replace(/\.tsx$/, ""))
   .sort();
 

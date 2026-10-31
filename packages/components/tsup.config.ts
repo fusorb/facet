@@ -10,7 +10,7 @@ import { defineConfig } from "tsup";
  * under Vite/webpack and keeps the library usable in RSC trees.
  */
 export default defineConfig({
-  entry: ["src/index.ts", "src/theme/index.ts", "src/icons.ts", "src/light.ts"],
+  entry: ["src/index.ts", "src/theme/index.ts", "src/icons.ts", "src/light.ts", "src/examples.ts"],
   format: "esm",
   dts: true,
   clean: true,

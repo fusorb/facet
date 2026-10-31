@@ -68,7 +68,7 @@ function countComponents() {
   const uiDir = path.join(root, "packages/components/src/ui");
   return fs
     .readdirSync(uiDir)
-    .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx"))
+    .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx") && !f.endsWith(".examples.tsx"))
     .length;
 }
 

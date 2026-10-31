@@ -24,7 +24,7 @@ const ok = [];
 function componentNames(dir) {
   return fs
     .readdirSync(dir)
-    .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx"))
+    .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx") && !f.endsWith(".examples.tsx"))
     .map((f) => f.replace(/\.tsx$/, ""));
 }
 
