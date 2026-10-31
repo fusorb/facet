@@ -29,7 +29,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-docs",
     "desc": "Installable, config-driven documentation site engine: component gallery with variant pages, per-variant usage tabs, install tabs, and an optional ecosystem links section. Mount <DocsApp config={...} /> with your own brand, pages, and nav.",
-    "version": "1.5.8",
+    "version": "1.5.9",
     "icon": "book-open"
   },
   {
@@ -41,7 +41,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-layout",
     "desc": "Domain-configurable app shell: Sidebar, Topbar, AuthLayout, ConsoleLayout, LandingLayout, PageHeader, TenantSwitcher, and 5 domain presets (fintech, med, edu, enterprise, default).",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "icon": "building"
   },
   {
@@ -89,7 +89,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-sandbox",
     "desc": "Framework-agnostic artifact model + live-JSX runtime. Zero-dep /core, React lab kit under /react, no-eval JSX interpreter + URL sanitizer under /live.",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "icon": "play"
   }
 ];
