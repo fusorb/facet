@@ -185,7 +185,8 @@ function scanComponents() {
   const entryMap = new Map(exportedNames.map((e) => [e.alias, e.name]));
   const files = fs
     .readdirSync(uiDir)
-    .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx") && !f.endsWith(".examples.tsx"));
+    .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx") && !f.endsWith(".examples.tsx"))
+    .sort();
 
   const EXCLUDED = new Set(["typewriter-text"]);
 
@@ -210,7 +211,8 @@ function scanComponents() {
         examples: scanExamples(uiDir, slug),
       };
     })
-    .filter(Boolean);
+    .filter(Boolean)
+    .sort((a, b) => a.slug.localeCompare(b.slug));
 }
 
 function scanLayouts() {
@@ -220,7 +222,8 @@ function scanLayouts() {
 
   const files = fs
     .readdirSync(layoutDir)
-    .filter((f) => /-layout\.tsx$/.test(f));
+    .filter((f) => /-layout\.tsx$/.test(f))
+    .sort();
 
   // Read presets (matches both `export const XPreset` and `export { XPreset }` forms)
   const presetsPath = path.join(layoutDir, "presets.ts");

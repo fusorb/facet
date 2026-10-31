@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "492cc3fd8b3af14458112d8e5a2c55812156c73f",
-    "at": "2026-10-31T22:54:05.276Z"
+    "commit": "eba7d58e9950582418437dadc5e5321298c05c38",
+    "at": "2026-10-31T22:56:29.498Z"
   },
   "packages": [
     {
@@ -350,15 +350,6 @@
       "examples": []
     },
     {
-      "slug": "alert-dialog",
-      "name": "AlertDialog",
-      "package": "@fusorb/facet-components",
-      "category": "feedback",
-      "summary": "Alert Dialog",
-      "props": [],
-      "examples": []
-    },
-    {
       "slug": "alert",
       "name": "Alert",
       "package": "@fusorb/facet-components",
@@ -368,11 +359,11 @@
       "examples": []
     },
     {
-      "slug": "animated-button",
-      "name": "AnimatedButton",
+      "slug": "alert-dialog",
+      "name": "AlertDialog",
       "package": "@fusorb/facet-components",
-      "category": "animation",
-      "summary": "Animated Button",
+      "category": "feedback",
+      "summary": "Alert Dialog",
       "props": [],
       "examples": []
     },
@@ -382,6 +373,15 @@
       "package": "@fusorb/facet-components",
       "category": "animation",
       "summary": "Animated",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "animated-button",
+      "name": "AnimatedButton",
+      "package": "@fusorb/facet-components",
+      "category": "animation",
+      "summary": "Animated Button",
       "props": [],
       "examples": []
     },
@@ -413,20 +413,20 @@
       "examples": []
     },
     {
-      "slug": "avatar-group",
-      "name": "AvatarGroup",
-      "package": "@fusorb/facet-components",
-      "category": "data-display",
-      "summary": "Avatar Group",
-      "props": [],
-      "examples": []
-    },
-    {
       "slug": "avatar",
       "name": "Avatar",
       "package": "@fusorb/facet-components",
       "category": "data-display",
       "summary": "Avatar",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "avatar-group",
+      "name": "AvatarGroup",
+      "package": "@fusorb/facet-components",
+      "category": "data-display",
+      "summary": "Avatar Group",
       "props": [],
       "examples": []
     },
@@ -458,15 +458,6 @@
       "examples": []
     },
     {
-      "slug": "button-group",
-      "name": "ButtonGroup",
-      "package": "@fusorb/facet-components",
-      "category": "data-display",
-      "summary": "Button Group",
-      "props": [],
-      "examples": []
-    },
-    {
       "slug": "button",
       "name": "Button",
       "package": "@fusorb/facet-components",
@@ -489,11 +480,11 @@
       ]
     },
     {
-      "slug": "card-animations",
-      "name": "CardAnimations",
+      "slug": "button-group",
+      "name": "ButtonGroup",
       "package": "@fusorb/facet-components",
-      "category": "animation",
-      "summary": "Card Animations",
+      "category": "data-display",
+      "summary": "Button Group",
       "props": [],
       "examples": []
     },
@@ -503,6 +494,15 @@
       "package": "@fusorb/facet-components",
       "category": "data-display",
       "summary": "Card",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "card-animations",
+      "name": "CardAnimations",
+      "package": "@fusorb/facet-components",
+      "category": "animation",
+      "summary": "Card Animations",
       "props": [],
       "examples": []
     },
@@ -534,20 +534,20 @@
       "examples": []
     },
     {
-      "slug": "chart-range-selector",
-      "name": "ChartRangeSelector",
-      "package": "@fusorb/facet-components",
-      "category": "general",
-      "summary": "Chart Range Selector",
-      "props": [],
-      "examples": []
-    },
-    {
       "slug": "chart",
       "name": "Chart",
       "package": "@fusorb/facet-components",
       "category": "ready-to-use",
       "summary": "Chart",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "chart-range-selector",
+      "name": "ChartRangeSelector",
+      "package": "@fusorb/facet-components",
+      "category": "general",
+      "summary": "Chart Range Selector",
       "props": [],
       "examples": []
     },
@@ -723,20 +723,20 @@
       "examples": []
     },
     {
-      "slug": "empty-state-page",
-      "name": "EmptyStatePage",
-      "package": "@fusorb/facet-components",
-      "category": "pages",
-      "summary": "Empty State Page",
-      "props": [],
-      "examples": []
-    },
-    {
       "slug": "empty-state",
       "name": "EmptyState",
       "package": "@fusorb/facet-components",
       "category": "feedback",
       "summary": "Empty State",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "empty-state-page",
+      "name": "EmptyStatePage",
+      "package": "@fusorb/facet-components",
+      "category": "pages",
+      "summary": "Empty State Page",
       "props": [],
       "examples": []
     },
@@ -786,6 +786,15 @@
       "examples": []
     },
     {
+      "slug": "input",
+      "name": "Input",
+      "package": "@fusorb/facet-components",
+      "category": "inputs",
+      "summary": "Input",
+      "props": [],
+      "examples": []
+    },
+    {
       "slug": "input-group",
       "name": "InputGroup",
       "package": "@fusorb/facet-components",
@@ -800,15 +809,6 @@
       "package": "@fusorb/facet-components",
       "category": "inputs",
       "summary": "Input Otp",
-      "props": [],
-      "examples": []
-    },
-    {
-      "slug": "input",
-      "name": "Input",
-      "package": "@fusorb/facet-components",
-      "category": "inputs",
-      "summary": "Input",
       "props": [],
       "examples": []
     },
@@ -1299,20 +1299,20 @@
       "examples": []
     },
     {
-      "slug": "toggle-group",
-      "name": "ToggleGroup",
-      "package": "@fusorb/facet-components",
-      "category": "inputs",
-      "summary": "Toggle Group",
-      "props": [],
-      "examples": []
-    },
-    {
       "slug": "toggle",
       "name": "Toggle",
       "package": "@fusorb/facet-components",
       "category": "inputs",
       "summary": "Toggle",
+      "props": [],
+      "examples": []
+    },
+    {
+      "slug": "toggle-group",
+      "name": "ToggleGroup",
+      "package": "@fusorb/facet-components",
+      "category": "inputs",
+      "summary": "Toggle Group",
       "props": [],
       "examples": []
     },
