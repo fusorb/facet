@@ -1,6 +1,6 @@
 {
   "name": "@fusorb/facet-sdk",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "SovGrant API client: framework-agnostic fetch SDK. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
   "type": "module",
   "exports": {

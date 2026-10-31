@@ -1,5 +1,11 @@
 # @fusorb/facet-sdk
 
+## 2.1.0
+
+### Minor Changes
+
+- 0e667d2: Add paired device methods to IdentitySdk (register/list/revoke).
+
 ## 2.0.0
 
 ### Major Changes

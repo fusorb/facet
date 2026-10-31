@@ -1,6 +1,6 @@
 {
   "name": "@fusorb/facet-auth",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Domain-customizable auth components: SgProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
   "type": "module",
   "exports": {
