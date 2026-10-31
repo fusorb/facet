@@ -281,7 +281,7 @@ export function Nav() {
             >
               <GithubIcon size={16} />
             </a>
-            {/* Search trigger — desktop only */}
+            {/* Search trigger  - desktop only */}
             <div className="hidden lg:flex">
               <GlobalSearch />
             </div>

@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Changelog Card
+ */
+/**
  * ChangelogCard: a developer-console release card rendered from a single
  * ChangelogItem. Renders version + date, a category badge (Feature /
  * Improvement / Security / Fix), an optional status badge, a title, a
@@ -7,7 +11,7 @@
  *
  * Every color is a Facet semantic token (bg-card, border-border,
  * text-foreground, text-muted-foreground, text-primary, text-success,
- * text-warning, text-destructive, ring-primary) — nothing is hardcoded,
+ * text-warning, text-destructive, ring-primary)  - nothing is hardcoded,
  * so the card follows the active domain preset in fintech / med / edu /
  * enterprise and re-themes by overriding tokens.
  *
@@ -44,7 +48,7 @@ export interface ChangelogItem {
   date: string;
   /** Status badge text; null renders no status badge. */
   status?: ReleaseStatus;
-  /** Change category — drives the category badge tone. */
+  /** Change category  - drives the category badge tone. */
   category: ReleaseCategory;
   /** One-line heading for the release. */
   title: string;
@@ -117,7 +121,7 @@ export function toChangelogItem(
   const category = TAG_TO_CATEGORY[release.tag ?? "release"];
   if (!category) {
     throw new Error(
-      `toChangelogItem: unmapped changelog tag "${release.tag}" — ` +
+      `toChangelogItem: unmapped changelog tag "${release.tag}"  - ` +
         `add it to TAG_TO_CATEGORY. Known: ${Object.keys(TAG_TO_CATEGORY).join(", ")}`,
     );
   }

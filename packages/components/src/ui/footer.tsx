@@ -1,4 +1,8 @@
 /**
+ * @category pages
+ * @summary Footer
+ */
+/**
  * @fusorb/facet-components: Footer
  *
  * A dynamic, fully customizable site footer. Everything is config-driven:

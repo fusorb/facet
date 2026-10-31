@@ -145,7 +145,7 @@ export interface LayoutContextValue {
    *  can operate without the caller passing ids through the tree. */
   registerSections: (sectionIds: string[]) => void;
   /** Collapse the sidebar rail to icon-only AND fold every nav section.
-   *  This is the "collapsed variant" — maximum content real estate. */
+   *  This is the "collapsed variant"  - maximum content real estate. */
   collapseAllSidebar: () => void;
   /** Reverse of collapseAllSidebar: expand the rail AND unfold every section. */
   expandAllSidebar: () => void;

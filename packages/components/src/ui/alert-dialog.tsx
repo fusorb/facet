@@ -1,3 +1,7 @@
+/**
+ * @category feedback
+ * @summary Alert Dialog
+ */
 import * as React from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 import { cn } from "../utils.js";

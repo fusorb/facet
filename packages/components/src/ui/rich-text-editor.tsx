@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Rich Text Editor
+ */
+/**
  * @fusorb/facet-components: RichTextEditor
  *
  * A lightweight rich text editor: bold / italic / underline / lists /

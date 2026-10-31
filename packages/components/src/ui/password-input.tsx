@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Password Input
+ */
+/**
  * PasswordInput: a password field with a built-in show/hide toggle.
  *
  * Usage:

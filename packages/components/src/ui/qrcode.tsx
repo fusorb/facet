@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Qrcode
+ */
+/**
  * QRCode: render a value as a scannable QR code.
  */
 import * as React from "react";

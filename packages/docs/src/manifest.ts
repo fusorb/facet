@@ -12,667 +12,667 @@ export const docsManifest: DocsManifestEntry[] = [
   {
     "name": "Accordion",
     "slug": "accordion",
-    "description": "",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Account Settings Panel",
     "slug": "account-settings-panel",
-    "description": "@fusorb/facet-components: AccountSettingsPanel",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Activity Feed",
     "slug": "activity-feed",
-    "description": "@fusorb/facet-components: ActivityFeed",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Alert",
     "slug": "alert",
-    "description": "",
+    "description": "@category feedback",
     "category": "feedback"
   },
   {
     "name": "Alert Dialog",
     "slug": "alert-dialog",
-    "description": "Tracks the Root's onOpenChange so AlertDialogContent can close the",
+    "description": "@category feedback",
     "category": "feedback"
   },
   {
     "name": "Animated",
     "slug": "animated",
-    "description": "@fusorb/facet-components: Animated backgrounds & micro-interactions",
+    "description": "@category animation",
     "category": "animation"
   },
   {
     "name": "Animated Button",
     "slug": "animated-button",
-    "description": "@fusorb/facet-components: AnimatedButton",
+    "description": "@category animation",
     "category": "animation"
   },
   {
     "name": "Announcement Bar",
     "slug": "announcement-bar",
-    "description": "@fusorb/facet-components: AnnouncementBar",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Api Key Manager",
     "slug": "api-key-manager",
-    "description": "@fusorb/facet-components: ApiKeyManager",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Aspect Ratio",
     "slug": "aspect-ratio",
-    "description": "AspectRatio: constrain children to a fixed width-to-height ratio,",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Avatar",
     "slug": "avatar",
-    "description": "Avatar behavior.",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Avatar Group",
     "slug": "avatar-group",
-    "description": "",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Badge",
     "slug": "badge",
-    "description": "",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Billing Page",
     "slug": "billing-page",
-    "description": "@fusorb/facet-components: Billing / pricing page components",
+    "description": "@category pages",
     "category": "pages"
   },
   {
     "name": "Breadcrumb",
     "slug": "breadcrumb",
-    "description": "",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Button",
     "slug": "button",
-    "description": "",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Button Group",
     "slug": "button-group",
-    "description": "",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Card",
     "slug": "card",
-    "description": "",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Card Animations",
     "slug": "card-animations",
-    "description": "@fusorb/facet-components: card animations",
+    "description": "@category animation",
     "category": "animation"
   },
   {
     "name": "Carousel",
     "slug": "carousel",
-    "description": "Carousel: a composable, embla-based carousel.",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Changelog Card",
     "slug": "changelog-card",
-    "description": "ChangelogCard: a developer-console release card rendered from a single",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Changelog Feed",
     "slug": "changelog-feed",
-    "description": "ChangelogFeed: a vertical release timeline that renders ChangelogItems as",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Chart",
     "slug": "chart",
-    "description": "@fusorb/facet-components: Chart",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Chart Range Selector",
     "slug": "chart-range-selector",
-    "description": "",
+    "description": "@category general",
     "category": "general"
   },
   {
     "name": "Checkbox",
     "slug": "checkbox",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Collapsible",
     "slug": "collapsible",
-    "description": "Collapsible: expand/collapse section built on Radix Collapsible primitive.",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Color Picker",
     "slug": "color-picker",
-    "description": "ColorPicker: native color swatch plus validated hex text input.",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Combobox",
     "slug": "combobox",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Command",
     "slug": "command",
-    "description": "",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Consent Capture",
     "slug": "consent-capture",
-    "description": "@fusorb/facet-components: ConsentCapture",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Context Menu",
     "slug": "context-menu",
-    "description": "",
+    "description": "@category feedback",
     "category": "feedback"
   },
   {
     "name": "Cookie Banner",
     "slug": "cookie-banner",
-    "description": "@fusorb/facet-components: CookieBanner",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Cookie Consent",
     "slug": "cookie-consent",
-    "description": "@fusorb/facet-components: CookieConsent",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Country Code Input",
     "slug": "country-code-input",
-    "description": "CountryCodeInput: a phone number input with a leading country-code",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Data Table",
     "slug": "data-table",
-    "description": "DataTable: a ready-to-use data table built on the facet Table primitives.",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Date Input",
     "slug": "date-input",
-    "description": "DateInput: a text input that parses and validates ISO (YYYY-MM-DD) dates,",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Date Picker",
     "slug": "date-picker",
-    "description": "DatePicker: an in-house calendar date picker built on the facet Popover",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Date Range Picker",
     "slug": "date-range-picker",
-    "description": "@fusorb/facet-components: DateRangePicker",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Dialog",
     "slug": "dialog",
-    "description": "",
+    "description": "@category feedback",
     "category": "feedback"
   },
   {
     "name": "Dropdown Menu",
     "slug": "dropdown-menu",
-    "description": "",
+    "description": "@category feedback",
     "category": "feedback"
   },
   {
     "name": "Dropzone",
     "slug": "dropzone",
-    "description": "Dropzone: click or drag-and-drop file upload area with keyboard support",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Empty State",
     "slug": "empty-state",
-    "description": "",
+    "description": "@category feedback",
     "category": "feedback"
   },
   {
     "name": "Empty State Page",
     "slug": "empty-state-page",
-    "description": "@fusorb/facet-components: EmptyStatePage",
+    "description": "@category pages",
     "category": "pages"
   },
   {
     "name": "Faq Section",
     "slug": "faq-section",
-    "description": "@fusorb/facet-components: FaqSection",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Feedback Page",
     "slug": "feedback-page",
-    "description": "@fusorb/facet-components: FeedbackPage",
+    "description": "@category pages",
     "category": "pages"
   },
   {
     "name": "Footer",
     "slug": "footer",
-    "description": "@fusorb/facet-components: Footer",
+    "description": "@category pages",
     "category": "pages"
   },
   {
     "name": "Form",
     "slug": "form",
-    "description": "Form: lightweight react-hook-form + zod field wrapper.",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Infinite Scroll",
     "slug": "infinite-scroll",
-    "description": "InfiniteScroll: an auto-loading container that fires `onLoadMore` when the",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Input",
     "slug": "input",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Input Group",
     "slug": "input-group",
-    "description": "InputGroup",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Input Otp",
     "slug": "input-otp",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Invite Team Form",
     "slug": "invite-team-form",
-    "description": "@fusorb/facet-components: InviteTeamForm",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Kanban Board",
     "slug": "kanban-board",
-    "description": "@fusorb/facet-components: KanbanBoard",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Kbd",
     "slug": "kbd",
-    "description": "Render the platform modifier key (⌘ on macOS, Ctrl elsewhere)",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Label",
     "slug": "label",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Layer Graph",
     "slug": "layer-graph",
-    "description": "Composable architecture graph. Renders a relational hierarchy as an",
+    "description": "@category general",
     "category": "general"
   },
   {
     "name": "Location Picker",
     "slug": "location-picker",
-    "description": "LocationPicker: cascading Country → State/Region → LGA/Locality",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Mail Input",
     "slug": "mail-input",
-    "description": "MailInput: an email input with a domain suggestion dropdown.",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Marquee",
     "slug": "marquee",
-    "description": "Marquee: auto-scrolling horizontal ticker with pause-on-hover support.",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Mention Input",
     "slug": "mention-input",
-    "description": "@fusorb/facet-components: MentionInput",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Menubar",
     "slug": "menubar",
-    "description": "",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Micro Interactions",
     "slug": "micro-interactions",
-    "description": "@fusorb/facet-components: card & button micro-interactions",
+    "description": "@category animation",
     "category": "animation"
   },
   {
     "name": "Multi Combobox",
     "slug": "multi-combobox",
-    "description": "@fusorb/facet-components: MultiCombobox",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Navbar",
     "slug": "navbar",
-    "description": "Pre-built class strings per breakpoint so Tailwind's scanner can detect",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Navigation Menu",
     "slug": "navigation-menu",
-    "description": "",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Not Found",
     "slug": "not-found",
-    "description": "@fusorb/facet-components: Not Found (404)",
+    "description": "@category pages",
     "category": "pages"
   },
   {
     "name": "Notification Drawer",
     "slug": "notification-drawer",
-    "description": "",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Number Input",
     "slug": "number-input",
-    "description": "NumberInput: a numeric input with spin buttons and min/max/step",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Otp Input",
     "slug": "otp-input",
-    "description": "@fusorb/facet-components: OtpInput",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Otp Verification Card",
     "slug": "otp-verification-card",
-    "description": "@fusorb/facet-components: OtpVerificationCard",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Page Header",
     "slug": "page-header",
-    "description": "@fusorb/facet-components: PageHeader",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Pagination",
     "slug": "pagination",
-    "description": "",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Password Input",
     "slug": "password-input",
-    "description": "PasswordInput: a password field with a built-in show/hide toggle.",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Password Strength Meter",
     "slug": "password-strength-meter",
-    "description": "@fusorb/facet-components: PasswordStrengthMeter",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Phone Input",
     "slug": "phone-input",
-    "description": "@fusorb/facet-components: PhoneInput",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Pill",
     "slug": "pill",
-    "description": "Pill: a theme-adaptable, fully-rounded pill with a leading dot, icon, or custom",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Popover",
     "slug": "popover",
-    "description": "",
+    "description": "@category feedback",
     "category": "feedback"
   },
   {
     "name": "Pricing Comparison",
     "slug": "pricing-comparison",
-    "description": "@fusorb/facet-components: PricingComparison",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Progress",
     "slug": "progress",
-    "description": "",
+    "description": "@category feedback",
     "category": "feedback"
   },
   {
     "name": "Qr Scanner",
     "slug": "qr-scanner",
-    "description": "@fusorb/facet-components: QrScanner",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Qrcode",
     "slug": "qrcode",
-    "description": "QRCode: render a value as a scannable QR code.",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Radio Group",
     "slug": "radio-group",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Range Slider",
     "slug": "range-slider",
-    "description": "@fusorb/facet-components: RangeSlider",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Rating Input",
     "slug": "rating-input",
-    "description": "@fusorb/facet-components: RatingInput",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Resizable",
     "slug": "resizable",
-    "description": "Lets <ResizableHandle> auto-infer the orientation from its parent",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Rich Text Editor",
     "slug": "rich-text-editor",
-    "description": "@fusorb/facet-components: RichTextEditor",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Roadmap",
     "slug": "roadmap",
-    "description": "Roadmap: vertical timeline of feature items with status badges.",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Scroll Area",
     "slug": "scroll-area",
-    "description": "",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Security Section Card",
     "slug": "security-section-card",
-    "description": "@fusorb/facet-components: SecuritySectionCard",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Select",
     "slug": "select",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Separator",
     "slug": "separator",
-    "description": "",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Sheet",
     "slug": "sheet",
-    "description": "",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Shine Border Card",
     "slug": "shine-border-card",
-    "description": "@fusorb/facet-components: ShineBorderCard",
+    "description": "@category animation",
     "category": "animation"
   },
   {
     "name": "Skeleton",
     "slug": "skeleton",
-    "description": "",
+    "description": "@category feedback",
     "category": "feedback"
   },
   {
     "name": "Slider",
     "slug": "slider",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Sonner",
     "slug": "sonner",
-    "description": "Toaster: styled sonner toast provider.",
+    "description": "@category feedback",
     "category": "feedback"
   },
   {
     "name": "Stat Card",
     "slug": "stat-card",
-    "description": "@fusorb/facet-components: StatCard",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Stepper",
     "slug": "stepper",
-    "description": "@fusorb/facet-components: Stepper",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Switch",
     "slug": "switch",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Table",
     "slug": "table",
-    "description": "",
+    "description": "@category data-display",
     "category": "data-display"
   },
   {
     "name": "Tabs",
     "slug": "tabs",
-    "description": "",
+    "description": "@category layout",
     "category": "layout"
   },
   {
     "name": "Tag Input",
     "slug": "tag-input",
-    "description": "@fusorb/facet-components: TagInput",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Testimonial Showcase",
     "slug": "testimonial-showcase",
-    "description": "@fusorb/facet-components: TestimonialShowcase",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Text Animations",
     "slug": "text-animations",
-    "description": "@fusorb/facet-components: text animations",
+    "description": "@category animation",
     "category": "animation"
   },
   {
     "name": "Textarea",
     "slug": "textarea",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Toggle",
     "slug": "toggle",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Toggle Group",
     "slug": "toggle-group",
-    "description": "",
+    "description": "@category inputs",
     "category": "inputs"
   },
   {
     "name": "Tooltip",
     "slug": "tooltip",
-    "description": "",
+    "description": "@category feedback",
     "category": "feedback"
   },
   {
     "name": "Tree",
     "slug": "tree",
-    "description": "@fusorb/facet-components: Tree",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Two Factor Setup Panel",
     "slug": "two-factor-setup-panel",
-    "description": "@fusorb/facet-components: TwoFactorSetupPanel",
+    "description": "@category ready-to-use",
     "category": "ready-to-use"
   },
   {
     "name": "Wizard Form Page",
     "slug": "wizard-form-page",
-    "description": "@fusorb/facet-components: WizardFormPage",
+    "description": "@category pages",
     "category": "pages"
   },
   {

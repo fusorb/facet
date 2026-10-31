@@ -119,7 +119,7 @@ const easingFor = (e: Easing): number[] => {
 /**
  * Domain preset registry: maps domain names to their motion configs.
  *
- * Mirrors the `@fusorb/facet-layout` preset registry — consumers can
+ * Mirrors the `@fusorb/facet-layout` preset registry  - consumers can
  * register custom domains via `registerDomainMotion` without forking
  * the package, and `getDomainMotionConfig` falls back to `defaultMotion`
  * for unknown/undefined domains.

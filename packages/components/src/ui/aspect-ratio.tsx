@@ -1,4 +1,8 @@
 /**
+ * @category layout
+ * @summary Aspect Ratio
+ */
+/**
  * AspectRatio: constrain children to a fixed width-to-height ratio,
  * preventing layout shift for media and embeds.
  */

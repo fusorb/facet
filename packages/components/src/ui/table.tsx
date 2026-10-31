@@ -1,3 +1,7 @@
+/**
+ * @category data-display
+ * @summary Table
+ */
 import * as React from "react";
 import { cn } from "../utils.js";
 

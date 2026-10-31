@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Date Picker
+ */
+/**
  * DatePicker: an in-house calendar date picker built on the facet Popover
  * and Button primitives (no external date library).
  *

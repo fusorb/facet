@@ -1,8 +1,12 @@
 /**
+ * @category ready-to-use
+ * @summary Changelog Feed
+ */
+/**
  * ChangelogFeed: a vertical release timeline that renders ChangelogItems as
  * ChangelogCards, with a search box and a category filter bar. Console
  * styling via Facet semantic tokens (bg-card, border-border, text-foreground,
- * text-muted-foreground, ring-primary, bg-primary/10, bg-muted) — nothing
+ * text-muted-foreground, ring-primary, bg-primary/10, bg-muted)  - nothing
  * is hardcoded, fully themeable per fintech / med / edu / enterprise preset.
  *
  * The timeline is built on the Roadmap timeline (shared connector line,

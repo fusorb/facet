@@ -1,3 +1,7 @@
+/**
+ * @category data-display
+ * @summary Notification Drawer
+ */
 import * as React from "react";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";

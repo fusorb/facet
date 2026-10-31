@@ -1,3 +1,7 @@
+/**
+ * @category feedback
+ * @summary Context Menu
+ */
 import * as React from "react";
 import * as ContextMenuPrimitive from "@radix-ui/react-context-menu";
 import { cn } from "../utils.js";

@@ -2,7 +2,7 @@
  * Landing domain content accessor.
  *
  * `domain` is the canonical (default) content. All section components
- * import `domain` and `handleCta` directly — no hook, no provider, no switching.
+ * import `domain` and `handleCta` directly  - no hook, no provider, no switching.
  */
 
 import { getDocsUrl } from "../site.config.js";

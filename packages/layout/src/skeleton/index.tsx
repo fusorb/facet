@@ -4,7 +4,7 @@
  * Loading placeholder that mirrors the geometry of each LayoutShell kind
  * (console, auth, landing, docs, chat). Uses @fusorb/facet-component's
  * Skeleton (which ships with `animate-pulse`) so every bar animates in sync
- * — a uniform shimmer across the whole shell rather than per-element jitter.
+ *  - a uniform shimmer across the whole shell rather than per-element jitter.
  *
  * `/skeleton` subpath entry (see package.json exports). Imports only
  * @fusorb/facet-components + React, so it stays decoupled from the

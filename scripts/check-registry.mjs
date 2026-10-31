@@ -19,7 +19,7 @@ const committed = JSON.parse(fs.readFileSync(committedPath, "utf-8"));
 const fresh = buildRegistry();
 
 // `generatedFrom` is build metadata (commit hash + timestamp), not a
-// reproducible scan fact — exclude it so the gate detects real drift only.
+// reproducible scan fact  - exclude it so the gate detects real drift only.
 delete committed.generatedFrom;
 delete fresh.generatedFrom;
 

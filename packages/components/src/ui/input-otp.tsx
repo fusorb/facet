@@ -1,3 +1,7 @@
+/**
+ * @category inputs
+ * @summary Input Otp
+ */
 import * as React from "react";
 import { OTPInput, OTPInputContext } from "input-otp";
 import { cn } from "../utils.js";

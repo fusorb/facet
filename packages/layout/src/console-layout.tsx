@@ -63,7 +63,7 @@ export interface ConsoleLayoutProps {
    * Optional aside panel rendered between the sidebar and main content
    * (desktop only, lg+). Typically used for "on this page" navigation.
    * When provided the main content is offset to the right to make room.
-   * Desktop-only — not rendered on medium or small screens.
+   * Desktop-only  - not rendered on medium or small screens.
    */
   aside?: React.ReactNode;
   /** Width of the aside panel in px. Default: 260 */
@@ -74,7 +74,7 @@ export interface ConsoleLayoutProps {
    *  (between brand and navigation). Typically opens the command palette. */
   sidebarSearch?: React.ReactNode;
   /** Optional content at the bottom of the sidebar, below nav and above
-   *  the footer — e.g. an auth quick-action panel. */
+   *  the footer  - e.g. an auth quick-action panel. */
   sidebarBottom?: React.ReactNode;
   /** Inherited landing navbar rendered above the docs-specific topbar
    *  (full-width within the main content area). */
@@ -204,7 +204,7 @@ function ConsoleLayoutInner({
 
   return (
     <div className={cn("flex min-h-screen flex-col bg-background", className)}>
-      {/* Topbar — full width, above all splits (navbar + docs topbar) */}
+      {/* Topbar  - full width, above all splits (navbar + docs topbar) */}
       {navbar && <div className="border-b border-sidebar-border">{navbar}</div>}
       <Topbar
         tenants={showTenantSwitcher ? tenants : []}
@@ -232,7 +232,7 @@ function ConsoleLayoutInner({
         {topbar}
       </Topbar>
 
-      {/* Split area — below the topbar: sidebar | main | aside, all scrollable */}
+      {/* Split area  - below the topbar: sidebar | main | aside, all scrollable */}
       <div className="flex min-h-0 flex-1 overflow-hidden">
         {/* Classic mode: persistent adjustable sidebar (full / rail) */}
         {classicDesktop && (
@@ -249,7 +249,7 @@ function ConsoleLayoutInner({
           </div>
         )}
 
-        {/* Desktop aside panel (on this page) — below the topbar, between
+        {/* Desktop aside panel (on this page)  - below the topbar, between
             sidebar and main. Only on large/desktop; hidden on medium + small. */}
         {showAside && (
           <aside
@@ -265,7 +265,7 @@ function ConsoleLayoutInner({
           </aside>
         )}
 
-        {/* Mobile: slide-in sidebar — below the topbar. pointer-events are
+        {/* Mobile: slide-in sidebar  - below the topbar. pointer-events are
             enabled only while open so the closed drawer never swallows taps. */}
         {!isDesktop && (
           <div
@@ -288,7 +288,7 @@ function ConsoleLayoutInner({
           </div>
         )}
 
-        {/* Main content — below topbar, offset for sidebar & aside, scrollable */}
+        {/* Main content  - below topbar, offset for sidebar & aside, scrollable */}
         <div
           className="flex min-w-0 flex-1 overflow-auto transition-[padding] duration-200"
           style={

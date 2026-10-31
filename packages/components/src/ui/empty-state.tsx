@@ -1,3 +1,7 @@
+/**
+ * @category feedback
+ * @summary Empty State
+ */
 import * as React from "react";
 import { cn } from "../utils.js";
 

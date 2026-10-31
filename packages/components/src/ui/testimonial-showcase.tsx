@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Testimonial Showcase
+ */
+/**
  * @fusorb/facet-components: TestimonialShowcase
  *
  * A ready-to-use social-proof grid (or carousel) of testimonials with
@@ -6,7 +10,7 @@
  * and the semantic Icon registry. Data-driven and responsive.
  *
  * Customization: appearance (className), configuration (data/mode/cols),
- * slots — `renderTestimonial` replaces each testimonial card so consumers
+ * slots  - `renderTestimonial` replaces each testimonial card so consumers
  * can swap the avatar/layout without forking the carousel/grid logic.
  */
 

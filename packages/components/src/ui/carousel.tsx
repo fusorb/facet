@@ -1,4 +1,8 @@
 /**
+ * @category data-display
+ * @summary Carousel
+ */
+/**
  * Carousel: a composable, embla-based carousel.
  *
  * Drop in <Carousel> + <CarouselContent> + <CarouselItem> for a

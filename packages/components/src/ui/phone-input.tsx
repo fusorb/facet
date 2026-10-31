@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Phone Input
+ */
+/**
  * @fusorb/facet-components: PhoneInput
  *
  * A full phone-number input with a country-code dropdown and E.164

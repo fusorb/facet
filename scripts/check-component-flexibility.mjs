@@ -114,7 +114,7 @@ console.log(`  composites wire >=2 siblings: ${composites.length} (${compositesW
 console.log("\nHARD gaps (missing appearance or config):");
 if (HARD_GAPS.length) for (const g of HARD_GAPS) console.log(`  - ${g}`);
 else console.log("  (none)");
-console.log("\nSlot gaps (composites missing slots — CI hard gate):");
+console.log("\nSlot gaps (composites missing slots  - CI hard gate):");
 if (SOFT_GAPS.length) for (const g of SOFT_GAPS) console.log(`  - ${g}`);
 else console.log("  (none)");
 
@@ -123,7 +123,7 @@ else console.log("  (none)");
 // slots, so this currently passes; future regressions will fail the build.
 if (HARD_GAPS.length || SOFT_GAPS.length) {
   console.log(
-    "\nFAILED: composability invariant violated — see HARD gaps (appear" +
+    "\nFAILED: composability invariant violated  - see HARD gaps (appear" +
       "ance/config) and slot gaps above.",
   );
   process.exit(1);

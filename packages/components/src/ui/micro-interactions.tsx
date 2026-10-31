@@ -1,4 +1,8 @@
 /**
+ * @category animation
+ * @summary Micro Interactions
+ */
+/**
  * @fusorb/facet-components: card & button micro-interactions
  *
  * Subtle, dependency-free interactive surfaces: 3D tilt cards,

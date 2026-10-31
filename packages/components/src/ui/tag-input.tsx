@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Tag Input
+ */
+/**
  * @fusorb/facet-components: TagInput
  *
  * A free-form tag/chip input. Hosts pass a string[] and the component

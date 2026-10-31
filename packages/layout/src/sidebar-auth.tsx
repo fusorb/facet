@@ -8,7 +8,7 @@
  * docs quick links, etc.).  A direct "Sign out" button is rendered below
  * in red so it's always accessible without opening the dropdown.
  *
- * Uses the injected layout session (via useLayout) — when no user is
+ * Uses the injected layout session (via useLayout)  - when no user is
  * present (static/docs-only sites) the component renders nothing.
  */
 
@@ -69,13 +69,13 @@ export function SidebarAuth({
     try {
       await signOut();
     } catch {
-      // Ignore — sign out may be handled by the consumer or a no-op.
+      // Ignore  - sign out may be handled by the consumer or a no-op.
     }
   }, [signOut]);
 
   const { user, isLoading } = session;
 
-  // Still loading — show a placeholder.
+  // Still loading  - show a placeholder.
   if (isLoading) {
     return (
       <div className="border-t border-sidebar-border p-3">

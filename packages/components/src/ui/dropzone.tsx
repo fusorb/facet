@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Dropzone
+ */
+/**
  * Dropzone: click or drag-and-drop file upload area with keyboard support
  * and clipboard paste (Ctrl/Cmd+V) handling.
  */

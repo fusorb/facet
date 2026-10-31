@@ -1,4 +1,8 @@
 /**
+ * @category animation
+ * @summary Card Animations
+ */
+/**
  * @fusorb/facet-components: card animations
  *
  * A family of animated card surfaces: 3D flip, cursor spotlight,

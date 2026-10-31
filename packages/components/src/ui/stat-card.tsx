@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Stat Card
+ */
+/**
  * @fusorb/facet-components: StatCard
  *
  * A KPI metric card: label, value, optional delta vs. previous period,

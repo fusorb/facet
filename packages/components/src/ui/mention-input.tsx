@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Mention Input
+ */
+/**
  * @fusorb/facet-components: MentionInput
  *
  * A plain-text input with `@mention` autocomplete. Hosts pass a list of

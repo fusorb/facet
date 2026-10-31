@@ -1,5 +1,5 @@
 /**
- * @fusorb/facet-native — React Native motion driver bridge for @fusorb/facet-motion.
+ * @fusorb/facet-native  - React Native motion driver bridge for @fusorb/facet-motion.
  *
  * Provides a framework-agnostic RN motion adapter (`bindAnimated`,
  * `unbindAnimated`, `nativeDriver`, `resolveNativeTransition`, `toEasingCurve`,
@@ -34,7 +34,7 @@ import { registerDriver } from "@fusorb/facet-motion";
 import { facetDriver } from "./adapter.js";
 
 // Auto-register the native driver with @fusorb/facet-motion's driver registry.
-// This runs on import — harmless in web/Node (nativeDriver.isSupported()
+// This runs on import  - harmless in web/Node (nativeDriver.isSupported()
 // returns false until bindAnimated() is called).
 registerDriver(facetDriver);
 

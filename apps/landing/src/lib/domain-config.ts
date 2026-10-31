@@ -173,7 +173,7 @@ const ALL_SHOWCASE_DEMOS = [
   { id: "sparkle", label: "Sparkle" },
 ];
 
-/** Core product stats — dynamically detected from the workspace at build time. */
+/** Core product stats  - dynamically detected from the workspace at build time. */
 export const BASE_STATS: DomainStat[] = [
   { value: String(SITE_PACKAGES_COUNT), label: "Packages" },
   { value: String(COMPONENT_COUNT), label: "Components" },

@@ -1,4 +1,8 @@
 /**
+ * @category pages
+ * @summary Not Found
+ */
+/**
  * @fusorb/facet-components: Not Found (404)
  *
  * A fully composable, customizable not-found page. The giant "404" can

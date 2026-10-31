@@ -120,7 +120,7 @@ function Block({ block }: { block: DocsBlock }) {
      return (
        <div className="rounded-lg border border-dashed border-border p-4 text-sm text-muted-foreground">
          Reference: {block.kind ?? "item"} {block.id}
-         {block.text ? ` — ${block.text}` : ""}
+         {block.text ? `  - ${block.text}` : ""}
        </div>
      );
     case "image":

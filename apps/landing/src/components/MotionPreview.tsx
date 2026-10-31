@@ -79,7 +79,7 @@ function Gm({
 /**
  * Authored Motion: drives a registry-authored effect (aurora, beams, …)
  * through @fusorb/facet-motion. No duration or repeatType override is
- * passed — the registry is authoritative for the cycle timing and repeat
+ * passed  - the registry is authoritative for the cycle timing and repeat
  * strategy (continuous "loop" for sweeps such as spotlight/shine/ripple/
  * tilt, and alternating breathing for aurora/beams/grid).
  */

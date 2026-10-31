@@ -1,4 +1,8 @@
 /**
+ * @category pages
+ * @summary Wizard Form Page
+ */
+/**
  * @fusorb/facet-components: WizardFormPage
  *
  * A drop-in multi-step form page: combines `Stepper` (navigation),

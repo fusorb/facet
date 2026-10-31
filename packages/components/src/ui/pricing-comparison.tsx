@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Pricing Comparison
+ */
+/**
  * @fusorb/facet-components: PricingComparison
  *
  * A mobile-friendly pricing comparison page: tier cards (Free / Pro /

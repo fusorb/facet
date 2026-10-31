@@ -1,3 +1,7 @@
+/**
+ * @category data-display
+ * @summary Kbd
+ */
 import * as React from "react";
 import { cn, getModSymbol } from "../utils.js";
 

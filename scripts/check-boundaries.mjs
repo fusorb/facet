@@ -8,7 +8,7 @@
  *     packages/motion) and depends only on @fusorb/facet-tokens and
  *     @fusorb/facet-motion (the host runtime it auto-registers its driver
  *     into; the Animated API itself is consumer-provided via 'bindAnimated').
- *     It stays a SovGrant/SovPort leaf — never
+ *     It stays a SovGrant/SovPort leaf  - never
  *     merged into motion's src or bundled into the web build.
  *
  * Zero runtime deps; exits non-zero on drift so CI (check:boundaries) catches
@@ -61,7 +61,7 @@ if (!fs.existsSync(path.join(nativeDir, "package.json"))) {
   for (const field of ["dependencies", "peerDependencies"]) {
     if (npj[field]) for (const k of Object.keys(npj[field]).filter((x) => x.startsWith("@fusorb/"))) if (!ALLOWED_NATIVE_DEPS.has(k)) illegal.push(k);
   }
-  if (illegal.length) violations.push(`${NATIVE_NAME} depends on ${illegal.join(", ")} — allowed: @fusorb/facet-tokens + @fusorb/facet-motion (driver registry + core engine types; the Animated API itself is consumer-provided via 'bindAnimated').`);
+  if (illegal.length) violations.push(`${NATIVE_NAME} depends on ${illegal.join(", ")}  - allowed: @fusorb/facet-tokens + @fusorb/facet-motion (driver registry + core engine types; the Animated API itself is consumer-provided via 'bindAnimated').`);
 }
 
 if (cyclic || violations.length) {

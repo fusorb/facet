@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Announcement Bar
+ */
+/**
  * @fusorb/facet-components: AnnouncementBar
  *
  * A dismissible top announcement banner, persisted in localStorage by

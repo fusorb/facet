@@ -2,7 +2,7 @@
  * @fusorb/facet-registry scanner
  *
  * Indexes the workspace into a single `registry.json` + typed accessors.
- * Reads from source-of-truth files only — never duplicates a fact.
+ * Reads from source-of-truth files only  - never duplicates a fact.
  *
  * Run: node packages/registry/src/scan.mjs
  * Output: packages/registry/src/registry.json
@@ -35,7 +35,7 @@ const outFile = path.join(outDir, "registry.json");
 
 // ── Package metadata overlay (icon only) ──────────────────────────
 // Order/category/summary now come from package.json "facet" field.
-// Icons are branding choices — editorial, not derivable.
+// Icons are branding choices  - editorial, not derivable.
 const FALLBACK_ICONS = {
   "@fusorb/facet-tokens": "palette",
   "@fusorb/facet-utils": "wrench",

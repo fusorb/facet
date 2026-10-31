@@ -1,3 +1,7 @@
+/**
+ * @category layout
+ * @summary Navigation Menu
+ */
 import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { Icon } from "../icon/index.js";

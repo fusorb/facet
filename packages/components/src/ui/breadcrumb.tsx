@@ -1,3 +1,7 @@
+/**
+ * @category layout
+ * @summary Breadcrumb
+ */
 import * as React from "react";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";

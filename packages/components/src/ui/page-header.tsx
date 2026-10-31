@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Page Header
+ */
+/**
  * @fusorb/facet-components: PageHeader
  *
  * A page header: breadcrumb trail (optional), title, description, and

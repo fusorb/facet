@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Chart
+ */
+/**
  * @fusorb/facet-components: Chart
  *
  * An SVG-based chart primitive supporting line, bar, area, pie, donut,
@@ -152,7 +156,7 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Font size (px) for pie/donut slice labels (primary line). Default: 12. */
   pieLabelFontSize?: number;
   /** Custom renderer for pie/donut slice labels. Receives the slice index,
-   *  value, percentage (0–100), x-axis label, and the source series. When
+   *  value, percentage (0-100), x-axis label, and the source series. When
    *  omitted the default rich label (bold category + muted value) is used. */
   renderSliceLabel?: (
     index: number,
@@ -166,7 +170,7 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
    *  { x, y }. Default: 16. */
   tooltipOffset?: number | { x: number; y: number };
   /** Hide pie/donut slice labels whose share of the total falls below this
-   *  fraction (0–1). Default 0 = render every label. */
+   *  fraction (0-1). Default 0 = render every label. */
   sliceLabelThreshold?: number;
   /** Custom centered content for a donut chart (e.g. a total + subtext). When
    *  omitted, a centered total plus slice count is rendered. */
@@ -189,14 +193,14 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Radius (px) of data-point dots on line/area charts.
    *  The active (hovered) dot is dotRadius + 2. Default: 3. */
   dotRadius?: number;
-  /** Opacity (0–1) for non-hovered data-point dots and pie slices.
+  /** Opacity (0-1) for non-hovered data-point dots and pie slices.
    *  Default: 0.45 (matches barInactiveOpacity). */
   dotInactiveOpacity?: number;
   /** Stroke width (px) of the crosshair vertical guide line. Default: 1. */
   crosshairWidth?: number;
   /** Stroke-dasharray of the crosshair line. Default: "4 2". */
   crosshairDasharray?: string;
-  /** Stroke opacity (0–1) of the crosshair line. Default: 0.25. */
+  /** Stroke opacity (0-1) of the crosshair line. Default: 0.25. */
   crosshairOpacity?: number;
   /** Radius (px) of the crosshair intersection dot. Default: 4. */
   crosshairDotRadius?: number;
@@ -211,9 +215,9 @@ export interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Stroke width (px) of pie/donut slice outlines.
    *  The active slice is sliceWidth + 0.5. Default: 1.5. */
   sliceWidth?: number;
-  /** Opacity (0–1) for dimmed legend items. Default: 0.3. */
+  /** Opacity (0-1) for dimmed legend items. Default: 0.3. */
   legendInactiveOpacity?: number;
-  /** Tension (0–1) for smooth (cardinal-spline) curves. Higher = tighter.
+  /** Tension (0-1) for smooth (cardinal-spline) curves. Higher = tighter.
    *  Default: 0.3. */
   curveTension?: number;
   /** Override theme colors (foreground, background, border, muted, palette).
@@ -1543,7 +1547,7 @@ export function Chart({
                 fontWeight={600}
                 fill={resolvedColors.foreground}
               >
-                {total > 0 ? formatY(total) : "–"}
+                {total > 0 ? formatY(total) : "-"}
               </text>
               <text
                 x={cx}

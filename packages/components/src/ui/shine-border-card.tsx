@@ -1,4 +1,8 @@
 /**
+ * @category animation
+ * @summary Shine Border Card
+ */
+/**
  * @fusorb/facet-components: ShineBorderCard
  *
  * A card with an animated shine that travels around the border.

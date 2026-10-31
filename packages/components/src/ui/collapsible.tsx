@@ -1,4 +1,8 @@
 /**
+ * @category layout
+ * @summary Collapsible
+ */
+/**
  * Collapsible: expand/collapse section built on Radix Collapsible primitive.
  *
  * Usage:

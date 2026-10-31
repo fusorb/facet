@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Security Section Card
+ */
+/**
  * @fusorb/facet-components: SecuritySectionCard
  *
  * A ready-to-use security features grid: each item is a clickable card

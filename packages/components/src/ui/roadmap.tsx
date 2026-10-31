@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Roadmap
+ */
+/**
  * Roadmap: vertical timeline of feature items with status badges.
  * Two variants:
  *  - "card": each item renders as a bordered card with a status badge

@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Cookie Consent
+ */
+/**
  * @fusorb/facet-components: CookieConsent
  *
  * A GDPR-style cookie consent banner with Accept / Decline and an

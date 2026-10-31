@@ -1,4 +1,8 @@
 /**
+ * @category general
+ * @summary Typewriter Text
+ */
+/**
  * @fusorb/facet-components: TypewriterText
  *
  * Cycles through a list of phrases with a type/erase loop and a blinking

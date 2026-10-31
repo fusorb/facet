@@ -39,7 +39,7 @@ export interface SidebarProps {
    *  one closes its siblings). Default: false */
   singleOpen?: boolean;
   /** Custom render for the brand section (logo + label). Defaults to
-   *  DefaultBrand. Pass to fully replace the brand block — e.g. to add a
+   *  DefaultBrand. Pass to fully replace the brand block  - e.g. to add a
    *  tagline, CTA, or domain-specific logo treatment. */
   renderBrand?: (
     brand: BrandConfig,
@@ -63,7 +63,7 @@ export interface SidebarProps {
    *  Typically a trigger that opens the command palette dialog. */
   sidebarSearch?: React.ReactNode;
   /** Content rendered at the very bottom of the sidebar, below the nav
-   *  and above the footer — e.g. auth quick-action panel. */
+   *  and above the footer  - e.g. auth quick-action panel. */
   sidebarBottom?: React.ReactNode;
   /** Extra classes merged onto the sidebar element. */
   className?: string;
@@ -170,7 +170,7 @@ export function Sidebar({
         ? renderBrand(config.brand, { collapsed })
         : <DefaultBrand brand={config.brand} collapsed={collapsed} />}
 
-      {/* Search bar — only shown when expanded (has room) */}
+      {/* Search bar  - only shown when expanded (has room) */}
       {!collapsed && sidebarSearch && (
         <div className="px-3 py-2">{sidebarSearch}</div>
       )}
@@ -222,7 +222,7 @@ export function Sidebar({
         )}
       </ScrollArea>
 
-      {/* Auth / quick-action bottom — only when expanded */}
+      {/* Auth / quick-action bottom  - only when expanded */}
       {!collapsed && sidebarBottom && (
         <div className="border-t border-sidebar-border p-3">{sidebarBottom}</div>
       )}

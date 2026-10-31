@@ -32,7 +32,7 @@
   --hero-glow: color-mix(in oklab, var(--alpha-electric-cyan) 35%, transparent);
   --accent-dim: color-mix(in oklab, var(--alpha-electric-cyan) 12%, transparent);
 
-  /* ── Surfaces — deep-space navy ramp ──────────────────────── */
+  /* ── Surfaces  - deep-space navy ramp ──────────────────────── */
   --background: var(--alpha-deep-space);
   --bg: var(--alpha-deep-space);
   --foreground: var(--alpha-mist-gray);
@@ -56,7 +56,7 @@
   --border-bright: color-mix(in oklab, var(--alpha-mist-gray) 24%, transparent);
   --input: color-mix(in oklab, var(--alpha-mist-gray) 14%, transparent);
 
-  /* ── Charts — brand cyan with logic-gold secondary ────────── */
+  /* ── Charts  - brand cyan with logic-gold secondary ────────── */
   --chart-1: var(--alpha-electric-cyan);
   --chart-2: color-mix(in oklab, var(--alpha-electric-cyan) 60%, var(--alpha-base-white));
   --chart-3: var(--alpha-logic-gold);
@@ -75,7 +75,7 @@
 }
 
 [data-theme="light"] {
-  /* ── Brand — darkened electric-cyan for contrast on light ─── */
+  /* ── Brand  - darkened electric-cyan for contrast on light ─── */
   --primary: color-mix(in oklab, var(--alpha-electric-cyan) 68%, var(--alpha-deep-space));
   --primary-foreground: var(--alpha-base-white);
   --accent: color-mix(in oklab, var(--alpha-electric-cyan) 68%, var(--alpha-deep-space));
@@ -88,7 +88,7 @@
   --hero-glow: color-mix(in oklab, var(--alpha-electric-cyan) 28%, transparent);
   --accent-dim: color-mix(in oklab, var(--alpha-electric-cyan) 16%, transparent);
 
-  /* ── Surfaces — mist-gray tinted white ────────────────────── */
+  /* ── Surfaces  - mist-gray tinted white ────────────────────── */
   --background: color-mix(in oklab, var(--alpha-base-white) 96%, var(--alpha-mist-gray));
   --bg: color-mix(in oklab, var(--alpha-base-white) 96%, var(--alpha-mist-gray));
   --foreground: var(--alpha-deep-space);

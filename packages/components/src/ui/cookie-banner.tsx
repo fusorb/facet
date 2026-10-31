@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Cookie Banner
+ */
+/**
  * @fusorb/facet-components: CookieBanner
  *
  * A top-bar cookie notice with three CTAs (Accept all, Reject

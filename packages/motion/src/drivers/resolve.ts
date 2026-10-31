@@ -26,7 +26,7 @@ import type { Duration, Easing } from "../registry/types.js";
 
 /**
  * CSS-compatible cubic-bezier solver.
- * Maps normalized input x (0–1) to y (0–1) on a cubic-bezier curve
+ * Maps normalized input x (0-1) to y (0-1) on a cubic-bezier curve
  * defined by control points (x1, y1) and (x2, y2).
  */
 function cubicBezier(

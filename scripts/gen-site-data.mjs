@@ -4,7 +4,7 @@
 //
 // Sources of truth:
 //   - All packages: scanned from packages/*/package.json (auto-discovered,
-//     not hardcoded — new packages appear automatically)
+//     not hardcoded  - new packages appear automatically)
 //   - Package versions: packages/*/package.json
 //   - Component count:  packages/components/src/ui/*.tsx (excluding tests)
 //   - SDK count:        exported *Sdk classes in packages/sdk/src/index.ts
@@ -27,7 +27,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const outFile = path.join(root, "apps/landing/src/data/site-data.generated.ts");
 
 // Package display order and icon come from each package.json `facet` field
-// (ADR-006 single source of truth) — no editorial overlay here.
+// (ADR-006 single source of truth)  - no editorial overlay here.
 
 /**
  * Auto-discover all packages in the workspace by scanning the packages
@@ -90,7 +90,7 @@ function countAuthPresets() {
 /**
  * Detect the design color space actually used by the token system.
  * Scans the tokens CSS for modern color functions so the landing never
- * hardcodes "OKLCH" — if the tokens migrate to another space, the stat
+ * hardcodes "OKLCH"  - if the tokens migrate to another space, the stat
  * follows automatically.
  */
 function detectColorSpace() {
@@ -179,7 +179,7 @@ export const DOMAIN_PRESET_COUNT: number = ${domainPresetCount};
 fs.writeFileSync(outFile, body, "utf-8");
 console.log(`Detected ${packages.length} packages:`);
 for (const pkg of packages) {
-  console.log(`  ${pkg.name}@${pkg.version} — ${pkg.desc}`);
+  console.log(`  ${pkg.name}@${pkg.version}  - ${pkg.desc}`);
 }
 console.log(`Stats: ${stats.map((s) => `${s.value} ${s.label}`).join(" | ")}`);
 console.log(`Color space: ${colorSpace} | Domain presets: ${domainPresetCount}`);

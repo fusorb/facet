@@ -238,7 +238,7 @@ export function LayoutProvider({
   }, []);
 
   // Collapse every sidebar section AND the sidebar rail itself.
-  // This is the "collapsed variant" — icon-only rail with all nav groups
+  // This is the "collapsed variant"  - icon-only rail with all nav groups
   // folded, ready to reclaim maximum horizontal real estate.
   const collapseAllSidebar = React.useCallback(() => {
     collapseAll(registeredSectionsRef.current);

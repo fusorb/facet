@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Number Input
+ */
+/**
  * NumberInput: a numeric input with spin buttons and min/max/step
  * clamping. Built on the facet Input styles.
  *

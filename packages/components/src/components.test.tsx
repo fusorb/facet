@@ -380,7 +380,7 @@ describe("Navbar", () => {
     expect(onNavigate).toHaveBeenCalledWith("/product/pricing");
   });
 
-  // pill variant styling deferred — see todo: rebuild or remove
+  // pill variant styling deferred  - see todo: rebuild or remove
   // it("applies a flush glass header when variant is pill", () => {
   //   ...
   // });
@@ -401,7 +401,7 @@ describe("Navbar", () => {
     expect(nav).not.toHaveClass("md:flex");
   });
 
-  // pill variant styling deferred — see todo: rebuild or remove
+  // pill variant styling deferred  - see todo: rebuild or remove
   // it("renders a flat link tray for pill links", () => {
   //   ...
   // });

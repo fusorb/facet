@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Range Slider
+ */
+/**
  * @fusorb/facet-components: RangeSlider
  *
  * A two-thumb range slider with an active-track highlight, optional

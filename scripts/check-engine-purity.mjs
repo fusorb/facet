@@ -123,7 +123,7 @@ for (const dir of DIRS_TO_SCAN) {
       failed = true;
       console.error(`  ${relPath}:`);
       for (const v of violations) {
-        console.error(`    — ${v}`);
+        console.error(`     - ${v}`);
       }
     }
   }

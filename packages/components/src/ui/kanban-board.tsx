@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Kanban Board
+ */
+/**
  * @fusorb/facet-components: KanbanBoard
  *
  * A ready-to-use kanban board: columns of cards, drag-and-drop between

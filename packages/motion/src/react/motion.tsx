@@ -515,7 +515,7 @@ export function Motion({
   const mergedRef = useMergeRefs<HTMLElement>(ref, asChildRef);
 
   // asChild: apply animation styles directly on the child element (no wrapper
-  // <div>). This is critical for Radix popover primitives — the animated node
+  // <div>). This is critical for Radix popover primitives  - the animated node
   // must BE the positioned Content so positioning, focus scope, and z-index
   // are never intercepted by an extra host element.
   if (asChild && asChildChild) {

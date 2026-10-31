@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Country Code Input
+ */
+/**
  * CountryCodeInput: a phone number input with a leading country-code
  * selector (WhatsApp-style). Dial codes are bundled locally so the
  * component works offline; consumers can pass their own list.

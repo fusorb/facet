@@ -1,5 +1,5 @@
 /**
- * @fusorb/facet-registry — typed accessors for the compiled workspace registry.
+ * @fusorb/facet-registry  - typed accessors for the compiled workspace registry.
  *
  * This package is private (workspace-only). Apps and tooling import from here;
  * no published package depends on it.

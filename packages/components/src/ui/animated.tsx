@@ -1,4 +1,8 @@
 /**
+ * @category animation
+ * @summary Animated
+ */
+/**
  * @fusorb/facet-components: Animated backgrounds & micro-interactions
  *
  * Ready-to-use decorative layers for hero sections and CTAs:

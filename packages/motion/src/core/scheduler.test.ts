@@ -29,11 +29,11 @@ describe("defaultScheduler", () => {
 
     defaultScheduler((delta) => deltas.push(delta));
 
-    // First frame – rAF passes an absolute timestamp (e.g. 5432).
+    // First frame - rAF passes an absolute timestamp (e.g. 5432).
     rafCallbacks[0]!(5432);
     expect(deltas[0]).toBe(0); // must be 0, not 5432
 
-    // Second frame – 16 ms later.
+    // Second frame - 16 ms later.
     rafCallbacks[1]!(5448);
     expect(deltas[1]).toBe(16);
   });

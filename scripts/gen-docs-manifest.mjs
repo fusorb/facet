@@ -159,6 +159,13 @@ function firstDocLine(filePath) {
   return m[1].trim();
 }
 
+function readTag(filePath, tag) {
+  const src = fs.readFileSync(filePath, "utf-8");
+  const m = src.match(new RegExp(`@${tag}\\s+(.+?)(?:\\n|\\*/)`, "m"));
+  if (!m) return "";
+  return m[1].trim();
+}
+
 // "alert-dialog" -> "Alert Dialog"
 function humanize(slug) {
   return slug
@@ -178,8 +185,8 @@ const components = fs
     const entry = {
       name: humanize(name),
       slug: name,
-      description: firstDocLine(file),
-      category: CATEGORY[name] ?? "general",
+      description: firstDocLine(file) || readTag(file, "summary") || humanize(name),
+      category: readTag(file, "category") || CATEGORY[name] || "general",
     };
     return entry;
   });

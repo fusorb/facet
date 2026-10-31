@@ -1,10 +1,10 @@
 /**
- * @fusorb/facet-sandbox/react — React lab kit.
+ * @fusorb/facet-sandbox/react  - React lab kit.
  *
  * Composable components for presenting artifacts/examples: a bounded
  * {@link Stage} viewport, an {@link ArtifactRenderer}, a schema-driven
  * {@link Inspector} with injectable control renderers, a {@link Catalog}, and
- * a {@link CodeView}. Ships with zero facet components — hosts style controls
+ * a {@link CodeView}. Ships with zero facet components  - hosts style controls
  * via `controlRenderers` or their own CSS.
  *
  * @packageDocumentation

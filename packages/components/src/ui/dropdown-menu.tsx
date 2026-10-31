@@ -1,3 +1,7 @@
+/**
+ * @category feedback
+ * @summary Dropdown Menu
+ */
 import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { cn } from "../utils.js";

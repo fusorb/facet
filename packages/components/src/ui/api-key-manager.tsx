@@ -1,11 +1,15 @@
 /**
+ * @category ready-to-use
+ * @summary Api Key Manager
+ */
+/**
  * @fusorb/facet-components: ApiKeyManager
  *
  * A ready-to-use API key manager: create keys with a scope + expiry,
  * copy secrets, reveal truncated keys, and revoke them. Controlled via
  * `keys` + callbacks so consumers own persistence.
  *
- * Customization: appearance (className), configuration (scopes), slots —
+ * Customization: appearance (className), configuration (scopes), slots  - 
  * `renderKey` replaces each key's display block so consumers can expose
  * custom metadata/status without forking the create/reveal/revoke flow.
  */

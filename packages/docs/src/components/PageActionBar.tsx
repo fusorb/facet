@@ -28,7 +28,7 @@ export interface PageActionItem {
  * dropdown for additional page-level actions.
  *
  * Always includes the default Copy page + Download actions. Pass `actions`
- * to append any developer-defined items — e.g. "Ask question" when an
+ * to append any developer-defined items  - e.g. "Ask question" when an
  * AI agent is integrated into the docs, "Share", "Edit on GitHub", etc.
  *
  * For full control, skip this component and pass a custom `pageActions`

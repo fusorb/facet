@@ -1,4 +1,8 @@
 /**
+ * @category pages
+ * @summary Billing Page
+ */
+/**
  * @fusorb/facet-components: Billing / pricing page components
  *
  * Three config-driven billing layouts that all consume the same

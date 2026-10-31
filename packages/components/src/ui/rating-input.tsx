@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Rating Input
+ */
+/**
  * @fusorb/facet-components: RatingInput
  *
  * A 5-star (or N-item) rating input. Hosts pass `value` (a number) and

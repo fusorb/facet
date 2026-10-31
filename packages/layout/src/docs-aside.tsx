@@ -9,7 +9,7 @@
  * and styled with the `--primary` palette:
  *   - active link: left border + text at full primary, bg at ~10 % opacity.
  *
- * This component is generic — it does NOT know about DocsBlock.
+ * This component is generic  - it does NOT know about DocsBlock.
  * The docs package extracts h2/h3 from DocsBlock[] (using `slug()`)
  * and passes the headings array here.
  */
@@ -53,7 +53,7 @@ export function DocsAside({
   const collapsed = controlledCollapsed ?? internalCollapsed;
 
   // Skip the first persist/notify run so the post-hydration value is what
-  // gets stored — never the pre-hydration default.
+  // gets stored  - never the pre-hydration default.
   const persistReady = React.useRef(false);
 
   // Hydrate once from localStorage (client-only).

@@ -4,7 +4,7 @@
  * A deliberately different brand from the default cyan: a warm
  * orange/rose ramp on a charcoal-plum base. Ships the same semantic token
  * contract as every other palette, so the identical components render
- * unchanged — only the CSS custom properties differ.
+ * unchanged  - only the CSS custom properties differ.
  *
  * Import AFTER tokens.css:
  *
@@ -29,7 +29,7 @@
   --hero-glow: rgba(249, 115, 22, 0.35);
   --accent-dim: rgba(249, 115, 22, 0.12);
 
-  /* ── Surfaces — warm charcoal ramp ────────────────────────── */
+  /* ── Surfaces  - warm charcoal ramp ────────────────────────── */
   --background: #17100b;
   --bg: #17100b;
   --foreground: #f6ece3;
@@ -85,7 +85,7 @@
   --hero-glow: rgba(194, 65, 12, 0.25);
   --accent-dim: rgba(194, 65, 12, 0.1);
 
-  /* ── Surfaces — warm paper ramp ───────────────────────────── */
+  /* ── Surfaces  - warm paper ramp ───────────────────────────── */
   --background: #fdf7f2;
   --bg: #fdf7f2;
   --foreground: #21130b;

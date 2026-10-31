@@ -1,4 +1,4 @@
-/* Google Fonts — loaded via <link> in index.html (non-blocking) */
+/* Google Fonts  - loaded via <link> in index.html (non-blocking) */
 
 /* Tailwind v4 (Rust parser, CSS-native config) */
 @import "tailwindcss";
@@ -6,7 +6,7 @@
 /* facet design tokens (CSS custom properties) */
 @import "../../../packages/tokens/src/tokens.css";
 
-/* Alpha Palette — re-brands the semantic tokens for the landing surface */
+/* Alpha Palette  - re-brands the semantic tokens for the landing surface */
 @import "../../../packages/tokens/src/palettes/alpha.css";
 
 /* Tailwind v4 theme extension (maps CSS vars to utilities) */

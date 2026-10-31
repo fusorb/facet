@@ -36,8 +36,8 @@ export function TokensExplorerSection() {
         />
         <TokenCategory
           label="Spacing"
-          desc="8-point spacing scale (0–8xl) for padding and margin."
-          cssVar="--spacing-* (0–8xl)"
+          desc="8-point spacing scale (0-8xl) for padding and margin."
+          cssVar="--spacing-* (0-8xl)"
         />
         <TokenCategory
           label="Radius"

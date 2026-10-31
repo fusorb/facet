@@ -16,7 +16,7 @@ export interface TweenOpts {
   /** Duration in milliseconds. */
   duration: number;
   /**
-   * Optional easing function `(progress: 0–1) => easedProgress`.
+   * Optional easing function `(progress: 0-1) => easedProgress`.
    * Defaults to linear `(t) => t`.
    */
   ease?: EasingFunction;

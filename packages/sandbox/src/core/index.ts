@@ -1,5 +1,5 @@
 /**
- * @fusorb/facet-sandbox/core — framework-agnostic artifact model.
+ * @fusorb/facet-sandbox/core  - framework-agnostic artifact model.
  *
  * Pure types + functions only. No React, no runtime dependencies (L1). The
  * `/react` and `/live` subpaths build on top of these.

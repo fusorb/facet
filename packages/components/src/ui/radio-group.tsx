@@ -1,3 +1,7 @@
+/**
+ * @category inputs
+ * @summary Radio Group
+ */
 import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { cn } from "../utils.js";

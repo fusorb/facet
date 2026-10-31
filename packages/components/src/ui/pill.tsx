@@ -1,4 +1,8 @@
 /**
+ * @category data-display
+ * @summary Pill
+ */
+/**
  * Pill: a theme-adaptable, fully-rounded pill with a leading dot, icon, or custom
  * indicator and a flexible label/content area. Renders as a span by default, a
  * button when selected or onClick is provided (tab use), or an anchor with href.

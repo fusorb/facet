@@ -1,3 +1,7 @@
+/**
+ * @category inputs
+ * @summary Textarea
+ */
 import * as React from "react";
 import { cn } from "../utils.js";
 

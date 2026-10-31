@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Tree
+ */
+/**
  * @fusorb/facet-components: Tree
  *
  * A collapsible nested list (Tree) with optional selection. Renders a
@@ -19,7 +23,7 @@ import { Icon, type IconName } from "../icon/index.js";
 export interface TreeNode {
   id: string;
   label: React.ReactNode;
-  /** Optional icon — an IconName string (e.g. "folder") or any React node. */
+  /** Optional icon  - an IconName string (e.g. "folder") or any React node. */
   icon?: React.ReactNode;
   /** Secondary text rendered after the label (VS Code-style metadata). */
   meta?: React.ReactNode;

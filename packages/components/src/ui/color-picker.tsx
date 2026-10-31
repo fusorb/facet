@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Color Picker
+ */
+/**
  * ColorPicker: native color swatch plus validated hex text input.
  */
 import * as React from "react";

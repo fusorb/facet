@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Location Picker
+ */
+/**
  * LocationPicker: cascading Country → State/Region → LGA/Locality
  * selects. Ships with a bundled static dataset (no network), and
  * supports async `loadRegions`/`loadLocalities` for real APIs.

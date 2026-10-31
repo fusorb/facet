@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Mail Input
+ */
+/**
  * MailInput: an email input with a domain suggestion dropdown.
  *
  * When the user types @ (or starts typing after @), a dropdown of common

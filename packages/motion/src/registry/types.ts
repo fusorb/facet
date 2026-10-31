@@ -55,7 +55,7 @@ export interface MotionVariant {
 
 /** Keyframe milestone for multi-step authored effects (e.g. aurora's 3-step cycle). */
 export interface MotionKeyframe {
-  /** Position within the animation cycle (0–100). */
+  /** Position within the animation cycle (0-100). */
   percent: number;
   /** Style properties at this point. */
   style: Record<string, string | number>;

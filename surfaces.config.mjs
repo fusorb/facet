@@ -8,7 +8,7 @@
  *   - apps/docs/src/app.tsx (GitHub links)
  *   - apps/playground/src/App.tsx (cross-app links)
  *
- * L6: No app writes another app's URL by hand — they read from here.
+ * L6: No app writes another app's URL by hand  -  they read from here.
  */
 
 export const surfaces = {

@@ -1,3 +1,7 @@
+/**
+ * @category general
+ * @summary Chart Range Selector
+ */
 import * as React from "react";
 
 import { cn } from "../utils.js";

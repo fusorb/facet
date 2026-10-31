@@ -95,7 +95,7 @@ export type DocsBlock =
       labels?: string[];
     }
   | {
-      /** Release log block — renders the facet-components ChangelogFeed. */
+      /** Release log block  - renders the facet-components ChangelogFeed. */
       type: "changelog";
       /** Releases to render, newest first. Each entry mirrors ChangelogRelease. */
       releases: Array<{

@@ -1,3 +1,7 @@
+/**
+ * @category inputs
+ * @summary Combobox
+ */
 import * as React from "react";
 import { cn } from "../utils.js";
 import { Icon, type IconName } from "../icon/index.js";

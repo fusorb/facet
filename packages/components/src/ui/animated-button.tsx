@@ -1,4 +1,8 @@
 /**
+ * @category animation
+ * @summary Animated Button
+ */
+/**
  * @fusorb/facet-components: AnimatedButton
  *
  * A uniform animated button used by composed components (billing pages,

@@ -1,5 +1,5 @@
 /**
- * Native Motion component — React Native equivalent of the web Motion.
+ * Native Motion component  - React Native equivalent of the web Motion.
  *
  * Resolves an effect through the shared registry (same families / variants
  * / transitions as web), then drives an `Animated.Value`-backed view via the
@@ -104,7 +104,7 @@ function toInitialRNStyle(
     } else if (typeof value === "number") {
       result[toCamel(prop)] = value;
     }
-    // Skip non-numeric string properties (filter, box-shadow, etc.) — not animatable on RN.
+    // Skip non-numeric string properties (filter, box-shadow, etc.)  - not animatable on RN.
   }
   return result;
 }
@@ -335,7 +335,7 @@ export function Motion({
             transformArray.push({ [op.type]: `${op.value}deg` });
           }
         } else {
-          // scale, scaleX, scaleY, translateX, translateY — Animated.Value is numeric, works directly.
+          // scale, scaleX, scaleY, translateX, translateY  - Animated.Value is numeric, works directly.
           transformArray.push({ [op.type]: node });
         }
         delete styleRef.current[key];

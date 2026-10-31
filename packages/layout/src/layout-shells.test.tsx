@@ -196,7 +196,7 @@ describe("ConsoleLayout features wiring", () => {
     expect(trigger).toHaveClass("w-full");
     expect(trigger).toHaveClass("max-w-[200px]");
     expect(trigger).toHaveClass("sm:max-w-[256px]");
-    // The old fixed sm:w-64 (256 px) is gone — it overflowed the 240 px
+    // The old fixed sm:w-64 (256 px) is gone  - it overflowed the 240 px
     // default sidebar.
     expect(trigger).not.toHaveClass("sm:w-64");
   });

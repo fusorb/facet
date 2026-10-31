@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Infinite Scroll
+ */
+/**
  * InfiniteScroll: an auto-loading container that fires `onLoadMore` when the
  * user reaches the edge(s) of the content.
  *

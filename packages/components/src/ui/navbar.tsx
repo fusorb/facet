@@ -1,3 +1,7 @@
+/**
+ * @category layout
+ * @summary Navbar
+ */
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../utils.js";
@@ -262,7 +266,7 @@ export function Navbar({
       className={cn(
         navbarVariants({ variant, size }),
         hasOwnPosition ? "" : "relative",
-        // stuck styling deferred — re-enable with pill variant rebuild
+        // stuck styling deferred  - re-enable with pill variant rebuild
         // stuck &&
         //   variant === "pill" &&
         //   "border-b border-border/60 bg-background/85 shadow-md backdrop-blur-xl",
@@ -357,7 +361,7 @@ export function Navbar({
 
 /** Static grid-column classes keyed by count.  Using a lookup table keeps
  *  every possible class name as a static string literal so the Tailwind v4
- *  scanner discovers them — dynamic template literals like
+ *  scanner discovers them  - dynamic template literals like
  *  `grid-cols-${n}` are invisible to the scanner and silently fail. */
 const SECTIONS_GRID_COLS: Record<number, string> = {
   2: "grid-cols-2",

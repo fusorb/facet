@@ -291,7 +291,7 @@ function SheetPreview() {
   );
 }
 
-/** Stepper demo — its own component so the hook runs unconditionally. */
+/** Stepper demo  - its own component so the hook runs unconditionally. */
 function StepperPreview() {
   const stepper = useStepper({
     steps: [
@@ -319,7 +319,7 @@ function StepperPreview() {
   );
 }
 
-/** Kanban demo — its own component so the hook runs unconditionally. */
+/** Kanban demo  - its own component so the hook runs unconditionally. */
 function KanbanPreview() {
   const board = useKanban({
     columns: [
@@ -1421,7 +1421,7 @@ export function ComponentPreview({
           version: "1.11.0",
           date: "2026-08-26",
           tag: "feat",
-          title: "1.11.0 — Stepper & KanbanBoard",
+          title: "1.11.0  - Stepper & KanbanBoard",
           changes: [
             {
               kind: "added" as const,

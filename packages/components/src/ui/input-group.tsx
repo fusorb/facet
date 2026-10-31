@@ -1,3 +1,7 @@
+/**
+ * @category inputs
+ * @summary Input Group
+ */
 import * as React from "react";
 import { cn } from "../utils.js";
 

@@ -1,4 +1,8 @@
 /**
+ * @category feedback
+ * @summary Sonner
+ */
+/**
  * Toaster: styled sonner toast provider.
  *
  * Usage in an app root layout:

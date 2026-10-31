@@ -1,5 +1,5 @@
 /**
- * @fusorb/facet-sandbox/live — live-JSX runtime + sanitizer.
+ * @fusorb/facet-sandbox/live  - live-JSX runtime + sanitizer.
  *
  * The parser is a faithful port of the docs live playground: it hand-parses
  * JSX into a `React.createElement` tree (no `eval`, no `Function` constructor,
@@ -734,7 +734,7 @@ export interface LivePlaygroundProps {
 /**
  * Bounded live preview host. Parses `code` via the no-`eval` interpreter and
  * renders it inside a {@link PlaygroundErrorBoundary}. Controlled by the
- * caller — bring your own editor (Monaco, CodeMirror, textarea, ...).
+ * caller  - bring your own editor (Monaco, CodeMirror, textarea, ...).
  */
 export function LivePlayground({
   code,

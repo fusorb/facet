@@ -6,12 +6,12 @@
  * ThemeToggle; requires a ThemeProvider ancestor).
  *
  * Composable slots:
- *  - brand          — persistent brand node (logo + label), left side
- *  - nav            — nav links / custom navigation content, center-left
+ *  - brand           - persistent brand node (logo + label), left side
+ *  - nav             - nav links / custom navigation content, center-left
  *                     (narrowly added for landing-style topbars that have no
  *                     sidebar; console apps use Sidebar instead)
- *  - children       — right-side actions (notifications, search, CTA buttons)
- *  - renderTenantSwitcher / renderUserMenu — render-prop overrides
+ *  - children        - right-side actions (notifications, search, CTA buttons)
+ *  - renderTenantSwitcher / renderUserMenu  - render-prop overrides
  *
  * For non-console layouts (e.g. landing pages), pass `showSidebarToggle={false}`
  * and suppress the tenant/user-menu via `renderTenantSwitcher={() => null}`
@@ -46,7 +46,7 @@ export interface TopbarProps {
   /**
    * Nav links / custom navigation content rendered in the left group,
    * between brand and sidebar toggles. Narrowly added for landing-style
-   * topbars that have no sidebar — console apps use Sidebar instead.
+   * topbars that have no sidebar  - console apps use Sidebar instead.
    */
   nav?: React.ReactNode;
   /**
@@ -73,7 +73,7 @@ export interface TopbarProps {
     onSignOut?: () => void;
   }) => React.ReactNode;
   /**
-   * Whether to render a user menu. Default: true — the built-in UserMenu
+   * Whether to render a user menu. Default: true  - the built-in UserMenu
    * renders nothing when there is no auth context, so docs/static sites are
    * unaffected. Set false to suppress it entirely.
    */
@@ -171,7 +171,7 @@ export function Topbar({
             aria-expanded={sidebarOpen}
           >
             <span className="relative block">
-              {/* Logo (or default hamburger) — fades out on hover to
+              {/* Logo (or default hamburger)  - fades out on hover to
                   reveal the window icon below */}
               <span className="inline-block transition-opacity duration-150 group-hover:opacity-0">
                 {mobileBrand ?? (

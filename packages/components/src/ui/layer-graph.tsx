@@ -1,3 +1,7 @@
+/**
+ * @category general
+ * @summary Layer Graph
+ */
 import * as React from "react";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
@@ -9,7 +13,7 @@ export interface SystemNode {
   sub: string;
   desc: string;
   icon?: IconName;
-  /** OKLCH color string — tints the card accent, icon, and connector. */
+  /** OKLCH color string  - tints the card accent, icon, and connector. */
   color?: string;
   /** Package name surfaced in the node's detail panel. */
   pkg?: string;
@@ -25,7 +29,7 @@ export interface LayerGraphProps {
 interface LayerPath {
   /** SVG path data (edge-to-edge cubic bezier). */
   d: string;
-  /** Pixel length of the path — used for stroke-dash animations. */
+  /** Pixel length of the path  - used for stroke-dash animations. */
   length: number;
   /** Bottom-center of the parent node (line start). */
   startX: number;
@@ -33,7 +37,7 @@ interface LayerPath {
   /** Top-center of the child node (line end). */
   endX: number;
   endY: number;
-  /** Tree depth (0 = top level) — drives animation stagger. */
+  /** Tree depth (0 = top level)  - drives animation stagger. */
   depth: number;
 }
 
@@ -52,7 +56,7 @@ const DOT_RADIUS = 3.5;
  * below, connected by perfect SVG guide-lines:
  *
  *   • Edge-to-edge: every line starts at the **bottom-center** of the parent
- *     card and ends at the **top-center** of the child card — never through
+ *     card and ends at the **top-center** of the child card  - never through
  *     the middle of a node.
  *   • Connection dots: a small dot sits at both junction points so the line
  *     always lands exactly on the node edge.
@@ -65,7 +69,7 @@ const DOT_RADIUS = 3.5;
  * hierarchy, not just the facet layers.
  *
  * Optional `color` per node tints the card border, icon container, and
- * connector so each layer stands out — never a dull monochrome stack.
+ * connector so each layer stands out  - never a dull monochrome stack.
  */
 export function LayerGraph({ nodes = [] }: LayerGraphProps) {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -123,7 +127,7 @@ export function LayerGraph({ nodes = [] }: LayerGraphProps) {
     setPaths(next);
   }, [nodes]);
 
-  // Re-measure on mount, on container resize, and critically — whenever a
+  // Re-measure on mount, on container resize, and critically  - whenever a
   // node expands or collapses. Without `open` in the deps the widecards
   // shift the children but the SVG paths stay frozen, causing drift.
   React.useLayoutEffect(() => {
@@ -180,7 +184,7 @@ export function LayerGraph({ nodes = [] }: LayerGraphProps) {
               {node.sub}
             </div>
           </div>
-          {/* Chevron on every node — leaf or branch — so the affordance is
+          {/* Chevron on every node  - leaf or branch  - so the affordance is
               consistent.  The icon name stays static; rotation alone
               signals expanded/collapsed state (avoids double-toggle bug). */}
           <Icon
@@ -264,7 +268,7 @@ export function LayerGraph({ nodes = [] }: LayerGraphProps) {
               }}
               className="facet-layer-line"
             />
-            {/* Connection dots at both endpoints — the "dots" of "dot line". */}
+            {/* Connection dots at both endpoints  - the "dots" of "dot line". */}
             <circle
               cx={p.startX}
               cy={p.startY}

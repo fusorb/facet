@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Date Input
+ */
+/**
  * DateInput: a text input that parses and validates ISO (YYYY-MM-DD) dates,
  * with an optional native date-picker fallback.
  *

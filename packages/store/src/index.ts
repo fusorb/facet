@@ -1,5 +1,5 @@
 /**
- * @fusorb/facet-store — Framework-agnostic auth state for SovGrant.
+ * @fusorb/facet-store  - Framework-agnostic auth state for SovGrant.
  *
  * Owns the Zustand-based session (`useAuthStore`, `useTenantStore`) and the
  * `createZustandTokenStorage` token-refresh bridge. Intended for consumers
@@ -9,7 +9,7 @@
  * This is an ALTERNATIVE state layer, not the default web path: `@fusorb/facet-auth`'s
  * `<SgProvider>` (packages/auth) is the production React auth provider (React
  * state + its own `TokenStorage` adapter in auth/src/storage.ts) and does NOT
- * consume this package. The two are a platform split — web React (SgProvider)
+ * consume this package. The two are a platform split  - web React (SgProvider)
  * vs. framework-agnostic/Zustand (this package), not a duplication.
  *
  * Both layers define a `TokenStorage` adapter interface. Unifying them so a

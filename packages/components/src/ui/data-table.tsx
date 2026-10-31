@@ -1,4 +1,8 @@
 /**
+ * @category data-display
+ * @summary Data Table
+ */
+/**
  * DataTable: a ready-to-use data table built on the facet Table primitives.
  *
  * Features: column visibility toggle, sortable columns, optional search box,

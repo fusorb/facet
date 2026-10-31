@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Activity Feed
+ */
+/**
  * @fusorb/facet-components: ActivityFeed
  *
  * A chronological activity/event feed: icon, title, description, and

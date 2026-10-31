@@ -1,11 +1,15 @@
 /**
+ * @category ready-to-use
+ * @summary Invite Team Form
+ */
+/**
  * @fusorb/facet-components: InviteTeamForm
  *
  * A ready-to-use team invite form: add multiple email addresses, pick a
  * role, and send. Handles per-email validation and duplicate detection.
  * Controlled via `onInvite` so consumers own the API call.
  *
- * Customization: appearance (className), configuration (roles), slots —
+ * Customization: appearance (className), configuration (roles), slots  - 
  * `renderInvitee` replaces each pending invitee row so consumers can add
  * custom actions/metadata without forking the validation logic.
  */

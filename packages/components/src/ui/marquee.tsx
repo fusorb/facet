@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Marquee
+ */
+/**
  * Marquee: auto-scrolling horizontal ticker with pause-on-hover support.
  * Supports a "strip" variant for a continuous-motion strip (no pause-on-hover
  * by default, composable via className).

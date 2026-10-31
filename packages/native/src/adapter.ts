@@ -1,5 +1,5 @@
 /**
- * @fusorb/facet-native — adapter bridging nativeDriver to @fusorb/facet-motion's
+ * @fusorb/facet-native  - adapter bridging nativeDriver to @fusorb/facet-motion's
  * MotionDriver contract.
  *
  * The motion package's `MotionDriver` uses `DriverTarget = { style: CSSStyleDeclaration }`
@@ -10,7 +10,7 @@
  *
  * On web, `resolveDriver()` returns `cssDriver` (whose `isSupported()` is true
  * because `window` exists). On React Native, `cssDriver.isSupported()` is false,
- * so `resolveDriver()` checks registered drivers — this adapter is the one that
+ * so `resolveDriver()` checks registered drivers  - this adapter is the one that
  * becomes active once `bindAnimated()` is called.
  */
 import { nativeDriver } from "./native-driver.js";

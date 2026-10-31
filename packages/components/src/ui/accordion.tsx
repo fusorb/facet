@@ -1,3 +1,7 @@
+/**
+ * @category layout
+ * @summary Accordion
+ */
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { cva, type VariantProps } from "class-variance-authority";

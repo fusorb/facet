@@ -1,4 +1,8 @@
 /**
+ * @category pages
+ * @summary Feedback Page
+ */
+/**
  * @fusorb/facet-components: FeedbackPage
  *
  * A ready-to-use, fully customizable feedback/contact page. The email

@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Faq Section
+ */
+/**
  * @fusorb/facet-components: FaqSection
  *
  * A ready-to-use FAQ section built on the Accordion primitive. Data-driven

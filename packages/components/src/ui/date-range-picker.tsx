@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Date Range Picker
+ */
+/**
  * @fusorb/facet-components: DateRangePicker
  *
  * A composable date-range picker with two modes:
@@ -94,7 +98,7 @@ const defaultSinglePresets: DateRangePreset[] = [
 
 const defaultFormatValue = (value: DateRange | Date): string => {
   if (value instanceof Date) return formatDate(value);
-  return `${formatDate(value.from)} – ${formatDate(value.to)}`;
+  return `${formatDate(value.from)} - ${formatDate(value.to)}`;
 };
 
 /* ── Helpers ───────────────────────────────────────────────── */

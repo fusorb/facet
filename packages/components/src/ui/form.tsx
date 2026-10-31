@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Form
+ */
+/**
  * Form: lightweight react-hook-form + zod field wrapper.
  *
  * Builds on react-hook-form's Controller to render labeled, validated

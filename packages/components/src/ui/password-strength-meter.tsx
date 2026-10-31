@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Password Strength Meter
+ */
+/**
  * @fusorb/facet-components: PasswordStrengthMeter
  *
  * A password strength meter with a segmented bar and a rules checklist.

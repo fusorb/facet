@@ -164,7 +164,7 @@ function main() {
     frontmatter[pkg] = bump;
     for (const c of items) {
       const emoji = TYPE_EMOJI[c.type] || "•";
-      bullets.push(`- ${c.desc} — ${emoji} \`${pkg}\``);
+      bullets.push(`- ${c.desc}  - ${emoji} \`${pkg}\``);
     }
   }
 

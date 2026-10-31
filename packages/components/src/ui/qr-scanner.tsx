@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Qr Scanner
+ */
+/**
  * @fusorb/facet-components: QrScanner
  *
  * Browser-based QR / barcode scanner using the BarcodeDetector API where

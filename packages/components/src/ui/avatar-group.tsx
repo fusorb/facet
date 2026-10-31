@@ -1,3 +1,7 @@
+/**
+ * @category data-display
+ * @summary Avatar Group
+ */
 import * as React from "react";
 import { cn } from "../utils.js";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar.js";

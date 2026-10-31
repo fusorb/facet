@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Multi Combobox
+ */
+/**
  * @fusorb/facet-components: MultiCombobox
  *
  * A multi-select chips combobox. Hosts pass an option list and a value

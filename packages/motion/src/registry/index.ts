@@ -5,7 +5,7 @@
  * a single lookup table. Public entry-point: `resolveMotion()`.
  *
  * ---------------------------------------------------------------------------
- * OPEN DECISIONS (§5 of registry spec — archived in `.agent/episodes.md` EP 36) - resolved:
+ * OPEN DECISIONS (§5 of registry spec  - archived in `.agent/episodes.md` EP 36) - resolved:
  *
  * 5.1 - Exact px/scale/degree tables for `flip` and `text-reveal`:
  *   Defined sensible geometric progressions where the sheet gave only

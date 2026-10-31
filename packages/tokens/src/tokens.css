@@ -136,7 +136,7 @@
    * elevated glassmorphic card, and `.frost` the more opaque readable
    * surface for text. Every value is a variable (with the utilities
    * reading the var directly, not redefining it) so consumers can retune
-   * opacity / blur / border / shadow — globally or on a subtree. */
+   * opacity / blur / border / shadow  - globally or on a subtree. */
   --glass-bg: color-mix(in oklab, var(--panel) 80%, transparent);
   --glass-blur: 12px;
   --glass-border: 0;

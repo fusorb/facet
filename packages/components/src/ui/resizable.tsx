@@ -1,3 +1,7 @@
+/**
+ * @category layout
+ * @summary Resizable
+ */
 import * as React from "react";
 import { cn } from "../utils.js";
 import { Icon } from "../icon/index.js";
@@ -38,7 +42,7 @@ const OrientationContext = React.createContext<"horizontal" | "vertical">(
  * v4 treats bare **numbers** as pixels (e.g. `defaultSize={200}` → 200 px)
  * and unit-less **strings** as percentages (e.g. `defaultSize="50"` → 50 %).
  *
- * The facet API lets consumers write ergonomic 0–100 numbers that mean
+ * The facet API lets consumers write ergonomic 0-100 numbers that mean
  * "percent of the parent group". This converts those numbers to `%` strings
  * so `<ResizablePanel defaultSize={50} />` really means 50 %, not 50 px.
  *
@@ -66,7 +70,7 @@ export interface ResizablePanelProps extends Omit<
   /**
    * Preferred size of the panel.
    *
-   * - **Number** (0–100): percentage of the parent group
+   * - **Number** (0-100): percentage of the parent group
    *   (e.g. `defaultSize={50}` → 50 %).
    * - **String**: any v4 size expression - `"50"`, `"30%"`, `"200px"`, `"1rem"`.
    */
@@ -107,7 +111,7 @@ export interface ResizableImperativeHandle {
   groupRef: React.RefObject<GroupImperativeHandle | null>;
   /** Ref to pass to `<ResizablePanel panelRef={...} />` - controls one panel. */
   panelRef: React.RefObject<PanelImperativeHandle | null>;
-  /** Current layout: map of panel id → size percentage (0–100). */
+  /** Current layout: map of panel id → size percentage (0-100). */
   getLayout: () => RrpLayout;
   /** Apply a layout imperatively. */
   setLayout: (layout: RrpLayout) => void;
@@ -274,7 +278,7 @@ ResizableHandle.displayName = "ResizableHandle";
  * ResizablePanel
  *
  * A single panel inside a {@link ResizablePanelGroup}. Use `defaultSize`
- * (0–100 as a percentage) and `minSize` / `maxSize` to control flexible
+ * (0-100 as a percentage) and `minSize` / `maxSize` to control flexible
  * layouts - numbers are normalised to `%` strings for v4 compatibility.
  *
  * Panels can be **collapsible**: set `collapsible` and `collapsedSize`, then

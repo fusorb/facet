@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Two Factor Setup Panel
+ */
+/**
  * @fusorb/facet-components: TwoFactorSetupPanel
  *
  * A ready-to-use 2FA enrollment flow: scan the QR (or enter a manual
@@ -7,7 +11,7 @@
  * three steps legible on every breakpoint.
  *
  * Customization: appearance (className), configuration (secret/otpauth),
- * slots — `renderQRCode` replaces the QR rendering so consumers can swap
+ * slots  - `renderQRCode` replaces the QR rendering so consumers can swap
  * the QR library or layout without forking the verify/codes steps.
  */
 

@@ -1,4 +1,8 @@
 /**
+ * @category pages
+ * @summary Empty State Page
+ */
+/**
  * @fusorb/facet-components: EmptyStatePage
  *
  * A full-page "you don't have any X yet" surface with optional

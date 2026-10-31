@@ -29,7 +29,7 @@ export const defaultScheduler: Scheduler = (
 
     const tick = (now: number) => {
       if (stopped) return;
-      // On the first frame, delta is 0 — no time has elapsed since the
+      // On the first frame, delta is 0  - no time has elapsed since the
       // animation started. Using the absolute rAF timestamp here would
       // inflate `elapsed` by thousands of ms, causing spring generators
       // to jump straight to their settled value (visible "snapping").

@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Account Settings Panel
+ */
+/**
  * @fusorb/facet-components: AccountSettingsPanel
  *
  * A Clerk-style account settings card: a large panel with a left nav of

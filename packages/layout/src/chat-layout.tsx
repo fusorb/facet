@@ -4,7 +4,7 @@
  * Chat-style app shell: a sidebar (brand + navigation / conversations) on
  * the left and a chat main area (scrollable message list) with an inline
  * chat-input bar at the bottom. Modeled on ChatGPT / Claude / Lovable
- * agent interfaces — the sidebar is persistent on desktop and slides in on
+ * agent interfaces  - the sidebar is persistent on desktop and slides in on
  * mobile, reusing LayoutProvider for the open/closed state (same UX as
  * ConsoleLayout). Not restricted to AI agents: swap the message list for any
  * chat surface (agent, support, team, ...).

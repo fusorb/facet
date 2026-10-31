@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Otp Verification Card
+ */
+/**
  * @fusorb/facet-components: OtpVerificationCard
  *
  * A ready-to-use one-time-password verification card: auto-focusing

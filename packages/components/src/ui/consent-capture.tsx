@@ -1,4 +1,8 @@
 /**
+ * @category ready-to-use
+ * @summary Consent Capture
+ */
+/**
  * @fusorb/facet-components: ConsentCapture
  *
  * A scroll-to-accept legal consent surface. The submit button is blocked

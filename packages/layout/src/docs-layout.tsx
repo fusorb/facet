@@ -95,15 +95,15 @@ const MODE_STORAGE_KEY = "facet-docs-mode";
 const ASIDE_STORAGE_KEY = "facet-docs-aside-open";
 
 /**
- * DocsLayout — the docs-site shell.
+ * DocsLayout  - the docs-site shell.
  *
  * Wraps ConsoleLayout with an inherited navbar, sidebar search slot,
  * collapsible aside, auth bottom slot, and a docs-specific topbar
  * (mode toggle + aside toggle + extra controls).
  *
  * Two navbars:
- *   1. `navbar` prop — the inherited landing navbar (full-width, dropdowns).
- *   2. ConsoleLayout's Topbar — docs controls (hamburger, mode, aside, settings).
+ *   1. `navbar` prop  - the inherited landing navbar (full-width, dropdowns).
+ *   2. ConsoleLayout's Topbar  - docs controls (hamburger, mode, aside, settings).
  */
 export function DocsLayout({
   config,
@@ -260,7 +260,7 @@ function DocsTopbarControls({
 
   // Populate the ref synchronously so the delegating callbacks in the
   // DocsLayoutContext value (which read from the ref) always see the latest
-  // closures — even before effects run.
+  // closures  - even before effects run.
   collapseAllStateRef.current = {
     collapsedAll: computedCollapsedAll,
     collapse: () => {

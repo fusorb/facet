@@ -1,4 +1,8 @@
 /**
+ * @category animation
+ * @summary Text Animations
+ */
+/**
  * @fusorb/facet-components: text animations
  *
  * Reusable, zero-dependency text effects for hero sections and headers.

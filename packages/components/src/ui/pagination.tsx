@@ -1,3 +1,7 @@
+/**
+ * @category layout
+ * @summary Pagination
+ */
 import * as React from "react";
 import { cn } from "../utils.js";
 import { buttonVariants } from "./button.js";

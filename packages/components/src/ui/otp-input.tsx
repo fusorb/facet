@@ -1,4 +1,8 @@
 /**
+ * @category inputs
+ * @summary Otp Input
+ */
+/**
  * @fusorb/facet-components: OtpInput
  *
  * A standalone OTP / one-time-code input. Hosts pass a string value
