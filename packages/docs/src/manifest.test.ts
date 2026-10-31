@@ -33,7 +33,7 @@ describe("docs manifest parity (packages/docs/src/manifest.ts)", () => {
   it("documents every shipped component and nothing stale", () => {
     const uiFiles = fs
       .readdirSync(uiDir)
-      .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx"))
+      .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx") && !f.endsWith(".examples.tsx"))
       .map((f) => f.replace(/\.tsx$/, ""))
       .filter((s) => !EXCLUDED.has(s))
       .sort();
