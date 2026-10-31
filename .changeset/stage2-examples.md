@@ -1,6 +1,5 @@
 ---
 "@fusorb/facet-components": minor
-"@fusorb/facet-registry": patch
 ---
 
-Add colocated component examples with ./examples export and registry indexing.
+Add colocated component examples (./examples export) and update gates/registry to index them.
