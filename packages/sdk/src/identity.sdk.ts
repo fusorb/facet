@@ -163,4 +163,28 @@ export class IdentitySdk {
   }): Promise<ApiResponse<void>> {
     return this.client.post<void>("/identity/wallet/did", data);
   }
+
+  /* ── Paired Devices (SovPort) ──────────────────────────── */
+
+  registerPairedDevice(data: {
+    deviceId: string;
+    publicKey: string;
+    name?: string;
+    platform?: string;
+  }): Promise<ApiResponse<{ id: string; deviceId: string }>> {
+    return this.client.post<{ id: string; deviceId: string }>(
+      "/identity/paired-devices",
+      data,
+    );
+  }
+
+  listPairedDevices(): Promise<ApiResponse<any[]>> {
+    return this.client.get<any[]>("/identity/paired-devices");
+  }
+
+  revokePairedDevice(deviceId: string): Promise<ApiResponse<{ revoked: boolean }>> {
+    return this.client.del<{ revoked: boolean }>(
+      `/identity/paired-devices/${deviceId}`,
+    );
+  }
 }
