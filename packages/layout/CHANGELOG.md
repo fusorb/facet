@@ -1,5 +1,12 @@
 # @fusorb/facet-layout
 
+## 1.7.1
+
+### Patch Changes
+
+- Updated dependencies [2f0a6e4]
+  - @fusorb/facet-components@3.2.0
+
 ## 1.7.0
 
 ### Minor Changes

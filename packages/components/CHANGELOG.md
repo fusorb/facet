@@ -1,5 +1,11 @@
 # @fusorb/facet-components
 
+## 3.2.0
+
+### Minor Changes
+
+- 2f0a6e4: Add colocated component examples (./examples export) and update gates/registry to index them.
+
 ## 3.1.0
 
 ### Minor Changes
