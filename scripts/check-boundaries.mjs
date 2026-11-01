@@ -64,12 +64,59 @@ if (!fs.existsSync(path.join(nativeDir, "package.json"))) {
   if (illegal.length) violations.push(`${NATIVE_NAME} depends on ${illegal.join(", ")}  - allowed: @fusorb/facet-tokens + @fusorb/facet-motion (driver registry + core engine types; the Animated API itself is consumer-provided via 'bindAnimated').`);
 }
 
+// 3) M2 boundaries: layout and docs may not depend on auth/sdk.
+for (const [name, deps] of graph) {
+  if (name === "@fusorb/facet-layout" || name === "@fusorb/facet-docs") {
+    for (const d of deps) {
+      if (d === "@fusorb/facet-auth" || d === "@fusorb/facet-sdk") {
+        violations.push(`${name} depends on ${d} (forbidden by M2: layout/docs must not depend on auth/sdk).`);
+      }
+    }
+  }
+}
+// 4) sandbox has no @fusorb/* dependency (facet-agnostic, L1/L3).
+const sandboxPj = graph.has("@fusorb/facet-sandbox") ? null : null;
+const sandboxDeps = graph.get("@fusorb/facet-sandbox") || new Set();
+if (sandboxDeps.size > 0) {
+  violations.push(`@fusorb/facet-sandbox depends on ${[...sandboxDeps].join(", ")} (forbidden: sandbox has no @fusorb/* dependency).`);
+}
+// 5) No published package depends on registry.
+const registryName = "@fusorb/facet-registry";
+for (const [name, deps] of graph) {
+  if (deps.has(registryName)) {
+    violations.push(`${name} depends on ${registryName} (forbidden: published packages must not depend on the private registry package).`);
+  }
+}
+// 6) Apps may not deep-import src/ of packages (runtime source). Dev aliases
+//    (vite.config.ts) and generated data files are excluded.
+function walkApps(dir, acc) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, e.name);
+    if (e.isDirectory()) {
+      if (e.name === "node_modules" || e.name === "dist") continue;
+      walkApps(full, acc);
+    } else {
+      acc.push(full);
+    }
+  }
+}
+const appFiles = [];
+walkApps(path.join(root, "apps"), appFiles);
+for (const f of appFiles) {
+  const base = path.basename(f);
+  if (base.endsWith(".config.ts") || base.endsWith(".config.js") || base.endsWith(".generated.ts") || base === "changelog.ts") continue;
+  if (!/\.(ts|tsx|js|jsx)$/.test(base)) continue;
+  const content = fs.readFileSync(f, "utf-8");
+  const m = content.match(/packages\/[a-z-]+\/src\//g);
+  if (m) violations.push(`${path.relative(root, f)} deep-imports package src/ (${[...new Set(m)].join(", ")}) — apps must import from package barrels.`);
+}
+
 if (cyclic || violations.length) {
   if (cyclic) console.error("FAILED (§21): dependency cycle detected above.");
   if (violations.length) {
-    console.error("\nFAILED (§21): native package-boundary violation:");
+    console.error("\nFAILED (§21): boundary violation:");
     for (const v of violations) console.error(`  - ${v}`);
   }
   process.exit(1);
 }
-console.log(`Boundaries OK (§21): ${scopes.size} packages; acyclic graph; ${NATIVE_NAME} is a separate package (packages/native) depending on @fusorb/facet-tokens (+ @fusorb/facet-motion for driver registration).`);
+console.log(`Boundaries OK (§21): ${scopes.size} packages; acyclic graph; ${NATIVE_NAME} isolated; M2 boundaries (layout/docs no auth/sdk, sandbox no @fusorb/*, no registry dep, no app deep-import src/) enforced.`);

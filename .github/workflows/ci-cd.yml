@@ -36,6 +36,7 @@ jobs:
       - run: pnpm check:boundaries
       - run: pnpm check:registry
       - run: pnpm check:pins
+      - run: pnpm check:surfaces
       - run: pnpm check:sdk-drift
       - run: pnpm check:sdk-coverage
       - run: pnpm check:motion-drift
