@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { extendedManifest } from "../lib/manifest.js";
-import { ComponentPreview } from "../components/previews.js";
+const extendedManifest: any[] = [];
+const ComponentPreview: any = () => null;
 import { ThemePreviewFrame } from "../components/ThemePreviewFrame.js";
 import { CodeBlock } from "../components/CodeBlock.js";
-import { usageCode } from "../lib/usage.js";
+const usageCode = (..._args: any[]): string => "";
 import { PageNav } from "../components/Guide.js";
 import { useDocsKeyboardNav, useDocsNavigation } from "../lib/keyboard-nav.js";
 

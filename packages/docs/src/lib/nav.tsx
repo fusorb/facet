@@ -1,7 +1,9 @@
 import * as React from "react";
 import type { LayoutConfig, NavItem, NavSection } from "@fusorb/facet-layout";
 import type { DocsPage } from "./pages.js";
-import { extendedManifest } from "./manifest.js";
+// Facet manifest lives in the consuming app (apps/docs/src/facet); the engine
+// stays facet-agnostic (L3). Gallery nav sections are empty here.
+const extendedManifest: any[] = [];
 
 /**
  * Navigation config for the docs site shell (feeds facet Sidebar).

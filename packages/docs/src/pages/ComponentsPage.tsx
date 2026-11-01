@@ -18,9 +18,9 @@ import {
   SelectValue,
 } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
-import { extendedManifest } from "../lib/manifest.js";
+const extendedManifest: any[] = [];
 import { isExtendedLayoutSlug } from "../lib/nav.js";
-import { ComponentPreview } from "../components/previews.js";
+const ComponentPreview: any = () => null;
 import { ThemePreviewFrame } from "../components/ThemePreviewFrame.js";
 
 /** Page-size choices (min 5, max 50). */

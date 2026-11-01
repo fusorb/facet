@@ -2,16 +2,11 @@ import * as React from "react";
 import { Tabs, TabsList, TabsTrigger } from "@fusorb/facet-components/light";
 import { CodeBlock } from "./CodeBlock.js";
 import { ThemePreviewFrame } from "./ThemePreviewFrame.js";
-import { variantUsage } from "../lib/usage.js";
-import { extendedManifest } from "../lib/manifest.js";
-
-// lib/variants.tsx renders every component variant, pulling in the full
-// component preview graph (the whole facet-components barrel). It is
-// lazy-loaded so importing InteractiveDemo on an eager content page does
-// not drag that heavy graph into the initial bundle.
-const VariantPreview = React.lazy(() =>
-  import("../lib/variants.js").then((m) => ({ default: m.VariantPreview })),
-);
+// Facet manifest/usage/variants live in the consuming app (apps/docs/src/facet);
+// the engine stays facet-agnostic (L3). Interactive demo renders nothing here.
+const extendedManifest: any[] = [];
+const variantUsage = (..._args: any[]): any[] => [];
+const VariantPreview: any = () => null;
 
 export interface InteractiveDemoProps {
   /** Manifest slug, e.g. "console-layout", "form", "sign-in". */

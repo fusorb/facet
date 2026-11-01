@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { docsManifest } from "../manifest.js";
+// Facet manifest lives in the consuming app (apps/docs/src/facet); the engine
+// stays facet-agnostic (L3). Component prev/next entries are omitted here.
 import { useDocsApp } from "../context.js";
 
 /** One entry in the unified prev/next navigation sequence. */
@@ -32,14 +33,8 @@ export function useDocsNavigation(): {
       path: page.path,
       label: page.title,
     }));
-    if (showComponents) {
-      for (const entry of docsManifest) {
-        list.push({
-          path: `/components/${entry.slug}`,
-          label: entry.name,
-        });
-      }
-    }
+    // Component gallery prev/next entries are provided by the consuming app's
+    // facet manifest; the engine omits them (L3).
     return list;
   }, [pages, showComponents]);
 
