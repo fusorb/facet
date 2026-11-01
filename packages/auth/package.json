@@ -47,8 +47,8 @@
     "auth-ui"
   ],
   "dependencies": {
-    "@fusorb/facet-components": "workspace:*",
-    "@fusorb/facet-sdk": "workspace:*",
+    "@fusorb/facet-components": "workspace:^",
+    "@fusorb/facet-sdk": "workspace:^",
     "@hookform/resolvers": "^5.5.7",
     "react-hook-form": "^7.83.0",
     "zod": "^4.4.3"

@@ -17,6 +17,9 @@ export {
   SgProvider,
   useAuth,
   useOptionalAuth,
+  type AuthSession,
+  type AuthSessionShape,
+  useAuthSession,
 } from "./provider.js";
 
 /* ── Storage ───────────────────────────────────────────────── */

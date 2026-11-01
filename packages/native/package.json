@@ -45,7 +45,7 @@
     "easing"
   ],
   "devDependencies": {
-    "@fusorb/facet-motion": "workspace:*",
+    "@fusorb/facet-motion": "workspace:^",
     "@types/react": "^19",
     "react": "^19",
     "tsup": "^8.5.1",
@@ -55,8 +55,8 @@
     "react": "^19"
   },
   "dependencies": {
-    "@fusorb/facet-motion": "workspace:*",
-    "@fusorb/facet-tokens": "workspace:*"
+    "@fusorb/facet-motion": "workspace:^",
+    "@fusorb/facet-tokens": "workspace:^"
   },
   "engines": {
     "node": ">=20"
