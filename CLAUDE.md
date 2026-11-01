@@ -110,7 +110,7 @@ COMPLETE → (onSuccess callback) → redirect
 6. ✅ `packages/docs/`: installable config-driven docs engine (`@fusorb/facet-docs`) + thin demo consumer at `apps/docs/` (`@fusorb/facet-docs-site`)
 7. ✅ Changesets + npm publish pipeline
 8. ✅ `apps/landing/`: rebuilt public-facing site (vite + tailwind v4) + feedback page (`/feedback`) with mail + GitHub links
-9. ✅ Tests: vitest workspace, 980 tests across 78 files (11 projects: sdk, store, components, auth, layout, cli, motion, native, sandbox, docs, emails); 1 pre-existing flake: theme.test.tsx Radix/jsdom
+9. ✅ Tests: vitest workspace, 1090 tests across 90 files (11 projects: sdk, store, components, auth, layout, cli, motion, native, sandbox, docs, emails); 1 pre-existing flake: theme.test.tsx Radix/jsdom
 10. ✅ SignIn mfa_challenge wired to MfaVerifyForm
 11. ✅ SignIn controlled `step`/`onStepChange` + `<SignInFlowDemo>` live-linked state machine + `<AuthDemo>` config block
 12. ✅ Docs restructure landed (568497d): old `apps/docs-site` removed, `packages/docs` engine + `apps/docs` thin consumer. Docs site includes an interactive SignIn demo with a method switcher (config toggles + preview + synced copyable code), a reusable `demo` content block for any manifest slug (auth/layout/forms guide pages), and a keyboard-shortcuts table on Overview + Getting Started.
