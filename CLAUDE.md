@@ -31,7 +31,7 @@ packages/auth/         ← Auth components + domain presets (fintech, med, edu)
 packages/layout/       ← Domain-configurable app shell (ConsoleLayout, AuthLayout, LandingLayout)
 packages/store/        ← Framework-agnostic Zustand stores (auth + tenant) + token-refresh bridge
 packages/emails/       ← Framework-agnostic email builder + React bridge (renderEmail, EmailLayout)
-packages/sandbox/      ← Framework-agnostic live-preview host (block registry + adapter seam + React JSX adapter, no eval)
+packages/sandbox/      ← Framework-agnostic artifact model + live-JSX runtime (/core types+pure fns, /react lab kit, /live no-eval JSX interpreter + URL sanitizer)
 packages/utils/        ← Shared styling utilities (`cn`) consumed by components + motion
 packages/docs/         ← Installable docs engine: @fusorb/facet-docs (<DocsApp config pages />)
 packages/cli/          ← Scaffold docs, audit/update, add components, generate icon registry
@@ -100,12 +100,12 @@ COMPLETE → (onSuccess callback) → redirect
 | Session TTL  | 15 min  | 30 min | 24 hr | 8 hr       |
 | Magic link   | ✅      | ❌     | ✅    | ❌         |
 
-## Build Status (2026-09-13)
+## Build Status
 
 1. ✅ `packages/tokens/`: Complete
 2. ✅ `packages/sdk/`: Complete, strict domain types (`sdk/src/types.ts`)
 3. ✅ `packages/components/`: 112 styled Radix components + theme system + IconRegistry (Stepper, KanbanBoard, ChangelogCard + ChangelogFeed are the canonical changelog surface (ChangelogList, ChangelogWithDate removed); WizardFormPage, DateRangePicker, Chart, EmptyStatePage, QrScanner, ConsentCapture, PricingComparison, Tree, MultiCombobox, TagInput, RangeSlider, RatingInput, CookieBanner, OtpInput, RichTextEditor, PhoneInput, MentionInput, ShineBorderCard, Pill added in 1.12.0)
-4. ✅ `packages/auth/`: SgProvider, SignIn (controlled `step`/`onStepChange` API), SignUp, UserButton, Guard, MfaDialog, 7 standalone forms
+4. ✅ `packages/auth/`: SgProvider, SignIn (controlled `step`/`onStepChange` API), SignUp, UserButton, Guard, MfaDialog, 8 standalone forms
 5. ✅ `packages/layout/`: ConsoleLayout (full + rail modes), AuthLayout (renamed from AppLayout, alias kept), LandingLayout, DocsLayout (collapsed sidebar variant: one-button collapse-all for sidebar rail + all nav sections + aside), 5 presets
 6. ✅ `packages/docs/`: installable config-driven docs engine (`@fusorb/facet-docs`) + thin demo consumer at `apps/docs/` (`@fusorb/facet-docs-site`)
 7. ✅ Changesets + npm publish pipeline
@@ -207,6 +207,8 @@ pnpm check:components     # Component flexibility/composability audit (P13/P14 g
 pnpm check:examples       # Colocated examples gate (ADR-001: ids/artifact/controls/wiring)
 pnpm check:jsdoc          # Component JSDoc metadata gate (@category/@summary)
 pnpm check:docs           # Docs inventory: barrel exports + manifest coverage
+pnpm check:docs-content   # Docs content compiler gate (frontmatter + directives)
+pnpm check:registry       # registry.json up-to-date with the workspace scan
 pnpm check:icons          # Icon-map drift gate (1,763 icons)
 pnpm check:sdk-coverage   # SovGrant route coverage audit (62/62 routes)
 pnpm check:sdk-drift      # SDK table ↔ barrel drift gate (10 classes)

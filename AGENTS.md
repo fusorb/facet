@@ -67,12 +67,12 @@ Packages publish to npm under the `@fusorb/facet-*` scope via Changesets,
 driven by GitHub Actions (`.github/workflows/ci-cd.yml`). The workflow runs
 three jobs:
 
-1. **ci** -- validation gate: `pnpm install`, `pnpm build`, `pnpm check:docs`,
-   `pnpm check:icons`, `pnpm check:components`, `pnpm check:examples`,
-   `pnpm check:jsdoc`, `pnpm check:boundaries`,
-   `pnpm check:sdk-drift`, `pnpm check:sdk-coverage`, `pnpm check:motion-drift`,
-   `pnpm audit:motion-parity`, `pnpm lint`, `pnpm -r typecheck`, `pnpm test`,
-   `pnpm sandbox:e2e`.
+1. **ci** -- validation gate: `pnpm install --frozen-lockfile`, `pnpm build`,
+   `pnpm check:docs`, `pnpm check:icons`, `pnpm check:components`,
+   `pnpm check:examples`, `pnpm check:jsdoc`, `pnpm check:boundaries`,
+   `pnpm check:registry`, `pnpm check:sdk-drift`, `pnpm check:sdk-coverage`,
+   `pnpm check:motion-drift`, `pnpm audit:motion-parity`, `pnpm lint`,
+   `pnpm -r typecheck`, `pnpm test`, `pnpm sandbox:e2e`.
 2. **changeset** -- auto-opens/updates a "Version Packages" PR on `main`
    whenever changesets land. It only versions (bumps `package.json` +
    `CHANGELOG`, opens a PR) -- never publishes. Requires
