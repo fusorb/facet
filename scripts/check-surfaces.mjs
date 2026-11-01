@@ -38,6 +38,10 @@ for (const f of files) {
   // hand-coded origins. Exclude them from the L6 origin gate.
   const base = path.basename(f);
   if (base.endsWith(".generated.ts") || base === "changelog.ts") continue;
+  // Demo/example code under apps/docs/src/facet/ legitimately contains example
+  // URLs (QRCode values, socials hrefs, usage snippets). Those are illustrative
+  // content, not app config; L6 origin config lives in surfaces.config.mjs.
+  if (f.includes(path.join("apps", "docs", "src", "facet"))) continue;
   const content = fs.readFileSync(f, "utf-8");
   const lines = content.split("\n");
   lines.forEach((line, i) => {

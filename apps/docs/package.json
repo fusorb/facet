@@ -14,10 +14,12 @@
     "react": "^19",
     "react-dom": "^19",
     "react-router-dom": "^7.1.1",
-    "@fusorb/facet-docs": "workspace:*",
-    "@fusorb/facet-tokens": "workspace:*",
-    "@fusorb/facet-components": "workspace:*",
-    "@fusorb/facet-layout": "workspace:*"
+    "@fusorb/facet-docs": "workspace:^",
+    "@fusorb/facet-tokens": "workspace:^",
+    "@fusorb/facet-components": "workspace:^",
+    "@fusorb/facet-layout": "workspace:^",
+    "@fusorb/facet-auth": "workspace:^",
+    "@fusorb/facet-sdk": "workspace:^"
   },
   "devDependencies": {
     "@types/react": "^19",

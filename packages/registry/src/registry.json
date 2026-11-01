@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "eba7d58e9950582418437dadc5e5321298c05c38",
-    "at": "2026-10-31T22:56:29.498Z"
+    "commit": "50e80e5a4535a2bbd74ebec60281170bf6df6f7e",
+    "at": "2026-11-01T11:08:49.779Z"
   },
   "packages": [
     {
@@ -68,10 +68,8 @@
       "order": 2,
       "private": false,
       "deps": [
-        "@fusorb/facet-auth",
         "@fusorb/facet-components",
         "@fusorb/facet-layout",
-        "@fusorb/facet-sdk",
         "@fusorb/facet-tokens"
       ],
       "devDeps": [],
