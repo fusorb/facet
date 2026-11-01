@@ -1,5 +1,16 @@
 # @fusorb/facet-native
 
+## 1.2.2
+
+### Patch Changes
+
+- 9bc65e6: Switch published inter-package dependencies from `workspace:*` to `workspace:^` so the
+  published range keeps the caret and consumers can dedupe across versions (ADR-008, M1).
+  Enforced by the new `check:pins` gate.
+- Updated dependencies [9bc65e6]
+  - @fusorb/facet-motion@1.2.2
+  - @fusorb/facet-tokens@1.5.1
+
 ## 1.2.1
 
 ### Patch Changes

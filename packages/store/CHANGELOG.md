@@ -1,5 +1,15 @@
 # @fusorb/facet-store
 
+## 1.0.4
+
+### Patch Changes
+
+- 9bc65e6: Switch published inter-package dependencies from `workspace:*` to `workspace:^` so the
+  published range keeps the caret and consumers can dedupe across versions (ADR-008, M1).
+  Enforced by the new `check:pins` gate.
+- Updated dependencies [9bc65e6]
+  - @fusorb/facet-sdk@2.1.1
+
 ## 1.0.3
 
 ### Patch Changes
