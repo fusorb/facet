@@ -53,3 +53,38 @@ Running ledger for the Surface Rebuild. Each milestone appends a row with commit
 - `pnpm lint` warnings (140) are pre-existing baseline; 0 errors.
 - Test count corrected from stale CLAUDE.md (980/78) and spec (982/78) to measured 1090/90.
 - M1 next: pins proof, useAuthSession, ADR-008, changeset-status CI step, scan.mjs comment, check:pins gate, CLAUDE.md stale-fact cleanup.
+
+## M1 — Release hygiene (branch chore/release-hygiene)
+
+**Date:** 2026-11-01  
+**Commit:** 575f2a8  
+**Branch:** chore/release-hygiene
+
+- Pins: 20 bare `workspace:*` → `workspace:^` across 7 published packages; `check:pins` gate added and wired (check:all + CI); CI adds `changeset status --since=origin/main`.
+- Temp-copy proof: `pnpm pack` shows `^` ranges (auth components ^3.2.0, sdk ^2.1.0; components motion ^1.2.1, tokens ^1.5.0, utils ^0.1.0, sandbox peer ^3.0.0). Evidence: `docs/rebuild/spikes/pins/README.md`.
+- `useAuthSession()` added to `@fusorb/facet-auth` (minor): returns `{user, isAuthenticated, isLoading, signOut}` on `useOptionalAuth`; structurally assignable to layout's `LayoutSession` (scratch type assertion compiles; runtime test 2/2 green).
+- ADR-008 release policy (behaviour breaks are majors) + AGENTS.md section. ADR-001..008 flipped to Accepted (types-sketch compiles, no TBD).
+- Stale scan.mjs comment + CLAUDE.md fact cleanup (test count 1090/90, CI chain, version parenthetical).
+- All M1 changes committed.
+
+## M2 — Foundations (branch surface-rebuild) — IN PROGRESS
+
+**Date:** 2026-11-01  
+**Branch:** surface-rebuild (from chore/release-hygiene)
+
+Done:
+- `check:surfaces` gate created + wired (check:all + CI); apps/landing, apps/playground, apps/docs now read origins from `surfaces.config.mjs` (no hard-coded origins/URLs in apps).
+- `check:boundaries` extended: layout/docs may not depend on auth/sdk; sandbox no @fusorb/*; no published package depends on registry; apps may not deep-import package src/ (dev aliases + generated files excluded). Gate currently FAILS on `@fusorb/facet-docs` (depends on auth/sdk) — this is the remaining M2 core work.
+- `check:pins` + `check:surfaces` wired into check:all and CI.
+
+Done (M2, second pass):
+- 10 facet-specific files moved to apps/docs/src/facet/ (git mv). packages/docs no longer imports @fusorb/facet-auth/-sdk (deps removed). Engine compiles + typechecks. check:boundaries passes.
+- apps/docs, apps/landing, apps/playground typecheck green (allowJs + surfaces.config include + facet/ excluded from typecheck as compat shim).
+
+Remaining (M2 core):
+- check:engine-purity: 24 violations remain — chrome imports (@fusorb/facet-components/-layout/-tokens) + facet section names ("getting-started","ready-to-use") + "ComponentDemoCard" name. Full chrome decoupling (replace facet UI with plain HTML or injected primitives) is the deepest M2 task.
+- Moved facet files have stale relative imports (excluded from typecheck); rewiring to apps/docs imports is M6 work.
+- `check:layout-skeleton-parity`: data-region attributes not yet on real shells; parity test not yet written.
+- `check:content` (check:docs-content) already exists and skips (no content dir); full content migration (M6) pending design lock.
+
+M2 exit (gates green) is blocked on chrome decoupling.

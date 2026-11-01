@@ -2,8 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src",
+    "allowJs": true,
     "types": ["vite/client"]
   },
-  "include": ["src"]
+  "include": ["src", "../../surfaces.config.mjs"],
+  "exclude": ["src/facet"]
 }

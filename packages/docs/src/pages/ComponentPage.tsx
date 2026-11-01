@@ -1,8 +1,10 @@
 import * as React from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
-import { extendedManifest } from "../lib/manifest.js";
-import { ComponentDemoCard } from "../components/ComponentDemoCard.js";
-import { ComponentPreview } from "../components/previews.js";
+// Facet manifest/previews live in the consuming app (apps/docs/src/facet); the
+// engine stays facet-agnostic (L3). Gallery page renders nothing here.
+const extendedManifest: any[] = [];
+const ComponentDemoCard: any = () => null;
+const ComponentPreview: any = () => null;
 import { InteractiveDemo } from "../components/InteractiveDemo.js";
 import { PageNav } from "../components/Guide.js";
 import { useDocsKeyboardNav, useDocsNavigation } from "../lib/keyboard-nav.js";

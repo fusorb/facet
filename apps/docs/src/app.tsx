@@ -1,6 +1,7 @@
 import { DocsApp } from "@fusorb/facet-docs";
 import type { PageActionItem } from "@fusorb/facet-docs";
 import { demoConfig, demoPages } from "./demo-config.js";
+import { surfaces } from "../../../surfaces.config.mjs";
 
 const pageActions: PageActionItem[] = [
   {
@@ -10,7 +11,7 @@ const pageActions: PageActionItem[] = [
     separatorBefore: true,
     onClick: () => {
       // Hook this up to an AI agent integration for contextual help.
-      window.open("https://github.com/fusorb/facet/discussions", "_blank");
+      window.open(`${surfaces.github}/discussions`, "_blank");
     },
   },
 ];
@@ -27,7 +28,7 @@ export default function App() {
       showTableOfContents
       topbar={
         <a
-          href="https://github.com/fusorb/facet"
+          href={surfaces.github}
           target="_blank"
           rel="noreferrer"
           className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:block"
@@ -38,7 +39,7 @@ export default function App() {
       links={[
         {
           label: "GitHub",
-          href: "https://github.com/fusorb/facet",
+           href: surfaces.github,
           icon: "github",
         },
       ]}

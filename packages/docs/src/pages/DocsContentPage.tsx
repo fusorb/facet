@@ -41,19 +41,8 @@ function getSectionLabel(section?: string): string | undefined {
 // The auth/layout demo blocks pull the heavy facet component graph; they
 // are only rendered for specific block types, so they are lazy-loaded to
 // keep the eager content-page bundle light.
-const AuthDemo = React.lazy(() =>
-  import("../components/AuthDemo.js").then((m) => ({ default: m.AuthDemo })),
-);
-const AuthPreviews = React.lazy(() =>
-  import("../components/AuthPreviews.js").then((m) => ({
-    default: m.AuthPreviews,
-  })),
-);
-const LayoutPreviews = React.lazy(() =>
-  import("../components/LayoutPreviews.js").then((m) => ({
-    default: m.LayoutPreviews,
-  })),
-);
+// Facet demo/preview blocks live in the consuming app (apps/docs/src/facet);
+// the engine omits them (L3).
 const PlaygroundPage = React.lazy(() =>
   import("../components/PlaygroundPage.js").then((m) => ({
     default: m.PlaygroundPage,
@@ -243,15 +232,7 @@ function Block({ block }: { block: DocsBlock }) {
         </section>
       );
     case "authDemo":
-      return (
-        <React.Suspense
-          fallback={
-            <p className="text-sm text-muted-foreground">Loading demo...</p>
-          }
-        >
-          <AuthDemo />
-        </React.Suspense>
-      );
+      return null;
     case "demo":
       return (
         <InteractiveDemo
@@ -262,25 +243,9 @@ function Block({ block }: { block: DocsBlock }) {
         />
       );
     case "authPreviews":
-      return (
-        <React.Suspense
-          fallback={
-            <p className="text-sm text-muted-foreground">Loading previews...</p>
-          }
-        >
-          <AuthPreviews />
-        </React.Suspense>
-      );
+      return null;
     case "layoutPreviews":
-      return (
-        <React.Suspense
-          fallback={
-            <p className="text-sm text-muted-foreground">Loading previews...</p>
-          }
-        >
-          <LayoutPreviews />
-        </React.Suspense>
-      );
+      return null;
     case "keyboardShortcuts":
       return (
         <KeyboardShortcuts

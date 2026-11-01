@@ -1,4 +1,5 @@
 import type { IconName } from "@fusorb/facet-components";
+import { surfaces } from "../../../surfaces.config.mjs";
 
 /**
  * Single source of truth for the landing site.
@@ -13,9 +14,7 @@ import type { IconName } from "@fusorb/facet-components";
  *  During `vite dev` we point at the local docs site (port 5173) so the
  *  landing and docs sites can be validated together before release. */
 export function getDocsUrl(): string {
-  return import.meta.env.DEV
-    ? "http://localhost:5173"
-    : "https://facet.so/docs";
+  return import.meta.env.DEV ? surfaces.docs.dev : surfaces.docs.prod;
 }
 
 /** Resolves the facet docs changelog URL for the current environment. */
@@ -25,9 +24,7 @@ export function getDocsChangelogUrl(): string {
 
 /** Resolves the facet playground URL for the current environment. */
 export function getPlaygroundUrl(): string {
-  return import.meta.env.DEV
-    ? "http://localhost:5175"
-    : "https://facet.so/playground";
+  return import.meta.env.DEV ? surfaces.playground.dev : surfaces.playground.prod;
 }
 
 export interface SiteSocial {
@@ -37,7 +34,7 @@ export interface SiteSocial {
 }
 
 const socials: SiteSocial[] = [
-  { label: "GitHub", href: "https://github.com/fusorb/facet", icon: "github" },
+  { label: "GitHub", href: surfaces.github, icon: "github" },
 ];
 
 export const site = {
@@ -48,7 +45,7 @@ export const site = {
     monogram: "f",
   },
   links: {
-    github: "https://github.com/fusorb/facet",
+    github: surfaces.github,
   },
   feedbackEmail: "feedback@facet.dev",
   socials,
