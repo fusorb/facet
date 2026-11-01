@@ -1,5 +1,21 @@
 # @fusorb/facet-auth
 
+## 2.1.0
+
+### Minor Changes
+
+- 9bc65e6: Add `useAuthSession()` hook returning `{ user, isAuthenticated, isLoading, signOut }`,
+  built on `useOptionalAuth`, structurally identical to layout's `LayoutSession`
+  (ADR-004). Consumers (layout shells, docs) inject it via `LayoutProvider`'s
+  `session` prop instead of relying on auto-detection. Includes `check:pins`-
+  compliant dependency on facet-components/sdk.
+
+### Patch Changes
+
+- Updated dependencies [9bc65e6]
+  - @fusorb/facet-components@3.2.1
+  - @fusorb/facet-sdk@2.1.1
+
 ## 2.0.2
 
 ### Patch Changes
