@@ -23,31 +23,31 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-components",
     "desc": "Radix-based UI component library: 112 accessible, styled components using the Alpha Palette design tokens",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "icon": "boxes"
   },
   {
     "name": "@fusorb/facet-docs",
     "desc": "Installable, config-driven documentation site engine: component gallery with variant pages, per-variant usage tabs, install tabs, and an optional ecosystem links section. Mount <DocsApp config={...} /> with your own brand, pages, and nav.",
-    "version": "1.5.9",
+    "version": "1.5.11",
     "icon": "book-open"
   },
   {
     "name": "@fusorb/facet-auth",
     "desc": "Domain-customizable auth components: SgProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
-    "version": "2.0.0",
+    "version": "2.0.2",
     "icon": "shield-check"
   },
   {
     "name": "@fusorb/facet-layout",
     "desc": "Domain-configurable app shell: Sidebar, Topbar, AuthLayout, ConsoleLayout, LandingLayout, PageHeader, TenantSwitcher, and 5 domain presets (fintech, med, edu, enterprise, default).",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "icon": "building"
   },
   {
     "name": "@fusorb/facet-sdk",
     "desc": "SovGrant API client: framework-agnostic fetch SDK. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "icon": "zap"
   },
   {
@@ -71,7 +71,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-store",
     "desc": "Framework-agnostic state stores for SovGrant auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "icon": "store"
   },
   {

@@ -6,7 +6,7 @@ import type { ChangelogRelease } from "@fusorb/facet-components";
 export const facetChangelog: ChangelogRelease[] = [
   {
     version: "1.5.1",
-    date: "2026-10-06",
+    date: "2026-11-01",
     tag: "fix",
     title: "v1.5.1",
     changes: [
@@ -17,6 +17,371 @@ export const facetChangelog: ChangelogRelease[] = [
       {
         kind: "changed",
         text: "@fusorb/facet-components@2.0.1\\n- @fusorb/facet-auth@1.3.1",
+      },
+    ],
+  },
+  {
+    version: "1.0.3, 1.2.1, 1.5.10, 1.5.11, 1.7.1, 2.0.1, 2.0.2, 2.1.0, 3.2.0",
+    date: "2026-10-31",
+    tag: "fix",
+    title: "v1.0.3, 1.2.1, 1.5.10, 1.5.11, 1.7.1, 2.0.1, 2.0.2, 2.1.0, 3.2.0",
+    changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-sdk@2.1.0",
+        href: "https://github.com/fusorb/facet/commit/0e667d2",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.2.0",
+        href: "https://github.com/fusorb/facet/commit/2f0a6e4",
+      },
+      {
+        kind: "changed",
+        text: "Add colocated component examples (./examples export) and update gates/registry to index them.",
+        href: "https://github.com/fusorb/facet/commit/2f0a6e4",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-sdk@2.1.0\\n- @fusorb/facet-auth@2.0.2",
+        href: "https://github.com/fusorb/facet/commit/0e667d2",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.2.0\\n- @fusorb/facet-auth@2.0.1\\n- @fusorb/facet-layout@1.7.1",
+        href: "https://github.com/fusorb/facet/commit/2f0a6e4",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.2.0",
+        href: "https://github.com/fusorb/facet/commit/2f0a6e4",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0\\n- @fusorb/facet-auth@1.1.2",
+      },
+      {
+        kind: "changed",
+        text: "Add paired device methods to IdentitySdk (register/list/revoke).",
+        href: "https://github.com/fusorb/facet/commit/0e667d2",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-sdk@2.1.0",
+        href: "https://github.com/fusorb/facet/commit/0e667d2",
+      },
+    ],
+  },
+  {
+    version: "1.5.9, 1.7.0",
+    date: "2026-10-27",
+    tag: "fix",
+    title: "v1.5.9, 1.7.0",
+    changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-layout@1.7.0",
+        href: "https://github.com/fusorb/facet/commit/3440c7e",
+      },
+      {
+        kind: "changed",
+        text: "Add `LayoutSkeleton` — a loading placeholder that mirrors the geometry of each layout shell kind (console, auth, landing, docs, chat). Uses `@fusorb/facet-components`' `Skeleton` (with built-in `animate-pulse`) so every bar animates in sync for a uniform shimmer across the shell.",
+        href: "https://github.com/fusorb/facet/commit/3440c7e",
+      },
+    ],
+  },
+  {
+    version: "3.0.0",
+    date: "2026-10-26",
+    tag: "fix",
+    title: "v3.0.0",
+    changes: [
+      {
+        kind: "changed",
+        text: "Sandbox v3: restructured into three subpaths.",
+        href: "https://github.com/fusorb/facet/commit/682045c",
+      },
+    ],
+  },
+  {
+    version: "1.0.2, 1.5.8, 1.6.0, 2.0.0",
+    date: "2026-10-24",
+    tag: "fix",
+    title: "v1.0.2, 1.5.8, 1.6.0, 2.0.0",
+    changes: [
+      {
+        kind: "changed",
+        text: "Renamed the SovGrant-facing identifiers across the SDK and auth packages.",
+        href: "https://github.com/fusorb/facet/commit/b5f9579",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-sdk@2.0.0",
+        href: "https://github.com/fusorb/facet/commit/b5f9579",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/582c79f",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-layout@1.6.0\\n- @fusorb/facet-sdk@2.0.0\\n- @fusorb/facet-auth@2.0.0",
+        href: "https://github.com/fusorb/facet/commit/b5f9579",
+      },
+      {
+        kind: "changed",
+        text: "Layout shells now read auth from an injected `session` instead of depending on `@fusorb/facet-auth` directly.",
+        href: "https://github.com/fusorb/facet/commit/582c79f",
+      },
+      {
+        kind: "changed",
+        text: "Renamed the SovGrant-facing identifiers across the SDK and auth packages.",
+        href: "https://github.com/fusorb/facet/commit/b5f9579",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-sdk@2.0.0",
+        href: "https://github.com/fusorb/facet/commit/b5f9579",
+      },
+    ],
+  },
+  {
+    version: "1.3.1",
+    date: "2026-10-08",
+    tag: "fix",
+    title: "v1.3.1",
+    changes: [
+      {
+        kind: "changed",
+        text: "@fusorb/facet-components@2.0.1",
+      },
+      {
+        kind: "changed",
+        text: "DataTable: export consolidated into a single Export dropdown (CSV + pluggable exporters), plus a new overflow (⋯) actions menu for bulk row actions (select-all, mark-as-read, delete-all, custom). NavigationMenuLink is now a padded, hover-styled block link (fixes cramped dropdown items) and supports an optional description. NumberInput gains a built-in currency picker: CURRENCIES list, currencyPicker dropdown, currencyOptions override, and onCurrencyChange.",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0\\n- @fusorb/facet-auth@1.1.2\\n- @fusorb/facet-layout@1.2.1",
+      },
+      {
+        kind: "changed",
+        text: "@fusorb/facet-auth@1.1.4",
+      },
+    ],
+  },
+  {
+    version: "1.1.2, 1.1.3, 1.3.6, 1.3.7, 1.5.6, 1.5.7, 3.0.1, 3.1.0",
+    date: "2026-10-07",
+    tag: "fix",
+    title: "v1.1.2, 1.1.3, 1.3.6, 1.3.7, 1.5.6, 1.5.7, 3.0.1, 3.1.0",
+    changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.1.0",
+        href: "https://github.com/fusorb/facet/commit/aede944",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.0.1",
+        href: "https://github.com/fusorb/facet/commit/db20fb5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0",
+      },
+      {
+        kind: "changed",
+        text: "CLI: version shorthand is now `-v` (lowercase) instead of Commander's default `-V`; added `-l` for `--log` and `-n` for `--dry-run` on `update`, `up`, `clean`, and `self-update` commands.",
+        href: "https://github.com/fusorb/facet/commit/aede944",
+      },
+      {
+        kind: "changed",
+        text: "icons: normalize icon sizes from size-3.5 to size-4 across UI components for a consistent 16px baseline. navbar: defer the `pill` variant pending rebuild (emptied cva styles and removed the dead isPill/stuck wiring left behind by the styling being commented out)",
+        href: "https://github.com/fusorb/facet/commit/aede944",
+      },
+      {
+        kind: "changed",
+        text: "Spacing: otp-input + location-picker sibling gaps on the 4/8 grid (gap-1.5 -> gap-2) so adjacent rounded corners no longer near-merge; otp-input.test.tsx adds coverage.",
+        href: "https://github.com/fusorb/facet/commit/db20fb5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.1.0\\n- @fusorb/facet-auth@1.3.7\\n- @fusorb/facet-layout@1.5.7",
+        href: "https://github.com/fusorb/facet/commit/aede944",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.0.1\\n- @fusorb/facet-auth@1.3.6\\n- @fusorb/facet-layout@1.5.6",
+        href: "https://github.com/fusorb/facet/commit/db20fb5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.1.0\\n- @fusorb/facet-auth@1.3.7",
+        href: "https://github.com/fusorb/facet/commit/aede944",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.0.1\\n- @fusorb/facet-auth@1.3.6",
+        href: "https://github.com/fusorb/facet/commit/db20fb5",
+      },
+    ],
+  },
+  {
+    version: "1.0.0, 1.1.3, 1.2.1, 1.3.4, 1.3.5, 1.5.0, 1.5.4, 1.5.5, 2.0.4, 3.0.0",
+    date: "2026-10-06",
+    tag: "fix",
+    title: "v1.0.0, 1.1.3, 1.2.1, 1.3.4, 1.3.5, 1.5.0, 1.5.4, 1.5.5, 2.0.4, 3.0.0",
+    changes: [
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.0.0",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@2.0.4",
+        href: "https://github.com/fusorb/facet/commit/100a304",
+      },
+      {
+        kind: "changed",
+        text: "initial publish...",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-sdk@1.0.0\\n- @fusorb/facet-components@1.0.0",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+      },
+      {
+        kind: "changed",
+        text: "Remove redundant components: `GlowBorderCard`, `HoverCard`, and `Drawer`.",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Rebuild the changelog timeline on the Roadmap timeline, and make the glass /\\n- frost surfaces token-driven.",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Component stability + animation polish.",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.5.0\\n- @fusorb/facet-motion@1.2.1",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Lint cleanup (no behavior change):",
+        href: "https://github.com/fusorb/facet/commit/100a304",
+      },
+      {
+        kind: "changed",
+        text: "initial publish...",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.0.0",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.0.0\\n- @fusorb/facet-tokens@1.5.0\\n- @fusorb/facet-auth@1.3.5\\n- @fusorb/facet-layout@1.5.5",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Harden the app shells and their layout surfaces:",
+        href: "https://github.com/fusorb/facet/commit/c7707c7",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/c7707c7",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-layout@1.5.4\\n- @fusorb/facet-components@2.0.4\\n- @fusorb/facet-auth@1.3.4",
+        href: "https://github.com/fusorb/facet/commit/100a304",
+      },
+      {
+        kind: "changed",
+        text: "Lint cleanup (no behavior change):",
+        href: "https://github.com/fusorb/facet/commit/100a304",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@3.0.0\\n- @fusorb/facet-auth@1.3.5",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Harden the app shells and their layout surfaces:",
+        href: "https://github.com/fusorb/facet/commit/c7707c7",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@2.0.4\\n- @fusorb/facet-auth@1.3.4",
+        href: "https://github.com/fusorb/facet/commit/100a304",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.5.0",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.5.0\\n- @fusorb/facet-motion@1.2.1",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "initial publish...",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+      },
+      {
+        kind: "changed",
+        text: "Rebuild the changelog timeline on the Roadmap timeline, and make the glass /\\n- frost surfaces token-driven.",
+        href: "https://github.com/fusorb/facet/commit/8fe62cc",
+      },
+      {
+        kind: "changed",
+        text: "initial publish...",
+        href: "https://github.com/fusorb/facet/commit/e79cbd5",
       },
     ],
   },
@@ -53,12 +418,12 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Native Motion Component  - Stage 1 integration:",
+        text: "Native Motion Component — Stage 1 integration:",
         href: "https://github.com/fusorb/facet/commit/ba81b34",
       },
       {
         kind: "changed",
-        text: "Native Motion Component  - Stage 1 integration:",
+        text: "Native Motion Component — Stage 1 integration:",
         href: "https://github.com/fusorb/facet/commit/ba81b34",
       },
       {
@@ -168,7 +533,7 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Native Motion Component  - Stage 1 integration:",
+        text: "Native Motion Component — Stage 1 integration:",
         href: "https://github.com/fusorb/facet/commit/ba81b34",
       },
       {
@@ -183,7 +548,7 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Native Motion Component  - Stage 1 integration:",
+        text: "Native Motion Component — Stage 1 integration:",
         href: "https://github.com/fusorb/facet/commit/ba81b34",
       },
       {
@@ -193,7 +558,7 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Native Motion Component  - Stage 1 integration:",
+        text: "Native Motion Component — Stage 1 integration:",
         href: "https://github.com/fusorb/facet/commit/ba81b34",
       },
       {
@@ -213,7 +578,7 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Native Motion Component  - Stage 1 integration:",
+        text: "Native Motion Component — Stage 1 integration:",
         href: "https://github.com/fusorb/facet/commit/ba81b34",
       },
       {
@@ -240,18 +605,6 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Animation flexibility pass - remove hardcoded values from the animation surfaces.",
         href: "https://github.com/fusorb/facet/commit/3920b90",
-      },
-    ],
-  },
-  {
-    version: "1.1.2",
-    date: "2026-09-27",
-    tag: "fix",
-    title: "v1.1.2",
-    changes: [
-      {
-        kind: "changed",
-        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0",
       },
     ],
   },
@@ -346,7 +699,7 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Removed all focus-ring (blue border) styles from components, combobox, and ready-to-use components. Removed `focus:ring-*`, `focus-visible:ring-*`, `focus-within:ring-*`, `hover:ring-*`, and `focus:border-primary` Tailwind classes across 48 component/app/layout/doc files. Removed the global `:focus-visible` outline rule from `tokens.css` and the `.lab :focus-visible` outline rule from `labs.css`. Static ring classes for selected/active/badge states (e.g., pill selected, stepper active, input-otp active slot) are preserved  - only focus-triggered ring/border styles were removed. `outline-none` is retained to suppress the browser's default blue outline, so clicking a component shows no border.",
+        text: "Removed all focus-ring (blue border) styles from components, combobox, and ready-to-use components. Removed `focus:ring-*`, `focus-visible:ring-*`, `focus-within:ring-*`, `hover:ring-*`, and `focus:border-primary` Tailwind classes across 48 component/app/layout/doc files. Removed the global `:focus-visible` outline rule from `tokens.css` and the `.lab :focus-visible` outline rule from `labs.css`. Static ring classes for selected/active/badge states (e.g., pill selected, stepper active, input-otp active slot) are preserved — only focus-triggered ring/border styles were removed. `outline-none` is retained to suppress the browser's default blue outline, so clicking a component shows no border.",
         href: "https://github.com/fusorb/facet/commit/6591426",
       },
       {
@@ -505,14 +858,15 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "1.2.1",
+    version: "0.1.0",
     date: "2026-09-23",
     tag: "fix",
-    title: "v1.2.1",
+    title: "v0.1.0",
     changes: [
       {
         kind: "changed",
-        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0\\n- @fusorb/facet-auth@1.1.2",
+        text: "feat(store): extract SovGrant Zustand auth/tenant stores into @fusorb/facet-store",
+        href: "https://github.com/fusorb/facet/commit/b7accc3",
       },
     ],
   },
@@ -522,26 +876,6 @@ export const facetChangelog: ChangelogRelease[] = [
     tag: "fix",
     title: "v1.0.0, 2.0.0",
     changes: [
-      {
-        kind: "changed",
-        text: "initial publish...",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-sdk@1.0.0\\n- @fusorb/facet-components@1.0.0",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
-      },
-      {
-        kind: "changed",
-        text: "initial publish...",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-tokens@1.0.0",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
-      },
       {
         kind: "changed",
         text: "Evolve the facet workspace.",
@@ -612,15 +946,18 @@ export const facetChangelog: ChangelogRelease[] = [
         text: "## facet-sandbox - initial release (0.1.0)",
         href: "https://github.com/fusorb/facet/commit/f4ca95a",
       },
+    ],
+  },
+  {
+    version: "1.4.1",
+    date: "2026-09-17",
+    tag: "fix",
+    title: "v1.4.1",
+    changes: [
       {
         kind: "changed",
-        text: "initial publish...",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
-      },
-      {
-        kind: "changed",
-        text: "initial publish...",
-        href: "https://github.com/fusorb/facet/commit/e79cbd5",
+        text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0\\n- @fusorb/facet-auth@1.2.2",
+        href: "https://github.com/fusorb/facet/commit/b7accc3",
       },
     ],
   },
@@ -662,7 +999,7 @@ export const facetChangelog: ChangelogRelease[] = [
       },
       {
         kind: "changed",
-        text: "Removed all focus-ring (blue border) styles from components, combobox, and ready-to-use components. Removed `focus:ring-*`, `focus-visible:ring-*`, `focus-within:ring-*`, `hover:ring-*`, and `focus:border-primary` Tailwind classes across 48 component/app/layout/doc files. Removed the global `:focus-visible` outline rule from `tokens.css` and the `.lab :focus-visible` outline rule from `labs.css`. Static ring classes for selected/active/badge states (e.g., pill selected, stepper active, input-otp active slot) are preserved  - only focus-triggered ring/border styles were removed. `outline-none` is retained to suppress the browser's default blue outline, so clicking a component shows no border.",
+        text: "Removed all focus-ring (blue border) styles from components, combobox, and ready-to-use components. Removed `focus:ring-*`, `focus-visible:ring-*`, `focus-within:ring-*`, `hover:ring-*`, and `focus:border-primary` Tailwind classes across 48 component/app/layout/doc files. Removed the global `:focus-visible` outline rule from `tokens.css` and the `.lab :focus-visible` outline rule from `labs.css`. Static ring classes for selected/active/badge states (e.g., pill selected, stepper active, input-otp active slot) are preserved — only focus-triggered ring/border styles were removed. `outline-none` is retained to suppress the browser's default blue outline, so clicking a component shows no border.",
         href: "https://github.com/fusorb/facet/commit/6591426",
       },
     ],
@@ -1143,10 +1480,10 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "0.1.0, 1.1.4, 1.10.0, 1.2.2, 1.4.0, 1.4.1, 1.4.6",
+    version: "1.1.4, 1.10.0, 1.2.2, 1.4.0, 1.4.6",
     date: "2026-08-17",
     tag: "fix",
-    title: "v0.1.0, 1.1.4, 1.10.0, 1.2.2, 1.4.0, 1.4.1, 1.4.6",
+    title: "v1.1.4, 1.10.0, 1.2.2, 1.4.0, 1.4.6",
     changes: [
       {
         kind: "changed",
@@ -1170,16 +1507,6 @@ export const facetChangelog: ChangelogRelease[] = [
       {
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0\\n- @fusorb/facet-tokens@1.1.4\\n- @fusorb/facet-auth@1.2.2\\n- @fusorb/facet-layout@1.4.1",
-        href: "https://github.com/fusorb/facet/commit/b7accc3",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies []\\n- @fusorb/facet-components@1.10.0\\n- @fusorb/facet-auth@1.2.2",
-        href: "https://github.com/fusorb/facet/commit/b7accc3",
-      },
-      {
-        kind: "changed",
-        text: "feat(store): extract SovGrant Zustand auth/tenant stores into @fusorb/facet-store",
         href: "https://github.com/fusorb/facet/commit/b7accc3",
       },
       {
@@ -1464,15 +1791,11 @@ export const facetChangelog: ChangelogRelease[] = [
     ],
   },
   {
-    version: "0.3.1, 0.4.0, 1.1.3, 1.3.0, 1.3.1, 1.4.0, 1.5.0",
+    version: "0.3.1, 0.4.0, 1.1.3, 1.3.0, 1.4.0, 1.5.0",
     date: "2026-08-13",
     tag: "fix",
-    title: "v0.3.1, 0.4.0, 1.1.3, 1.3.0, 1.3.1, 1.4.0, 1.5.0",
+    title: "v0.3.1, 0.4.0, 1.1.3, 1.3.0, 1.4.0, 1.5.0",
     changes: [
-      {
-        kind: "changed",
-        text: "@fusorb/facet-components@2.0.1",
-      },
       {
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0",
@@ -1502,18 +1825,6 @@ export const facetChangelog: ChangelogRelease[] = [
         kind: "changed",
         text: "Updated dependencies []\\n- @fusorb/facet-components@1.5.0\\n- @fusorb/facet-layout@1.3.0\\n- @fusorb/facet-auth@1.1.3",
         href: "https://github.com/fusorb/facet/commit/3554506",
-      },
-      {
-        kind: "changed",
-        text: "DataTable: export consolidated into a single Export dropdown (CSV + pluggable exporters), plus a new overflow (⋯) actions menu for bulk row actions (select-all, mark-as-read, delete-all, custom). NavigationMenuLink is now a padded, hover-styled block link (fixes cramped dropdown items) and supports an optional description. NumberInput gains a built-in currency picker: CURRENCIES list, currencyPicker dropdown, currencyOptions override, and onCurrencyChange.",
-      },
-      {
-        kind: "changed",
-        text: "Updated dependencies\\n- @fusorb/facet-components@1.4.0\\n- @fusorb/facet-auth@1.1.2\\n- @fusorb/facet-layout@1.2.1",
-      },
-      {
-        kind: "changed",
-        text: "@fusorb/facet-auth@1.1.4",
       },
       {
         kind: "changed",
@@ -1884,8 +2195,8 @@ export const facetChangelog: ChangelogRelease[] = [
   },
 ];
 
-export const CHANGELOG_RELEASE_COUNT = 25;
-export const CHANGELOG_CHANGE_COUNT = 339;
+export const CHANGELOG_RELEASE_COUNT = 32;
+export const CHANGELOG_CHANGE_COUNT = 390;
 
 // ── Episodic canon (.agent/episodes.md) ──────────
 // Local-only; may be empty in CI where .agent/ is gitignored.
@@ -1998,7 +2309,7 @@ export const facetEpisodes: FacetEpisode[] = [
     date: null,
     state: "automated. And still evolving -- the next consumer bug will become EP 11.",
     summary: "The Manual → Semi → Auto Rule",
-    lesson: "evolution, not perfection. Ship the manual fix so you can measure it,\\nthen automate the thing that hurt.\\n\\nPHASE TWO -- THE CONSUMER LOOP\\nThe first cycle (EP 01-09) was internal: we found the bugs, we shipped the fix.\\nThe second cycle is how it really ends: a consumer -- arc-id, the live consumer,\\na downstream repo -- installs a published package, hits something we swore was\\ndone, and reports it. Each episode below is a \"we thought it was perfect\"\\nmoment that cracked open on a consumer's machine.",
+    lesson: "evolution, not perfection. Ship the manual fix so you can measure it,\\nthen automate the thing that hurt.\\n\\nPHASE TWO -- THE CONSUMER LOOP\\nThe first cycle (EP 01–09) was internal: we found the bugs, we shipped the fix.\\nThe second cycle is how it really ends: a consumer -- arc-id, the live consumer,\\na downstream repo -- installs a published package, hits something we swore was\\ndone, and reports it. Each episode below is a \"we thought it was perfect\"\\nmoment that cracked open on a consumer's machine.",
     commitHashes: [],
   },
   {
@@ -2137,8 +2448,8 @@ export const facetEpisodes: FacetEpisode[] = [
     slug: "the-resizable-that-ate-half-its-size",
     date: null,
     state: "automated. The drift gate (EP 03) confirms barrel↔manifest parity (90\ncomponents); typecheck and tests pass across two full `pnpm -r build && pnpm -r\ntypecheck && pnpm test` runs (595/595 tests both times).",
-    summary: "A consumer using `<ResizablePanel defaultSize={50}>` got a 50-pixel-wide\\n   panel instead of 50 percent. The docs, examples, and JSDoc all showed\\n   `defaultSize={50}` (number 0-100) expecting a perce",
-    lesson: "a pass-through wrapper that doesn't normalize consumer-facing units\\n    behind a dependency's breaking API change is a silent bug factory. Bridge the\\n    version gap at the component boundary  - the consumer should never have to know\\n    that v4 treats numbers as pixels.",
+    summary: "A consumer using `<ResizablePanel defaultSize={50}>` got a 50-pixel-wide\\n   panel instead of 50 percent. The docs, examples, and JSDoc all showed\\n   `defaultSize={50}` (number 0–100) expecting a perce",
+    lesson: "a pass-through wrapper that doesn't normalize consumer-facing units\\n    behind a dependency's breaking API change is a silent bug factory. Bridge the\\n    version gap at the component boundary — the consumer should never have to know\\n    that v4 treats numbers as pixels.",
     commitHashes: [],
   },
   {
@@ -2146,7 +2457,7 @@ export const facetEpisodes: FacetEpisode[] = [
     title: "The Footer and Icons That Didn't Come From Home",
     slug: "the-footer-and-icons-that-didnt-come-from-home",
     date: null,
-    state: "automated. The landing now consumes the shared Footer + brand icons;\nno SVG is duplicated in the landing anymore. The drift gate (EP 03) still\npasses  - brand icons live in `src/icon/` (not `src/ui/`), so they are outside\nthe barrel↔manifest gate by design.",
+    state: "automated. The landing now consumes the shared Footer + brand icons;\nno SVG is duplicated in the landing anymore. The drift gate (EP 03) still\npasses — brand icons live in `src/icon/` (not `src/ui/`), so they are outside\nthe barrel↔manifest gate by design.",
     summary: "The landing app shipped a hand-rolled `Footer.tsx` and a hand-rolled\\n   `BrandIcons.tsx` that re-implemented SVG brand icons (GitHub, LinkedIn,\\n   Instagram, Facebook, TikTok) the same ones facet-comp",
     lesson: "a shared component library ships pieces that are useless until a\\nconsumer reaches for them. Every component that lands in the library should\\ncome with a one-line refactor check: \"does any consumer still reimplement this?\"",
     commitHashes: [],
@@ -2157,7 +2468,7 @@ export const facetEpisodes: FacetEpisode[] = [
     slug: "the-accordion-that-wouldnt-close",
     date: null,
     state: "automated. The route-change gate is the invariant: auto-open happens\nonly on URL change, never on user collapse action.",
-    summary: "The docs-site sidebar's singleOpen (accordion) mode stopped working: opening\\n  one section did not reliably collapse others. If a section contained the\\n  active page, it stayed permanently open  - clic",
+    summary: "The docs-site sidebar's singleOpen (accordion) mode stopped working: opening\\n  one section did not reliably collapse others. If a section contained the\\n  active page, it stayed permanently open — clic",
     lesson: "deriving visible state from context (active route) that fights with\\nuser state (persisted collapse) creates an unsolvable toggle. Decouple them:\\nlet a one-shot effect handle auto-open; let user actions own the toggle.",
     commitHashes: [],
   },
@@ -2167,8 +2478,8 @@ export const facetEpisodes: FacetEpisode[] = [
     slug: "the-handle-that-wouldnt-stick",
     date: null,
     state: "automated. The handle now inherits orientation from context; the doc\ncomment (\"inferred from the parent group\") is now actually true.",
-    summary: "In a vertical resizable group, the `ResizableHandle` rendered with horizontal\\n  styling  - a thin full-height strip (`w-1.5 h-full cursor-col-resize`) that\\n  looked \"stuck to the top\" instead of a full",
-    lesson: "a prop with a misleading default  - especially one that contradicts its\\n    own JSDoc  - is a silent footgun. When a child can read its parent's config,\\n    it should  - override should be the exception, not the requirement.",
+    summary: "In a vertical resizable group, the `ResizableHandle` rendered with horizontal\\n  styling — a thin full-height strip (`w-1.5 h-full cursor-col-resize`) that\\n  looked \"stuck to the top\" instead of a full",
+    lesson: "a prop with a misleading default — especially one that contradicts its\\n    own JSDoc — is a silent footgun. When a child can read its parent's config,\\n    it should — override should be the exception, not the requirement.",
     commitHashes: [],
   },
   {
@@ -2177,7 +2488,7 @@ export const facetEpisodes: FacetEpisode[] = [
     slug: "the-tests-that-hung-on-the-registry",
     date: null,
     state: "automated. pnpm test: 609/609 pass. check:docs (90 components),\n   check:icons (1763 icons @ lucide v1.30.0), check:sdk-drift (10 SDK classes)\n   all green.",
-    summary: "Six tests in commands.test.ts and wizard.e2e.test.ts failed with 5s timeouts\\n   when the npm registry was unreachable or slow. Two functions in the CLI's\\n   registry.ts were responsible:  - resolveFace",
+    summary: "Six tests in commands.test.ts and wizard.e2e.test.ts failed with 5s timeouts\\n   when the npm registry was unreachable or slow. Two functions in the CLI's\\n   registry.ts were responsible: — resolveFace",
     lesson: "a network timeout that equals the test timeout leaves no headroom for\\n   execution overhead. Production code needs its own timeout bound (3s); tests\\n   need a wider ceiling (15s) that absorbs variance.",
     commitHashes: [],
   },
@@ -2196,9 +2507,9 @@ export const facetEpisodes: FacetEpisode[] = [
     title: "The Chart That Became a System",
     slug: "the-chart-that-became-a-system",
     date: null,
-    state: "automated. `pnpm build`  - all 11 packages + 2 apps clean ✓.\n   `pnpm -r typecheck`  - all 12 packages + 2 apps green ✓.\n   `pnpm test`  - 745/745 across 56 files ✓. `check:docs`  - 114\n   components, barrel↔manifest↔CLAUDE.md all synced ✓.\n   Commit 3bc29f2: \"fix(chart): crosshair snap + animation props for\n   horizontal bar layout\"  - closes the loop on the session.",
+    state: "automated. `pnpm build` — all 11 packages + 2 apps clean ✓.\n   `pnpm -r typecheck` — all 12 packages + 2 apps green ✓.\n   `pnpm test` — 745/745 across 56 files ✓. `check:docs` — 114\n   components, barrel↔manifest↔CLAUDE.md all synced ✓.\n   Commit 3bc29f2: \"fix(chart): crosshair snap + animation props for\n   horizontal bar layout\" — closes the loop on the session.",
     summary: "EP 29 covered the crosshair snap fix narrowly. In truth, the work that\\n   landed in the same sweep was far broader: 4 changesets across 3 commits,\\n   104 lines of chart.tsx changes (79 added, 27 remov",
-    lesson: "a rewrite that lands as multiple changesets across multiple\\n   commits is not \"not done\"  - it's the evolution the canon tracks.\\n   EP 29's narrow frame missed the breadth. EP 30 captures the whole:\\n   the Chart didn't just get a snap toggle  - it became a configurable\\n   system. The tooltip didn't just come back  - the animation wiring that\\n   hid it was the same bug class as the crosshair animation props. Three\\n   independent root causes can live in the same feature. Write them all\\n   down.",
+    lesson: "a rewrite that lands as multiple changesets across multiple\\n   commits is not \"not done\" — it's the evolution the canon tracks.\\n   EP 29's narrow frame missed the breadth. EP 30 captures the whole:\\n   the Chart didn't just get a snap toggle — it became a configurable\\n   system. The tooltip didn't just come back — the animation wiring that\\n   hid it was the same bug class as the crosshair animation props. Three\\n   independent root causes can live in the same feature. Write them all\\n   down.",
     commitHashes: ["d7da2c6","bbcd766","63fb165","776a8a1","0506770","f2ebd1a","046ca4f","94158a5","70b7054","3bc29f2"],
   },
   {
@@ -2206,9 +2517,9 @@ export const facetEpisodes: FacetEpisode[] = [
     title: "The Motion System That Gave the Repo a Declarative Animation Grammar",
     slug: "the-motion-system-that-gave-the-repo-a-declarative-animation-grammar",
     date: null,
-    state: "automated. `pnpm build`  - all 13 packages + 2 apps clean ✓.\n   `pnpm -r typecheck`  - all 12 packages + 2 apps green ✓.\n   `pnpm test`  - 749/749 across 56 files ✓ (incl. 106 facet-motion tests).\n   `check:docs`  - 114 components ✓. `check:components` 114/114 ✓.\n   `check:motion-drift`  - OK ✓.\n   Working tree clean (2 local commits ahead of origin/main).",
-    summary: "A new package `@fusorb/facet-motion`  - a declarative, token-driven animation\\n   system that does NOT depend on Framer Motion or GSAP. Instead it ships:  - Core: animate(), sequence(), stagger()  - drive",
-    lesson: "a new system is never just its entry point. facet-motion touches tokens,\\n   CLI, CI, AND the component layer (Phase 2). The canon tracks the whole arc  - scaffold here, consume in components next.\\n\\n  Utilization audit (Phase 2 gate-check  - post-commit):\\n     facet-motion is built but NOT consumed. Zero component files import\\n     @fusorb/facet-motion. Eight component files carry hardcoded durations:\\n     text-animations (inline animationDuration: ${duration}ms), card-animations\\n     (duration=600 default), marquee (20s linear), stepper (250ms Tailwind keyframes),\\n     roadmap, data-table, animated-button, brand-icons. Overlay primitives\\n     (Dialog, Sheet, Toast, Dropdown, Drawer) use raw Tailwind animate-* classes\\n     instead of the <Reveal>/<Presence> bindings.\\n     Portability: the engine is ~80% platform-agnostic. core (animate/sequence/\\n     stagger/scheduler), values (motionValue), registry (15 generative + 18 authored\\n     families), and the token-resolution tables (DURATION_VALUES, EASING_FUNCTIONS,\\n     cubicBezier) are all pure JS. Only cssDriver.apply() writes to element.style\\n     (DOM-bound)  - a native (RN Animated) driver can reuse the resolution tables\\n     as-is once they are extracted from the css module into a shared target.\\n  Action: Phase 2 reordered  - (1) extract resolve tables into shared core\\n  module, (2) wire facet-motion into overlay + animated components, (3) then\\n  build @fusorb/facet-native on the now-portable engine.",
+    state: "automated. `pnpm build` — all 13 packages + 2 apps clean ✓.\n   `pnpm -r typecheck` — all 12 packages + 2 apps green ✓.\n   `pnpm test` — 749/749 across 56 files ✓ (incl. 106 facet-motion tests).\n   `check:docs` — 114 components ✓. `check:components` 114/114 ✓.\n   `check:motion-drift` — OK ✓.\n   Working tree clean (2 local commits ahead of origin/main).",
+    summary: "A new package `@fusorb/facet-motion` — a declarative, token-driven animation\\n   system that does NOT depend on Framer Motion or GSAP. Instead it ships: — Core: animate(), sequence(), stagger() — drive",
+    lesson: "a new system is never just its entry point. facet-motion touches tokens,\\n   CLI, CI, AND the component layer (Phase 2). The canon tracks the whole arc — scaffold here, consume in components next.\\n\\n  Utilization audit (Phase 2 gate-check — post-commit):\\n     facet-motion is built but NOT consumed. Zero component files import\\n     @fusorb/facet-motion. Eight component files carry hardcoded durations:\\n     text-animations (inline animationDuration: ${duration}ms), card-animations\\n     (duration=600 default), marquee (20s linear), stepper (250ms Tailwind keyframes),\\n     roadmap, data-table, animated-button, brand-icons. Overlay primitives\\n     (Dialog, Sheet, Toast, Dropdown, Drawer) use raw Tailwind animate-* classes\\n     instead of the <Reveal>/<Presence> bindings.\\n     Portability: the engine is ~80% platform-agnostic. core (animate/sequence/\\n     stagger/scheduler), values (motionValue), registry (15 generative + 18 authored\\n     families), and the token-resolution tables (DURATION_VALUES, EASING_FUNCTIONS,\\n     cubicBezier) are all pure JS. Only cssDriver.apply() writes to element.style\\n     (DOM-bound) — a native (RN Animated) driver can reuse the resolution tables\\n     as-is once they are extracted from the css module into a shared target.\\n  Action: Phase 2 reordered — (1) extract resolve tables into shared core\\n  module, (2) wire facet-motion into overlay + animated components, (3) then\\n  build @fusorb/facet-native on the now-portable engine.",
     commitHashes: ["3fefa64","2c37fad"],
   },
   {
@@ -2217,8 +2528,8 @@ export const facetEpisodes: FacetEpisode[] = [
     slug: "the-motion-system-enters-production",
     date: null,
     state: "COMPLETE. All Phase 2 work committed. Working tree clean after commit\n   cycle. Phase 3 (domain presets) and Phase 4 (nativeDriver impl) remain\n   PENDING per .agent/todo.txt.\n\n   pnpm -r typecheck: green (13 packages + 2 apps).\n   pnpm test: 749/749 across 56 files (incl. 106 facet-motion tests).\n   check:docs: 114 components ✓. check:motion-drift: OK ✓.",
-    summary: "The motion engine was scaffolded and committed (EP 31). The next step was\\n   always to actually USE it  - consume it across the component library, land\\n   the platform portability needed for React Nati",
-    lesson: "the value of a new system is not in its scaffold commit  - it's in how\\n   many hardcoded values it eliminates across the component library. EP 31\\n   built the engine; this episode proves it works by counting the milliseconds\\n   that no longer exist in source. The repo now has zero inline animation-\\n   duration literals in facet-components (all resolve through\\n    --facet-motion-duration-* CSS vars or the shared DURATION_VALUES table).",
+    summary: "The motion engine was scaffolded and committed (EP 31). The next step was\\n   always to actually USE it — consume it across the component library, land\\n   the platform portability needed for React Nati",
+    lesson: "the value of a new system is not in its scaffold commit — it's in how\\n   many hardcoded values it eliminates across the component library. EP 31\\n   built the engine; this episode proves it works by counting the milliseconds\\n   that no longer exist in source. The repo now has zero inline animation-\\n   duration literals in facet-components (all resolve through\\n    --facet-motion-duration-* CSS vars or the shared DURATION_VALUES table).",
     commitHashes: ["43ccd14","43ccd15","43ccd16","43ccd17","db287b3"],
   },
   {
@@ -2226,7 +2537,7 @@ export const facetEpisodes: FacetEpisode[] = [
     title: "Full system audit",
     slug: "full-system-audit",
     date: "2026-09-17",
-    state: "COMPLETE  - audit findings documented, fixes committed, clean working tree.",
+    state: "COMPLETE — audit findings documented, fixes committed, clean working tree.",
     summary: "Full system audit",
     lesson: null,
     commitHashes: [],
@@ -2236,19 +2547,19 @@ export const facetEpisodes: FacetEpisode[] = [
     title: "The Domain Presets That Made Motion Speak Every Language",
     slug: "the-domain-presets-that-made-motion-speak-every-language",
     date: null,
-    state: "COMPLETE. All Phase 3 work committed (3 commits).  - pnpm -r typecheck: 12 projects green ✓  - pnpm test: 926/926 across 10 projects (incl. 130 motion tests, 24 domain preset tests) ✓  - check:motion-drift: OK (72 barrel symbols, 15 generative + 18 authored) ✓  - audit:motion-parity: OK (5 durations + 6 easings in sync, resolve.ts derives from motionValues) ✓  - Working tree: CLEAN (3 commits ahead of origin/main)",
-    summary: "The motion system was built and consumed (EP 31-33), but it had one missing\\n   piece: domain context. A fintech dashboard needs different motion than an\\n   education platform  - shorter durations, no b",
-    lesson: "a token system without domain context is a calculator with no variables.\\nThe motion engine could animate anything  - but it couldn't animate the RIGHT\\nWAY for a fintech app until it knew which domain it was in. The presets close\\nthe loop: same engine, same tokens, different personality per domain. And the\\nderivation check ensures the JS and CSS never drift apart  - the same drift-gate\\nphilosophy (EP 03, EP 29/30) now covers motion tokens too.\\n\\nEP 35  - @fusorb/facet-sandbox initial scaffold + fix (committed f4ca95a):  - Framework-agnostic live-preview host: block registry + adapter seam +\\n    config model + URL security helpers (src/index.ts, 186 lines)  - React adapter with hand-written JSX parser (no eval/Function): 877 lines,\\n    includes Sandbox/SandboxProvider/PreviewFrame/PlaygroundErrorBoundary  - 14 tests green; tsup emits slim host + react adapter (react/prettier externalized)  - Fixed 4 bugs during verification (2 TypeScript errors, 2 test failures):\\n    • ReactElement<unknown> → ReactElement<any> in test assertions (TS2571)\\n    • renderFromCode missing components arg → pass {} (TS2554)\\n    • parseElement early-return consumed only first root → use parseChildren (Fragment)\\n    • Prop values assigned as ParsedElement → toReactNode(child) conversion  - Two changesets created: facet-sandbox-initial.md + motion-domain-presets.md",
+    state: "COMPLETE. All Phase 3 work committed (3 commits). — pnpm -r typecheck: 12 projects green ✓ — pnpm test: 926/926 across 10 projects (incl. 130 motion tests, 24 domain preset tests) ✓ — check:motion-drift: OK (72 barrel symbols, 15 generative + 18 authored) ✓ — audit:motion-parity: OK (5 durations + 6 easings in sync, resolve.ts derives from motionValues) ✓ — Working tree: CLEAN (3 commits ahead of origin/main)",
+    summary: "The motion system was built and consumed (EP 31–33), but it had one missing\\n   piece: domain context. A fintech dashboard needs different motion than an\\n   education platform — shorter durations, no b",
+    lesson: "a token system without domain context is a calculator with no variables.\\nThe motion engine could animate anything — but it couldn't animate the RIGHT\\nWAY for a fintech app until it knew which domain it was in. The presets close\\nthe loop: same engine, same tokens, different personality per domain. And the\\nderivation check ensures the JS and CSS never drift apart — the same drift-gate\\nphilosophy (EP 03, EP 29/30) now covers motion tokens too.\\n\\nEP 35 — @fusorb/facet-sandbox initial scaffold + fix (committed f4ca95a): — Framework-agnostic live-preview host: block registry + adapter seam +\\n    config model + URL security helpers (src/index.ts, 186 lines) — React adapter with hand-written JSX parser (no eval/Function): 877 lines,\\n    includes Sandbox/SandboxProvider/PreviewFrame/PlaygroundErrorBoundary — 14 tests green; tsup emits slim host + react adapter (react/prettier externalized) — Fixed 4 bugs during verification (2 TypeScript errors, 2 test failures):\\n    • ReactElement<unknown> → ReactElement<any> in test assertions (TS2571)\\n    • renderFromCode missing components arg → pass {} (TS2554)\\n    • parseElement early-return consumed only first root → use parseChildren (Fragment)\\n    • Prop values assigned as ParsedElement → toReactNode(child) conversion — Two changesets created: facet-sandbox-initial.md + motion-domain-presets.md",
     commitHashes: ["4960108","dad0e06","aef768e","f4ca95a"],
   },
   {
     number: "EP 35",
-    title: "facet-sandbox initial scaffold + fix",
+    title: "— facet-sandbox initial scaffold + fix",
     slug: "facet-sandbox-initial-scaffold-fix",
     date: "2026-09-17",
     state: "COMPLETE. Typecheck ✓ (12 packages + 2 apps green), 14/14 sandbox tests ✓,\ntsup build ✓. Two changesets created: facet-sandbox-initial.md +\nmotion-domain-presets.md.",
-    summary: "The repo was at EP 34 (Phase 3 domain presets complete). A new\\npackages/sandbox/ package (@fusorb/facet-sandbox) was scaffolded with:  - Block registry + adapter seam + config model + URL security help",
-    lesson: "When @types/react uses P=unknown as the default for ReactElement,\\nexplicit <any> generics are needed for test assertions that drill into .props.\\nThe parseElement-early-return pattern is an anti-pattern when the spec says\\n\"handle multiple roots\"  - the fallback must be on the happy path, not the\\nexception path.",
+    summary: "The repo was at EP 34 (Phase 3 domain presets complete). A new\\npackages/sandbox/ package (@fusorb/facet-sandbox) was scaffolded with: — Block registry + adapter seam + config model + URL security help",
+    lesson: "When @types/react uses P=unknown as the default for ReactElement,\\nexplicit <any> generics are needed for test assertions that drill into .props.\\nThe parseElement-early-return pattern is an anti-pattern when the spec says\\n\"handle multiple roots\" — the fallback must be on the happy path, not the\\nexception path.",
     commitHashes: [],
   },
   {
@@ -2257,8 +2568,8 @@ export const facetEpisodes: FacetEpisode[] = [
     slug: "agent-consolidation-tracker-merge",
     date: "2026-09-20",
     state: "COMPLETE. Files deleted: episodes-plain.md, production-audit.txt,\nfacet_v2_roadmap.txt, v2-foundation-spec.md, v5-foundation-spec.md,\nfacet-motion-architecture.md, facet-motion-registry-spec.md,\nui-rebuild-scratchpad.txt, todo.txt. Files retained: episodes.md, output.txt.\nCLAUDE.md references updated to remove dead .agent/ paths.",
-    summary: "Tracker drift & redundancy across 11 local-only files:\\n   - episodes.md (78KB, technical) + episodes-plain.md (44KB, plain-English)  - \\n    the same 35-episode narrative in two formats, maintained in par",
-    lesson: "a local tracker directory grows files faster than it grows clarity.\\nThe fix is the same drift-gate philosophy applied to documentation: one source\\nof truth per domain (CLAUDE.md = handbook, episodes.md = process narrative,\\noutput.txt = live dashboard), everything else is scratch that gets disposed.\\n\\nEP 37 -- §15/§21/§7 Greening Streak (2026-09-22)\\n   - Commit group (4 commits):\\n    - ced96e7 fix(layout,§15): green docs-layout baseline. docs-aside.tsx swaps inline SVG/lucide-react\\n      for the icon registry (Icon name=\"chevron-down\") per user correction; keeps Omit<onToggle> fix.\\n      docs-layout.tsx drops unused `links`. sidebar-auth.tsx drops dead router plumbing (RouterLink/\\n      useLayout/RouterAdapter, router param)  - UserAvatarMenuItem has no href, so the link scaffolding was dead.\\n    - 0f21355 ci(§21): check-boundaries gate (scripts/check-boundaries.mjs). Enforces acyclic @fusorb DAG\\n      + facet-native isolated (own package, deps subset of facet-tokens). Wired into package.json\\n      check:boundaries + CI ci job (after check:icons). Pass: 12 packages, acyclic, native isolated.\\n    - 5534d1b docs(native): §7 disposition  - SovGrant/SovPort integration surface. facet-native v0.1.0\\n      exports bindAnimated/unbindAnimated/nativeDriver/resolveNativeTransition/toEasingCurve + types; kept as\\n      its OWN package, NOT under motion (consumer-provided Animated API; ready for ../sovgrant ../sovport).\\n    - 2a04adc docs(handbook): CLAUDE.md CI gate chain lists check:boundaries; Package Layout (native) +\\n      motion phase item reflect §7 disposition (isolated, NOT wired to motion; Phase 4 = deferred wiring).\\n   - Green: layout tsc --noEmit OK; layout pnpm build OK (ESM 79.07 KB, DTS 28.72 KB); §21 gate OK.\\n   - Native placement (user musing): separate package (not a dir under motion), gated + ready for SovGrant/\\n    SovPort to bindAnimated a consumer-provided Animated module.\\n   - §16 LandingLayout: left as content-slot shell (hero/nav/footer ReactNode); render-prop slots would\\n    duplicate those props  - no styled default to override  - skipped per anti-over-engineer rule.\\n   - Concurrency: another agent's in-progress §15 (ConsoleLayout aside, docs/*, sidebar, index, landing)\\n    left uncommitted to avoid mis-attributing that agent's edits; layout typecheck green with it in flight.\\n\\nEP 38 -- §21 Composability Hard Gate (2026-09-23, 6ed9647)\\n   - Composability-slot check promoted from SOFT warnings to a CI hard gate:\\n    check-composability.mjs now exits 1 on HARD_GAPS or SOFT_GAPS. The repo\\n    rejects code that violates the primitive -> styled -> composite -> consumer\\n    contract. Slot enforcement becomes an invariant, not a recommendation.\\n\\nEP 39 -- §16 Composability Slots + ChatLayout (2026-09-23)\\n   - Data-driven composites gained render slots so Facet owns flow/state while\\n    consumers own presentation:\\n      * ApiKeyManager.renderKey(key)\\n      * InviteTeamForm.renderInvitee(invitee, { onRemove })\\n      * TestimonialShowcase.renderTestimonial(testimonial)\\n      * TwoFactorSetupPanel.renderQRCode(otpauthUri, secret)\\n   - Layout composites: Topbar (render-tenant/user-menu), PageHeader/TenantSwitcher\\n    composability slots (d1be92c, 08c3c8c).\\n   - ChatLayout + ChatInput added: desktop sidebar / mobile slide-in, optional\\n    topbar + router adapter + auth, configurable input. Chat-infra (not AI-only).\\n   - Review note: ChatLayoutInner had a Rules-of-Hooks bug (useEffect after\\n    conditional returns) -- fixed in this streak.\\n\\nEP 40 -- §17 Motion Becomes Registry-Driven (2026-09-23, 6367295)\\n   - domain-motion switch() replaced by a module-level Map registry\\n    (registerDomainMotion / hasDomainMotionConfig / listDomainMotionConfigs).\\n   - Extension model shifts: new domain = register preset (no Facet source edit).\\n   - Unknown domains fall back to defaultMotion (no crash).\\n\\nEP 41 -- Boundary Dispositions: Store, Native, SDK (2026-09-23, ac4abb4)\\n   - Store repositioned as framework-agnostic state layer (Zustand); SgProvider\\n    does NOT consume it (avoids auth->store->sdk + auth->sdk ownership tangle).\\n   - SDK moved from store runtime dep to peer/dev dep (less coupling).\\n   - AuthState moved into SDK-facing surface; provider derives isAuthenticated\\n    (single source of truth).\\n   - Native documented EXPERIMENTAL v0.1.0, isolated, NOT wired to motion.\\n\\nEP 42 -- Docs Block Model (2026-09-23, e93bb5e)\\n   - Docs system gains typed block types: image, card, grid, hero.\\n   - Added to the DocsBlock union + renderer (content-model -> UI, not\\n    page -> JSX), preserving the docs-as-data contract.\\n\\nEP 43 -- Review Stitch + ChatLayout Hook Fix (2026-09-22)\\n   - Ran the Sept-23 cluster review against the actual tree (diff, not titles):\\n    ✓ §16 slots on composites confirmed (ApiKeyManager.renderKey, InviteTeamForm.renderInvitee,\\n      TestimonialShowcase.renderTestimonial, TwoFactorSetupPanel.renderQRCode)  - matches §16 master.\\n    ✓ §21 hard gate (6ed9647) corroborated (exit 1 on SOFT_GAPS/HARD_GAPS).\\n    ✓ §17 motion registry (6367295), §8/§7 store/native dispositions (ac4abb4),\\n      docs block model (e93bb5e) all corroborated.\\n   - cn() ownership: @fusorb/facet-motion owns cn (utils/cn.ts:7, barrel index.ts:16);\\n    components imports from motion. Smell = real; deferred per review's own guidance.\\n   - ChatLayout hook fix (724c84c): hoisted useEffect above isLoading/isAuthenticated early\\n    returns + guarded on both  - stable hook order across auth transitions (Rules of Hooks).\\n   - Stance: native isolated + §21-gated; §16 LandingLayout stays a content-slot shell\\n    (render-props skipped  - no styled default to override). Let the stream finish, then\\n    post-run diff review (ChatLayout tests, cn() ownership, registry lifecycle semantics).",
+    summary: "Tracker drift & redundancy across 11 local-only files:\\n  — episodes.md (78KB, technical) + episodes-plain.md (44KB, plain-English) —\\n    the same 35-episode narrative in two formats, maintained in par",
+    lesson: "a local tracker directory grows files faster than it grows clarity.\\nThe fix is the same drift-gate philosophy applied to documentation: one source\\nof truth per domain (CLAUDE.md = handbook, episodes.md = process narrative,\\noutput.txt = live dashboard), everything else is scratch that gets disposed.\\n\\nEP 37 -- §15/§21/§7 Greening Streak (2026-09-22)\\n  — Commit group (4 commits):\\n    - ced96e7 fix(layout,§15): green docs-layout baseline. docs-aside.tsx swaps inline SVG/lucide-react\\n      for the icon registry (Icon name=\"chevron-down\") per user correction; keeps Omit<onToggle> fix.\\n      docs-layout.tsx drops unused `links`. sidebar-auth.tsx drops dead router plumbing (RouterLink/\\n      useLayout/RouterAdapter, router param) — UserAvatarMenuItem has no href, so the link scaffolding was dead.\\n    - 0f21355 ci(§21): check-boundaries gate (scripts/check-boundaries.mjs). Enforces acyclic @fusorb DAG\\n      + facet-native isolated (own package, deps subset of facet-tokens). Wired into package.json\\n      check:boundaries + CI ci job (after check:icons). Pass: 12 packages, acyclic, native isolated.\\n    - 5534d1b docs(native): §7 disposition — SovGrant/SovPort integration surface. facet-native v0.1.0\\n      exports bindAnimated/unbindAnimated/nativeDriver/resolveNativeTransition/toEasingCurve + types; kept as\\n      its OWN package, NOT under motion (consumer-provided Animated API; ready for ../sovgrant ../sovport).\\n    - 2a04adc docs(handbook): CLAUDE.md CI gate chain lists check:boundaries; Package Layout (native) +\\n      motion phase item reflect §7 disposition (isolated, NOT wired to motion; Phase 4 = deferred wiring).\\n  — Green: layout tsc --noEmit OK; layout pnpm build OK (ESM 79.07 KB, DTS 28.72 KB); §21 gate OK.\\n  — Native placement (user musing): separate package (not a dir under motion), gated + ready for SovGrant/\\n    SovPort to bindAnimated a consumer-provided Animated module.\\n  — §16 LandingLayout: left as content-slot shell (hero/nav/footer ReactNode); render-prop slots would\\n    duplicate those props — no styled default to override — skipped per anti-over-engineer rule.\\n  — Concurrency: another agent's in-progress §15 (ConsoleLayout aside, docs/*, sidebar, index, landing)\\n    left uncommitted to avoid mis-attributing that agent's edits; layout typecheck green with it in flight.\\n\\nEP 38 -- §21 Composability Hard Gate (2026-09-23, 6ed9647)\\n  — Composability-slot check promoted from SOFT warnings to a CI hard gate:\\n    check-composability.mjs now exits 1 on HARD_GAPS or SOFT_GAPS. The repo\\n    rejects code that violates the primitive -> styled -> composite -> consumer\\n    contract. Slot enforcement becomes an invariant, not a recommendation.\\n\\nEP 39 -- §16 Composability Slots + ChatLayout (2026-09-23)\\n  — Data-driven composites gained render slots so Facet owns flow/state while\\n    consumers own presentation:\\n      * ApiKeyManager.renderKey(key)\\n      * InviteTeamForm.renderInvitee(invitee, { onRemove })\\n      * TestimonialShowcase.renderTestimonial(testimonial)\\n      * TwoFactorSetupPanel.renderQRCode(otpauthUri, secret)\\n  — Layout composites: Topbar (render-tenant/user-menu), PageHeader/TenantSwitcher\\n    composability slots (d1be92c, 08c3c8c).\\n  — ChatLayout + ChatInput added: desktop sidebar / mobile slide-in, optional\\n    topbar + router adapter + auth, configurable input. Chat-infra (not AI-only).\\n  — Review note: ChatLayoutInner had a Rules-of-Hooks bug (useEffect after\\n    conditional returns) -- fixed in this streak.\\n\\nEP 40 -- §17 Motion Becomes Registry-Driven (2026-09-23, 6367295)\\n  — domain-motion switch() replaced by a module-level Map registry\\n    (registerDomainMotion / hasDomainMotionConfig / listDomainMotionConfigs).\\n  — Extension model shifts: new domain = register preset (no Facet source edit).\\n  — Unknown domains fall back to defaultMotion (no crash).\\n\\nEP 41 -- Boundary Dispositions: Store, Native, SDK (2026-09-23, ac4abb4)\\n  — Store repositioned as framework-agnostic state layer (Zustand); SgProvider\\n    does NOT consume it (avoids auth->store->sdk + auth->sdk ownership tangle).\\n  — SDK moved from store runtime dep to peer/dev dep (less coupling).\\n  — AuthState moved into SDK-facing surface; provider derives isAuthenticated\\n    (single source of truth).\\n  — Native documented EXPERIMENTAL v0.1.0, isolated, NOT wired to motion.\\n\\nEP 42 -- Docs Block Model (2026-09-23, e93bb5e)\\n  — Docs system gains typed block types: image, card, grid, hero.\\n  — Added to the DocsBlock union + renderer (content-model -> UI, not\\n    page -> JSX), preserving the docs-as-data contract.\\n\\nEP 43 -- Review Stitch + ChatLayout Hook Fix (2026-09-22)\\n  — Ran the Sept-23 cluster review against the actual tree (diff, not titles):\\n    ✓ §16 slots on composites confirmed (ApiKeyManager.renderKey, InviteTeamForm.renderInvitee,\\n      TestimonialShowcase.renderTestimonial, TwoFactorSetupPanel.renderQRCode) — matches §16 master.\\n    ✓ §21 hard gate (6ed9647) corroborated (exit 1 on SOFT_GAPS/HARD_GAPS).\\n    ✓ §17 motion registry (6367295), §8/§7 store/native dispositions (ac4abb4),\\n      docs block model (e93bb5e) all corroborated.\\n  — cn() ownership: @fusorb/facet-motion owns cn (utils/cn.ts:7, barrel index.ts:16);\\n    components imports from motion. Smell = real; deferred per review's own guidance.\\n  — ChatLayout hook fix (724c84c): hoisted useEffect above isLoading/isAuthenticated early\\n    returns + guarded on both — stable hook order across auth transitions (Rules of Hooks).\\n  — Stance: native isolated + §21-gated; §16 LandingLayout stays a content-slot shell\\n    (render-props skipped — no styled default to override). Let the stream finish, then\\n    post-run diff review (ChatLayout tests, cn() ownership, registry lifecycle semantics).",
     commitHashes: ["ced96e7","0f21355","5534d1b","2a04adc","6ed9647","d1be92c","08c3c8c","6367295","ac4abb4","e93bb5e","724c84c"],
   },
   {
@@ -2267,8 +2578,8 @@ export const facetEpisodes: FacetEpisode[] = [
     slug: "16-docs-site-mobile-logo-toggle-dynamic-toc-aside-fixes",
     date: "2026-09-23",
     state: "automated. Full-repo grep confirms 0 `focus:ring-*`,\n   `focus-visible:ring-*`, `focus-within:ring-*`, `hover:ring-*`, and\n   `focus:border-primary` tokens remain in source. Static ring classes for\n   selected/active/badge states are intact. Components typecheck +, tsup build +\n   DTS ✓. Changesets staged.",
-    summary: "Every component showed a blue border on hover or click  - the Tailwind focus\\n   ring classes (`focus:ring-2 focus:ring-ring focus:ring-offset-2`) plus the\\n   global `:focus-visible { outline: 1.5px sol",
-    lesson: "the \"unnecessary\" in design systems is often the invariant nobody wrote\\n   a gate for. The fix isn't \"remove everything\"  - it's \"remove the ring/border\\n   tokens while keeping outline-none (suppress browser default) and preserving\\n   the static rings that encode state (selected, active, open).\" A targeted regex\\n   that matches only `focus:ring-*` (not `focus:bg-*` or `focus:text-*`) makes the\\n   distinction mechanical, not manual.\\n\\n   ================================================================================\\n\\n   EP 46 -- Collapsed Sidebar Variant + Repo-Wide Cleanup\\n   ---------------------------------------------------------\\n   Date: 2026-09-24\\n\\n   A. Collapsed sidebar variant (layout package)\\n      - Confirmed: NO prior mechanism collapsed all sidebar sections + the aside\\n        simultaneously. Three separate, un-unified systems existed:\\n          1. Sidebar rail collapse  (sidebarCollapsed in LayoutContext)\\n          2. Section accordion      (collapseAll/expandAll in LayoutContext)\\n          3. Aside toggle           (asideOpen in DocsLayoutContext)\\n      - Added to LayoutContext:\\n          * registerSections(ids)        - ref populated by Sidebar on config change\\n          * collapseAllSidebar()         - collapseAll(registeredIds) + setSidebarCollapsed(true)\\n          * expandAllSidebar()           - expandAll(registeredIds) + setSidebarCollapsed(false)\\n      - Added to DocsLayoutContext:\\n          * collapsedAll (boolean, synced via effect from DocsTopbarControls)\\n          * collapseAllSidebarAndAside()   - refs → ref.collapse?.()\\n          * expandAllSidebarAndAside()     - refs → ref.expand?.()\\n          * toggleCollapseAll()            - delegates to ref (reads ref.collapsedAll)\\n      - DocsTopbarControls component (in docs-layout.tsx):\\n          * Lives inside ConsoleLayoutInner → inside BOTH LayoutProvider + DocsLayoutContext\\n          * Computes collapsedAll = mode === \"rail\" && sidebarCollapsed && !asideOpen\\n          * Populates collapseAllStateRef.current during render (closures are always fresh)\\n          * Syncs collapsedAll → useState via useEffect for external consumers\\n          * Renders: mode toggle, aside toggle, NEW collapse-all button, consumer topbar\\n          * Collapse-all button: mode=\"rail\" + collapseAllSidebar() + setAsideOpen(false)\\n          * Expand-all button: mode=\"full\" + expandAllSidebar() + setAsideOpen(true)\\n          * Keyboard shortcut: Ctrl+Shift+B\\n          * Icons: minimize-2 / maximize-2 (resolved via lazy lucide catalog)\\n      - Sidebar component: calls registerSections(config.navigation ids) in useEffect\\n      - SettingsMenu (docs app): added \"Collapse all sidebar & aside\" / \"Expand all\" item\\n      - All state persists via existing localStorage keys (no new keys)\\n      - Button hidden on mobile (lg:inline-flex)  - sidebar is slide-in on mobile\\n      - Build + typecheck ✓ (layout, docs, apps/docs all pass)\\n\\n   B. Repo-wide file cleanup\\n      Deleted 27 tracked files:\\n      - Root debug scripts (10): capture-errors.{js,ps1}, check-{cdp,cdp2,cdp3,full,css,\\n        no-block,page}.{mjs,js,ps1}  - all unreferenced, hardcoded debugging tools\\n      - Root build artifact (1): served.css  - Vite CSS-as-JS output, unreferenced\\n      - Landing temp file (1): apps/landing/src/tmp.css  - unreferenced\\n      - Stale scripts/ tools (14): audit-sg-consumption, audit-claims,\\n        audit-hardcoded-colors, audit-icons, audit-repo, audit-tokens-parity,\\n        audit-variants, check-location-data, fix-pages-strings, gen-countries,\\n        gen-ng-lgas, gen-pages, gen-regions, rename-arc-ui  - all unreferenced\\n      - Stale data (1): scripts/data/countries-states.json  - only used by deleted\\n        scripts; the generated location-data.ts is already committed in source\\n      - Empty scripts/data/ directory removed\\n      Deleted 6 gitignored scratchpad temp files (remove-focus.cjs, commit-msg-*.txt,\\n        empty *.output.txt files) for hygiene\\n      Kept: gen-snapshot.js (referenced in CLAUDE.md), scripts/test-setup.ts and\\n        react-test-utils-shim.ts (used by 5 package-level vitest configs),\\n        all CI-referenced scripts (check-docs-inventory, gen-icon-map, etc.)\\n      State: complete. 27 files staged for deletion via git rm -f. Changeset created.\\n\\n   ================================================================\\n\\nEP 47 -- ChangelogCard / ChangelogFeed Replace Changeset + §18 Hero Rebuild\\nDate: 2026-09-25\\nCommit: 4ecefd6  - \"feat(components,landing): replace Changeset with\\nChangelogCard/ChangelogFeed + §18 hero rebuild\" (21 files, 2095 ins, 746 del)\\n\\nWhat broke:\\n  The `Changeset` component (packages/components/src/ui/changeset.tsx) was a\\n  docs-only `changeset` block type  - a date-grouped CONTENT timeline renderer\\n  with nested blocks. No .mdx/.ts/.md content in the repo invoked\\n  `type: \"changeset\"`; only schema (pages.ts), renderer (DocsContentPage case),\\n  import, and the auto-manifest wired it. It was added last session (6cbf23c)\\n  as a stepping stone but was never meant to be the final form: the landing\\n  needed a full changelog UI pair (card + feed), not a single docs-block\\n  renderer. The Changeset component also lacked tests, composability slots, and\\n  the token-faithful styling the canon demands.\\n\\nHow we fixed it:\\n\\nA. ChangelogCard (packages/components/src/ui/changelog-card.tsx)\\n   - ChangelogCard  - root; consumes a single ChangelogItem + optional\\n     showDiff state\\n   - ChangelogHeader  - date pill (right-side h3 id) + category badge (cvca)\\n   - ChangelogTitle  - release title + version\\n   - ChangelogDescription  - plain-text description\\n   - ChangelogHighlights  - dot-list of key changes (text-success/destructive)\\n   - ChangelogDiffToggle  - Button (ghost, sm) toggles diff visibility;\\n     icon swaps (eye / eye-off) via LightIcon\\n   - ChangelogDiffViewer  - collapsible diff code block (bg-muted/60, rounded,\\n     monospace, scroll-x, line numbers)\\n   - Tokens only  - bg-card, border-border, text-foreground,\\n     text-muted-foreground, bg-muted, bg-primary, bg-success, bg-warning,\\n     bg-destructive, ring-primary, bg-primary/10. NO arbitrary values.\\n   - Badge: cvca variants (default/secondary/outline/success/warning/destructive)\\n   - Button: facets variants (default/secondary/ghost/outline), size sm\\n   - 5 tests: renders, header, highlights, diff toggle, diff viewer\\n\\nB. ChangelogFeed (packages/components/src/ui/changelog-feed.tsx)\\n   - ChangelogFeed  - root; renders filtered ChangelogItem[] as a vertical\\n     timeline with staggered entrances\\n   - FilterBar  - category filter buttons (all/added/changed/fixed/deprecated)\\n   - Timeline  - vertical connector line (border-l, absolute) with child items\\n   - TimelineItem  - individual item with stagger() delay (baseDelay 0ms,\\n     count = items.length) via @fusorb/facet-motion\\n   - 4 tests: renders empty, renders items, filter by category, active filter\\n   - Compound API pattern (render-prop-style sub-component composition)\\n\\nC. Migration (blast radius: barrel + docs engine + schema + count)\\n   - Deleted changeset.tsx\\n   - Barrel (index.ts L559-563): Changeset export → ChangelogCard + ChangelogFeed\\n     + ChangelogItem, ReleaseCategory, ReleaseStatus, ChangeCategory types\\n   - DocsContentPage.tsx: removed Changeset import + `case \"changeset\"` (L286-297)\\n   - pages.ts: removed `changeset` from DocsBlock union (L116-128)\\n   - gen-docs-manifest.mjs CATEGORY map: dropped changeset, added\\n     changelog-card + changelog-feed → regenerated manifest.ts\\n   - Count 117→118 propagated: CLAUDE.md, README, package.json,\\n     site-data.generated.ts\\n\\n§18 Chunk 1  - Landing Hero Rebuild (committed together in 4ecefd6):\\n   - HeroSection.tsx rebuilt: dropped domain-cycling 3.2s state machine,\\n     auth-preview card, tech-pill inventory. Kept positioning H1 + supporting\\n     line + Explore(/components) / Read-the-Docs CTAs (facet Button) +\\n     install row. Visual = LayerGraph(SYSTEM_LAYERS). Removed arbitrary\\n     min-h-[60vh]/max-w-[1200px] (LandingLayout shell owns spacing).\\n   - scripts/gen-site-data.mjs extended: detectColorSpace() (scans tokens CSS\\n     for oklch() → \"OKLCH\") + countPresets() → 5. Emits COLOR_SPACE +\\n     DOMAIN_PRESET_COUNT to site-data.generated.ts.\\n   - ArchitectureSection.tsx now consumes both (literals gone).\\n   - apps/landing + apps/docs changelog data updated.\\n   - Changeset fragment: @fusorb/facet-components major (breaking Changeset\\n     removal)\\n\\nVerified:\\n   - tsc(components): EXIT 0\\n   - vitest: changelog-card 5/5 ✓, changelog-feed 4/4 ✓ (9 total)\\n   - check:docs: 118/118 (barrel ↔ manifest ↔ CLAUDE.md synced)\\n   - check:components: 118/118 appearance, 118/118 config,\\n     0 HARD gaps, 0 slot gaps\\n   - check-component-flexibility: 0 SOFT_GAPS\\n\\nLesson: a docs-block renderer (Changeset) and a UI component pair\\n(ChangelogCard/ChangelogFeed) serve different contracts. Replacing the\\nformer with the latter was not a rename  - it was a model change: from \"single\\ndocs block type with nested blocks\" to \"composable component pair with\\ncompound API, token-faithful styling, and staggered motion.\" The cascade\\n(barrel → docs engine → schema → manifest → count) was mechanical once the\\ntarget shape was chosen; the substance was in the component pair itself  - \\n6 sub-components for the card, 4 for the feed, 9 tests, and a changeset\\nthat properly records the breaking removal.",
+    summary: "Every component showed a blue border on hover or click — the Tailwind focus\\n   ring classes (`focus:ring-2 focus:ring-ring focus:ring-offset-2`) plus the\\n   global `:focus-visible { outline: 1.5px sol",
+    lesson: "the \"unnecessary\" in design systems is often the invariant nobody wrote\\n   a gate for. The fix isn't \"remove everything\" — it's \"remove the ring/border\\n   tokens while keeping outline-none (suppress browser default) and preserving\\n   the static rings that encode state (selected, active, open).\" A targeted regex\\n   that matches only `focus:ring-*` (not `focus:bg-*` or `focus:text-*`) makes the\\n   distinction mechanical, not manual.\\n\\n   ================================================================================\\n\\n   EP 46 -- Collapsed Sidebar Variant + Repo-Wide Cleanup\\n   ---------------------------------------------------------\\n   Date: 2026-09-24\\n\\n   A. Collapsed sidebar variant (layout package)\\n      - Confirmed: NO prior mechanism collapsed all sidebar sections + the aside\\n        simultaneously. Three separate, un-unified systems existed:\\n          1. Sidebar rail collapse  (sidebarCollapsed in LayoutContext)\\n          2. Section accordion      (collapseAll/expandAll in LayoutContext)\\n          3. Aside toggle           (asideOpen in DocsLayoutContext)\\n      - Added to LayoutContext:\\n          * registerSections(ids)       — ref populated by Sidebar on config change\\n          * collapseAllSidebar()        — collapseAll(registeredIds) + setSidebarCollapsed(true)\\n          * expandAllSidebar()          — expandAll(registeredIds) + setSidebarCollapsed(false)\\n      - Added to DocsLayoutContext:\\n          * collapsedAll (boolean, synced via effect from DocsTopbarControls)\\n          * collapseAllSidebarAndAside()  — refs → ref.collapse?.()\\n          * expandAllSidebarAndAside()    — refs → ref.expand?.()\\n          * toggleCollapseAll()           — delegates to ref (reads ref.collapsedAll)\\n      - DocsTopbarControls component (in docs-layout.tsx):\\n          * Lives inside ConsoleLayoutInner → inside BOTH LayoutProvider + DocsLayoutContext\\n          * Computes collapsedAll = mode === \"rail\" && sidebarCollapsed && !asideOpen\\n          * Populates collapseAllStateRef.current during render (closures are always fresh)\\n          * Syncs collapsedAll → useState via useEffect for external consumers\\n          * Renders: mode toggle, aside toggle, NEW collapse-all button, consumer topbar\\n          * Collapse-all button: mode=\"rail\" + collapseAllSidebar() + setAsideOpen(false)\\n          * Expand-all button: mode=\"full\" + expandAllSidebar() + setAsideOpen(true)\\n          * Keyboard shortcut: Ctrl+Shift+B\\n          * Icons: minimize-2 / maximize-2 (resolved via lazy lucide catalog)\\n      - Sidebar component: calls registerSections(config.navigation ids) in useEffect\\n      - SettingsMenu (docs app): added \"Collapse all sidebar & aside\" / \"Expand all\" item\\n      - All state persists via existing localStorage keys (no new keys)\\n      - Button hidden on mobile (lg:inline-flex) — sidebar is slide-in on mobile\\n      - Build + typecheck ✓ (layout, docs, apps/docs all pass)\\n\\n   B. Repo-wide file cleanup\\n      Deleted 27 tracked files:\\n      - Root debug scripts (10): capture-errors.{js,ps1}, check-{cdp,cdp2,cdp3,full,css,\\n        no-block,page}.{mjs,js,ps1} — all unreferenced, hardcoded debugging tools\\n      - Root build artifact (1): served.css — Vite CSS-as-JS output, unreferenced\\n      - Landing temp file (1): apps/landing/src/tmp.css — unreferenced\\n      - Stale scripts/ tools (14): audit-sg-consumption, audit-claims,\\n        audit-hardcoded-colors, audit-icons, audit-repo, audit-tokens-parity,\\n        audit-variants, check-location-data, fix-pages-strings, gen-countries,\\n        gen-ng-lgas, gen-pages, gen-regions, rename-arc-ui — all unreferenced\\n      - Stale data (1): scripts/data/countries-states.json — only used by deleted\\n        scripts; the generated location-data.ts is already committed in source\\n      - Empty scripts/data/ directory removed\\n      Deleted 6 gitignored scratchpad temp files (remove-focus.cjs, commit-msg-*.txt,\\n        empty *.output.txt files) for hygiene\\n      Kept: gen-snapshot.js (referenced in CLAUDE.md), scripts/test-setup.ts and\\n        react-test-utils-shim.ts (used by 5 package-level vitest configs),\\n        all CI-referenced scripts (check-docs-inventory, gen-icon-map, etc.)\\n      State: complete. 27 files staged for deletion via git rm -f. Changeset created.\\n\\n   ================================================================\\n\\nEP 47 -- ChangelogCard / ChangelogFeed Replace Changeset + §18 Hero Rebuild\\nDate: 2026-09-25\\nCommit: 4ecefd6 — \"feat(components,landing): replace Changeset with\\nChangelogCard/ChangelogFeed + §18 hero rebuild\" (21 files, 2095 ins, 746 del)\\n\\nWhat broke:\\n  The `Changeset` component (packages/components/src/ui/changeset.tsx) was a\\n  docs-only `changeset` block type — a date-grouped CONTENT timeline renderer\\n  with nested blocks. No .mdx/.ts/.md content in the repo invoked\\n  `type: \"changeset\"`; only schema (pages.ts), renderer (DocsContentPage case),\\n  import, and the auto-manifest wired it. It was added last session (6cbf23c)\\n  as a stepping stone but was never meant to be the final form: the landing\\n  needed a full changelog UI pair (card + feed), not a single docs-block\\n  renderer. The Changeset component also lacked tests, composability slots, and\\n  the token-faithful styling the canon demands.\\n\\nHow we fixed it:\\n\\nA. ChangelogCard (packages/components/src/ui/changelog-card.tsx)\\n   - ChangelogCard — root; consumes a single ChangelogItem + optional\\n     showDiff state\\n   - ChangelogHeader — date pill (right-side h3 id) + category badge (cvca)\\n   - ChangelogTitle — release title + version\\n   - ChangelogDescription — plain-text description\\n   - ChangelogHighlights — dot-list of key changes (text-success/destructive)\\n   - ChangelogDiffToggle — Button (ghost, sm) toggles diff visibility;\\n     icon swaps (eye / eye-off) via LightIcon\\n   - ChangelogDiffViewer — collapsible diff code block (bg-muted/60, rounded,\\n     monospace, scroll-x, line numbers)\\n   - Tokens only — bg-card, border-border, text-foreground,\\n     text-muted-foreground, bg-muted, bg-primary, bg-success, bg-warning,\\n     bg-destructive, ring-primary, bg-primary/10. NO arbitrary values.\\n   - Badge: cvca variants (default/secondary/outline/success/warning/destructive)\\n   - Button: facets variants (default/secondary/ghost/outline), size sm\\n   - 5 tests: renders, header, highlights, diff toggle, diff viewer\\n\\nB. ChangelogFeed (packages/components/src/ui/changelog-feed.tsx)\\n   - ChangelogFeed — root; renders filtered ChangelogItem[] as a vertical\\n     timeline with staggered entrances\\n   - FilterBar — category filter buttons (all/added/changed/fixed/deprecated)\\n   - Timeline — vertical connector line (border-l, absolute) with child items\\n   - TimelineItem — individual item with stagger() delay (baseDelay 0ms,\\n     count = items.length) via @fusorb/facet-motion\\n   - 4 tests: renders empty, renders items, filter by category, active filter\\n   - Compound API pattern (render-prop-style sub-component composition)\\n\\nC. Migration (blast radius: barrel + docs engine + schema + count)\\n   - Deleted changeset.tsx\\n   - Barrel (index.ts L559-563): Changeset export → ChangelogCard + ChangelogFeed\\n     + ChangelogItem, ReleaseCategory, ReleaseStatus, ChangeCategory types\\n   - DocsContentPage.tsx: removed Changeset import + `case \"changeset\"` (L286-297)\\n   - pages.ts: removed `changeset` from DocsBlock union (L116-128)\\n   - gen-docs-manifest.mjs CATEGORY map: dropped changeset, added\\n     changelog-card + changelog-feed → regenerated manifest.ts\\n   - Count 117→118 propagated: CLAUDE.md, README, package.json,\\n     site-data.generated.ts\\n\\n§18 Chunk 1 — Landing Hero Rebuild (committed together in 4ecefd6):\\n   - HeroSection.tsx rebuilt: dropped domain-cycling 3.2s state machine,\\n     auth-preview card, tech-pill inventory. Kept positioning H1 + supporting\\n     line + Explore(/components) / Read-the-Docs CTAs (facet Button) +\\n     install row. Visual = LayerGraph(SYSTEM_LAYERS). Removed arbitrary\\n     min-h-[60vh]/max-w-[1200px] (LandingLayout shell owns spacing).\\n   - scripts/gen-site-data.mjs extended: detectColorSpace() (scans tokens CSS\\n     for oklch() → \"OKLCH\") + countPresets() → 5. Emits COLOR_SPACE +\\n     DOMAIN_PRESET_COUNT to site-data.generated.ts.\\n   - ArchitectureSection.tsx now consumes both (literals gone).\\n   - apps/landing + apps/docs changelog data updated.\\n   - Changeset fragment: @fusorb/facet-components major (breaking Changeset\\n     removal)\\n\\nVerified:\\n   - tsc(components): EXIT 0\\n   - vitest: changelog-card 5/5 ✓, changelog-feed 4/4 ✓ (9 total)\\n   - check:docs: 118/118 (barrel ↔ manifest ↔ CLAUDE.md synced)\\n   - check:components: 118/118 appearance, 118/118 config,\\n     0 HARD gaps, 0 slot gaps\\n   - check-component-flexibility: 0 SOFT_GAPS\\n\\nLesson: a docs-block renderer (Changeset) and a UI component pair\\n(ChangelogCard/ChangelogFeed) serve different contracts. Replacing the\\nformer with the latter was not a rename — it was a model change: from \"single\\ndocs block type with nested blocks\" to \"composable component pair with\\ncompound API, token-faithful styling, and staggered motion.\" The cascade\\n(barrel → docs engine → schema → manifest → count) was mechanical once the\\ntarget shape was chosen; the substance was in the component pair itself —\\n6 sub-components for the card, 4 for the feed, 9 tests, and a changeset\\nthat properly records the breaking removal.",
     commitHashes: ["4ecefd6","6cbf23c"],
   },
   {
@@ -2277,8 +2588,8 @@ export const facetEpisodes: FacetEpisode[] = [
     slug: "the-spring-that-snapped-on-first-frame",
     date: null,
     state: "verified. Motion typecheck ✓, components typecheck ✓, motion tests ✓\n   (incl. 2 new scheduler tests), dist rebuilt and confirmed containing\n   `last2===null ? 0 : now-last2`. Commit 1df5aef (scheduler fix, 3 files).\n   Pre-existing changelog-migration changes committed separately as 5992631\n   (6 files). Working tree clean. All CI gates pass.",
-    summary: "The motion asChild fix (9905bd9) resolved the wrapper-div and CSS-duration\\n   issues  - but enter animations on popover components were STILL not rendering\\n   the necessary animation. Dropdowns appeare",
-    lesson: "the test environment lied. A scheduler that passes tests in Node\\n   (setInterval fallback) can still be catastrophically wrong in the browser\\n   (rAF first-frame timestamp). The bug only surfaces in rAF path, which no\\n   test exercised. Fix the scheduler boundary  - it is the source of truth\\n   for elapsed time, and `elapsed += absolute_timestamp` is always wrong.",
+    summary: "The motion asChild fix (9905bd9) resolved the wrapper-div and CSS-duration\\n   issues — but enter animations on popover components were STILL not rendering\\n   the necessary animation. Dropdowns appeare",
+    lesson: "the test environment lied. A scheduler that passes tests in Node\\n   (setInterval fallback) can still be catastrophically wrong in the browser\\n   (rAF first-frame timestamp). The bug only surfaces in rAF path, which no\\n   test exercised. Fix the scheduler boundary — it is the source of truth\\n   for elapsed time, and `elapsed += absolute_timestamp` is always wrong.",
     commitHashes: ["9905bd9","1df5aef","5992631"],
   },
   {
@@ -2369,8 +2680,118 @@ export const facetEpisodes: FacetEpisode[] = [
     state: null,
     summary: "The Landing Finally Reads Its Own Tokens",
     lesson: "\"we shipped a palette\" is only true for the apps that import it. Audit\\n   the import graph, not the intent - docs had it, the landing did not, and the\\n   landing is the surface advertising the palette.",
-    commitHashes: ["2fa7844","81e24be"],
+    commitHashes: ["2fa7844","43ba44f","81e24be","6e3e264","e6024d5"],
+  },
+  {
+    number: "EP 58",
+    title: "The Files That Nothing Imported",
+    slug: "the-files-that-nothing-imported",
+    date: null,
+    state: "verified. Landing/docs/playground rebuilt clean (2183 / 2171 / 2001\n   modules, all exit 0); drift gates re-run direct (docs 116, components\n   116/116, boundaries, sdk-drift, motion-drift) all OK; both touched apps\n   typecheck clean. Working tree carries the uncommitted sweep.",
+    summary: "The Files That Nothing Imported",
+    lesson: "\"green gate\" and \"no dead weight\" are different invariants. A drift\\n   gate proves the barrel and the manifest agree; it says nothing about the\\n   four files nobody imports or the README that still names last month's\\n   versions. Audit the import graph for files and the single source for every\\n   number -- and never delete a *published* export just because this repo has\\n   no consumer for it.",
+    commitHashes: [],
+  },
+  {
+    number: "EP 59",
+    title: "The Shell That Changed Its Own Hook Count",
+    slug: "the-shell-that-changed-its-own-hook-count",
+    date: null,
+    state: "verified. layout 42/42, docs 59/59, full suite 76 files / 968 tests\n   GREEN; layout + docs + all 3 apps typecheck clean; layout + docs dist build\n   OK; all 3 apps rebuilt. Changeset layout-shell-hardening.md (layout + docs\n   patch). Uncommitted at time of writing. Round 2 added LayoutFeatures.search\n   wiring, made LayoutContextValue.router non-optional (removing the dead\n   no-adapter fallbacks), added className passthrough to Sidebar/Topbar/\n   PageHeader/TenantSwitcher, and 12 more shell tests -- layout 54/54, full\n   suite 77 files / 980 tests GREEN.",
+    summary: "The Shell That Changed Its Own Hook Count",
+    lesson: "a hook placed after an early return is a latent crash that only fires on\\n   a state transition -- exactly what a \"renders fine\" smoke test misses. And a\\n   prop that is accepted but never read is a lie the type-checker cannot see:\\n   LayoutConfig.features looked configured in every preset and did nothing.\\n   Audit the props *and* the hook order, and prefer removing an inert prop over\\n   documenting it.",
+    commitHashes: [],
+  },
+  {
+    number: "EP 60",
+    title: "The Store That Was Missing Half of Itself",
+    slug: "the-store-that-was-missing-half-of-itself",
+    date: null,
+    state: "verified. components/emails/native/docs/layout typecheck clean; docs\n   59/59; full suite 77 files / 980 tests GREEN; `pnpm lint` exit 0. Commit\n   100a304. Changeset lint-cleanup.md (components + emails patch).",
+    summary: "`pnpm lint` died instantly with:\\n     Error: Cannot find module\\n     '.../@typescript-eslint+typescri_ebd5…/node_modules/minimatch/dist/commonjs/index.js'\\n   It looked like a flat-config problem. It w",
+    lesson: "a red lint can be a package-manager store-integrity bug wearing a\\n   config-error costume -- fix the store with a single owner, not the config.\\n   And an \"unused eslint-disable directive\" is a signal the referenced rule\\n   isn't loaded: a directive for a plugin you never installed becomes an error\\n   rather than a silence. If you want hooks linting, install the plugin; don't\\n   leave orphaned disable comments behind.",
+    commitHashes: ["100a304"],
+  },
+  {
+    number: "EP 61",
+    title: "The Spacing That Landed Off-Grid",
+    slug: "the-spacing-that-landed-off-grid",
+    date: null,
+    state: "verified (otp-input 1/1, components 87/87, check:components 113/113).",
+    summary: "otp-input used `gap-1.5` (6px) where the rounded-md radius (6px) wanted a\\nnear-merge, and location-picker's country-tag -> value prefix sat at `gap-1.5`\\nagainst a 4/8 grid. A wider S7 sweep flagged ~1",
+    lesson: "a .5-token gap next to a rounded-md radius is the visual equivalent of a\\ndecimal that never rounds -- small, but every consumer sees it. Fix the\\ncanonical spacing and add a test that pins it.",
+    commitHashes: [],
+  },
+  {
+    number: "EP 62",
+    title: "The Tests That Hung on Windows",
+    slug: "the-tests-that-hung-on-windows",
+    date: null,
+    state: "automated. Tests now run to completion on Windows; CI is the authority.",
+    summary: "`pnpm test` on Windows hung at \"RUN v4.1.11\" and never discovered tests. It\\nlooked like a repo problem; it was an upstream vitest bug (#11371) where the\\nvmThreads pool stalled on Windows.\\n\\nHow we fixe",
+    lesson: "a green suite that never runs is the same lie as no suite at all. The\\nhang was the bug; the ring/marquee drift was what it had been papering over.",
+    commitHashes: ["9356f40","729d5fa","d89d222"],
+  },
+  {
+    number: "EP 63",
+    title: "The Rename That Touched Everything",
+    slug: "the-rename-that-touched-everything",
+    date: null,
+    state: "committed. Rename verified complete; changeset pending commit.",
+    summary: "The SovGrant-facing identifiers were named ArcId (ArcIdClient, ArcProvider,\\narcid_* storage keys) while the rest of the repo had already de-branded to Sg\\n(SgClient). A rename of this size touches sdk,",
+    lesson: "a half-done de-brand is worse than none -- the SDK said Sg while auth\\nstill said ArcId. When a name changes, grep the whole tree, not just the\\npackage that introduced it.",
+    commitHashes: ["c0095f1","64d28c7"],
+  },
+  {
+    number: "EP 64",
+    title: "The Shell That Stopped Importing Auth",
+    slug: "the-shell-that-stopped-importing-auth",
+    date: null,
+    state: "complete (uncommitted). All four consumer files (console-layout,\nchat-layout, user-menu, sidebar-auth) migrated to read session from useLayout();\n@fusorb/facet-auth removed from layout deps. Needs commit + typecheck/build.",
+    summary: "The Shell That Stopped Importing Auth",
+    lesson: "an auth-aware shell that imports the auth package is a shell that can\\nonly be used by that one auth system. Inject the session; let the consumer\\ndecide where it comes from.",
+    commitHashes: [],
+  },
+  {
+    number: "EP 65",
+    title: "The Null-Byte Decoy",
+    slug: "the-null-byte-decoy",
+    date: null,
+    state: null,
+    summary: "The Null-Byte Decoy",
+    lesson: "a clean `git status` does not mean the committed bytes are valid. When\\nlint reports an \"invalid character\" at 1:0, hex-dump the file before assuming\\nthe source is at fault -- the corruption may already be in history.",
+    commitHashes: ["64d28c7","3fefa64"],
+  },
+  {
+    number: "EP 66",
+    title: "The Vitest 4 Assertion Heist",
+    slug: "the-vitest-4-assertion-heist",
+    date: null,
+    state: null,
+    summary: "The Vitest 4 Assertion Heist",
+    lesson: "a module augmentation only lands if it targets the SAME resolved module\\nthe consumer actually uses. With pnpm's per-package resolutions, two packages can\\n\"use vitest\" yet resolve different versions -- check the resolved versions, not\\njust the source, before assuming an augmentation is wrong.",
+    commitHashes: [],
+  },
+  {
+    number: "EP 67",
+    title: "Phase 5 Stage 1 (JSDoc metadata) + Dash Purge + Critical-Component Audit",
+    slug: "phase-5-stage-1-jsdoc-metadata-dash-purge-critical-component-audit",
+    date: "2026-10-31",
+    state: "Phase 5 Stage 1 COMPLETE but UNCOMMITTED (176 modified files: 112\n   JSDoc migrations + dash purge + manifest + registry.json). Stages 2-4\n   (colocated *.examples.tsx convention + ./examples subpath, check:examples\n   gate, JSDoc completeness gate) remain. Phase 4 design lock still gated on\n   owner sign-off.\n\nLessons:\n   - Editorial metadata (category/summary) belongs on the source file, not in\n     a generator map -- the map was the drift machine (F9); JSDoc makes the\n     component the source of truth and the scanner a reader, not a copier.\n   - Repo-wide punctuation surgery needs verification beyond \"the script\n     printed updated N files\": grep for the old chars afterward, and run the\n     build to catch CSS-side corruption.\n   - Audit verdicts should be evidence-backed: cn() merge at the root, prop\n     count, token-class usage, and a raw-hex scan -- not \"it looks fine\".",
+    summary: "Phase 5 Stage 1 (JSDoc metadata) + Dash Purge + Critical-Component Audit",
+    lesson: null,
+    commitHashes: [],
+  },
+  {
+    number: "EP 68",
+    title: "Phase 5 Stages 3-4: gates hardened, consumption gap found",
+    slug: "phase-5-stages-3-4-gates-hardened-consumption-gap-found",
+    date: null,
+    state: "committed (c3b41bf gate batch, dafb6f2 handbook). Consumption = new\n  phase, needs an ADR for the ArtifactKind/controls model gap first.",
+    summary: "Docs drifted from reality. README package table stale for 7 packages\\n  (sdk 1.2.1 vs 2.1.0, components 3.1.0 vs 3.2.0, auth 1.3.7 vs 2.0.2,\\n  layout 1.5.7 vs 1.7.1, store 1.0.1 vs 1.0.3, docs 1.5.7 vs",
+    lesson: "a gate that prints \"ok\" unconditionally is worse than no gate --\\n  negative-test every gate (feed it bad input, confirm it fails) before\\n  trusting it in CI.\\n\\nEP 69 -- Repo-wide docs/tracker sync audit\\nWhat broke:\\n  Docs drifted from reality. README package table stale for 7 packages\\n  (sdk 1.2.1 vs 2.1.0, components 3.1.0 vs 3.2.0, auth 1.3.7 vs 2.0.2,\\n  layout 1.5.7 vs 1.7.1, store 1.0.1 vs 1.0.3, docs 1.5.7 vs 1.5.11,\\n  sandbox 2.0.0 vs 3.0.0); \"7 standalone forms\" vs 8 exported; LandingLayout\\n  bullet claimed a Navbar `pill` variant that was deferred/removed in 3.1.0;\\n  AGENTS.md CI list missing check:registry (+ said pnpm install, CI uses\\n  --frozen-lockfile); apps/docs changelog.ts stale (top entry 2026-10-06,\\n  missing ~10 releases; source package CHANGELOGs were current, so it was\\n  pure regen lag); .agent tracker HEAD/status stale by 21 commits.\\n\\nHow we fixed it:\\n  README table + Current versions line + forms count + pill claim + sandbox\\n  description; CLAUDE.md forms count + sandbox wording + stale date dropped\\n  from Build Status header; AGENTS.md CI list synced to ci-cd.yml verbatim;\\n  changelog.ts regenerated via gen-changelog.mjs; trackers re-headed to\\n  dafb6f2.\\n\\nWhat survived:\\n  site-data.generated.ts already current; registry.json up-to-date\\n  (check:registry); SDK \"10 domain SDKs\" claim verified (10 *Sdk classes in\\n  the barrel); all 12 gates green; tsconfig refs (17) + .npmrc clean.\\n\\nState: gates automated; version tables are hand-synced and drift again on\\n  every release -- candidate for a check:readme gate (not built).\\n\\nLesson: release commits bump package.json + per-package CHANGELOG.md but not\\n  README's version table or the docs changelog data -- those need a regen +\\n  commit follow-up (same class as the site-data/changelog regen commits).",
+    commitHashes: ["bc75a2e","2f0a6e4","b5a6341","c3b41bf","dafb6f2"],
   },
 ];
 
-export const EPISODE_COUNT = 47;
+export const EPISODE_COUNT = 58;
