@@ -44,9 +44,8 @@ export type { DocsSiteConfig, DocsConfig } from "./lib/nav.js";
 export { buildDocsLayoutConfig } from "./lib/nav.js";
 export type { NavItem, NavSection } from "./lib/nav.js";
 
-// Gallery manifest (components + auth + layout)
-export { extendedManifest, extendedEntries } from "./lib/manifest.js";
-export type { DocsManifestEntry } from "./lib/manifest.js";
+// Gallery manifest (components + auth + layout) lives in the consuming app
+// (apps/docs/src/facet/manifest.ts) — the engine stays facet-agnostic (L3).
 
 // Reusable docs components
 export {

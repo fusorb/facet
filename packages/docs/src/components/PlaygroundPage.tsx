@@ -1,8 +1,10 @@
 import * as React from "react";
 import { LiveCodePlayground } from "./LiveCodePlayground.js";
-import { usageCode } from "../lib/usage.js";
-import { extendedManifest, type DocsManifestEntry } from "../lib/manifest.js";
-import { playgroundComponents } from "./playground-registry.js";
+// Facet manifest/usage/playground-registry live in the consuming app (L3).
+type DocsManifestEntry = any;
+const extendedManifest: DocsManifestEntry[] = [];
+const usageCode = (..._args: any[]): string => "";
+const playgroundComponents: Record<string, any> = {};
 
 export interface PlaygroundPageProps {
   /** Manifest slug to pre-select. Defaults to "button". */
