@@ -244,17 +244,23 @@ importers:
 
   apps/docs:
     dependencies:
+      '@fusorb/facet-auth':
+        specifier: workspace:^
+        version: link:../../packages/auth
       '@fusorb/facet-components':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/components
       '@fusorb/facet-docs':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/docs
       '@fusorb/facet-layout':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/layout
+      '@fusorb/facet-sdk':
+        specifier: workspace:^
+        version: link:../../packages/sdk
       '@fusorb/facet-tokens':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/tokens
       react:
         specifier: ^19
