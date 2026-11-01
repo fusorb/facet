@@ -392,10 +392,10 @@ importers:
   packages/auth:
     dependencies:
       '@fusorb/facet-components':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../components
       '@fusorb/facet-sdk':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../sdk
       '@hookform/resolvers':
         specifier: ^5.5.7
@@ -460,13 +460,13 @@ importers:
   packages/components:
     dependencies:
       '@fusorb/facet-motion':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../motion
       '@fusorb/facet-tokens':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../tokens
       '@fusorb/facet-utils':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../utils
       '@radix-ui/react-accordion':
         specifier: ^1.2.8
@@ -572,7 +572,7 @@ importers:
         version: 2.0.7(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
     devDependencies:
       '@fusorb/facet-sandbox':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../sandbox
       '@testing-library/react':
         specifier: ^16.3.0
@@ -601,20 +601,14 @@ importers:
 
   packages/docs:
     dependencies:
-      '@fusorb/facet-auth':
-        specifier: workspace:*
-        version: link:../auth
       '@fusorb/facet-components':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../components
       '@fusorb/facet-layout':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../layout
-      '@fusorb/facet-sdk':
-        specifier: workspace:*
-        version: link:../sdk
       '@fusorb/facet-tokens':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../tokens
       lucide-react:
         specifier: ^1.30.0
@@ -678,7 +672,7 @@ importers:
   packages/layout:
     dependencies:
       '@fusorb/facet-components':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../components
     devDependencies:
       '@testing-library/react':
@@ -709,10 +703,10 @@ importers:
   packages/motion:
     dependencies:
       '@fusorb/facet-tokens':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../tokens
       '@fusorb/facet-utils':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../utils
     devDependencies:
       '@testing-library/react':
@@ -752,10 +746,10 @@ importers:
   packages/native:
     dependencies:
       '@fusorb/facet-motion':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../motion
       '@fusorb/facet-tokens':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../tokens
     devDependencies:
       '@types/react':
@@ -807,7 +801,7 @@ importers:
         version: 5.0.15(@types/react@19.2.17)(react@19.2.8)
     devDependencies:
       '@fusorb/facet-sdk':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../sdk
       tsup:
         specifier: ^8.5.1
