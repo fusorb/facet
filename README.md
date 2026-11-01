@@ -132,6 +132,7 @@ three jobs:
 
 1. **ci** -- validation gate: `pnpm install --frozen-lockfile`, `pnpm build`,
    `pnpm check:docs`, `pnpm check:icons`, `pnpm check:components`,
+   `pnpm check:examples`, `pnpm check:jsdoc`,
    `pnpm check:boundaries`, `pnpm check:sdk-drift`, `pnpm check:sdk-coverage`,
    `pnpm check:motion-drift`, `pnpm audit:motion-parity`, `pnpm lint`,
    `pnpm -r typecheck`, `pnpm test`, `pnpm sandbox:e2e`.

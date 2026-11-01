@@ -173,6 +173,8 @@ pnpm format               # Prettier format all files
 
 # Drift gates (also run individually for faster iteration)
 pnpm check:components     # Component flexibility/composability audit (P13/P14 gates)
+pnpm check:examples       # Colocated examples gate (ADR-001: ids/artifact/controls/wiring)
+pnpm check:jsdoc          # Component JSDoc metadata gate (@category/@summary)
 pnpm check:docs           # Docs inventory: barrel exports + manifest coverage
 pnpm check:icons          # Icon-map drift gate (1,763 icons)
 pnpm check:sdk-coverage   # SovGrant route coverage audit (62/62 routes)
