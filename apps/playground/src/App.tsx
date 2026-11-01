@@ -7,13 +7,14 @@ import {
   createDefaultAdapter,
 } from "@fusorb/facet-layout";
 import { LivePlayground } from "@fusorb/facet-sandbox/live";
+import { surfaces } from "../../../surfaces.config.mjs";
 import { MotionDemo } from "./blocks/MotionDemo.js";
 import { AuthFlow } from "./blocks/AuthFlow.js";
 import { StackAgnosticism } from "./blocks/StackAgnosticism.js";
 
 const DOCS_CHANGELOG_URL = import.meta.env.DEV
-  ? "http://localhost:5173/changelog"
-  : "https://facet.so/docs/changelog";
+  ? `${surfaces.docs.dev}/changelog`
+  : `${surfaces.docs.prod}/changelog`;
 
 const PRESETS = ["fintech", "med", "edu", "enterprise", "default"] as const;
 
