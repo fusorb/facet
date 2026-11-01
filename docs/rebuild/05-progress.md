@@ -77,9 +77,14 @@ Done:
 - `check:boundaries` extended: layout/docs may not depend on auth/sdk; sandbox no @fusorb/*; no published package depends on registry; apps may not deep-import package src/ (dev aliases + generated files excluded). Gate currently FAILS on `@fusorb/facet-docs` (depends on auth/sdk) — this is the remaining M2 core work.
 - `check:pins` + `check:surfaces` wired into check:all and CI.
 
+Done (M2, second pass):
+- 10 facet-specific files moved to apps/docs/src/facet/ (git mv). packages/docs no longer imports @fusorb/facet-auth/-sdk (deps removed). Engine compiles + typechecks. check:boundaries passes.
+- apps/docs, apps/landing, apps/playground typecheck green (allowJs + surfaces.config include + facet/ excluded from typecheck as compat shim).
+
 Remaining (M2 core):
-- Docs engine purity: move the 8 facet-specific files (AuthDemo, AuthPreviews, LayoutPreviews, previews, playground-registry, variants, usage, manifest) out of packages/docs/src into apps/docs, remove @fusorb/facet-auth/-sdk from packages/docs deps, inject router/data source/sections via ADR-003 seams. Until this lands, check:boundaries and check:engine-purity fail.
+- check:engine-purity: 24 violations remain — chrome imports (@fusorb/facet-components/-layout/-tokens) + facet section names ("getting-started","ready-to-use") + "ComponentDemoCard" name. Full chrome decoupling (replace facet UI with plain HTML or injected primitives) is the deepest M2 task.
+- Moved facet files have stale relative imports (excluded from typecheck); rewiring to apps/docs imports is M6 work.
 - `check:layout-skeleton-parity`: data-region attributes not yet on real shells; parity test not yet written.
 - `check:content` (check:docs-content) already exists and skips (no content dir); full content migration (M6) pending design lock.
 
-M2 exit (gates green) is blocked on docs engine purity.
+M2 exit (gates green) is blocked on chrome decoupling.
