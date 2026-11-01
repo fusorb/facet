@@ -406,7 +406,7 @@ function buildRegistry() {
     motion,
     tokens,
     presets,
-    examples: [], // Populated in Phase 5
+    examples: [], // Populated by M3 (examples consumption); see ADR-009
     facts,
     surfaces: SURFACES,
   };

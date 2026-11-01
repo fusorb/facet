@@ -405,6 +405,43 @@ export function useOptionalAuth(): AuthContextValue | null {
   return React.useContext(AuthContext);
 }
 
+/* ── Auth session (layout seam) ────────────────────────────── */
+
+/**
+ * Minimal auth state a layout shell (or any consumer) needs, structurally
+ * identical to `LayoutSession` from `@fusorb/facet-layout`. Built on
+ * `useOptionalAuth` so it works with or without an `<SgProvider>` (docs/static
+ * sites render nothing).
+ *
+ * Consumers inject it into a `LayoutProvider`:
+ *   <LayoutProvider session={useAuthSession()} ...>
+ */
+export interface AuthSession {
+  /** The authenticated user, or null when signed out / no session. */
+  user: AuthUser | null;
+  /** Whether the user is currently authenticated. */
+  isAuthenticated: boolean;
+  /** Whether the session is still being restored/hydrated. */
+  isLoading: boolean;
+  /** Signs the current user out. */
+  signOut: () => void | Promise<void>;
+}
+
+/** Alias matching the naming used by the surface spec. */
+export type AuthSessionShape = AuthSession;
+
+export function useAuthSession(): AuthSession {
+  const ctx = useOptionalAuth();
+  return {
+    user: ctx?.user ?? null,
+    isAuthenticated: ctx?.isAuthenticated ?? false,
+    isLoading: ctx?.isLoading ?? false,
+    signOut: () => {
+      void ctx?.logout();
+    },
+  };
+}
+
 /* ── Helpers ───────────────────────────────────────────────── */
 
 async function refreshAccessToken(

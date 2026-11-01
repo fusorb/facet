@@ -47,11 +47,11 @@
     "react"
   ],
   "dependencies": {
-    "@fusorb/facet-auth": "workspace:*",
-    "@fusorb/facet-components": "workspace:*",
-    "@fusorb/facet-layout": "workspace:*",
-    "@fusorb/facet-sdk": "workspace:*",
-    "@fusorb/facet-tokens": "workspace:*",
+    "@fusorb/facet-auth": "workspace:^",
+    "@fusorb/facet-components": "workspace:^",
+    "@fusorb/facet-layout": "workspace:^",
+    "@fusorb/facet-sdk": "workspace:^",
+    "@fusorb/facet-tokens": "workspace:^",
     "lucide-react": "^1.30.0",
     "prettier": "^3.8.3"
   },

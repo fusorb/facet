@@ -52,7 +52,7 @@
     "dashboard"
   ],
   "dependencies": {
-    "@fusorb/facet-components": "workspace:*"
+    "@fusorb/facet-components": "workspace:^"
   },
   "peerDependencies": {
     "react": "^19",
