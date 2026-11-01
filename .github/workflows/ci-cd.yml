@@ -18,12 +18,15 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@f520eceda224fe1a4aed5a2a27a194379a409996 # v6
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm changeset status --since=origin/main
       - run: pnpm build
       - run: pnpm check:docs
       - run: pnpm check:icons
@@ -32,6 +35,7 @@ jobs:
       - run: pnpm check:jsdoc
       - run: pnpm check:boundaries
       - run: pnpm check:registry
+      - run: pnpm check:pins
       - run: pnpm check:sdk-drift
       - run: pnpm check:sdk-coverage
       - run: pnpm check:motion-drift

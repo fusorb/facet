@@ -88,3 +88,12 @@ three jobs:
 **Release rule:** publish ONLY from a clean working tree, AFTER `pnpm -r
 build` passes. The `publish` CI job enforces this automatically -- it rebuilds
 `dist` from merged HEAD before publishing. See the README Publishing section.
+
+## Release Policy (ADR-008)
+
+Behaviour breaks are majors. A change that alters runtime behaviour a consumer
+relies on, removes auto-detection, renames a persisted key, or changes a peer
+range ships as a **major** (not a minor). See `docs/rebuild/adr/0008-release-policy.md`.
+Published inter-package deps use `workspace:^` (enforced by `check:pins`);
+`workspace:*` is forbidden in published packages. Every published-package change
+needs a Changeset; CI runs `pnpm changeset status --since=origin/main`.

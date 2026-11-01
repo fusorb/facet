@@ -53,10 +53,10 @@
     "zustand": "^5.0.14"
   },
   "peerDependencies": {
-    "@fusorb/facet-sdk": "workspace:*"
+    "@fusorb/facet-sdk": "workspace:^"
   },
   "devDependencies": {
-    "@fusorb/facet-sdk": "workspace:*",
+    "@fusorb/facet-sdk": "workspace:^",
     "tsup": "^8.5.1",
     "typescript": "^5",
     "vitest": "^4.1.10"

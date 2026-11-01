@@ -54,8 +54,8 @@
     "generative"
   ],
   "dependencies": {
-    "@fusorb/facet-tokens": "workspace:*",
-    "@fusorb/facet-utils": "workspace:*"
+    "@fusorb/facet-tokens": "workspace:^",
+    "@fusorb/facet-utils": "workspace:^"
   },
   "peerDependencies": {
     "react": "^19",
