@@ -226,12 +226,11 @@ describe("buildDocsLayoutConfig", () => {
     expect(componentsSection!.items[0]!.href).toBe("/components");
   });
 
-  it("Animation section uses a stable ordering for known categories", () => {
+  it("Animation section is empty in the facet-agnostic engine (manifest lives in the app)", () => {
     const result = buildDocsLayoutConfig(makeConfig(), [], true);
     const animationSection = findSection(result.navigation, "Animation");
     expect(animationSection).toBeDefined();
-    const labels = animationSection!.items.map((i) => i.label);
-    // Text Animations should come first per the ORDER constant
-    expect(labels[0]).toBe("Text Animations");
+    // The engine ships no facet manifest (L3); the app injects its own.
+    expect(animationSection!.items).toHaveLength(0);
   });
 });
