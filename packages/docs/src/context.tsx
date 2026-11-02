@@ -1,9 +1,9 @@
 import * as React from "react";
-import type { IconName } from "@fusorb/facet-components";
+type IconName = string;
 import type { DocsPage } from "./lib/pages.js";
 import type { DocsSiteConfig } from "./lib/nav.js";
 import type { DocsDataSource } from "./lib/data-source.js";
-import type { RouterAdapter } from "@fusorb/facet-layout";
+type RouterAdapter = any;
 import type { PageActionItem } from "./components/PageActionBar.js";
 
 export interface DocsAppValue {

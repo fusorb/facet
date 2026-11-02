@@ -15,7 +15,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const uiDir = path.join(root, "packages/components/src/ui");
-const outFile = path.join(root, "packages/docs/src/manifest.ts");
+const outFile = path.join(root, "apps/docs/src/facet/docs-manifest.ts");
 
 /** Sidebar sub-group for a component slug. */
 const CATEGORY = {

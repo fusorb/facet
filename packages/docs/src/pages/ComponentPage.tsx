@@ -3,7 +3,7 @@ import { Link, useParams, Navigate } from "react-router-dom";
 // Facet manifest/previews live in the consuming app (apps/docs/src/facet); the
 // engine stays facet-agnostic (L3). Gallery page renders nothing here.
 const extendedManifest: any[] = [];
-const ComponentDemoCard: any = () => null;
+const DemoCard: any = () => null;
 const ComponentPreview: any = () => null;
 import { InteractiveDemo } from "../components/InteractiveDemo.js";
 import { PageNav } from "../components/Guide.js";
@@ -139,7 +139,7 @@ export function ComponentPage() {
       )}
 
       <div className="mt-6">
-        <ComponentDemoCard
+        <DemoCard
           name={entry.name}
           description={entry.description}
           collapsed={<ComponentPreview slug={slug} />}

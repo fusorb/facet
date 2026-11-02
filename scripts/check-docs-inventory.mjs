@@ -15,7 +15,7 @@ import path from "node:path";
 const root = process.cwd();
 const uiDir = path.join(root, "packages/components/src/ui");
 const barrelPath = path.join(root, "packages/components/src/index.ts");
-const manifestPath = path.join(root, "packages/docs/src/manifest.ts");
+const manifestPath = path.join(root, "apps/docs/src/facet/docs-manifest.ts");
 const claudePath = path.join(root, "CLAUDE.md");
 
 const errors = [];

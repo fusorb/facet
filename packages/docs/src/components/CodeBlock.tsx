@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, LightIcon } from "@fusorb/facet-components/light";
+// Facet Button/LightIcon replaced with native elements (engine stays facet-agnostic, L3).
 
 export interface CodeBlockProps {
   /** Optional heading above the code block. */
@@ -30,19 +30,13 @@ export function CodeBlock({ title, code }: CodeBlockProps) {
         ) : (
           <span />
         )}
-        <Button
-          size="sm"
-          variant="outline"
+        <button
+          type="button"
           onClick={handleCopy}
-          className="h-7 gap-1.5 text-xs"
+          className="h-7 gap-1.5 rounded-md border px-2 text-xs"
         >
-          {copied ? (
-            <LightIcon name="check" className="size-3.5" />
-          ) : (
-            <LightIcon name="copy" className="size-3.5" />
-          )}
-          {copied ? "Copied" : "Copy"}
-        </Button>
+          {copied ? "✓" : "Copy"}
+        </button>
       </div>
       <pre className="overflow-x-auto rounded-lg border border-border bg-muted/40 p-4 font-mono text-[13px] leading-6 text-foreground">
         {code}

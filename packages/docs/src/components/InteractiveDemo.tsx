@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Tabs, TabsList, TabsTrigger } from "@fusorb/facet-components/light";
+// Facet Tabs replaced with native elements (engine stays facet-agnostic, L3).
 import { CodeBlock } from "./CodeBlock.js";
 import { ThemePreviewFrame } from "./ThemePreviewFrame.js";
 // Facet manifest/usage/variants live in the consuming app (apps/docs/src/facet);
@@ -85,19 +85,9 @@ function InteractiveDemoBody({
       )}
 
       {visibleTabs.length > 1 && (
-        <Tabs value={active} onValueChange={setActive} className="mb-4">
-          <TabsList className="h-auto w-auto flex-wrap justify-start gap-1 rounded-lg bg-muted/40 p-1">
-            {visibleTabs.map((tab) => (
-              <TabsTrigger
-                key={tab.label}
-                value={tab.label}
-                className="h-7 rounded-md px-2.5 text-xs font-medium"
-              >
-                {tab.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+        <div className="mb-4 flex flex-wrap gap-1">            {visibleTabs.map((tab) => (
+              <button key={tab.label} onClick={() => setActive(tab.label)} className="h-7 rounded-md px-2.5 text-xs font-medium">{tab.label}</button>
+            ))}</div>
       )}
 
       <div

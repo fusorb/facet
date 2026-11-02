@@ -1,8 +1,8 @@
 import * as React from "react";
 import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom";
-import type { IconName } from "@fusorb/facet-components";
+type IconName = string;
 import type { PageActionItem } from "./components/PageActionBar.js";
-import { ThemeProvider } from "@fusorb/facet-components/light";
+// Facet ThemeProvider replaced with pass-through (engine stays facet-agnostic, L3).
 import {
   DocsAppProvider,
   PackageManagerProvider,
@@ -30,24 +30,18 @@ const ComponentPage = React.lazy(() =>
     default: m.ComponentPage,
   })),
 );
-const ReadyToUsePage = React.lazy(() =>
-  import("./pages/ReadyToUsePage.js").then((m) => ({
-    default: m.ReadyToUsePage,
-  })),
-);
+// Ready-to-use gallery lives in the consuming app (L3).
 const PagesPage = React.lazy(() =>
   import("./pages/PagesPage.js").then((m) => ({ default: m.PagesPage })),
 );
 
 // The 404 fallback uses the shared Facet NotFound, gradient text animation + fully customizable props. Lazy-loaded so the eager entry stays slim (theme + router + minimal fallback only).
-const NotFound = React.lazy(() =>
-  import("@fusorb/facet-components").then((m) => ({ default: m.NotFound })),
-);
+const NotFound = () => <div>Not found</div>;
 
 import type { DocsSiteConfig } from "./lib/nav.js";
 import type { DocsPage } from "./lib/pages.js";
 import type { DocsDataSource } from "./lib/data-source.js";
-import type { RouterAdapter } from "@fusorb/facet-layout";
+type RouterAdapter = any;
 
 /** Suspense fallback shown while a lazy route chunk loads. Mimics the shape
  *  of a docs content page so the shell doesn't blank out while it loads. */
@@ -122,7 +116,7 @@ export function DocsRoutes({
     router,
   };
   return (
-    <ThemeProvider defaultTheme={defaultTheme}>
+    <div data-theme={defaultTheme}>
       <DocsAppProvider value={value}>
         <PackageManagerProvider>
           <React.Suspense fallback={<PageLoader />}>
@@ -142,10 +136,7 @@ export function DocsRoutes({
                       path="/components/:slug"
                       element={<ComponentPage />}
                     />
-                    <Route
-                      path="/ready-to-use"
-                      element={<ReadyToUsePage />}
-                    />
+                    {/* Ready-to-use gallery lives in the consuming app (L3). */}
                     <Route path="/pages" element={<PagesPage />} />
                   </>
                 )}
@@ -155,7 +146,7 @@ export function DocsRoutes({
           </React.Suspense>
         </PackageManagerProvider>
       </DocsAppProvider>
-    </ThemeProvider>
+    </div>
   );
 }
 

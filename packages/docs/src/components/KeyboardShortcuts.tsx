@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Kbd } from "@fusorb/facet-components/light";
+// Facet Kbd replaced with native kbd (engine stays facet-agnostic, L3).
 
 /** A single shortcut row: what it does + the keys. */
 export interface KeyboardShortcut {
@@ -17,8 +17,8 @@ export interface KeyboardShortcutsProps {
 }
 
 function Key({ token }: { token: string }) {
-  if (token === "mod") return <Kbd mod />;
-  return <Kbd>{token}</Kbd>;
+  if (token === "mod") return <kbd className="rounded border px-1 text-xs">mod</kbd>;
+  return <kbd className="rounded border px-1 text-xs">{token}</kbd>;
 }
 
 /**

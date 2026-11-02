@@ -17,79 +17,79 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-utils",
     "desc": "Shared styling utilities for Facet packages (cn).",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "icon": "wrench"
   },
   {
     "name": "@fusorb/facet-components",
     "desc": "Radix-based UI component library: 112 accessible, styled components using the Alpha Palette design tokens",
-    "version": "3.2.0",
+    "version": "3.2.1",
     "icon": "boxes"
   },
   {
     "name": "@fusorb/facet-docs",
     "desc": "Installable, config-driven documentation site engine: component gallery with variant pages, per-variant usage tabs, install tabs, and an optional ecosystem links section. Mount <DocsApp config={...} /> with your own brand, pages, and nav.",
-    "version": "1.5.11",
+    "version": "1.5.12",
     "icon": "book-open"
   },
   {
     "name": "@fusorb/facet-auth",
     "desc": "Domain-customizable auth components: SgProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
-    "version": "2.0.2",
+    "version": "2.1.0",
     "icon": "shield-check"
   },
   {
     "name": "@fusorb/facet-layout",
     "desc": "Domain-configurable app shell: Sidebar, Topbar, AuthLayout, ConsoleLayout, LandingLayout, PageHeader, TenantSwitcher, and 5 domain presets (fintech, med, edu, enterprise, default).",
-    "version": "1.7.1",
+    "version": "1.7.2",
     "icon": "building"
   },
   {
     "name": "@fusorb/facet-sdk",
     "desc": "SovGrant API client: framework-agnostic fetch SDK. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "icon": "zap"
   },
   {
     "name": "@fusorb/facet-tokens",
     "desc": "Design tokens: Alpha Palette colors, typography, spacing, surfaces, and sub-brand accents in OKLCH, as CSS variables and a Tailwind v4 theme.",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "icon": "palette"
   },
   {
     "name": "@fusorb/facet-emails",
     "desc": "Framework-agnostic email template renderer: render React or plain template trees to email-safe HTML and text, with template primitives and a dev preview server. Zero runtime dependencies.",
-    "version": "1.1.3",
+    "version": "1.1.4",
     "icon": "mail"
   },
   {
     "name": "@fusorb/facet-cli",
     "desc": "facet CLI: scaffold docs + email template sites, add components, generate tree-shaken icon registries, and audit/update your facet setup from the terminal.",
-    "version": "1.1.3",
+    "version": "1.1.4",
     "icon": "terminal"
   },
   {
     "name": "@fusorb/facet-store",
     "desc": "Framework-agnostic state stores for SovGrant auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "icon": "store"
   },
   {
     "name": "@fusorb/facet-motion",
     "desc": "Domain-customizable animation engine: generator-driven core (tween + spring), observable motion values, CSS driver with prefers-reduced-motion, a 15-family generative registry, and thin React bindings. Wired to @fusorb/facet-tokens CSS custom properties.",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "icon": "sparkle"
   },
   {
     "name": "@fusorb/facet-native",
     "desc": "React Native motion driver for @fusorb/facet-motion - subscribes facet motion values to a consumer-provided Animated module (react-native or reanimated v2) via bindAnimated().",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "icon": "phone"
   },
   {
     "name": "@fusorb/facet-sandbox",
     "desc": "Framework-agnostic artifact model + live-JSX runtime. Zero-dep /core, React lab kit under /react, no-eval JSX interpreter + URL sanitizer under /live.",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "icon": "play"
   }
 ];

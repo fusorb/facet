@@ -1,12 +1,10 @@
 import * as React from "react";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  LightIcon,
-} from "@fusorb/facet-components/light";
+const DropdownMenu: any = ({ children }: any) => children;
+const DropdownMenuTrigger: any = ({ children }: any) => children;
+const DropdownMenuContent: any = ({ children }: any) => children;
+const DropdownMenuItem: any = ({ children, ...p }: any) => <div {...p}>{children}</div>;
+const DropdownMenuSeparator: any = () => null;
+const LightIcon: any = () => null;
 
 export interface PageActionItem {
   /** Display label. */

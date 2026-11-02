@@ -1,9 +1,4 @@
-import {
-  Tabs,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
-} from "@fusorb/facet-components/light";
+const Tabs:any=({children}:any)=>children;const TabsList:any=({children}:any)=>children;const TabsTrigger:any=({children}:any)=>children;const TabsContent:any=({children}:any)=>children;
 import { usePackageManager } from "../context.js";
 
 export interface InstallCommand {

@@ -6,7 +6,7 @@ import {
   type DocsSiteConfig,
 } from "./nav.js";
 import type { DocsPage } from "./pages.js";
-import type { NavSection } from "@fusorb/facet-layout";
+type NavSection = any;
 
 // ── Test helpers ──────────────────────────────────────────
 
@@ -141,7 +141,7 @@ describe("buildDocsLayoutConfig", () => {
 
   it("adds Components, Ready to Use, Pages, Animation sections when showComponents is true", () => {
     const result = buildDocsLayoutConfig(makeConfig(), [], true);
-    const titles = result.navigation.map((s) => s.title);
+    const titles = result.navigation.map((s: any) => s.title);
     expect(titles).toContain("Components");
     expect(titles).toContain("Ready to Use");
     expect(titles).toContain("Pages");
@@ -150,7 +150,7 @@ describe("buildDocsLayoutConfig", () => {
 
   it("omits manifest-derived sections when showComponents is false", () => {
     const result = buildDocsLayoutConfig(makeConfig(), [], false);
-    const titles = result.navigation.map((s) => s.title);
+    const titles = result.navigation.map((s: any) => s.title);
     expect(titles).not.toContain("Components");
     expect(titles).not.toContain("Ready to Use");
     expect(titles).not.toContain("Pages");
@@ -170,7 +170,7 @@ describe("buildDocsLayoutConfig", () => {
       ecosystem: [{ label: "SovGrant", href: "https://arc.id" }],
     });
     const result = buildDocsLayoutConfig(config, pages, true);
-    const titles = result.navigation.map((s) => s.title);
+    const titles = result.navigation.map((s: any) => s.title);
 
     const idx = (t: string) => titles.indexOf(t);
     expect(idx("Guides")).toBe(-1); // no guide pages
@@ -191,7 +191,7 @@ describe("buildDocsLayoutConfig", () => {
       },
     ];
     const result = buildDocsLayoutConfig(makeConfig(), pages, false);
-    const titles = result.navigation.map((s) => s.title);
+    const titles = result.navigation.map((s: any) => s.title);
     expect(titles).toContain("Custom Section");
   });
 
@@ -212,8 +212,8 @@ describe("buildDocsLayoutConfig", () => {
     const result = buildDocsLayoutConfig(makeConfig(), [], true);
     const componentsSection = findSection(result.navigation, "Components");
     const componentSlugs = componentsSection!.items
-      .flatMap((i) => i.children ?? [i])
-      .map((i) => i.href);
+      .flatMap((i: any) => i.children ?? [i])
+      .map((i: any) => i.href);
     expect(componentSlugs).not.toContain("/components/console-layout");
     expect(componentSlugs).not.toContain("/components/auth-layout");
     expect(componentSlugs).not.toContain("/components/sidebar");

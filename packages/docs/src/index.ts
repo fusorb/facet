@@ -86,5 +86,5 @@ export { DocsTableOfContents } from "./components/DocsTableOfContents.js";
 export type { DocsTableOfContentsProps } from "./components/DocsTableOfContents.js";
 export { slug } from "./lib/ids.js";
 
-// Component manifest (auto-generated)
-export { docsManifest } from "./manifest.js";
+// Component manifest lives in the consuming app (apps/docs/src/facet/manifest.ts);
+// the engine stays facet-agnostic (L3).

@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { LayoutConfig, NavItem, NavSection } from "@fusorb/facet-layout";
+type LayoutConfig = any; type NavItem = any; type NavSection = any;
 import type { DocsPage } from "./pages.js";
 // Facet manifest lives in the consuming app (apps/docs/src/facet); the engine
 // stays facet-agnostic (L3). Gallery nav sections are empty here.
@@ -78,7 +78,6 @@ export function buildDocsLayoutConfig(
     "guides",
     "auth",
     "components",
-    "ready-to-use",
     "pages",
     "animation",
     "foundations",
@@ -98,9 +97,6 @@ export function buildDocsLayoutConfig(
   const componentsSection = showComponents
     ? buildComponentsSection()
     : undefined;
-  const readyToUseSection = showComponents
-    ? buildReadyToUseSection()
-    : undefined;
   const pagesSection = showComponents ? buildPagesSection() : undefined;
   const animationSection = showComponents ? buildAnimationSection() : undefined;
 
@@ -109,10 +105,6 @@ export function buildDocsLayoutConfig(
     // assembled from the manifest, not pages.
     if (section === "components") {
       if (componentsSection) navigation.push(componentsSection);
-      continue;
-    }
-    if (section === "ready-to-use") {
-      if (readyToUseSection) navigation.push(readyToUseSection);
       continue;
     }
     if (section === "pages") {
@@ -186,7 +178,6 @@ function buildComponentsSection(): NavSection {
   for (const entry of extendedManifest) {
     if (
       entry.category === "foundations" ||
-      entry.category === "ready-to-use" ||
       entry.category === "pages" ||
       entry.category === "auth" ||
       entry.category === "animation"
@@ -233,24 +224,7 @@ export function isExtendedLayoutSlug(slug: string): boolean {
   return EXTENDED_LAYOUT_SLUGS.has(slug);
 }
 
-/**
- * Build the dedicated "Ready to Use" sidebar section from the manifest:
- * ready-to-use extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap,
- * Form) rendered as top-level items with their gallery pages.
- */
-export function buildReadyToUseSection(): NavSection {
-  const readyToUse = extendedManifest.filter(
-    (entry) => entry.category === "ready-to-use",
-  );
-  return {
-    title: "Ready to Use",
-    id: "ready-to-use",
-    items: readyToUse.map((entry) => ({
-      href: `/components/${entry.slug}`,
-      label: entry.name,
-    })),
-  };
-}
+// Ready-to-use gallery section lives in the consuming app (L3).
 
 /**
  * Build the dedicated "Pages" sidebar section from the manifest: full-page

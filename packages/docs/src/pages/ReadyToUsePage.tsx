@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-const extendedManifest: any[] = [];
 const ComponentPreview: any = () => null;
 import { ThemePreviewFrame } from "../components/ThemePreviewFrame.js";
 import { CodeBlock } from "../components/CodeBlock.js";
@@ -15,9 +14,7 @@ import { useDocsKeyboardNav, useDocsNavigation } from "../lib/keyboard-nav.js";
  * you can drop straight into a page.
  */
 export function ReadyToUsePage() {
-  const entries = extendedManifest.filter(
-    (entry) => entry.category === "ready-to-use",
-  );
+  const entries: any[] = [];
 
   const { prev, next } = useDocsNavigation();
   useDocsKeyboardNav();

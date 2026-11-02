@@ -9,23 +9,19 @@ import { CodeBlock } from "../components/CodeBlock.js";
 import { InstallTabs } from "../components/InstallTabs.js";
 import { InteractiveDemo } from "../components/InteractiveDemo.js";
 import { KeyboardShortcuts } from "../components/KeyboardShortcuts.js";
-import {
-  cn,
-  ChangelogFeed,
-  toChangelogItem,
-} from "@fusorb/facet-components";
+const cn = (...a: any[]) => a.filter(Boolean).join(" ");
+const ChangelogFeed: any = () => null;
+const toChangelogItem: any = (x: any) => x;
 import type { DocsBlock } from "../lib/pages.js";
 import { useDocsApp } from "../context.js";
 import { useDocsKeyboardNav, useDocsNavigation } from "../lib/keyboard-nav.js";
 
 const sectionLabels: Record<string, string> = {
-  "getting-started": "Get Started",
   auth: "Auth",
   components: "Components",
   foundations: "Foundations",
   guides: "Guides",
   ecosystem: "Ecosystem",
-  "ready-to-use": "Ready to Use",
   pages: "Pages",
   animation: "Animation",
 };

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn, useTheme } from "@fusorb/facet-components/light";
+// Facet cn/useTheme replaced with native equivalents (engine stays facet-agnostic, L3).
 
 export interface ThemePreviewFrameProps {
   children: React.ReactNode;
@@ -20,16 +20,15 @@ export function ThemePreviewFrame({
   className,
   label,
 }: ThemePreviewFrameProps) {
-  const { resolvedTheme } = useTheme();
-  const theme = resolvedTheme ?? "light";
+  const theme = "light";
 
   return (
     <div
       data-theme={theme}
-      className={cn(
-        "relative flex w-full items-start justify-start gap-4 overflow-visible bg-background p-6 text-foreground transition-colors",
-        className,
-      )}
+      className={
+        "relative flex w-full items-start justify-start gap-4 overflow-visible bg-background p-6 text-foreground transition-colors " +
+        (className ?? "")
+      }
       style={{ colorScheme: theme }}
     >
       {label && (

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Icon } from "@fusorb/facet-components";
+// Facet Icon replaced with inline glyphs (engine stays facet-agnostic, L3).
 
 /**
  * Props for {@link LiveCodePlayground}.
@@ -793,9 +793,9 @@ export function LiveCodePlayground({
           aria-label="Copy code"
         >
           {copied ? (
-            <Icon name="check" className="h-3.5 w-3.5" />
+            <span className="h-3.5 w-3.5">✓</span>
           ) : (
-            <Icon name="copy" className="h-3.5 w-3.5" />
+            <span className="h-3.5 w-3.5">Copy</span>
           )}
         </button>
       </div>
