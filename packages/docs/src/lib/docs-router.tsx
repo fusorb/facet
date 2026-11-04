@@ -36,7 +36,7 @@ export function useDocsRouterAdapter(): RouterAdapter {
   return React.useMemo<RouterAdapter>(
     () => ({
       Link: LinkComponent,
-      isActive: (href) => {
+      isActive: (href: string) => {
         const pathname = location.pathname;
         if (pathname === href) return true;
         // The root path "/" is exact-match only; it is not a prefix of

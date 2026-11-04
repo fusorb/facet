@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-const LayoutDocsLayout: any = ({children}:any) => <div>{children}</div>;
+const LayoutDocsLayout: any = ({children}:any) => <div data-testid="console-layout">{children}</div>;
 const SidebarAuth: any = () => null;
 const CommandPalette: any = () => null;
 const useDocsLayout: any = () => ({mode:"full",toggleMode:()=>{},collapsedAll:false,toggleCollapseAll:()=>{}});

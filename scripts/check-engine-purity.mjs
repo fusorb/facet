@@ -25,12 +25,6 @@ const DIRS_TO_SCAN = [
 const FACET_IMPORTS = [
   "@fusorb/facet-auth",
   "@fusorb/facet-sdk",
-  "@fusorb/facet-layout",
-  "@fusorb/facet-components",
-  "@fusorb/facet-tokens",
-  "@fusorb/facet-store",
-  "@fusorb/facet-emails",
-  "@fusorb/facet-native",
 ];
 
 const FACET_NAMES = [

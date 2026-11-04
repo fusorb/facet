@@ -36,7 +36,7 @@ const PagesPage = React.lazy(() =>
 );
 
 // The 404 fallback uses the shared Facet NotFound, gradient text animation + fully customizable props. Lazy-loaded so the eager entry stays slim (theme + router + minimal fallback only).
-const NotFound = () => <div>Not found</div>;
+const NotFound = () => <div data-testid="not-found">Not found</div>;
 
 import type { DocsSiteConfig } from "./lib/nav.js";
 import type { DocsPage } from "./lib/pages.js";

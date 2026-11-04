@@ -139,11 +139,11 @@ describe("buildDocsLayoutConfig", () => {
     expect(section!.items[0]!.children).toBeUndefined();
   });
 
-  it("adds Components, Ready to Use, Pages, Animation sections when showComponents is true", () => {
+  it("adds Components, Pages, Animation sections when showComponents is true", () => {
     const result = buildDocsLayoutConfig(makeConfig(), [], true);
     const titles = result.navigation.map((s: any) => s.title);
     expect(titles).toContain("Components");
-    expect(titles).toContain("Ready to Use");
+    // Ready to Use section lives in the consuming app (L3).
     expect(titles).toContain("Pages");
     expect(titles).toContain("Animation");
   });
@@ -157,7 +157,7 @@ describe("buildDocsLayoutConfig", () => {
     expect(titles).not.toContain("Animation");
   });
 
-  it("orders sections: guides, auth, components, ready-to-use, pages, animation, foundations, ecosystem", () => {
+  it("orders sections: guides, auth, components, pages, animation, foundations, ecosystem", () => {
     const pages: DocsPage[] = [
       {
         path: "/foundations/tokens",
@@ -174,8 +174,7 @@ describe("buildDocsLayoutConfig", () => {
 
     const idx = (t: string) => titles.indexOf(t);
     expect(idx("Guides")).toBe(-1); // no guide pages
-    expect(idx("Components")).toBeLessThan(idx("Ready to Use"));
-    expect(idx("Ready to Use")).toBeLessThan(idx("Pages"));
+    expect(idx("Components")).toBeLessThan(idx("Pages"));
     expect(idx("Pages")).toBeLessThan(idx("Animation"));
     expect(idx("Animation")).toBeLessThan(idx("Foundations"));
     expect(idx("Foundations")).toBeLessThan(idx("Ecosystem"));
