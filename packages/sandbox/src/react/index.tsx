@@ -326,10 +326,31 @@ export function Stage({
   }));
 
   const kind = getArtifactKind(artifact.kind);
-  const schema = React.useMemo(
-    () => kind?.inferControls?.(artifact) ?? inferControls(values),
-    [kind, artifact, values],
-  );
+  // Honor Example.controls (ADR-009): when an example declares control
+  // overrides, apply them on top of the inferred schema. Falls back to the
+  // kind's inferControls or runtime inference from values.
+  const schema = React.useMemo(() => {
+    const base = kind?.inferControls?.(artifact) ?? inferControls(values);
+    const overrides = example.controls;
+    if (!overrides || Object.keys(overrides).length === 0) return base;
+    const fields = base.fields
+      .map((field) => {
+        const o = overrides[field.name];
+        if (!o) return field;
+        return {
+          ...field,
+          label: o.label ?? field.label,
+          group: (o.group as ControlField["group"]) ?? field.group,
+          hidden: o.hidden ?? field.hidden,
+          options: o.options ?? field.options,
+          min: o.min ?? field.min,
+          max: o.max ?? field.max,
+          step: o.step ?? field.step,
+        };
+      })
+      .filter((field) => !field.hidden);
+    return { ...base, fields };
+  }, [kind, artifact, values, example.controls]);
   const viewport = React.useMemo(
     () => resolveViewport(artifact, viewportConfig),
     [artifact, viewportConfig],

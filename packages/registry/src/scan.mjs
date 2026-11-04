@@ -123,7 +123,19 @@ function scanExamples(uiDir, slug) {
       throw new Error(`[registry] ui/${slug}.examples.tsx declares artifact "${artifact}" but the colocated component slug is "${slug}"`);
     }
   }
-  return ids.map((id, i) => ({ id, title: titles[i] ?? id }));
+  // Tags: one `tags: [...]` line per example, in source order.
+  const tagMatches = [...src.matchAll(/^\s*tags:\s*\[([^\]]*)\]/gm)];
+  const tags = tagMatches.map((m) =>
+    m[1]
+      .split(",")
+      .map((t) => t.trim().replace(/^"|"$/g, ""))
+      .filter(Boolean),
+  );
+  return ids.map((id, i) => ({
+    id,
+    title: titles[i] ?? id,
+    tags: tags[i] ?? [],
+  }));
 }
 
 /* ── Scanners ────────────────────────────────────────────────────── */
@@ -406,7 +418,14 @@ function buildRegistry() {
     motion,
     tokens,
     presets,
-    examples: [], // Populated by M3 (examples consumption); see ADR-009
+    examples: components.flatMap((c) =>
+      (c.examples || []).map((ex) => ({
+        artifact: c.slug,
+        example: ex.id,
+        title: ex.title,
+        tags: ex.tags ?? [],
+      })),
+    ),
     facts,
     surfaces: SURFACES,
   };

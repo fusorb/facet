@@ -11,3 +11,5 @@ export { buttonExamples, type ButtonExampleProps } from "./ui/button.examples.js
 export { dialogExamples, type DialogExampleProps } from "./ui/dialog.examples.js";
 export { dataTableExamples, type DataTableExampleProps } from "./ui/data-table.examples.js";
 export type { Example } from "@fusorb/facet-sandbox/core";
+// Side-effect: register the "component" artifact kind (ADR-009).
+import "./register-component-kind.js";

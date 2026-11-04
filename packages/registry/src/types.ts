@@ -45,7 +45,7 @@ export interface ComponentEntry {
    * Empty until Phase 5 (TS compiler API). For now: name + inferred type.
    */
   props: ComponentProp[];
-  examples: string[];
+  examples: ComponentExampleRef[];
 }
 
 export interface ComponentProp {
@@ -114,9 +114,15 @@ export interface PresetEntry {
   summary: string;
 }
 
-export interface ExampleEntry {
+export interface ComponentExampleRef {
   id: string;
+  title: string;
+  tags: string[];
+}
+
+export interface ExampleEntry {
   artifact: string;
+  example: string;
   title: string;
   description?: string;
   tags: string[];

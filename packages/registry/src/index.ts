@@ -12,6 +12,8 @@ import type {
   LayoutEntry,
   TokenGroup,
   PresetEntry,
+  ExampleEntry,
+  ComponentExampleRef,
   SurfaceMap,
   MotionFamilyEntry,
   MotionAuthoredEntry,
@@ -32,6 +34,7 @@ export type {
   TokenGroup,
   PresetEntry,
   ExampleEntry,
+  ComponentExampleRef,
   SurfaceMap,
   ViewportSpec,
   MotionFamilyEntry,
@@ -64,6 +67,24 @@ export function listComponentsByCategory(): Record<string, ComponentEntry[]> {
     (acc[c.category] ??= []).push(c);
     return acc;
   }, {} as Record<string, ComponentEntry[]>);
+}
+
+/* ── Examples (ADR-009) ─────────────────────────────────── */
+
+export function getComponentExamples(slug: string): ComponentExampleRef[] {
+  return getComponent(slug)?.examples ?? [];
+}
+
+export function listExamples(): ExampleEntry[] {
+  return [...registry.examples];
+}
+
+export function listExamplesByKind(kind: string): ExampleEntry[] {
+  return registry.examples.filter((e) => e.artifact === kind || kind === "component");
+}
+
+export function getExample(artifact: string, exampleId: string): ExampleEntry | undefined {
+  return registry.examples.find((e) => e.artifact === artifact && e.example === exampleId);
 }
 
 /* ── Layouts ────────────────────────────────────────────── */

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "d5eb6247a7b877df36197ea1f5e1fddf1249eb7b",
-    "at": "2026-11-01T12:04:49.487Z"
+    "commit": "fac5a94f1a95894ad7403478113b3185b57e8997",
+    "at": "2026-11-04T12:51:00.783Z"
   },
   "packages": [
     {
@@ -465,15 +465,28 @@
       "examples": [
         {
           "id": "default",
-          "title": "Default"
+          "title": "Default",
+          "tags": [
+            "primitive",
+            "action"
+          ]
         },
         {
           "id": "with-icon",
-          "title": "With leading icon"
+          "title": "With leading icon",
+          "tags": [
+            "composition",
+            "icon"
+          ]
         },
         {
           "id": "icon-button",
-          "title": "Icon button"
+          "title": "Icon button",
+          "tags": [
+            "composition",
+            "icon",
+            "a11y"
+          ]
         }
       ]
     },
@@ -649,11 +662,20 @@
       "examples": [
         {
           "id": "default",
-          "title": "Default"
+          "title": "Default",
+          "tags": [
+            "composite",
+            "data"
+          ]
         },
         {
           "id": "paginated",
-          "title": "Paginated + selectable"
+          "title": "Paginated + selectable",
+          "tags": [
+            "composite",
+            "data",
+            "pagination"
+          ]
         }
       ]
     },
@@ -694,11 +716,19 @@
       "examples": [
         {
           "id": "default",
-          "title": "Default"
+          "title": "Default",
+          "tags": [
+            "overlay",
+            "modal"
+          ]
         },
         {
           "id": "compact",
-          "title": "Delete this item?"
+          "title": "Delete this item?",
+          "tags": [
+            "overlay",
+            "variant"
+          ]
         }
       ]
     },
@@ -2352,7 +2382,73 @@
       "summary": "defaultPreset authentication configuration"
     }
   ],
-  "examples": [],
+  "examples": [
+    {
+      "artifact": "button",
+      "example": "default",
+      "title": "Default",
+      "tags": [
+        "primitive",
+        "action"
+      ]
+    },
+    {
+      "artifact": "button",
+      "example": "with-icon",
+      "title": "With leading icon",
+      "tags": [
+        "composition",
+        "icon"
+      ]
+    },
+    {
+      "artifact": "button",
+      "example": "icon-button",
+      "title": "Icon button",
+      "tags": [
+        "composition",
+        "icon",
+        "a11y"
+      ]
+    },
+    {
+      "artifact": "data-table",
+      "example": "default",
+      "title": "Default",
+      "tags": [
+        "composite",
+        "data"
+      ]
+    },
+    {
+      "artifact": "data-table",
+      "example": "paginated",
+      "title": "Paginated + selectable",
+      "tags": [
+        "composite",
+        "data",
+        "pagination"
+      ]
+    },
+    {
+      "artifact": "dialog",
+      "example": "default",
+      "title": "Default",
+      "tags": [
+        "overlay",
+        "modal"
+      ]
+    },
+    {
+      "artifact": "dialog",
+      "example": "compact",
+      "title": "Delete this item?",
+      "tags": [
+        "overlay",
+        "variant"
+      ]
+    }
+  ],
   "facts": {
     "packages.count": 13,
     "packages.total": 13,
