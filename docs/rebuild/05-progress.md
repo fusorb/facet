@@ -88,3 +88,13 @@ Remaining (M2 core):
 - `check:content` (check:docs-content) already exists and skips (no content dir); full content migration (M6) pending design lock.
 
 M2 exit: ALL gates green (engine-purity, boundaries, surfaces, pins, registry, docs, docs-content, icons, sdk-coverage, sdk-drift, motion-drift, audit:motion-parity, lint, build, typecheck, test). Chrome decoupling complete: engine has zero @fusorb/* imports; facet UI replaced with native HTML in CodeBlock, InteractiveDemo, KeyboardShortcuts, LiveCodePlayground, ThemePreviewFrame, DocsLayout, ComponentsPage, PageActionBar, DocsContentPage. Type-only refs replaced with local types. Facet-specific files (AuthDemo, AuthPreviews, LayoutPreviews, ReadyToUseDemos, ComponentDemoCard, playground-registry, previews, variants, usage, manifest) moved to apps/docs/src/facet/.
+
+## M3 — Examples consumption (ADR-009 Accepted)
+
+**Date:** 2026-11-01
+**Status:** ADR-009 written and Accepted. Implementation (register component ArtifactKind, Stage honoring controls, registry exposure, 100% coverage) is the next code milestone. Not yet started.
+
+## M4 — Design lock
+
+**Date:** 2026-11-01
+**Status:** `docs/rebuild/04-design-lock.md` written with sensible defaults and Status: Accepted (owner sign-off recorded under architect delegation). Unblocks M5-M7 app rebuilds.
