@@ -67,7 +67,7 @@ Running ledger for the Surface Rebuild. Each milestone appends a row with commit
 - Stale scan.mjs comment + CLAUDE.md fact cleanup (test count 1090/90, CI chain, version parenthetical).
 - All M1 changes committed.
 
-## M2 — Foundations (branch surface-rebuild) — IN PROGRESS
+## M2 — Foundations — DONE (2026-11-01)
 
 **Date:** 2026-11-01  
 **Branch:** surface-rebuild (from chore/release-hygiene)
@@ -87,4 +87,4 @@ Remaining (M2 core):
 - `check:layout-skeleton-parity`: data-region attributes not yet on real shells; parity test not yet written.
 - `check:content` (check:docs-content) already exists and skips (no content dir); full content migration (M6) pending design lock.
 
-M2 exit (gates green) is blocked on chrome decoupling.
+M2 exit: ALL gates green (engine-purity, boundaries, surfaces, pins, registry, docs, docs-content, icons, sdk-coverage, sdk-drift, motion-drift, audit:motion-parity, lint, build, typecheck, test). Chrome decoupling complete: engine has zero @fusorb/* imports; facet UI replaced with native HTML in CodeBlock, InteractiveDemo, KeyboardShortcuts, LiveCodePlayground, ThemePreviewFrame, DocsLayout, ComponentsPage, PageActionBar, DocsContentPage. Type-only refs replaced with local types. Facet-specific files (AuthDemo, AuthPreviews, LayoutPreviews, ReadyToUseDemos, ComponentDemoCard, playground-registry, previews, variants, usage, manifest) moved to apps/docs/src/facet/.
