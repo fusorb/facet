@@ -109,3 +109,12 @@ M2 exit: ALL gates green (engine-purity, boundaries, surfaces, pins, registry, d
 - gen-examples.mjs script created for future regeneration.
 - All gates green, build + typecheck pass, components tests 420/420.
 - Commit: d54686b
+
+## M3 Stage PoC (2026-11-04)
+- Stage scratch test: button, dialog, data-table render in Stage with controls.
+- Commit: ce839e2
+
+## check:readme gate (2026-11-04)
+- Validates README package versions and forms count against package.json.
+- Wired into check:all and CI. README synced to current versions.
+- Commit: bba3b43
