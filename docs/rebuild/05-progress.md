@@ -98,3 +98,14 @@ M2 exit: ALL gates green (engine-purity, boundaries, surfaces, pins, registry, d
 
 **Date:** 2026-11-01
 **Status:** `docs/rebuild/04-design-lock.md` written with sensible defaults and Status: Accepted (owner sign-off recorded under architect delegation). Unblocks M5-M7 app rebuilds.
+
+## M3 (2026-11-04) - 100% example coverage
+- 109 new example files generated (112 total, 116 examples).
+- check:examples gate updated to enforce 100% coverage.
+- scan.mjs populates flat examples array (115 entries) + per-component tags.
+- Registry accessors: getComponentExamples, listExamples, listExamplesByKind, getExample.
+- ComponentEntry.examples typed as ComponentExampleRef[] (was string[]).
+- Barrel uses named re-exports.
+- gen-examples.mjs script created for future regeneration.
+- All gates green, build + typecheck pass, components tests 420/420.
+- Commit: d54686b
