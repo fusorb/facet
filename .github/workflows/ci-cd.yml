@@ -29,6 +29,9 @@ jobs:
       - run: pnpm changeset status --since=origin/main
       - run: pnpm build
       - run: pnpm check:docs
+      - run: pnpm check:docs-content
+      - run: pnpm check:content
+      - run: pnpm check:layout-skeleton-parity
       - run: pnpm check:icons
       - run: pnpm check:components
       - run: pnpm check:examples
