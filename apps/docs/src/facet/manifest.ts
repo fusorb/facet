@@ -13,9 +13,9 @@
  * under the Foundations section.
  */
 
-import { docsManifest, type DocsManifestEntry } from "../manifest.js";
+import { docsManifest, type DocsManifestEntry } from "./docs-manifest.js";
 
-export type { DocsManifestEntry } from "../manifest.js";
+export type { DocsManifestEntry } from "./docs-manifest.js";
 
 /** Auth + layout entries that are previewable in the gallery. */
 export const extendedEntries: DocsManifestEntry[] = [

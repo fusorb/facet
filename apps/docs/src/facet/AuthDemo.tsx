@@ -11,7 +11,7 @@ import {
   CardDescription,
   CardContent,
 } from "@fusorb/facet-components";
-import { CodeBlock } from "./CodeBlock.js";
+import { CodeBlock } from "@fusorb/facet-docs";
 
 const OAUTH_PROVIDERS = ["google", "github", "microsoft"] as const;
 

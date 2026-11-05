@@ -4,8 +4,8 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from "@fusorb/facet-components";
-import { Playground, type Control } from "./Playground.js";
-import { ThemePreviewFrame } from "./ThemePreviewFrame.js";
+import { Playground, type Control } from "@fusorb/facet-docs";
+import { ThemePreviewFrame } from "@fusorb/facet-docs";
 
 export interface ComponentDemoCardProps {
   /** Component display name. */

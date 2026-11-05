@@ -2,7 +2,7 @@ import * as React from "react";
 import { SgProvider, SignIn, SignUp, Guard } from "@fusorb/facet-auth";
 import { LoginForm, MfaVerifyForm } from "@fusorb/facet-auth";
 import { SgClient } from "@fusorb/facet-sdk";
-import { CodeBlock } from "./CodeBlock.js";
+import { CodeBlock } from "@fusorb/facet-docs";
 
 /** No network: bootstrap stays signed out because no token is stored. */
 const DEMO_CLIENT = new SgClient({ baseUrl: "https://demo.invalid" });

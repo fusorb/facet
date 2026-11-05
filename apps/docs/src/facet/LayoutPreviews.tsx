@@ -1,4 +1,4 @@
-import { CodeBlock } from "./CodeBlock.js";
+import { CodeBlock } from "@fusorb/facet-docs";
 
 function CodeShell({
   title,

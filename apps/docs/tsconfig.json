@@ -6,5 +6,5 @@
     "types": ["vite/client"]
   },
   "include": ["src", "../../surfaces.config.mjs"],
-  "exclude": ["src/facet"]
+  "exclude": []
 }
