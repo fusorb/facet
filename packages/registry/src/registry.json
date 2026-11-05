@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "fac5a94f1a95894ad7403478113b3185b57e8997",
-    "at": "2026-11-04T12:51:00.783Z"
+    "commit": "9c0570e1db3fe6fad91d9a4ac2488611dc766e17",
+    "at": "2026-11-05T05:56:34.169Z"
   },
   "packages": [
     {
@@ -327,7 +327,13 @@
       "category": "layout",
       "summary": "Accordion",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "account-settings-panel",
@@ -336,7 +342,13 @@
       "category": "ready-to-use",
       "summary": "Account Settings Panel",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "activity-feed",
@@ -345,7 +357,13 @@
       "category": "ready-to-use",
       "summary": "Activity Feed",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "alert",
@@ -354,7 +372,13 @@
       "category": "feedback",
       "summary": "Alert",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "alert-dialog",
@@ -363,7 +387,13 @@
       "category": "feedback",
       "summary": "Alert Dialog",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "animated",
@@ -372,7 +402,13 @@
       "category": "animation",
       "summary": "Animated",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "animated-button",
@@ -381,7 +417,13 @@
       "category": "animation",
       "summary": "Animated Button",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "announcement-bar",
@@ -390,7 +432,13 @@
       "category": "ready-to-use",
       "summary": "Announcement Bar",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "api-key-manager",
@@ -399,7 +447,13 @@
       "category": "ready-to-use",
       "summary": "Api Key Manager",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "aspect-ratio",
@@ -408,7 +462,13 @@
       "category": "layout",
       "summary": "Aspect Ratio",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "avatar",
@@ -417,7 +477,13 @@
       "category": "data-display",
       "summary": "Avatar",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "avatar-group",
@@ -426,7 +492,13 @@
       "category": "data-display",
       "summary": "Avatar Group",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "badge",
@@ -435,7 +507,13 @@
       "category": "data-display",
       "summary": "Badge",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "billing-page",
@@ -444,7 +522,13 @@
       "category": "pages",
       "summary": "Billing Page",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "breadcrumb",
@@ -453,7 +537,13 @@
       "category": "layout",
       "summary": "Breadcrumb",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "button",
@@ -497,7 +587,13 @@
       "category": "data-display",
       "summary": "Button Group",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "card",
@@ -506,7 +602,13 @@
       "category": "data-display",
       "summary": "Card",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "card-animations",
@@ -515,7 +617,13 @@
       "category": "animation",
       "summary": "Card Animations",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "carousel",
@@ -524,7 +632,13 @@
       "category": "data-display",
       "summary": "Carousel",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "changelog-card",
@@ -533,7 +647,13 @@
       "category": "ready-to-use",
       "summary": "Changelog Card",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "changelog-feed",
@@ -542,7 +662,13 @@
       "category": "ready-to-use",
       "summary": "Changelog Feed",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "chart",
@@ -551,7 +677,13 @@
       "category": "ready-to-use",
       "summary": "Chart",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "chart-range-selector",
@@ -560,7 +692,13 @@
       "category": "general",
       "summary": "Chart Range Selector",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "checkbox",
@@ -569,7 +707,13 @@
       "category": "inputs",
       "summary": "Checkbox",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "collapsible",
@@ -578,7 +722,13 @@
       "category": "layout",
       "summary": "Collapsible",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "color-picker",
@@ -587,7 +737,13 @@
       "category": "ready-to-use",
       "summary": "Color Picker",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "combobox",
@@ -596,7 +752,13 @@
       "category": "inputs",
       "summary": "Combobox",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "command",
@@ -605,7 +767,13 @@
       "category": "ready-to-use",
       "summary": "Command",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "consent-capture",
@@ -614,7 +782,13 @@
       "category": "ready-to-use",
       "summary": "Consent Capture",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "context-menu",
@@ -623,7 +797,13 @@
       "category": "feedback",
       "summary": "Context Menu",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "cookie-banner",
@@ -632,7 +812,13 @@
       "category": "ready-to-use",
       "summary": "Cookie Banner",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "cookie-consent",
@@ -641,7 +827,13 @@
       "category": "ready-to-use",
       "summary": "Cookie Consent",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "country-code-input",
@@ -650,7 +842,13 @@
       "category": "inputs",
       "summary": "Country Code Input",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "data-table",
@@ -686,7 +884,13 @@
       "category": "inputs",
       "summary": "Date Input",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "date-picker",
@@ -695,7 +899,13 @@
       "category": "inputs",
       "summary": "Date Picker",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "date-range-picker",
@@ -704,7 +914,13 @@
       "category": "inputs",
       "summary": "Date Range Picker",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "dialog",
@@ -739,7 +955,13 @@
       "category": "feedback",
       "summary": "Dropdown Menu",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "dropzone",
@@ -748,7 +970,13 @@
       "category": "ready-to-use",
       "summary": "Dropzone",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "empty-state",
@@ -757,7 +985,13 @@
       "category": "feedback",
       "summary": "Empty State",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "empty-state-page",
@@ -766,7 +1000,13 @@
       "category": "pages",
       "summary": "Empty State Page",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "faq-section",
@@ -775,7 +1015,13 @@
       "category": "ready-to-use",
       "summary": "Faq Section",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "feedback-page",
@@ -784,7 +1030,13 @@
       "category": "pages",
       "summary": "Feedback Page",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "footer",
@@ -793,7 +1045,13 @@
       "category": "pages",
       "summary": "Footer",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "form",
@@ -802,7 +1060,13 @@
       "category": "inputs",
       "summary": "Form",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "infinite-scroll",
@@ -811,7 +1075,13 @@
       "category": "ready-to-use",
       "summary": "Infinite Scroll",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "input",
@@ -820,7 +1090,13 @@
       "category": "inputs",
       "summary": "Input",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "input-group",
@@ -829,7 +1105,13 @@
       "category": "inputs",
       "summary": "Input Group",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "input-otp",
@@ -838,7 +1120,13 @@
       "category": "inputs",
       "summary": "Input Otp",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "invite-team-form",
@@ -847,7 +1135,13 @@
       "category": "ready-to-use",
       "summary": "Invite Team Form",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "kanban-board",
@@ -856,7 +1150,13 @@
       "category": "ready-to-use",
       "summary": "Kanban Board",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "kbd",
@@ -865,7 +1165,13 @@
       "category": "data-display",
       "summary": "Kbd",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "label",
@@ -874,7 +1180,13 @@
       "category": "inputs",
       "summary": "Label",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "layer-graph",
@@ -883,7 +1195,13 @@
       "category": "general",
       "summary": "Layer Graph",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "location-picker",
@@ -892,7 +1210,13 @@
       "category": "inputs",
       "summary": "Location Picker",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "mail-input",
@@ -901,7 +1225,13 @@
       "category": "inputs",
       "summary": "Mail Input",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "marquee",
@@ -910,7 +1240,13 @@
       "category": "ready-to-use",
       "summary": "Marquee",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "mention-input",
@@ -919,7 +1255,13 @@
       "category": "inputs",
       "summary": "Mention Input",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "menubar",
@@ -928,7 +1270,13 @@
       "category": "layout",
       "summary": "Menubar",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "micro-interactions",
@@ -937,7 +1285,13 @@
       "category": "animation",
       "summary": "Micro Interactions",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "multi-combobox",
@@ -946,7 +1300,13 @@
       "category": "inputs",
       "summary": "Multi Combobox",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "navbar",
@@ -955,7 +1315,13 @@
       "category": "layout",
       "summary": "Navbar",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "navigation-menu",
@@ -964,7 +1330,13 @@
       "category": "layout",
       "summary": "Navigation Menu",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "not-found",
@@ -973,7 +1345,13 @@
       "category": "pages",
       "summary": "Not Found",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "notification-drawer",
@@ -982,7 +1360,13 @@
       "category": "data-display",
       "summary": "Notification Drawer",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "number-input",
@@ -991,7 +1375,13 @@
       "category": "inputs",
       "summary": "Number Input",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "otp-input",
@@ -1000,7 +1390,13 @@
       "category": "inputs",
       "summary": "Otp Input",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "otp-verification-card",
@@ -1009,7 +1405,13 @@
       "category": "ready-to-use",
       "summary": "Otp Verification Card",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "page-header",
@@ -1018,7 +1420,13 @@
       "category": "ready-to-use",
       "summary": "Page Header",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "pagination",
@@ -1027,7 +1435,13 @@
       "category": "layout",
       "summary": "Pagination",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "password-input",
@@ -1036,7 +1450,13 @@
       "category": "inputs",
       "summary": "Password Input",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "password-strength-meter",
@@ -1045,7 +1465,13 @@
       "category": "ready-to-use",
       "summary": "Password Strength Meter",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "phone-input",
@@ -1054,7 +1480,13 @@
       "category": "inputs",
       "summary": "Phone Input",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "pill",
@@ -1063,7 +1495,13 @@
       "category": "data-display",
       "summary": "Pill",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "popover",
@@ -1072,7 +1510,13 @@
       "category": "feedback",
       "summary": "Popover",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "pricing-comparison",
@@ -1081,7 +1525,13 @@
       "category": "ready-to-use",
       "summary": "Pricing Comparison",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "progress",
@@ -1090,7 +1540,13 @@
       "category": "feedback",
       "summary": "Progress",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "qr-scanner",
@@ -1099,7 +1555,13 @@
       "category": "ready-to-use",
       "summary": "Qr Scanner",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "qrcode",
@@ -1108,7 +1570,13 @@
       "category": "ready-to-use",
       "summary": "Qrcode",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "radio-group",
@@ -1117,7 +1585,13 @@
       "category": "inputs",
       "summary": "Radio Group",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "range-slider",
@@ -1126,7 +1600,13 @@
       "category": "inputs",
       "summary": "Range Slider",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "rating-input",
@@ -1135,7 +1615,13 @@
       "category": "inputs",
       "summary": "Rating Input",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "resizable",
@@ -1144,7 +1630,13 @@
       "category": "layout",
       "summary": "Resizable",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "rich-text-editor",
@@ -1153,7 +1645,13 @@
       "category": "inputs",
       "summary": "Rich Text Editor",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "roadmap",
@@ -1162,7 +1660,13 @@
       "category": "ready-to-use",
       "summary": "Roadmap",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "scroll-area",
@@ -1171,7 +1675,13 @@
       "category": "layout",
       "summary": "Scroll Area",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "security-section-card",
@@ -1180,7 +1690,13 @@
       "category": "ready-to-use",
       "summary": "Security Section Card",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "select",
@@ -1189,7 +1705,13 @@
       "category": "inputs",
       "summary": "Select",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "separator",
@@ -1198,7 +1720,13 @@
       "category": "layout",
       "summary": "Separator",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "sheet",
@@ -1207,7 +1735,13 @@
       "category": "layout",
       "summary": "Sheet",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "shine-border-card",
@@ -1216,7 +1750,13 @@
       "category": "animation",
       "summary": "Shine Border Card",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "skeleton",
@@ -1225,7 +1765,13 @@
       "category": "feedback",
       "summary": "Skeleton",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "slider",
@@ -1234,7 +1780,13 @@
       "category": "inputs",
       "summary": "Slider",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "sonner",
@@ -1243,7 +1795,13 @@
       "category": "feedback",
       "summary": "Sonner",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "stat-card",
@@ -1252,7 +1810,13 @@
       "category": "ready-to-use",
       "summary": "Stat Card",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "stepper",
@@ -1261,7 +1825,13 @@
       "category": "ready-to-use",
       "summary": "Stepper",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "switch",
@@ -1270,7 +1840,13 @@
       "category": "inputs",
       "summary": "Switch",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "table",
@@ -1279,7 +1855,13 @@
       "category": "data-display",
       "summary": "Table",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "tabs",
@@ -1288,7 +1870,13 @@
       "category": "layout",
       "summary": "Tabs",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "tag-input",
@@ -1297,7 +1885,13 @@
       "category": "inputs",
       "summary": "Tag Input",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "testimonial-showcase",
@@ -1306,7 +1900,13 @@
       "category": "ready-to-use",
       "summary": "Testimonial Showcase",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "text-animations",
@@ -1315,7 +1915,13 @@
       "category": "animation",
       "summary": "Text Animations",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "textarea",
@@ -1324,7 +1930,13 @@
       "category": "inputs",
       "summary": "Textarea",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "toggle",
@@ -1333,7 +1945,13 @@
       "category": "inputs",
       "summary": "Toggle",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "toggle-group",
@@ -1342,7 +1960,13 @@
       "category": "inputs",
       "summary": "Toggle Group",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "tooltip",
@@ -1351,7 +1975,13 @@
       "category": "feedback",
       "summary": "Tooltip",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "tree",
@@ -1360,7 +1990,13 @@
       "category": "ready-to-use",
       "summary": "Tree",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "two-factor-setup-panel",
@@ -1369,7 +2005,13 @@
       "category": "ready-to-use",
       "summary": "Two Factor Setup Panel",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     },
     {
       "slug": "wizard-form-page",
@@ -1378,7 +2020,13 @@
       "category": "pages",
       "summary": "Wizard Form Page",
       "props": [],
-      "examples": []
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
     }
   ],
   "layouts": [
@@ -2384,6 +3032,96 @@
   ],
   "examples": [
     {
+      "artifact": "accordion",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "account-settings-panel",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "activity-feed",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "alert",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "alert-dialog",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "animated",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "animated-button",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "announcement-bar",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "api-key-manager",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "aspect-ratio",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "avatar",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "avatar-group",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "badge",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "billing-page",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "breadcrumb",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
       "artifact": "button",
       "example": "default",
       "title": "Default",
@@ -2412,6 +3150,114 @@
       ]
     },
     {
+      "artifact": "button-group",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "card",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "card-animations",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "carousel",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "changelog-card",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "changelog-feed",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "chart",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "chart-range-selector",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "checkbox",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "collapsible",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "color-picker",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "combobox",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "command",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "consent-capture",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "context-menu",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "cookie-banner",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "cookie-consent",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "country-code-input",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
       "artifact": "data-table",
       "example": "default",
       "title": "Default",
@@ -2431,6 +3277,24 @@
       ]
     },
     {
+      "artifact": "date-input",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "date-picker",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "date-range-picker",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
       "artifact": "dialog",
       "example": "default",
       "title": "Default",
@@ -2447,6 +3311,438 @@
         "overlay",
         "variant"
       ]
+    },
+    {
+      "artifact": "dropdown-menu",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "dropzone",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "empty-state",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "empty-state-page",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "faq-section",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "feedback-page",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "footer",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "form",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "infinite-scroll",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "input",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "input-group",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "input-otp",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "invite-team-form",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "kanban-board",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "kbd",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "label",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "layer-graph",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "location-picker",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "mail-input",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "marquee",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "mention-input",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "menubar",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "micro-interactions",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "multi-combobox",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "navbar",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "navigation-menu",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "not-found",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "notification-drawer",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "number-input",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "otp-input",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "otp-verification-card",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "page-header",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "pagination",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "password-input",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "password-strength-meter",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "phone-input",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "pill",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "popover",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "pricing-comparison",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "progress",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "qr-scanner",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "qrcode",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "radio-group",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "range-slider",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "rating-input",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "resizable",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "rich-text-editor",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "roadmap",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "scroll-area",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "security-section-card",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "select",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "separator",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "sheet",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "shine-border-card",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "skeleton",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "slider",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "sonner",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "stat-card",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "stepper",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "switch",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "table",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "tabs",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "tag-input",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "testimonial-showcase",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "text-animations",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "textarea",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "toggle",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "toggle-group",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "tooltip",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "tree",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "two-factor-setup-panel",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
+      "artifact": "wizard-form-page",
+      "example": "default",
+      "title": "Default",
+      "tags": []
     }
   ],
   "facts": {
@@ -2462,7 +3758,7 @@
     "icons.count": 1763,
     "tokens.colorSpace": "OKLCH",
     "tokens.totalVars": 251,
-    "examples.count": 7
+    "examples.count": 115
   },
   "surfaces": {
     "landing": {

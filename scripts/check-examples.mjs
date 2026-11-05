@@ -122,6 +122,13 @@ function braceBlock(src, openIndex) {
 const errors = [];
 let exampleCount = 0;
 
+// Enforce 100% coverage: every component must have a *.examples.tsx file.
+for (const slug of components) {
+  if (!exampleFiles.includes(slug + ".examples.tsx")) {
+    errors.push(`ui/${slug}.tsx: missing colocated example file "ui/${slug}.examples.tsx"`);
+  }
+}
+
 for (const file of exampleFiles) {
   const slug = file.replace(/\.examples\.tsx$/, "");
   const rel = `ui/${file}`;
