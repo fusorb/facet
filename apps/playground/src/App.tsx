@@ -1,200 +1,143 @@
 import { useEffect, useMemo, useState } from "react";
+import { createRoot } from "react-dom/client";
+
 import { ThemeProvider } from "@fusorb/facet-components";
-import type { LayoutConfig, RouterAdapter } from "@fusorb/facet-layout";
-import {
-  ConsoleLayout,
-  PageHeader,
-  createDefaultAdapter,
-} from "@fusorb/facet-layout";
-import { LivePlayground } from "@fusorb/facet-sandbox/live";
+import { ConsoleLayout, PageHeader } from "@fusorb/facet-layout";
+import { Stage } from "@fusorb/facet-sandbox/react";
+import { getComponent, listComponents } from "@fusorb/facet-registry";
+import * as examplesNs from "@fusorb/facet-components/examples";
 import { surfaces } from "../../../surfaces.config.mjs";
-import { MotionDemo } from "./blocks/MotionDemo.js";
-import { AuthFlow } from "./blocks/AuthFlow.js";
-import { StackAgnosticism } from "./blocks/StackAgnosticism.js";
 
-const DOCS_CHANGELOG_URL = import.meta.env.DEV
-  ? `${surfaces.docs.dev}/changelog`
-  : `${surfaces.docs.prod}/changelog`;
+import "./app.css";
 
-const PRESETS = ["fintech", "med", "edu", "enterprise", "default"] as const;
-
-const TAB_TITLES: Record<string, string> = {
-  motion: "Motion presets",
-  auth: "Auth flow (simulated)",
-  stack: "Stack agnosticism",
-};
-const TAB_DESCRIPTIONS: Record<string, string> = {
-  motion:
-    "Preview motion profiles across the fintech, med, edu, enterprise and default domains.",
-  auth: "Staged auth lifecycle: simulated 401 → silent refresh → tenant switch.",
-  stack: "Framework-agnostic rendering surface shared across all demo stacks.",
-};
-
-const playgroundConfig: LayoutConfig = {
-  brand: {
-    name: "facet",
-    tagline: "Live playground",
-  },
-  navigation: [
-    {
-      id: "playground",
-      title: "Playground",
-      items: [
-        { href: "#motion", label: "Motion presets" },
-        { href: "#auth", label: "Auth flow" },
-        { href: "#stack", label: "Stack agnosticism" },
-      ],
-    },
-    {
-      id: "changelog",
-      title: "Changelog",
-      items: [{ href: DOCS_CHANGELOG_URL, label: "View changelog" }],
-    },
-  ],
-  features: { tenantSwitcher: false, themeToggle: true },
-};
-
-/**
- * Drives the active tab from `window.location.hash` so sidebar links navigate
- * client-side (no reload) and the current tab stays shareable/deep-linkable.
- */
-function useHashTab(defaultTab = "motion") {
-  const [tab, setTab] = useState(() => {
-    if (typeof window !== "undefined") {
-      return (window.location.hash || `#${defaultTab}`).replace("#", "");
+// Build a slug -> Example[] map from the components examples barrel.
+function buildExampleMap(): Record<string, any[]> {
+  const map: Record<string, any[]> = {};
+  for (const [, val] of Object.entries(examplesNs)) {
+    if (Array.isArray(val) && val.length > 0 && val[0]?.artifact) {
+      const slug = val[0].artifact;
+      map[slug] = val;
     }
-    return defaultTab;
-  });
-
-  useEffect(() => {
-    const update = () => {
-      setTab((window.location.hash || `#${defaultTab}`).replace("#", ""));
-    };
-    update();
-    window.addEventListener("hashchange", update);
-    window.addEventListener("popstate", update);
-    return () => {
-      window.removeEventListener("hashchange", update);
-      window.removeEventListener("popstate", update);
-    };
-  }, [defaultTab]);
-
-  return tab;
+  }
+  return map;
 }
 
-const DEVICE = [
-  { id: "desktop", label: "Desktop" },
-  { id: "tablet", label: "Tablet" },
-  { id: "mobile", label: "Mobile" },
-] as const;
+const exampleMap = buildExampleMap();
 
-type Device = (typeof DEVICE)[number]["id"];
+const DOCS_URL = import.meta.env.DEV ? surfaces.docs.dev : surfaces.docs.prod;
 
-export function App() {
-  const tab = useHashTab();
-  const [preset, setPreset] = useState<string>(PRESETS[0]);
-  const [device, setDevice] = useState<Device>(DEVICE[0].id);
+export default function App() {
+  const components = listComponents();
+  const [selectedSlug, setSelectedSlug] = useState<string>(components[0]?.slug ?? "");
+  const [selectedExample, setSelectedExample] = useState<string>("");
 
-  // Re-create the preview component whenever the preset changes so the
-  // live-JSX interpreter picks up the new motion profile. The interpreter
-  // invokes `<Demo />` with no attributes, so no props are forwarded.
-  const components = useMemo(
-    () => ({
-      Demo: () => <MotionDemo preset={preset} />,
-    }),
-    [preset],
-  );
+  const comp = getComponent(selectedSlug);
+  const examples = exampleMap[selectedSlug] ?? [];
+  const example = examples.find((e: any) => e.id === selectedExample) ?? examples[0];
 
-  const [code, setCode] = useState("return <Demo />");
+  useEffect(() => {
+    if (examples.length && !selectedExample) {
+      setSelectedExample(examples[0].id);
+    }
+  }, [examples, selectedExample]);
 
-  // Reuse the framework-agnostic anchor from the default adapter, but match
-  // against the hash so sidebar clicks toggle SPA tabs (not page reloads).
-  const router = useMemo<RouterAdapter>(() => {
-    const base = createDefaultAdapter();
-    return {
-      ...base,
-      isActive: (href: string) =>
-        typeof window !== "undefined" && window.location.hash === href,
-      asPath: typeof window !== "undefined" ? window.location.hash : undefined,
-    };
+  // Permalink: hash = #/<slug>/<example>
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    const [slug, ex] = hash.split("/");
+    if (slug && components.some((c) => c.slug === slug)) {
+      setSelectedSlug(slug);
+      if (ex) setSelectedExample(ex);
+    }
   }, []);
 
-  const actions = useMemo(() => {
-    const deviceControl = (
-      <label className="text-sm">
-        Device
-        <select
-          value={device}
-          onChange={(e) => setDevice(e.target.value as Device)}
-          className="ml-2 rounded-md border border-input bg-background px-2 py-1 text-sm"
-        >
-          {DEVICE.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.label}
-            </option>
-          ))}
-        </select>
-      </label>
-    );
-    if (tab !== "motion") return deviceControl;
-    return (
-      <>
-        <label className="text-sm">
-          Preset
-          <select
-            value={preset}
-            onChange={(e) => setPreset(e.target.value)}
-            className="ml-2 rounded-md border border-input bg-background px-2 py-1 text-sm"
-          >
-            {PRESETS.map((p) => (
-              <option key={p} value={p}>
-                {p}
-              </option>
-            ))}
-          </select>
-        </label>
-        {deviceControl}
-        <span className="text-xs text-muted-foreground">
-          fintech = fast, med = smooth, edu = spring
-        </span>
-      </>
-    );
-  }, [tab, preset, device]);
+  useEffect(() => {
+    if (selectedSlug) {
+      window.location.hash = `/${selectedSlug}/${selectedExample || ""}`;
+    }
+  }, [selectedSlug, selectedExample]);
+
+  const artifact = useMemo(
+    () => ({
+      id: selectedSlug,
+      kind: "component",
+      title: comp?.name ?? selectedSlug,
+      package: comp?.package ?? "@fusorb/facet-components",
+      examples: examples.map((e: any) => e.id),
+    }),
+    [selectedSlug, comp, examples],
+  );
 
   return (
-    <ThemeProvider defaultTheme="system">
+    <ThemeProvider themes={[]} overrideVars={{}}>
       <ConsoleLayout
-        config={playgroundConfig}
-        router={router}
-        mode="full"
-        themeToggle
+        config={{
+          brand: { name: "facet", tagline: "Playground" },
+          navigation: [
+            {
+              id: "components",
+              title: "Components",
+              items: components.map((c: any) => ({
+                href: `#${c.slug}`,
+                label: c.name,
+              })),
+            },
+          ],
+          features: { tenantSwitcher: false, themeToggle: true },
+        }}
       >
-        <PageHeader
-          title={TAB_TITLES[tab] ?? "Playground"}
-          description={TAB_DESCRIPTIONS[tab]}
-          actions={actions}
-        />
-        <div className="flex flex-col items-center gap-4">
-          {tab === "motion" && (
-            <div className="w-full max-w-full">
-              <textarea
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                className="w-full max-w-full font-mono text-xs"
-                rows={3}
-              />
-              <LivePlayground
-                code={code}
-                components={components}
-                className={`preview-device-${device}`}
-                onError={(err) => console.error("[sandbox]", err)}
-              />
-            </div>
-          )}
-          {tab === "auth" && <AuthFlow />}
-          {tab === "stack" && <StackAgnosticism />}
+        <PageHeader title={comp?.name ?? "Playground"} description={comp?.summary} />
+        <div style={{ display: "flex", gap: 16, padding: 16 }}>
+          <aside style={{ width: 240, maxHeight: "80vh", overflow: "auto" }}>
+            <input
+              placeholder="Search components..."
+              onChange={(e) => {
+                const q = e.target.value.toLowerCase();
+                const match = components.find((c) => c.slug.includes(q) || c.name.toLowerCase().includes(q));
+                if (match) setSelectedSlug(match.slug);
+              }}
+              style={{ width: "100%", marginBottom: 8 }}
+            />
+            <ul style={{ listStyle: "none", padding: 0 }}>
+              {components.map((c: any) => (
+                <li key={c.slug}>
+                  <button
+                    onClick={() => setSelectedSlug(c.slug)}
+                    style={{ fontWeight: c.slug === selectedSlug ? "bold" : "normal", display: "block", width: "100%", textAlign: "left" }}
+                  >
+                    {c.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </aside>
+          <main style={{ flex: 1 }}>
+            {examples.length > 0 && (
+              <div style={{ marginBottom: 8 }}>
+                {examples.map((e: any) => (
+                  <button
+                    key={e.id}
+                    onClick={() => setSelectedExample(e.id)}
+                    style={{ marginRight: 4, fontWeight: e.id === (example?.id ?? "") ? "bold" : "normal" }}
+                  >
+                    {e.title}
+                  </button>
+                ))}
+              </div>
+            )}
+            {example && <Stage artifact={artifact} example={example} />}
+            <p style={{ marginTop: 16, fontSize: 12, color: "#888" }}>
+              Permalink: <code>{window.location.origin}{window.location.pathname}#{selectedSlug}/{selectedExample}</code>
+            </p>
+            <p style={{ fontSize: 12, color: "#888" }}>
+              <a href={DOCS_URL} target="_blank" rel="noopener noreferrer">Docs</a>
+            </p>
+          </main>
         </div>
       </ConsoleLayout>
     </ThemeProvider>
   );
 }
+
+const root = createRoot(document.getElementById("root")!);
+root.render(<App />);

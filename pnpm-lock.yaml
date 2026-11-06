@@ -308,6 +308,9 @@ importers:
       '@fusorb/facet-components':
         specifier: workspace:*
         version: link:../../packages/components
+      '@fusorb/facet-docs':
+        specifier: workspace:*
+        version: link:../../packages/docs
       '@fusorb/facet-layout':
         specifier: workspace:*
         version: link:../../packages/layout
@@ -360,6 +363,9 @@ importers:
       '@fusorb/facet-motion':
         specifier: workspace:*
         version: link:../../packages/motion
+      '@fusorb/facet-registry':
+        specifier: workspace:*
+        version: link:../../packages/registry
       '@fusorb/facet-sandbox':
         specifier: workspace:*
         version: link:../../packages/sandbox

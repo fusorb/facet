@@ -13,6 +13,7 @@
   "dependencies": {
     "react": "^19",
     "react-dom": "^19",
+    "@fusorb/facet-registry": "workspace:*",
     "@fusorb/facet-sandbox": "workspace:*",
     "@fusorb/facet-motion": "workspace:*",
     "@fusorb/facet-tokens": "workspace:*",

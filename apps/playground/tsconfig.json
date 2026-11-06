@@ -3,7 +3,10 @@
   "compilerOptions": {
     "outDir": "dist",
     "allowJs": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "paths": {
+      "@fusorb/facet-registry": ["../../packages/registry/src/index.ts"]
+    }
   },
   "include": ["src", "../../surfaces.config.mjs"]
 }

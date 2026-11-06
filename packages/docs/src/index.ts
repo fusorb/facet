@@ -77,6 +77,8 @@ export type { ThemePreviewFrameProps } from "./components/ThemePreviewFrame.js";
 // Live playground (editable default-usage code → live preview)
 export { LiveCodePlayground } from "./components/LiveCodePlayground.js";
 export type { LiveCodePlaygroundProps } from "./components/LiveCodePlayground.js";
+export { Playground } from "./components/Playground.js";
+export type { Control, PlaygroundProps } from "./components/Playground.js";
 export { PlaygroundPage } from "./components/PlaygroundPage.js";
 export type { PlaygroundPageProps } from "./components/PlaygroundPage.js";
 

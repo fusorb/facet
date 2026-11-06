@@ -17,6 +17,7 @@
     "@fusorb/facet-tokens": "workspace:*",
     "@fusorb/facet-layout": "workspace:*",
     "@fusorb/facet-components": "workspace:*",
+    "@fusorb/facet-docs": "workspace:*",
     "@fusorb/facet-motion": "workspace:*",
     "@fusorb/facet-auth": "workspace:*"
   },

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 
 import { Stage } from "@fusorb/facet-sandbox/react";
 import { buttonExamples } from "./ui/button.examples.js";
@@ -34,37 +34,37 @@ const dataTableArtifact = {
 describe("M3 Stage PoC (button, dialog, data-table)", () => {
   it("renders button default example in Stage", () => {
     const { container } = render(
-      React.createElement(Stage, { artifact: buttonArtifact, example: buttonExamples[0] }),
+      React.createElement(Stage, { artifact: buttonArtifact, example: buttonExamples[0] as any }),
     );
     expect(container).toBeTruthy();
   });
 
   it("renders button with-icon example in Stage", () => {
     const { container } = render(
-      React.createElement(Stage, { artifact: buttonArtifact, example: buttonExamples[1] }),
+      React.createElement(Stage, { artifact: buttonArtifact, example: buttonExamples[1] as any }),
     );
     expect(container).toBeTruthy();
   });
 
   it("renders dialog default example in Stage", () => {
     const { container } = render(
-      React.createElement(Stage, { artifact: dialogArtifact, example: dialogExamples[0] }),
+      React.createElement(Stage, { artifact: dialogArtifact, example: dialogExamples[0] as any }),
     );
     expect(container).toBeTruthy();
   });
 
   it("renders data-table default example in Stage", () => {
     const { container } = render(
-      React.createElement(Stage, { artifact: dataTableArtifact, example: dataTableExamples[0] }),
+      React.createElement(Stage, { artifact: dataTableArtifact, example: dataTableExamples[0] as any }),
     );
     expect(container).toBeTruthy();
   });
 
   it("honors Example.controls (button with-icon has controls override)", () => {
-    const ex = buttonExamples[1]; // with-icon
+    const ex = buttonExamples[1]!; // with-icon
     expect(ex.controls).toBeDefined();
     const { container } = render(
-      React.createElement(Stage, { artifact: buttonArtifact, example: ex }),
+      React.createElement(Stage, { artifact: buttonArtifact, example: ex as any }),
     );
     expect(container).toBeTruthy();
   });
