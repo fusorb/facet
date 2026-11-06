@@ -31,6 +31,7 @@ jobs:
       - run: pnpm check:docs
       - run: pnpm check:docs-content
       - run: pnpm check:content
+      - run: pnpm check:claims
       - run: pnpm check:layout-skeleton-parity
       - run: pnpm check:icons
       - run: pnpm check:components
