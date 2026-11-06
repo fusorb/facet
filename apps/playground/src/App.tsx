@@ -30,6 +30,7 @@ export default function App() {
   const components = listComponents();
   const [selectedSlug, setSelectedSlug] = useState<string>(components[0]?.slug ?? "");
   const [selectedExample, setSelectedExample] = useState<string>("");
+  const [tab, setTab] = useState<"preview" | "code">("preview");
 
   const comp = getComponent(selectedSlug);
   const examples = exampleMap[selectedSlug] ?? [];
@@ -68,6 +69,27 @@ export default function App() {
     [selectedSlug, comp, examples],
   );
 
+  const stageExample = useMemo(
+    () =>
+      example
+        ? {
+            id: example.id,
+            title: example.title,
+            artifact: selectedSlug,
+            render: example.render,
+            controls: example.controls,
+            defaults: example.defaults,
+          }
+        : null,
+    [example, selectedSlug],
+  );
+
+  const codeString = useMemo(() => {
+    if (!example) return "";
+    if (typeof example.code === "function") return example.code(example.defaults ?? {});
+    return `// ${example.title}\n// No code template provided`;
+  }, [example]);
+
   return (
     <ThemeProvider themes={[]} overrideVars={{}}>
       <ConsoleLayout
@@ -93,7 +115,7 @@ export default function App() {
               placeholder="Search components..."
               onChange={(e) => {
                 const q = e.target.value.toLowerCase();
-                const match = components.find((c) => c.slug.includes(q) || c.name.toLowerCase().includes(q));
+                const match = components.find((c: any) => c.slug.includes(q) || c.name.toLowerCase().includes(q));
                 if (match) setSelectedSlug(match.slug);
               }}
               style={{ width: "100%", marginBottom: 8 }}
@@ -125,7 +147,16 @@ export default function App() {
                 ))}
               </div>
             )}
-            {example && <Stage artifact={artifact} example={example} />}
+            <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+              <button onClick={() => setTab("preview")} style={{ fontWeight: tab === "preview" ? "bold" : "normal" }}>Preview</button>
+              <button onClick={() => setTab("code")} style={{ fontWeight: tab === "code" ? "bold" : "normal" }}>Edit as code</button>
+            </div>
+            {tab === "preview" && stageExample && <Stage artifact={artifact} example={stageExample as any} />}
+            {tab === "code" && (
+              <pre style={{ background: "#f5f5f5", padding: 12, borderRadius: 8, overflow: "auto", fontSize: 12 }}>
+                {codeString}
+              </pre>
+            )}
             <p style={{ marginTop: 16, fontSize: 12, color: "#888" }}>
               Permalink: <code>{window.location.origin}{window.location.pathname}#{selectedSlug}/{selectedExample}</code>
             </p>
