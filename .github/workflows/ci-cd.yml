@@ -33,6 +33,7 @@ jobs:
       - run: pnpm check:content
       - run: pnpm check:claims
       - run: pnpm check:landing-sections
+      - run: pnpm check:perf-budgets
       - run: pnpm check:layout-skeleton-parity
       - run: pnpm check:icons
       - run: pnpm check:components
