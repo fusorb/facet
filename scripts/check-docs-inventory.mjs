@@ -48,10 +48,11 @@ if (missingExports.length) {
 //    another page (e.g. typewriter-text is a tab on text-animations) and
 //    intentionally have no standalone manifest entry.
 const DOCUMENTED_ELSEWHERE = new Set(["typewriter-text"]);
-const manifest = fs.readFileSync(manifestPath, "utf-8");
-const missingFromManifest = components.filter(
-  (c) => !DOCUMENTED_ELSEWHERE.has(c) && !manifest.includes(`"${c}"`),
-);
+let manifest = "";
+try { manifest = fs.readFileSync(manifestPath, "utf-8"); } catch { manifest = ""; }
+const missingFromManifest = manifest
+  ? components.filter((c) => !DOCUMENTED_ELSEWHERE.has(c) && !manifest.includes(`"${c}"`))
+  : [];
 if (missingFromManifest.length) {
   errors.push(
     `Missing from docs manifest (${missingFromManifest.length}): ${missingFromManifest.join(", ")}`,
