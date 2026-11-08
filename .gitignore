@@ -10,8 +10,10 @@ dist
 # Command Code local config (taste, settings) -- local only, not in git
 # scratch / generated agent output
 # .agent/ is local-only session tracking (todo/output dashboards, audit notes)
+# EXCEPT episodes.md which is tracked for external agent access
+.agent/*
+!.agent/episodes.md
 .commandcode
-.agent/
 test-out.txt
 typecheck-out.txt
 build-output.txt
