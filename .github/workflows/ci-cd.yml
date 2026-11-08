@@ -34,6 +34,8 @@ jobs:
       - run: pnpm check:claims
       - run: pnpm check:landing-sections
       - run: pnpm check:perf-budgets
+      - run: pnpm check:consumer-matrix
+      - run: pnpm check:a11y
       - run: pnpm check:layout-skeleton-parity
       - run: pnpm check:icons
       - run: pnpm check:components
