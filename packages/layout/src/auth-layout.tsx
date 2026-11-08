@@ -40,7 +40,7 @@ export function AuthLayout({
   const { brand } = config;
 
   return (
-    <div className={cn("flex min-h-screen bg-background", className)}>
+    <div data-region="auth" className={cn("flex min-h-screen bg-background", className)}>
       {/* Left panel: hidden below lg. Theme-token driven by default
           (bg-primary + text-primary-foreground), fully overridable via
           brandPanelClassName / brandPanel. */}

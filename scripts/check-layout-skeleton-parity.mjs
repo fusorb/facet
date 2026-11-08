@@ -14,7 +14,7 @@ import path from "node:path";
 const root = process.cwd();
 const skeletonPath = path.join(root, "packages/layout/src/skeleton/index.tsx");
 const errors = [];
-const warnings = [];
+let regionsFound = 0;
 
 if (!fs.existsSync(skeletonPath)) {
   errors.push("packages/layout/src/skeleton/index.tsx: missing");
@@ -26,25 +26,20 @@ if (!fs.existsSync(skeletonPath)) {
       errors.push(`LayoutSkeleton: missing kind "${k}"`);
     }
   }
-  // Check data-region attributes exist on real shells (soft)
+  // Check data-region attributes exist on real shells (hard-fail in M8)
   const shellFiles = [
-    "packages/layout/src/shells/console.tsx",
-    "packages/layout/src/shells/auth.tsx",
-    "packages/layout/src/shells/landing.tsx",
-    "packages/layout/src/shells/docs.tsx",
-    "packages/layout/src/shells/chat.tsx",
+    "packages/layout/src/console-layout.tsx",
+    "packages/layout/src/auth-layout.tsx",
+    "packages/layout/src/landing-layout.tsx",
+    "packages/layout/src/docs-layout.tsx",
+    "packages/layout/src/chat-layout.tsx",
   ];
-  let regionsFound = 0;
   for (const sf of shellFiles) {
     const full = path.join(root, sf);
-    if (!fs.existsSync(full)) continue;
+    if (!fs.existsSync(full)) { errors.push(`${sf}: missing`); continue; }
     const content = fs.readFileSync(full, "utf-8");
     if (content.includes("data-region")) regionsFound++;
-  }
-  if (regionsFound < shellFiles.length) {
-    warnings.push(
-      `data-region attributes: ${regionsFound}/${shellFiles.length} shells have them (full parity is M8 work)`,
-    );
+    else errors.push(`${sf}: missing data-region attribute`);
   }
 }
 
@@ -52,10 +47,9 @@ if (errors.length) {
   console.log("LayoutSkeleton parity check");
   console.log("--------------------------");
   for (const e of errors) console.log(`  ERROR: ${e}`);
-  for (const w of warnings) console.log(`  WARN:  ${w}`);
   console.log(`\nFAILED: ${errors.length} error(s).`);
   process.exit(1);
 }
 console.log("LayoutSkeleton parity check: OK");
-for (const w of warnings) console.log(`  WARN: ${w}`);
 console.log(`  kinds: 5 (console, auth, landing, docs, chat)`);
+console.log(`  data-region: ${regionsFound}/5 shells`);

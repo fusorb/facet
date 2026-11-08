@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 
 import { FeedbackPage } from "./pages/FeedbackPage.js";
 import { HomePage } from "./pages/HomePage.js";
-import { SITE_PACKAGES_COUNT } from "./data/site-data.generated.js";
 
 export type NavGroup = "product" | "resources";
 

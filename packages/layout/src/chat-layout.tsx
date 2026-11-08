@@ -84,7 +84,7 @@ export function ChatInput({
   const rows = Math.min(6, Math.max(1, value.split("\n").length));
 
   return (
-    <div className="flex items-end gap-2">
+    <div data-region="chat" className="flex items-end gap-2">
       <textarea
         value={value}
         onChange={(e) => setValue(e.target.value)}

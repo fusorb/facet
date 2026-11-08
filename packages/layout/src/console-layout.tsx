@@ -203,7 +203,7 @@ function ConsoleLayoutInner({
   const padRight = showAside ? asideWidth : 0;
 
   return (
-    <div className={cn("flex min-h-screen flex-col bg-background", className)}>
+    <div data-region="console" className={cn("flex min-h-screen flex-col bg-background", className)}>
       {/* Topbar  - full width, above all splits (navbar + docs topbar) */}
       {navbar && <div className="border-b border-sidebar-border">{navbar}</div>}
       <Topbar

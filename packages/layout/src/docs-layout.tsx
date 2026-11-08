@@ -198,6 +198,7 @@ export function DocsLayout({
   };
 
   return (
+    // data-region="docs"
     <DocsLayoutContext.Provider value={ctx}>
       <ConsoleLayout
         config={config}

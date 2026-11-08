@@ -30,7 +30,7 @@ export function LandingLayout({
   className,
 }: LandingLayoutProps) {
   return (
-    <div className={cn("flex min-h-screen flex-col bg-background", className)}>
+    <div data-region="landing" className={cn("flex min-h-screen flex-col bg-background", className)}>
       {/* Top nav. Rendered as-is so the consumer owns positioning:
           the Navbar component's sticky/pill variants handle their own
           top offset, width, and backdrop. */}
