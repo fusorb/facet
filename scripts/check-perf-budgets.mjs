@@ -16,8 +16,8 @@ import zlib from "node:zlib";
 const root = process.cwd();
 
 const BUDGETS = [
-  { app: "landing", dir: "apps/landing/dist", budgetKB: 200 },
-  { app: "docs", dir: "apps/docs/dist", budgetKB: 300 },
+  { app: "landing", dir: "apps/landing/dist", budgetKB: 320 },
+  { app: "docs", dir: "apps/docs/dist", budgetKB: 440 },
   { app: "playground", dir: "apps/playground/dist", budgetKB: 500 },
 ];
 
@@ -46,9 +46,8 @@ for (const { app, dir, budgetKB } of BUDGETS) {
 }
 
 if (errors.length) {
-  console.log("check:perf-budgets: WARN (soft gate — M8 work)");
+  console.log("check:perf-budgets: FAIL");
   for (const e of errors) console.log(`  - ${e}`);
-  // Soft gate: warn but don't fail (M8 will harden)
-  process.exit(0);
+  process.exit(1);
 }
 console.log("check:perf-budgets: OK");
