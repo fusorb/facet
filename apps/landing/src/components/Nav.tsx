@@ -82,7 +82,7 @@ function getLinks(): NavLink[] {
           description: "Get started in minutes",
         },
         {
-          href: "/ecosystem",
+          href: getDocsUrl(),
           label: "Packages",
           description: `${SITE_PACKAGES_COUNT} focused packages, one coherent system`,
         },

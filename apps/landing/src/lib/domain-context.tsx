@@ -27,9 +27,6 @@ export const handleCta = (action: CtaAction) => {
     case "github":
       window.open(site.links.github, "_blank", "noopener,noreferrer");
       break;
-    case "pricing":
-      window.location.assign("/pricing");
-      break;
     case "feedback":
       window.location.assign("/feedback");
       break;

@@ -20,16 +20,13 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "Product",
     links: [
-      { label: "Ecosystem", href: "/ecosystem" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Security surfaces", href: "/security" },
-      { label: "Console demo", href: "/dashboard-demo" },
+      { label: "Documentation", href: getDocsUrl() },
+      { label: "Feedback", href: "/feedback" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { label: "About", href: "/about" },
       { label: "FAQ", href: "#faq" },
       { label: "Feedback", href: "/feedback" },
       { label: "Documentation", href: getDocsUrl() },

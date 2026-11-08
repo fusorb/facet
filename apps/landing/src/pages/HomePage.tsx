@@ -5,7 +5,6 @@ import { HeroSection } from "../components/sections/HeroSection.js";
 import { FeaturesSection } from "../components/sections/FeaturesSection.js";
 import { DemoShowcaseSection } from "../components/sections/DemoShowcaseSection.js";
 import { AuthShowcaseSection } from "../components/sections/AuthShowcaseSection.js";
-import { PricingTeaserSection } from "../components/sections/PricingTeaserSection.js";
 import { FaqSection } from "../components/sections/FaqSection.js";
 import { InstallSection } from "../components/sections/InstallSection.js";
 import { CTASection } from "../components/sections/CTASection.js";
@@ -21,7 +20,6 @@ export function HomePage() {
       <FeaturesSection />
       <AuthShowcaseSection />
       <MotionPreviewSection />
-      <PricingTeaserSection />
       <FaqSection />
       <TokensExplorerSection />
       <ArchitectureSection />
