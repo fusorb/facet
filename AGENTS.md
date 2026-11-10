@@ -7,11 +7,18 @@ It overrides/supplements CLAUDE.md for AI agents.
 
 1. Always write analysis and planning output to `.agent/output.txt` first,
    so the user can read from that file instead of scrolling the terminal.
-2. After every significant milestone, update `.agent/output.txt` status dashboard.
+2. After every significant milestone, refresh the `.agent/output.txt` dashboard
+   with `pnpm sync:tracker` (`node scripts/gen-tracker.mjs`). It rewrites the
+   generated STATE block (HEAD, branch, ahead/behind, tree status, gate lists,
+   versions, counts) from git + package.json ground truth; the hand-written
+   narrative below it is preserved. Run it before a commit so the tracker
+   cannot drift.
 3. When starting a new package, read any existing `.agent/**` planning files
    first before writing code.
-4. `.agent/` is local-only (gitignored); it contains the live dashboard
-   (`output.txt`) and the architectural episode canon (`episodes.md`).
+4. `.agent/` is local-only (gitignored) except `episodes.md`, which is tracked
+   for external agent access. It contains the live dashboard (`output.txt`),
+   the machine-readable `state.json`, and the architectural episode canon
+   (`episodes.md`).
 
 ## Architecture Rules
 
@@ -67,12 +74,17 @@ Packages publish to npm under the `@fusorb/facet-*` scope via Changesets,
 driven by GitHub Actions (`.github/workflows/ci-cd.yml`). The workflow runs
 three jobs:
 
-1. **ci** -- validation gate: `pnpm install --frozen-lockfile`, `pnpm build`,
-   `pnpm check:docs`, `pnpm check:icons`, `pnpm check:components`,
-   `pnpm check:examples`, `pnpm check:jsdoc`, `pnpm check:boundaries`,
-   `pnpm check:registry`, `pnpm check:sdk-drift`, `pnpm check:sdk-coverage`,
-   `pnpm check:motion-drift`, `pnpm audit:motion-parity`, `pnpm lint`,
-   `pnpm -r typecheck`, `pnpm test`, `pnpm sandbox:e2e`.
+1. **ci** -- validation gate: `pnpm install --frozen-lockfile`,
+   `pnpm changeset status --since=origin/main`, `pnpm build`, `pnpm check:docs`,
+   `pnpm check:docs-content`, `pnpm check:content`, `pnpm check:claims`,
+   `pnpm check:landing-sections`, `pnpm check:perf-budgets`,
+   `pnpm check:consumer-matrix`, `pnpm check:a11y`,
+   `pnpm check:layout-skeleton-parity`, `pnpm check:icons`,
+   `pnpm check:components`, `pnpm check:examples`, `pnpm check:jsdoc`,
+   `pnpm check:boundaries`, `pnpm check:registry`, `pnpm check:pins`,
+   `pnpm check:surfaces`, `pnpm check:readme`, `pnpm check:sdk-drift`,
+   `pnpm check:sdk-coverage`, `pnpm check:motion-drift`, `pnpm audit:motion-parity`,
+   `pnpm lint`, `pnpm -r typecheck`, `pnpm test`, `pnpm sandbox:e2e`.
 2. **changeset** -- auto-opens/updates a "Version Packages" PR on `main`
    whenever changesets land. It only versions (bumps `package.json` +
    `CHANGELOG`, opens a PR) -- never publishes. Requires

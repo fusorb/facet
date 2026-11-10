@@ -130,12 +130,17 @@ Packages publish to npm under the `@fusorb/facet-*` scope via Changesets,
 driven by GitHub Actions (`.github/workflows/ci-cd.yml`). The workflow runs
 three jobs:
 
-1. **ci** -- validation gate: `pnpm install --frozen-lockfile`, `pnpm build`,
-   `pnpm check:docs`, `pnpm check:icons`, `pnpm check:components`,
-   `pnpm check:examples`, `pnpm check:jsdoc`,
-   `pnpm check:boundaries`, `pnpm check:sdk-drift`, `pnpm check:sdk-coverage`,
-   `pnpm check:motion-drift`, `pnpm audit:motion-parity`, `pnpm lint`,
-   `pnpm -r typecheck`, `pnpm test`, `pnpm sandbox:e2e`.
+1. **ci** -- validation gate: `pnpm install --frozen-lockfile`,
+   `pnpm changeset status --since=origin/main`, `pnpm build`, then
+   `pnpm check:docs`, `pnpm check:docs-content`, `pnpm check:content`,
+   `pnpm check:claims`, `pnpm check:landing-sections`, `pnpm check:perf-budgets`,
+   `pnpm check:consumer-matrix`, `pnpm check:a11y`, `pnpm check:layout-skeleton-parity`,
+   `pnpm check:icons`, `pnpm check:components`, `pnpm check:examples`,
+   `pnpm check:jsdoc`, `pnpm check:boundaries`, `pnpm check:registry`,
+   `pnpm check:pins`, `pnpm check:surfaces`, `pnpm check:readme`,
+   `pnpm check:sdk-drift`, `pnpm check:sdk-coverage`, `pnpm check:motion-drift`,
+   `pnpm audit:motion-parity`, `pnpm lint`, `pnpm -r typecheck`, `pnpm test`,
+   `pnpm sandbox:e2e`.
 2. **changeset** -- auto-opens/updates a "Version Packages" PR on `main`
    whenever changesets land. It only versions (bumps `package.json` +
    `CHANGELOG`, opens a PR) -- never publishes. Requires

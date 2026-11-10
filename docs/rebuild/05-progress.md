@@ -118,3 +118,45 @@ M2 exit: ALL gates green (engine-purity, boundaries, surfaces, pins, registry, d
 - Validates README package versions and forms count against package.json.
 - Wired into check:all and CI. README synced to current versions.
 - Commit: bba3b43
+
+## M5 — Playground rebuild (2026-11-04..06)
+
+**Status:** Landed.
+- Registry-backed playground (Stage + Inspector + Catalog), permalinks, and an
+  edit-as-code tab. `@fusorb/facet-sandbox` `/react` lab kit consumed by the app.
+- `registerArtifactKind` wired (components register an ArtifactKind for examples).
+- Commits: `3d65a37`, `5786868`, `2e0bd3d`.
+
+## M6 — Docs content migration + `/live` consumption (2026-11-06..08)
+
+**Status:** Landed (PoC scope).
+- `compile-docs.mjs` wired into the docs app; content under `apps/docs/content`.
+- `check:claims` gate added (literal-number-vs-registry scan) and wired.
+- `check:content` + `check:layout-skeleton-parity` wired into `check:all` + CI.
+- `apps/docs/src/facet/` compat shims deleted (M8 cutover, `900d19c`).
+- Commits: `45f1752`, `a947558`, `3d65a37`, `900d19c`.
+
+## M7 — Landing (2026-11-06)
+
+**Status:** Landed.
+- Landing reduced to the spec's two routes (`/`, `/feedback`); `check:landing-sections` gate.
+- Commit: part of the M6/M8 batch.
+
+## M8 — Hardening + cutover (2026-11-08)
+
+**Status:** Landed (with known gaps recorded in `.agent/output.txt`).
+- New gates: `check:consumer-matrix`, `check:a11y`, `check:perf-budgets` (hardened),
+  `check:layout-skeleton-parity` hard-fail (data-region on all 5 shells).
+- `check-docs-inventory` hardened to tolerate the deleted docs-manifest (M8 cutover).
+- **Known gaps (audit 2026-11-10):** `check:a11y` and `check:consumer-matrix` cannot
+  fail (their `errors` array is never populated); `sandbox:e2e` has no failing exit;
+  `check:docs` manifest parity is silently skipped now that the manifest is gone.
+- Commits: `afdd7de`, `049ed88`, `1df6b79`, `44116e2`, `132d06b`, `1ea893c`, `cc8168d`.
+
+## Audit + tracker reconciliation (2026-11-10)
+
+**Status:** Landed.
+- Full-repo audit (5 parallel passes); findings + P1–P8 backlog recorded in
+  `.agent/output.txt`.
+- Trackers reconciled to HEAD `cc8168d`; new `scripts/gen-tracker.mjs` + `sync:tracker`
+  script regenerates the dashboard STATE block from repo ground truth.

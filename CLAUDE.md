@@ -118,7 +118,7 @@ COMPLETE → (onSuccess callback) → redirect
 14. ✅ Docs-site gallery split (committed in b1da261): base UI components, the auth/layout surfaces, and the "Ready to Use" extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap, Form) are now separated. The base `/components` gallery shows UI primitives only, auth/layout have their own guide pages with interactive demos, and ready-to-use extras get a dedicated `/ready-to-use` section with live previews + copyable snippets. Component pages use the reusable `<InteractiveDemo>` (variant tabs with live preview + matching code side-by-side).
 15. ✅ `pnpm lint` passes (0 errors; 118 pre-existing warnings — `any` types + unused vars in docs/sandbox). `pnpm -r typecheck` completes in ~30s across all 14 packages.
 16. ✅ Architectural debt sprint - 10 items resolved and committed: `@fusorb/facet-store` stabilized at 1.0.0 (was 0.1.0-alpha), `@fusorb/facet-cli` stabilized at 1.0.0 (was 0.8.0); CLI deps resolved dynamically from the installed components package.json (no hardcoded BUNDLED_DEPS); CLI self-update is CI-aware (skips update check in CI, suggests npx fallback); docs engine has 6 test files (manifest, nav, pages, docs-app integration); scan.ts detects Fastify/OpenAPI backend routes + generates API reference pages; `facet clean` is opt-in destructive (`--delete-local` flag; `--yes` preset never deletes files); icon catalog is lazy-loaded (1,500-icon map deferred, ~30 semantic icons resolved synchronously); SDK table↔barrel + icon-map drift gates wired into CI; `facet install` (`.alias("add")`) + `facet copy` (component source) split clarifies the commands; template-merge.ts marker bug fixed. See `.changeset/stabilize-cli-store.md`.
-17. ✅ CI gates: `build → check:docs → check:icons → check:components → check:examples → check:jsdoc → check:boundaries → check:registry → check:pins → check:sdk-drift → check:sdk-coverage → check:motion-drift → audit:motion-parity → lint → typecheck → test → sandbox:e2e` (+ `changeset status --since=origin/main`). `check:examples` validates colocated `*.examples.tsx` (ADR-001) and `check:jsdoc` enforces `@category`/`@summary` (see Component Examples above). `check:boundaries` (§21) enforces an acyclic `@fusorb/*` DAG and keeps `@fusorb/facet-native` as a separate package (deps: facet-motion for auto-registration + facet-tokens; not bundled into web motion builds). `audit:motion-parity` (token parity) remains local-only by design. Version job has `permissions: contents: write` (fixes 403 on changesets version PR push).
+17. ✅ CI gates: `install --frozen-lockfile → changeset status --since=origin/main → build → check:docs → check:docs-content → check:content → check:claims → check:landing-sections → check:perf-budgets → check:consumer-matrix → check:a11y → check:layout-skeleton-parity → check:icons → check:components → check:examples → check:jsdoc → check:boundaries → check:registry → check:pins → check:surfaces → check:readme → check:sdk-drift → check:sdk-coverage → check:motion-drift → audit:motion-parity → lint → typecheck → test → sandbox:e2e`. `check:examples` validates colocated `*.examples.tsx` (ADR-001) and `check:jsdoc` enforces `@category`/`@summary` (see Component Examples above). `check:boundaries` (§21) enforces an acyclic `@fusorb/*` DAG and keeps `@fusorb/facet-native` as a separate package (deps: facet-motion for auto-registration + facet-tokens; not bundled into web motion builds). `audit:motion-parity` (token parity) runs in CI. Note (audit 2026-11-10): `check:a11y`, `check:consumer-matrix`, and `sandbox:e2e` currently cannot fail (their failure branch is unreachable) — see `.agent/output.txt` backlog P1. Version job has `permissions: contents: write` (fixes 403 on changesets version PR push).
 18. ✅ Production-grade pass (2026-09-13, working tree): full audit resolved (sections A-G documented in `.agent/episodes.md` EP 36); packages de-branded (no "Arcevo"/"SovGrant" strings in src, neutral emails default, semantic tokens over hardcoded palette); tokens build now minifies dist CSS via esbuild; all 22 components missing typed props now export `XxxProps` types (check:components gate 112/112 + 112/112); CI actions pinned to commit SHAs; changesets/action v2.1.2 + @changesets/cli 3.0.2 (renamed inputs, explicit github-token, releases/tags disabled); publish job grants `id-token: write` for the future npm Trusted Publishing swap; `.agent/` untracked + gitignored; landing rebuilt config-driven (`site.config.ts` + `scripts/gen-site-data.mjs` codegen + pages registry + sections) with the "f" monogram placeholder (no logo assets); landing/docs-site build, typecheck, tests (1090 across 11 projects), and all drift gates green. Remaining: browser visual QA and the E-cluster cosmetic docs/CLI gaps (tracked in `.agent/output.txt` active session priorities).
 
 19. ✅ Motion system (2026-09-15..17, committed + consumed): `@fusorb/facet-motion@0.1.0` scaffolded (3fefa64) - pure-JS engine (animate/sequence/stagger, motionValue, cssDriver, 15 generative + 27 authored effects, <Motion>/<Presence>/<Reveal>/<Stagger>), motion tokens wired into facet-tokens (2c37fad), drift gate (`packages/motion/scripts/check-motion-drift.mjs`) + token parity audit (`scripts/audit-motion-parity.mjs`) in CI. Phase 2B consumption: 14 component files migrated to animate-facet-* grammar; zero inline duration literals remain. Phase 2C: `@fusorb/facet-native@0.1.0` scaffolded (motionValues + native-driver binding API). Version reconciliation: CLI + Store 2.0.0 → 1.0.0. Tests: 1090 across 11 projects (incl. 138 motion + 21 native + 26 emails). §7 disposition: @fusorb/facet-native is an isolated package (depends on @fusorb/facet-motion for auto-registration + @fusorb/facet-tokens; NOT bundled into web motion builds; exports bindAnimated/nativeDriver so SovGrant/SovPort bind a consumer-provided Animated API; §21 check:boundaries enforces the acyclic boundary). Phase 3 (fintech presets implemented; med/edu next). Phase 4 (nativeDriver real Animated binding) is the deferred motion→native wiring — not this disposition. See `.agent/episodes.md` EP 32.
@@ -136,23 +136,19 @@ Colocated `*.examples.tsx` convention (ADR-001) is in place:
   `src/examples.ts` barrel wiring) and `check:jsdoc` (`@category`/`@summary` on
   all 112 components; 8 allowed categories).
 
-**Not built — Phase 5 ended at authoring + gates; consumption is a separate,
-un-planned phase (needs an ADR first):**
+**Consumption (ADR-009) — landed at M3/M5 (updated 2026-11-10):**
 
-- No `registerArtifactKind` call sites anywhere — no "component" artifact kind
-  exists, so sandbox `/react` `Stage`/`ArtifactRenderer` cannot resolve one.
-- `Example.controls` (`ControlOverrides`: label/group/options) is **dead data**:
-  `Stage` derives its Inspector from `inferControls(example.defaults)` and never
-  reads `controls`.
-- No host consumes the arrays: playground uses inline `LivePlayground code=`,
-  docs renders no examples, the registry index doesn't expose them, and
-  `gen-site-data` ignores them. Registry's flat `examples: []` is still empty
-  (`scan.mjs` comment "Populated in Phase 5" is stale).
-- Coverage is 3/112 components (PoC scope by design).
-
-Consumption = register a component `ArtifactKind` + make `Stage` honor
-`Example.controls` + expose examples in the registry + wire playground/docs,
-then roll coverage out. Do not extend examples ad-hoc without that ADR.
+- ✅ 100% example coverage: 112 components, 116 examples (was a 3/112 PoC).
+- ✅ A "component" `ArtifactKind` is registered (`packages/components/src/register-component-kind.ts`),
+  so sandbox `/react` `Stage`/`ArtifactRenderer` resolve components.
+- ✅ The registry exposes examples (`getComponentExamples`, `listExamples`,
+  `listExamplesByKind`, `getExample`); `ComponentEntry.examples` is typed
+  `ComponentExampleRef[]`; the flat `examples` array is populated (115 entries).
+- ⚠️ Remaining gap (audit 2026-11-10): the docs `/components` gallery is still
+  unwired — `apps/docs` passes no `dataSource` and the engine's
+  `extendedManifest` is a hard-coded `[]`, so the gallery renders empty.
+  `Example.controls` is still not read; `Stage` derives its Inspector from
+  `inferControls(example.defaults)`. Tracked as backlog P4 in `.agent/output.txt`.
 
 ## Known Gaps for SovGrant Consumption
 
@@ -162,7 +158,7 @@ When SovGrant adopts facet as its frontend, these need resolution:
 
 1. ✅ **SDK 401 auto-refresh**: Added `onTokenRefresh` callback to `SgClient` (`client.ts:113-124`). Automatic retry on 401.
 2. ✅ **Placeholder handlers**: `handlePasskeyAuth` now calls `passkeySdk.authenticationOptions()` → `navigator.credentials.get()` → `passkeySdk.authenticate()`. `handleForgotPasswordSubmit` calls `authSdk.forgotPassword()`. No longer stubs.
-3. ✅ **Test infrastructure**: Vitest workspace, 980 tests across 78 files (11 projects: sdk, store, components, auth, layout, cli, motion, native, sandbox, docs, emails).
+3. ✅ **Test infrastructure**: Vitest workspace, 1090 tests across 90 files (11 projects: sdk, store, components, auth, layout, cli, motion, native, sandbox, docs, emails).
 4. ✅ **SignIn MFA challenge**: Wired to `MfaVerifyForm` (2026-07-31).
 5. ✅ **Duplicate dropdowns**: `layout/UserMenu` now uses `@fusorb/facet-components` `DropdownMenu`.
 6. ✅ **Type strictness**: SDK now has strict domain interfaces in `sdk/src/types.ts`; `Record<string, unknown>` eliminated.

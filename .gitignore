@@ -13,6 +13,7 @@ dist
 # EXCEPT episodes.md which is tracked for external agent access
 .agent/*
 !.agent/episodes.md
+.agent-cache/
 .commandcode
 test-out.txt
 typecheck-out.txt

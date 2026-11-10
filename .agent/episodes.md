@@ -2546,3 +2546,64 @@ State: gates automated; version tables are hand-synced and drift again on
 Lesson: release commits bump package.json + per-package CHANGELOG.md but not
   README's version table or the docs changelog data -- those need a regen +
   commit follow-up (same class as the site-data/changelog regen commits).
+
+================================================================================
+
+EP 70 -- M5-M8 landed in code, recorded nowhere; first full-repo audit
+--------------------------------------------------------------------------------
+What happened:
+  The Surface Rebuild advanced from M3 (examples) through M8 (hardening +
+  cutover) in code -- playground rebuild, docs content migration + /live
+  consumption, landing reduction, and a batch of M8 gates -- but every tracker
+  stayed behind. HEAD was cc8168d (M8 cutover) while .agent/output.txt still
+  read "M3 ... Next: M5/M6", logs.txt stopped 2026-11-01, episodes.md stopped
+  at EP 69, and the tracked ledger docs/rebuild/05-progress.md stopped at M3.
+  The code was ahead of the narrative by ~40 commits.
+
+  Ran the first full-repo audit (5 parallel deep passes: packages, gates,
+  apps, trackers/docs, hygiene) and verified the load-bearing claims directly
+  with git and by executing the suspect gates. Findings (full detail in
+  .agent/output.txt):
+    - False gates (cannot fail): check:a11y and check:consumer-matrix declare an
+      `errors` array that is never pushed to; sandbox:e2e has no process.exit(1);
+      check:sdk-coverage is a no-op without the sibling SovGrant checkout.
+    - Degraded gates: check:docs silently skips manifest parity now that
+      apps/docs/src/facet/docs-manifest.ts is deleted (the missing file is
+      caught); check:docs-content's staleness half points at a generated file
+      that does not exist.
+    - Real defects: compile-docs closes `::callout` with `:::` (swallows the doc
+      tail into the callout, baked into committed compiled-pages.ts); landing
+      hard-codes docs.fusorb.com and npmjs.com (both invisible to check:surfaces);
+      landing has orphan pages + stale claims; docs /components gallery is
+      unwired and has a duplicate Getting Started; facet-store and facet-sandbox
+      READMEs document APIs that do not exist; facet-auth README over-claims;
+      components README says 113 (actual 112); no pending changesets exist;
+      root tsconfig references 17 non-composite projects.
+
+How we fixed it (this batch):
+  Reconciled the trackers to HEAD: rewrote .agent/output.txt as a current
+  dashboard with the audit + a P1-P8 backlog, appended M5-M8 to
+  05-progress.md, appended the session log, and wrote this episode. Synced the
+  CI gate list across README/CLAUDE/AGENTS. Added scripts/gen-tracker.mjs +
+  a `sync:tracker` npm script that regenerates the dashboard STATE block (HEAD,
+  branch, ahead/behind, tree status, gate lists, versions, counts) from repo
+  ground truth, so the dashboard stops drifting. Deleted 5 junk root dirs
+  (-p done echo git mv) and packages/components/build_error.log; added
+  .agent-cache/ to the root .gitignore. The P1-P8 audit findings were deferred
+  to the next work batch.
+
+What survived:
+  All M5-M8 code is intact and committed; the static gates that are real
+  (components/examples/jsdoc/docs-content-compile/icons/sdk-drift/motion-drift/
+  boundaries/registry/pins/surfaces/readme/layout-skeleton-parity) stay green.
+
+State: committed (trackers + script + hygiene). Known false gates and the
+  P1-P8 defect backlog remain open and are tracked in .agent/output.txt.
+
+Lesson: hand-maintained trackers drift the moment work outpaces bookkeeping --
+  the same "manual -> semi-automated -> automated" ladder applies to the
+  trackers themselves. A dashboard regenerated from git/package.json ground
+  truth (this episode's gen-tracker.mjs) is the only version that cannot lie
+  about HEAD, versions, and the gate list. Also: a gate that declares an
+  `errors` array but never fills it is a false gate -- the exact failure mode
+  EP 68 warned about, now recurring in three more gates.

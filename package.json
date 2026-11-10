@@ -34,6 +34,7 @@
     "gen:site-data": "node scripts/gen-site-data.mjs",
     "gen:changelog": "node scripts/gen-changelog.mjs",
     "gen:changeset": "node scripts/gen-changeset.mjs",
+    "sync:tracker": "node scripts/gen-tracker.mjs",
     "check:motion-drift": "node packages/motion/scripts/check-motion-drift.mjs",
     "check:boundaries": "node scripts/check-boundaries.mjs",
     "check:registry": "node scripts/check-registry.mjs",
