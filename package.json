@@ -44,7 +44,7 @@
     "check:layout-skeleton-parity": "node scripts/check-layout-skeleton-parity.mjs",
     "update:registry": "node packages/registry/src/scan.mjs",
     "audit:motion-parity": "node scripts/audit-motion-parity.mjs",
-    "check:all": "pnpm check:components && pnpm check:examples && pnpm check:jsdoc && pnpm check:docs && pnpm check:docs-content && pnpm check:content && pnpm check:claims && pnpm check:landing-sections && pnpm check:perf-budgets && pnpm check:consumer-matrix && pnpm check:a11y && pnpm check:icons && pnpm check:sdk-coverage && pnpm check:sdk-drift && pnpm check:motion-drift && pnpm check:boundaries && pnpm check:registry && pnpm check:pins && pnpm check:surfaces && pnpm check:readme && pnpm check:layout-skeleton-parity && pnpm audit:motion-parity && pnpm lint && pnpm build && pnpm typecheck && pnpm test",
+    "check:all": "pnpm check:components && pnpm check:examples && pnpm check:jsdoc && pnpm check:docs && pnpm check:docs-content && pnpm check:content && pnpm check:claims && pnpm check:landing-sections && pnpm check:perf-budgets && pnpm check:consumer-matrix && pnpm check:a11y && pnpm check:icons && pnpm check:sdk-coverage && pnpm check:sdk-drift && pnpm check:motion-drift && pnpm check:boundaries && pnpm check:registry && pnpm check:pins && pnpm check:surfaces && pnpm check:readme && pnpm check:layout-skeleton-parity && pnpm audit:motion-parity && pnpm lint && pnpm build && pnpm typecheck && pnpm test && pnpm sandbox:e2e",
     "build:turbo": "turbo run build",
     "test:turbo": "turbo run test",
     "typecheck:turbo": "turbo run typecheck",

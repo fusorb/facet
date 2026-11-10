@@ -2607,3 +2607,47 @@ Lesson: hand-maintained trackers drift the moment work outpaces bookkeeping --
   about HEAD, versions, and the gate list. Also: a gate that declares an
   `errors` array but never fills it is a false gate -- the exact failure mode
   EP 68 warned about, now recurring in three more gates.
+
+================================================================================
+
+EP 71 -- The false gates are made real (P1)
+--------------------------------------------------------------------------------
+What broke:
+  Three gates advertised as CI enforcement could not fail:
+    - check:a11y and check:consumer-matrix each declared an `errors` array and
+      an `exit(1)` branch, but nothing ever pushed to `errors` -- they printed
+      OK unconditionally.
+    - sandbox:e2e had no `process.exit(1)` anywhere; failures were swallowed by
+      the outer catch and printed as "CHECK".
+  check:consumer-matrix was also slow (6 pnpm-why calls) and non-deterministic.
+
+How we fixed it:
+  - check:a11y: the three real checks (img without alt, positive tabIndex,
+    onClick-without-keyboard) now push to `errors`. Negative-tested by injecting
+    `tabIndex={3}` into a component -> exit 1; clean -> exit 0.
+  - check:consumer-matrix: rewrote as fast static checks -- no same @fusorb/* dep
+    in both dependencies and devDependencies, and every @fusorb/* dep uses a
+    `workspace:` range. Dropped the slow pnpm-why heuristic. Negative-tested by
+    injecting a duplicate dep -> exit 1; clean -> exit 0.
+  - sandbox:e2e: results with a `false` value (or the error catch) now set
+    process.exitCode = 1; null (intentionally-skipped) stays a SKIP. Clean run
+    verified exit 0.
+  - Fixed the first real defect the new gate catches: facet-native declared
+    @fusorb/facet-motion in both dependencies and devDependencies. Removed the
+    devDeps entry; registry.json regenerated (native.devDeps []).
+  - Added sandbox:e2e to check:all so the local gate matches CI exactly.
+
+What survived:
+  All other gates unchanged and green; registry.json re-synced; lockfile
+  unchanged (pnpm dedupes a dep across sections, so the removal is
+  lockfile-neutral) -- verified by `pnpm install --lockfile-only` reporting
+  "Already up to date".
+
+State: committed. Remaining false gate: check:sdk-coverage (a no-op without the
+  sibling SovGrant checkout) -- tracked as P1b. The P2-P8 backlog stays open.
+
+Lesson: "has an errors array and an exit(1)" is not the same as "can fail" --
+  grep the gate for `errors.push`/`process.exit(1)` on a reachable path, and
+  prove it by feeding it bad input. Three gates passed review for months while
+  being pure green lights. The suite's own rule (EP 68: negative-test every
+  gate) is only as good as actually doing it per gate.

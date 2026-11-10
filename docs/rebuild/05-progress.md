@@ -160,3 +160,20 @@ M2 exit: ALL gates green (engine-purity, boundaries, surfaces, pins, registry, d
   `.agent/output.txt`.
 - Trackers reconciled to HEAD `cc8168d`; new `scripts/gen-tracker.mjs` + `sync:tracker`
   script regenerates the dashboard STATE block from repo ground truth.
+
+## P1 — Make the false gates fail (2026-11-10)
+
+**Status:** Landed.
+- `check:a11y`: real violations (`<img>` without alt, positive tabIndex, onClick
+  without keyboard handler/role) now populate `errors` instead of an unused
+  `warnings` array. Negative-tested (injected `tabIndex={3}` → exit 1).
+- `check:consumer-matrix`: now checks for a `@fusorb/*` dep declared in both
+  `dependencies` and `devDependencies` and for non-`workspace:` ranges, and can
+  fail. Negative-tested (injected dup dep → exit 1).
+- `sandbox:e2e`: added a real failing exit path (`=== false` results and the
+  error catch set `process.exitCode = 1`); clean run verified exit 0.
+- Fixed the defect the new consumer-matrix gate catches: `facet-native` listed
+  `@fusorb/facet-motion` in both `dependencies` and `devDependencies`. Registry
+  regenerated (native `devDeps` now `[]`).
+- `sandbox:e2e` added to `check:all` (local gate now matches CI). Remaining
+  false gate: `check:sdk-coverage` (no-op without the sibling SovGrant checkout) → P1b.

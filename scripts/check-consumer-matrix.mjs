@@ -2,13 +2,20 @@
 /**
  * Gate: check:consumer-matrix (M8, spec §13).
  *
- * Verifies that published packages don't have duplicate @fusorb/* deps.
- * Runs `pnpm why @fusorb/facet-components` (and others) to check for duplicates.
- * Also verifies pack tarballs exist and are valid.
+ * Static checks on the published packages' dependency declarations, so a
+ * consumer install resolves cleanly:
+ *   1. No published package lists the same @fusorb/* dep in BOTH `dependencies`
+ *      and `devDependencies` (a redundant/ambiguous declaration).
+ *   2. Every @fusorb/* dep in a published package uses a `workspace:` range
+ *      (never a bare version or `file:`), so the packed manifest carries the
+ *      rewritten `^` range.
+ *   3. Pack tarballs, when present, are non-empty.
  *
- * Run: node scripts/check-consumer-matrix.mjs
+ * Run: node scripts/check-consumer-matrix.mjs   (exits 1 on any violation)
+ *
+ * Note (audit 2026-11-10): this gate previously declared an `errors` array that
+ * was never populated, so it always exited 0. It now performs the checks above.
  */
-import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -16,31 +23,43 @@ const root = process.cwd();
 const errors = [];
 const warnings = [];
 
-// Check for duplicate @fusorb/* in the dependency tree
-const packages = [
-  "@fusorb/facet-components",
-  "@fusorb/facet-tokens",
-  "@fusorb/facet-auth",
-  "@fusorb/facet-layout",
-  "@fusorb/facet-sdk",
-  "@fusorb/facet-docs",
-];
+const packagesDir = path.join(root, "packages");
+const pkgDirs = fs.existsSync(packagesDir) ? fs.readdirSync(packagesDir) : [];
+let scanned = 0;
 
-for (const pkg of packages) {
+for (const dir of pkgDirs) {
+  const pjPath = path.join(packagesDir, dir, "package.json");
+  if (!fs.existsSync(pjPath)) continue;
+  let pj;
   try {
-    const out = execSync(`pnpm why ${pkg} 2>&1`, { cwd: root, encoding: "utf-8", timeout: 60000 });
-    // Count occurrences of the package name in the output (excluding the header)
-    const lines = out.split("\n").filter((l) => l.includes(pkg));
-    // If more than 2 lines mention the package, there might be duplicates
-    if (lines.length > 5) {
-      warnings.push(`${pkg}: ${lines.length} references in dependency tree (possible duplicates)`);
+    pj = JSON.parse(fs.readFileSync(pjPath, "utf-8"));
+  } catch {
+    continue;
+  }
+  if (pj.private) continue;
+  scanned += 1;
+
+  const deps = pj.dependencies || {};
+  const devDeps = pj.devDependencies || {};
+
+  // 1. Same @fusorb/* dep declared as both a runtime and a dev dependency.
+  for (const dep of Object.keys(deps)) {
+    if (dep.startsWith("@fusorb/") && dep in devDeps) {
+      errors.push(`${pj.name}: ${dep} is listed in both dependencies and devDependencies`);
     }
-  } catch (e) {
-    // pnpm why may fail if package isn't installed — not an error
+  }
+
+  // 2. @fusorb/* deps must use a workspace: range.
+  for (const section of ["dependencies", "devDependencies", "peerDependencies", "optionalDependencies"]) {
+    for (const [dep, range] of Object.entries(pj[section] || {})) {
+      if (dep.startsWith("@fusorb/") && !String(range).startsWith("workspace:")) {
+        errors.push(`${pj.name}: ${section}.${dep} = "${range}" (must be a workspace: range)`);
+      }
+    }
   }
 }
 
-// Check pack tarballs exist (from pins-pack-real or similar)
+// 3. Pack tarballs, when present, are non-empty.
 const packDir = path.join(root, "scratchpad/pins-pack-real");
 if (fs.existsSync(packDir)) {
   const tarballs = fs.readdirSync(packDir).filter((f) => f.endsWith(".tgz"));
@@ -62,5 +81,5 @@ if (warnings.length) {
   console.log("check:consumer-matrix: WARN");
   for (const w of warnings) console.log(`  - ${w}`);
 } else {
-  console.log("check:consumer-matrix: OK");
+  console.log(`check:consumer-matrix: OK (${scanned} published packages checked)`);
 }

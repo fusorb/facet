@@ -202,12 +202,25 @@ try {
 
   console.log("\n=== SUMMARY ===");
   for (const [test, passed] of Object.entries(results)) {
-    console.log(`  ${test}: ${passed ? "PASS" : "CHECK"}`);
+    console.log(`  ${test}: ${passed === true ? "PASS" : passed === false ? "FAIL" : "SKIP"}`);
+  }
+
+  // A `false` result is a real failure; `null` is an intentionally-skipped
+  // check. Exit non-zero so this gate can actually fail in CI.
+  const failedTests = Object.entries(results)
+    .filter(([, passed]) => passed === false)
+    .map(([test]) => test);
+  if (failedTests.length) {
+    console.error(`\nFAILED: ${failedTests.length} check(s): ${failedTests.join(", ")}`);
+    process.exitCode = 1;
+  } else {
+    console.log("\nAll executed checks passed.");
   }
 } catch (err) {
   console.error("Sandbox e2e test errored:", err.message || err);
   console.error(err.stderr || "");
   if (err.stdout) console.error(err.stdout);
+  process.exitCode = 1;
 } finally {
   // Clean up sandbox (ignore EBUSY -- Windows holds handles briefly after npm)
   try {

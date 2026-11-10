@@ -45,7 +45,6 @@
     "easing"
   ],
   "devDependencies": {
-    "@fusorb/facet-motion": "workspace:^",
     "@types/react": "^19",
     "react": "^19",
     "tsup": "^8.5.1",

@@ -4,12 +4,14 @@
  *
  * Static accessibility audit of component source:
  *   - Images have alt attributes
- *   - Interactive elements have accessible names
- *   - Form inputs have labels
  *   - No positive tabindex values
- *   - ARIA roles are valid
+ *   - onClick on a non-interactive element carries a keyboard handler or role
  *
- * Run: node scripts/check-a11y.mjs
+ * Run: node scripts/check-a11y.mjs   (exits 1 on any violation)
+ *
+ * Note (audit 2026-11-10): these checks were previously pushed to an unused
+ * `warnings` array, so the gate could never fail. They are real violations and
+ * now populate `errors`.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -24,7 +26,6 @@ if (!fs.existsSync(componentsDir)) {
 
 const files = fs.readdirSync(componentsDir).filter((f) => f.endsWith(".tsx"));
 const errors = [];
-const warnings = [];
 
 for (const file of files) {
   const src = fs.readFileSync(path.join(componentsDir, file), "utf-8");
@@ -33,23 +34,27 @@ for (const file of files) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    // Check for img without alt (handle multi-line)
+    // <img> without an alt attribute (look ahead a few lines for multi-line JSX)
     if (/<img\b/.test(line)) {
       const imgBlock = lines.slice(i, i + 5).join(" ");
       if (!/alt=/.test(imgBlock)) {
-        warnings.push(`${file}:${i + 1}: <img> without alt attribute`);
+        errors.push(`${file}:${i + 1}: <img> without alt attribute`);
       }
     }
 
-    // Check for positive tabindex
+    // Positive tabindex values (a known a11y anti-pattern)
     const tabindexMatch = line.match(/tabIndex=\{?(\d+)\}?/);
-    if (tabindexMatch && parseInt(tabindexMatch[1]) > 0) {
-      warnings.push(`${file}:${i + 1}: positive tabIndex (${tabindexMatch[1]})`);
+    if (tabindexMatch && parseInt(tabindexMatch[1], 10) > 0) {
+      errors.push(`${file}:${i + 1}: positive tabIndex (${tabindexMatch[1]})`);
     }
 
-    // Check for onClick without keyboard handler on non-interactive elements
-    if (/onClick=/.test(line) && /<(div|span|li|td|tr)\b/.test(line) && !/onKeyDown|onKeyPress|onKeyUp|role=/.test(line)) {
-      warnings.push(`${file}:${i + 1}: onClick on non-interactive element without keyboard handler or role`);
+    // onClick on a non-interactive element without a keyboard handler or role
+    if (
+      /onClick=/.test(line) &&
+      /<(div|span|li|td|tr)\b/.test(line) &&
+      !/onKeyDown|onKeyPress|onKeyUp|role=/.test(line)
+    ) {
+      errors.push(`${file}:${i + 1}: onClick on non-interactive element without keyboard handler or role`);
     }
   }
 }
@@ -59,10 +64,4 @@ if (errors.length) {
   for (const e of errors) console.log(`  - ${e}`);
   process.exit(1);
 }
-if (warnings.length) {
-  console.log(`check:a11y: ${warnings.length} warning(s)`);
-  for (const w of warnings.slice(0, 10)) console.log(`  - ${w}`);
-  if (warnings.length > 10) console.log(`  ... and ${warnings.length - 10} more`);
-} else {
-  console.log("check:a11y: OK (no issues found)");
-}
+console.log(`check:a11y: OK (${files.length} components scanned, no issues)`);

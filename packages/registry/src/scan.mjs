@@ -19,7 +19,6 @@
  *   - packages/sdk/src/index.ts              (SDK class exports)
  *   - packages/auth/src/presets.ts           (auth domain presets)
  *   - packages/components/src/icon/icon-map.ts (icon registry)
- *   - changeset.md                          (changeset configuration)
  *   - git rev-parse HEAD                    (commit hash)
  *
  * This scanner shares its core logic with `facet registry build` (see cli/src/commands/registry.ts).

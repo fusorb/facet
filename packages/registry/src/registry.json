@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "9c0570e1db3fe6fad91d9a4ac2488611dc766e17",
-    "at": "2026-11-05T05:56:34.169Z"
+    "commit": "e124c21f7df24de67ad277754eebede547a37845",
+    "at": "2026-11-10T22:07:11.395Z"
   },
   "packages": [
     {
@@ -281,9 +281,7 @@
         "@fusorb/facet-motion",
         "@fusorb/facet-tokens"
       ],
-      "devDeps": [
-        "@fusorb/facet-motion"
-      ],
+      "devDeps": [],
       "peers": [
         "react"
       ],
