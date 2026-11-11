@@ -193,19 +193,9 @@ export function Navbar({
   const hasMobileMenu = mobileMenu !== undefined || links.length > 0;
   const showHamburger = showMobileMenu ?? hasMobileMenu;
 
-  // Scroll-aware surface: glass-translucent at rest, intensifying on scroll
-  // so the header reads as part of the body while never letting page content
-  // bleed through. Exposed as `data-stuck` so consumers can style the two
-  // states themselves.
-  // TODO: re-enable the scroll-aware stuck effect for glass/sticky variants.
+  // Scroll-aware stuck surface hook point: exposed as `data-stuck` for styling.
+  // Currently inert (no scroll listener wired); enable with a measured effect when needed.
   const [stuck] = React.useState(false);
-  // React.useEffect(() => {
-  //   if (variant !== "pill") return;
-  //   const onScroll = () => setStuck(window.scrollY > 8);
-  //   onScroll();
-  //   window.addEventListener("scroll", onScroll, { passive: true });
-  //   return () => window.removeEventListener("scroll", onScroll);
-  // }, [variant]);
 
   const bpHide = BREAKPOINT_DISPLAY[mobileBreakpoint].hide;
   const bpFlex = BREAKPOINT_DISPLAY[mobileBreakpoint].flex;
