@@ -1,49 +1,58 @@
 # @fusorb/facet-sandbox
 
-Framework-agnostic live-preview host for facet playgrounds.
+Framework-agnostic artifact model and lab kit for facet playgrounds/docs surfaces.
 
-- **Block registry** - data-driven, config-first (same `{ type, ...props }`
-  shape as `@fusorb/facet-docs` pages). Register/swap UI blocks by kind, no
-  forking.
-- **Adapter seam** - the host ships no framework code. Each runtime supplies a
-  `SandboxAdapter` that turns consumer source into a `PreviewContent`
-  (`{ kind: "node", node }` or `{ kind: "html", html, css, js }`).
-- **Security** - URL sanitizer ported from the docs live playground (rejects
-  `javascript:` / `data:` / `vbscript:` etc.).
-- **React adapter** - shipped under `@fusorb/facet-sandbox/react`. Uses the same
-  hand-written JSX parser as the docs engine (no `eval`, no `Function`, no
-  sandbox escape) and renders via `React.createElement`. Formatting is optional
-  (gracefully no-ops when `prettier` is absent).
+- **Core model (`@fusorb/facet-sandbox` / `/core`)** — zero-dependency types and helpers: `Artifact`, `Example`, `ViewportSpec`, control schema/types, artifact-kind registry (`registerArtifactKind`, `getArtifactKind`, `listArtifactKinds`), control inference, code/state helpers (`inferControls`, `toCode`, `encodeState`, `decodeState`).
+- **React lab kit (`@fusorb/facet-sandbox/react`)** — composable presentation components: `Stage`, `ArtifactRenderer`, `Inspector`, `Catalog`, `CodeView` (schema-driven, host-styled via injectable control renderers).
+- **Live runtime (`@fusorb/facet-sandbox/live`)** — no-`eval` live JSX/runtime utilities and URL sanitization used by facet’s live preview surfaces.
 
 ## Install
 
 ```bash
-npm i -D @fusorb/facet-sandbox
+pnpm add @fusorb/facet-sandbox
 ```
 
-`react` is an optional peer dependency (required by `/react`).
+`react` is an optional peer dependency (required for `@fusorb/facet-sandbox/react`).
 
-## Usage
+## Usage (React lab kit)
 
 ```tsx
-import { Sandbox } from "@fusorb/facet-sandbox/react";
-import * as Facet from "@fusorb/facet-components";
+import { Stage } from "@fusorb/facet-sandbox/react";
+import type { Artifact, Example } from "@fusorb/facet-sandbox";
 
-<Sandbox
-  config={{
-    defaultCode: 'return <Button size="sm">Edit me</Button>;',
-    sections: [{ title: "Preview", blocks: ["motion-preset"] }],
-  }}
-  components={Facet}
-/>;
+const artifact: Artifact = {
+  id: "button",
+  kind: "component",
+  title: "Button",
+  package: "@fusorb/facet-components",
+  examples: ["default"],
+};
+
+const example: Example = {
+  id: "default",
+  artifact: "button",
+  title: "Default",
+  defaults: { label: "Save" },
+  render: (values) => <button>{String(values.label ?? "Save")}</button>,
+};
+
+<Stage artifact={artifact} example={example} />;
 ```
 
-## Framework agnosticism (v1)
+## Subpath exports
 
-The host + block model + adapter seam are framework-agnostic. The live-JSX
-parser currently ships with the React adapter (it emits `React.createElement`);
-non-JSX frameworks can bring their own adapter/translator through the same
-`SandboxAdapter` contract. We do **not** host per-framework preview apps -
-stack agnosticism is certified via CI snapshots of `facet docs init` /
-`facet emails init` across `react-vite` / `next` / `remix` / `plain-js` /
-`python` instead.
+| Import | Description |
+|--------|-------------|
+| `@fusorb/facet-sandbox` | Main barrel re-exporting `/core` (artifact model, registry, helpers). |
+| `@fusorb/facet-sandbox/core` | Framework-agnostic core types/functions only. |
+| `@fusorb/facet-sandbox/react` | React lab kit (`Stage`, `ArtifactRenderer`, `Inspector`, `Catalog`, `CodeView` and related types). |
+| `@fusorb/facet-sandbox/live` | Live JSX/runtime and sanitization utilities (no `eval`). |
+
+## Notes
+
+- The core is framework-agnostic; the React lab kit is a React binding over the artifact/example model. Non-React runtimes can build adapters around the same core contract.
+- Consumer styling is host-owned; the lab kit ships minimal structure and supports injected control renderers.
+
+## License
+
+MIT © facet contributors. See [LICENSE](../../LICENSE) at the repository root.
