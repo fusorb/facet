@@ -177,3 +177,22 @@ M2 exit: ALL gates green (engine-purity, boundaries, surfaces, pins, registry, d
   regenerated (native `devDeps` now `[]`).
 - `sandbox:e2e` added to `check:all` (local gate now matches CI). Remaining
   false gate: `check:sdk-coverage` (no-op without the sibling SovGrant checkout) → P1b.
+
+## P2/P4a + tracker/plan sync (2026-11-11)
+
+**Status:** In progress (checkpoint).
+- Baseline reconfirmed from `main@8ea8598`; `.agent/run.txt` shows a green full
+  `check:all` at prior baseline (90 files / 1074 tests, sandbox:e2e all executed
+  checks passed). Active retired `arc*`/`ArcId*` identifiers: none in source/config
+  (historical records only).
+- CI parity: added `pnpm check:engine-purity` to `.github/workflows/ci-cd.yml`
+  (after `check:boundaries`) to match local `check:all`.
+- `scripts/check-surfaces.mjs`: host detection expanded to include `fusorb.com`
+  and `npmjs.com` (L6 enforcement for docs/npm hard-codes).
+- Landing (P4a, origins): `HeroSection.tsx` → `getDocsUrl()`; `landing-search-config.ts`
+  and `EcosystemDetailPage.tsx` → `surfaces.npmPackageScope`. `check:surfaces` OK.
+- Trackers/plans synced: `.agent/todo.txt` (local) maintains T1–T9; logs/episodes/output
+  updated; `docs/planning/sdk-canonical-fix-plan.md` kept active with status note
+  (no unnecessary planning docs archived).
+- **Remaining:** P1b/P2 generator wiring decisions/fixes, P4 landing stale claims
+  & orphans + docs-site/playground, P5–P8, full verification and closeout.

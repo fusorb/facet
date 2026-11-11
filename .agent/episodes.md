@@ -2651,3 +2651,47 @@ Lesson: "has an errors array and an exit(1)" is not the same as "can fail" --
   prove it by feeding it bad input. Three gates passed review for months while
   being pure green lights. The suite's own rule (EP 68: negative-test every
   gate) is only as good as actually doing it per gate.
+
+================================================================================
+
+EP 72 -- CI parity, surfaces enforcement, and the first P4 landing fixes
+--------------------------------------------------------------------------------
+What broke:
+  After P1, `check:engine-purity` existed in local `check:all` but was missing
+  from `.github/workflows/ci-cd.yml`, so CI could pass while a local gate failed.
+  `scripts/check-surfaces.mjs` only matched facet.so/localhost/github.com/fusorb,
+  letting hard-coded `docs.fusorb.com` and npm package URLs in the landing app
+  slip past L6 enforcement. The landing hero/search/ecosystem-detail surfaces
+  hard-coded those origins instead of reading `surfaces.config.mjs`.
+
+How we fixed it:
+  - CI: added `pnpm check:engine-purity` after `check:boundaries` in
+    `.github/workflows/ci-cd.yml` to align CI with local gate coverage.
+  - Surfaces: expanded `check-surfaces.mjs` host detection to include
+    `fusorb.com` and `npmjs.com` so app-origin/package-URL drift is caught.
+  - Landing (P4a, origins): `HeroSection.tsx` now uses `getDocsUrl()`;
+    `landing-search-config.ts` and `EcosystemDetailPage.tsx` now build npm links
+    from `surfaces.npmPackageScope` (all sourced via surfaces config). Verified:
+    no `docs.fusorb.com`/`npmjs.com/package` in `apps/landing`; `check:surfaces`
+    passes.
+  - Trackers/plans: `.agent/run.txt` confirmed a green full `check:all`
+    (90/90 files, 1074 tests, sandbox:e2e all executed checks passed) at the
+    prior baseline; `.agent/todo.txt` (local) tracks T1–T9; logs/progress/output
+    synced; `docs/planning/sdk-canonical-fix-plan.md` kept active with status
+    note (no unnecessary planning docs archived).
+
+What survived:
+  Gate intent (L6) now matches enforcement; surfaces-config remains the single
+  source for app URLs. Active retired `arc*`/`ArcId*` identifiers remain absent
+  from source/config (historical records only).
+
+State: in progress (working tree changes for CI, surfaces gate, 3 landing files,
+  and synced trackers/plans) — to be committed as a scoped checkpoint. P4
+  landing stale claims/orphans, docs-site/playground, P1b/P2 generator wiring,
+  P5–P8, and full verification/closeout remain open.
+
+Lesson: a surfaces gate that only knows yesterday's hostnames silently approves
+  tomorrow's hard-codes — expand the matcher when the canonical origin set
+  changes, and fix the violations in the same pass so the gate stays green and
+  meaningful. Keep plan docs current (status/ownership) instead of archiving by
+  guesswork; archive only when clearly superseded.

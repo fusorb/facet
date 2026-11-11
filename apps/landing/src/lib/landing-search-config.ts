@@ -1,4 +1,5 @@
 import type { LayoutConfig } from "@fusorb/facet-layout";
+import { surfaces } from "../../../../surfaces.config.mjs";
 import { ALL_COMPONENTS, PACKAGES } from "../data/scratchpad.js";
 import { getDocsUrl } from "../site.config.js";
 
@@ -26,7 +27,7 @@ export const landingSearchConfig: LayoutConfig = {
       title: "Packages",
       id: "packages",
       items: PACKAGES.map((p) => ({
-        href: `https://www.npmjs.com/package/${p.name}`,
+        href: `${surfaces.npmPackageScope}/${p.name}`,
         label: p.name,
         keywords: [
           p.name.toLowerCase(),

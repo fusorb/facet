@@ -58,7 +58,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "What animations does facet ship?",
-    a: "Ten text animations (Blur, Wave, Flip, Split, FadeUp, Shimmer, Gradient, LetterSpacing, CountUp, Dissolve), TypewriterText, seven micro-interactions, AnimatedButton (sparkle/shine/ripple/magnetic/dissolve), and the card animation family (DissolveCard, FlipCard, GlowCard, etc.). The keyframe tokens live in @fusorb/facet-tokens so the CSS classes always emit.",
+    a: "Facet ships a generative motion family (fade, zoom, slide, blur, flip, spin, shimmer, and more), authored effects (e.g. aurora, spotlight, grid, typewriter, reveal, ripple, magnetic, tilt), micro-interactions, and animated card surfaces such as FlipCard, DissolveCard, ShineCard, and TiltCard. Keyframe tokens live in @fusorb/facet-tokens so the CSS classes always emit.",
   },
   {
     q: "How do I scaffold docs and emails?",
@@ -66,7 +66,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "How do I reach the facet team?",
-    a: "Use the Feedback page (linked in the nav) to drop a line, or join the Discord linked from the docs - the maintainers read everything.",
+    a: "Use the Feedback page (linked in the nav) or open an issue on GitHub - the maintainers read everything.",
   },
   {
     q: "Is the auth flow customizable per domain?",

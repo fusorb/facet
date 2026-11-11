@@ -42,6 +42,7 @@ jobs:
       - run: pnpm check:examples
       - run: pnpm check:jsdoc
       - run: pnpm check:boundaries
+      - run: pnpm check:engine-purity
       - run: pnpm check:registry
       - run: pnpm check:pins
       - run: pnpm check:surfaces

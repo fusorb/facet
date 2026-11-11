@@ -1,4 +1,8 @@
+import { getDocsUrl } from "../../site.config.js";
+
 export function HeroSection() {
+  const docsUrl = getDocsUrl();
+
   return (
     <section className="flex flex-col items-center gap-6 text-center">
       <div className="flex flex-col items-center gap-2">
@@ -11,13 +15,13 @@ export function HeroSection() {
       </div>
       <div className="flex flex-wrap items-center justify-center gap-3">
         <a
-          href="https://docs.fusorb.com"
+          href={docsUrl}
           className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           Explore packages
         </a>
         <a
-          href="https://docs.fusorb.com"
+          href={docsUrl}
           target="_blank"
           rel="noreferrer"
           className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"

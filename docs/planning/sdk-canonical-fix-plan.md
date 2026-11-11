@@ -4,6 +4,8 @@
 > `@fusorb/facet-sdk` and its consumers (sovgrant, sovport, sg-cli). Lives in
 > the facet repo so SDK work is owned where the code is.
 
+**Status (2026-11-11, audit-remediation checkpoint):** Plan kept **active** (not archived) — gaps G1–G7 remain relevant and are not superseded. Repo context since last major note: active retired `arc*`/`ArcId*` identifiers removed from source/config (historical records remain in changelogs/episodes/planning/rebuild docs); SDK route coverage gate is deterministic via `scripts/fixtures/sg-routes.json` with live-contract preference when available (`scripts/audit-sdk-coverage.cjs`); published/package versions have advanced beyond the v2.0.0 snapshot below (see root/package manifests). Re-validate G3/G4/G5 against current HEAD and SovGrant contract before execution; treat this file as the live gap tracker for SDK-side follow-up.
+
 ## 1. Current state
 
 - Package: `@fusorb/facet-sdk` v2.0.0 (facet `packages/sdk`).

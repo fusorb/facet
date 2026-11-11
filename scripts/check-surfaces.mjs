@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 /**
  * Gate: no hard-coded origins/URLs in apps/** outside surfaces.config.mjs (L6).
  *
@@ -14,7 +14,7 @@ const appsDir = path.join(root, "apps");
 const ALLOWED = path.join(root, "surfaces.config.mjs");
 
 const URL_RE = /https?:\/\/[^\s"'`<>)]+|localhost:\d+/g;
-const FACET_HOSTS = /facet\.so|localhost:\d+|github\.com\/fusorb/i;
+const FACET_HOSTS = /facet\.so|fusorb\.com|npmjs\.com|localhost:\d+|github\.com\/fusorb/i;
 
 function walk(dir, acc) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {

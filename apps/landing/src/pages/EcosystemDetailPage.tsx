@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { ShineButton, buttonVariants, cn } from "@fusorb/facet-components";
 import { LightIcon } from "@fusorb/facet-components/light";
+import { surfaces } from "../../../../surfaces.config.mjs";
 import { PageShell } from "../components/PageShell.js";
 import { ECOSYSTEM, getEcosystemDocsUrl } from "../data/ecosystem.js";
 
@@ -164,7 +165,7 @@ export function EcosystemDetailPage() {
                   View in docs
                 </a>
                 <a
-                  href={`https://www.npmjs.com/package/${entry.name}`}
+                  href={`${surfaces.npmPackageScope}/${entry.name}`}
                   className="inline-flex cursor-pointer items-center gap-1 text-xs font-medium text-primary hover:underline"
                   target="_blank"
                   rel="noreferrer"
