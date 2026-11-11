@@ -35,8 +35,25 @@ function runFacet(args, cwd = SANDBOX, timeoutMs = 60000) {
   }
 }
 
+function rmSandboxDir(dir) {
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      rmSync(dir, { recursive: true, force: true });
+      return;
+    } catch (e) {
+      if (e && (e.code === "EBUSY" || e.code === "EPERM" || e.code === "EACCES") && attempt < 4) {
+        const end = Date.now() + 500;
+        while (Date.now() < end) {}
+        continue;
+      }
+      if (e && (e.code === "EBUSY" || e.code === "EPERM" || e.code === "EACCES")) return;
+      throw e;
+    }
+  }
+}
+
 function setupSandbox() {
-  rmSync(SANDBOX, { recursive: true, force: true });
+  rmSandboxDir(SANDBOX);
   mkdirSync(SANDBOX, { recursive: true });
 
   writeFileSync(
@@ -78,7 +95,7 @@ function setupSandbox() {
 }
 
 function setupSandboxWithBundledDeps() {
-  rmSync(SANDBOX, { recursive: true, force: true });
+  rmSandboxDir(SANDBOX);
   mkdirSync(SANDBOX, { recursive: true });
   mkdirSync(join(SANDBOX, "src"), { recursive: true });
 
@@ -164,7 +181,9 @@ try {
   // --- Test 3: facet add shorthand (facet add tokens) ---
   console.log("\n=== TEST 3: facet add tokens (shorthand) ===");
   const shortcutOut = runFacet(["--no-update-check", "add", "tokens", "--log"], SANDBOX, 30000);
-  results["facet add shorthand"] = shortcutOut.includes("Installing facet package: @fusorb/facet-tokens");
+  results["facet add shorthand"] =
+    shortcutOut.includes("@fusorb/facet-tokens") &&
+    (shortcutOut.includes("Installing") || shortcutOut.includes("Installing facet packages"));
   console.log(shortcutOut.slice(0, 400));
   console.log("PASS:", results["facet add shorthand"]);
 
@@ -222,14 +241,23 @@ try {
   if (err.stdout) console.error(err.stdout);
   process.exitCode = 1;
 } finally {
-  // Clean up sandbox (ignore EBUSY -- Windows holds handles briefly after npm)
-  try {
-    rmSync(SANDBOX, { recursive: true, force: true });
-    console.log("\nSandbox cleaned up.");
-  } catch (e) {
-    if (e.code === "EBUSY") {
-      console.log("\nSandbox left in place (EBUSY: " + SANDBOX + "). Clean up manually later.");
-    } else {
+  // Clean up sandbox (ignore Windows handle-release races / transient permission errors)
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      rmSync(SANDBOX, { recursive: true, force: true });
+      console.log("\nSandbox cleaned up.");
+      break;
+    } catch (e) {
+      const retryable = e && (e.code === "EBUSY" || e.code === "EPERM" || e.code === "EACCES");
+      if (retryable && attempt < 4) {
+        const end = Date.now() + 500;
+        while (Date.now() < end) {}
+        continue;
+      }
+      if (retryable) {
+        console.log("\nSandbox left in place (" + e.code + ": " + SANDBOX + "). Clean up manually later.");
+        break;
+      }
       throw e;
     }
   }

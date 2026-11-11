@@ -70,7 +70,7 @@ function stripComments(src) {
     .replace(/(^|\s)\/\/.*$/gm, "$1");
 }
 
-function checkFile(filePath, relPath) {
+function checkFile(filePath) {
   const src = fs.readFileSync(filePath, "utf-8");
   if (isTestFile(filePath)) return [];
   const code = stripComments(src);
@@ -112,7 +112,7 @@ for (const dir of DIRS_TO_SCAN) {
   walkDir(full, files);
   for (const file of files) {
     const relPath = path.relative(root, file);
-    const violations = checkFile(file, relPath);
+    const violations = checkFile(file);
     if (violations.length) {
       failed = true;
       console.error(`  ${relPath}:`);

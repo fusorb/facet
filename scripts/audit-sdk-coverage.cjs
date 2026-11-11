@@ -1,31 +1,48 @@
 const fs = require("fs");
 const path = require("path");
 
-// 1. Read SovGrant's ROUTES constant (the canonical contract list).
-// Configurable via ARC_ID_ROUTES env var; defaults to ../SovGrant relative
-// to this script's location so it works on any machine without a
-// hardcoded absolute path.
-const ARC_ID_ROUTES =
-  process.env.ARC_ID_ROUTES ||
-  path.resolve(__dirname, "../../SovGrant/src/lib/api/routes/index.ts");
+// 1. Load SovGrant's ROUTES contract.
+// Prefer a live source (ARC_ID_ROUTES env or sibling SovGrant checkout) so
+// coverage can be revalidated against the canonical contract when available.
+// Fall back to the committed snapshot fixture so the gate is deterministic and
+// meaningful in CI/checkouts without a sibling SovGrant repo.
+const DEFAULT_ROUTES_SRC = path.resolve(__dirname, "../../SovGrant/src/lib/api/routes/index.ts");
+const SNAPSHOT_PATH = path.resolve(__dirname, "fixtures/sovgrant-routes.json");
+const routesSource = process.env.ARC_ID_ROUTES || (fs.existsSync(DEFAULT_ROUTES_SRC) ? DEFAULT_ROUTES_SRC : null);
 
-if (!fs.existsSync(ARC_ID_ROUTES)) {
-  console.log("SovGrant routes not found at", ARC_ID_ROUTES, "- skipping SDK coverage audit.");
-  process.exit(0);
-}
+let paths = new Set();
+let contractLabel = "";
 
-const routesSrc = fs.readFileSync(ARC_ID_ROUTES, "utf8");
-
-// Extract all path literals (both plain strings and template fns like (id) => `/x/${id}`).
-const paths = new Set();
-for (const m of routesSrc.matchAll(/"(\/[a-z0-9/-]+)"/g)) paths.add(m[1]);
-for (const m of routesSrc.matchAll(/=> `(\/[a-z0-9/-]*\$?\{?[a-z0-9-]*)`/g)) {
-  // normalize template paths to the static prefix
-  paths.add(m[1].replace(/\$\{[^}]*\}/g, ":id"));
-}
-// The route index nests objects; template paths like /tenants/${id}/members also appear.
-for (const m of routesSrc.matchAll(/`(\/[a-z0-9/${}.-]+)`/g)) {
-  paths.add(m[1].replace(/\$\{[^}]*\}/g, ":id"));
+if (routesSource) {
+  if (!fs.existsSync(routesSource)) {
+    console.error("SovGrant routes source not found at", routesSource);
+    process.exit(1);
+  }
+  const routesSrc = fs.readFileSync(routesSource, "utf8");
+  // Extract all path literals (both plain strings and template fns like (id) => `/x/${id}`).
+  for (const m of routesSrc.matchAll(/"(\/[a-z0-9/-]+)"/g)) paths.add(m[1]);
+  for (const m of routesSrc.matchAll(/=> `(\/[a-z0-9/-]*\$?\{?[a-z0-9-]*)`/g)) {
+    // normalize template paths to the static prefix
+    paths.add(m[1].replace(/\$\{[^}]*\}/g, ":id"));
+  }
+  // The route index nests objects; template paths like /tenants/${id}/members also appear.
+  for (const m of routesSrc.matchAll(/`(\/[a-z0-9/${}.-]+)`/g)) {
+    paths.add(m[1].replace(/\$\{[^}]*\}/g, ":id"));
+  }
+  contractLabel = `source: ${path.relative(process.cwd(), routesSource)}`;
+} else if (fs.existsSync(SNAPSHOT_PATH)) {
+  const snapshot = JSON.parse(fs.readFileSync(SNAPSHOT_PATH, "utf8"));
+  if (!Array.isArray(snapshot) || snapshot.length === 0) {
+    console.error("Invalid SovGrant routes snapshot at", SNAPSHOT_PATH);
+    process.exit(1);
+  }
+  paths = new Set(snapshot);
+  contractLabel = `snapshot: ${path.relative(process.cwd(), SNAPSHOT_PATH)}`;
+} else {
+  console.error(
+    "No SovGrant routes source or snapshot found. Set ARC_ID_ROUTES or provide scripts/fixtures/sovgrant-routes.json.",
+  );
+  process.exit(1);
 }
 
 // 2. Read the facet SDK source (all *.ts) to find every endpoint string used.
@@ -56,7 +73,7 @@ const uncovered = arcPaths.filter((p) => {
   });
 });
 
-console.log("=== SovGrant ROUTES index paths:", arcPaths.length, "===");
+console.log("=== SovGrant ROUTES contract paths:", arcPaths.length, `(${contractLabel}) ===`);
 for (const p of arcPaths) console.log("  ", p);
 
 console.log("\n=== SDK endpoint strings:", sdkPaths.size, "===");
@@ -67,5 +84,5 @@ if (!uncovered.length) console.log("  (none - full coverage)");
 else for (const p of uncovered) console.log("  ", p);
 
 const covered = arcPaths.length - uncovered.length;
-console.log(`\n=== Coverage: ${covered}/${arcPaths.length} SovGrant routes covered by @fusorb/facet-sdk ===`);
+console.log(`\n=== Coverage: ${covered}/${arcPaths.length} SovGrant routes covered by @fusorb/facet-sdk (${contractLabel}) ===`);
 if (uncovered.length) process.exitCode = 1;
