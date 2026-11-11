@@ -1,6 +1,5 @@
 import type { DocsPage } from "@fusorb/facet-docs";
 import { facetChangelog } from "./data/changelog.js";
-import { pages as compiledPages } from "./data/compiled-pages.js";
 
 /**
  * facet's own authored guide pages.
@@ -1914,5 +1913,4 @@ const client = new SgClient({
       },
     ],
   },
-...compiledPages,
 ];
