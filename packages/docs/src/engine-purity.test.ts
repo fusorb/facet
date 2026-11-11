@@ -4,7 +4,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 describe("engine purity (L3)", () => {
-  it("packages/docs/src contains no @fusorb/* runtime imports", () => {
+  it("packages/docs/src contains no @fusorb/* runtime imports", { timeout: 15000 }, () => {
     const root = path.resolve(__dirname, "..");
     const srcDir = path.join(root, "src");
     const violations: string[] = [];

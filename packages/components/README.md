@@ -1,6 +1,6 @@
 # @fusorb/facet-components
 
-113 styled Radix UI components — shadcn-style: Radix primitives + Alpha Palette
+112 styled Radix UI components — shadcn-style: Radix primitives + Alpha Palette
 styling + `tailwind-merge`. No business logic, just polished, accessible UI.
 Motion primitives are re-exported from `@fusorb/facet-motion`.
 
@@ -47,7 +47,7 @@ import { Button, Input, Card, ThemeProvider } from "@fusorb/facet-components";
 | **Ready-to-use pages** | BillingPage, FeedbackPage, NotFound, PageHeader, EmptyStatePage, etc. |
 
 See the [component gallery](https://facet.dev/components) for live demos of all
-113 components.
+112 components.
 
 ## Theming
 
