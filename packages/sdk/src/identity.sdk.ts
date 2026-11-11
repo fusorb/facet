@@ -96,10 +96,28 @@ export class IdentitySdk {
   }
 
   linkExternalId(data: {
-    provider: string;
-    externalId: string;
-  }): Promise<ApiResponse<void>> {
-    return this.client.post<void>("/identity/external-ids", data);
+    type: string;
+    value: string;
+    displayValue?: string;
+  }): Promise<ApiResponse<ExternalId>> {
+    return this.client.post<ExternalId>("/identity/external-ids", data);
+  }
+
+  verifyExternalId(id: string): Promise<ApiResponse<{ verification: string }>> {
+    return this.client.post<{ verification: string }>(
+      `/identity/external-ids/${id}/verify`,
+      {},
+    );
+  }
+
+  confirmExternalId(
+    id: string,
+    data: { verification: string },
+  ): Promise<ApiResponse<ExternalId>> {
+    return this.client.post<ExternalId>(
+      `/identity/external-ids/${id}/confirm`,
+      data,
+    );
   }
 
   unlinkExternalId(id: string): Promise<ApiResponse<void>> {
@@ -160,8 +178,15 @@ export class IdentitySdk {
     publicKeyJwk: JsonObject;
     provider: string;
     providerWalletId: string;
-  }): Promise<ApiResponse<void>> {
-    return this.client.post<void>("/identity/wallet/did", data);
+  }): Promise<
+    ApiResponse<{ did: string; didDocument: JsonObject; walletId: string; keyType: string }>
+  > {
+    return this.client.post<{
+      did: string;
+      didDocument: JsonObject;
+      walletId: string;
+      keyType: string;
+    }>("/identity/wallet/did", data);
   }
 
   /* ── Paired Devices (SovPort) ──────────────────────────── */
@@ -178,8 +203,8 @@ export class IdentitySdk {
     );
   }
 
-  listPairedDevices(): Promise<ApiResponse<any[]>> {
-    return this.client.get<any[]>("/identity/paired-devices");
+  listPairedDevices(): Promise<ApiResponse<{ id: string; deviceId: string }[]>> {
+    return this.client.get<{ id: string; deviceId: string }[]>("/identity/paired-devices");
   }
 
   revokePairedDevice(deviceId: string): Promise<ApiResponse<{ revoked: boolean }>> {
@@ -190,16 +215,20 @@ export class IdentitySdk {
 
   createDeviceApproval(data?: {
     type?: "login" | "mfa" | "step-up";
-    context?: any;
-  }): Promise<ApiResponse<{ challenge: string; expiresAt: string; pairedDevices: any[] }>> {
-    return this.client.post<{ challenge: string; expiresAt: string; pairedDevices: any[] }>(
+    context?: JsonObject;
+  }): Promise<ApiResponse<{ challenge: string; expiresAt: string; pairedDevices: { id: string; deviceId: string }[] }>> {
+    return this.client.post<{ challenge: string; expiresAt: string; pairedDevices: { id: string; deviceId: string }[] }>(
       "/identity/device-approvals",
       data ?? {},
     );
   }
 
-  pollDeviceApproval(challenge: string): Promise<ApiResponse<any>> {
-    return this.client.get<any>(`/identity/device-approvals/${challenge}`);
+  pollDeviceApproval(
+    challenge: string,
+  ): Promise<ApiResponse<{ status: string; challenge: string }>> {
+    return this.client.get<{ status: string; challenge: string }>(
+      `/identity/device-approvals/${challenge}`,
+    );
   }
 
   approveDeviceApproval(data: {

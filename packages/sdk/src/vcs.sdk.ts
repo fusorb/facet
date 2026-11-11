@@ -58,8 +58,13 @@ export class VcSdk {
   }
 
   /** POST /credentials/offers/:token/accept: accept a credential offer. */
-  acceptOffer(token: string): Promise<ApiResponse<void>> {
-    return this.client.post<void>(`/credentials/offers/${token}/accept`);
+  acceptOffer(
+    token: string,
+  ): Promise<ApiResponse<{ credentialId: string; credential: string | JsonObject }>> {
+    return this.client.post<{ credentialId: string; credential: string | JsonObject }>(
+      `/credentials/offers/${token}/accept`,
+      {},
+    );
   }
 
   /** POST /credentials/verify/session: create a verification session. Bare response. */
