@@ -202,10 +202,14 @@ export class IdentitySdk {
     return this.client.get<any>(`/identity/device-approvals/${challenge}`);
   }
 
-  approveDeviceApproval(data: { challenge: string; signature?: string }): Promise<ApiResponse<{ success: boolean }>> {
+  approveDeviceApproval(data: {
+    challenge: string;
+    deviceId: string;
+    signature: string;
+  }): Promise<ApiResponse<{ success: boolean }>> {
     return this.client.post<{ success: boolean }>(
       `/identity/device-approvals/${data.challenge}/approve`,
-      { signature: data.signature },
+      { deviceId: data.deviceId, signature: data.signature },
     );
   }
 
