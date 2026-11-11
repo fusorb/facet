@@ -1,66 +1,61 @@
 # @fusorb/facet-auth
 
-Domain-customizable authentication components (sign-in, sign-up, MFA, guard,
-TOTP) with 5 domain presets (fintech, med, edu, enterprise, default) and
-integration with `@fusorb/facet-sdk` + `@fusorb/facet-store`.
+Domain-customizable authentication components for SovGrant-backed apps: provider,
+sign-in/sign-up, guard, MFA dialog, presets, standalone auth forms, and
+SDK-integrated session helpers.
 
 ## Install
 
 ```bash
-pnpm add @fusorb/facet-auth @fusorb/facet-sdk @fusorb/facet-store
+pnpm add @fusorb/facet-auth @fusorb/facet-sdk
 ```
+
+`@fusorb/facet-components` (and its peer dependencies) is required for the UI
+building blocks used by these components.
 
 ## Usage
 
-### SgProvider (top-level)
+### Provider and guard
 
 ```tsx
-import { SgProvider } from "@fusorb/facet-auth";
+import { SgProvider, Guard, SignIn } from "@fusorb/facet-auth";
 import { SgClient } from "@fusorb/facet-sdk";
 
-const sg = new SgClient({ baseUrl: "...", apiKey: "..." });
+const sg = new SgClient({ baseUrl: "https://api.example.com" });
 
-<SgProvider client={sg}>
-  <App />
-</SgProvider>
+export function App() {
+  return (
+    <SgProvider client={sg}>
+      <Guard fallback={<SignIn onSuccess={() => { /* signed in */ }} />}>
+        <Dashboard />
+      </Guard>
+    </SgProvider>
+  );
+}
 ```
 
-### Sign-in form
+### MFA dialog
 
 ```tsx
-import { SignIn } from "@fusorb/facet-auth";
+import { MfaDialog } from "@fusorb/facet-auth";
 
-<SignIn
-  copy={{
-    title: "Welcome back",
-    subtitle: "Sign in to continue",
+<MfaDialog
+  open={mfaOpen}
+  onOpenChange={setMfaOpen}
+  client={sg}
+  sessionId={sessionId}
+  onComplete={(result) => {
+    // handle verified MFA/session result
   }}
-  onSuccess={(session) => console.log("signed in:", session)}
-/>
+/>;
 ```
 
-### Route guard
-
-```tsx
-import { Guard } from "@fusorb/facet-auth";
-
-<Guard fallback={<SignIn />}>
-  <Dashboard />
-</Guard>
-```
-
-### MFA / TOTP
-
-```tsx
-import { MfaDialog, TwoFactorSetupPanel } from "@fusorb/facet-auth";
-
-<MfaDialog onVerify={handleVerify} />
-<TwoFactorSetupPanel userId={user.id} />
-```
+`MfaDialog` orchestrates MFA verification/setup/recovery flows using the SDK and
+the standalone MFA forms exported by this package.
 
 ### Standalone forms
 
-Each auth flow step is independently importable as a form component:
+Each auth step is independently importable:
 
 ```tsx
 import {
@@ -73,79 +68,37 @@ import {
   MfaRecoveryCodesForm,
   MfaRecoveryForm,
 } from "@fusorb/facet-auth";
-
-<LoginForm
-  onSubmit={async (email, password) => {
-    // Call your auth backend and return an error string or null.
-    return null;
-  }}
-  onForgotPassword={() => router.push("/forgot")}
-/>
 ```
 
-### User button
+### Domain presets and registry
 
 ```tsx
-import { UserButton } from "@fusorb/facet-auth";
+import { fintechPreset, resolvePreset, registerPreset } from "@fusorb/facet-auth";
 
-<UserButton onSignOut={() => router.push("/")} />
+// built-in presets: fintechPreset, medPreset, eduPreset, enterprisePreset, defaultPreset
+const config = resolvePreset("fintech"); // or pass a custom AuthConfig
 ```
 
-## Domain presets
+## API (selected exports)
 
-Five domain-specific auth presets ship with the package. Each configures
-branding (colors, copy, logo), required fields, MFA requirements, session TTL,
-and the token-refresh cadence:
-
-| Preset | Domain | MFA required | Copy tone |
-|--------|--------|-------------|-----------|
-| `fintechPreset` | Financial services | TOTP + push | Formal, compliance-first |
-| `medPreset` | Healthcare | TOTP | HIPAA-aware |
-| `eduPreset` | Education | Optional | Student-friendly |
-| `enterprisePreset` | B2B SaaS | TOTP + WebAuthn | Enterprise-ready |
-| `defaultPreset` | General purpose | Optional | Neutral |
-
-```tsx
-import { SgProvider, SignIn, fintechPreset } from "@fusorb/facet-auth";
-
-<SgProvider client={sg}>
-  <SignIn config={fintechPreset} />
-</SgProvider>
-```
-
-## Token management
-
-The auth surface reads/writes tokens to `localStorage` by default. An optional
-`TokenStorage` interface lets you plug in your own (Keychain, SecureStorage,
-HTTP-only cookies). The `@fusorb/facet-store` `authStore` is kept in sync and
-the `@fusorb/facet-sdk` automatically refreshes tokens on 401.
-
-## API
-
-| Export | Type | Description |
+| Export | Kind | Description |
 |--------|------|-------------|
-| `SgProvider` | component | Top-level provider; initializes the `SgClient`, manages auth state via `@fusorb/facet-store`. |
-| `SignIn` | component | Full sign-in form (email, password, social, passwordless). |
-| `SignUp` | component | Full sign-up form (with domain-specific fields). |
-| `Guard` | component | Client-side route guard with fallback. |
-| `MfaDialog` | component | MFA challenge dialog (TOTP + push). |
-| `TwoFactorSetupPanel` | component | QR + TOTP enrollment UI. |
-| `PasswordStrengthMeter` | component | Real-time password scoring (zxcvbn-style). |
-| `ApiKeyManager` | component | API key list + create/revoke management surface. |
-| `InviteTeamForm` | component | Team invitation form with email + role. |
-| `LoginForm` | component | Standalone sign-in form (email + password). |
-| `MagicLinkForm` | component | Standalone passwordless email link form. |
-| `ForgotPasswordForm` | component | Standalone "forgot password" email form. |
-| `ResetPasswordForm` | component | Standalone new-password entry form. |
-| `MfaVerifyForm` | component | Standalone MFA challenge form (TOTP + push). |
-| `MfaSetupForm` | component | Standalone MFA enrollment form. |
-| `MfaRecoveryCodesForm` | component | Standalone recovery-code display/verification form. |
-| `MfaRecoveryForm` | component | Standalone recovery-code entry form. |
-| `UserButton` | component | Account dropdown button (profile, settings, sign-out). |
-| `fintechPreset` / `medPreset` / `eduPreset` / `enterprisePreset` / `defaultPreset` | `AuthConfig` | Domain-specific auth configurations. |
-| `PresetName` | type | Union of preset names. |
-| `TokenStorage` | interface | Storage adapter protocol for token persistence. |
-| `defaultStorage` | `TokenStorage` | In-memory token storage adapter (swap for KV/IndexedDB). |
+| `SgProvider`, `useAuth`, `useOptionalAuth`, `useAuthSession` | provider/hooks | SDK-backed auth context and session access. |
+| `Guard` | component | Renders children when authenticated, otherwise a fallback. |
+| `SignIn`, `SignUp`, `UserButton`, `MfaDialog` | components | Auth UI surfaces wired to the provider/SDK flows. |
+| `LoginForm`, `MagicLinkForm`, `ForgotPasswordForm`, `ResetPasswordForm`, `MfaVerifyForm`, `MfaSetupForm`, `MfaRecoveryCodesForm`, `MfaRecoveryForm` | components | 8 standalone auth/MFA form components. |
+| `fintechPreset`, `medPreset`, `eduPreset`, `enterprisePreset`, `defaultPreset` | config | Built-in domain presets. |
+| `registerPreset`, `getPreset`, `hasPreset`, `listPresets`, `resolvePreset` | functions | Preset registry helpers. |
+| `TokenStorage`, `defaultStorage` | storage | Token storage interface and default localStorage-backed adapter. |
+| Validators/copy/types | utilities/types | Form validators, default copy, and exported auth types. |
+
+For the complete export surface, see `packages/auth/src/index.ts`.
+
+## Token storage
+
+Auth state/tokens are managed by `SgProvider` with a pluggable `TokenStorage`
+(default: browser `localStorage` via `defaultStorage`). Pass a custom `storage`
+to `SgProvider` for alternative persistence strategies.
 
 ## License
 

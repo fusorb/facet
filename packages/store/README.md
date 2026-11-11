@@ -1,7 +1,12 @@
 # @fusorb/facet-store
 
-Framework-agnostic Zustand state stores for facet auth + tenant, with a
-token-refresh middleware bridge that integrates with `@fusorb/facet-sdk`.
+Framework-agnostic auth/tenant state for SovGrant, built on Zustand.
+
+This package owns `useAuthStore`, `useTenantStore`, and a
+`createZustandTokenStorage` bridge for SDK token refresh. It is an
+**alternative** state layer for consumers that drive auth outside React hooks
+(e.g. React Native or non-React shells). The default web React path is
+`@fusorb/facet-auth`'s `<SgProvider>`, which does **not** consume this package.
 
 ## Install
 
@@ -12,51 +17,48 @@ pnpm add @fusorb/facet-store
 ## Usage
 
 ```ts
-import { authStore, useAuth, useToken, tokenRefreshMiddleware } from "@fusorb/facet-store";
+import {
+  useAuthStore,
+  useTenantStore,
+  createZustandTokenStorage,
+} from "@fusorb/facet-store";
 
-// Read current session
-const session = useAuth.getState().session;
+// Read/write auth state
+const { user, accessToken, setUser, setTokens, clearAuth } =
+  useAuthStore.getState();
 
-// React hook
-const { user, session, loading } = useAuth();
+// React hook usage
+const user = useAuthStore((s) => s.user);
+const tenant = useTenantStore((s) => s.tenant);
 
-// Token refresh is automatic — the middleware listens for 401s
-// from @fusorb/facet-sdk and retries with a refreshed token.
-```
-
-### Tenant switching
-
-```ts
-import { tenantStore } from "@fusorb/facet-store";
-
-tenantStore.setTenant("acme-corp");
-// All SDK calls now target acme-corp's API endpoints.
+// Bridge Zustand store tokens to an SDK refresher
+const tokenStorage = createZustandTokenStorage({
+  authStore: useAuthStore,
+  sdk, // object exposing refresh(refreshToken): Promise<ApiResponse<RefreshResult>>
+  // persist?: { getAccessToken, setAccessToken } // optional access-token persistence
+});
 ```
 
 ## API
 
 | Export | Type | Description |
 |--------|------|-------------|
-| `authStore` | `ZustandStore` | Auth state: session, user, tokens, loading flags. |
-| `useAuth` | hook | React hook for auth state. |
-| `useToken` | hook | React hook for token + refresh status. |
-| `tenantStore` | `ZustandStore` | Tenant state: current tenant, list, switching logic. |
-| `useTenant` | hook | React hook for tenant state. |
-| `tokenRefreshMiddleware` | `ZustandMiddleware` | Intercepts 401s, refreshes token via SDK, retries failed request. |
-| `TokenStorage` | interface | Pluggable token storage (localStorage default). |
+| `useAuthStore` | Zustand store | Auth session store (`user`, `accessToken`, `refreshToken`, loading/error flags, setters/clear). |
+| `AuthState` | type | Shape of the auth store state/actions. |
+| `User` | type | User shape stored in auth state. |
+| `useTenantStore` | Zustand store | Active tenant store (`tenant`, `setTenant`, `clearTenant`). |
+| `TenantState` | type | Shape of the tenant store state/actions. |
+| `Tenant` | type | Tenant shape stored in tenant state. |
+| `createZustandTokenStorage` | function | Creates a token storage/refresh bridge (`getAccessToken`, `getRefreshToken`, `setTokens`, `clearTokens`, `onTokenRefresh`) backed by the Zustand auth store. |
+| `TokenStorage` | type | Token storage/refresh interface returned by `createZustandTokenStorage`. |
+| `TokenStoreLike` | type | Minimal auth-store interface required by the bridge. |
+| `TokenRefresher` | type | SDK refresh interface (`refresh(token)`). |
+| `PersistAdapter` | type | Optional adapter for persisting the access token (e.g. secure storage). |
 
-## Token-refresh bridge
+## Notes
 
-The `tokenRefreshMiddleware` wraps `@fusorb/facet-sdk` calls. When the SDK
-returns a 401, the middleware:
-
-1. Checks if a refresh token is available.
-2. Calls `AuthSdk.refreshToken()`.
-3. Retries the original request transparently.
-4. If refresh fails, clears the session and emits an event.
-
-This keeps all ten domain SDKs unaware of token expiry — the bridge lives in
-the store layer.
+- `@fusorb/facet-auth` and `@fusorb/facet-store` both define token-storage adapter concepts for different platform paths; unifying them is a follow-up tracked in-repo.
+- The refresh token should not be persisted via `PersistAdapter`; keep it in a secure backend/session mechanism as appropriate.
 
 ## License
 
