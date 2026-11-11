@@ -5,7 +5,7 @@
  *   core/   → animate(), sequence(), stagger(), tween, spring (zero DOM)
  *   values/ → motionValue() observable (get/set/subscribe)
  *   drivers/ → cssDriver (applies values to element.style, prefers-reduced-motion)
- *   registry/ → 15 generative families + 18 authored effects with resolve()
+ *   registry/ → 15 generative families + 27 authored effects with resolve()
  *   react/   → <Motion>, <Presence>, <Reveal>, <Stagger> thin JSX bindings
  *
  * Duration/easing tokens resolve against @fusorb/facet-tokens CSS custom
