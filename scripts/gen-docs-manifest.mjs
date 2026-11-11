@@ -1,21 +1,20 @@
-// Generates packages/docs/src/manifest.ts from the real component files,
-// so the docs sidebar and component list stay in sync with the library.
+// Generates a docs component manifest from the real component files.
 //
-// For each file in packages/components/src/ui/, emits:
-//   { name, slug, description, category }
-// where description is the first JSDoc block line (if any), falling back
-// to the file base name. Non-`ui/` exports (icon registry, theme) are
-// appended as "foundations" entries.
+// NOTE: The docs gallery manifest wiring changed in M5/M8 — the engine no longer
+// consumes a generated `apps/docs/src/facet/docs-manifest.ts`. This script is
+// retained as a utility for inspecting component metadata; it writes to stdout
+// unless --out is provided.
 //
-// Run: node scripts/gen-docs-manifest.mjs
-// Writes: packages/docs/src/manifest.ts
+// Run: node scripts/gen-docs-manifest.mjs [--out <file>]
 
 import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
 const uiDir = path.join(root, "packages/components/src/ui");
-const outFile = path.join(root, "apps/docs/src/facet/docs-manifest.ts");
+const args = process.argv.slice(2);
+const outIdx = args.indexOf("--out");
+const outFile = outIdx >= 0 ? path.resolve(root, args[outIdx + 1]) : null;
 
 /** Sidebar sub-group for a component slug. */
 const CATEGORY = {

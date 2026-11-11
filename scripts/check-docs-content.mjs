@@ -16,7 +16,7 @@ function getArg(name, def) {
   return i >= 0 ? args[i + 1] : def;
 }
 const inputDir = path.resolve(root, getArg("--input", "apps/docs/content"));
-const generatedFile = path.resolve(root, getArg("--generated", "apps/docs/src/pages.generated.ts"));
+const generatedFile = path.resolve(root, getArg("--generated", "apps/docs/src/data/compiled-pages.ts"));
 
 if (!fs.existsSync(inputDir)) {
   console.log("ok: no docs content dir (skipped)");

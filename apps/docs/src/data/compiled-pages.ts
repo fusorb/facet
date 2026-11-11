@@ -9,7 +9,7 @@ export const pages: DocsPage[] = [
     description: "How to install and use @fusorb/facet-components",
     order: 1,
     blocks: [],
-    load: async (): Promise<DocsBlock[]> => [{"type":"h2","text":"Getting Started"},{"type":"p","text":"Welcome to Facet. This guide walks you through installing the component library."},{"type":"h2","text":"Installation"},{"type":"p","text":"Install the core packages:"},{"type":"code","text":"pnpm add @fusorb/facet-components @fusorb/facet-tokens","lang":"bash"},{"type":"h2","text":"Usage"},{"type":"p","text":"Import a component and use it:"},{"type":"code","text":"import { Button } from \"@fusorb/facet-components\";\n\nexport default function App() {\n  return <Button>Click me</Button>;\n}","lang":"tsx"},{"type":"callout","tone":"note","text":"Make sure to import the tokens CSS in your app entry point. ::  ## Next steps  - Browse the component gallery - Read the API reference"}],
+    load: async (): Promise<DocsBlock[]> => [{"type":"h2","text":"Getting Started"},{"type":"p","text":"Welcome to Facet. This guide walks you through installing the component library."},{"type":"h2","text":"Installation"},{"type":"p","text":"Install the core packages:"},{"type":"code","text":"pnpm add @fusorb/facet-components @fusorb/facet-tokens","lang":"bash"},{"type":"h2","text":"Usage"},{"type":"p","text":"Import a component and use it:"},{"type":"code","text":"import { Button } from \"@fusorb/facet-components\";\n\nexport default function App() {\n  return <Button>Click me</Button>;\n}","lang":"tsx"},{"type":"callout","tone":"note","text":"Make sure to import the tokens CSS in your app entry point."},{"type":"h2","text":"Next steps"},{"type":"ul","items":["Browse the component gallery","Read the API reference"]}],
   },
 ];
 

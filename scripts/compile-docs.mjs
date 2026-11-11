@@ -141,8 +141,8 @@ function compileBody(body) {
         const tone = props.tone || "note";
         const bodyLines = [];
         i++;
-        while (i < lines.length && lines[i].trim() !== ":::") { bodyLines.push(lines[i]); i++; }
-        i++;
+        while (i < lines.length && !/^::\s*$/.test(lines[i].trim())) { bodyLines.push(lines[i]); i++; }
+        if (i < lines.length) i++;
         blocks.push({ type: "callout", tone, text: interpolate(bodyLines.join(" ").trim()) });
         continue;
       }

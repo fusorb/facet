@@ -2,9 +2,7 @@
 //
 // Enforces the invariants that keep the docs and library in sync:
 //   1. Every ui/ component is re-exported from the package barrel.
-//   2. Every ui/ component is present in the docs manifest (so the
-//      /components gallery and sidebar show it).
-//   3. CLAUDE.md documents the correct component count.
+//   2. CLAUDE.md documents the correct component count.
 //
 // Run: node scripts/check-docs-inventory.mjs
 // Fails (exit 1) with a report on any drift.
@@ -15,7 +13,6 @@ import path from "node:path";
 const root = process.cwd();
 const uiDir = path.join(root, "packages/components/src/ui");
 const barrelPath = path.join(root, "packages/components/src/index.ts");
-const manifestPath = path.join(root, "apps/docs/src/facet/docs-manifest.ts");
 const claudePath = path.join(root, "CLAUDE.md");
 
 const errors = [];
@@ -42,31 +39,7 @@ if (missingExports.length) {
   ok.push(`All ${components.length} ui components are barrel-exported.`);
 }
 
-// 2. Manifest parity: every ui/ component is listed in the docs manifest
-//    (slug matches the file name), so the gallery + sidebar cover it.
-//    Slugs in DOCUMENTED_ELSEWHERE are documented as tabs/variants on
-//    another page (e.g. typewriter-text is a tab on text-animations) and
-//    intentionally have no standalone manifest entry.
-const DOCUMENTED_ELSEWHERE = new Set(["typewriter-text"]);
-let manifest = "";
-try { manifest = fs.readFileSync(manifestPath, "utf-8"); } catch { manifest = ""; }
-const missingFromManifest = manifest
-  ? components.filter((c) => !DOCUMENTED_ELSEWHERE.has(c) && !manifest.includes(`"${c}"`))
-  : [];
-if (missingFromManifest.length) {
-  errors.push(
-    `Missing from docs manifest (${missingFromManifest.length}): ${missingFromManifest.join(", ")}`,
-  );
-} else {
-  const folded = components.filter((c) => DOCUMENTED_ELSEWHERE.has(c));
-  const listed = components.length - folded.length;
-  ok.push(`All ${listed} ui components are in the docs manifest.`);
-  for (const f of folded) {
-    ok.push(`  - ${f} is documented as tabs on another page.`);
-  }
-}
-
-// 3. Doc count assertion against CLAUDE.md.
+// 2. Doc count assertion against CLAUDE.md.
 const claude = fs.readFileSync(claudePath, "utf-8");
 const componentCount = components.length;
 const componentDoc = claude.match(/(\d+)\+? styled Radix components/);

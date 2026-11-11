@@ -21,11 +21,15 @@ if (!fs.existsSync(contentDir)) {
 
 // If content dir exists, run the compiler and validate output.
 const { execSync } = await import("node:child_process");
+import os from "node:os";
+const tmpOut = path.join(os.tmpdir(), "compiled-docs.json");
 try {
-  execSync("node scripts/compile-docs.mjs --input apps/docs/content --out /tmp/compiled.json", { stdio: "pipe", cwd: root });
+  execSync(`node scripts/compile-docs.mjs --input apps/docs/content --out "${tmpOut}"`, { stdio: "pipe", cwd: root });
   console.log("check:content: OK — compiler produced output");
 } catch (e) {
   console.log("check:content: compiler failed");
   console.error(e.stderr?.toString() || e.message);
   process.exit(1);
+} finally {
+  try { fs.unlinkSync(tmpOut); } catch {}
 }
