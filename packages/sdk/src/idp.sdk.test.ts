@@ -55,7 +55,7 @@ describe("IdpSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/idp/connections");
     expect(init.method).toBe("POST");
-    expect(JSON.parse(init.body as string)).toMatchObject({ name: "Okta", type: "SAML2" });
+    expect(JSON.parse(init.body as string)).toEqual({ tenantId: "t1", name: "Okta", type: "SAML2" });
   });
 
   it("updateConnection PATCHes /idp/connections/:id", async () => {
@@ -64,6 +64,7 @@ describe("IdpSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/idp/connections/c1");
     expect(init.method).toBe("PATCH");
+    expect(JSON.parse(init.body as string)).toEqual({ name: "Okta 2" });
   });
 
   it("deleteConnection DELETEs /idp/connections/:id", async () => {

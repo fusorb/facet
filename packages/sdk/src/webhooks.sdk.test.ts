@@ -48,6 +48,7 @@ describe("WebhooksSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/webhooks/endpoints");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ url: "https://x", eventTypes: ["a"] });
   });
 
   it("update PATCHes /webhooks/endpoints/:id", async () => {
@@ -56,6 +57,7 @@ describe("WebhooksSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/webhooks/endpoints/e1");
     expect(init.method).toBe("PATCH");
+    expect(JSON.parse(init.body as string)).toEqual({ enabled: false });
   });
 
   it("delete DELETEs /webhooks/endpoints/:id", async () => {
@@ -71,6 +73,7 @@ describe("WebhooksSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/webhooks/endpoints/e1/test");
     expect(init.method).toBe("POST");
+    expect(init.body).toBeUndefined();
   });
 
   it("listEvents GETs /webhooks/events with filters", async () => {
@@ -89,5 +92,6 @@ describe("WebhooksSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/webhooks/events/ev1/retry");
     expect(init.method).toBe("POST");
+    expect(init.body).toBeUndefined();
   });
 });

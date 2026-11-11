@@ -46,21 +46,26 @@ describe("VcSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/credentials/verify");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ credential: "jwt-cred" });
   });
 
   it("issue POSTs /credentials/issue", async () => {
     mockJson({ success: true, data: {} });
-    await vcs.issue({ subjectDid: "did:example:1", credentialSubject: { name: "Ada" } });
+    const payload = { subjectDid: "did:example:1", credentialSubject: { name: "Ada" } };
+    await vcs.issue(payload);
     const [url, init] = lastCall();
     expect(url).toContain("/credentials/issue");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual(payload);
   });
 
   it("offer POSTs /credentials/offers", async () => {
     mockJson({ success: true, data: { token: "tok", expiresAt: "2024" } });
     await vcs.offer({ credentialId: "c1" });
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/credentials/offers");
+    expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ credentialId: "c1" });
   });
 
   it("revoke POSTs /credentials/revoke", async () => {
@@ -69,40 +74,52 @@ describe("VcSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/credentials/revoke");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ credentialId: "c1" });
   });
 
-  it("acceptOffer POSTs /credentials/offers/:token/accept", async () => {
-    mockJson({ success: true, data: {} });
-    await vcs.acceptOffer("tok");
-    const [url] = lastCall();
+  it("acceptOffer POSTs /credentials/offers/:token/accept with typed result", async () => {
+    const result = { credentialId: "c1", credential: "jwt" };
+    mockJson({ success: true, data: result });
+    const res = await vcs.acceptOffer("tok");
+    expect(res.data).toEqual(result);
+    const [url, init] = lastCall();
     expect(url).toContain("/credentials/offers/tok/accept");
+    expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({});
   });
 
   it("createVerificationSession POSTs /credentials/verify/session (bare)", async () => {
     mockJson({ sessionId: "s1", challenge: "ch", expiresAt: "2024" });
     await vcs.createVerificationSession("c1");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/credentials/verify/session");
+    expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ credentialRef: "c1" });
   });
 
   it("presentForVerification POSTs /credentials/verify/present (bare)", async () => {
     mockJson({ valid: true });
-    await vcs.presentForVerification({ sessionId: "s1", credential: {}, proof: {} });
-    const [url] = lastCall();
+    const payload = { sessionId: "s1", credential: { a: 1 }, proof: { b: 2 } };
+    await vcs.presentForVerification(payload);
+    const [url, init] = lastCall();
     expect(url).toContain("/credentials/verify/present");
+    expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual(payload);
   });
 
   it("getStatusList GETs /credentials/status-lists/:id (bare)", async () => {
     mockJson({ id: "sl1", bits: "0", status: "active" });
     await vcs.getStatusList("sl1");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/credentials/status-lists/sl1");
+    expect(init.method).toBe("GET");
   });
 
   it("resolveTenantDidDoc GETs /credentials/tenants/:slug/did.json (bare)", async () => {
     mockJson({ did: "did:example:1" });
     await vcs.resolveTenantDidDoc("acme");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/credentials/tenants/acme/did.json");
+    expect(init.method).toBe("GET");
   });
 });

@@ -48,6 +48,7 @@ describe("OAuthSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/oauth/clients");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ name: "My App", redirectUris: ["https://app/cb"] });
   });
 
   it("updateClient PATCHes /oauth/clients/:id", async () => {
@@ -56,6 +57,7 @@ describe("OAuthSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/oauth/clients/oc1");
     expect(init.method).toBe("PATCH");
+    expect(JSON.parse(init.body as string)).toEqual({ name: "Renamed" });
   });
 
   it("deleteClient DELETEs /oauth/clients/:id", async () => {
@@ -87,6 +89,7 @@ describe("OAuthSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/oauth/consent");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ clientId: "oc1", scopes: ["openid"] });
   });
 
   it("revokeConsent DELETEs /oauth/consent/:id", async () => {
@@ -110,6 +113,7 @@ describe("OAuthSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/oauth/introspect");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ token: "tok" });
   });
 
   it("revokeTokenRFC7009 POSTs /oauth/revoke", async () => {
@@ -118,6 +122,7 @@ describe("OAuthSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/oauth/revoke");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ token: "tok", token_type_hint: "access_token" });
   });
 
   it("userinfo GETs /oauth/userinfo with bare response", async () => {

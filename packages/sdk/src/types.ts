@@ -62,10 +62,10 @@ export interface Session {
 
 export interface Device {
   id: string;
-  name: string;
-  platform?: string;
-  lastUsedAt?: string;
+  platform: string;
+  browser: string;
   createdAt: string;
+  lastSeenAt: string;
 }
 
 export interface LinkedAccount {
@@ -77,9 +77,10 @@ export interface LinkedAccount {
 
 export interface ExternalId {
   id: string;
-  provider: string;
-  externalId: string;
-  linkedAt?: string;
+  type: string;
+  displayValue: string;
+  verified: boolean;
+  createdAt: string;
 }
 
 export interface Delegation {
@@ -232,8 +233,11 @@ export interface Tenant {
 
 export interface TenantPolicy {
   requireMfa?: boolean;
-  passwordRules?: JsonObject;
-  loginMethods?: string[];
+  requireLegalConsent?: boolean;
+  sessionTtlMinutes?: number;
+  allowedEmailDomains?: string[];
+  maxSessionsPerUser?: number;
+  allowPasskeys?: boolean;
 }
 
 export interface TenantDid {

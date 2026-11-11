@@ -45,8 +45,9 @@ describe("TenantSdk", () => {
   it("get GETs /tenants/:slug", async () => {
     mockJson({ success: true, data: t });
     await tenant.get("acme");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/tenants/acme");
+    expect(init.method).toBe("GET");
   });
 
   it("create POSTs /tenants (G2)", async () => {
@@ -65,13 +66,15 @@ describe("TenantSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/auth/switch-context");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ tenantId: "t1" });
   });
 
   it("listMembers GETs /tenants/:id/members", async () => {
     mockJson({ success: true, data: [] });
     await tenant.listMembers("t1");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/members");
+    expect(init.method).toBe("GET");
   });
 
   it("addMember POSTs /tenants/:id/members", async () => {
@@ -80,6 +83,7 @@ describe("TenantSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/members");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ identityId: "u1", role: "admin" });
   });
 
   it("removeMember DELETEs /tenants/:id/members/:identityId", async () => {
@@ -93,16 +97,19 @@ describe("TenantSdk", () => {
   it("getPolicy GETs /tenants/:id/policy", async () => {
     mockJson({ success: true, data: { requireMfa: true } });
     await tenant.getPolicy("t1");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/policy");
+    expect(init.method).toBe("GET");
   });
 
   it("updatePolicy PATCHes /tenants/:id/policy", async () => {
     mockJson({ success: true, data: {} });
-    await tenant.updatePolicy("t1", { requireMfa: false });
+    const policy = { requireMfa: true, sessionTtlMinutes: 60, allowPasskeys: true };
+    await tenant.updatePolicy("t1", policy);
     const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/policy");
     expect(init.method).toBe("PATCH");
+    expect(JSON.parse(init.body as string)).toEqual(policy);
   });
 
   it("acceptInvite POSTs /invites/accept", async () => {
@@ -111,13 +118,15 @@ describe("TenantSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/invites/accept");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ token: "inv-tok" });
   });
 
   it("getDid GETs /tenants/:id/did", async () => {
     mockJson({ success: true, data: { did: "did:example:t1", createdAt: "2024" } });
     await tenant.getDid("t1");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/did");
+    expect(init.method).toBe("GET");
   });
 
   it("provisionDid POSTs /tenants/:id/did", async () => {
@@ -126,13 +135,15 @@ describe("TenantSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/did");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ domain: "acme.dev" });
   });
 
   it("listSigningKeys GETs /tenants/:id/signing-keys", async () => {
     mockJson({ success: true, data: [] });
     await tenant.listSigningKeys("t1");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/signing-keys");
+    expect(init.method).toBe("GET");
   });
 
   it("createSigningKey POSTs /tenants/:id/signing-keys", async () => {
@@ -141,6 +152,7 @@ describe("TenantSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/signing-keys");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ displayName: "key1" });
   });
 
   it("revokeSigningKey DELETEs /tenants/:id/signing-keys/:kid", async () => {
@@ -154,8 +166,9 @@ describe("TenantSdk", () => {
   it("listProjects GETs /tenants/:id/projects", async () => {
     mockJson({ success: true, data: [] });
     await tenant.listProjects("t1");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/projects");
+    expect(init.method).toBe("GET");
   });
 
   it("createProject POSTs /tenants/:id/projects", async () => {
@@ -164,13 +177,15 @@ describe("TenantSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/projects");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ name: "P" });
   });
 
   it("getProject GETs /tenants/:id/projects/:projectId", async () => {
     mockJson({ success: true, data: { id: "p1", name: "P", tenantId: "t1", createdAt: "2024" } });
     await tenant.getProject("t1", "p1");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/projects/p1");
+    expect(init.method).toBe("GET");
   });
 
   it("updateProject PATCHes /tenants/:id/projects/:projectId", async () => {
@@ -179,6 +194,7 @@ describe("TenantSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/projects/p1");
     expect(init.method).toBe("PATCH");
+    expect(JSON.parse(init.body as string)).toEqual({ name: "P2" });
   });
 
   it("deleteProject DELETEs /tenants/:id/projects/:projectId", async () => {
@@ -191,24 +207,28 @@ describe("TenantSdk", () => {
 
   it("createOnboardingFlow POSTs .../onboarding-flows", async () => {
     mockJson({ success: true, data: { id: "f1", projectId: "p1", steps: [], createdAt: "2024" } });
-    await tenant.createOnboardingFlow("t1", "p1", { steps: [{ type: "form" }] });
+    const payload = { steps: [{ type: "form" }] };
+    await tenant.createOnboardingFlow("t1", "p1", payload);
     const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/projects/p1/onboarding-flows");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual(payload);
   });
 
   it("listOnboardingFlows GETs .../onboarding-flows", async () => {
     mockJson({ success: true, data: [] });
     await tenant.listOnboardingFlows("t1", "p1");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/projects/p1/onboarding-flows");
+    expect(init.method).toBe("GET");
   });
 
   it("getOnboardingFlow GETs .../onboarding-flows/:flowId", async () => {
     mockJson({ success: true, data: { id: "f1", projectId: "p1", steps: [], createdAt: "2024" } });
     await tenant.getOnboardingFlow("t1", "p1", "f1");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/projects/p1/onboarding-flows/f1");
+    expect(init.method).toBe("GET");
   });
 
   it("updateOnboardingFlow PATCHes .../onboarding-flows/:flowId", async () => {
@@ -217,6 +237,7 @@ describe("TenantSdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/projects/p1/onboarding-flows/f1");
     expect(init.method).toBe("PATCH");
+    expect(JSON.parse(init.body as string)).toEqual({ name: "renamed" });
   });
 
   it("deleteOnboardingFlow DELETEs .../onboarding-flows/:flowId", async () => {
@@ -231,7 +252,8 @@ describe("TenantSdk", () => {
     mockJson({ keys: [] });
     const res = await tenant.getJwksBySlug("acme");
     expect(res.data).toEqual({ keys: [] });
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/tenants/acme/jwks");
+    expect(init.method).toBe("GET");
   });
 });

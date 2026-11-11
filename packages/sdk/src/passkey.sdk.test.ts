@@ -45,30 +45,34 @@ describe("PasskeySdk", () => {
     const [url, init] = lastCall();
     expect(url).toContain("/auth/passkey/options/register");
     expect(init.method).toBe("POST");
+    expect(init.body).toBeUndefined();
   });
 
   it("register POSTs /auth/passkey/register", async () => {
     mockJson({ success: true, data: { passkey: { id: "p1", credentialId: "c", createdAt: "2024" }, user: { id: "u1", email: "a@b.c", name: "Ada", memberships: [] } } });
-    await passkey.register({ response: {}, challengeId: "ch1" });
+    await passkey.register({ response: { id: "cred" }, challengeId: "ch1" });
     const [url, init] = lastCall();
     expect(url).toContain("/auth/passkey/register");
     expect(init.method).toBe("POST");
-    expect(JSON.parse(init.body as string)).toMatchObject({ challengeId: "ch1" });
+    expect(JSON.parse(init.body as string)).toEqual({ response: { id: "cred" }, challengeId: "ch1" });
   });
 
   it("authenticationOptions POSTs /auth/passkey/options/authenticate", async () => {
     mockJson({ success: true, data: { options: {}, challengeId: "ch2" } });
     await passkey.authenticationOptions("u1");
-    const [url] = lastCall();
+    const [url, init] = lastCall();
     expect(url).toContain("/auth/passkey/options/authenticate");
+    expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ identityId: "u1" });
   });
 
   it("authenticate POSTs /auth/passkey/authenticate", async () => {
     mockJson({ success: true, data: { accessToken: "at", refreshToken: "rt", user: { id: "u1", email: "a@b.c", name: "Ada", memberships: [] } } });
-    await passkey.authenticate({ response: {}, challengeId: "ch2" });
+    await passkey.authenticate({ response: { id: "cred" }, challengeId: "ch2" });
     const [url, init] = lastCall();
     expect(url).toContain("/auth/passkey/authenticate");
     expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toEqual({ response: { id: "cred" }, challengeId: "ch2" });
   });
 
   it("deregister DELETEs /auth/passkey/:id", async () => {
