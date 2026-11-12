@@ -96,7 +96,13 @@ jobs:
           commit-message: "chore(release): version packages"
           # Version only: bumps package.json + CHANGELOG and opens a PR.
           # npm publish happens in the `publish` job after that PR merges.
-          version-script: pnpm changeset version
+          #
+          # `version-packages` also runs scripts/sync-readme-versions.mjs, because
+          # the bump leaves the README version table stale and `pnpm check:readme`
+          # would then fail - and the publish job is gated on `ci`, so the release
+          # would never ship. The action commits whatever the script changed, so
+          # the version PR carries the updated table.
+          version-script: pnpm version-packages
 
   # After the "Version Packages" PR merges to main, this job publishes the
   # versioned packages to npm. It gates on the `ci` job (typecheck + build must

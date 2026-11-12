@@ -25,12 +25,15 @@ const packages = fs
 
 // Split once: the row lookup below scans every line.
 const lines = readme.split("\n");
+/** Published package name -> version, for the "Current versions:" line below. */
+const publishedVersions = new Map();
 
 for (const dir of packages) {
   const pj = JSON.parse(fs.readFileSync(path.join(root, "packages", dir, "package.json"), "utf-8"));
   const name = pj.name;
   if (!name || !name.startsWith("@fusorb/")) continue;
   const version = pj.version;
+  publishedVersions.set(name, version);
 
   // Compare the table ROW for this package - the one whose first cell is the
   // package name - not every line that happens to mention it. Matching by
@@ -47,7 +50,24 @@ for (const dir of packages) {
   }
 }
 
-// 2. Forms count
+// 2. The "Current versions:" summary line. The docstring has always claimed this
+// is validated, but nothing ever checked it - so it drifted silently through the
+// 2026-11-12 release while the table above it was being repaired.
+const summaryLine = lines.find((line) => line.startsWith("Current versions:"));
+if (!summaryLine) {
+  errors.push("README: no 'Current versions:' line found");
+} else {
+  for (const [, short, version] of summaryLine.matchAll(/\b([a-z][a-z-]*) (\d+\.\d+\.\d+)/g)) {
+    const latest = publishedVersions.get(`@fusorb/facet-${short}`);
+    if (latest && latest !== version) {
+      errors.push(
+        `README: "Current versions" says ${short} ${version} but package.json has ${latest}`,
+      );
+    }
+  }
+}
+
+// 3. Forms count
 const formsIndex = fs.readFileSync(path.join(root, "packages/auth/src/forms/index.ts"), "utf-8");
 const formCount = (formsIndex.match(/Form\b/g) || []).length; // rough
 // Better: count exports ending in "Form"

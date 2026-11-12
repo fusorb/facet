@@ -7,6 +7,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "release": "pnpm build && pnpm changeset publish",
+    "version-packages": "changeset version && node scripts/sync-readme-versions.mjs",
     "dev:landing": "pnpm -F @fusorb/facet-landing dev",
     "dev:docs-site": "pnpm -F @fusorb/facet-docs-site dev",
     "dev:all": "turbo run dev --filter=@fusorb/facet-landing --filter=@fusorb/facet-docs-site --filter=@fusorb/facet-playground",
@@ -35,6 +36,7 @@
     "gen:changelog": "node scripts/gen-changelog.mjs",
     "gen:changeset": "node scripts/gen-changeset.mjs",
     "sync:tracker": "node scripts/gen-tracker.mjs",
+    "sync:readme": "node scripts/sync-readme-versions.mjs",
     "check:motion-drift": "node packages/motion/scripts/check-motion-drift.mjs",
     "check:boundaries": "node scripts/check-boundaries.mjs",
     "check:engine-purity": "node scripts/check-engine-purity.mjs",

@@ -25,7 +25,7 @@ design manual (Alpha Palette), and your auth requirements differ per sector
 | `@fusorb/facet-utils`      | Shared styling utilities (`cn`) consumed by components + motion                                                                                                                            | ✅ 0.1.1  |
 | `@fusorb/facet-registry`   | Workspace scanner → `registry.json` + typed accessors (packages, components, layouts, motion, tokens, presets, surfaces)                                                                  | 🔒 private |
 
-Current versions: tokens 1.5.1, sdk 2.1.1, motion 1.2.2, native 1.2.2, components 3.2.1, auth 2.1.0, layout 1.7.2, store 1.0.4, docs 1.5.12, cli 1.1.4, emails 1.1.4, sandbox 3.0.1, utils 0.1.1 (`registry` 0.1.0 is private/workspace-only).
+Current versions: tokens 1.5.1, sdk 3.0.0, motion 1.2.3, native 1.2.2, components 3.2.2, auth 2.1.1, layout 1.7.2, store 1.0.5, docs 1.5.12, cli 1.1.4, emails 1.1.4, sandbox 3.0.1, utils 0.1.1 (`registry` 0.1.0 is private/workspace-only).
 
 ## Sites
 
