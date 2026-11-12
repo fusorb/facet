@@ -61,7 +61,16 @@ for (const m of sdkSource.matchAll(/`([^`]*)`/g)) {
 }
 
 // 3. Diff: SovGrant paths not covered by SDK.
-const contractPaths = [...paths].sort();
+// Routes that exist in SovGrant but are intentionally unsupported by this SDK
+// (e.g. 501-by-design endpoints). Keep this list explicit so deliberate gaps
+// do not break coverage checks while real drift still fails the gate.
+const INTENTIONALLY_UNSUPPORTED = new Set([
+  "/identity/delegations",
+]);
+
+const contractPaths = [...paths]
+  .filter((p) => !INTENTIONALLY_UNSUPPORTED.has(p))
+  .sort();
 const uncovered = contractPaths.filter((p) => {
   const normalized = p.replace(/\/:[a-z]+/g, "/:id");
   // Coverage = SDK references the exact path, or as a prefix (e.g.
