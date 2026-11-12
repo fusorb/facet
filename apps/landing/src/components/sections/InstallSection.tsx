@@ -31,14 +31,14 @@ export function InstallSection() {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {INSTALL_STEPS.map((step) => (
+        {INSTALL_STEPS.map((step, index) => (
           <Card
-            key={step.num}
+            key={step.id}
             className="transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
           >
             <CardHeader>
               <span className="inline-flex size-8 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
-                {step.num}
+                {index + 1}
               </span>
               <CardTitle className="text-sm font-semibold">
                 {step.label}
