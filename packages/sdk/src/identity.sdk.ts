@@ -114,8 +114,8 @@ export class IdentitySdk {
   confirmExternalId(
     id: string,
     data: { code: string },
-  ): Promise<ApiResponse<ExternalId>> {
-    return this.client.post<ExternalId>(
+  ): Promise<ApiResponse<{ id: string; verified: boolean }>> {
+    return this.client.post<{ id: string; verified: boolean }>(
       `/identity/external-ids/${id}/confirm`,
       data,
     );

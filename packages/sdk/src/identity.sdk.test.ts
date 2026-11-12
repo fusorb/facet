@@ -153,10 +153,10 @@ describe("IdentitySdk", () => {
   });
 
   it("confirmExternalId POSTs /identity/external-ids/:id/confirm with code", async () => {
-    const extId = { id: "ei1", type: "nin", displayValue: "NIN ***1234", verified: true, createdAt: "2024-01-01" };
-    mockJson({ success: true, data: extId });
+    const confirmed = { id: "ei1", verified: true };
+    mockJson({ success: true, data: confirmed });
     const res = await identity.confirmExternalId("ei1", { code: "123456" });
-    expect(res.data).toEqual(extId);
+    expect(res.data).toEqual(confirmed);
     const [url, init] = lastCall();
     expect(url).toContain("/identity/external-ids/ei1/confirm");
     expect(init.method).toBe("POST");
