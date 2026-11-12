@@ -83,14 +83,6 @@ export interface ExternalId {
   createdAt: string;
 }
 
-export interface Delegation {
-  id: string;
-  subjectId: string;
-  scope: string;
-  createdAt: string;
-  expiresAt?: string | null;
-}
-
 /* ── Auth ──────────────────────────────────────────────────── */
 
 export interface LoginResult {

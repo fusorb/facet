@@ -96,7 +96,17 @@ describe("TenantSdk", () => {
 
   it("getPolicy GETs /tenants/:id/policy", async () => {
     mockJson({ success: true, data: { requireMfa: true } });
-    await tenant.getPolicy("t1");
+    const res = await tenant.getPolicy("t1");
+    expect(res.data).toEqual({ requireMfa: true });
+    const [url, init] = lastCall();
+    expect(url).toContain("/tenants/t1/policy");
+    expect(init.method).toBe("GET");
+  });
+
+  it("getPolicy returns null when no policy is set", async () => {
+    mockJson({ success: true, data: null });
+    const res = await tenant.getPolicy("t1");
+    expect(res.data).toBeNull();
     const [url, init] = lastCall();
     expect(url).toContain("/tenants/t1/policy");
     expect(init.method).toBe("GET");

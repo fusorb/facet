@@ -69,8 +69,8 @@ export class TenantSdk {
 
   /* ── Policy ───────────────────────────────────────────────── */
 
-  getPolicy(tenantId: string): Promise<ApiResponse<TenantPolicy>> {
-    return this.client.get<TenantPolicy>(`/tenants/${tenantId}/policy`);
+  getPolicy(tenantId: string): Promise<ApiResponse<TenantPolicy | null>> {
+    return this.client.get<TenantPolicy | null>(`/tenants/${tenantId}/policy`);
   }
 
   updatePolicy(

@@ -67,7 +67,6 @@ export type {
   Device,
   LinkedAccount,
   ExternalId,
-  Delegation,
   LoginResult,
   RegisterResult,
   TokenBundle,

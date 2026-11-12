@@ -143,23 +143,24 @@ describe("IdentitySdk", () => {
   });
 
   it("verifyExternalId POSTs /identity/external-ids/:id/verify", async () => {
-    mockJson({ success: true, data: { verification: "ver-1" } });
-    await identity.verifyExternalId("ei1");
+    mockJson({ success: true, data: { success: true, type: "nin" } });
+    const res = await identity.verifyExternalId("ei1");
+    expect(res.data).toEqual({ success: true, type: "nin" });
     const [url, init] = lastCall();
     expect(url).toContain("/identity/external-ids/ei1/verify");
     expect(init.method).toBe("POST");
     expect(JSON.parse(init.body as string)).toEqual({});
   });
 
-  it("confirmExternalId POSTs /identity/external-ids/:id/confirm", async () => {
+  it("confirmExternalId POSTs /identity/external-ids/:id/confirm with code", async () => {
     const extId = { id: "ei1", type: "nin", displayValue: "NIN ***1234", verified: true, createdAt: "2024-01-01" };
     mockJson({ success: true, data: extId });
-    const res = await identity.confirmExternalId("ei1", { verification: "ver-1" });
+    const res = await identity.confirmExternalId("ei1", { code: "123456" });
     expect(res.data).toEqual(extId);
     const [url, init] = lastCall();
     expect(url).toContain("/identity/external-ids/ei1/confirm");
     expect(init.method).toBe("POST");
-    expect(JSON.parse(init.body as string)).toEqual({ verification: "ver-1" });
+    expect(JSON.parse(init.body as string)).toEqual({ code: "123456" });
   });
 
   it("unlinkExternalId DELETEs /identity/external-ids/:id", async () => {
@@ -170,30 +171,6 @@ describe("IdentitySdk", () => {
     expect(init.method).toBe("DELETE");
   });
 
-  it("listDelegations GETs /identity/delegations", async () => {
-    mockJson({ success: true, data: [] });
-    await identity.listDelegations();
-    const [url, init] = lastCall();
-    expect(url).toContain("/identity/delegations");
-    expect(init.method).toBe("GET");
-  });
-
-  it("createDelegation POSTs /identity/delegations", async () => {
-    mockJson({ success: true, data: { id: "del1", subjectId: "s1", scope: "read", createdAt: "2024" } });
-    await identity.createDelegation({ subjectId: "s1", scope: "read" });
-    const [url, init] = lastCall();
-    expect(url).toContain("/identity/delegations");
-    expect(init.method).toBe("POST");
-    expect(JSON.parse(init.body as string)).toEqual({ subjectId: "s1", scope: "read" });
-  });
-
-  it("revokeDelegation DELETEs /identity/delegations/:id", async () => {
-    mockJson({ success: true, data: {} });
-    await identity.revokeDelegation("del1");
-    const [url, init] = lastCall();
-    expect(url).toContain("/identity/delegations/del1");
-    expect(init.method).toBe("DELETE");
-  });
 
   it("startOnboarding POSTs /identity/onboarding/start", async () => {
     mockJson({ success: true, data: { flowId: "f1", progressId: "p1", currentStep: "s1", steps: [], status: "IN_PROGRESS" } });

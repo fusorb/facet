@@ -8,7 +8,6 @@
 import { SgClient } from "./client.js";
 import type { ApiResponse } from "./client.js";
 import type {
-  Delegation,
   Device,
   ExternalId,
   JsonObject,
@@ -103,8 +102,10 @@ export class IdentitySdk {
     return this.client.post<ExternalId>("/identity/external-ids", data);
   }
 
-  verifyExternalId(id: string): Promise<ApiResponse<{ verification: string }>> {
-    return this.client.post<{ verification: string }>(
+  verifyExternalId(
+    id: string,
+  ): Promise<ApiResponse<{ success: boolean; type: string }>> {
+    return this.client.post<{ success: boolean; type: string }>(
       `/identity/external-ids/${id}/verify`,
       {},
     );
@@ -112,7 +113,7 @@ export class IdentitySdk {
 
   confirmExternalId(
     id: string,
-    data: { verification: string },
+    data: { code: string },
   ): Promise<ApiResponse<ExternalId>> {
     return this.client.post<ExternalId>(
       `/identity/external-ids/${id}/confirm`,
@@ -122,24 +123,6 @@ export class IdentitySdk {
 
   unlinkExternalId(id: string): Promise<ApiResponse<void>> {
     return this.client.del<void>(`/identity/external-ids/${id}`);
-  }
-
-  /* ── Delegations ───────────────────────────────────────── */
-
-  listDelegations(): Promise<ApiResponse<Delegation[]>> {
-    return this.client.get<Delegation[]>("/identity/delegations");
-  }
-
-  createDelegation(data: {
-    subjectId: string;
-    scope: string;
-    expiresAt?: string;
-  }): Promise<ApiResponse<Delegation>> {
-    return this.client.post<Delegation>("/identity/delegations", data);
-  }
-
-  revokeDelegation(id: string): Promise<ApiResponse<void>> {
-    return this.client.del<void>(`/identity/delegations/${id}`);
   }
 
   /* ── Onboarding ────────────────────────────────────────── */
