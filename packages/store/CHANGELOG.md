@@ -1,5 +1,12 @@
 # @fusorb/facet-store
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies [f2d4b1c]
+  - @fusorb/facet-sdk@4.0.0
+
 ## 1.0.5
 
 ### Patch Changes
