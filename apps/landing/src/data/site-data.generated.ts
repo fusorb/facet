@@ -23,7 +23,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-components",
     "desc": "Radix-based UI component library: 112 accessible, styled components using the Alpha Palette design tokens",
-    "version": "3.2.1",
+    "version": "3.2.2",
     "icon": "boxes"
   },
   {
@@ -35,7 +35,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-auth",
     "desc": "Domain-customizable auth components: SgProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "icon": "shield-check"
   },
   {
@@ -47,7 +47,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-sdk",
     "desc": "SovGrant API client: framework-agnostic fetch SDK. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
-    "version": "2.1.1",
+    "version": "3.0.0",
     "icon": "zap"
   },
   {
@@ -71,13 +71,13 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-store",
     "desc": "Framework-agnostic state stores for SovGrant auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "icon": "store"
   },
   {
     "name": "@fusorb/facet-motion",
     "desc": "Domain-customizable animation engine: generator-driven core (tween + spring), observable motion values, CSS driver with prefers-reduced-motion, a 15-family generative registry, and thin React bindings. Wired to @fusorb/facet-tokens CSS custom properties.",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "icon": "sparkle"
   },
   {
