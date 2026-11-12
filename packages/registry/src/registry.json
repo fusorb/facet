@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "08d3e54caf94cfce6dbc2a503a140fe4c1b4d6fe",
-    "at": "2026-11-12T06:48:09.029Z"
+    "commit": "a0e1b5263932fea39467db1bcd3fda976e4f21f3",
+    "at": "2026-11-12T20:56:40.799Z"
   },
   "packages": [
     {
@@ -87,7 +87,7 @@
     },
     {
       "name": "@fusorb/facet-auth",
-      "version": "2.1.1",
+      "version": "2.1.2",
       "summary": "Auth domain: context, flows, 7 form-based components",
       "description": "Domain-customizable auth components: SgProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
       "category": "ui",
@@ -137,8 +137,8 @@
     },
     {
       "name": "@fusorb/facet-sdk",
-      "version": "3.0.0",
-      "summary": "Pure-fetch SDK: 62 routes, 10 domain classes",
+      "version": "4.0.0",
+      "summary": "Pure-fetch SDK: 61 routes (delegations 501 not supported), 9 domain classes",
       "description": "SovGrant API client: framework-agnostic fetch SDK. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
       "category": "data",
       "icon": "zap",
@@ -221,7 +221,7 @@
     },
     {
       "name": "@fusorb/facet-store",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "summary": "Zustand-backed state management keyed on SDK session",
       "description": "Framework-agnostic state stores for SovGrant auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
       "category": "ui",
