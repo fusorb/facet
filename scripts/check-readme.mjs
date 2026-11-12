@@ -23,22 +23,27 @@ const packages = fs
   .readdirSync(path.join(root, "packages"))
   .filter((d) => fs.existsSync(path.join(root, "packages", d, "package.json")));
 
+// Split once: the row lookup below scans every line.
+const lines = readme.split("\n");
+
 for (const dir of packages) {
   const pj = JSON.parse(fs.readFileSync(path.join(root, "packages", dir, "package.json"), "utf-8"));
   const name = pj.name;
   if (!name || !name.startsWith("@fusorb/")) continue;
   const version = pj.version;
-  // Find the README table row for this package
-  const rowRe = new RegExp(`\\| \\x60${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\x60[^|]*\\|[^|]*\\|\\s*✅\\s*${version.replace(/\./g, "\\.")}\\s*\\|`);
-  // Simpler: find any row mentioning the package name and check version
-  const lines = readme.split("\n");
-  for (const line of lines) {
-    if (!line.includes(name)) continue;
-    if (!line.includes("✅")) continue;
-    const vMatch = line.match(/✅\s*(\d+\.\d+\.\d+)/);
-    if (vMatch && vMatch[1] !== version) {
-      errors.push(`README: ${name} shows ${vMatch[1]} but package.json has ${version}`);
-    }
+
+  // Compare the table ROW for this package - the one whose first cell is the
+  // package name - not every line that happens to mention it. Matching by
+  // substring made a description that names another package carry two versions
+  // at once: facet-native's row references @fusorb/facet-motion, so its single
+  // version cell was checked against both 1.2.2 (native) and 1.2.3 (motion), and
+  // could only ever satisfy one of them once those versions diverged.
+  const row = lines.find((line) => line.trimStart().startsWith(`| \`${name}\``));
+  if (!row) continue;
+
+  const vMatch = row.match(/✅\s*(\d+\.\d+\.\d+)/);
+  if (vMatch && vMatch[1] !== version) {
+    errors.push(`README: ${name} shows ${vMatch[1]} but package.json has ${version}`);
   }
 }
 
