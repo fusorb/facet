@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "a0e1b5263932fea39467db1bcd3fda976e4f21f3",
-    "at": "2026-11-12T20:56:40.799Z"
+    "commit": "7ff8527e8677afe40cddb6d296db9fe6c97eb9f4",
+    "at": "2026-11-13T06:14:53.223Z"
   },
   "packages": [
     {
@@ -138,7 +138,7 @@
     {
       "name": "@fusorb/facet-sdk",
       "version": "4.0.0",
-      "summary": "Pure-fetch SDK: 61 routes (delegations 501 not supported), 9 domain classes",
+      "summary": "Pure-fetch SDK: 61 routes (delegations 501 not supported), 10 domain classes",
       "description": "SovGrant API client: framework-agnostic fetch SDK. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
       "category": "data",
       "icon": "zap",
