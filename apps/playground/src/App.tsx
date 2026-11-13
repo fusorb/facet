@@ -1,174 +1,306 @@
-import { useEffect, useMemo, useState } from "react";
-import { createRoot } from "react-dom/client";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import type React from "react"
 
-import { ThemeProvider } from "@fusorb/facet-components";
-import { ConsoleLayout, PageHeader } from "@fusorb/facet-layout";
-import { Stage } from "@fusorb/facet-sandbox/react";
-import { getComponent, listComponents } from "@fusorb/facet-registry";
-import * as examplesNs from "@fusorb/facet-components/examples";
+import { ThemeProvider, Navbar, Button } from "@fusorb/facet-components";
+import { CodeView, type ControlRenderer } from "@fusorb/facet-sandbox/react";
+import { PlaygroundErrorBoundary } from "@fusorb/facet-sandbox/live";
+import {
+  decodeState,
+  encodeState,
+  inferControls,
+  toCode,
+  type ControlField,
+  type ControlType,
+  type Example,
+} from "@fusorb/facet-sandbox/core";
+import { listComponents, getComponent } from "@fusorb/facet-registry";
 import { surfaces } from "../../../surfaces.config.mjs";
 
-import "./app.css";
+import { CatalogPanel } from "./components/catalog-panel.js";
+import { facetControlRenderers } from "./components/control-renderers.js";
+import { InspectorSidebar } from "./components/inspector-sidebar.js";
+import { MobileSheets } from "./components/mobile-sheets.js";
+import { Toolbar } from "./components/toolbar.js";
+import { buildExampleMap } from "./lib/example-map.js";
+import {
+  DEFAULT_VIEWPORT,
+  VIEWPORT_PRESETS,
+  getViewportWidth,
+  type ViewportPresetId,
+} from "./lib/viewport-presets.js";
 
-// Build a slug -> Example[] map from the components examples barrel.
-function buildExampleMap(): Record<string, any[]> {
-  const map: Record<string, any[]> = {};
-  for (const [, val] of Object.entries(examplesNs)) {
-    if (Array.isArray(val) && val.length > 0 && val[0]?.artifact) {
-      const slug = val[0].artifact;
-      map[slug] = val;
-    }
-  }
-  return map;
+const EXAMPLES_BY_SLUG = buildExampleMap();
+const COMPONENTS = listComponents();
+const FIRST_SLUG = COMPONENTS[0]?.slug ?? "button";
+
+interface PermalinkState {
+  slug: string;
+  example?: string;
+  props?: Record<string, unknown>;
+  viewport?: string;
+  reducedMotion?: boolean;
 }
 
-const exampleMap = buildExampleMap();
+function readPermalink(): PermalinkState {
+  const hash = window.location.hash.replace(/^#/, "");
+  const [path, query = ""] = hash.split("?");
+  const [slug, example] = (path ?? "").split("/").filter(Boolean);
+  const params = new URLSearchParams(query);
+  const propsRaw = params.get("props");
+  const viewport = params.get("viewport") ?? undefined;
+  const reducedMotion = params.get("reducedMotion") === "1" ? true : undefined;
+  return {
+    slug: slug && COMPONENTS.some((component) => component.slug === slug) ? slug : FIRST_SLUG,
+    example: example || undefined,
+    props: propsRaw ? (decodeState(propsRaw) as Record<string, unknown>) : undefined,
+    viewport: viewport ?? undefined,
+    reducedMotion,
+  };
+}
 
-const DOCS_URL = import.meta.env.DEV ? surfaces.docs.dev : surfaces.docs.prod;
+function writePermalink(state: PermalinkState) {
+  const params = new URLSearchParams();
+  if (state.props && Object.keys(state.props).length > 0) {
+    params.set("props", encodeState(state.props));
+  }
+  if (state.viewport && state.viewport !== DEFAULT_VIEWPORT) {
+    params.set("viewport", state.viewport);
+  }
+  if (state.reducedMotion) params.set("reducedMotion", "1");
+  const query = params.toString();
+  const next = `#/${state.slug}${state.example ? `/${state.example}` : ""}${query ? `?${query}` : ""}`;
+  window.history.replaceState(null, "", next);
+}
+
+function resolveSchema(
+  example: Example<Record<string, unknown>>,
+  values: Record<string, unknown>,
+) {
+  const base = inferControls(values);
+  const overrides = example.controls ?? {};
+  if (Object.keys(overrides).length === 0) return base;
+  const fields = base.fields
+    .map((field) => {
+      const override = overrides[field.name];
+      if (!override) return field;
+      return {
+        ...field,
+        label: override.label ?? field.label,
+        group: (override.group as ControlField["group"]) ?? field.group,
+        hidden: override.hidden ?? field.hidden,
+        options: override.options ?? field.options,
+        min: override.min ?? field.min,
+        max: override.max ?? field.max,
+        step: override.step ?? field.step,
+      };
+    })
+    .filter((field) => !field.hidden);
+  return { ...base, fields };
+}
 
 export default function App() {
-  const components = listComponents();
-  const [selectedSlug, setSelectedSlug] = useState<string>(components[0]?.slug ?? "");
-  const [selectedExample, setSelectedExample] = useState<string>("");
+  const initial = useMemo(readPermalink, []);
+  const [selectedSlug, setSelectedSlug] = useState(initial.slug);
+  const [selectedExampleId, setSelectedExampleId] = useState(initial.example ?? "");
+  const [values, setValues] = useState<Record<string, unknown>>(() => initial.props ?? {});
+  const [viewport, setViewport] = useState<ViewportPresetId>(() => {
+    const candidate = initial.viewport ?? DEFAULT_VIEWPORT;
+    return VIEWPORT_PRESETS.some((preset) => preset.id === candidate)
+      ? (candidate as ViewportPresetId)
+      : DEFAULT_VIEWPORT;
+  });
+  const [reducedMotion, setReducedMotion] = useState(Boolean(initial.reducedMotion));
   const [tab, setTab] = useState<"preview" | "code">("preview");
+  const [catalogOpen, setCatalogOpen] = useState(false);
+  const [inspectorOpen, setInspectorOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  const comp = getComponent(selectedSlug);
-  const examples = exampleMap[selectedSlug] ?? [];
-  const example = examples.find((e: any) => e.id === selectedExample) ?? examples[0];
+  const component = getComponent(selectedSlug);
+  const examples = EXAMPLES_BY_SLUG[selectedSlug] ?? [];
+  const example =
+    examples.find((candidate) => candidate.id === selectedExampleId) ?? examples[0];
+  const defaults = (example?.defaults ?? {}) as Record<string, unknown>;
 
+  const schema = useMemo(
+    () => (example ? resolveSchema(example, values) : inferControls(values)),
+    [example, values],
+  );
+
+  // Reset values when switching examples to that example's defaults.
   useEffect(() => {
-    if (examples.length && !selectedExample) {
-      setSelectedExample(examples[0].id);
-    }
-  }, [examples, selectedExample]);
+    if (!example) return;
+    setValues({ ...((example.defaults ?? {}) as Record<string, unknown>) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSlug, example?.id]);
 
-  // Permalink: hash = #/<slug>/<example>
+  // Keep selected example id in sync with what's actually rendered.
   useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    const [slug, ex] = hash.split("/");
-    if (slug && components.some((c) => c.slug === slug)) {
-      setSelectedSlug(slug);
-      if (ex) setSelectedExample(ex);
+    if (example && example.id !== selectedExampleId) setSelectedExampleId(example.id);
+  }, [example, selectedExampleId]);
+
+  // URL is the state: encode permalink on every meaningful change.
+  useEffect(() => {
+    writePermalink({
+      slug: selectedSlug,
+      example: example?.id,
+      props: values,
+      viewport,
+      reducedMotion,
+    });
+  }, [selectedSlug, example?.id, values, viewport, reducedMotion]);
+
+  const selectExample = useCallback((nextExample: Example<Record<string, unknown>>) => {
+    setSelectedExampleId(nextExample.id);
+    setValues({ ...((nextExample.defaults ?? {}) as Record<string, unknown>) });
+  }, []);
+
+  const selectComponent = useCallback((slug: string) => {
+    setSelectedSlug(slug);
+    setCatalogOpen(false);
+  }, []);
+
+  const resetValues = useCallback(() => {
+    setValues({ ...defaults });
+  }, [defaults]);
+
+  const copyPermalink = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
     }
   }, []);
 
-  useEffect(() => {
-    if (selectedSlug) {
-      window.location.hash = `/${selectedSlug}/${selectedExample || ""}`;
-    }
-  }, [selectedSlug, selectedExample]);
+  const toggleReducedMotion = useCallback(() => setReducedMotion((current) => !current), []);
+  const changeViewport = useCallback((next: ViewportPresetId) => setViewport(next), []);
 
-  const artifact = useMemo(
-    () => ({
-      id: selectedSlug,
-      kind: "component",
-      title: comp?.name ?? selectedSlug,
-      package: comp?.package ?? "@fusorb/facet-components",
-      examples: examples.map((e: any) => e.id),
-    }),
-    [selectedSlug, comp, examples],
+  const stageWidth = getViewportWidth(viewport);
+  const code = useMemo(
+    () => (example?.code?.(values) ?? toCode(values)) as string,
+    [example, values],
   );
 
-  const stageExample = useMemo(
-    () =>
-      example
-        ? {
-            id: example.id,
-            title: example.title,
-            artifact: selectedSlug,
-            render: example.render,
-            controls: example.controls,
-            defaults: example.defaults,
-          }
-        : null,
-    [example, selectedSlug],
+  const controlRenderers = facetControlRenderers as Partial<Record<ControlType, ControlRenderer>>;
+
+  const inspectorContent = (
+    <InspectorSidebar
+      summary={component?.summary}
+      schema={schema}
+      values={values}
+      onChange={setValues}
+      onReset={resetValues}
+      controlRenderers={controlRenderers}
+    />
   );
 
-  const codeString = useMemo(() => {
-    if (!example) return "";
-    if (typeof example.code === "function") return example.code(example.defaults ?? {});
-    return `// ${example.title}\n// No code template provided`;
-  }, [example]);
+  const catalogContent = (
+    <CatalogPanel
+      components={COMPONENTS}
+      examplesBySlug={EXAMPLES_BY_SLUG}
+      selectedSlug={selectedSlug}
+      onSelect={selectComponent}
+    />
+  );
 
   return (
-    <ThemeProvider themes={[]} overrideVars={{}}>
-      <ConsoleLayout
-        config={{
-          brand: { name: "facet", tagline: "Playground" },
-          navigation: [
-            {
-              id: "components",
-              title: "Components",
-              items: components.map((c: any) => ({
-                href: `#${c.slug}`,
-                label: c.name,
-              })),
-            },
-          ],
-          features: { tenantSwitcher: false, themeToggle: true },
-        }}
-      >
-        <PageHeader title={comp?.name ?? "Playground"} description={comp?.summary} />
-        <div style={{ display: "flex", gap: 16, padding: 16 }}>
-          <aside style={{ width: 240, maxHeight: "80vh", overflow: "auto" }}>
-            <input
-              placeholder="Search components..."
-              onChange={(e) => {
-                const q = e.target.value.toLowerCase();
-                const match = components.find((c: any) => c.slug.includes(q) || c.name.toLowerCase().includes(q));
-                if (match) setSelectedSlug(match.slug);
-              }}
-              style={{ width: "100%", marginBottom: 8 }}
-            />
-            <ul style={{ listStyle: "none", padding: 0 }}>
-              {components.map((c: any) => (
-                <li key={c.slug}>
-                  <button
-                    onClick={() => setSelectedSlug(c.slug)}
-                    style={{ fontWeight: c.slug === selectedSlug ? "bold" : "normal", display: "block", width: "100%", textAlign: "left" }}
-                  >
-                    {c.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
+    <ThemeProvider>
+      <div className="pg-frame">
+        <Navbar
+          variant="glass"
+          brand={
+            <a href="/" className="font-semibold tracking-tight text-foreground">
+              facet playground
+            </a>
+          }
+          links={[
+            { label: "Docs", href: import.meta.env.DEV ? surfaces.docs.dev : surfaces.docs.prod },
+            { label: "GitHub", href: surfaces.github },
+          ]}
+          showThemeToggle
+        />
+
+        <Toolbar
+          name={component?.name ?? selectedSlug}
+          category={component?.category ?? "components"}
+          viewport={viewport}
+          onViewportChange={changeViewport}
+          reducedMotion={reducedMotion}
+          onToggleReducedMotion={toggleReducedMotion}
+          onCopyLink={copyPermalink}
+          copied={copied}
+          onOpenCatalog={() => setCatalogOpen(true)}
+          onOpenInspector={() => setInspectorOpen(true)}
+          tab={tab}
+          onTabChange={setTab}
+        />
+
+        <div className="pg-body">
+          <aside className="pg-sidebar hidden lg:block" aria-label="Catalog">
+            {catalogContent}
           </aside>
-          <main style={{ flex: 1 }}>
-            {examples.length > 0 && (
-              <div style={{ marginBottom: 8 }}>
-                {examples.map((e: any) => (
-                  <button
-                    key={e.id}
-                    onClick={() => setSelectedExample(e.id)}
-                    style={{ marginRight: 4, fontWeight: e.id === (example?.id ?? "") ? "bold" : "normal" }}
-                  >
-                    {e.title}
-                  </button>
-                ))}
-              </div>
-            )}
-            <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-              <button onClick={() => setTab("preview")} style={{ fontWeight: tab === "preview" ? "bold" : "normal" }}>Preview</button>
-              <button onClick={() => setTab("code")} style={{ fontWeight: tab === "code" ? "bold" : "normal" }}>Edit as code</button>
+
+          <main className="pg-main" aria-label="Stage">
+            <div className="pg-stage">
+              {example ? (
+                <div
+                  className="pg-stage-inner"
+                  style={{ maxWidth: stageWidth, marginInline: "auto" }}
+                >
+                  {tab === "preview" && (
+                    <div
+                      className="pg-frame-box"
+                      data-reduced-motion={reducedMotion || undefined}
+                      style={{
+                        animationDuration: reducedMotion ? "0.001ms" : undefined,
+                        transitionDuration: reducedMotion ? "0s" : undefined,
+                      }}
+                    >
+                      <PlaygroundErrorBoundary>
+                        {example.render(values) as React.ReactNode}
+                      </PlaygroundErrorBoundary>
+                    </div>
+                  )}
+                  {tab === "code" && <CodeView code={code} language="tsx" />}
+
+                  <div className="mt-2 flex flex-wrap items-center gap-2" aria-label="Examples">
+                    {examples.map((item) => (
+                      <Button
+                        key={item.id}
+                        variant={item.id === example.id ? "secondary" : "ghost"}
+                        size="sm"
+                        onClick={() => selectExample(item)}
+                        aria-pressed={item.id === example.id}
+                        title={item.description ?? item.title}
+                      >
+                        {item.title}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <p className="self-center text-sm text-muted-foreground">
+                  No examples registered for {selectedSlug}.
+                </p>
+              )}
             </div>
-            {tab === "preview" && stageExample && <Stage artifact={artifact} example={stageExample as any} />}
-            {tab === "code" && (
-              <pre style={{ background: "#f5f5f5", padding: 12, borderRadius: 8, overflow: "auto", fontSize: 12 }}>
-                {codeString}
-              </pre>
-            )}
-            <p style={{ marginTop: 16, fontSize: 12, color: "#888" }}>
-              Permalink: <code>{window.location.origin}{window.location.pathname}#{selectedSlug}/{selectedExample}</code>
-            </p>
-            <p style={{ fontSize: 12, color: "#888" }}>
-              <a href={DOCS_URL} target="_blank" rel="noopener noreferrer">Docs</a>
-            </p>
           </main>
+
+          <aside className="pg-inspector hidden lg:block" aria-label="Controls">
+            {inspectorContent}
+          </aside>
         </div>
-      </ConsoleLayout>
+
+        <MobileSheets
+          catalogOpen={catalogOpen}
+          onCatalogOpenChange={setCatalogOpen}
+          inspectorOpen={inspectorOpen}
+          onInspectorOpenChange={setInspectorOpen}
+          catalog={catalogContent}
+          inspector={inspectorContent}
+        />
+      </div>
     </ThemeProvider>
   );
 }
-
-const root = createRoot(document.getElementById("root")!);
-root.render(<App />);
