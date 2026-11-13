@@ -1,5 +1,11 @@
 # @fusorb/facet-sdk
 
+## 4.0.1
+
+### Patch Changes
+
+- e4250b8: Fix facet summary to report 10 domain SDK classes (metadata only).
+
 ## 4.0.0
 
 ### Major Changes
