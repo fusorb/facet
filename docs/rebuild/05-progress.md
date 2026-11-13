@@ -196,3 +196,41 @@ M2 exit: ALL gates green (engine-purity, boundaries, surfaces, pins, registry, d
   (no unnecessary planning docs archived).
 - **Remaining:** P1b/P2 generator wiring decisions/fixes, P4 landing stale claims
   & orphans + docs-site/playground, P5–P8, full verification and closeout.
+
+## CI incident: the publish job hijacked the version PR (2026-11-13)
+
+**Status:** fix applied in the working tree, verified locally, not yet committed/pushed.
+
+`main` was red: every run since the version PR #23 merged died at `pnpm check:registry`
+("registry.json is STALE"), and `check:readme` was stale behind it. Local `check:all` failed at
+the identical step, and a field-level diff of the committed registry against a fresh scan isolated
+one drift: `packages[sdk].version` 4.0.0 → 4.0.1, plus two stale README version mentions.
+
+The cause was in the release pipeline, not just the tree. `pnpm version-packages` (which
+regenerates both the README version table and `registry.json`) is wired into the `changeset` job
+as `version-script`, and that job did build the version branch correctly at 06:48:29. But the
+`publish` job's `changesets/action` step was configured with **only** `publish-script`; because
+main still held a pending changeset, the action took its **version** path inside the publish job,
+logged the action's defaults (`commit-message`/`pr-title` = "Version Packages"), ran a bare
+`changeset version`, and force-pushed over the good branch at 06:51:12. Squash-merging it
+(`244b8b6`, default subject instead of the configured `chore(release): version packages`) landed
+sdk 4.0.1 with a stale registry and README — which is red on every subsequent push.
+
+- **Fixed:** `packages/registry/src/registry.json` and the `README.md` version table regenerated
+  via the repo's own generators; the `publish` job's `changesets/action` given the same
+  `version-script` / `pr-title` / `commit-message` inputs as the `changeset` job;
+  `scanTokens()` in `packages/registry/src/scan.mjs` now sorts its `readdirSync` (the only scanner
+  that did not — alphabetical on NTFS, hash-ordered on ext4, so a latent CI-only stale-registry
+  hazard); `check:engine-purity` added to the README/CLAUDE/AGENTS gate lists (all three had been
+  declared "synced exactly" while missing it).
+- **Verified:** `check:registry` + `check:readme` green individually and inside a full `check:all`
+  rerun (all static gates, `audit:motion-parity`, lint 0 errors, `pnpm build`, `pnpm -r typecheck`).
+- **Release impact:** `@fusorb/facet-sdk@4.0.1` never reached npm — the publish job is
+  `needs: [ci]` and ci died, so it was skipped (npm still serves 4.0.0; `components@3.2.2` and
+  `auth@2.1.2` do match). The stranded bump ships on the next green push to main.
+- **Re-audit:** the full P1–P8 backlog was re-verified in the same session. P1/P1b/P6/P7 are
+  closed; P2/P4/P5 narrowed to specific items (docs gallery wiring, docs barrel omissions, the
+  degraded `check:docs`/`check:docs-content` halves, `chart.tsx`, the navbar block); P3 was
+  re-fixed properly. New items: stale test-count claims (`apps/docs/src/pages.ts:48`,
+  `CLAUDE.md:197`), the registry `components.count` 112-vs-111 inconsistency (`typewriter-text`
+  excluded), and a release guardrail. See `.agent/output.txt` and `.agent/episodes.md` EP 73.

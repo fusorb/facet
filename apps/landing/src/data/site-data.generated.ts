@@ -35,7 +35,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-auth",
     "desc": "Domain-customizable auth components: SgProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "icon": "shield-check"
   },
   {
@@ -47,7 +47,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-sdk",
     "desc": "SovGrant API client: framework-agnostic fetch SDK. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
-    "version": "3.0.0",
+    "version": "4.0.1",
     "icon": "zap"
   },
   {
@@ -71,7 +71,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-store",
     "desc": "Framework-agnostic state stores for SovGrant auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "icon": "store"
   },
   {

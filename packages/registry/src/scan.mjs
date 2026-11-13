@@ -302,7 +302,8 @@ function scanTokens() {
   const tokensDir = path.join(root, "packages/tokens/src");
   const cssFiles = fs
     .readdirSync(tokensDir)
-    .filter((f) => f.endsWith(".css"));
+    .filter((f) => f.endsWith(".css"))
+    .sort();
 
   const groups = [];
   const vars = new Set();

@@ -2695,3 +2695,65 @@ Lesson: a surfaces gate that only knows yesterday's hostnames silently approves
   changes, and fix the violations in the same pass so the gate stays green and
   meaningful. Keep plan docs current (status/ownership) instead of archiving by
   guesswork; archive only when clearly superseded.
+
+================================================================================
+
+EP 73 -- CI red on main: the publish job hijacked the version PR
+--------------------------------------------------------------------------------
+What broke:
+  Every CI run on main since the version PR #23 merged failed at `pnpm check:registry`
+  ("registry.json is STALE"). The same failure reproduced locally at the identical step.
+  `check:readme` was stale too and would have failed next. Diffing the committed registry
+  against a fresh scan isolated exactly one drift: `packages[sdk].version` 4.0.0 -> 4.0.1,
+  plus the two stale README version mentions.
+
+  The interesting part was WHY the artifacts were stale at all: `pnpm version-packages`
+  (root script = `changeset version && sync-readme-versions && registry scan`) is wired into
+  the CI `changeset` job as `version-script`, so a version bump is supposed to regenerate
+  both generated artifacts in the same commit. The Actions logs answered it:
+
+    - the `changeset` job built the version branch CORRECTLY at 06:48:29 and it logged
+      `pr-title: chore(release): version packages` / `version-script: pnpm version-packages`;
+    - the `publish` job's `changesets/action` step was configured with ONLY `publish-script`.
+      Because main still held a pending changeset, the action took its VERSION path — not its
+      publish path — inside the publish job: it logged the action's DEFAULTS
+      (`commit-message: Version Packages`, `pr-title: Version Packages`), ran a bare
+      `@changesets/cli/bin.js version`, and force-pushed over the branch the `changeset` job
+      had just built correctly (branch commit authored 06:51:12, inside that job's
+      06:51:09-06:51:16 step window).
+    - PR #23 was therefore renamed to "Version Packages" and the squash-merge 244b8b6 carried
+      the DEFAULT subject instead of the configured one — the tell that proved two different
+      action configurations had written the same branch.
+
+  So the tree was not the only problem: the pipeline could rebuild a correct version branch
+  into an incorrect one, and nothing failed until the next push to main.
+
+How we fixed it:
+  - Regenerated `packages/registry/src/registry.json` and the `README.md` version table with
+    the repo's own generators (not by hand), so the fix exercises the same path the release
+    uses.
+  - Gave the `publish` job's `changesets/action` step the SAME `version-script`, `pr-title`
+    and `commit-message` inputs as the `changeset` job, with a comment recording why: the
+    action picks its mode from repo state, not from the job name, so both jobs must agree on
+    how versioning is performed.
+  - Sorted the `readdirSync` in `scanTokens()` — the only scanner that did not sort. Layout
+    order is alphabetical on NTFS but hash-ordered on ext4, so this was a latent CI-only
+    "registry.json is STALE" that would have fired on a different filesystem.
+  - Added the missing `check:engine-purity` to the README/CLAUDE/AGENTS gate lists; the three
+    had been declared "synced exactly" while all three were missing that gate.
+
+What survived:
+  The release flow itself (changeset -> version PR -> publish) is sound; only the second,
+  misconfigured invocation of the action corrupted the branch. `check:registry` and
+  `check:readme` earned their keep: they are the reason the bad artifact was caught at all.
+  `@fusorb/facet-sdk@4.0.1` did NOT reach npm (the publish job is `needs: [ci]`, and ci died),
+  so npm still serves 4.0.0 — the stranded bump ships on the next green push to main.
+
+State: fix applied and verified locally (check:registry + check:readme green; full check:all
+  rerun green through lint/build/typecheck), working tree dirty, not yet committed or pushed.
+
+Lesson: a shared action that infers its own mode from repository state will do the OPPOSITE of
+  what its job name suggests — configure every invocation identically, or the last one to run
+  silently wins. And when a generated artifact drifts, diff the artifact rather than reading
+  the commit: "registry.json is STALE" was one version field, but the reason it was stale was
+  two competing release writers.

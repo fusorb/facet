@@ -145,9 +145,31 @@ jobs:
       - run: pnpm install --frozen-lockfile
       # Rebuild fresh dist so we never publish a stale build.
       - run: pnpm -r build
+      # `changesets/action` picks VERSION vs PUBLISH from repository state, not from
+      # the job name. While main still had a pending changeset it therefore ran in
+      # version mode right here, force-pushing over the branch the `changeset` job
+      # had built -- and because this step was configured with only `publish-script`
+      # it did so with a bare `changeset version`, silently dropping the README +
+      # registry regeneration that `pnpm version-packages` performs. That is how sdk
+      # 4.0.1 landed with a stale registry.json + README version table and turned
+      # main red at check:registry; the release before it (#22) landed without a
+      # registry sync for the same class of reason. Versioning belongs to the
+      # `changeset` job alone -- this job only publishes, so skip it entirely while
+      # a version PR is still pending.
+      - name: Detect pending changesets
+        id: pending
+        run: |
+          count=$(find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' | wc -l | tr -d ' ')
+          echo "count=$count" >> "$GITHUB_OUTPUT"
       - uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+        if: steps.pending.outputs.count == '0'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          # Kept in step with the `changeset` job as a second line of defence: should
+          # this ever run in version mode again, it must regenerate the same artefacts.
+          pr-title: "chore(release): version packages"
+          commit-message: "chore(release): version packages"
+          version-script: pnpm version-packages
           publish-script: pnpm changeset publish
           create-github-releases: false
           push-git-tags: false

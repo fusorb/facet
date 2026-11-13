@@ -81,10 +81,11 @@ three jobs:
    `pnpm check:consumer-matrix`, `pnpm check:a11y`,
    `pnpm check:layout-skeleton-parity`, `pnpm check:icons`,
    `pnpm check:components`, `pnpm check:examples`, `pnpm check:jsdoc`,
-   `pnpm check:boundaries`, `pnpm check:registry`, `pnpm check:pins`,
-   `pnpm check:surfaces`, `pnpm check:readme`, `pnpm check:sdk-drift`,
-   `pnpm check:sdk-coverage`, `pnpm check:motion-drift`, `pnpm audit:motion-parity`,
-   `pnpm lint`, `pnpm -r typecheck`, `pnpm test`, `pnpm sandbox:e2e`.
+   `pnpm check:boundaries`, `pnpm check:engine-purity`, `pnpm check:registry`,
+   `pnpm check:pins`, `pnpm check:surfaces`, `pnpm check:readme`,
+   `pnpm check:sdk-drift`, `pnpm check:sdk-coverage`, `pnpm check:motion-drift`,
+   `pnpm audit:motion-parity`, `pnpm lint`, `pnpm -r typecheck`, `pnpm test`,
+   `pnpm sandbox:e2e`.
 2. **changeset** -- auto-opens/updates a "Version Packages" PR on `main`
    whenever changesets land. It only versions (bumps `package.json` +
    `CHANGELOG`, opens a PR) -- never publishes. Requires
