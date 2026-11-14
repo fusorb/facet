@@ -5,7 +5,9 @@
   "type": "module",
   "description": "Workspace scanner that indexes all packages, components, layouts, motion, tokens, and examples into a single registry.json + typed accessors. Private workspace-only — not published.",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./registry.json": "./src/registry.json",
+    "./src/registry.json": "./src/registry.json"
   },
   "types": "./src/index.ts",
   "scripts": {

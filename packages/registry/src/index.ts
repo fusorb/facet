@@ -19,7 +19,7 @@ import type {
   MotionAuthoredEntry,
   MotionDomainEntry,
 } from "./types.js";
-import data from "./registry.json" with { type: "json" };
+import data from "./registry.json";
 
 const registry: FacetRegistry = data as unknown as FacetRegistry;
 

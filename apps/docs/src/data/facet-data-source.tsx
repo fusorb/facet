@@ -1,5 +1,4 @@
-// @ts-expect-error - registry json is a workspace source asset
-import registryJson from "@fusorb/facet-registry/src/registry.json";
+import registryJson from "@fusorb/facet-registry/registry.json";
 import type { Example, RegistryComponent } from "@fusorb/facet-docs";
 import { Button } from "@fusorb/facet-components";
 import * as allExamples from "@fusorb/facet-components/examples";
