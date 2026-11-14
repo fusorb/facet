@@ -71,6 +71,8 @@ pnpm test      # vitest workspace (11 projects: sdk, store, components, auth, la
 pnpm typecheck # all 14 packages + 3 apps (17 workspaces)
 ```
 
+> Planning: active surface-rebuild docs/plans live in `docs/rebuild/` (see `06-surface-rebuild-delta.md`); archived/superseded plans live in `docs/archive/`.
+
 Consume in your app:
 
 ```tsx

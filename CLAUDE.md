@@ -64,7 +64,7 @@ const auth = new AuthSdk(client);
 const { data, error } = await auth.signIn({ email, password });
 ```
 
-Canonical SDK fix plan (coverage, naming, gaps): `docs/planning/sdk-canonical-fix-plan.md`.
+Canonical SDK fix plan (historical, archived): `docs/archive/planning/sdk-canonical-fix-plan.md` (active surface-rebuild planning: `docs/rebuild/06-surface-rebuild-delta.md`).
 ## Auth State Machine
 
 The `SignIn` component is a configurable state machine:
@@ -110,7 +110,7 @@ COMPLETE → (onSuccess callback) → redirect
 6. ✅ `packages/docs/`: installable config-driven docs engine (`@fusorb/facet-docs`) + thin demo consumer at `apps/docs/` (`@fusorb/facet-docs-site`)
 7. ✅ Changesets + npm publish pipeline
 8. ✅ `apps/landing/`: rebuilt public-facing site (vite + tailwind v4) + feedback page (`/feedback`) with mail + GitHub links
-9. ✅ Tests: vitest workspace, 1082 tests across 90 files (11 projects: sdk, store, components, auth, layout, cli, motion, native, sandbox, docs, emails); 1 pre-existing flake: theme.test.tsx Radix/jsdom
+9. ✅ Tests: vitest workspace (11 projects: sdk, store, components, auth, layout, cli, motion, native, sandbox, docs, emails). Current count is churn-sensitive — re-run `pnpm test` or see `.agent/output.txt` / the latest EP for the last recorded suite result. Note: historical entries in this handbook may cite earlier counts.
 10. ✅ SignIn mfa_challenge wired to MfaVerifyForm
 11. ✅ SignIn controlled `step`/`onStepChange` + `<SignInFlowDemo>` live-linked state machine + `<AuthDemo>` config block
 12. ✅ Docs restructure landed (568497d): old `apps/docs-site` removed, `packages/docs` engine + `apps/docs` thin consumer. Docs site includes an interactive SignIn demo with a method switcher (config toggles + preview + synced copyable code), a reusable `demo` content block for any manifest slug (auth/layout/forms guide pages), and a keyboard-shortcuts table on Overview + Getting Started.
@@ -194,7 +194,7 @@ pnpm dev:docs-site      # Start docs demo site (Vite, port 5173)
 pnpm dev:landing        # Start landing page (Vite, port 5174)
 pnpm typecheck            # TypeScript check all packages
 pnpm lint                 # ESLint all packages
-pnpm test                 # Run all vitest tests (11 projects, 1082 tests)
+pnpm test                 # Run all vitest tests (11 projects; see Build Status for last recorded count)
 pnpm check:all            # Full CI gate pipeline (all gates + build + typecheck + test)
 pnpm format               # Prettier format all files
 

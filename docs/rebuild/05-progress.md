@@ -199,7 +199,7 @@ M2 exit: ALL gates green (engine-purity, boundaries, surfaces, pins, registry, d
 
 ## CI incident: the publish job hijacked the version PR (2026-11-13)
 
-**Status:** fix applied in the working tree, verified locally, not yet committed/pushed.
+**Status:** fix applied and shipped (see `.agent/episodes.md` EP 73).
 
 `main` was red: every run since the version PR #23 merged died at `pnpm check:registry`
 ("registry.json is STALE"), and `check:readme` was stale behind it. Local `check:all` failed at
@@ -234,3 +234,13 @@ sdk 4.0.1 with a stale registry and README — which is red on every subsequent 
   re-fixed properly. New items: stale test-count claims (`apps/docs/src/pages.ts:48`,
   `CLAUDE.md:197`), the registry `components.count` 112-vs-111 inconsistency (`typewriter-text`
   excluded), and a release guardrail. See `.agent/output.txt` and `.agent/episodes.md` EP 73.
+
+## Post-rebase drift fixes + planning/archive sync (2026-11-14)
+
+**Status:** committed (drift fixes) + working-tree sync (planning/archive) — in progress.
+
+- **Committed (EP 74, `7e96444`):** aligned `packages/docs/src/lib/nav.test.ts` to the data-driven engine, raised docs perf budget to 760 KB, synced README store version to 1.1.0, regenerated `registry.json` (`generatedFrom` at HEAD). Targeted checks green; full `check:all`/`pnpm test` rerun recommended.
+- **Planning/archive sync (EP 75):** confirmed rebuild planning exists (`SURFACE-SPEC.md`, `01-product-model.md`, `04-design-lock.md`, `05-progress.md`, ADRs/spikes). Added `docs/rebuild/06-surface-rebuild-delta.md` reconciling the spec with current state and locking the next direction — **playground (deployed) is the live component showcase; `apps/docs` and `apps/landing` rebuild from scratch around it** (Stage 0 spec/content-map → Stage 1 playground embed/deeplink → Stage 2 docs rebuild → Stage 3 landing rebuild → Stage 4 cutover/refinement).
+- **Archive:** created `docs/archive/` (README) and moved `docs/planning/sdk-canonical-fix-plan.md` → `docs/archive/planning/sdk-canonical-fix-plan.md` (historical, mostly shipped at SDK 4.1.0; active planning is the surface rebuild). Updated README/CLAUDE references and corrected stale "current" test-count claims in CLAUDE (point to the latest recorded suite rather than a fixed number).
+- **Trackers:** `.agent/episodes.md` updated (EP 75); `.agent/output.txt`/`state.json` refreshed via `pnpm sync:tracker`. `.agent/episodes.md` remains tracked canon; dashboards local-only.
+- **Next:** accept/adjust `06-surface-rebuild-delta.md`, run focused cross-repo re-audit (sovgrant/sovport/relnex, verify-first), draft Stage 0 artifacts (docs content/route map, component-page template, landing section spec), then proceed to Stage 1–3 rebuilds. Do not push without confirmation.

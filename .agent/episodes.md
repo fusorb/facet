@@ -2793,3 +2793,45 @@ State: committed fix/docs-sync checkpoint on main (7e96444, ahead of origin/main
 Lesson: when the docs engine nav contract changes (manifest sections move to the
   app), update engine tests and perf budget assumptions in the same pass so
   "full check" failures reflect product regressions, not stale expectations.
+
+================================================================================
+
+EP 75 -- Planning/archive sync + surface-rebuild delta (current-state alignment)
+--------------------------------------------------------------------------------
+What happened:
+  After push/deploy and the decision to rebuild apps/docs and apps/landing from
+  scratch around the now-deployed playground (live component showcase), the
+  repo's planning set was reconciled with current state.
+
+What we did:
+  - Confirmed rebuild planning already existed: docs/rebuild/SURFACE-SPEC.md
+    (2026-10-07), 01-product-model.md, 04-design-lock.md, 05-progress.md, ADRs
+    and spikes. No separate docs/landing v2 from-scratch plan existed.
+  - Added docs/rebuild/06-surface-rebuild-delta.md (addendum): reconciles
+    spec-era assumptions with current state (playground shipped/deployed,
+    registry+sandbox lab; docs hybrid monolithic pages.ts/changelog.ts + gallery
+    datasource; landing legacy section-composed), locks the role split
+    (Playground = live showcase/previews; Docs = learn/integrate with
+    Open in Playground/embeds, no duplicate prop-play; Landing = explain/route,
+    factual/registry+surfaces.config-driven), and stages work (Stage 0 spec +
+    content/route map + cross-repo re-audit, Stage 1 playground embed/deeplink
+    readiness, Stage 2 docs rebuild, Stage 3 landing rebuild, Stage 4
+    cutover/hardening/refinement). Records unverified cross-repo claims; only
+    sovgrant facet-sdk@4.1.0 was spot-verified.
+  - Archived superseded planning: created docs/archive/ (README) and moved
+    docs/planning/sdk-canonical-fix-plan.md to docs/archive/planning/
+    sdk-canonical-fix-plan.md (historical, mostly shipped at SDK 4.1.0).
+  - Synced docs to current state: README/CLAUDE point to the active rebuild plan
+    and archive; corrected stale current test-count claims in CLAUDE (point to
+    the latest recorded full suite rather than a fixed number). Updated
+    docs/rebuild/05-progress.md (2026-11-14 sync entry; 2026-11-13 CI incident
+    marked shipped per EP 73).
+
+State: EP 75 tracked (canon). Output/state dashboards refreshed via pnpm
+sync:tracker (local-only). No push without confirmation.
+
+Lesson: when a long-running rebuild spec predates shipped reality, add a
+current-state delta/addendum and archive superseded plans instead of rewriting
+history or spawning parallel plans -- keep one active direction, grounded in
+verified repo state.
+
