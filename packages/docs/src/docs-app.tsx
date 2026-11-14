@@ -30,10 +30,6 @@ const ComponentPage = React.lazy(() =>
     default: m.ComponentPage,
   })),
 );
-// Ready-to-use gallery lives in the consuming app (L3).
-const PagesPage = React.lazy(() =>
-  import("./pages/PagesPage.js").then((m) => ({ default: m.PagesPage })),
-);
 
 // The 404 fallback uses the shared Facet NotFound, gradient text animation + fully customizable props. Lazy-loaded so the eager entry stays slim (theme + router + minimal fallback only).
 const NotFound = () => <div data-testid="not-found">Not found</div>;
@@ -136,8 +132,6 @@ export function DocsRoutes({
                       path="/components/:slug"
                       element={<ComponentPage />}
                     />
-                    {/* Ready-to-use gallery lives in the consuming app (L3). */}
-                    <Route path="/pages" element={<PagesPage />} />
                   </>
                 )}
                 <Route path="*" element={<NotFound />} />

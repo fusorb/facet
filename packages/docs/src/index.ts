@@ -45,8 +45,8 @@ export type { DocsSiteConfig, DocsConfig } from "./lib/nav.js";
 export { buildDocsLayoutConfig } from "./lib/nav.js";
 export type { NavItem, NavSection } from "./lib/nav.js";
 
-// Gallery manifest (components + auth + layout) lives in the consuming app
-// (apps/docs/src/facet/manifest.ts) — the engine stays facet-agnostic (L3).
+// Gallery manifest is provided by the consuming app via DocsApp `dataSource`
+// (ADR-003, L3). The engine stays facet-agnostic.
 
 // Reusable docs components
 export {
@@ -62,6 +62,7 @@ export {
   InlineText,
 } from "./components/Guide.js";
 export type { GuidePageProps } from "./components/Guide.js";
+export { DocsLayout } from "./components/DocsLayout.js";
 export { DocsTable } from "./components/DocsTable.js";
 export type { DocsTableProps } from "./components/DocsTable.js";
 export { PageActionBar } from "./components/PageActionBar.js";
@@ -72,6 +73,11 @@ export { InstallTabs } from "./components/InstallTabs.js";
 export type { InstallCommand } from "./components/InstallTabs.js";
 export { InteractiveDemo } from "./components/InteractiveDemo.js";
 export type { InteractiveDemoProps } from "./components/InteractiveDemo.js";
+export { KeyboardShortcuts } from "./components/KeyboardShortcuts.js";
+export type {
+  KeyboardShortcut,
+  KeyboardShortcutsProps,
+} from "./components/KeyboardShortcuts.js";
 export { ThemePreviewFrame } from "./components/ThemePreviewFrame.js";
 export type { ThemePreviewFrameProps } from "./components/ThemePreviewFrame.js";
 
@@ -85,9 +91,13 @@ export type { PlaygroundPageProps } from "./components/PlaygroundPage.js";
 
 // Content engine
 export { DocsContentPage } from "./pages/DocsContentPage.js";
+export { ComponentsPage } from "./pages/ComponentsPage.js";
+export { ComponentPage } from "./pages/ComponentPage.js";
 export { DocsTableOfContents } from "./components/DocsTableOfContents.js";
 export type { DocsTableOfContentsProps } from "./components/DocsTableOfContents.js";
 export { slug } from "./lib/ids.js";
 
-// Component manifest lives in the consuming app (apps/docs/src/facet/manifest.ts);
-// the engine stays facet-agnostic (L3).
+// Router / navigation helpers (react-router based)
+export { useDocsRouterAdapter } from "./lib/docs-router.js";
+export { useDocsNavigation, useDocsKeyboardNav } from "./lib/keyboard-nav.js";
+export type { DocsNavEntry } from "./lib/keyboard-nav.js";

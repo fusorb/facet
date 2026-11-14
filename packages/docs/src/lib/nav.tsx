@@ -1,9 +1,9 @@
-import * as React from "react";
-type LayoutConfig = any; type NavItem = any; type NavSection = any;
+import type { ReactNode } from "react";
+
+type LayoutConfig = any;
+type NavItem = any;
+type NavSection = any;
 import type { DocsPage } from "./pages.js";
-// Facet manifest lives in the consuming app (apps/docs/src/facet); the engine
-// stays facet-agnostic (L3). Gallery nav sections are empty here.
-const extendedManifest: any[] = [];
 
 /**
  * Navigation config for the docs site shell (feeds facet Sidebar).
@@ -27,7 +27,7 @@ export interface DocsSiteConfig extends DocsConfig {
   /** Extra nav sections rendered in the sidebar (e.g. a Components section). */
   navigation: LayoutConfig["navigation"];
   /** Optional ecosystem links, rendered as a final "Ecosystem" section. */
-  ecosystem?: { label: string; href: string; icon?: React.ReactNode }[];
+  ecosystem?: { label: string; href: string; icon?: ReactNode }[];
 }
 
 /** Section id -> sidebar heading. */
@@ -37,7 +37,6 @@ const SECTION_TITLES: Record<string, string> = {
   foundations: "Foundations",
   ecosystem: "Ecosystem",
 };
-
 
 /**
  * Build the full LayoutConfig for a DocsApp instance: the passed
@@ -71,18 +70,10 @@ export function buildDocsLayoutConfig(
   const bySection = (section: DocsPage["section"]) =>
     pages.filter((page) => page.section === section);
 
-  // The Components, Ready-to-Use and Pages sections are inserted after the
-  // Auth section so the gallery follows auth in the sidebar. They render
-  // before the remaining page-driven sections (foundations, ecosystem).
-  const ORDER = [
-    "guides",
-    "auth",
-    "components",
-    "pages",
-    "animation",
-    "foundations",
-    "ecosystem",
-  ];
+  // Content pages are derived from the registry; the optional Components
+  // gallery entry is inserted after "auth" when enabled. Any additional
+  // sections present in pages are appended in first-seen order.
+  const ORDER = ["guides", "auth", "components", "foundations", "ecosystem"];
   const seen = new Set(ORDER);
   const ordered = [...ORDER];
   for (const page of pages) {
@@ -92,27 +83,15 @@ export function buildDocsLayoutConfig(
     }
   }
 
-  // Build the components + ready-to-use + pages sections first so we can
-  // insert them at the right positions in the ordered sections below.
-  const componentsSection = showComponents
-    ? buildComponentsSection()
-    : undefined;
-  const pagesSection = showComponents ? buildPagesSection() : undefined;
-  const animationSection = showComponents ? buildAnimationSection() : undefined;
-
   for (const section of ordered) {
-    // The components / ready-to-use / pages / animation sections are
-    // assembled from the manifest, not pages.
     if (section === "components") {
-      if (componentsSection) navigation.push(componentsSection);
-      continue;
-    }
-    if (section === "pages") {
-      if (pagesSection) navigation.push(pagesSection);
-      continue;
-    }
-    if (section === "animation") {
-      if (animationSection) navigation.push(animationSection);
+      if (showComponents) {
+        navigation.push({
+          title: "Components",
+          id: "components",
+          items: [{ href: "/components", label: "All components" }],
+        });
+      }
       continue;
     }
     const sectionPages = bySection(section);
@@ -165,116 +144,9 @@ export function buildDocsLayoutConfig(
   return { brand: config.brand, navigation };
 }
 
-/**
- * Build the sidebar Components section from the manifest: "All components"
- * then one collapsible sub-group per manifest category. Base UI primitives
- * render here grouped by category (layout, feedback, data-display, inputs,
- * general). The auth/layout guide-page surfaces (SignIn, SignUp,
- * ConsoleLayout, ...), foundations (Icon, Theme), and Ready-to-Use
- * components are excluded because they have their own guide sections.
- */
-function buildComponentsSection(): NavSection {
-  const byCategory = new Map<string, typeof extendedManifest>();
-  for (const entry of extendedManifest) {
-    if (
-      entry.category === "foundations" ||
-      entry.category === "pages" ||
-      entry.category === "auth" ||
-      entry.category === "animation"
-    ) {
-      continue;
-    }
-    // The extended layout guide entries (ConsoleLayout, AuthLayout,
-    // Sidebar, Topbar, LandingLayout) are excluded by name; the base ui
-    // "layout" category (Accordion, Breadcrumb, Tabs, ...) stays.
-    if (entry.category === "layout" && isExtendedLayoutSlug(entry.slug)) {
-      continue;
-    }
-    const list = byCategory.get(entry.category) ?? [];
-    list.push(entry);
-    byCategory.set(entry.category, list);
-  }
-  const items: NavItem[] = [{ href: "/components", label: "All components" }];
-  for (const [category, entries] of byCategory) {
-    items.push({
-      href: `/components/${entries[0]!.slug}`,
-      label: category
-        .split("-")
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(" "),
-      children: entries.map((entry) => ({
-        href: `/components/${entry.slug}`,
-        label: entry.name,
-      })),
-    });
-  }
-  return { title: "Components", id: "components", items };
-}
-
-/** Slugs of the extended @fusorb/facet-layout guide entries. */
-const EXTENDED_LAYOUT_SLUGS = new Set([
-  "console-layout",
-  "auth-layout",
-  "landing-layout",
-  "sidebar",
-  "topbar",
-]);
-
-export function isExtendedLayoutSlug(slug: string): boolean {
-  return EXTENDED_LAYOUT_SLUGS.has(slug);
-}
-
-// Ready-to-use gallery section lives in the consuming app (L3).
-
-/**
- * Build the dedicated "Pages" sidebar section from the manifest: full-page
- * components (FeedbackPage, Footer, ...) rendered as top-level items with
- * their gallery pages. New page components added over time land here.
- */
-export function buildPagesSection(): NavSection {
-  const pages = extendedManifest.filter((entry) => entry.category === "pages");
-  return {
-    title: "Pages",
-    id: "pages",
-    items: pages.map((entry) => ({
-      href: `/components/${entry.slug}`,
-      label: entry.name,
-    })),
-  };
-}
-
-/**
- * Build the dedicated "Animation" sidebar section - a FLAT list (no nested
- * "Text"/"Cards" parents). TypewriterText is documented as tabs on the
- * text-animations page, so it has no standalone entry here.
- */
-export function buildAnimationSection(): NavSection {
-  const animations = extendedManifest.filter(
-    (entry) => entry.category === "animation",
-  );
-  // Stable, readable order rather than alphabetical.
-  const ORDER = [
-    "text-animations",
-    "card-animations",
-    "animated-button",
-    "micro-interactions",
-    "animated",
-  ];
-  const bySlug = new Map(animations.map((a) => [a.slug, a]));
-  const items: NavItem[] = [];
-  for (const slug of ORDER) {
-    const entry = bySlug.get(slug);
-    if (entry) {
-      items.push({ href: `/components/${entry.slug}`, label: entry.name });
-    }
-  }
-  // Any animation entries not in ORDER still surface at the end.
-  for (const entry of animations) {
-    if (!ORDER.includes(entry.slug)) {
-      items.push({ href: `/components/${entry.slug}`, label: entry.name });
-    }
-  }
-  return { title: "Animation", id: "animation", items };
+/** @deprecated Manifest-derived gallery nav lives in the consuming app (L3). */
+export function isExtendedLayoutSlug(_slug: string): boolean {
+  return false;
 }
 
 /** Export a nav item type for consumers building their own sections. */

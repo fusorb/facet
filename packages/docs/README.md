@@ -5,18 +5,14 @@ ecosystem. Mount `<DocsApp config={...} pages={...} />` with your own
 brand, nav, content pages, and ecosystem links, with no forking or copied
 source.
 
-The package ships the engine only: the shell, the component gallery, and
-the content block types. It does **not** ship facet's own authored guide
-pages; those live in the demo consumer (`apps/docs`). You write your own
-`pages` array for your product.
+The package ships the engine only: the shell, routing/content primitives,
+and a component-gallery surface. It does **not** ship facet's own authored
+guide pages or component manifest/previews; those live in the consuming app
+(e.g. `apps/docs`), which provides them via `pages` and `dataSource`.
 
-Ships: a searchable sidebar shell (VS Code-style collapsible rail), a
-paginated component gallery with per-component variant pages, per-variant
-usage tabs, install tabs for every package manager, and an optional
-ecosystem links section. The gallery separates the base UI components from
-the "Ready to Use" extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap,
-Form), which get their own sidebar section with live previews and copyable
-usage snippets.
+Ships: a searchable sidebar shell, content-page rendering, and
+`/components` + `/components/:slug` routes that render from a
+`DocsDataSource` when one is supplied (no data source → no gallery items).
 
 ## Install
 
@@ -86,21 +82,13 @@ the search palette automatically.
 
 ## Component gallery
 
-Pass `showComponents` (default `true`) to mount the `/components` gallery.
-It renders from the extended manifest, which covers the UI components in
-`@fusorb/facet-components` plus the auth (`@fusorb/facet-auth`) and layout
-(`@fusorb/facet-layout`) surfaces, so SignIn, SignUp, MfaDialog, Guard,
-ConsoleLayout, AuthLayout, LandingLayout, Sidebar, and Topbar all get a
-gallery page with a live preview, a full variant gallery, and per-variant
-usage tabs with copy buttons. Each variant tab shows the live preview and
-its matching code side-by-side on desktop.
+Pass `showComponents` (default `true`) and a `dataSource` to mount the
+`/components` gallery. The gallery is data-driven (ADR-003): the consuming
+app supplies component entries, previews, and examples via `DocsDataSource`
+(e.g. from `@fusorb/facet-registry` plus component examples). The engine
+itself stays facet-agnostic and only renders what the data source provides.
 
-The "Ready to Use" extras (Dropzone, ColorPicker, QRCode, Marquee, Roadmap,
-Form) live in a dedicated `/ready-to-use` sidebar section with live
-previews and copyable usage snippets, separate from the base gallery.
-
-Foundational entries (Icon, Theme) are excluded from the Components
-sidebar; they have their own guide pages under the Foundations section.
+The demo consumer at `apps/docs` shows a registry-backed implementation.
 
 ## Icons
 
