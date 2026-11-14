@@ -237,7 +237,7 @@ sdk 4.0.1 with a stale registry and README — which is red on every subsequent 
 
 ## Post-rebase drift fixes + planning/archive sync (2026-11-14)
 
-**Status:** committed (drift fixes) + working-tree sync (planning/archive) — in progress.
+**Status:** landed (EP 75, commit `8fe3ced`) — planning/archive sync + surface-rebuild delta.
 
 - **Committed (EP 74, `7e96444`):** aligned `packages/docs/src/lib/nav.test.ts` to the data-driven engine, raised docs perf budget to 760 KB, synced README store version to 1.1.0, regenerated `registry.json` (`generatedFrom` at HEAD). Targeted checks green; full `check:all`/`pnpm test` rerun recommended.
 - **Planning/archive sync (EP 75):** confirmed rebuild planning exists (`SURFACE-SPEC.md`, `01-product-model.md`, `04-design-lock.md`, `05-progress.md`, ADRs/spikes). Added `docs/rebuild/06-surface-rebuild-delta.md` reconciling the spec with current state and locking the next direction — **playground (deployed) is the live component showcase; `apps/docs` and `apps/landing` rebuild from scratch around it** (Stage 0 spec/content-map → Stage 1 playground embed/deeplink → Stage 2 docs rebuild → Stage 3 landing rebuild → Stage 4 cutover/refinement).
