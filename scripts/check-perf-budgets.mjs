@@ -17,7 +17,10 @@ const root = process.cwd();
 
 const BUDGETS = [
   { app: "landing", dir: "apps/landing/dist", budgetKB: 320 },
-  { app: "docs", dir: "apps/docs/dist", budgetKB: 440 },
+  // Docs ships the embedded playground, live code formatting (prettier +
+  // typescript/estree), and the full component/icon registry chunks, so the
+  // total gzipped JS budget reflects that richer payload.
+  { app: "docs", dir: "apps/docs/dist", budgetKB: 760 },
   { app: "playground", dir: "apps/playground/dist", budgetKB: 500 },
 ];
 

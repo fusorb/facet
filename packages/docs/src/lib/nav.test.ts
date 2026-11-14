@@ -28,12 +28,14 @@ function findSection(
 // ── isExtendedLayoutSlug ───────────────────────────────────
 
 describe("isExtendedLayoutSlug", () => {
-  it("returns true for extended layout guide slugs", () => {
-    expect(isExtendedLayoutSlug("console-layout")).toBe(true);
-    expect(isExtendedLayoutSlug("auth-layout")).toBe(true);
-    expect(isExtendedLayoutSlug("landing-layout")).toBe(true);
-    expect(isExtendedLayoutSlug("sidebar")).toBe(true);
-    expect(isExtendedLayoutSlug("topbar")).toBe(true);
+  it("is a deprecated no-op in the data-driven engine (always false)", () => {
+    // Extended-layout manifest classification lives in consuming apps (L3);
+    // the engine no longer carries facet-specific slug heuristics.
+    expect(isExtendedLayoutSlug("console-layout")).toBe(false);
+    expect(isExtendedLayoutSlug("auth-layout")).toBe(false);
+    expect(isExtendedLayoutSlug("landing-layout")).toBe(false);
+    expect(isExtendedLayoutSlug("sidebar")).toBe(false);
+    expect(isExtendedLayoutSlug("topbar")).toBe(false);
   });
 
   it("returns false for component and non-layout slugs", () => {
@@ -139,16 +141,17 @@ describe("buildDocsLayoutConfig", () => {
     expect(section!.items[0]!.children).toBeUndefined();
   });
 
-  it("adds Components, Pages, Animation sections when showComponents is true", () => {
+  it("adds a Components section when showComponents is true (data-driven gallery)", () => {
     const result = buildDocsLayoutConfig(makeConfig(), [], true);
     const titles = result.navigation.map((s: any) => s.title);
     expect(titles).toContain("Components");
-    // Ready to Use section lives in the consuming app (L3).
-    expect(titles).toContain("Pages");
-    expect(titles).toContain("Animation");
+    // Manifest-derived Pages/Animation sections live in the consuming app (L3).
+    expect(titles).not.toContain("Pages");
+    expect(titles).not.toContain("Animation");
+    expect(titles).not.toContain("Ready to Use");
   });
 
-  it("omits manifest-derived sections when showComponents is false", () => {
+  it("omits the Components section when showComponents is false", () => {
     const result = buildDocsLayoutConfig(makeConfig(), [], false);
     const titles = result.navigation.map((s: any) => s.title);
     expect(titles).not.toContain("Components");
@@ -157,8 +160,14 @@ describe("buildDocsLayoutConfig", () => {
     expect(titles).not.toContain("Animation");
   });
 
-  it("orders sections: guides, auth, components, pages, animation, foundations, ecosystem", () => {
+  it("orders sections: guides, auth, components, foundations, ecosystem", () => {
     const pages: DocsPage[] = [
+      {
+        path: "/guides/intro",
+        title: "Intro",
+        section: "guides",
+        blocks: [],
+      },
       {
         path: "/foundations/tokens",
         title: "Tokens",
@@ -173,10 +182,8 @@ describe("buildDocsLayoutConfig", () => {
     const titles = result.navigation.map((s: any) => s.title);
 
     const idx = (t: string) => titles.indexOf(t);
-    expect(idx("Guides")).toBe(-1); // no guide pages
-    expect(idx("Components")).toBeLessThan(idx("Pages"));
-    expect(idx("Pages")).toBeLessThan(idx("Animation"));
-    expect(idx("Animation")).toBeLessThan(idx("Foundations"));
+    expect(idx("Guides")).toBeLessThan(idx("Components"));
+    expect(idx("Components")).toBeLessThan(idx("Foundations"));
     expect(idx("Foundations")).toBeLessThan(idx("Ecosystem"));
   });
 
@@ -225,11 +232,9 @@ describe("buildDocsLayoutConfig", () => {
     expect(componentsSection!.items[0]!.href).toBe("/components");
   });
 
-  it("Animation section is empty in the facet-agnostic engine (manifest lives in the app)", () => {
+  it("does not inject manifest-derived sections (Pages/Animation) in the facet-agnostic engine", () => {
     const result = buildDocsLayoutConfig(makeConfig(), [], true);
-    const animationSection = findSection(result.navigation, "Animation");
-    expect(animationSection).toBeDefined();
-    // The engine ships no facet manifest (L3); the app injects its own.
-    expect(animationSection!.items).toHaveLength(0);
+    expect(findSection(result.navigation, "Animation")).toBeUndefined();
+    expect(findSection(result.navigation, "Pages")).toBeUndefined();
   });
 });

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "cc5a23493cb7cd4ba77afe72c0742b312df752eb",
-    "at": "2026-11-14T11:56:30.741Z"
+    "commit": "5821103d7f3bb3a4b101d7452e5d133ddd8c121e",
+    "at": "2026-11-14T12:37:43.096Z"
   },
   "packages": [
     {
@@ -3783,15 +3783,15 @@
   "surfaces": {
     "landing": {
       "dev": "http://localhost:5174",
-      "prod": "https://facet.so"
+      "prod": "https://facet.fusorb.com"
     },
     "docs": {
       "dev": "http://localhost:5173",
-      "prod": "https://facet.so/docs"
+      "prod": "https://docs.facet.fusorb.com"
     },
     "playground": {
       "dev": "http://localhost:5175",
-      "prod": "https://facet.so/playground"
+      "prod": "https://playground.facet.fusorb.com"
     },
     "github": "https://github.com/fusorb/facet",
     "npm": "https://www.npmjs.com/org/fusorb",
