@@ -1,12 +1,6 @@
 /**
- * Data module adapted from the facet scratchpad SPA design.
- *
- * These structures power the borrowed UI sections (Architecture,
- * Motion preview, Token explorer) and the dedicated route pages
- * (Component Catalog, Auth Lab, Motion Lab, Token Explorer).
- *
- * Package versions come from the auto-generated site-data layer so
- * the landing never shows a stale version string.
+ * Data module for landing UI sections (architecture, motion preview, tokens).
+ * Package versions come from the auto-generated site-data layer.
  */
 
 import type { SystemNode } from "@fusorb/facet-components";
@@ -99,14 +93,6 @@ export interface PackageInfo {
   colorClass: string;
 }
 
-const LAYER_LABELS = [
-  "Foundation",
-  "UI Layer",
-  "Domain Layer",
-  "Infrastructure",
-  "Toolchain",
-];
-
 const PACKAGE_LAYER: Record<string, number> = {
   tokens: 0,
   utils: 0,
@@ -187,12 +173,7 @@ export const PACKAGES: PackageInfo[] = (() => {
   }));
 })();
 
-export const PACKAGE_LAYERS = LAYER_LABELS.map((label, layer) => ({
-  label,
-  packages: PACKAGES.filter((p) => p.layer === layer),
-}));
-
-// ─── Auth State Machine ──────────────────────────────────────────────────────
+// ─── Auth State Machine ───────────────────────────────────────────────────────
 
 export interface AuthState {
   id: string;
@@ -202,9 +183,7 @@ export interface AuthState {
 }
 
 /**
- * The facet-auth state machine: 10 states from idle to authenticated
- * (or recoverable error).  Used by the AuthLabPage for interactive
- * exploration and by the AuthShowcaseSection for a quick preview.
+ * facet-auth states used by the Auth showcase section.
  */
 export const AUTH_MACHINE: AuthState[] = [
   {
@@ -621,10 +600,6 @@ export const ALL_COMPONENTS: ComponentEntry[] = Object.entries(
   })),
 );
 
-export const COMPONENT_CATEGORIES_LIST = Object.keys(COMPONENT_CATEGORIES);
-
-// ─── Layout Modes ─────────────────────────────────────────────────────────────
+// ─── Layout Modes ──────────────────────────────────────────────────────────────
 
 export type LayoutMode = "full" | "rail" | "collapsed";
-
-export const LAYOUT_MODES: LayoutMode[] = ["full", "rail", "collapsed"];

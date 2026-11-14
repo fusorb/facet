@@ -47,7 +47,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-sdk",
     "desc": "SovGrant API client: framework-agnostic fetch SDK. Auth, credentials, passkeys, OAuth, tenants, billing, webhooks, audit, IdP.",
-    "version": "4.0.1",
+    "version": "4.1.0",
     "icon": "zap"
   },
   {

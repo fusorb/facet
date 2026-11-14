@@ -193,10 +193,6 @@ export function Navbar({
   const hasMobileMenu = mobileMenu !== undefined || links.length > 0;
   const showHamburger = showMobileMenu ?? hasMobileMenu;
 
-  // Scroll-aware stuck surface hook point: exposed as `data-stuck` for styling.
-  // Currently inert (no scroll listener wired); enable with a measured effect when needed.
-  const [stuck] = React.useState(false);
-
   const bpHide = BREAKPOINT_DISPLAY[mobileBreakpoint].hide;
   const bpFlex = BREAKPOINT_DISPLAY[mobileBreakpoint].flex;
   const bpBlock = BREAKPOINT_DISPLAY[mobileBreakpoint].block;
@@ -252,14 +248,9 @@ export function Navbar({
   return (
     <nav
       ref={navbarRef}
-      data-stuck={stuck || undefined}
       className={cn(
         navbarVariants({ variant, size }),
         hasOwnPosition ? "" : "relative",
-        // stuck styling deferred  - re-enable with pill variant rebuild
-        // stuck &&
-        //   variant === "pill" &&
-        //   "border-b border-border/60 bg-background/85 shadow-md backdrop-blur-xl",
         className,
       )}
       {...props}
