@@ -47,7 +47,8 @@ export const site = {
   links: {
     github: surfaces.github,
   },
-  feedbackEmail: "feedback@facet.dev",
+  // Planned contact (domain not yet purchased).
+  feedbackEmail: "feedback@fusorb.com",
   socials,
   techBadges: ["React 19", "TypeScript", "Radix UI", "Tailwind CSS v4"],
 } as const;

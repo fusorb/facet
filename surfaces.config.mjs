@@ -14,15 +14,16 @@
 export const surfaces = {
   landing: {
     dev: "http://localhost:5174",
-    prod: "https://facet.so",
+    // Planned domain (not yet purchased): facet as a product on fusorb.com.
+    prod: "https://facet.fusorb.com",
   },
   docs: {
     dev: "http://localhost:5173",
-    prod: "https://facet.so/docs",
+    prod: "https://docs.facet.fusorb.com",
   },
   playground: {
     dev: "http://localhost:5175",
-    prod: "https://facet.so/playground",
+    prod: "https://playground.facet.fusorb.com",
   },
   github: "https://github.com/fusorb/facet",
   npm: "https://www.npmjs.com/org/fusorb",
