@@ -295,6 +295,20 @@ export interface WebhookEvent {
   createdAt: string;
 }
 
+/* ── API keys ──────────────────────────────────────────────── */
+
+export interface ApiKey {
+  id: string;
+  name: string;
+  /** Non-secret display prefix (e.g. `sg_sk_sGvk1`). */
+  keyPrefix: string;
+  scopes: string[];
+  status: string;
+  lastUsedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 /* ── Billing / audit / IdP / credentials ───────────────────── */
 
 export interface Subscription {

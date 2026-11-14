@@ -1780,6 +1780,7 @@ if (error) {
           ["`BillingSdk`", "subscription"],
           ["`AuditSdk`", "audit logs"],
           ["`IdpSdk`", "SSO connections (OIDC/SAML)"],
+          ["`ApiKeySdk`", "machine-to-machine API key management (create/list/revoke)"],
         ],
       },
       { type: "h3", text: "AuthSdk" },

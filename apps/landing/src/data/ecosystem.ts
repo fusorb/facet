@@ -213,15 +213,15 @@ const html = renderEmail(
     version: versionOf("@fusorb/facet-sdk"),
     icon: "zap",
     short: "Typed SovGrant API client",
-    description: "Typed fetch client for SovGrant: 10 domain SDKs, zero React.",
+    description: "Typed fetch client for SovGrant: 11 domain SDKs, zero React.",
     analysis: [
-      "The SDK is a pure-fetch, framework-agnostic TypeScript client for the SovGrant identity API. It mirrors every route across 10 domain-specific modules (Auth, Identity, OAuth, Passkey, Tenant, VC, Webhooks, Billing, Audit, Idp) and normalizes the { success, data } envelope so methods return the inner payload directly.",
+      "The SDK is a pure-fetch, framework-agnostic TypeScript client for the SovGrant identity API. It mirrors every route across 11 domain-specific modules (Auth, Identity, OAuth, Passkey, Tenant, VC, Webhooks, Billing, Audit, Idp, ApiKey) and normalizes the { success, data } envelope so methods return the inner payload directly.",
       "Two integration modes: first-party (own SovGrant backend) uses session-based flows with no client credentials; external integration (OAuth2/OIDC) uses the authorize → exchange → refresh pattern with PKCE support. The SDK handles both flows natively.",
       "Auto-refresh is wired through callbacks (onTokenRefresh, onAuthCleared), not built-in. This makes the SDK agnostic to your state management - pair it with @fusorb/facet-store via createZustandTokenStorage, or wire it to your own store. Every endpoint is audited against SovGrant's ROUTES index via scripts/audit-sdk-coverage.cjs (full coverage).",
     ],
     features: [
       "Pure fetch, zero React, framework-agnostic",
-      "10 domain SDKs: Auth, Identity, OAuth, Passkey, Tenant, VC, Webhooks, Billing, Audit, Idp",
+      "11 domain SDKs: Auth, Identity, OAuth, Passkey, Tenant, VC, Webhooks, Billing, Audit, Idp, ApiKey",
       "Session-based + OAuth2/OIDC flows with PKCE",
       "Auto-refresh on 401 via onTokenRefresh callback (re-entrancy guarded)",
       "Service-to-service: client_credentials grant for background jobs",

@@ -65,6 +65,7 @@ export type {
   Membership,
   Session,
   Device,
+  ApiKey,
   LinkedAccount,
   ExternalId,
   LoginResult,
@@ -137,3 +138,6 @@ export type { AuditListParams } from "./audit.sdk.js";
 
 export { IdpSdk } from "./idp.sdk.js";
 export type { CreateConnectionParams } from "./idp.sdk.js";
+
+export { ApiKeySdk } from "./api-key.sdk.js";
+export type { CreateApiKeyParams, CreatedApiKey } from "./api-key.sdk.js";

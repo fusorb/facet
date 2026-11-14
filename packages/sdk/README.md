@@ -1,8 +1,8 @@
 # @fusorb/facet-sdk
 
-SovGrant API client — pure `fetch`, typed, 10 domain SDK modules. Each module
+SovGrant API client — pure `fetch`, typed, 11 domain SDK modules. Each module
 maps to a facet surface (auth, passkey, identity, OAuth, tenant, billing,
-webhooks, audit, identity-provider, core).
+webhooks, audit, identity-provider, api-key, core).
 
 ## Install
 
@@ -41,9 +41,11 @@ types, and ergonomic method chaining.
 | `OAuthSdk` | class | OAuth 2.0 / OIDC flows (authorize, token,userinfo). |
 | `TenantSdk` | class | Tenant CRUD, branding, config. |
 | `BillingSdk` | class | Subscriptions, invoices, payment methods. |
+| `VcSdk` | class | Verifiable credentials: issue, verify, revoke, status lists, offers. |
 | `WebhooksSdk` | class | Webhook registration, signing, delivery history. |
 | `AuditSdk` | class | Audit log query + streaming. |
 | `IdpSdk` | class | Identity-provider federation (OIDC/SAML). |
+| `ApiKeySdk` | class | Machine-to-machine API key management (create/list/revoke). |
 
 ## Token-refresh bridge
 
