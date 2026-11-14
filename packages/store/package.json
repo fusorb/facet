@@ -1,6 +1,6 @@
 {
   "name": "@fusorb/facet-store",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Framework-agnostic state stores for SovGrant auth: Zustand session + tenant state, token-refresh wiring, and hooks consumable across web and React Native. No React coupling in the store logic itself; consumers bring their own React for the auto-generated hooks.",
   "type": "module",
   "exports": {
@@ -8,6 +8,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./native": {
+      "types": "./dist/native.d.ts",
+      "import": "./dist/native.js",
+      "default": "./dist/native.js"
     },
     "./package.json": "./package.json"
   },
@@ -18,8 +23,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts --clean",
-    "build:analyze": "tsup src/index.ts --format esm --dts --metafile",
+    "build": "tsup",
+    "build:analyze": "tsup --metafile",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

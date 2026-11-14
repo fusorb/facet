@@ -1,5 +1,15 @@
 # @fusorb/facet-store
 
+## 1.1.0
+
+### Minor Changes
+
+- Add a React Native SecureStore-backed auth store (`createSecureAuthStore`) and
+  `createSecurePersistAdapter` under the `@fusorb/facet-store/native` subpath.
+  The adapter takes an injected secure backend (`expo-secure-store`,
+  `react-native-keychain`, etc.) so the core `@fusorb/facet-store` entry stays
+  framework-agnostic.
+
 ## 1.0.6
 
 ### Patch Changes

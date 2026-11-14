@@ -39,6 +39,46 @@ const tokenStorage = createZustandTokenStorage({
 });
 ```
 
+## React Native / SecureStore
+
+The `@fusorb/facet-store/native` subpath ships a SecureStore-backed auth store
+that extends `AuthState` with a device-only session (`sessionId`, `persist`,
+`forget`, `restore`) and a `PersistAdapter` that plugs it into
+`createZustandTokenStorage`.
+
+```ts
+import * as SecureStore from "expo-secure-store";
+import {
+  createSecureAuthStore,
+  createSecurePersistAdapter,
+} from "@fusorb/facet-store/native";
+
+const useAuthStore = createSecureAuthStore({
+  storageKey: "my-app-auth",
+  backend: SecureStore,
+  storageOptions: { keychainAccessible: SecureStore.WHEN_UNLOCKED_THIS_DEVICE_ONLY },
+});
+
+const tokenStorage = createZustandTokenStorage({
+  authStore: {
+    getState: () => ({
+      accessToken: useAuthStore.getState().accessToken,
+      refreshToken: useAuthStore.getState().refreshToken,
+    }),
+    setTokens: (a, r) => useAuthStore.getState().setTokens(a, r),
+    clearAuth: () => useAuthStore.getState().clearAuth(),
+  },
+  sdk, // object exposing refresh(refreshToken)
+  persist: createSecurePersistAdapter(useAuthStore),
+});
+```
+
+The `backend` is any secure key-value medium (`expo-secure-store`,
+`react-native-keychain`, etc.) so the store stays framework-agnostic; pass
+platform-specific `storageOptions` through as needed. The refresh token is never
+passed through the `PersistAdapter` signature; it is read out of the store
+inside `persist()`.
+
 ## API
 
 | Export | Type | Description |
