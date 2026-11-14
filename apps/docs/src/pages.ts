@@ -45,7 +45,7 @@ export const docsPages: DocsPage[] = [
         type: "code",
         text: `pnpm install
 pnpm build
-pnpm test      # 980 tests across 78 files (vitest workspace)
+pnpm test      # 1082 tests across 90 files (vitest workspace)
 pnpm typecheck # all projects`,
       },
       { type: "p", text: "Consume in your app:" },

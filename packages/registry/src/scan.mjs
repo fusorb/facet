@@ -199,7 +199,7 @@ function scanComponents() {
     .filter((f) => f.endsWith(".tsx") && !f.endsWith(".test.tsx") && !f.endsWith(".examples.tsx"))
     .sort();
 
-  const EXCLUDED = new Set(["typewriter-text"]);
+  const EXCLUDED = new Set();
 
   return files
     .map((file) => {
@@ -388,7 +388,7 @@ function buildRegistry() {
   const facts = {
     "packages.count": packages.filter((p) => !p.private).length,
     "packages.total": packages.length,
-    "components.count": componentCount,
+    "components.count": components.length,
     "sdkClasses.count": sdkClasses.length,
     "layoutShells.count": layoutShellCount,
     "authPresets.count": authPresets.length,

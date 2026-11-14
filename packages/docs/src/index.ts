@@ -33,6 +33,7 @@ export type {
   DocsDataSource,
   ReferenceEntry,
   ReferenceEntryKind,
+  RegistryComponent,
   ApiDoc,
   ApiDocProp,
   ApiDocSlot,

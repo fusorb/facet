@@ -256,6 +256,9 @@ importers:
       '@fusorb/facet-layout':
         specifier: workspace:^
         version: link:../../packages/layout
+      '@fusorb/facet-registry':
+        specifier: workspace:^
+        version: link:../../packages/registry
       '@fusorb/facet-sdk':
         specifier: workspace:^
         version: link:../../packages/sdk

@@ -120,8 +120,7 @@ pnpm build      # tsup -> dist
 pnpm typecheck
 ```
 
-The demo consumer lives at `apps/docs` (`@fusorb/facet-docs-site`);
-it installs this package via `workspace:*` exactly like an external
-consumer would, proving the API surface end to end. Its `src/pages.ts`
-holds facet's own authored guide pages: the package itself ships only
-the engine and block types, not that content.
+The demo consumer lives at `apps/docs` (`@fusorb/facet-docs-site`) as a
+thin in-repo consumer of this engine, proving the API surface end to end.
+Its `src/pages.ts` holds facet's own authored guide pages: the package
+itself ships only the engine and block types, not that content.

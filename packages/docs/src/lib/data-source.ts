@@ -23,6 +23,16 @@ export interface ReferenceEntry {
   kind: ReferenceEntryKind;
 }
 
+export interface RegistryComponent {
+  slug: string;
+  name: string;
+  package?: string;
+  category?: string;
+  summary?: string;
+  props?: unknown[];
+  examples?: Array<{ id: string; title: string; tags?: string[] }>;
+}
+
 export interface ApiDocProp {
   name: string;
   type: string;
@@ -49,7 +59,7 @@ export interface Example<P = Record<string, unknown>> {
   artifact: string;
   title: string;
   description?: string;
-  render: (props: P) => unknown;
+  render: (props: P) => React.ReactNode;
   defaults?: Partial<P>;
   controls?: Record<string, unknown>;
   code?: (props: P) => string;
@@ -57,7 +67,12 @@ export interface Example<P = Record<string, unknown>> {
 }
 
 export interface DocsDataSource {
-  entries(): ReferenceEntry[];
-  examples(slug: string): Example[];
+  entries?(): ReferenceEntry[];
+  getComponentManifest?(): RegistryComponent[];
+  getComponentPreview?(slug: string): React.ReactNode;
+  getComponentExamples?(slug: string): Example[];
+  renderExample?(example: Example): React.ReactNode;
+  examples?(slug: string): Example[];
   api?(slug: string): ApiDoc | undefined;
+  getRegistry?(): unknown;
 }

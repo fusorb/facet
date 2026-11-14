@@ -1,6 +1,7 @@
 import { DocsApp } from "@fusorb/facet-docs";
 import type { PageActionItem } from "@fusorb/facet-docs";
 import { demoConfig, demoPages } from "./demo-config.js";
+import { facetDataSource } from "./data/facet-data-source.js";
 import { surfaces } from "../../../surfaces.config.mjs";
 
 const pageActions: PageActionItem[] = [
@@ -25,6 +26,7 @@ export default function App() {
     <DocsApp
       config={demoConfig}
       pages={demoPages}
+      dataSource={facetDataSource}
       showTableOfContents
       topbar={
         <a
@@ -39,7 +41,7 @@ export default function App() {
       links={[
         {
           label: "GitHub",
-           href: surfaces.github,
+          href: surfaces.github,
           icon: "github",
         },
       ]}

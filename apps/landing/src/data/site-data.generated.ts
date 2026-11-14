@@ -105,7 +105,7 @@ export const SITE_STATS: SiteStat[] = [
     "label": "components"
   },
   {
-    "value": "10",
+    "value": "11",
     "label": "API SDKs"
   },
   {

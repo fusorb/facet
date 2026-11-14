@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "5af9c0a39d27568d8bdb826beef5da101f8a06f2",
-    "at": "2026-11-14T07:56:10.726Z"
+    "commit": "8fb6f3d20990939f608d68591718b37b408efe20",
+    "at": "2026-11-14T09:23:03.529Z"
   },
   "packages": [
     {
@@ -2012,6 +2012,21 @@
       ]
     },
     {
+      "slug": "typewriter-text",
+      "name": "TypewriterText",
+      "package": "@fusorb/facet-components",
+      "category": "general",
+      "summary": "Typewriter Text",
+      "props": [],
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default",
+          "tags": []
+        }
+      ]
+    },
+    {
       "slug": "wizard-form-page",
       "name": "WizardFormPage",
       "package": "@fusorb/facet-components",
@@ -3737,6 +3752,12 @@
       "tags": []
     },
     {
+      "artifact": "typewriter-text",
+      "example": "default",
+      "title": "Default",
+      "tags": []
+    },
+    {
       "artifact": "wizard-form-page",
       "example": "default",
       "title": "Default",
@@ -3756,7 +3777,7 @@
     "icons.count": 1763,
     "tokens.colorSpace": "OKLCH",
     "tokens.totalVars": 251,
-    "examples.count": 115
+    "examples.count": 116
   },
   "surfaces": {
     "landing": {
