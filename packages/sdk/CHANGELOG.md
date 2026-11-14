@@ -1,5 +1,14 @@
 # @fusorb/facet-sdk
 
+## 4.1.0
+
+### Minor Changes
+
+- 5af9c0a: Add `ApiKeySdk` — machine-to-machine API key management over SovGrant's
+  `/api-keys` routes: `list()`, `create()` (returns the plaintext key exactly
+  once, then never again), and `revoke()`. Also exports the `ApiKey`,
+  `CreateApiKeyParams`, and `CreatedApiKey` types.
+
 ## 4.0.1
 
 ### Patch Changes
