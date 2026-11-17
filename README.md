@@ -14,8 +14,8 @@ design manual (Alpha Palette), and your auth requirements differ per sector
 | `@fusorb/facet-sdk`        | SovGrant API client (pure fetch, typed, 11 domain SDKs)                                                                                                                                    | ✅ 4.1.0  |
 | `@fusorb/facet-motion`     | Declarative animation system: core (animate/sequence/stagger), CSS + React Native drivers, 15 generative families + 27 authored effects, <Motion>/<Presence>/<Reveal>/<Stagger>            | ✅ 1.2.3  |
 | `@fusorb/facet-native`     | React Native motion driver for @fusorb/facet-motion (motion values + native driver bindings)                                                                                               | ✅ 1.2.2  |
-| `@fusorb/facet-components` | 112 styled UI components (Radix + tailwind-merge + variants) + motion grammar (animate-facet-*)                                                                                            | ✅ 3.2.2  |
-| `@fusorb/facet-auth`       | Auth components + domain presets: SgProvider, SignIn, SignUp, UserButton, Guard, MfaDialog, 8 standalone forms                                                                                                                  | ✅ 2.1.2  |
+| `@fusorb/facet-components` | 112 styled UI components (Radix + tailwind-merge + variants) + motion grammar (animate-facet-*)                                                                                            | ✅ 3.2.3  |
+| `@fusorb/facet-auth`       | Auth components + domain presets: SgProvider, SignIn, SignUp, UserButton, Guard, MfaDialog, 8 standalone forms                                                                                                                  | ✅ 2.1.3  |
 | `@fusorb/facet-layout`     | Domain-configurable app shell: ConsoleLayout, AuthLayout, LandingLayout, Sidebar, Topbar, 5 presets                                                                                        | ✅ 1.7.2  |
 | `@fusorb/facet-store`      | Framework-agnostic Zustand stores (auth + tenant) & token-refresh bridge (`createZustandTokenStorage`), web + React Native                                                                 | ✅ 1.1.0  |
 | `@fusorb/facet-docs`       | Installable docs engine: mount `<DocsApp>` with your own brand, nav, pages                                                                                                                 | ✅ 1.5.12  |
@@ -25,7 +25,7 @@ design manual (Alpha Palette), and your auth requirements differ per sector
 | `@fusorb/facet-utils`      | Shared styling utilities (`cn`) consumed by components + motion                                                                                                                            | ✅ 0.1.1  |
 | `@fusorb/facet-registry`   | Workspace scanner → `registry.json` + typed accessors (packages, components, layouts, motion, tokens, presets, surfaces)                                                                  | 🔒 private |
 
-Current versions: tokens 1.5.1, sdk 4.1.0, motion 1.2.3, native 1.2.2, components 3.2.2, auth 2.1.2, layout 1.7.2, store 1.1.0, docs 1.5.12, cli 1.1.4, emails 1.1.4, sandbox 3.0.1, utils 0.1.1 (`registry` 0.1.0 is private/workspace-only).
+Current versions: tokens 1.5.1, sdk 4.1.0, motion 1.2.3, native 1.2.2, components 3.2.3, auth 2.1.3, layout 1.7.2, store 1.1.0, docs 1.5.12, cli 1.1.4, emails 1.1.4, sandbox 3.0.1, utils 0.1.1 (`registry` 0.1.0 is private/workspace-only).
 
 ## Sites
 

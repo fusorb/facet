@@ -1,5 +1,13 @@
 # @fusorb/facet-auth
 
+## 2.1.3
+
+### Patch Changes
+
+- 061a4fc: Raise zod dependency floor to ^4.6.7 to pull in security fixes (resolves vulnerable resolution range below patched releases).
+- Updated dependencies [061a4fc]
+  - @fusorb/facet-components@3.2.3
+
 ## 2.1.2
 
 ### Patch Changes

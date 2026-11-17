@@ -1,5 +1,11 @@
 # @fusorb/facet-components
 
+## 3.2.3
+
+### Patch Changes
+
+- 061a4fc: Raise dompurify dependency floor to ^3.4.18 to pull in security fixes (resolves vulnerable resolution range >=3.4.14 <3.4.17).
+
 ## 3.2.2
 
 ### Patch Changes
