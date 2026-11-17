@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "5821103d7f3bb3a4b101d7452e5d133ddd8c121e",
-    "at": "2026-11-14T12:37:43.096Z"
+    "commit": "dd60c00fd8008d36f659a4b3963db7ce892ebc83",
+    "at": "2026-11-17T14:41:34.141Z"
   },
   "packages": [
     {
@@ -25,7 +25,7 @@
     },
     {
       "name": "@fusorb/facet-components",
-      "version": "3.2.2",
+      "version": "3.2.3",
       "summary": "112 styled UI components on Radix primitives",
       "description": "Radix-based UI component library: 112 accessible, styled components using the Alpha Palette design tokens",
       "category": "ui",
@@ -87,7 +87,7 @@
     },
     {
       "name": "@fusorb/facet-auth",
-      "version": "2.1.2",
+      "version": "2.1.3",
       "summary": "Auth domain: context, flows, 7 form-based components",
       "description": "Domain-customizable auth components: SgProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
       "category": "ui",
