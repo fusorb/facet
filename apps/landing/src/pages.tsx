@@ -1,32 +1,13 @@
-import type { ReactNode } from "react";
-
-import { FeedbackPage } from "./pages/FeedbackPage.js";
+import type { ComponentType } from "react";
 import { HomePage } from "./pages/HomePage.js";
+import { FeedbackPage } from "./pages/FeedbackPage.js";
 
-export type NavGroup = "product" | "resources";
-
-export interface LandingPage {
+export interface LandingRoute {
   path: string;
-  title: string;
-  description: string;
-  navGroup: NavGroup | null;
-  element: ReactNode;
+  element: ComponentType;
 }
 
-export const pages: LandingPage[] = [
-  {
-    path: "/",
-    title: "Home",
-    description:
-      "Accessible, customizable React components for every product surface.",
-    navGroup: null,
-    element: <HomePage />,
-  },
-  {
-    path: "/feedback",
-    title: "Feedback",
-    description: "What needs to change, what is missing, what is wrong.",
-    navGroup: "resources",
-    element: <FeedbackPage />,
-  },
+export const landingRoutes: LandingRoute[] = [
+  { path: "/", element: HomePage },
+  { path: "/feedback", element: FeedbackPage },
 ];

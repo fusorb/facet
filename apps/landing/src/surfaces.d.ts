@@ -1,4 +1,4 @@
-declare module "../../../surfaces.config" {
+declare module "../../../surfaces.config.mjs" {
   export const surfaces: {
     landing: { dev: string; prod: string };
     docs: { dev: string; prod: string };

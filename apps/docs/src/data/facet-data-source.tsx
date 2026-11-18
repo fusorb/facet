@@ -1,49 +1,39 @@
+import type { DocsDataSource, DocsPage, Example, RegistryComponent } from "@fusorb/facet-docs";
 import registryJson from "@fusorb/facet-registry/registry.json";
-import type { Example, RegistryComponent } from "@fusorb/facet-docs";
-import { Button } from "@fusorb/facet-components";
 import * as allExamples from "@fusorb/facet-components/examples";
-
-function DefaultPreview({ name }: { name: string }) {
-  return (
-    <div className="flex flex-col items-center gap-2 text-center">
-      <div className="rounded-md border border-dashed border-border px-3 py-2 text-xs text-muted-foreground">
-        {name}
-      </div>
-      <span className="text-[10px] text-muted-foreground">Live preview</span>
-    </div>
-  );
-}
 
 const examplesBySlug: Record<string, Example[]> = {};
 for (const value of Object.values(allExamples)) {
   if (!Array.isArray(value)) continue;
   for (const ex of value as Example[]) {
-    if (!ex?.artifact) continue;
-    (examplesBySlug[ex.artifact] ??= []).push(ex);
+    if (!ex || typeof ex !== "object" || !("artifact" in ex)) continue;
+    const artifact = (ex as Example).artifact;
+    (examplesBySlug[artifact] ??= []).push(ex as Example);
   }
 }
 
 const components = (registryJson as { components: RegistryComponent[] }).components;
 
-export const facetDataSource = {
-  getComponentManifest: () => components,
-  getComponentPreview: (slug: string) => {
-    if (slug === "button") {
-      return (
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          <Button size="sm">Primary</Button>
-          <Button size="sm" variant="secondary">
-            Secondary
-          </Button>
-          <Button size="sm" variant="outline">
-            Outline
-          </Button>
-        </div>
-      );
-    }
-    const entry = components.find((c) => c.slug === slug);
-    return <DefaultPreview name={entry?.name ?? slug} />;
+export const docsPages: DocsPage[] = [
+  {
+    path: "/",
+    title: "Overview",
+    section: "guides",
+    description: "Facet documentation (rebuilding).",
+    blocks: [
+      { type: "p", text: "Facet is a domain-customizable, auth-first UI ecosystem for Fusorb/SovGrant. This docs app is being rebuilt from scratch on top of @fusorb/facet-docs." },
+      { type: "h2", text: "What’s here now" },
+      { type: "ul", items: [
+        "A clean docs shell consuming the installable docs engine.",
+        "Component gallery powered by @fusorb/facet-components/examples and @fusorb/facet-registry.",
+        "Guides/content to be restored and expanded incrementally.",
+      ]},
+    ],
   },
+];
+
+export const facetDocsDataSource: DocsDataSource = {
+  getComponentManifest: () => components,
   getComponentExamples: (slug: string) => examplesBySlug[slug] ?? [],
   renderExample: (example: Example) => {
     try {
@@ -51,9 +41,9 @@ export const facetDataSource = {
         return example.render((example.defaults ?? {}) as Record<string, unknown>);
       }
     } catch {
-      return <div className="text-xs text-destructive">Example failed to render.</div>;
+      return null;
     }
-    return <div className="text-xs text-muted-foreground">No render function.</div>;
+    return null;
   },
   getRegistry: () => registryJson as unknown,
 };

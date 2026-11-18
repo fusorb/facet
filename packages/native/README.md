@@ -1,14 +1,22 @@
 # @fusorb/facet-native
 
-React Native motion driver bridge for `@fusorb/facet-motion`. Kept separate from
-the motion package so web consumers never pull Native bridge code into their bundle.
+React Native motion driver bridge for `@fusorb/facet-motion`. It lets facet motion
+values/effects drive a consumer-provided React Native `Animated` (or compatible)
+implementation.
+
+> **Scope (current):** this package is a **motion-driver bridge**, not a standalone
+> React Native component library. It is kept separate from `@fusorb/facet-motion`
+> so web consumers never pull RN bridge code into their bundle.
 
 ## Install
 
 ```bash
-pnpm add @fusorb/facet-native
-pnpm add react-native
+pnpm add @fusorb/facet-native @fusorb/facet-motion
+# plus a React Native / Animated-compatible runtime in your app
 ```
+
+`react` is a peer dependency; the Animated API itself is provided by the consumer
+(no hard dependency on `react-native`).
 
 ## Usage
 
@@ -22,33 +30,35 @@ bindAnimated({
 });
 
 // After binding, <Motion> from facet-native uses the native driver.
-// On web, @fusorb/facet-motion's <Motion> auto-resolves to cssDriver.
+export function Example() {
+  return (
+    <Motion effect="fade" asChild>
+      <Animated.View />
+    </Motion>
+  );
+}
 ```
 
 ## How it works
 
-1. On import, `@fusorb/facet-native` auto-registers its `facetDriver` with
-   `@fusorb/facet-motion`'s driver registry via `registerDriver()`.
-2. `bindAnimated()` sets up the `NativeAnimatedAPI` bridge.
-3. After binding, `cssDriver.isSupported()` returns `false` on React Native,
-   so `resolveDriver()` in `@fusorb/facet-motion` returns the native driver
-   instead of CSS.
-4. The `<Motion>` component works transparently on both web and native.
+1. On import, `@fusorb/facet-native` auto-registers `facetDriver` with
+   `@fusorb/facet-motion`'s driver registry.
+2. `bindAnimated()` provides the `NativeAnimatedAPI` bridge.
+3. On React Native, `cssDriver.isSupported()` is `false`, so `resolveDriver()`
+   returns the native driver after binding.
+4. `<Motion>` resolves the appropriate driver, enabling the same motion API on web
+   (CSS) and native (bridge).
 
-The `Animated` API itself is consumer-provided — this package has no hard
-dependency on `react-native` (it's a peer dependency).
+## Key exports
 
-## API
-
-| Export | Type | Description |
-|--------|------|-------------|
-| `bindAnimated` | `function(opts: NativeBindings): NativeDriverHandle` | Bind a Native Animated API to the motion engine. |
-| `unbindAnimated` | `function(): void` | Tear down the active native driver binding. |
-| `nativeDriver` | `MotionDriver` | The auto-registered Native driver instance. |
-| `resolveNativeTransition` | `function(spec: NativeTransitionSpec): MotionTransition` | Convert an RN transition spec to a motion transition. |
-| `toEasingCurve` | `function(easing: EasingValue): number[]` | Convert a token easing value to an RN easing curve. |
-| `Motion` | `Component<MotionProps>` | React Native counterpart to web `<Motion>`. |
-| `facetDriver` | `MotionDriver` | The auto-registered RN driver. |
+| Export | Description |
+| --- | --- |
+| `bindAnimated(opts)` | Bind a native Animated API to the motion engine. |
+| `unbindAnimated()` | Tear down the active native binding. |
+| `isBound()` / `setReduceMotion()` | Binding state and reduced-motion control. |
+| `nativeDriver` / `facetDriver` | Native motion driver instances/registration. |
+| `resolveNativeTransition()` / `toEasingCurve()` | Transition/easing helpers for native specs. |
+| `Motion` | React Native counterpart to web `<Motion>`. |
 
 ## License
 

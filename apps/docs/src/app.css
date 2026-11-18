@@ -1,19 +1,12 @@
-/* ── Google Fonts ──────────────────────────────────────────── */
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:ital,wght@0,400;0,450;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap");
-
-/* ── Tailwind v4 (Rust parser, CSS-native config) ──────────── */
+/* Tailwind v4 */
 @import "tailwindcss";
 
-/* ── facet design tokens (CSS custom properties) ──────────── */
+/* Facet design tokens + palette */
 @import "../../../packages/tokens/src/tokens.css";
-
-/* ── Tailwind v4 theme extension (maps CSS vars → utilities) ─ */
 @import "../../../packages/tokens/src/tailwind.css";
-
-/* ── Brand palette  - Alpha Palette (deep-space + electric-cyan) ─ */
 @import "../../../packages/tokens/src/palettes/alpha.css";
 
-/* ── Scanner hints: tell Tailwind to crawl workspace packages: */
+/* Scanner hints: crawl workspace package sources */
 @source "../../../packages/components/src";
 @source "../../../packages/layout/src";
 @source "../../../packages/docs/src";

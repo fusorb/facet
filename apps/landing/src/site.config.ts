@@ -27,6 +27,11 @@ export function getPlaygroundUrl(): string {
   return import.meta.env.DEV ? surfaces.playground.dev : surfaces.playground.prod;
 }
 
+/** Resolves the facet GitHub URL. */
+export function getGitHubUrl(): string {
+  return surfaces.github;
+}
+
 export interface SiteSocial {
   label: string;
   href: string;

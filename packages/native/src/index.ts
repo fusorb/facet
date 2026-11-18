@@ -1,21 +1,21 @@
 /**
- * @fusorb/facet-native  - React Native motion driver bridge for @fusorb/facet-motion.
+ * @fusorb/facet-native - React Native motion driver bridge for @fusorb/facet-motion.
  *
  * Provides a framework-agnostic RN motion adapter (`bindAnimated`,
  * `unbindAnimated`, `nativeDriver`, `resolveNativeTransition`, `toEasingCurve`,
  * etc.) that subscribes motion values to a consumer-provided Animated module
  * (react-native `Animated` or reanimated v2) via `bindAnimated(...)`.
  *
- * §7 disposition: facetDriver is auto-registered with @fusorb/facet-motion's
- * driver registry on import. After `bindAnimated()` is called, `resolveDriver()`
- * in the motion package will return the native driver (because `cssDriver.isSupported()`
- * is false on React Native). The Motion component in @fusorb/facet-motion uses
- * `resolveDriver()` to pick the right driver, so it works on both web and native.
+ * Disposition (motion-bridge): `facetDriver` is auto-registered with
+ * @fusorb/facet-motion's driver registry on import. After `bindAnimated()` is
+ * called, `cssDriver.isSupported()` is false on React Native, so
+ * `resolveDriver()` returns the native driver. The `<Motion>` component in
+ * @fusorb/facet-motion uses `resolveDriver()` and works on both web and native.
  *
  * This package is kept separate from @fusorb/facet-motion so web consumers
- * never pull RN bridge code into their bundle. It depends on both
- * @fusorb/facet-tokens (token values) and @fusorb/facet-motion (driver registry
- * + core engine types); the Animated API itself is consumer-provided.
+ * never pull RN bridge code into their bundle. It depends on @fusorb/facet-tokens
+ * (token values) and @fusorb/facet-motion (driver registry + core engine types);
+ * the Animated API itself is consumer-provided.
  *
  * Usage:
  *   import { bindAnimated, Motion } from "@fusorb/facet-native";
@@ -25,7 +25,6 @@
  *     createValue: (initial) => new Animated.Value(initial),
  *   });
  *
- *   // Motion uses resolveDriver() → nativeDriver on RN after binding
  *   <Motion effect="fade" asChild>
  *     <Animated.View />
  *   </Motion>

@@ -1,25 +1,35 @@
-import type { DocsPage, DocsSiteConfig } from "@fusorb/facet-docs";
-import { docsPages } from "./pages.js";
-import { BrandMark } from "./components/brand.js";
+import type { DocsSiteConfig } from "@fusorb/facet-docs";
+import { Icon } from "@fusorb/facet-components";
+import { surfaces } from "../../../surfaces.config.mjs";
 
-/**
- * Demo instance configuration for facet's own docs site.
- *
- * This is exactly what an external consumer (SovGrant, Relnex, SovPort)
- * would write: a DocsSiteConfig (brand + nav + ecosystem links) plus their
- * own pages. facet dogfoods its docs package here: the pages registry
- * (./pages.ts) is facet's own content, kept out of the package.
- */
-
-export const demoConfig: DocsSiteConfig = {
+export const docsConfig: DocsSiteConfig = {
   brand: {
     name: "facet",
-    tagline: "Domain-customizable auth-first component system",
-    logo: <BrandMark className="h-5 w-5 text-sm" />,
+    tagline: "Domain-customizable, auth-first UI for the Fusorb ecosystem.",
   },
-  navigation: [],
-  // Ecosystem links are intentionally omitted; the registry's ecosystem
-  // pages render under the sidebar's "Ecosystem" section.
+  navigation: [
+    {
+      label: "Ecosystem",
+      items: [
+        {
+          label: "Playground",
+          href: surfaces.playground.dev,
+          external: true,
+          icon: <Icon name="play" className="size-4" aria-hidden="true" />,
+        },
+        {
+          label: "Landing",
+          href: surfaces.landing.dev,
+          external: true,
+          icon: <Icon name="globe" className="size-4" aria-hidden="true" />,
+        },
+        {
+          label: "GitHub",
+          href: surfaces.github,
+          external: true,
+          icon: <Icon name="github" className="size-4" aria-hidden="true" />,
+        },
+      ],
+    },
+  ],
 };
-
-export const demoPages: DocsPage[] = docsPages;
