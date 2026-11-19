@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type React from "react"
+import type React from "react";
 
 import { ThemeProvider, Navbar, Button } from "@fusorb/facet-components";
 import { CodeView, type ControlRenderer } from "@fusorb/facet-sandbox/react";
@@ -39,9 +39,11 @@ interface PermalinkState {
   props?: Record<string, unknown>;
   viewport?: string;
   reducedMotion?: boolean;
+  embed?: boolean;
 }
 
 function readPermalink(): PermalinkState {
+  const searchParams = new URLSearchParams(window.location.search);
   const hash = window.location.hash.replace(/^#/, "");
   const [path, query = ""] = hash.split("?");
   const [slug, example] = (path ?? "").split("/").filter(Boolean);
@@ -49,12 +51,28 @@ function readPermalink(): PermalinkState {
   const propsRaw = params.get("props");
   const viewport = params.get("viewport") ?? undefined;
   const reducedMotion = params.get("reducedMotion") === "1" ? true : undefined;
+  const embedParam = params.get("embed") ?? searchParams.get("embed");
+  const embed = embedParam === "1" || embedParam === "true" ? true : undefined;
+
+  let props: Record<string, unknown> | undefined;
+  if (propsRaw) {
+    try {
+      const decoded = decodeState(propsRaw);
+      if (decoded && typeof decoded === "object" && !Array.isArray(decoded)) {
+        props = decoded as Record<string, unknown>;
+      }
+    } catch {
+      props = undefined;
+    }
+  }
+
   return {
     slug: slug && COMPONENTS.some((component) => component.slug === slug) ? slug : FIRST_SLUG,
     example: example || undefined,
-    props: propsRaw ? (decodeState(propsRaw) as Record<string, unknown>) : undefined,
+    props,
     viewport: viewport ?? undefined,
     reducedMotion,
+    embed,
   };
 }
 
@@ -67,6 +85,7 @@ function writePermalink(state: PermalinkState) {
     params.set("viewport", state.viewport);
   }
   if (state.reducedMotion) params.set("reducedMotion", "1");
+  if (state.embed) params.set("embed", "1");
   const query = params.toString();
   const next = `#/${state.slug}${state.example ? `/${state.example}` : ""}${query ? `?${query}` : ""}`;
   window.history.replaceState(null, "", next);
@@ -115,6 +134,7 @@ export default function App() {
       : DEFAULT_VIEWPORT;
   });
   const [reducedMotion, setReducedMotion] = useState(Boolean(initial.reducedMotion));
+  const [embed] = useState(Boolean(initial.embed));
   const [tab, setTab] = useState<"preview" | "code">("preview");
   const [catalogOpen, setCatalogOpen] = useState(false);
   const [inspectorOpen, setInspectorOpen] = useState(false);
@@ -124,7 +144,10 @@ export default function App() {
   const examples = EXAMPLES_BY_SLUG[selectedSlug] ?? [];
   const example =
     examples.find((candidate) => candidate.id === selectedExampleId) ?? examples[0];
-  const defaults = (example?.defaults ?? {}) as Record<string, unknown>;
+  const defaults = useMemo(
+    () => ({ ...((example?.defaults ?? {}) as Record<string, unknown>) }),
+    [example],
+  );
 
   const schema = useMemo(
     () => (example ? resolveSchema(example, values) : inferControls(values)),
@@ -135,7 +158,6 @@ export default function App() {
   useEffect(() => {
     if (!example) return;
     setValues({ ...((example.defaults ?? {}) as Record<string, unknown>) });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSlug, example?.id]);
 
   // Keep selected example id in sync with what's actually rendered.
@@ -153,16 +175,6 @@ export default function App() {
     }
   }, [reducedMotion]);
 
-  // Honor the playground reduced-motion toggle for both CSS and engine-driven animations.
-  useEffect(() => {
-    const root = document.documentElement;
-    if (reducedMotion) {
-      root.dataset.facetReducedMotion = "true";
-    } else {
-      delete root.dataset.facetReducedMotion;
-    }
-  }, [reducedMotion]);
-
   // URL is the state: encode permalink on every meaningful change.
   useEffect(() => {
     writePermalink({
@@ -171,8 +183,9 @@ export default function App() {
       props: values,
       viewport,
       reducedMotion,
+      embed,
     });
-  }, [selectedSlug, example?.id, values, viewport, reducedMotion]);
+  }, [selectedSlug, example?.id, values, viewport, reducedMotion, embed]);
 
   const selectExample = useCallback((nextExample: Example<Record<string, unknown>>) => {
     setSelectedExampleId(nextExample.id);
@@ -231,20 +244,22 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <div className="pg-frame">
-        <Navbar
-          variant="glass"
-          brand={
-            <a href="/" className="font-semibold tracking-tight text-foreground">
-              facet playground
-            </a>
-          }
-          links={[
-            { label: "Docs", href: import.meta.env.DEV ? surfaces.docs.dev : surfaces.docs.prod },
-            { label: "GitHub", href: surfaces.github },
-          ]}
-          showThemeToggle
-        />
+      <div className="pg-frame" data-embed={embed || undefined}>
+        {!embed && (
+          <Navbar
+            variant="glass"
+            brand={
+              <a href="/" className="font-semibold tracking-tight text-foreground">
+                facet playground
+              </a>
+            }
+            links={[
+              { label: "Docs", href: import.meta.env.DEV ? surfaces.docs.dev : surfaces.docs.prod },
+              { label: "GitHub", href: surfaces.github },
+            ]}
+            showThemeToggle
+          />
+        )}
 
         <Toolbar
           name={component?.name ?? selectedSlug}
@@ -259,12 +274,15 @@ export default function App() {
           onOpenInspector={() => setInspectorOpen(true)}
           tab={tab}
           onTabChange={setTab}
+          embed={embed}
         />
 
         <div className="pg-body">
-          <aside className="pg-sidebar hidden lg:block" aria-label="Catalog">
-            {catalogContent}
-          </aside>
+          {!embed && (
+            <aside className="pg-sidebar hidden lg:block" aria-label="Catalog">
+              {catalogContent}
+            </aside>
+          )}
 
           <main className="pg-main" aria-label="Stage">
             <div className="pg-stage">
@@ -273,7 +291,7 @@ export default function App() {
                   className="pg-stage-inner"
                   style={{ maxWidth: stageWidth, marginInline: "auto" }}
                 >
-                  {tab === "preview" && (
+                  {tab === "preview" ? (
                     <div
                       className="pg-frame-box"
                       data-reduced-motion={reducedMotion || undefined}
@@ -286,10 +304,11 @@ export default function App() {
                         {example.render(values) as React.ReactNode}
                       </PlaygroundErrorBoundary>
                     </div>
+                  ) : (
+                    <CodeView code={code} language="tsx" className="pg-code" />
                   )}
-                  {tab === "code" && <CodeView code={code} language="tsx" />}
 
-                  <div className="mt-2 flex flex-wrap items-center gap-2" aria-label="Examples">
+                  <div className="pg-example-tabs" aria-label="Examples">
                     {examples.map((item) => (
                       <Button
                         key={item.id}
@@ -312,19 +331,23 @@ export default function App() {
             </div>
           </main>
 
-          <aside className="pg-inspector hidden lg:block" aria-label="Controls">
-            {inspectorContent}
-          </aside>
+          {!embed && (
+            <aside className="pg-inspector hidden lg:block" aria-label="Controls">
+              {inspectorContent}
+            </aside>
+          )}
         </div>
 
-        <MobileSheets
-          catalogOpen={catalogOpen}
-          onCatalogOpenChange={setCatalogOpen}
-          inspectorOpen={inspectorOpen}
-          onInspectorOpenChange={setInspectorOpen}
-          catalog={catalogContent}
-          inspector={inspectorContent}
-        />
+        {!embed && (
+          <MobileSheets
+            catalogOpen={catalogOpen}
+            onCatalogOpenChange={setCatalogOpen}
+            inspectorOpen={inspectorOpen}
+            onInspectorOpenChange={setInspectorOpen}
+            catalog={catalogContent}
+            inspector={inspectorContent}
+          />
+        )}
       </div>
     </ThemeProvider>
   );

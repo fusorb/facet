@@ -15,6 +15,7 @@ export interface ToolbarProps {
   onOpenInspector: () => void;
   tab: "preview" | "code";
   onTabChange: (tab: "preview" | "code") => void;
+  embed?: boolean;
 }
 
 export function Toolbar({
@@ -30,20 +31,23 @@ export function Toolbar({
   onOpenInspector,
   tab,
   onTabChange,
+  embed = false,
 }: ToolbarProps) {
   const docsUrl = import.meta.env.DEV ? surfaces.docs.dev : surfaces.docs.prod;
 
   return (
     <header className="pg-toolbar" aria-label="Playground toolbar">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="lg:hidden"
-        onClick={onOpenCatalog}
-        aria-label="Open catalog"
-      >
-        <Icon name="menu" className="size-4" />
-      </Button>
+      {!embed && (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="lg:hidden"
+          onClick={onOpenCatalog}
+          aria-label="Open catalog"
+        >
+          <Icon name="menu" className="size-4" />
+        </Button>
+      )}
 
       <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-2 text-sm">
         <span className="text-muted-foreground">{category}</span>
@@ -55,7 +59,7 @@ export function Toolbar({
         <Tabs
           value={viewport}
           onValueChange={(value) => onViewportChange(value as ViewportPresetId)}
-          className="hidden md:block"
+          className={embed ? "" : "hidden md:block"}
         >
           <TabsList aria-label="Viewport">
             {VIEWPORT_PRESETS.map((preset) => (
@@ -66,7 +70,7 @@ export function Toolbar({
           </TabsList>
         </Tabs>
 
-        <Tabs value={tab} onValueChange={(value) => onTabChange(value as "preview" | "code")} className="hidden sm:block">
+        <Tabs value={tab} onValueChange={(value) => onTabChange(value as "preview" | "code")}>
           <TabsList aria-label="View">
             <TabsTrigger value="preview">Preview</TabsTrigger>
             <TabsTrigger value="code">Code</TabsTrigger>
@@ -78,8 +82,8 @@ export function Toolbar({
           size="icon"
           onClick={onToggleReducedMotion}
           aria-pressed={reducedMotion}
-          aria-label="Reduce motion"
-          title="Reduce motion"
+          aria-label={reducedMotion ? "Disable reduced motion" : "Enable reduced motion"}
+          title={reducedMotion ? "Reduced motion on" : "Reduced motion off"}
         >
           <Icon name="zap" className="size-4" />
         </Button>
@@ -88,21 +92,30 @@ export function Toolbar({
           <Icon name={copied ? "check" : "link"} className="size-4" />
         </Button>
 
-        <ThemeToggle />
+        {!embed && <ThemeToggle />}
 
-        <a href={docsUrl} target="_blank" rel="noreferrer" className="hidden text-sm text-muted-foreground underline-offset-2 hover:text-foreground hover:underline md:inline">
-          Docs
-        </a>
+        {!embed && (
+          <a
+            href={docsUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="hidden text-sm text-muted-foreground underline-offset-2 hover:text-foreground hover:underline md:inline"
+          >
+            Docs
+          </a>
+        )}
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="lg:hidden"
-          onClick={onOpenInspector}
-          aria-label="Open controls"
-        >
-          <Icon name="sliders-horizontal" className="size-4" />
-        </Button>
+        {!embed && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
+            onClick={onOpenInspector}
+            aria-label="Open controls"
+          >
+            <Icon name="sliders-horizontal" className="size-4" />
+          </Button>
+        )}
       </div>
     </header>
   );
