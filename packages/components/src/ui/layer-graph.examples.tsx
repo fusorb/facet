@@ -5,6 +5,6 @@ export const layerGraphExamples = [
     id: "default",
     title: "Default",
     artifact: "layer-graph",
-    render: () => <LayerGraph {...({} as any)} />,
+    render: () => (<div className="rounded-md border border-dashed p-4 text-sm text-muted-foreground">Interactive example coming soon.</div>),
   },
 ];

@@ -141,3 +141,12 @@ body,
   font-size: var(--text-xs, 0.75rem);
   color: var(--muted-foreground);
 }
+
+[data-reduced-motion] *,
+[data-reduced-motion] *::before,
+[data-reduced-motion] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}

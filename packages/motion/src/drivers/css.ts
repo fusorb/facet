@@ -32,9 +32,16 @@ import type {
  * Detect whether the user has requested reduced motion.
  *
  * Checked at the driver boundary so it cannot be bypassed by
- * component authors using the engine directly.
+ * component authors using the engine directly. Respects a programmatic
+ * override via `document.documentElement.dataset.facetReducedMotion="true"`
+ * (useful for in-app toggles/previews) in addition to the system media query.
  */
 export function preferReducedMotion(): boolean {
+  if (typeof document !== "undefined") {
+    const override = document.documentElement.dataset.facetReducedMotion;
+    if (override === "true") return true;
+    if (override === "false") return false;
+  }
   if (
     typeof window === "undefined" ||
     typeof window.matchMedia !== "function"

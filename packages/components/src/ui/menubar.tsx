@@ -73,7 +73,7 @@ const MenubarSubContent = React.forwardRef<
   <MenubarPrimitive.SubContent
     ref={ref}
     className={cn(
-      "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-fade-in data-[state=closed]:animate-facet-fade-out data-[side=bottom]:animate-facet-slide-in-from-bottom data-[side=top]:animate-facet-slide-in-from-top data-[side=right]:animate-facet-slide-in-from-right data-[side=left]:animate-facet-slide-in-from-left",
+      "z-[70] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:data-[side=bottom]:animate-facet-slide-in-from-bottom data-[state=open]:data-[side=top]:animate-facet-slide-in-from-top data-[state=open]:data-[side=right]:animate-facet-slide-in-from-right data-[state=open]:data-[side=left]:animate-facet-slide-in-from-left data-[state=closed]:data-[side=bottom]:animate-facet-slide-out-to-bottom data-[state=closed]:data-[side=top]:animate-facet-slide-out-to-top data-[state=closed]:data-[side=right]:animate-facet-slide-out-to-right data-[state=closed]:data-[side=left]:animate-facet-slide-out-to-left",
       className,
     )}
     {...props}
@@ -96,7 +96,7 @@ const MenubarContent = React.forwardRef<
         alignOffset={alignOffset}
         sideOffset={sideOffset}
         className={cn(
-          "z-[70] min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-fade-in data-[state=closed]:animate-facet-fade-out data-[side=bottom]:animate-facet-slide-in-from-bottom data-[side=top]:animate-facet-slide-in-from-top data-[side=right]:animate-facet-slide-in-from-right data-[side=left]:animate-facet-slide-in-from-left",
+          "z-[70] min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:data-[side=bottom]:animate-facet-slide-in-from-bottom data-[state=open]:data-[side=top]:animate-facet-slide-in-from-top data-[state=open]:data-[side=right]:animate-facet-slide-in-from-right data-[state=open]:data-[side=left]:animate-facet-slide-in-from-left data-[state=closed]:data-[side=bottom]:animate-facet-slide-out-to-bottom data-[state=closed]:data-[side=top]:animate-facet-slide-out-to-top data-[state=closed]:data-[side=right]:animate-facet-slide-out-to-right data-[state=closed]:data-[side=left]:animate-facet-slide-out-to-left",
           className,
         )}
         {...props}

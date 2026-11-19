@@ -5,6 +5,6 @@ export const qrScannerExamples = [
     id: "default",
     title: "Default",
     artifact: "qr-scanner",
-    render: () => <QrScanner {...({} as any)} />,
+    render: () => (<div className="rounded-md border border-dashed p-4 text-sm text-muted-foreground">Interactive example coming soon.</div>),
   },
 ];

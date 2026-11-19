@@ -83,12 +83,17 @@ function resolveSchema(
     .map((field) => {
       const override = overrides[field.name];
       if (!override) return field;
+      const options = override.options ?? field.options;
       return {
         ...field,
+        type:
+          options && options.length > 0
+            ? "select"
+            : field.type,
         label: override.label ?? field.label,
         group: (override.group as ControlField["group"]) ?? field.group,
         hidden: override.hidden ?? field.hidden,
-        options: override.options ?? field.options,
+        options,
         min: override.min ?? field.min,
         max: override.max ?? field.max,
         step: override.step ?? field.step,
@@ -137,6 +142,26 @@ export default function App() {
   useEffect(() => {
     if (example && example.id !== selectedExampleId) setSelectedExampleId(example.id);
   }, [example, selectedExampleId]);
+
+  // Honor the playground's reduced-motion toggle for both CSS- and engine-driven animations.
+  useEffect(() => {
+    const root = document.documentElement;
+    if (reducedMotion) {
+      root.dataset.facetReducedMotion = "true";
+    } else {
+      delete root.dataset.facetReducedMotion;
+    }
+  }, [reducedMotion]);
+
+  // Honor the playground reduced-motion toggle for both CSS and engine-driven animations.
+  useEffect(() => {
+    const root = document.documentElement;
+    if (reducedMotion) {
+      root.dataset.facetReducedMotion = "true";
+    } else {
+      delete root.dataset.facetReducedMotion;
+    }
+  }, [reducedMotion]);
 
   // URL is the state: encode permalink on every meaningful change.
   useEffect(() => {

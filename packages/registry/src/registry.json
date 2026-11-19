@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "dd60c00fd8008d36f659a4b3963db7ce892ebc83",
-    "at": "2026-11-17T14:41:34.141Z"
+    "commit": "fdfcb52000e2ae4b81d525ef44607abe9e6d24c2",
+    "at": "2026-11-20T08:53:43.676Z"
   },
   "packages": [
     {
@@ -330,7 +330,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "layout",
+            "disclosure"
+          ]
         }
       ]
     },
@@ -390,7 +393,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "overlay",
+            "dialog"
+          ]
         }
       ]
     },
@@ -725,7 +731,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "layout",
+            "disclosure"
+          ]
         }
       ]
     },
@@ -755,7 +764,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "input",
+            "combobox"
+          ]
         }
       ]
     },
@@ -800,7 +812,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "overlay",
+            "menu"
+          ]
         }
       ]
     },
@@ -958,7 +973,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "overlay",
+            "menu"
+          ]
         }
       ]
     },
@@ -1273,7 +1291,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "overlay",
+            "navigation"
+          ]
         }
       ]
     },
@@ -1303,7 +1324,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "input",
+            "combobox"
+          ]
         }
       ]
     },
@@ -1327,13 +1351,16 @@
       "name": "NavigationMenu",
       "package": "@fusorb/facet-components",
       "category": "layout",
-      "summary": "Navigation Menu",
+      "summary": "navigation-menu",
       "props": [],
       "examples": [
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "navigation",
+            "menu"
+          ]
         }
       ]
     },
@@ -1363,7 +1390,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "overlay",
+            "notifications"
+          ]
         }
       ]
     },
@@ -1513,7 +1543,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "overlay",
+            "popover"
+          ]
         }
       ]
     },
@@ -1708,7 +1741,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "input",
+            "select"
+          ]
         }
       ]
     },
@@ -1738,7 +1774,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "overlay",
+            "sheet"
+          ]
         }
       ]
     },
@@ -1873,7 +1912,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "layout",
+            "navigation"
+          ]
         }
       ]
     },
@@ -1978,7 +2020,10 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": []
+          "tags": [
+            "overlay",
+            "tooltip"
+          ]
         }
       ]
     },
@@ -3049,7 +3094,10 @@
       "artifact": "accordion",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "layout",
+        "disclosure"
+      ]
     },
     {
       "artifact": "account-settings-panel",
@@ -3073,7 +3121,10 @@
       "artifact": "alert-dialog",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "overlay",
+        "dialog"
+      ]
     },
     {
       "artifact": "animated",
@@ -3221,7 +3272,10 @@
       "artifact": "collapsible",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "layout",
+        "disclosure"
+      ]
     },
     {
       "artifact": "color-picker",
@@ -3233,7 +3287,10 @@
       "artifact": "combobox",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "input",
+        "combobox"
+      ]
     },
     {
       "artifact": "command",
@@ -3251,7 +3308,10 @@
       "artifact": "context-menu",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "overlay",
+        "menu"
+      ]
     },
     {
       "artifact": "cookie-banner",
@@ -3330,7 +3390,10 @@
       "artifact": "dropdown-menu",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "overlay",
+        "menu"
+      ]
     },
     {
       "artifact": "dropzone",
@@ -3456,7 +3519,10 @@
       "artifact": "menubar",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "overlay",
+        "navigation"
+      ]
     },
     {
       "artifact": "micro-interactions",
@@ -3468,7 +3534,10 @@
       "artifact": "multi-combobox",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "input",
+        "combobox"
+      ]
     },
     {
       "artifact": "navbar",
@@ -3480,7 +3549,10 @@
       "artifact": "navigation-menu",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "navigation",
+        "menu"
+      ]
     },
     {
       "artifact": "not-found",
@@ -3492,7 +3564,10 @@
       "artifact": "notification-drawer",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "overlay",
+        "notifications"
+      ]
     },
     {
       "artifact": "number-input",
@@ -3552,7 +3627,10 @@
       "artifact": "popover",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "overlay",
+        "popover"
+      ]
     },
     {
       "artifact": "pricing-comparison",
@@ -3630,7 +3708,10 @@
       "artifact": "select",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "input",
+        "select"
+      ]
     },
     {
       "artifact": "separator",
@@ -3642,7 +3723,10 @@
       "artifact": "sheet",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "overlay",
+        "sheet"
+      ]
     },
     {
       "artifact": "shine-border-card",
@@ -3696,7 +3780,10 @@
       "artifact": "tabs",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "layout",
+        "navigation"
+      ]
     },
     {
       "artifact": "tag-input",
@@ -3738,7 +3825,10 @@
       "artifact": "tooltip",
       "example": "default",
       "title": "Default",
-      "tags": []
+      "tags": [
+        "overlay",
+        "tooltip"
+      ]
     },
     {
       "artifact": "tree",

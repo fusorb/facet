@@ -46,14 +46,19 @@ const CollapsibleTrigger = ({
   />
 );
 
-const CollapsibleContent = ({
-  className,
-  ...props
-}: CollapsibleContentProps) => (
+const CollapsibleContent = React.forwardRef<
+  React.ComponentRef<typeof CollapsiblePrimitive.CollapsibleContent>,
+  CollapsibleContentProps
+>(({ className, ...props }, ref) => (
   <CollapsiblePrimitive.CollapsibleContent
-    className={cn("overflow-hidden", className)}
+    ref={ref}
+    className={cn(
+      "overflow-hidden [--radix-accordion-content-height:var(--radix-collapsible-content-height)] data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up",
+      className,
+    )}
     {...props}
   />
-);
+));
+CollapsibleContent.displayName = CollapsiblePrimitive.CollapsibleContent.displayName;
 
 export { Collapsible, CollapsibleTrigger, CollapsibleContent };

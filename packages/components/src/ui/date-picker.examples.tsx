@@ -5,6 +5,6 @@ export const datePickerExamples = [
     id: "default",
     title: "Default",
     artifact: "date-picker",
-    render: () => <DatePicker {...({} as any)} />,
+    render: () => (<div className="rounded-md border border-dashed p-4 text-sm text-muted-foreground">Interactive example coming soon.</div>),
   },
 ];

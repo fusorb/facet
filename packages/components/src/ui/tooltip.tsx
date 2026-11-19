@@ -22,7 +22,7 @@ const TooltipContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-[70] overflow-hidden rounded-md px-3 py-1.5 text-xs [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-fade-in data-[state=closed]:animate-facet-fade-out data-[side=bottom]:animate-facet-slide-in-from-bottom data-[side=top]:animate-facet-slide-in-from-top data-[side=right]:animate-facet-slide-in-from-right data-[side=left]:animate-facet-slide-in-from-left",
+        "z-[70] overflow-hidden rounded-md px-3 py-1.5 text-xs [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:data-[side=bottom]:animate-facet-slide-in-from-bottom data-[state=open]:data-[side=top]:animate-facet-slide-in-from-top data-[state=open]:data-[side=right]:animate-facet-slide-in-from-right data-[state=open]:data-[side=left]:animate-facet-slide-in-from-left data-[state=closed]:data-[side=bottom]:animate-facet-slide-out-to-bottom data-[state=closed]:data-[side=top]:animate-facet-slide-out-to-top data-[state=closed]:data-[side=right]:animate-facet-slide-out-to-right data-[state=closed]:data-[side=left]:animate-facet-slide-out-to-left",
         variant === "brand"
           ? "bg-primary text-primary-foreground"
           : "bg-popover text-popover-foreground",

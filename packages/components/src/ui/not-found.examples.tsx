@@ -5,6 +5,6 @@ export const notFoundExamples = [
     id: "default",
     title: "Default",
     artifact: "not-found",
-    render: () => <NotFound {...({} as any)} />,
+    render: () => (<div className="rounded-md border border-dashed p-4 text-sm text-muted-foreground">Interactive example coming soon.</div>),
   },
 ];

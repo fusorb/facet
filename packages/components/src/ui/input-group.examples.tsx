@@ -5,6 +5,6 @@ export const inputGroupExamples = [
     id: "default",
     title: "Default",
     artifact: "input-group",
-    render: () => <InputGroup {...({} as any)} />,
+    render: () => (<div className="rounded-md border border-dashed p-4 text-sm text-muted-foreground">Interactive example coming soon.</div>),
   },
 ];
