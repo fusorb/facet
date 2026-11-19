@@ -1,4 +1,3 @@
-import { MailInput } from "./mail-input.js";
 
 export const mailInputExamples = [
   {

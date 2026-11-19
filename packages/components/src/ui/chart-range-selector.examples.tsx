@@ -1,4 +1,3 @@
-import { ChartRangeSelector } from "./chart-range-selector.js";
 
 export const chartRangeSelectorExamples = [
   {

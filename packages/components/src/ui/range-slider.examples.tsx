@@ -1,4 +1,3 @@
-import { RangeSlider } from "./range-slider.js";
 
 export const rangeSliderExamples = [
   {

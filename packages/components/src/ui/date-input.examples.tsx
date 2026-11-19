@@ -1,4 +1,3 @@
-import { DateInput } from "./date-input.js";
 
 export const dateInputExamples = [
   {

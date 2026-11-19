@@ -1,4 +1,3 @@
-import { Table } from "./table.js";
 
 export const tableExamples = [
   {

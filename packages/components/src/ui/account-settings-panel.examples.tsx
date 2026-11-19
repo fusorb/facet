@@ -1,4 +1,3 @@
-import { AccountSettingsPanel } from "./account-settings-panel.js";
 
 export const accountSettingsPanelExamples = [
   {

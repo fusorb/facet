@@ -1,4 +1,3 @@
-import { TwoFactorSetupPanel } from "./two-factor-setup-panel.js";
 
 export const twoFactorSetupPanelExamples = [
   {

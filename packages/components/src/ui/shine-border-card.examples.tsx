@@ -1,4 +1,3 @@
-import { ShineBorderCard } from "./shine-border-card.js";
 
 export const shineBorderCardExamples = [
   {

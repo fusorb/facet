@@ -1,4 +1,3 @@
-import { InfiniteScroll } from "./infinite-scroll.js";
 
 export const infiniteScrollExamples = [
   {

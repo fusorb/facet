@@ -1,4 +1,3 @@
-import { Alert } from "./alert.js";
 
 export const alertExamples = [
   {

@@ -1,4 +1,3 @@
-import { Label } from "./label.js";
 
 export const labelExamples = [
   {

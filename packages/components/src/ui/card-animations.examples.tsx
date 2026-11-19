@@ -1,4 +1,3 @@
-import { FlipCard } from "./card-animations.js";
 
 export const cardAnimationsExamples = [
   {

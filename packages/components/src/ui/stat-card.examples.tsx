@@ -1,4 +1,3 @@
-import { StatCard } from "./stat-card.js";
 
 export const statCardExamples = [
   {

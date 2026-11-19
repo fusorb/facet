@@ -1,4 +1,3 @@
-import { TiltCard } from "./micro-interactions.js";
 
 export const microInteractionsExamples = [
   {

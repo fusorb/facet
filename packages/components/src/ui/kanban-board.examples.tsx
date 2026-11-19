@@ -1,4 +1,3 @@
-import { KanbanCard } from "./kanban-board.js";
 
 export const kanbanBoardExamples = [
   {

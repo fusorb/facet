@@ -1,4 +1,3 @@
-import { AnimatedButton } from "./animated-button.js";
 
 export const animatedButtonExamples = [
   {

@@ -1,4 +1,3 @@
-import { Skeleton } from "./skeleton.js";
 
 export const skeletonExamples = [
   {

@@ -1,4 +1,3 @@
-import { TypewriterText } from "./typewriter-text.js";
 
 export const typewriterTextExamples = [
   {

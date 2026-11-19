@@ -1,4 +1,3 @@
-import { Spotlight } from "./animated.js";
 
 export const animatedExamples = [
   {

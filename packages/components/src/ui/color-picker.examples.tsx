@@ -1,4 +1,3 @@
-import { ColorPicker } from "./color-picker.js";
 
 export const colorPickerExamples = [
   {

@@ -1,4 +1,3 @@
-import { ToggleGroup } from "./toggle-group.js";
 
 export const toggleGroupExamples = [
   {

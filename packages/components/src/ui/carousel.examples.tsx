@@ -1,4 +1,3 @@
-import { Carousel } from "./carousel.js";
 
 export const carouselExamples = [
   {

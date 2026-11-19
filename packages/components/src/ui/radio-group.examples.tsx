@@ -1,4 +1,3 @@
-import { RadioGroup } from "./radio-group.js";
 
 export const radioGroupExamples = [
   {

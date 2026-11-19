@@ -1,4 +1,3 @@
-import { BillingPage } from "./billing-page.js";
 
 export const billingPageExamples = [
   {

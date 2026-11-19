@@ -1,4 +1,3 @@
-import { ButtonGroup } from "./button-group.js";
 
 export const buttonGroupExamples = [
   {

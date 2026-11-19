@@ -1,4 +1,3 @@
-import { Progress } from "./progress.js";
 
 export const progressExamples = [
   {

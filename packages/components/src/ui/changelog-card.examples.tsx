@@ -1,4 +1,3 @@
-import { ChangelogCard } from "./changelog-card.js";
 
 export const changelogCardExamples = [
   {

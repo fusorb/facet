@@ -1,4 +1,3 @@
-import { DateRangePicker } from "./date-range-picker.js";
 
 export const dateRangePickerExamples = [
   {

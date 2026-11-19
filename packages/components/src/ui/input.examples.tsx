@@ -1,4 +1,3 @@
-import { Input } from "./input.js";
 
 export const inputExamples = [
   {

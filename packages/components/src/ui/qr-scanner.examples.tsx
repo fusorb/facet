@@ -1,4 +1,3 @@
-import { QrScanner } from "./qr-scanner.js";
 
 export const qrScannerExamples = [
   {

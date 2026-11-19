@@ -1,4 +1,3 @@
-import { Dropzone } from "./dropzone.js";
 
 export const dropzoneExamples = [
   {

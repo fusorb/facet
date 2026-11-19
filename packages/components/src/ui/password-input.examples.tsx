@@ -1,4 +1,3 @@
-import { PasswordInput } from "./password-input.js";
 
 export const passwordInputExamples = [
   {

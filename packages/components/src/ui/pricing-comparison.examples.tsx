@@ -1,4 +1,3 @@
-import { PricingComparison } from "./pricing-comparison.js";
 
 export const pricingComparisonExamples = [
   {

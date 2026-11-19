@@ -1,4 +1,3 @@
-import { Command } from "./command.js";
 
 export const commandExamples = [
   {

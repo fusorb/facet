@@ -1,4 +1,3 @@
-import { StepperProvider } from "./stepper.js";
 
 export const stepperExamples = [
   {

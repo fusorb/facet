@@ -1,4 +1,3 @@
-import { Switch } from "./switch.js";
 
 export const switchExamples = [
   {

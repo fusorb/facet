@@ -1,4 +1,3 @@
-import { Avatar } from "./avatar.js";
 
 export const avatarExamples = [
   {

@@ -1,4 +1,3 @@
-import { Badge } from "./badge.js";
 
 export const badgeExamples = [
   {

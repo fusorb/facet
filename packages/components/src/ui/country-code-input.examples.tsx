@@ -1,4 +1,3 @@
-import { CountryCodeInput } from "./country-code-input.js";
 
 export const countryCodeInputExamples = [
   {

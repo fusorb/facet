@@ -1,4 +1,3 @@
-import { OtpVerificationCard } from "./otp-verification-card.js";
 
 export const otpVerificationCardExamples = [
   {

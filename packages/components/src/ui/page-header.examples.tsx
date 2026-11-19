@@ -1,4 +1,3 @@
-import { PageHeader } from "./page-header.js";
 
 export const pageHeaderExamples = [
   {

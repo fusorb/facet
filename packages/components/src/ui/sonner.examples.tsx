@@ -1,4 +1,3 @@
-import { Toaster } from "./sonner.js";
 
 export const sonnerExamples = [
   {

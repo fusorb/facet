@@ -1,4 +1,3 @@
-import { MentionInput } from "./mention-input.js";
 
 export const mentionInputExamples = [
   {

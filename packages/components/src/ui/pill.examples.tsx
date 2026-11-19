@@ -1,4 +1,3 @@
-import { Pill } from "./pill.js";
 
 export const pillExamples = [
   {

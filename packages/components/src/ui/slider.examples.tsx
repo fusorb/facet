@@ -1,4 +1,3 @@
-import { Slider } from "./slider.js";
 
 export const sliderExamples = [
   {

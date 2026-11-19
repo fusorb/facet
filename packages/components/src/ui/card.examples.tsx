@@ -1,4 +1,3 @@
-import { Card } from "./card.js";
 
 export const cardExamples = [
   {

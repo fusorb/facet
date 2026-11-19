@@ -1,4 +1,3 @@
-import { ResizablePanelGroup } from "./resizable.js";
 
 export const resizableExamples = [
   {

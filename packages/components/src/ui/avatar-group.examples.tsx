@@ -1,4 +1,3 @@
-import { AvatarGroup } from "./avatar-group.js";
 
 export const avatarGroupExamples = [
   {

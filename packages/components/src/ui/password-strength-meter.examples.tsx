@@ -1,4 +1,3 @@
-import { PasswordStrengthMeter } from "./password-strength-meter.js";
 
 export const passwordStrengthMeterExamples = [
   {

@@ -1,4 +1,3 @@
-import { Pagination } from "./pagination.js";
 
 export const paginationExamples = [
   {

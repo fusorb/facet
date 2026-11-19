@@ -1,4 +1,3 @@
-import { InviteTeamForm } from "./invite-team-form.js";
 
 export const inviteTeamFormExamples = [
   {

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "fdfcb52000e2ae4b81d525ef44607abe9e6d24c2",
-    "at": "2026-11-20T08:53:43.676Z"
+    "commit": "afe6c8ec7b50dd694a95274a18f4eb9bee5b1b81",
+    "at": "2026-11-20T20:38:47.030Z"
   },
   "packages": [
     {
@@ -1324,10 +1324,7 @@
         {
           "id": "default",
           "title": "Default",
-          "tags": [
-            "input",
-            "combobox"
-          ]
+          "tags": []
         }
       ]
     },
@@ -3534,10 +3531,7 @@
       "artifact": "multi-combobox",
       "example": "default",
       "title": "Default",
-      "tags": [
-        "input",
-        "combobox"
-      ]
+      "tags": []
     },
     {
       "artifact": "navbar",

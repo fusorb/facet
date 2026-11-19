@@ -1,4 +1,3 @@
-import { TagInput } from "./tag-input.js";
 
 export const tagInputExamples = [
   {

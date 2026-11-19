@@ -1,4 +1,3 @@
-import { RichTextEditor } from "./rich-text-editor.js";
 
 export const richTextEditorExamples = [
   {

@@ -1,4 +1,3 @@
-import { Tree } from "./tree.js";
 
 export const treeExamples = [
   {

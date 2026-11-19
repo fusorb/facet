@@ -1,4 +1,3 @@
-import { Toggle } from "./toggle.js";
 
 export const toggleExamples = [
   {

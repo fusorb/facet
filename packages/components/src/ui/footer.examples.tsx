@@ -1,4 +1,3 @@
-import { Footer } from "./footer.js";
 
 export const footerExamples = [
   {

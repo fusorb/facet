@@ -1,4 +1,3 @@
-import { CookieConsent } from "./cookie-consent.js";
 
 export const cookieConsentExamples = [
   {

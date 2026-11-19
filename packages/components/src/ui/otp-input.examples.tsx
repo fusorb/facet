@@ -1,4 +1,3 @@
-import { OtpInput } from "./otp-input.js";
 
 export const otpInputExamples = [
   {

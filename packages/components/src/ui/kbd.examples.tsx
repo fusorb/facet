@@ -1,4 +1,3 @@
-import { Kbd } from "./kbd.js";
 
 export const kbdExamples = [
   {

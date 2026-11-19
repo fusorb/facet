@@ -1,4 +1,3 @@
-import { Roadmap } from "./roadmap.js";
 
 export const roadmapExamples = [
   {

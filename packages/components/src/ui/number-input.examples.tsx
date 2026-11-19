@@ -1,4 +1,3 @@
-import { NumberInput } from "./number-input.js";
 
 export const numberInputExamples = [
   {

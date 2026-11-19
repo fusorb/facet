@@ -1,4 +1,3 @@
-import { SecuritySectionCard } from "./security-section-card.js";
 
 export const securitySectionCardExamples = [
   {

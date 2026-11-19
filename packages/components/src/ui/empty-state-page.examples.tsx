@@ -1,4 +1,3 @@
-import { EmptyStatePage } from "./empty-state-page.js";
 
 export const emptyStatePageExamples = [
   {

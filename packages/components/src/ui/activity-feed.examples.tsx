@@ -1,4 +1,3 @@
-import { ActivityFeed } from "./activity-feed.js";
 
 export const activityFeedExamples = [
   {

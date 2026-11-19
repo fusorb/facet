@@ -1,4 +1,3 @@
-import { NotFound } from "./not-found.js";
 
 export const notFoundExamples = [
   {

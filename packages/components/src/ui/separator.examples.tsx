@@ -1,4 +1,3 @@
-import { Separator } from "./separator.js";
 
 export const separatorExamples = [
   {

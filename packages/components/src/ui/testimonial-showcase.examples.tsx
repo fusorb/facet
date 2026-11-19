@@ -1,4 +1,3 @@
-import { TestimonialShowcase } from "./testimonial-showcase.js";
 
 export const testimonialShowcaseExamples = [
   {

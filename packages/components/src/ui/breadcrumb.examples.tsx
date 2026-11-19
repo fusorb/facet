@@ -1,4 +1,3 @@
-import { Breadcrumb } from "./breadcrumb.js";
 
 export const breadcrumbExamples = [
   {

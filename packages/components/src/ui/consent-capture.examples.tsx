@@ -1,4 +1,3 @@
-import { ConsentCapture } from "./consent-capture.js";
 
 export const consentCaptureExamples = [
   {

@@ -1,4 +1,3 @@
-import { InputGroup } from "./input-group.js";
 
 export const inputGroupExamples = [
   {

@@ -1,4 +1,3 @@
-import { RatingInput } from "./rating-input.js";
 
 export const ratingInputExamples = [
   {

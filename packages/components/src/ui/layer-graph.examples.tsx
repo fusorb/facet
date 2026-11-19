@@ -1,4 +1,3 @@
-import { LayerGraph } from "./layer-graph.js";
 
 export const layerGraphExamples = [
   {

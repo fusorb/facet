@@ -1,4 +1,3 @@
-import { BlurText } from "./text-animations.js";
 
 export const textAnimationsExamples = [
   {

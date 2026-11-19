@@ -1,4 +1,3 @@
-import { PhoneInput } from "./phone-input.js";
 
 export const phoneInputExamples = [
   {

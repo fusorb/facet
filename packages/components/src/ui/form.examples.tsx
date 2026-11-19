@@ -1,4 +1,3 @@
-import { Form } from "./form.js";
 
 export const formExamples = [
   {

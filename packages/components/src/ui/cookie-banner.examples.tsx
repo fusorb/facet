@@ -1,4 +1,3 @@
-import { CookieBanner } from "./cookie-banner.js";
 
 export const cookieBannerExamples = [
   {

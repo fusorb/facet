@@ -1,4 +1,3 @@
-import { CountryInput } from "./location-picker.js";
 
 export const locationPickerExamples = [
   {

@@ -1,4 +1,3 @@
-import { WizardFormPage } from "./wizard-form-page.js";
 
 export const wizardFormPageExamples = [
   {

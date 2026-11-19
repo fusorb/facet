@@ -1,4 +1,3 @@
-import { Marquee } from "./marquee.js";
 
 export const marqueeExamples = [
   {

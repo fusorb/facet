@@ -1,4 +1,3 @@
-import { FaqSection } from "./faq-section.js";
 
 export const faqSectionExamples = [
   {

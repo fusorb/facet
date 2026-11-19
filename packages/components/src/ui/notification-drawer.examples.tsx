@@ -1,39 +1,35 @@
 import * as React from "react";
 import type { Example } from "@fusorb/facet-sandbox/core";
-import { Button } from "./button.js";
-import { NotificationDrawer } from "./notification-drawer.js";
+import { NotificationDrawer, type Notification } from "./notification-drawer.js";
 
 export interface NotificationDrawerExampleProps {
   side?: "right" | "left";
-  title?: string;
-  description?: string;
-  defaultOpen?: boolean;
+  showFooter?: boolean;
+  filter?: "all" | "unread";
 }
 
 const SIDES: NonNullable<NotificationDrawerExampleProps["side"]>[] = ["right", "left"];
+const FILTERS: NonNullable<NotificationDrawerExampleProps["filter"]>[] = ["all", "unread"];
 
-function DemoNotificationDrawer({ side, title, description, defaultOpen }: NotificationDrawerExampleProps) {
-  const [open, setOpen] = React.useState(Boolean(defaultOpen));
+const SAMPLE: Notification[] = [
+  { id: "1", title: "New comment on your post", description: "Alex replied to your thread.", time: "2m ago", type: "info" },
+  { id: "2", title: "Deployment finished successfully", description: "Production build is live.", time: "10m ago", read: true, type: "success" },
+  { id: "3", title: "You were invited to a workspace", description: "Join the Fusorb team.", time: "1h ago", type: "default" },
+];
+
+function DemoNotificationDrawer({ side, showFooter, filter }: NotificationDrawerExampleProps) {
+  const [items, setItems] = React.useState<Notification[]>(SAMPLE);
+
   return (
-    <div className="space-y-2">
-      <Button variant="outline" onClick={() => setOpen(true)}>
-        Open notification drawer
-      </Button>
-      <NotificationDrawer
-        open={open}
-        onOpenChange={setOpen}
-        side={side}
-        title={title}
-        description={description}
-        count={3}
-      >
-        <div className="space-y-3 p-4 text-sm">
-          <div className="rounded-md border p-3">New comment on your post.</div>
-          <div className="rounded-md border p-3">Deployment finished successfully.</div>
-          <div className="rounded-md border p-3">You were invited to a workspace.</div>
-        </div>
-      </NotificationDrawer>
-    </div>
+    <NotificationDrawer
+      notifications={items}
+      side={side}
+      showFooter={showFooter}
+      filter={filter}
+      onMarkAllRead={() => setItems((prev) => prev.map((n) => ({ ...n, read: true })))}
+      onDismiss={(n) => setItems((prev) => prev.filter((x) => x.id !== n.id))}
+      onViewAll={() => {}}
+    />
   );
 }
 
@@ -42,40 +38,36 @@ export const notificationDrawerExamples: Example<NotificationDrawerExampleProps>
     id: "default",
     artifact: "notification-drawer",
     title: "Default",
-    description: "Notification panel built on Sheet. Side, labels, and initial state are configurable.",
+    description:
+      "Notification drawer with sample items, filtering, mark-all-read, and dismiss actions.",
     defaults: {
       side: "right",
-      title: "Notifications",
-      description: "Recent activity and updates.",
-      defaultOpen: false,
+      showFooter: true,
+      filter: "all",
     },
     controls: {
       side: { label: "Side", group: "layout", options: SIDES },
-      title: { label: "Title", group: "content" },
-      description: { label: "Description", group: "content" },
-      defaultOpen: { label: "Default open", group: "state" },
+      showFooter: { label: "Show footer", group: "layout" },
+      filter: { label: "Filter", group: "state", options: FILTERS },
     },
     render: (p) => (
-      <DemoNotificationDrawer
-        side={p.side}
-        title={p.title}
-        description={p.description}
-        defaultOpen={p.defaultOpen}
-      />
+      <DemoNotificationDrawer side={p.side} showFooter={p.showFooter} filter={p.filter} />
     ),
     code: (p) =>
-      `<NotificationDrawer
-  open={open}
-  onOpenChange={setOpen}
+      `const notifications = [
+  { id: "1", title: "New comment on your post", description: "Alex replied to your thread.", time: "2m ago", type: "info" },
+  { id: "2", title: "Deployment finished successfully", time: "10m ago", read: true, type: "success" },
+];
+
+<NotificationDrawer
+  notifications={notifications}
   side="${p.side ?? "right"}"
-  title="${p.title ?? "Notifications"}"
-  description="${p.description ?? "Recent activity and updates."}"
-  count={3}
->
-  <div className="space-y-3 p-4 text-sm">
-    <div className="rounded-md border p-3">New comment on your post.</div>
-  </div>
-</NotificationDrawer>`,
+  showFooter={${p.showFooter}}
+  filter="${p.filter ?? "all"}"
+  onMarkAllRead={() => {}}
+  onDismiss={(n) => {}}
+  onViewAll={() => {}}
+/>`,
     tags: ["overlay", "notifications"],
   },
 ];

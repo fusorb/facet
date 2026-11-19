@@ -1,4 +1,3 @@
-import { ChangelogFeed } from "./changelog-feed.js";
 
 export const changelogFeedExamples = [
   {
