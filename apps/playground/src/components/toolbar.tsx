@@ -50,7 +50,7 @@ export function Toolbar({
       )}
 
       <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-2 text-sm">
-        <span className="text-muted-foreground">{category}</span>
+        <span className="truncate text-muted-foreground">{category}</span>
         <Icon name="chevron-right" className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
         <span className="truncate font-medium">{name}</span>
       </nav>

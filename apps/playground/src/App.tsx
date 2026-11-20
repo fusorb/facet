@@ -13,7 +13,6 @@ import {
   type ControlType,
   type Example,
 } from "@fusorb/facet-sandbox/core";
-import { listComponents, getComponent } from "@fusorb/facet-registry";
 import { surfaces } from "../../../surfaces.config.mjs";
 
 import { CatalogPanel } from "./components/catalog-panel.js";
@@ -21,7 +20,7 @@ import { facetControlRenderers } from "./components/control-renderers.js";
 import { InspectorSidebar } from "./components/inspector-sidebar.js";
 import { MobileSheets } from "./components/mobile-sheets.js";
 import { Toolbar } from "./components/toolbar.js";
-import { buildExampleMap } from "./lib/example-map.js";
+import { buildLabCatalogs, isPlaygroundKind, type PlaygroundKind } from "./lib/lab.js";
 import {
   DEFAULT_VIEWPORT,
   VIEWPORT_PRESETS,
@@ -29,12 +28,11 @@ import {
   type ViewportPresetId,
 } from "./lib/viewport-presets.js";
 
-const EXAMPLES_BY_SLUG = buildExampleMap();
-const COMPONENTS = listComponents();
-const FIRST_SLUG = COMPONENTS[0]?.slug ?? "button";
+const CATALOGS = buildLabCatalogs();
 
 interface PermalinkState {
-  slug: string;
+  kind: PlaygroundKind;
+  id: string;
   example?: string;
   props?: Record<string, unknown>;
   viewport?: string;
@@ -42,17 +40,40 @@ interface PermalinkState {
   embed?: boolean;
 }
 
+function firstItemId(kind: PlaygroundKind): string {
+  return CATALOGS[kind].items[0]?.id ?? "motion-lab";
+}
+
+function isValidItem(kind: PlaygroundKind, id: string): boolean {
+  return CATALOGS[kind].items.some((item) => item.id === id);
+}
+
 function readPermalink(): PermalinkState {
   const searchParams = new URLSearchParams(window.location.search);
   const hash = window.location.hash.replace(/^#/, "");
   const [path, query = ""] = hash.split("?");
-  const [slug, example] = (path ?? "").split("/").filter(Boolean);
+  const segments = (path ?? "").split("/").filter(Boolean);
   const params = new URLSearchParams(query);
   const propsRaw = params.get("props");
   const viewport = params.get("viewport") ?? undefined;
   const reducedMotion = params.get("reducedMotion") === "1" ? true : undefined;
   const embedParam = params.get("embed") ?? searchParams.get("embed");
   const embed = embedParam === "1" || embedParam === "true" ? true : undefined;
+
+  let kind: PlaygroundKind = "components";
+  let id = "";
+  let example: string | undefined;
+  if (segments.length > 0 && isPlaygroundKind(segments[0]!)) {
+    kind = segments[0] as PlaygroundKind;
+    id = segments[1] ?? "";
+    example = segments[2] || undefined;
+  } else {
+    // Back-compat: #/<component-slug>/<example>
+    kind = "components";
+    id = segments[0] ?? "";
+    example = segments[1] || undefined;
+  }
+  if (!isValidItem(kind, id)) id = firstItemId(kind);
 
   let props: Record<string, unknown> | undefined;
   if (propsRaw) {
@@ -66,14 +87,7 @@ function readPermalink(): PermalinkState {
     }
   }
 
-  return {
-    slug: slug && COMPONENTS.some((component) => component.slug === slug) ? slug : FIRST_SLUG,
-    example: example || undefined,
-    props,
-    viewport: viewport ?? undefined,
-    reducedMotion,
-    embed,
-  };
+  return { kind, id, example, props, viewport, reducedMotion, embed };
 }
 
 function writePermalink(state: PermalinkState) {
@@ -87,7 +101,7 @@ function writePermalink(state: PermalinkState) {
   if (state.reducedMotion) params.set("reducedMotion", "1");
   if (state.embed) params.set("embed", "1");
   const query = params.toString();
-  const next = `#/${state.slug}${state.example ? `/${state.example}` : ""}${query ? `?${query}` : ""}`;
+  const next = `#/${state.kind}/${state.id}${state.example ? `/${state.example}` : ""}${query ? `?${query}` : ""}`;
   window.history.replaceState(null, "", next);
 }
 
@@ -105,10 +119,7 @@ function resolveSchema(
       const options = override.options ?? field.options;
       return {
         ...field,
-        type:
-          options && options.length > 0
-            ? "select"
-            : field.type,
+        type: options && options.length > 0 ? "select" : field.type,
         label: override.label ?? field.label,
         group: (override.group as ControlField["group"]) ?? field.group,
         hidden: override.hidden ?? field.hidden,
@@ -124,7 +135,8 @@ function resolveSchema(
 
 export default function App() {
   const initial = useMemo(readPermalink, []);
-  const [selectedSlug, setSelectedSlug] = useState(initial.slug);
+  const [kind, setKind] = useState<PlaygroundKind>(initial.kind);
+  const [selectedId, setSelectedId] = useState(initial.id);
   const [selectedExampleId, setSelectedExampleId] = useState(initial.example ?? "");
   const [values, setValues] = useState<Record<string, unknown>>(() => initial.props ?? {});
   const [viewport, setViewport] = useState<ViewportPresetId>(() => {
@@ -140,8 +152,10 @@ export default function App() {
   const [inspectorOpen, setInspectorOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const component = getComponent(selectedSlug);
-  const examples = EXAMPLES_BY_SLUG[selectedSlug] ?? [];
+  const catalog = CATALOGS[kind];
+  const item = catalog.items.find((entry) => entry.id === selectedId) ?? catalog.items[0];
+  const resolvedId = item?.id ?? selectedId;
+  const examples = catalog.examplesById[resolvedId] ?? [];
   const example =
     examples.find((candidate) => candidate.id === selectedExampleId) ?? examples[0];
   const defaults = useMemo(
@@ -154,18 +168,22 @@ export default function App() {
     [example, values],
   );
 
-  // Reset values when switching examples to that example's defaults.
+  useEffect(() => {
+    if (!isValidItem(kind, selectedId)) {
+      setSelectedId(firstItemId(kind));
+      setSelectedExampleId("");
+    }
+  }, [kind, selectedId]);
+
   useEffect(() => {
     if (!example) return;
     setValues({ ...((example.defaults ?? {}) as Record<string, unknown>) });
-  }, [selectedSlug, example?.id]);
+  }, [kind, resolvedId, example?.id]);
 
-  // Keep selected example id in sync with what's actually rendered.
   useEffect(() => {
     if (example && example.id !== selectedExampleId) setSelectedExampleId(example.id);
   }, [example, selectedExampleId]);
 
-  // Honor the playground's reduced-motion toggle for both CSS- and engine-driven animations.
   useEffect(() => {
     const root = document.documentElement;
     if (reducedMotion) {
@@ -175,26 +193,34 @@ export default function App() {
     }
   }, [reducedMotion]);
 
-  // URL is the state: encode permalink on every meaningful change.
   useEffect(() => {
     writePermalink({
-      slug: selectedSlug,
+      kind,
+      id: resolvedId,
       example: example?.id,
       props: values,
       viewport,
       reducedMotion,
       embed,
     });
-  }, [selectedSlug, example?.id, values, viewport, reducedMotion, embed]);
+  }, [kind, resolvedId, example?.id, values, viewport, reducedMotion, embed]);
 
   const selectExample = useCallback((nextExample: Example<Record<string, unknown>>) => {
     setSelectedExampleId(nextExample.id);
     setValues({ ...((nextExample.defaults ?? {}) as Record<string, unknown>) });
   }, []);
 
-  const selectComponent = useCallback((slug: string) => {
-    setSelectedSlug(slug);
+  const selectItem = useCallback((nextKind: PlaygroundKind, id: string) => {
+    setKind(nextKind);
+    setSelectedId(id);
+    setSelectedExampleId("");
     setCatalogOpen(false);
+  }, []);
+
+  const changeKind = useCallback((nextKind: PlaygroundKind) => {
+    setKind(nextKind);
+    setSelectedId(firstItemId(nextKind));
+    setSelectedExampleId("");
   }, []);
 
   const resetValues = useCallback(() => {
@@ -224,7 +250,7 @@ export default function App() {
 
   const inspectorContent = (
     <InspectorSidebar
-      summary={component?.summary}
+      summary={item?.summary}
       schema={schema}
       values={values}
       onChange={setValues}
@@ -235,12 +261,15 @@ export default function App() {
 
   const catalogContent = (
     <CatalogPanel
-      components={COMPONENTS}
-      examplesBySlug={EXAMPLES_BY_SLUG}
-      selectedSlug={selectedSlug}
-      onSelect={selectComponent}
+      catalogs={CATALOGS}
+      activeKind={kind}
+      onKindChange={changeKind}
+      selectedId={resolvedId}
+      onSelect={selectItem}
     />
   );
+
+  const toolbarCategory = `${CATALOGS[kind].label} / ${item?.category ?? "general"}`;
 
   return (
     <ThemeProvider>
@@ -262,8 +291,8 @@ export default function App() {
         )}
 
         <Toolbar
-          name={component?.name ?? selectedSlug}
-          category={component?.category ?? "components"}
+          name={item?.name ?? resolvedId}
+          category={toolbarCategory}
           viewport={viewport}
           onViewportChange={changeViewport}
           reducedMotion={reducedMotion}
@@ -309,23 +338,23 @@ export default function App() {
                   )}
 
                   <div className="pg-example-tabs" aria-label="Examples">
-                    {examples.map((item) => (
+                    {examples.map((entry) => (
                       <Button
-                        key={item.id}
-                        variant={item.id === example.id ? "secondary" : "ghost"}
+                        key={entry.id}
+                        variant={entry.id === example.id ? "secondary" : "ghost"}
                         size="sm"
-                        onClick={() => selectExample(item)}
-                        aria-pressed={item.id === example.id}
-                        title={item.description ?? item.title}
+                        onClick={() => selectExample(entry)}
+                        aria-pressed={entry.id === example.id}
+                        title={entry.description ?? entry.title}
                       >
-                        {item.title}
+                        {entry.title}
                       </Button>
                     ))}
                   </div>
                 </div>
               ) : (
                 <p className="self-center text-sm text-muted-foreground">
-                  No examples registered for {selectedSlug}.
+                  No examples registered for {resolvedId}.
                 </p>
               )}
             </div>
