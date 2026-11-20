@@ -1,5 +1,13 @@
 # @fusorb/facet-components
 
+## 3.2.4
+
+### Patch Changes
+
+- abb9d3f: Stabilize popper overlay and disclosure animations (state/direction-aware facet transitions), replace crash-prone playground examples with safe/configurable demos and dynamic code, and regenerate registry metadata for updated examples.
+- Updated dependencies [abb9d3f]
+  - @fusorb/facet-motion@1.2.4
+
 ## 3.2.3
 
 ### Patch Changes
