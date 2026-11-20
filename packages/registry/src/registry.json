@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedFrom": {
-    "commit": "afe6c8ec7b50dd694a95274a18f4eb9bee5b1b81",
-    "at": "2026-11-20T20:38:47.030Z"
+    "commit": "abb9d3f9517e754b6f9c01b6ad81fe33615cdc83",
+    "at": "2026-11-20T21:11:55.703Z"
   },
   "packages": [
     {
@@ -25,7 +25,7 @@
     },
     {
       "name": "@fusorb/facet-components",
-      "version": "3.2.3",
+      "version": "3.2.4",
       "summary": "112 styled UI components on Radix primitives",
       "description": "Radix-based UI component library: 112 accessible, styled components using the Alpha Palette design tokens",
       "category": "ui",
@@ -245,7 +245,7 @@
     },
     {
       "name": "@fusorb/facet-motion",
-      "version": "1.2.3",
+      "version": "1.2.4",
       "summary": "Declarative animation system with semantic families",
       "description": "Domain-customizable animation engine: generator-driven core (tween + spring), observable motion values, CSS driver with prefers-reduced-motion, a 15-family generative registry, and thin React bindings. Wired to @fusorb/facet-tokens CSS custom properties.",
       "category": "foundation",
