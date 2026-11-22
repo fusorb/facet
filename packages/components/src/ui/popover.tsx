@@ -33,7 +33,7 @@ const PopoverContent = React.forwardRef<
       align={align}
       sideOffset={sideOffset}
       className={cn(
-        "z-[70] w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:data-[side=bottom]:animate-facet-slide-in-from-bottom data-[state=open]:data-[side=top]:animate-facet-slide-in-from-top data-[state=open]:data-[side=right]:animate-facet-slide-in-from-right data-[state=open]:data-[side=left]:animate-facet-slide-in-from-left data-[state=closed]:data-[side=bottom]:animate-facet-slide-out-to-bottom data-[state=closed]:data-[side=top]:animate-facet-slide-out-to-top data-[state=closed]:data-[side=right]:animate-facet-slide-out-to-right data-[state=closed]:data-[side=left]:animate-facet-slide-out-to-left",
+        "z-[70] w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none [transform-origin:var(--radix-popper-transform-origin)] data-[state=open]:animate-facet-pop-in data-[state=closed]:animate-facet-pop-out",
         className,
       )}
       {...props}

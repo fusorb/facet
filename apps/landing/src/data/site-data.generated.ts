@@ -23,7 +23,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-components",
     "desc": "Radix-based UI component library: 112 accessible, styled components using the Alpha Palette design tokens",
-    "version": "3.2.2",
+    "version": "3.2.3",
     "icon": "boxes"
   },
   {
@@ -35,7 +35,7 @@ export const SITE_PACKAGES: SitePackage[] = [
   {
     "name": "@fusorb/facet-auth",
     "desc": "Domain-customizable auth components: SgProvider, SignIn/SignUp, Guard, MfaDialog, and 5 domain presets (fintech, med, edu, enterprise, default). Wired to @fusorb/facet-sdk.",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "icon": "shield-check"
   },
   {
