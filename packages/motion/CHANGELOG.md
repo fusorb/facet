@@ -1,5 +1,11 @@
 # @fusorb/facet-motion
 
+## 1.2.4
+
+### Patch Changes
+
+- abb9d3f: Honor programmatic reduced-motion overrides in the CSS driver (via `document.documentElement.dataset.facetReducedMotion`) so in-app/playground toggles can control engine-driven motion alongside system preferences.
+
 ## 1.2.3
 
 ### Patch Changes
